@@ -1,150 +1,174 @@
 <!doctype html>
-<html lang="pt-BR" data-tema="claro">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Equipamentos Especiais — Painel de Indisponibilidade</title>
-<meta name="description" content="Acompanhamento de religadores e reguladores de tensão indisponíveis: criticidade, categorização dos defeitos e pendências do Parecer COEP.">
+<meta name="description" content="Acompanhamento de religadores e reguladores de tensão indisponíveis: criticidade, categorização dos defeitos, pendências do Parecer COEP, cruzamento com a planilha de EMD e plano de compras.">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>⚡</text></svg>">
 </head>
 <body>
 
-<header class="cabecalho">
-  <div class="cabecalho-topo">
-    <div class="marca">
-      <div class="marca-icone" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.2a.6.6 0 0 0 .48.96h5.16l-1.2 7.5a.6.6 0 0 0 1.07.45L18.6 10.9a.6.6 0 0 0-.48-.96h-5.2l1.16-7.06A.6.6 0 0 0 13 2Z"/></svg>
-      </div>
-      <div>
-        <h1>Equipamentos Especiais</h1>
-        <p>Religadores e reguladores de tensão indisponíveis &middot; posição de <span id="data-referencia">—</span></p>
-      </div>
+<aside class="sidebar">
+  <div class="marca">
+    <i aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.2a.6.6 0 0 0 .48.96h5.16l-1.2 7.5a.6.6 0 0 0 1.07.45L18.6 10.9a.6.6 0 0 0-.48-.96h-5.2l1.16-7.06A.6.6 0 0 0 13 2Z"/></svg>
+    </i>
+    <div>
+      <strong>Equipamentos<br>Especiais</strong>
+      <span>Religadores e reguladores</span>
     </div>
-    <button class="botao-icone" id="alternar-tema" type="button" title="Alternar tema" aria-label="Alternar tema claro/escuro">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-1-14h2v3h-2V2Zm0 17h2v3h-2v-3ZM2 11h3v2H2v-2Zm17 0h3v2h-3v-2ZM4.2 5.6l1.4-1.4 2.2 2.1L6.4 7.8 4.2 5.6Zm12 12 1.4-1.4 2.2 2.1-1.4 1.5-2.2-2.2Zm2.2-13.4 1.4 1.4-2.1 2.2-1.5-1.4 2.2-2.2Zm-12 12 1.4 1.4-2.1 2.2-1.5-1.4L6.4 16.2Z"/></svg>
-    </button>
   </div>
-  <nav class="abas" role="tablist" aria-label="Seções">
-    <button class="aba" role="tab" data-painel="painel-visao" aria-selected="true">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm0-18v6h8V3h-8Z"/></svg>
-      Painel
-    </button>
-    <button class="aba" role="tab" data-painel="painel-equipamentos" aria-selected="false">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v3H3V5Zm0 5.5h18v3H3v-3ZM3 16h18v3H3v-3Z"/></svg>
-      Equipamentos <span class="pilula" id="pilula-equipamentos">—</span>
-    </button>
-    <button class="aba" role="tab" data-painel="painel-coep" aria-selected="false">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 1 21h22L12 2Zm0 5 7.5 12.9h-15L12 7Zm-1 4v5h2v-5h-2Zm0 6.2v2h2v-2h-2Z"/></svg>
-      Parecer COEP <span class="pilula" id="pilula-coep">—</span>
-    </button>
-    <button class="aba" role="tab" data-painel="painel-emd" aria-selected="false">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3h16v2H4V3Zm0 4h16v14H4V7Zm2 2v10h12V9H6Zm2 2h8v2H8v-2Zm0 4h8v2H8v-2Z"/></svg>
-      Cruzamento EMD <span class="pilula" id="pilula-emd">—</span>
-    </button>
-    <button class="aba" role="tab" data-painel="painel-compras" aria-selected="false">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4h13l-1.6 8H8.2L7.6 9H18l.4-2H6.4L5.6 3H2v2h2.1L7 4Zm1.5 14a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5Zm9 0a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5Z"/></svg>
-      Plano de Compras <span class="pilula" id="pilula-compras">—</span>
-    </button>
-    <button class="aba" role="tab" data-painel="painel-metodologia" aria-selected="false">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm-1 3v2h2V7h-2Zm0 4v6h2v-6h-2Z"/></svg>
-      Metodologia
-    </button>
+
+  <nav class="grupo-nav" role="tablist" aria-label="Seções">
+    <span>Análise</span>
+    <div>
+      <button role="tab" data-painel="painel-visao" aria-selected="true"><b>01</b><em>Visão geral</em></button>
+      <button role="tab" data-painel="painel-equipamentos" aria-selected="false"><b>02</b><em>Equipamentos</em><small id="selo-equipamentos">—</small></button>
+      <button role="tab" data-painel="painel-coep" aria-selected="false"><b>03</b><em>Parecer COEP</em><small id="selo-coep">—</small></button>
+      <button role="tab" data-painel="painel-emd" aria-selected="false"><b>04</b><em>Cruzamento EMD</em><small id="selo-emd">—</small></button>
+      <button role="tab" data-painel="painel-compras" aria-selected="false"><b>05</b><em>Plano de compras</em><small id="selo-compras">—</small></button>
+      <button role="tab" data-painel="painel-frota" aria-selected="false"><b>06</b><em>Mapa e frota</em><small id="selo-frota">—</small></button>
+      <button role="tab" data-painel="painel-metodologia" aria-selected="false"><b>07</b><em>Metodologia</em></button>
+    </div>
   </nav>
-</header>
 
-<main class="conteudo">
+  <div class="rodape-lateral">
+    <span>Posição</span>
+    <strong id="data-referencia">—</strong>
+    <p id="nota-lateral">—</p>
+  </div>
+</aside>
 
-  <!-- ================= PAINEL ================= -->
+<main class="area">
+
+  <!-- ================= VISÃO GERAL ================= -->
   <section class="painel" id="painel-visao" role="tabpanel">
-    <h2 class="secao-titulo">Situação geral</h2>
-    <div class="kpis" id="kpis"></div>
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Relação de indisponíveis</span>
+        <h1>Situação geral da carteira</h1>
+        <p>Religadores e reguladores de tensão fora de operação ou operando com restrição na
+        área da ETO, classificados pela pontuação das oito premissas de priorização da planilha
+        e pela leitura integral das descrições de SS.</p>
+      </div>
+      <div class="meta-cabecalho">
+        <span>Equipamentos</span>
+        <strong id="meta-total">—</strong>
+        <small id="meta-abertos">—</small>
+      </div>
+    </header>
+
+    <div class="faixa-escopo" id="faixa-escopo"></div>
+    <div class="grade-kpi" id="kpis"></div>
 
     <h2 class="secao-titulo">Distribuição</h2>
     <div class="grade-graficos">
-      <article class="cartao grafico">
-        <h3>Criticidade</h3>
-        <p class="sub">Pontuação das 8 premissas de priorização da planilha</p>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Priorização</span>
+          <h2>Criticidade</h2>
+          <p>Soma das oito premissas registradas na planilha</p>
+        </div>
         <div class="rosca" id="rosca-criticidade"></div>
       </article>
-      <article class="cartao grafico">
-        <h3>Categoria do defeito</h3>
-        <p class="sub">Classificação obtida da leitura das descrições de SS</p>
-        <div class="barras" id="barras-categoria"></div>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Leitura das SS</span>
+          <h2>Categoria do defeito</h2>
+          <p>Obtida da leitura integral das descrições</p>
+        </div>
+        <div class="lista-barras" id="barras-categoria"></div>
       </article>
-      <article class="cartao grafico">
-        <h3>Regional</h3>
-        <p class="sub">Equipamentos indisponíveis por regional</p>
-        <div class="barras" id="barras-regional"></div>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Geografia</span>
+          <h2>Regional</h2>
+          <p>Equipamentos indisponíveis por regional</p>
+        </div>
+        <div class="lista-barras" id="barras-regional"></div>
       </article>
-      <article class="cartao grafico">
-        <h3>Responsável pela próxima ação</h3>
-        <p class="sub">Quem está com a bola para destravar a SS</p>
-        <div class="barras" id="barras-responsavel"></div>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Fila</span>
+          <h2>Próxima ação</h2>
+          <p>Quem está com a bola para destravar a SS</p>
+        </div>
+        <div class="lista-barras" id="barras-responsavel"></div>
       </article>
-      <article class="cartao grafico">
-        <h3>Situação operacional em campo</h3>
-        <p class="sub">Como o equipamento está hoje na rede</p>
-        <div class="barras" id="barras-status"></div>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Campo</span>
+          <h2>Situação operacional</h2>
+          <p>Como o equipamento está hoje na rede</p>
+        </div>
+        <div class="lista-barras" id="barras-status"></div>
       </article>
-      <article class="cartao grafico">
-        <h3>Polos mais afetados</h3>
-        <p class="sub">Dez maiores concentrações</p>
-        <div class="barras" id="barras-polo"></div>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Concentração</span>
+          <h2>Polos afetados</h2>
+          <p>Dez maiores concentrações</p>
+        </div>
+        <div class="lista-barras" id="barras-polo"></div>
       </article>
     </div>
 
-    <h2 class="secao-titulo">Categoria do defeito × criticidade</h2>
-    <article class="cartao grafico">
-      <h3>Onde estão os defeitos que mais pesam</h3>
-      <p class="sub">Quanto mais escura a célula, maior a concentração de equipamentos</p>
-      <div class="matriz-rolagem">
-        <table class="matriz" id="matriz-categoria"></table>
+    <h2 class="secao-titulo">Cruzamento</h2>
+    <article class="grafico">
+      <div class="titulo-grafico">
+        <span>Matriz</span>
+        <h2>Categoria do defeito × criticidade</h2>
+        <p>Quanto mais escura a célula, maior a concentração de equipamentos</p>
       </div>
+      <div class="rolagem-matriz"><table class="matriz" id="matriz-categoria"></table></div>
     </article>
   </section>
 
   <!-- ================= EQUIPAMENTOS ================= -->
   <section class="painel" id="painel-equipamentos" role="tabpanel" hidden>
-    <div class="cartao filtros">
-      <div class="campo busca">
-        <label for="f-busca">Busca livre</label>
-        <input type="search" id="f-busca" placeholder="Ativo, SS, localidade, defeito…" autocomplete="off">
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Registro por ativo</span>
+        <h1>Equipamentos</h1>
+        <p>Cada linha abre a ficha completa: a descrição integral da SS, a categorização do
+        defeito, a requisição de material e os itens do plano de compras.</p>
       </div>
-      <div class="campo">
-        <label for="f-criticidade">Criticidade</label>
-        <select id="f-criticidade"><option value="">Todas</option></select>
+      <div class="meta-cabecalho">
+        <span>Na relação</span>
+        <strong id="meta-equip">—</strong>
+        <small id="meta-equip-desc">—</small>
       </div>
-      <div class="campo">
-        <label for="f-regional">Regional</label>
-        <select id="f-regional"><option value="">Todas</option></select>
+    </header>
+
+    <div class="cabecalho-lista">
+      <div class="filtros">
+        <div class="campo busca">
+          <label for="f-busca">Busca livre</label>
+          <input type="search" id="f-busca" placeholder="Ativo, SS, localidade, defeito…" autocomplete="off">
+        </div>
+        <div class="campo"><label for="f-criticidade">Criticidade</label><select id="f-criticidade"><option value="">Todas</option></select></div>
+        <div class="campo"><label for="f-regional">Regional</label><select id="f-regional"><option value="">Todas</option></select></div>
+        <div class="campo"><label for="f-polo">Polo</label><select id="f-polo"><option value="">Todos</option></select></div>
+        <div class="campo"><label for="f-tipo">Tipo</label><select id="f-tipo"><option value="">Todos</option></select></div>
+        <div class="campo"><label for="f-categoria">Categoria</label><select id="f-categoria"><option value="">Todas</option></select></div>
+        <div class="campo"><label for="f-situacao">Situação</label>
+          <select id="f-situacao">
+            <option value="">Todas</option>
+            <option value="aberta">Em aberto</option>
+            <option value="concluida">Concluída</option>
+            <option value="alerta">Com alerta COEP</option>
+            <option value="divergencia">Com divergência</option>
+            <option value="compras">No plano de compras</option>
+          </select>
+        </div>
+        <button class="botao-limpar" id="limpar-filtros" type="button">Limpar</button>
       </div>
-      <div class="campo">
-        <label for="f-polo">Polo</label>
-        <select id="f-polo"><option value="">Todos</option></select>
-      </div>
-      <div class="campo">
-        <label for="f-tipo">Tipo</label>
-        <select id="f-tipo"><option value="">Todos</option></select>
-      </div>
-      <div class="campo">
-        <label for="f-categoria">Categoria do defeito</label>
-        <select id="f-categoria"><option value="">Todas</option></select>
-      </div>
-      <div class="campo">
-        <label for="f-situacao">Situação da SS</label>
-        <select id="f-situacao">
-          <option value="">Todas</option>
-          <option value="aberta">Em aberto</option>
-          <option value="concluida">Concluída</option>
-          <option value="alerta">Com alerta COEP</option>
-        </select>
-      </div>
-      <button class="botao-limpar" id="limpar-filtros" type="button">Limpar</button>
-      <span class="contador-resultado" id="contador-resultado"></span>
+      <span class="contador" id="contador-resultado"></span>
     </div>
 
-    <div class="cartao tabela-rolagem">
+    <div class="rolagem-tabela">
       <table class="tabela" id="tabela-equipamentos">
         <thead>
           <tr>
@@ -161,67 +185,92 @@
         </thead>
         <tbody id="corpo-tabela"></tbody>
       </table>
-      <p class="vazio" id="tabela-vazia" hidden>Nenhum equipamento corresponde aos filtros.</p>
+    </div>
+    <div class="vazio" id="tabela-vazia" hidden>
+      <strong>Nenhum equipamento</strong>
+      <span>Nenhum registro corresponde aos filtros aplicados.</span>
     </div>
   </section>
 
   <!-- ================= PARECER COEP ================= -->
   <section class="painel" id="painel-coep" role="tabpanel" hidden>
-    <h2 class="secao-titulo">O que já deveria estar concluído</h2>
-    <div class="kpis" id="kpis-coep"></div>
-    <div id="grupos-alertas" style="margin-top:26px"></div>
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Análise 2</span>
+        <h1>O que já deveria estar concluído</h1>
+        <p>Cruzamento do Parecer COEP com o Check de conclusão, o ano da SS e as previsões
+        anotadas na coluna Observação. Cinco regras geram os alertas, todas verificáveis no
+        código do build.</p>
+      </div>
+      <div class="meta-cabecalho">
+        <span>Equipamentos</span>
+        <strong id="meta-coep">—</strong>
+        <small id="meta-coep-alertas">—</small>
+      </div>
+    </header>
+    <div class="grade-kpi" id="kpis-coep"></div>
+    <div id="grupos-alertas" style="margin-top:28px"></div>
   </section>
 
   <!-- ================= CRUZAMENTO EMD ================= -->
   <section class="painel" id="painel-emd" role="tabpanel" hidden>
-    <h2 class="secao-titulo">Planilha de EMD × planilha de criticidade</h2>
-    <div class="kpis" id="kpis-emd"></div>
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Análise 3</span>
+        <h1>Planilha de EMD × criticidade</h1>
+        <p>A ligação é feita pelo <strong>código do ativo</strong>, não pela SS: o EMD registra a
+        SS de requisição do COEP e a planilha de criticidade registra a SS de campo. Casar por SS
+        produziria falso negativo em quase toda a base — pelo ativo, as 36 linhas do EMD
+        encontraram par.</p>
+      </div>
+      <div class="meta-cabecalho">
+        <span>Divergências</span>
+        <strong id="meta-emd">—</strong>
+        <small id="meta-emd-equip">—</small>
+      </div>
+    </header>
 
-    <article class="cartao bloco" style="margin-top:14px">
-      <h4>Como as duas planilhas foram casadas</h4>
-      <p style="margin:0;font-size:13.5px;color:var(--texto-suave)">
-        A ligação é feita pelo <strong>código do ativo</strong>, não pela SS. As duas planilhas
-        usam numerações de SS diferentes para o mesmo equipamento — o EMD registra a SS de
-        requisição do COEP (<code>ETO-COEP …</code>) e a planilha de criticidade registra a SS de
-        campo (<code>ETO-RD-…</code>, <code>ETO-PROT-…</code>, <code>ETO-TELE-…</code>). Casar por
-        SS produziria falso negativo em quase toda a base. Pelo ativo, as 36 linhas do EMD
-        encontraram par na planilha de criticidade.
-      </p>
-    </article>
+    <div class="grade-kpi" id="kpis-emd"></div>
 
-    <div class="filtros cartao" style="margin-top:14px">
-      <div class="campo busca">
-        <label for="f-emd-busca">Busca</label>
-        <input type="search" id="f-emd-busca" placeholder="Ativo, localidade, detalhe…" autocomplete="off">
+    <div class="cabecalho-lista" style="margin-top:16px;border-bottom:1px solid var(--linha)">
+      <div class="filtros">
+        <div class="campo busca">
+          <label for="f-emd-busca">Busca</label>
+          <input type="search" id="f-emd-busca" placeholder="Ativo, localidade, detalhe…" autocomplete="off">
+        </div>
+        <div class="campo"><label for="f-emd-tipo">Tipo de divergência</label><select id="f-emd-tipo"><option value="">Todas</option></select></div>
+        <div class="campo"><label for="f-emd-gravidade">Gravidade</label><select id="f-emd-gravidade"><option value="">Todas</option></select></div>
+        <div class="campo"><label for="f-emd-criticidade">Criticidade</label><select id="f-emd-criticidade"><option value="">Todas</option></select></div>
       </div>
-      <div class="campo">
-        <label for="f-emd-tipo">Tipo de divergência</label>
-        <select id="f-emd-tipo"><option value="">Todas</option></select>
-      </div>
-      <div class="campo">
-        <label for="f-emd-gravidade">Gravidade</label>
-        <select id="f-emd-gravidade"><option value="">Todas</option></select>
-      </div>
-      <div class="campo">
-        <label for="f-emd-criticidade">Criticidade</label>
-        <select id="f-emd-criticidade"><option value="">Todas</option></select>
-      </div>
-      <span class="contador-resultado" id="contador-emd"></span>
+      <span class="contador" id="contador-emd"></span>
     </div>
 
-    <div id="grupos-divergencias"></div>
+    <div id="grupos-divergencias" style="margin-top:24px"></div>
   </section>
 
   <!-- ================= PLANO DE COMPRAS ================= -->
   <section class="painel" id="painel-compras" role="tabpanel" hidden>
-    <h2 class="secao-titulo">Pedido de 17/07/2026</h2>
-    <div class="kpis" id="kpis-compras"></div>
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Análise 4</span>
+        <h1>Plano de compras de 17/07/2026</h1>
+        <p>Pedido encaminhado em 17 de julho de 2026. Prazo contratual de 120 dias para
+        religador e 180 dias para regulador de tensão, contados da data do pedido.</p>
+      </div>
+      <div class="meta-cabecalho">
+        <span>Valor do pedido</span>
+        <strong id="meta-compras">—</strong>
+        <small id="meta-compras-itens">—</small>
+      </div>
+    </header>
+
+    <div class="grade-kpi" id="kpis-compras"></div>
 
     <h2 class="secao-titulo">Prazo contratual</h2>
-    <div class="prazos" id="prazos-compras"></div>
+    <div class="grade-prazos" id="prazos-compras"></div>
 
     <h2 class="secao-titulo">Material pedido</h2>
-    <article class="cartao tabela-rolagem">
+    <div class="rolagem-tabela">
       <table class="tabela" id="tabela-materiais">
         <thead>
           <tr>
@@ -232,35 +281,107 @@
         <tbody></tbody>
         <tfoot></tfoot>
       </table>
-    </article>
+    </div>
 
     <h2 class="secao-titulo">Conferência contra as demais planilhas</h2>
     <div id="grupos-compras"></div>
   </section>
 
+  <!-- ================= MAPA E FROTA ================= -->
+  <section class="painel" id="painel-frota" role="tabpanel" hidden>
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Planilha Gestão de Equipamentos</span>
+        <h1>Mapa e frota</h1>
+        <p>Localização geográfica, marca e modelo, ajustes de proteção e as datas reais de
+        abertura da SS no sistema. As coordenadas vêm projetadas em SIRGAS 2000 / UTM 22S e
+        são convertidas para latitude e longitude no build.</p>
+      </div>
+      <div class="meta-cabecalho">
+        <span>Com especificação</span>
+        <strong id="meta-frota">—</strong>
+        <small id="meta-frota-geo">—</small>
+      </div>
+    </header>
+
+    <div class="grade-kpi" id="kpis-frota"></div>
+
+    <h2 class="secao-titulo">Distribuição geográfica</h2>
+    <article class="grafico">
+      <div class="titulo-grafico">
+        <span>Coordenadas</span>
+        <h2>Onde estão os equipamentos</h2>
+        <p>Cada ponto é um equipamento indisponível, colorido pela criticidade. Passe o cursor
+        para identificar; clique para abrir a ficha.</p>
+      </div>
+      <div class="mapa-caixa" id="mapa"></div>
+      <div class="legenda-mapa" id="legenda-mapa"></div>
+    </article>
+
+    <h2 class="secao-titulo">Frota</h2>
+    <div class="grade-graficos">
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Fabricante</span>
+          <h2>Marca e modelo</h2>
+          <p>Parque instalado entre os equipamentos indisponíveis</p>
+        </div>
+        <div class="lista-barras" id="barras-modelo"></div>
+      </article>
+      <article class="grafico">
+        <div class="titulo-grafico">
+          <span>Tempo</span>
+          <h2>Idade da SS no sistema</h2>
+          <p>Dias desde a abertura, para as SS com data registrada</p>
+        </div>
+        <div class="lista-barras" id="barras-idade"></div>
+      </article>
+    </div>
+
+    <h2 class="secao-titulo">Especificação por equipamento</h2>
+    <div class="rolagem-tabela">
+      <table class="tabela" id="tabela-frota">
+        <thead>
+          <tr>
+            <th>Ativo</th><th>Família</th><th>Marca / modelo</th><th>Alimentador</th>
+            <th>Tensão</th><th>Localidade</th><th class="num">Dias em aberto</th>
+            <th class="num">Prazo-limite</th><th>Criticidade</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- ================= METODOLOGIA ================= -->
   <section class="painel" id="painel-metodologia" role="tabpanel" hidden>
-    <article class="cartao bloco metodologia" id="texto-metodologia"></article>
+    <header class="cabecalho-pagina">
+      <div>
+        <span>Como foi feito</span>
+        <h1>Metodologia</h1>
+        <p>De onde vem cada número, como as descrições foram lidas e quais são os limites
+        conhecidos desta análise.</p>
+      </div>
+    </header>
+    <article class="metodologia" id="texto-metodologia"></article>
   </section>
 
 </main>
 
-<footer class="rodape-site">
-  <p id="rodape-texto">—</p>
-</footer>
-
-<div class="fundo-modal" id="fundo-modal" hidden>
+<div class="camada-gaveta" id="camada-gaveta" hidden>
+  <button class="fundo-gaveta" id="fundo-gaveta" type="button" aria-label="Fechar"></button>
   <aside class="gaveta" role="dialog" aria-modal="true" aria-labelledby="gaveta-titulo">
-    <div class="gaveta-cabecalho">
-      <div style="flex:1;min-width:0">
+    <header>
+      <div style="min-width:0">
+        <span id="gaveta-eyebrow">Ficha do equipamento</span>
         <h2 id="gaveta-titulo">—</h2>
-        <p class="sub" id="gaveta-sub">—</p>
+        <p id="gaveta-sub">—</p>
       </div>
-      <button class="botao-icone" id="fechar-gaveta" type="button" aria-label="Fechar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3 1.4 1.4Z"/></svg>
+      <button id="fechar-gaveta" type="button" aria-label="Fechar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4 6.3 6.3 6.3-6.3 1.4 1.4Z"/></svg>
       </button>
-    </div>
-    <div class="gaveta-corpo" id="gaveta-corpo"></div>
+    </header>
+    <div class="corpo-gaveta" id="gaveta-corpo"></div>
   </aside>
 </div>
 

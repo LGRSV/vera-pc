@@ -44,6 +44,12 @@ def normalizar_ss(ss):
     return f"{achado.group(1)}-{int(achado.group(2))}/{achado.group(3)}" if achado else limpo
 
 
+def moeda(valor):
+    """R$ no formato brasileiro. Formata só o número — nunca o texto ao redor."""
+    inteiro, centavos = f"{valor:,.2f}".split(".")
+    return f"R$ {inteiro.replace(',', '.')},{centavos}"
+
+
 def prazo_de(tipo):
     """Data limite de entrega para o tipo de equipamento."""
     dias = PRAZO_DIAS.get(tipo, 120)
@@ -123,19 +129,17 @@ def conferir(itens, registros_criticidade, emd_por_ativo):
             )
             registrar(
                 "Compra possivelmente desnecessária",
-                f"O plano pediu {materiais} (R$ {valor:,.2f}), mas o Parecer COEP já registra "
+                f"O plano pediu {materiais} ({moeda(valor)}), mas o Parecer COEP já registra "
                 f"«{parecer}»{quando}. Vale confirmar com o COCM antes de a compra avançar — "
-                f"se o equipamento já foi trocado, o material vira sobressalente."
-                .replace(",", "X").replace(".", ",").replace("X", "."),
+                f"se o equipamento já foi trocado, o material vira sobressalente.",
             )
 
         if ativo not in emd_por_ativo:
             registrar(
                 "Comprado sem requisição de EMD",
-                f"O ativo entrou no plano de compras (R$ {valor:,.2f}) mas não tem linha na "
+                f"O ativo entrou no plano de compras ({moeda(valor)}) mas não tem linha na "
                 f"planilha de EMD. A compra foi pedida sem a requisição formal correspondente "
-                f"no arquivo analisado."
-                .replace(",", "X").replace(".", ",").replace("X", "."),
+                f"no arquivo analisado.",
             )
 
         status_plano = do_ativo[0]["Status"]

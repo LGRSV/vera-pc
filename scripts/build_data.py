@@ -27,6 +27,7 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cruzamento_emd import cruzar, ler_emd  # noqa: E402
+from gestao_equipamentos import carregar as carregar_gestao  # noqa: E402
 from plano_compras import conferir, ler_plano, montar_resumo  # noqa: E402
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -109,6 +110,11 @@ def ano_da_ss(ss):
     return int(achado.group(1)) if achado else None
 
 
+def dataBR(iso):
+    ano, mes, dia = str(iso)[:10].split("-")
+    return f"{dia}/{mes}/{ano}"
+
+
 def previsao_da_observacao(observacao):
     """Extrai a data prometida no campo Observação (vem como dd/mm, sem ano)."""
     achado = re.search(r"(\d{1,2})/(\d{1,2})", observacao)
@@ -179,16 +185,36 @@ def montar_alertas(registros):
 
         ano = ano_da_ss(reg["ss"])
         if ano and ano < DATA_REF.year and not concluida(reg):
-            # A numeração da SS só dá o ano, não o mês. O piso seguro é contar
-            # a partir de 31/12 do ano da SS — o caso mais recente possível.
-            piso = datetime.date(ano, 12, 31)
-            meses = (DATA_REF - piso).days // 30
+            abertura = reg.get("ss_sgm", {}).get("data_abertura")
+            if abertura:
+                # A planilha de gestão traz a data real de abertura.
+                dias = reg["ss_sgm"]["dias_aberta"]
+                quanto = f"aberta em {dataBR(abertura)} — {dias} dias em aberto"
+            else:
+                # Sem data real, a numeração só dá o ano: conta-se pelo piso,
+                # a partir de 31/12 do ano da SS (o caso mais recente possível).
+                meses = (DATA_REF - datetime.date(ano, 12, 31)).days // 30
+                quanto = f"aberta em {ano} — no mínimo {meses} meses em aberto"
             registrar(
                 reg,
                 f"SS de {ano} ainda aberta",
                 "Crítica",
-                f"SS {reg['ss']} aberta em {ano} e ainda sem conclusão — no mínimo "
-                f"{meses} meses em aberto. Situação COEP: «{reg['parecer_coep'] or '—'}».",
+                f"SS {reg['ss']} {quanto}, sem conclusão. "
+                f"Situação COEP: «{reg['parecer_coep'] or '—'}».",
+            )
+
+        # Prazo-limite da própria SS no sistema, quando a planilha de gestão o traz.
+        dados_ss = reg.get("ss_sgm") or {}
+        if dados_ss.get("sla_estourado") and not concluida(reg):
+            registrar(
+                reg,
+                "Prazo-limite da SS estourado",
+                "Alta",
+                f"A SS {dados_ss['numero'] or reg['ss']} ({dados_ss.get('criticidade_ss') or 'sem classe'}) "
+                f"tinha prazo-limite em {dataBR(dados_ss['data_limite'])} e segue "
+                f"«{dados_ss.get('situacao') or 'pendente'}» — "
+                f"{dados_ss['dias_sla']} dias além do prazo do sistema.",
+                dados_ss["dias_sla"],
             )
 
         if "ubstitu" in reg["parecer_coep"] and "laudo" in reg["parecer_coep"].lower():
@@ -351,12 +377,27 @@ def main():
             print("  -", p)
         raise SystemExit(1)
 
+    gestao, resumo_gestao = carregar_gestao({r["ativo"] for r in registros})
+    for reg in registros:
+        extra = gestao.get(reg["ativo"])
+        if not extra:
+            continue
+        if extra.get("geo"):
+            reg["geo"] = extra["geo"]
+        if extra.get("ss"):
+            reg["ss_sgm"] = extra["ss"]
+        if extra.get("gestao"):
+            reg["gestao"] = extra["gestao"]
+        if extra.get("especificacao"):
+            reg["especificacao"] = extra["especificacao"]
+
     alertas = montar_alertas(registros)
     divergencias, emd_por_ativo = cruzar(registros, ler_emd())
     itens_compra = ler_plano()
     achados_compra = conferir(itens_compra, registros, emd_por_ativo)
     meta = montar_meta(registros, alertas, divergencias, emd_por_ativo, lotes)
     meta["compras"] = montar_resumo(itens_compra, achados_compra, emd_por_ativo)
+    meta["gestao"] = resumo_gestao
 
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}
