@@ -726,16 +726,19 @@ function abrirColecao(id) {
         ${num({ rotulo: 'Indício contestado', valor: c.contestadas, nota: 'algo no registro desmente', tom: 'critico' })}
         ${num({ rotulo: 'Sem indício', valor: c.sem_indicio, nota: 'nenhuma fonte sinaliza conclusão' })}
       </div>
-      <div class="nota calma" style="margin-bottom:32px">
+      ${c.aic_disponivel ? `<div class="nota calma" style="margin-bottom:32px">
+        <strong>A régua é o AIC</strong>
+        Confirmado = obra do ativo encerrada no AIC (extrato de 07/08/2026). ${c.confirmadas}
+        equipamentos passam nessa régua${m.missao?.aic129 ? `; outros
+        ${m.missao.aic129.resumo.fisica_sem_encerramento ?? 0} têm conclusão física sem
+        encerramento contábil, ${m.missao.aic129.resumo.obra_em_andamento ?? 0} têm obra em
+        andamento e ${m.missao.aic129.resumo.sem_obra ?? 0} não têm obra vinculada` : ''}.
+        O resto é indício, ordenado pela força abaixo.
+      </div>` : `<div class="nota calma" style="margin-bottom:32px">
         <strong>Por que ainda não há número confirmado</strong>
         A regra é sua: só há certeza depois que a obra aparece no AIC como encerrada. O extrato do
-        AIC ainda não entrou no repositório, então <strong>nenhum equipamento está contado como
-        concluído</strong> — o que existe abaixo é indício, ordenado pela força.
-        Nenhuma das ${m.total_equipamentos} SS tem data de término registrada no SGM, o que reforça
-        que a baixa formal não aconteceu.
-        Assim que <code>data/raw/aic_obras.csv</code> existir (colunas
-        <code>ativo;obra;situacao;data_encerramento</code>), o build passa a contar as encerradas.
-      </div>
+        AIC ainda não entrou no repositório, então nenhum equipamento está contado como concluído.
+      </div>`}
       <div class="grade" style="margin-bottom:34px">
         <div class="quadro"><header><h3>Força do indício</h3>
           <p>Como cada equipamento se classifica hoje</p></header>${barras(c.por_situacao)}</div>

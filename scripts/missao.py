@@ -36,6 +36,67 @@ def carregar():
     }
 
 
+def _sem_listas(recorte):
+    """Mantém os agregados de um recorte do M1 e troca as listas por contagem."""
+    saida = {}
+    for nome, blocox in (recorte or {}).items():
+        if not isinstance(blocox, dict):
+            saida[nome] = blocox
+            continue
+        saida[nome] = {
+            k: (len(v) if isinstance(v, list) else v) if k == "lista" else v
+            for k, v in blocox.items()
+            if k != "lista" or True
+        }
+        if isinstance(blocox.get("lista"), list):
+            saida[nome]["lista"] = len(blocox["lista"])
+    return saida
+
+
+def enxugar(pacote):
+    """Versão leve para o meta.json — o detalhe por ativo já vive em equipamentos.json."""
+    leve = {}
+
+    d = pacote.get("dcmd")
+    if d:
+        leve["dcmd"] = {
+            "premissas": d.get("premissas", []),
+            "recorte_estrito": _sem_listas(d.get("recorte_estrito")),
+            "recorte_amplo": _sem_listas(d.get("recorte_amplo")),
+        }
+
+    s = pacote.get("sigco")
+    if s:
+        erradas = [
+            {k: o.get(k) for k in ("num_obra", "tipo", "sigco", "sigco_certo",
+                                   "status", "descricao_curta", "ativo_ligado",
+                                   "valor_orcado", "dth_encerramento")}
+            for o in s.get("obras", [])
+            if o.get("veredito") == "sigco_errado"
+        ]
+        leve["sigco"] = {
+            "premissas": s.get("premissas", []),
+            "resumo": s.get("resumo", {}),
+            "obras": [{**o, "veredito": "sigco_errado"} for o in erradas],
+        }
+
+    f = pacote.get("fluxo")
+    if f:
+        leve["fluxo"] = {
+            "premissas": f.get("premissas", []),
+            "agregado": f.get("agregado", {}),
+        }
+
+    a = pacote.get("aic129")
+    if a:
+        leve["aic129"] = {
+            "premissas": a.get("premissas", []),
+            "resumo": a.get("resumo", {}),
+        }
+
+    return leve
+
+
 def anotar_registros(registros, pacote):
     """Leva o fluxo (M3) e o veredito do AIC (M4) para dentro de cada ativo."""
     fluxo = ((pacote.get("fluxo") or {}).get("ativos")) or {}
