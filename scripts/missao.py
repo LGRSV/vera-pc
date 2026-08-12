@@ -94,6 +94,20 @@ def enxugar(pacote):
             "resumo": a.get("resumo", {}),
         }
 
+    m8 = _ler("m8_coep2025.json")
+    if m8:
+        leve["coep2025"] = {
+            "premissas": m8.get("premissas", []),
+            "resumo": m8.get("resumo", {}),
+            "ativos": [
+                {"ativo": ativo, **{k: v for k, v in dados.items()
+                                    if k in ("veredito", "posto_hoje", "historia",
+                                             "dias_parado", "reincidencia",
+                                             "conflito_com_site", "na_carteira")}}
+                for ativo, dados in sorted((m8.get("ativos") or {}).items())
+            ],
+        }
+
     return leve
 
 

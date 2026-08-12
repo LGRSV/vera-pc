@@ -1074,6 +1074,46 @@ function abrirColecao(id) {
       </section>`);
     }
 
+    const c25 = m.missao?.coep2025;
+    if (c25) {
+      const rr = c25.resumo || {};
+      const NOMES_V = {
+        resolvido_confirmado: 'Resolvido (confirmado)', resolvido_aparente: 'Resolvido (aparente)',
+        em_aberto: 'Em aberto', reincidiu: 'Reincidiu', virou_outro_defeito: 'Virou outro defeito',
+        indefinido: 'Indefinido',
+      };
+      const reinc = (c25.ativos || []).filter((x) => x.veredito === 'reincidiu');
+      const conflitos = (c25.ativos || []).filter((x) => x.conflito_com_site);
+      partes.push(`<section class="bloco"><h3>A turma de 2025 do COEP — onde está hoje</h3>
+        <p style="margin:0 0 14px;color:var(--tinta-2);font-size:13.5px;font-style:italic">
+          Auditoria independente: os ${rr.total ?? '—'} ativos que passaram pelo posto do COEP em
+          2025 (inclusive só como repassado), conferidos linha por linha contra a base de SS/OS
+          de hoje. ${rr.na_carteira ?? '—'} estão na carteira dos 129.</p>
+        <div class="numeros">
+          ${Object.entries(rr.por_veredito || {}).map(([k, v]) =>
+            num({ rotulo: NOMES_V[k] || k, valor: v,
+                  tom: k === 'reincidiu' ? 'critico' : k === 'em_aberto' ? 'atento' : (k.startsWith('resolvido') ? 'bom' : '') })).join('')}
+        </div>
+        ${rr.por_posto_dos_em_aberto ? `<div class="grade" style="margin-bottom:22px">
+          <div class="quadro"><header><h3>Os em aberto estão com</h3></header>${barras(Object.entries(rr.por_posto_dos_em_aberto).map(([k, v]) => ({ rotulo: k, total: v })))}</div>
+        </div>` : ''}
+        ${reinc.length ? `<h3 style="margin:22px 0 12px;border-bottom:1px solid var(--tinta);padding-bottom:5px;font-size:14.5px">Reincidências — resolvido que voltou</h3>
+          <div class="cartas">${reinc.map((x) => `<button class="carta" ${x.na_carteira ? `data-ativo="${esc(x.ativo)}"` : 'style="cursor:default"'}>
+            <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
+              <span class="selo c-muito-alta">Reincidiu</span>
+              ${x.reincidencia ? `<span class="selo neutro">${esc(dataBr(x.reincidencia.resolvido_em))} → ${esc(dataBr(x.reincidencia.voltou_em))}</span>` : ''}</div>
+            <p>${esc(x.historia || '')}</p></button>`).join('')}</div>` : ''}
+        ${conflitos.length ? `<h3 style="margin:22px 0 12px;border-bottom:1px solid var(--tinta);padding-bottom:5px;font-size:14.5px">Conflitos e higiene do SGM — ${conflitos.length} apontamentos</h3>
+          <p style="margin:0 0 12px;color:var(--tinta-2);font-size:13px;font-style:italic">A maioria é
+          o mesmo padrão: execução concluída e as SS antigas seguem repassadas no sistema, sem baixa.
+          Mostrando os ${Math.min(30, conflitos.length)} primeiros — os da carteira abrem a ficha.</p>
+          <div class="cartas">${conflitos.slice(0, 30).map((x) => `<button class="carta" ${x.na_carteira ? `data-ativo="${esc(x.ativo)}"` : 'style="cursor:default"'}>
+            <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span><span class="selo c-alta">Conflito</span>${x.na_carteira ? '<span class="selo neutro">carteira</span>' : ''}</div>
+            <p>${esc(x.conflito_com_site)}</p></button>`).join('')}</div>` : ''}
+        ${(c25.premissas || []).length ? `<div class="nota calma" style="margin-top:14px"><strong>Premissas</strong>${c25.premissas.map(esc).join('<br>')}</div>` : ''}
+      </section>`);
+    }
+
     const oc = m.obra_cruzada;
     if (oc && (oc.achados || []).length) {
       const NOMES_OC = {
