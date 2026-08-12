@@ -31,7 +31,8 @@
   "Carteira dos 129: os ativos de agentes_ssos_129.json (129 ativos distintos, 1.087 SS, todas contidas em agentes_ssos_min.json). A marcacao na_carteira_129 e por NUM_TRAFO.",
   "O que ficou de fora dos dois recortes: equipes de cadastro (ETO-CADTOC, ETO-CADCH), ETO-ASPO, ETO-POSOP, ETO-ADM, ETO-TEC01 - trabalho administrativo/cadastral sem vinculo com o fluxo de manutencao de equipamento especial (91 linhas no total).",
   "QUALIDADE DE DADOS: 13 SS do recorte estrito (28 do amplo) tem DATA_TERMINO_SS anterior a DATA_ABERTURA_SS, gerando dias_para_atender negativo (pior caso -142 dias, ETO-TELE 00957/2026). Foram mantidas na contagem (a conclusao em 2026 e fato) mas a mediana tambem e publicada sem elas no campo dias_para_atender.mediana_sem_negativos.",
-  "Nao foi usado o AIC nem a data de encerramento de obra nesta missao: 'concluida' aqui significa SS ATENDIDA no sistema de SS/OS, nao obra encerrada no AIC."
+  "Nao foi usado o AIC nem a data de encerramento de obra nesta missao: 'concluida' aqui significa SS ATENDIDA no sistema de SS/OS, nao obra encerrada no AIC.",
+  "O campo ANO (ano da numeracao da SS) diverge do ano de DATA_ABERTURA_SS em 214 das 6.305 linhas (ex.: ETO-COEP 00104/2023 aberta em 08/01/2024). Todos os cortes por ano/mes usam as DATAS, nunca o campo ANO."
  ],
  "recorte_estrito": {
   "concluidas_2026": {

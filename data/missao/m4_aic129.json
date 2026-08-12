@@ -4,7 +4,7 @@
  "premissas": [
   "Universo: os 129 ativos de /home/user/vera-pc/data/equipamentos.json (carteira de indisponiveis, religador 79xxxxxxxx e regulador 58xxxxxxxx). Base de obras: agentes_aic.json (2.386 obras do AIC ligadas a RL/RT ou nos SIGCOs 8481/8495); obra fora dessa extracao nao pode ser avaliada.",
   "Vias de vinculo obra->ativo, em ordem de confianca: (a) a_emd_obra = coluna OBRA da planilha EMD (obras_eq_especial.csv / equipamentos.json.emd); (b) b_num_obra_ss = campo NUM_OBRA das linhas de SS do ativo; (b2) b2_obra_citada_texto_ss = numero de obra citado no texto livre da SS/OS e existente no AIC; (c) c_num_os = NUM_OS da obra igual ao NUMERO_OS da SS; (d) d_codigo_ativo_descricao = codigo de 10 digitos do ativo em DESCRICAO/DESCRICAO_OBRA da obra; (e) e_localidade_equipamento = localidade + equipamento, usada so quando inequivoca. A via usada fica registrada em cada vinculo (campo 'via'); vias adicionais que apontam a mesma obra ficam em 'vias_secundarias'.",
-  "O campo NUM_OBRA da base de SS/OS vem sem o zero a esquerda (ex.: 612600565); foi normalizado para 10 digitos (0612600565) antes do cruzamento. Das 16 obras citadas nesse campo para os 129 ativos, 10 existem na extracao do AIC e 6 nao (0112501073, 0412500059, 0412600167, 0662600364, 0712400909, 0712600223) - ficam registradas como obra declarada fora da base.",
+  "O campo NUM_OBRA da base de SS/OS vem sem o zero a esquerda (ex.: 612600565); foi normalizado para 10 digitos (0612600565) antes do cruzamento. Das 16 obras citadas nesse campo para os 129 ativos, 10 existem na extracao do AIC e 6 nao (0112501073, 0412500059, 0412600167, 0662600364, 0712400909, 0712600223). Conferidas contra a extracao ampla do AIC disponivel (aic_sel.json, 12.685 obras), 5 dessas 6 tambem nao existem la; so 0662600364 existe (MANUTENCAO CORRET EMERGENCIAL, encerramento tecnico, SIGCO 8389) e pertence ao ativo 7943790134, que ja esta confirmado por outra obra - nenhum veredito muda.",
   "Via (c) foi testada e nao produziu nenhum vinculo: NUM_OS do AIC e um identificador numerico interno (ex.: 92728073) e NUMERO_OS do SGM e textual (ex.: 'ETO-RD-PO 004270/2025'); a intersecao dos dois conjuntos e vazia, inclusive contra o campo TASK da base de SS.",
   "Via (b2) foi necessaria porque muitas SS registram a obra so no texto ('EQUIPAMENTO SUBSTITUIDO NA OBRA 0312600352', 'CRIADO OBRA 0512600135 PARA REQUISICAO MATERIAL'). A intencao da citacao foi classificada: 'execucao_do_servico', 'instalacao_comissionamento' (padrao 'RELIGADOR N X INSTALADO NA OBRA Y - realizar o comissionamento') e 'mencao_generica'. Citacao de instalacao/comissionamento NAO concorre a obra_principal: prova que o equipamento foi instalado, nao que o defeito atual foi corrigido.",
   "Natureza da obra classificada por DESCRICAO/DESCRICAO_OBRA/TIPO_OBRA: substituicao_equipamento, manutencao_equipamento, obra_equipamento_generica, aterramento_equipamento, remanejamento_equipamento, instalacao_equipamento, melhoria_rede, outra. So as quatro primeiras concorrem a obra_principal.",
@@ -21,34 +21,35 @@
  ],
  "resumo": {
   "total_ativos": 129,
-  "confirmado_aic": 9,
+  "confirmado_aic": 10,
   "fisica_sem_encerramento": 11,
   "obra_em_andamento": 16,
   "obra_indeferida": 4,
-  "sem_obra": 89,
+  "sem_obra": 88,
   "por_sigco_das_encerradas": {
    "8495": 5,
    "8389": 2,
-   "8481": 2
+   "8481": 2,
+   "8805": 1
   },
   "ativos_com_alguma_obra_vinculada": 89,
-  "ativos_com_obra_principal": 40,
+  "ativos_com_obra_principal": 41,
   "por_via_da_obra_principal": {
    "d_codigo_ativo_descricao": 4,
    "a_emd_obra": 31,
-   "b_num_obra_ss": 3,
+   "b_num_obra_ss": 4,
    "b2_obra_citada_texto_ss": 1,
    "e_localidade_equipamento": 1
   },
   "por_confianca": {
-   "media": 54,
-   "alta": 74,
+   "media": 53,
+   "alta": 75,
    "baixa": 1
   },
   "por_situacao_obra_principal": {
-   "encerrada": 9,
+   "encerrada": 10,
    "concluida_fisica": 11,
-   "sem_vinculo": 89,
+   "sem_vinculo": 88,
    "em_andamento": 16,
    "indeferida": 4
   },
@@ -56,9 +57,9 @@
    "nenhuma obra do AIC vinculada ao ativo por nenhuma das vias": 40,
    "so ha obra de substituicao/manutencao deste equipamento em ciclos anteriores": 11,
    "as obras vinculadas sao de melhoria de rede": 17,
-   "as obras vinculadas sao de instalacao/remanejamento original do equipamento": 21
+   "as obras vinculadas sao de instalacao/remanejamento original do equipamento": 20
   },
-  "sigco_da_obra_principal_divergente": 8,
+  "sigco_da_obra_principal_divergente": 9,
   "total_vinculos_obra_ativo": 128
  },
  "ativos": {
@@ -166,6 +167,7 @@
      "data_referencia": "2026-02-11",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": true
     },
     {
@@ -200,6 +202,7 @@
      "data_referencia": "2024-04-03",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -234,6 +237,7 @@
      "data_referencia": "2020-06-18",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -268,6 +272,7 @@
      "data_referencia": "2020-06-15",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -302,6 +307,7 @@
      "data_referencia": "2020-06-09",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -325,7 +331,9 @@
    "data_ref_demanda": "2025-04-15",
    "corte_ciclo": "2024-04-15",
    "qtd_obras_vinculadas": 6,
-   "observacoes": []
+   "observacoes": [
+    "vinculo obra-ativo obtido por via indireta (d_codigo_ativo_descricao) - confianca media, convem confirmar no AIC"
+   ]
   },
   "5800366016": {
    "veredito": "obra_em_andamento",
@@ -367,6 +375,7 @@
      "data_referencia": "2026-01-07",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -391,7 +400,8 @@
    "corte_ciclo": "2024-04-02",
    "qtd_obras_vinculadas": 2,
    "observacoes": [
-    "obra sem NUM_PROJETO_SIGCO preenchido no AIC"
+    "obra sem NUM_PROJETO_SIGCO preenchido no AIC",
+    "vinculo obra-ativo obtido por via indireta (d_codigo_ativo_descricao) - confianca media, convem confirmar no AIC"
    ]
   },
   "5800371025": {
@@ -422,7 +432,10 @@
    "data_ref_demanda": "2025-09-05",
    "corte_ciclo": "2024-09-05",
    "qtd_obras_vinculadas": 1,
-   "observacoes": []
+   "observacoes": [
+    "a descricao da obra 0712600318 nomeia outro(s) ativo(s) (7900230155) - conferir a que equipamento a obra pertence",
+    "obra 0712600318 aparece como obra principal de mais de um ativo da carteira (7900230155, 5800371025)"
+   ]
   },
   "5800438116": {
    "veredito": "obra_em_andamento",
@@ -653,6 +666,7 @@
      "data_referencia": "2023-05-30",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": true,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": true
     }
    ],
@@ -718,6 +732,7 @@
      "data_referencia": "2026-01-01",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": true
     }
    ],
@@ -818,6 +833,7 @@
      "data_referencia": "2026-01-01",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": true
     },
     {
@@ -852,6 +868,7 @@
      "data_referencia": "2025-03-10",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": true,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": true
     },
     {
@@ -886,6 +903,7 @@
      "data_referencia": "2019-03-27",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -983,6 +1001,7 @@
      "data_referencia": "2023-10-06",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     },
     {
@@ -1017,6 +1036,7 @@
      "data_referencia": "2023-03-01",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -1084,6 +1104,7 @@
      "data_referencia": "2022-01-01",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -1118,6 +1139,7 @@
      "data_referencia": "2021-11-22",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -1215,6 +1237,7 @@
      "data_referencia": "2022-07-18",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1282,6 +1305,7 @@
      "data_referencia": "2024-01-10",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1349,6 +1373,7 @@
      "data_referencia": "2024-05-14",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1482,6 +1507,7 @@
      "data_referencia": "2026-03-23",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -1516,6 +1542,7 @@
      "data_referencia": "2024-06-28",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1583,6 +1610,7 @@
      "data_referencia": "2024-03-22",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1651,6 +1679,7 @@
      "data_referencia": "2024-08-13",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1716,6 +1745,7 @@
      "data_referencia": "2025-02-28",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1783,6 +1813,7 @@
      "data_referencia": "2024-09-17",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1850,6 +1881,7 @@
      "data_referencia": "2025-04-28",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1917,6 +1949,7 @@
      "data_referencia": "2025-04-28",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -1984,6 +2017,7 @@
      "data_referencia": "2024-07-17",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2051,6 +2085,7 @@
      "data_referencia": "2023-10-20",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2136,7 +2171,9 @@
    "qtd_obras_vinculadas": 1,
    "observacoes": [
     "planilha EMD declara \"SEM OBRA\" para este ativo",
-    "SIGCO 8481 divergente do esperado (8495 para religador) - classificacao contabil a corrigir"
+    "SIGCO 8481 divergente do esperado (8495 para religador) - classificacao contabil a corrigir",
+    "vinculo obra-ativo obtido por via indireta (d_codigo_ativo_descricao) - confianca media, convem confirmar no AIC",
+    "obra 0712600318 aparece como obra principal de mais de um ativo da carteira (7900230155, 5800371025)"
    ]
   },
   "7900259096": {
@@ -2243,6 +2280,7 @@
      "data_referencia": "2024-01-29",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2308,6 +2346,7 @@
      "data_referencia": "2025-10-14",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2375,6 +2414,7 @@
      "data_referencia": "2020-12-04",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2474,6 +2514,7 @@
      "data_referencia": "2023-09-16",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2635,6 +2676,7 @@
      "data_referencia": "2025-02-03",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2702,6 +2744,7 @@
      "data_referencia": "2025-05-22",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -2736,6 +2779,7 @@
      "data_referencia": "2023-10-20",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2791,7 +2835,9 @@
    "data_ref_demanda": "2025-09-17",
    "corte_ciclo": "2024-09-17",
    "qtd_obras_vinculadas": 1,
-   "observacoes": []
+   "observacoes": [
+    "vinculo obra-ativo obtido por via indireta (d_codigo_ativo_descricao) - confianca media, convem confirmar no AIC"
+   ]
   },
   "7901110084": {
    "veredito": "sem_obra",
@@ -2865,6 +2911,7 @@
      "data_referencia": "2025-01-01",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -2997,6 +3044,7 @@
      "data_referencia": "2025-02-13",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -3304,7 +3352,9 @@
    "data_ref_demanda": "2026-01-09",
    "corte_ciclo": "2025-01-09",
    "qtd_obras_vinculadas": 1,
-   "observacoes": []
+   "observacoes": [
+    "vinculo obra-ativo obtido por via indireta (e_localidade_equipamento) - confianca baixa, convem confirmar no AIC"
+   ]
   },
   "7910027196": {
    "veredito": "sem_obra",
@@ -3410,6 +3460,7 @@
      "data_referencia": "2026-01-16",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -3444,6 +3495,7 @@
      "data_referencia": "2020-02-03",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -3478,6 +3530,7 @@
      "data_referencia": "2020-02-03",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -3506,72 +3559,35 @@
    ]
   },
   "7919270014": {
-   "veredito": "sem_obra",
-   "obra_principal": null,
-   "via": "sem_vinculo",
-   "sigco": "nao identificado",
-   "status_aic": "nao identificado",
-   "data_encerramento": null,
-   "outras_obras": [
-    {
-     "obra": "0212501060",
-     "via": "b_num_obra_ss",
-     "vias_secundarias": [
-      "b2_obra_citada_texto_ss"
-     ],
-     "intencao_citacao": "instalacao_comissionamento",
-     "confianca_vinculo": "alta",
-     "evidencia": "campo NUM_OBRA da SS ENC-RD-PS 01153/2025 (0212501060)",
-     "natureza": "substituicao_equipamento",
-     "situacao": "encerrada",
-     "sigco": "8805",
-     "sigco_esperado": "8495",
-     "sigco_correto_para_o_equipamento": "nao",
-     "dsc_status": "ENCERRAMENTO:ENCERRAMENTO TÉCNICO",
-     "status_aic": "ENCERRADA CONTÁBIL",
-     "aic": "NÃO",
-     "descricao": "SUBSTITUIÇÃO DE POSTE EMERGENCIAL",
-     "descricao_obra": "MANUTENÇÃO CORRET EMERGENCIAL REMANEJAMENTO DE RELIGADOR",
-     "setor_responsavel": "GEST - ENCERRAMENTO",
-     "area": "COCM - CENTRO",
-     "nomeloc": "LAGOA DA CONFUSÃO",
-     "data_abertura": "2025-12-10",
-     "data_conclusao_fisica": "2025-12-10",
-     "data_encerramento_tecnico": "2026-03-26",
-     "data_encerramento": "2026-03-26",
-     "prev_termino": "2025-12-10",
-     "mot_indeferimento": "",
-     "val_total_orcado": "55380",
-     "total_realizado": "51082",
-     "ano_referencia": 2025,
-     "data_referencia": "2025-12-10",
-     "no_ciclo_da_demanda": true,
-     "vinculo_declarado": true,
-     "elegivel_obra_principal": false
-    }
-   ],
-   "confianca": "media",
+   "veredito": "confirmado_aic",
+   "obra_principal": "0212501060",
+   "via": "b_num_obra_ss",
+   "sigco": "8805",
+   "status_aic": "ENCERRADA CONTÁBIL",
+   "data_encerramento": "2026-03-26",
+   "outras_obras": [],
+   "confianca": "alta",
    "tipo": "Religador",
    "localidade": "PIUM",
    "polo": "PARAISO DO TOCANTINS",
    "regional": "CENTRO",
-   "situacao_obra_principal": "sem_vinculo",
-   "dsc_status_obra_principal": "nao identificado",
-   "natureza_obra_principal": "nao identificado",
-   "descricao_obra_principal": "",
-   "sigco_correto_para_o_equipamento": "nao identificado",
-   "data_abertura_obra": null,
-   "data_conclusao_fisica": null,
-   "data_encerramento_tecnico": null,
-   "evidencia_vinculo": "nenhum vinculo obra-ativo qualificado",
+   "situacao_obra_principal": "encerrada",
+   "dsc_status_obra_principal": "ENCERRAMENTO:ENCERRAMENTO TÉCNICO",
+   "natureza_obra_principal": "substituicao_equipamento",
+   "descricao_obra_principal": "MANUTENÇÃO CORRET EMERGENCIAL REMANEJAMENTO DE RELIGADOR",
+   "sigco_correto_para_o_equipamento": "nao",
+   "data_abertura_obra": "2025-12-10",
+   "data_conclusao_fisica": "2025-12-10",
+   "data_encerramento_tecnico": "2026-03-26",
+   "evidencia_vinculo": "campo NUM_OBRA da SS ENC-RD-PS 01153/2025 (0212501060)",
    "criterio_obra_principal": "obra_principal = obra do AIC que trata do proprio equipamento (substituicao/manutencao corretiva), dentro do ciclo da demanda atual, escolhida pela maior confianca de vinculo (EMD > NUM_OBRA da SS > obra citada no texto da SS > NUM_OS > codigo do ativo na descricao > localidade); em empate, a natureza mais proxima de substituicao e depois a mais recente. Obras de melhoria de rede, de instalacao/remanejamento original do equipamento e citacoes do tipo \"instalado na obra X - realizar comissionamento\" nao concorrem.",
-   "motivo_sem_obra": "as obras vinculadas sao de instalacao/remanejamento original do equipamento (comissionamento), nao de correcao do defeito atual",
+   "motivo_sem_obra": null,
    "obra_declarada_emd": null,
    "data_ref_demanda": "2025-09-09",
    "corte_ciclo": "2024-09-09",
    "qtd_obras_vinculadas": 1,
    "observacoes": [
-    "as obras vinculadas sao de instalacao/remanejamento original do equipamento (comissionamento), nao de correcao do defeito atual"
+    "SIGCO 8805 divergente do esperado (8495 para religador) - classificacao contabil a corrigir"
    ]
   },
   "7920024127": {
@@ -3614,6 +3630,7 @@
      "data_referencia": "2019-01-22",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -3681,6 +3698,7 @@
      "data_referencia": "2026-01-15",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -3812,6 +3830,7 @@
      "data_referencia": "2025-09-04",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4005,6 +4024,7 @@
      "data_referencia": "2020-12-04",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4104,6 +4124,7 @@
      "data_referencia": "2023-10-20",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4171,6 +4192,7 @@
      "data_referencia": "2025-01-13",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4300,6 +4322,7 @@
      "data_referencia": "2023-08-24",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -4334,6 +4357,7 @@
      "data_referencia": "2022-09-06",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -4368,6 +4392,7 @@
      "data_referencia": "2022-03-23",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4435,6 +4460,7 @@
      "data_referencia": "2022-02-04",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4502,6 +4528,7 @@
      "data_referencia": "2022-02-07",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4665,6 +4692,7 @@
      "data_referencia": "2023-11-24",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4732,6 +4760,7 @@
      "data_referencia": "2025-08-14",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -4766,6 +4795,7 @@
      "data_referencia": "2023-10-20",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4831,6 +4861,7 @@
      "data_referencia": "2026-06-15",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -4918,7 +4949,9 @@
    "data_ref_demanda": "2025-01-08",
    "corte_ciclo": "2024-01-09",
    "qtd_obras_vinculadas": 1,
-   "observacoes": []
+   "observacoes": [
+    "vinculo obra-ativo obtido por via indireta (b2_obra_citada_texto_ss) - confianca media, convem confirmar no AIC"
+   ]
   },
   "7931383086": {
    "veredito": "sem_obra",
@@ -4960,6 +4993,7 @@
      "data_referencia": "2024-03-05",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5027,6 +5061,7 @@
      "data_referencia": "2024-12-05",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5186,6 +5221,7 @@
      "data_referencia": "2024-11-01",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": true,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": true
     }
    ],
@@ -5251,6 +5287,7 @@
      "data_referencia": "2023-11-17",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5318,6 +5355,7 @@
      "data_referencia": "2023-11-17",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5383,6 +5421,7 @@
      "data_referencia": "2020-10-02",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -5417,6 +5456,7 @@
      "data_referencia": "2020-10-02",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -5451,6 +5491,7 @@
      "data_referencia": "2020-01-01",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5518,6 +5559,7 @@
      "data_referencia": "2023-07-13",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -5552,6 +5594,7 @@
      "data_referencia": "2022-02-15",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -5586,6 +5629,7 @@
      "data_referencia": "2021-08-10",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5873,6 +5917,7 @@
      "data_referencia": "2025-02-14",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -5907,6 +5952,7 @@
      "data_referencia": "2025-02-14",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -5974,6 +6020,7 @@
      "data_referencia": "2023-12-04",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     }
    ],
@@ -6073,6 +6120,7 @@
      "data_referencia": "2024-02-14",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6140,6 +6188,7 @@
      "data_referencia": "2024-01-18",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6208,6 +6257,7 @@
      "data_referencia": "2024-02-09",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6275,6 +6325,7 @@
      "data_referencia": "2024-05-17",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6342,6 +6393,7 @@
      "data_referencia": "2024-11-22",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": false,
      "elegivel_obra_principal": false
     },
     {
@@ -6376,6 +6428,7 @@
      "data_referencia": "2024-01-10",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6441,6 +6494,7 @@
      "data_referencia": "2024-01-10",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6508,6 +6562,7 @@
      "data_referencia": "2024-03-21",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6575,6 +6630,7 @@
      "data_referencia": "2024-05-21",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6642,6 +6698,7 @@
      "data_referencia": "2024-05-21",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6709,6 +6766,7 @@
      "data_referencia": "2024-05-17",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6776,6 +6834,7 @@
      "data_referencia": "2024-05-17",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6843,6 +6902,7 @@
      "data_referencia": "2024-02-19",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6910,6 +6970,7 @@
      "data_referencia": "2024-02-09",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -6975,6 +7036,7 @@
      "data_referencia": "2024-02-15",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -7040,6 +7102,7 @@
      "data_referencia": "2024-03-25",
      "no_ciclo_da_demanda": false,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -7107,6 +7170,7 @@
      "data_referencia": "2025-04-28",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],
@@ -7174,6 +7238,7 @@
      "data_referencia": "2025-05-30",
      "no_ciclo_da_demanda": true,
      "vinculo_declarado": false,
+     "citacao_so_de_comissionamento": true,
      "elegivel_obra_principal": false
     }
    ],

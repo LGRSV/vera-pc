@@ -138,7 +138,7 @@ async function carregar() {
   $('#resumo-topo').innerHTML = [
     ['Em aberto', m.total_abertos, ''],
     ['Muito alta', m.por_criticidade.find((i) => i.rotulo === 'Muito Alta')?.total ?? 0, 'crit'],
-    ['Confirmadas no AIC', m.conclusao.confirmadas, ''],
+    ['Realizadas', m.realizadas?.total ?? m.conclusao.confirmadas, ''],
     ...(chipDcmd != null ? [['DCMD 2026', chipDcmd, '']] : []),
   ].map(([k, v, c]) => `<div class="${c}"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
 
@@ -451,6 +451,7 @@ function abrirAtivo(ativo) {
     a?.risco_operacional ? `<span class="selo c-${chave(a.risco_operacional)}">Risco ${esc(a.risco_operacional)}</span>` : '',
     s?.faixa_potencia && s.faixa_potencia !== 'Não se aplica' ? `<span class="selo neutro">${esc(s.faixa_potencia)}</span>` : '',
     s?.classe_tensao ? `<span class="selo neutro">${esc(s.classe_tensao)}</span>` : '',
+    e.realizada?.veredito ? '<span class="selo c-baixa">✓ Realizada</span>' : '',
     c ? `<span class="selo ${c.situacao === 'Confirmada no AIC' ? 'c-baixa' : c.situacao === 'Indício contestado' ? 'c-alta' : 'neutro'}">${esc(c.situacao)}</span>` : '',
   ].filter(Boolean).join('');
 
@@ -459,6 +460,21 @@ function abrirAtivo(ativo) {
     <div class="nome">${esc(e.localidade || 'localidade não informada')} · ${esc(e.polo || '—')} / ${esc(e.regional || '—')}</div>
     <div class="selos">${selos}</div>
   </header>`];
+
+  if (e.realizada) {
+    const r = e.realizada;
+    partes.push(bloco('Foi realizada?', `
+      <p class="destaque-texto">${r.veredito
+        ? 'Sim — pela régua do gestor: ' + esc(r.vias.join(' e ')) + ', sem SS pendente recente.'
+        : (r.vias.length
+          ? 'Candidata (' + esc(r.vias.join(' e ')) + '), mas bloqueada por SS pendente recente do mesmo ativo.'
+          : 'Não — nenhuma das duas vias (AIC encerrado ou cancelamento em operação) se aplica.')}</p>
+      ${r.evidencias.map((ev) => `<div class="item-linha"><span>${esc(ev)}</span><b>evidência</b></div>`).join('')}
+      ${(r.pendencias_recentes || []).map((p2) => `<div class="nota branda" style="margin-top:10px">
+        <strong>SS pendente recente</strong>${esc(p2.numero_ss)} (${esc(p2.equipe)}) · ${esc(p2.situacao)} · aberta em ${dataBr(p2.abertura)}</div>`).join('')}
+      ${r.pendencias_antigas ? `<div class="nota calma" style="margin-top:10px"><strong>Fila histórica</strong>${r.pendencias_antigas} SS pendente(s) com mais de 12 meses — não bloqueiam o veredito, mas existem.</div>` : ''}
+      ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
+  }
 
   if (c) {
     partes.push(bloco('Está concluído?', `
@@ -719,8 +735,37 @@ function abrirColecao(id) {
 
   if (id === 'conclusao') {
     const c = m.conclusao;
-    html = cabecaColecao('Conclusões', 'Quantos equipamentos já foram concluídos — e o quanto disso é certeza.') +
+    const r = m.realizadas || {};
+    html = cabecaColecao('Conclusões', 'Quantos equipamentos já foram realizados — e o quanto disso é certeza.') +
       `<div class="numeros">
+        ${num({ rotulo: 'REALIZADAS', valor: r.total ?? '—', nota: 'pela régua do gestor, abaixo', tom: 'bom' })}
+        ${num({ rotulo: 'Via AIC', valor: r.por_via ? r.por_via.AIC + r.por_via.Ambas : '—', nota: 'obra encerrada no AIC' })}
+        ${num({ rotulo: 'Via cancelamento em operação', valor: r.por_via ? r.por_via['Cancelada em operação'] + r.por_via.Ambas : '—', nota: r.m5_disponivel ? 'COI confirmou operando' : 'leitura das canceladas em curso' })}
+        ${num({ rotulo: 'Candidatas bloqueadas', valor: r.bloqueadas_por_pendencia_recente ?? '—', nota: 'têm SS pendente recente do mesmo ativo', tom: 'atento' })}
+      </div>
+      <div class="nota calma" style="margin-bottom:24px">
+        <strong>A régua das realizadas</strong>
+        Conta como realizada quando a obra está encerrada no AIC (extrato de 07/08/2026) OU quando
+        a demanda foi cancelada porque o COI confirmou o equipamento em operação — e, em qualquer
+        via, só se <strong>não houver outra SS pendente do mesmo ativo aberta nos últimos 12
+        meses</strong>. Conclusão física sem encerramento contábil não conta até o AIC registrar.
+      </div>
+      ${(r.lista || []).length ? `<section class="bloco"><h3>As realizadas</h3><div class="cartas">
+        ${r.lista.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
+          <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
+            <span class="selo c-baixa">Realizada</span>
+            <span class="selo neutro">${esc(x.vias.join(' + '))}</span></div>
+          <div class="onde">${esc(x.localidade)} · ${esc(x.tipo)}</div>
+          <p>${esc(x.evidencia)}</p></button>`).join('')}</div></section>` : ''}
+      ${(r.bloqueadas || []).length ? `<section class="bloco"><h3>Candidatas bloqueadas por SS pendente recente</h3>
+        <div class="cartas">${r.bloqueadas.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
+          <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
+            <span class="selo c-alta">Bloqueada</span>
+            <span class="selo neutro">${esc(x.vias.join(' + '))}</span></div>
+          <div class="onde">${esc(x.localidade)}</div>
+          <p>${x.pendencia ? esc(`SS pendente recente: ${x.pendencia.numero_ss} (${x.pendencia.equipe}), aberta em ${dataBr(x.pendencia.abertura)}`) : ''}</p>
+        </button>`).join('')}</div></section>` : ''}
+      <div class="numeros">
         ${num({ rotulo: 'Confirmadas no AIC', valor: c.confirmadas, nota: c.aic_disponivel ? 'obras encerradas no AIC' : 'extrato do AIC ainda não carregado', tom: c.confirmadas ? 'bom' : '' })}
         ${num({ rotulo: 'Com algum indício', valor: c.com_algum_indicio, nota: 'sinal de conclusão em ao menos uma fonte' })}
         ${num({ rotulo: 'Indício contestado', valor: c.contestadas, nota: 'algo no registro desmente', tom: 'critico' })}
@@ -840,6 +885,11 @@ function abrirColecao(id) {
         ${num({ rotulo: 'Valor previsto', valor: moeda(g.valor_previsto_total), nota: `em ${g.com_valor_previsto} equipamentos`, tom: 'atento' })}
       </div>
       <section class="bloco"><h3>Distribuição geográfica</h3>
+        <div class="fichas" id="modo-mapa" style="margin-bottom:12px">
+          <button class="pastilha" data-modo="criticidade">Ver por criticidade</button>
+          <button class="pastilha" data-modo="tipo">Ver por tipo (RL × RT)</button>
+          <button class="pastilha" data-modo="situacao">Ver por situação</button>
+        </div>
         <div class="mapa" id="mapa"></div><div class="legenda-mapa" id="legenda-mapa"></div></section>
       <div class="grade" style="margin-bottom:34px">
         <div class="quadro"><header><h3>Marca e modelo</h3><p>Parque entre os indisponíveis</p></header>${barras(g.por_modelo.slice(0, 10))}</div>
@@ -866,7 +916,14 @@ function abrirColecao(id) {
         }).join('')}</tbody></table></div></section>`;
 
     paginaLeitura(html, 'colecao');
+    estado._mapaItens = comGeo;
     desenharMapa(comGeo);
+    $$('#modo-mapa .pastilha').forEach((b) => {
+      b.addEventListener('click', () => {
+        estado.mapaModo = b.dataset.modo;
+        desenharMapa(estado._mapaItens);
+      });
+    });
     ligarCartas();
     return;
   }
@@ -988,9 +1045,41 @@ function abrirColecao(id) {
 
 /* ---------------- mapa ---------------- */
 
+// Modos de pintura do mapa. A cor é sinal: cada modo responde a uma pergunta —
+// onde está o risco (criticidade), o que é cada ponto (tipo), como está em campo (situação).
+const MODOS_MAPA = {
+  criticidade: {
+    rotulo: (e) => e.criticidade,
+    ordem: ORDEM_CRIT,
+    cor: {
+      'Muito Alta': 'var(--muito-alta)', 'Alta': 'var(--alta)', 'Média': 'var(--media)',
+      'Baixa': 'var(--baixa)', 'Sem classificação': 'var(--sem-classe)',
+    },
+  },
+  tipo: {
+    rotulo: (e) => (e.tipo === '79' ? 'Religador' : 'Regulador de Tensão'),
+    ordem: ['Religador', 'Regulador de Tensão'],
+    cor: { 'Religador': 'var(--sinal)', 'Regulador de Tensão': 'var(--baixa)' },
+  },
+  situacao: {
+    rotulo: (e) => e.analise?.status_operacional || 'Não informado',
+    ordem: ['By-passado em campo', 'Fora de operação', 'Operando com restrição',
+            'Removido/Recolhido', 'Operando normal', 'Não informado'],
+    cor: {
+      'By-passado em campo': 'var(--muito-alta)', 'Fora de operação': 'var(--alta)',
+      'Operando com restrição': 'var(--media)', 'Removido/Recolhido': 'var(--sem-classe)',
+      'Operando normal': 'var(--baixa)', 'Não informado': 'var(--sem-classe)',
+    },
+  },
+};
+
 function desenharMapa(itens) {
   const caixa = $('#mapa');
   if (!caixa || !itens.length) return;
+
+  const modo = MODOS_MAPA[estado.mapaModo || 'criticidade'];
+  $$('#modo-mapa .pastilha').forEach((b) =>
+    b.setAttribute('aria-pressed', String(b.dataset.modo === (estado.mapaModo || 'criticidade'))));
 
   const margem = 42;
   const lats = itens.map((e) => e.geo.lat), lons = itens.map((e) => e.geo.lon);
@@ -1017,25 +1106,32 @@ function desenharMapa(itens) {
     grade.push(`<text class="eixo" x="${margem - 6}" y="${(py(lat) + 3).toFixed(1)}" text-anchor="end">${lat.toFixed(2)}°</text>`);
   }
 
-  // Muito Alta por último, para ficar por cima na sobreposição.
+  // Categorias mais graves por último, para ficarem por cima na sobreposição.
   const ordenados = [...itens].sort((a, b) =>
-    ORDEM_CRIT.indexOf(b.criticidade) - ORDEM_CRIT.indexOf(a.criticidade));
+    modo.ordem.indexOf(modo.rotulo(b)) - modo.ordem.indexOf(modo.rotulo(a)));
 
   const pontos = ordenados.map((e) => {
-    const r = e.criticidade === 'Muito Alta' ? 6.5 : e.criticidade === 'Alta' ? 5.5 : 4.5;
+    const cat = modo.rotulo(e);
+    const destaque = modo.ordem.indexOf(cat);
+    const r = destaque === 0 ? 6.5 : destaque === 1 ? 5.5 : 4.5;
     const d = e.ss_sgm?.dias_aberta;
     return `<circle class="ponto-mapa" data-ativo="${esc(e.ativo)}" cx="${px(e.geo.lon).toFixed(1)}"
-      cy="${py(e.geo.lat).toFixed(1)}" r="${r}" fill="${CORES[e.criticidade] || CORES['Sem classificação']}">
-      <title>${esc(e.ativo)} · ${esc(e.localidade)} · ${esc(e.criticidade)}${d != null ? ` — ${d} dias em aberto` : ''}</title>
+      cy="${py(e.geo.lat).toFixed(1)}" r="${r}" fill="${modo.cor[cat] || 'var(--sem-classe)'}">
+      <title>${esc(e.ativo)} · ${esc(e.localidade)} · ${esc(cat)} · ${esc(e.criticidade)}${d != null ? ` — ${d} dias em aberto` : ''}</title>
     </circle>`;
   }).join('');
 
   caixa.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="max-width:${W}px;margin:0 auto" role="img"
     aria-label="Distribuição geográfica dos equipamentos indisponíveis">${grade.join('')}${pontos}</svg>`;
 
-  $('#legenda-mapa').innerHTML = ORDEM_CRIT.filter((c) => itens.some((e) => e.criticidade === c))
-    .map((c) => `<div><i style="background:${CORES[c]}"></i>${esc(c)}
-      <b>${itens.filter((e) => e.criticidade === c).length}</b></div>`).join('');
+  $('#legenda-mapa').innerHTML = modo.ordem
+    .filter((c) => itens.some((e) => modo.rotulo(e) === c))
+    .map((c) => `<div><i style="background:${modo.cor[c]}"></i>${esc(c)}
+      <b>${itens.filter((e) => modo.rotulo(e) === c).length}</b></div>`).join('');
+
+  $$('#mapa .ponto-mapa').forEach((el) => {
+    el.addEventListener('click', () => abrirAtivo(el.dataset.ativo));
+  });
 }
 
 /* ---------------- metodologia ---------------- */
