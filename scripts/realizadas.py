@@ -54,6 +54,7 @@ def montar(registros):
     Depende de reg['demandas'] — o build roda demandas.py antes deste módulo.
     """
     m5 = _ler("m5_canceladas.json")
+    m6 = _ler("m6_canceladas_global.json")
 
     resumo = {
         "premissas": PREMISSAS + list((m5 or {}).get("premissas", [])),
@@ -71,6 +72,26 @@ def montar(registros):
         for ativo, dados in ((m5 or {}).get("ativos") or {}).items()
         if dados.get("candidato_em_operacao")
     }
+    # M6 varreu as 585 canceladas de TODOS os postos (pedido do gestor: "procure na TELE,
+    # em ETO-RD-DP, em qualquer equipe"). Para os ativos da carteira, soma aos candidatos.
+    for ativo, dados in ((m6 or {}).get("ativos") or {}).items():
+        if dados.get("em_operacao") and dados.get("na_carteira") and ativo not in candidatos_m5:
+            candidatos_m5[ativo] = {
+                "evidencia": dados.get("evidencia", ""),
+                "confianca": dados.get("confianca"),
+            }
+    resumo["fora_carteira_em_operacao"] = sum(
+        1 for d in ((m6 or {}).get("ativos") or {}).values()
+        if d.get("em_operacao") and not d.get("na_carteira")
+    )
+    resumo["fora_carteira_lista"] = [
+        {"ativo": ativo, "evidencia": d.get("evidencia", ""),
+         "confianca": d.get("confianca"), "quem_confirmou": d.get("quem_confirmou", "")}
+        for ativo, d in sorted(((m6 or {}).get("ativos") or {}).items())
+        if d.get("em_operacao") and not d.get("na_carteira")
+    ]
+    resumo["m6_disponivel"] = m6 is not None
+    resumo["premissas"] += list((m6 or {}).get("premissas", []))
 
     for reg in registros:
         ativo = reg["ativo"]

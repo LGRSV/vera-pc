@@ -816,6 +816,18 @@ function abrirColecao(id) {
             ${x.origem_cancelamento ? `<span class="selo ${x.origem_cancelamento === 'COI confirmou' ? 'destaque' : 'neutro'}">${esc(x.origem_cancelamento)}</span>` : ''}</div>
           <div class="onde">${esc(x.localidade)} · ${esc(x.tipo)}</div>
           <p>${esc(x.evidencia)}</p></button>`).join('')}</div></section>` : ''}
+      ${(r.fora_carteira_lista || []).length ? `<section class="bloco"><h3>Canceladas em operação fora da carteira</h3>
+        <p style="margin:0 0 14px;color:var(--tinta-2);font-size:13.5px;font-style:italic">
+          A varredura das 585 canceladas de todos os postos achou mais ${r.fora_carteira_lista.length}
+          ativos cancelados em operação que nem estão na relação dos 129 — resolvidos antes de
+          entrar na carteira.</p>
+        <div class="cartas">${r.fora_carteira_lista.map((x) => `<div class="carta" style="cursor:default">
+          <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
+            <span class="selo neutro">fora da carteira</span>
+            ${x.confianca ? `<span class="selo ${x.confianca === 'Alta' ? 'destaque' : 'neutro'}">${esc(x.confianca)}</span>` : ''}</div>
+          <p>${esc(x.evidencia)}</p>
+          ${x.quem_confirmou ? `<div class="rodape"><span>confirmou: ${esc(x.quem_confirmou)}</span></div>` : ''}
+        </div>`).join('')}</div></section>` : ''}
       ${(r.bloqueadas || []).length ? `<section class="bloco"><h3>Candidatas bloqueadas por demanda aberta</h3>
         <div class="cartas">${r.bloqueadas.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
           <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
