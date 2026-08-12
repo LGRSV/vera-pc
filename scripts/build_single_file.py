@@ -55,6 +55,7 @@ def main():
 
     pagina = (
         f"<title>{titulo}</title>\n"
+        f"<style>\n{ler('assets', 'css', 'fontes.css')}\n</style>\n"
         f"<style>\n{ler('assets', 'css', 'styles.css')}\n</style>\n\n"
         f"{corpo_da_pagina(html)}\n\n"
         f"<script>\nconst DADOS_EMBUTIDOS = {json_embutido};\n</script>\n"

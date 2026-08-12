@@ -1,4 +1,4 @@
-# Equipamentos Especiais — interface de pesquisa
+# Equipamentos Especiais — prontuário industrial
 
 Site estático que consolida a situação dos religadores e reguladores de tensão
 indisponíveis da ETO, cruzando quatro planilhas que hoje vivem separadas:
@@ -63,6 +63,14 @@ descrição de SS sem categorização correspondente.
 | `scripts/plano_compras.py` | calcula os prazos do pedido e confere o plano contra as demais planilhas |
 | `scripts/gestao_equipamentos.py` | lê a planilha de gestão: coordenadas, especificação e datas reais da SS |
 | `scripts/build_single_file.py` | empacota o site num HTML autocontido |
+| `scripts/baixar_fontes.py` | baixa as fontes do tema e as embute como data URI |
+
+## Tema
+
+O visual segue o tema **Prontuário Industrial** (`assets/TEMA.md`), criado com a skill
+theme-factory: papel e tinta de impresso técnico, Barlow Condensed nos títulos, Spectral
+na leitura e IBM Plex Mono nos dados. As fontes são embutidas em `assets/css/fontes.css`
+(subset latino, woff2 em data URI), então o site continua sem nenhuma requisição externa.
 
 ## O que conta como concluído
 
