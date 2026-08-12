@@ -406,8 +406,8 @@ def main():
     anotar_registros(registros, pacote_missao)
     meta["missao"] = enxugar(pacote_missao)
     meta["conclusao"] = montar_conclusoes(registros)
-    meta["realizadas"] = montar_realizadas(registros)
     meta["demandas"] = montar_demandas(registros)
+    meta["realizadas"] = montar_realizadas(registros)
 
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}

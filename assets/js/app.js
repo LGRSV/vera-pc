@@ -51,7 +51,7 @@ const DESC_CONCLUSAO = {
 
 const COLECOES = [
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
-  { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram concluídos, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas' },
+  { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
   { id: 'coep', nome: 'Parecer COEP', desc: 'O que já deveria estar concluído e não está', termos: 'coep parecer pendencia atraso prazo vencido sla' },
   { id: 'emd', nome: 'Cruzamento EMD', desc: 'Divergências entre a requisição e a criticidade', termos: 'emd requisicao divergencia obra deposito material' },
   { id: 'compras', nome: 'Plano de compras', desc: 'Pedido de 17/07/2026, prazos e conferência', termos: 'compras compra pedido plano valor preco prazo 120 180 portilho' },
@@ -153,6 +153,7 @@ async function carregar() {
     ['Em aberto', m.total_abertos, ''],
     ['Muito alta', m.por_criticidade.find((i) => i.rotulo === 'Muito Alta')?.total ?? 0, 'crit'],
     ['Realizadas', m.realizadas?.total ?? m.conclusao.confirmadas, ''],
+    ...(m.realizadas?.provaveis != null ? [['Prováveis', m.realizadas.provaveis, '']] : []),
     ...(chipDcmd != null ? [['DCMD 2026', chipDcmd, '']] : []),
   ].map(([k, v, c]) => `<div class="${c}"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
 
@@ -270,7 +271,19 @@ function trecho(e, termo) {
 
 function colecoesQueCasam(t) {
   if (!t) return [];
-  return COLECOES.filter((c) => puro(`${c.nome} ${c.desc} ${c.termos}`).includes(t));
+  // Casa por palavra, não pela frase inteira: "quantos já concluí" precisa achar
+  // Conclusões. Tokens curtos (a, de, já) não contam; ranqueia por nº de acertos.
+  const tokens = t.split(/\s+/).filter((x) => x.length >= 4);
+  if (!tokens.length) return COLECOES.filter((c) => puro(`${c.nome} ${c.desc} ${c.termos}`).includes(t));
+  return COLECOES
+    .map((c) => {
+      const alvo = puro(`${c.nome} ${c.desc} ${c.termos}`);
+      const acertos = tokens.filter((tk) => alvo.includes(tk)).length;
+      return { c, acertos };
+    })
+    .filter((x) => x.acertos > 0)
+    .sort((a, b) => b.acertos - a.acertos)
+    .map((x) => x.c);
 }
 
 function render() {
@@ -476,6 +489,7 @@ function abrirAtivo(ativo) {
     s?.faixa_potencia && s.faixa_potencia !== 'Não se aplica' ? `<span class="selo neutro">${esc(s.faixa_potencia)}</span>` : '',
     s?.classe_tensao ? `<span class="selo neutro">${esc(s.classe_tensao)}</span>` : '',
     e.realizada?.veredito ? '<span class="selo c-baixa">✓ Realizada</span>' : '',
+    e.realizada?.provavel ? '<span class="selo c-media">~ Provável resolvido</span>' : '',
     c ? `<span class="selo ${c.situacao === 'Confirmada no AIC' ? 'c-baixa' : c.situacao === 'Indício contestado' ? 'c-alta' : 'neutro'}">${esc(c.situacao)}</span>` : '',
   ].filter(Boolean).join('');
 
@@ -489,14 +503,15 @@ function abrirAtivo(ativo) {
     const r = e.realizada;
     partes.push(bloco('Foi realizada?', `
       <p class="destaque-texto">${r.veredito
-        ? 'Sim — pela régua do gestor: ' + esc(r.vias.join(' e ')) + ', sem SS pendente recente.'
-        : (r.vias.length
-          ? 'Candidata (' + esc(r.vias.join(' e ')) + '), mas bloqueada por SS pendente recente do mesmo ativo.'
-          : 'Não — nenhuma das duas vias (AIC encerrado ou cancelamento em operação) se aplica.')}</p>
+        ? 'Sim — pela régua do gestor: ' + esc(r.vias.join(' e ')) + ', sem demanda aberta no ativo.'
+        : r.provavel
+          ? 'Provavelmente — a demanda morreu cancelada e nada reabriu no ativo (regra do gestor de 12/08). Sem prova positiva, fica no nível de provável.'
+          : (r.vias.length
+            ? 'Candidata (' + esc(r.vias.join(' e ')) + '), mas o ativo ainda tem demanda aberta.'
+            : 'Não — nenhuma via se aplica: sem AIC encerrado, sem cancelamento em operação, e há demanda aberta ou nenhuma cancelada.')}</p>
       ${r.evidencias.map((ev) => `<div class="item-linha"><span>${esc(ev)}</span><b>evidência</b></div>`).join('')}
-      ${(r.pendencias_recentes || []).map((p2) => `<div class="nota branda" style="margin-top:10px">
-        <strong>SS pendente recente</strong>${esc(p2.numero_ss)} (${esc(p2.equipe)}) · ${esc(p2.situacao)} · aberta em ${dataBr(p2.abertura)}</div>`).join('')}
-      ${r.pendencias_antigas ? `<div class="nota calma" style="margin-top:10px"><strong>Fila histórica</strong>${r.pendencias_antigas} SS pendente(s) com mais de 12 meses — não bloqueiam o veredito, mas existem.</div>` : ''}
+      ${r.demanda_bloqueando ? `<div class="nota branda" style="margin-top:10px">
+        <strong>Demanda aberta bloqueando</strong>${esc(r.demanda_bloqueando.numero_ss || '—')} (${esc(r.demanda_bloqueando.equipe || '—')}) · ${esc((r.demanda_bloqueando.situacao || '').replace('SS ', ''))} · aberta em ${dataBr(r.demanda_bloqueando.abertura)}</div>` : ''}
       ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
   }
 
@@ -774,17 +789,18 @@ function abrirColecao(id) {
     const r = m.realizadas || {};
     html = cabecaColecao('Conclusões', 'Quantos equipamentos já foram realizados — e o quanto disso é certeza.') +
       `<div class="numeros">
-        ${num({ rotulo: 'REALIZADAS', valor: r.total ?? '—', nota: 'pela régua do gestor, abaixo', tom: 'bom' })}
-        ${num({ rotulo: 'Via AIC', valor: r.por_via ? r.por_via.AIC + r.por_via.Ambas : '—', nota: 'obra encerrada no AIC' })}
-        ${num({ rotulo: 'Via cancelamento em operação', valor: r.por_via ? r.por_via['Cancelada em operação'] + r.por_via.Ambas : '—', nota: r.m5_disponivel ? 'COI confirmou operando' : 'leitura das canceladas em curso' })}
-        ${num({ rotulo: 'Candidatas bloqueadas', valor: r.bloqueadas_por_pendencia_recente ?? '—', nota: 'têm SS pendente recente do mesmo ativo', tom: 'atento' })}
+        ${num({ rotulo: 'REALIZADAS (confirmadas)', valor: r.total ?? '—', nota: 'AIC encerrado ou COI confirmou operação', tom: 'bom' })}
+        ${num({ rotulo: 'PROVÁVEIS RESOLVIDOS', valor: r.provaveis ?? '—', nota: 'cancelada sem reincidência no ativo', tom: 'bom' })}
+        ${num({ rotulo: 'Tratados no total', valor: (r.total ?? 0) + (r.provaveis ?? 0), nota: 'confirmadas + prováveis' })}
+        ${num({ rotulo: 'Candidatas bloqueadas', valor: r.bloqueadas_por_demanda_aberta ?? '—', nota: 'o ativo ainda tem demanda aberta', tom: 'atento' })}
       </div>
       <div class="nota calma" style="margin-bottom:24px">
         <strong>A régua das realizadas</strong>
-        Conta como realizada quando a obra está encerrada no AIC (extrato de 07/08/2026) OU quando
-        a demanda foi cancelada porque o COI confirmou o equipamento em operação — e, em qualquer
-        via, só se <strong>não houver outra SS pendente do mesmo ativo aberta nos últimos 12
-        meses</strong>. Conclusão física sem encerramento contábil não conta até o AIC registrar.
+        Confirmada = obra encerrada no AIC (07/08/2026) OU cancelamento com o COI confirmando
+        operação — sem nenhuma demanda aberta no ativo. Provável = a demanda morreu cancelada e
+        nada reabriu (regra do gestor de 12/08). Bloqueio por demanda aberta usa a lógica das
+        cadeias: pendente de qualquer idade bloqueia; repassada consumida e rotina de bateria não
+        bloqueiam. Conclusão física sem encerramento contábil não conta até o AIC registrar.
       </div>
       ${(r.lista || []).length ? `<section class="bloco"><h3>As realizadas</h3><div class="cartas">
         ${r.lista.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
@@ -793,13 +809,21 @@ function abrirColecao(id) {
             <span class="selo neutro">${esc(x.vias.join(' + '))}</span></div>
           <div class="onde">${esc(x.localidade)} · ${esc(x.tipo)}</div>
           <p>${esc(x.evidencia)}</p></button>`).join('')}</div></section>` : ''}
-      ${(r.bloqueadas || []).length ? `<section class="bloco"><h3>Candidatas bloqueadas por SS pendente recente</h3>
+      ${(r.lista_provaveis || []).length ? `<section class="bloco"><h3>Prováveis resolvidos (cancelada sem reincidência)</h3>
+        <div class="cartas">${r.lista_provaveis.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
+          <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
+            <span class="selo c-media">~ Provável</span>
+            <span class="selo neutro">${esc(x.tipo)}</span></div>
+          <div class="onde">${esc(x.localidade)} · criticidade ${esc(x.criticidade)}</div>
+          <p>${x.canceladas} demanda(s) cancelada(s) e nenhuma demanda aberta no ativo.</p>
+        </button>`).join('')}</div></section>` : ''}
+      ${(r.bloqueadas || []).length ? `<section class="bloco"><h3>Candidatas bloqueadas por demanda aberta</h3>
         <div class="cartas">${r.bloqueadas.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
           <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
             <span class="selo c-alta">Bloqueada</span>
             <span class="selo neutro">${esc(x.vias.join(' + '))}</span></div>
           <div class="onde">${esc(x.localidade)}</div>
-          <p>${x.pendencia ? esc(`SS pendente recente: ${x.pendencia.numero_ss} (${x.pendencia.equipe}), aberta em ${dataBr(x.pendencia.abertura)}`) : ''}</p>
+          <p>${x.pendencia ? esc(`Demanda aberta: ${x.pendencia.numero_ss || '—'} (${x.pendencia.equipe || '—'}), aberta em ${dataBr(x.pendencia.abertura)}`) : ''}</p>
         </button>`).join('')}</div></section>` : ''}
       <div class="numeros">
         ${num({ rotulo: 'Confirmadas no AIC', valor: c.confirmadas, nota: c.aic_disponivel ? 'obras encerradas no AIC' : 'extrato do AIC ainda não carregado', tom: c.confirmadas ? 'bom' : '' })}
