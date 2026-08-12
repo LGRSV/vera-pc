@@ -24,7 +24,7 @@ ORDEM_CRITICIDADE = ["Muito Alta", "Alta", "Média", "Baixa", "Sem classificaç�
 
 GRAVIDADE = {
     "Compra possivelmente desnecessária": "Crítica",
-    "Comprado sem requisição de EMD": "Alta",
+    "Pedido ainda sem EMD": "Baixa",
     "Status do plano desatualizado": "Média",
     "SS divergente no plano": "Baixa",
 }
@@ -136,10 +136,10 @@ def conferir(itens, registros_criticidade, emd_por_ativo):
 
         if ativo not in emd_por_ativo:
             registrar(
-                "Comprado sem requisição de EMD",
-                f"O ativo entrou no plano de compras ({moeda(valor)}) mas não tem linha na "
-                f"planilha de EMD. A compra foi pedida sem a requisição formal correspondente "
-                f"no arquivo analisado.",
+                "Pedido ainda sem EMD",
+                f"O ativo entrou no plano de compras ({moeda(valor)}) e ainda não tem linha "
+                f"na planilha de EMD. Esperado enquanto a compra corre — a EMD nasce quando "
+                f"o material vira requisição; acompanhar a conversão.",
             )
 
         status_plano = do_ativo[0]["Status"]

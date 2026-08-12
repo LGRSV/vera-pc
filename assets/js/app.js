@@ -20,7 +20,7 @@ const DESC_ALERTA = {
 };
 
 const DESC_DIVERGENCIA = {
-  'Aquisição sem requisição': 'O Parecer COEP declara o equipamento “em processo de aquisição”, mas não existe linha correspondente na planilha de EMD. Sem linha de EMD não há requisição rastreável.',
+  'Em aquisição, ainda sem EMD': 'O Parecer COEP diz “em processo de aquisição” e ainda não há linha de EMD. Premissa registrada em 12/08: isso é o curso normal — a EMD nasce quando a compra vira requisição de material. Acompanhar a conversão, não tratar como erro.',
   'SS atribuída a outro ativo': 'O mesmo número de SS aparece nas duas planilhas apontando para equipamentos diferentes. Uma das duas está errada.',
   'Ativo divergente dentro do EMD': 'A planilha de EMD tem duas colunas “Ativo” e nesta linha elas trazem códigos diferentes.',
   'Substituição feita, SS aberta': 'O EMD dá a substituição como concluída, mas a SS de campo continua aberta — o equipamento pode estar inflando a lista de indisponíveis.',
@@ -36,7 +36,7 @@ const DESC_DIVERGENCIA = {
 
 const DESC_COMPRA = {
   'Compra possivelmente desnecessária': 'O Parecer COEP já registra o equipamento como substituído ou concluído. Se a troca ocorreu depois do pedido, o material vira sobressalente.',
-  'Comprado sem requisição de EMD': 'O ativo entrou no plano de compras mas não tem linha na planilha de EMD.',
+  'Pedido ainda sem EMD': 'O ativo entrou no plano de compras e ainda não tem linha de EMD — esperado enquanto a compra corre.',
   'Status do plano desatualizado': 'O status congelado no plano (foto de 17/07/2026) já não corresponde ao Parecer COEP atual.',
   'SS divergente no plano': 'O plano cita uma SS diferente da registrada na planilha de criticidade para o mesmo ativo.',
 };
@@ -50,6 +50,7 @@ const DESC_CONCLUSAO = {
 };
 
 const COLECOES = [
+  { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram concluídos, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas' },
   { id: 'coep', nome: 'Parecer COEP', desc: 'O que já deveria estar concluído e não está', termos: 'coep parecer pendencia atraso prazo vencido sla' },
   { id: 'emd', nome: 'Cruzamento EMD', desc: 'Divergências entre a requisição e a criticidade', termos: 'emd requisicao divergencia obra deposito material' },
@@ -133,10 +134,12 @@ async function carregar() {
     `${m.total_com_descricao} com a descrição de SS lida por inteiro. ` +
     `Busque por ativo, cidade, defeito ou marca — ou abra uma coleção.`;
 
+  const chipDcmd = m.missao?.dcmd?.recorte_estrito?.concluidas_2026?.total;
   $('#resumo-topo').innerHTML = [
     ['Em aberto', m.total_abertos, ''],
     ['Muito alta', m.por_criticidade.find((i) => i.rotulo === 'Muito Alta')?.total ?? 0, 'crit'],
     ['Confirmadas no AIC', m.conclusao.confirmadas, ''],
+    ...(chipDcmd != null ? [['DCMD 2026', chipDcmd, '']] : []),
   ].map(([k, v, c]) => `<div class="${c}"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
 
   montarFacetas();
@@ -475,6 +478,50 @@ function abrirAtivo(ativo) {
       <div class="nota ${['Média', 'Baixa'].includes(x.gravidade) ? 'branda' : ''}">
         <strong>${esc(x.tipo_alerta || x.tipo)}${x.dias_atraso ? ` · ${x.dias_atraso} dias de atraso` : ''}</strong>
         ${esc(x.detalhe)}</div>`).join('')));
+  }
+
+  if (e.fluxo) {
+    const f = e.fluxo;
+    partes.push(bloco('Fluxo da SS (COI → DEOP → DMSL → COEP → COCM)', `
+      ${f.atrasado_cocm ? `<div class="nota" style="margin-bottom:14px"><strong>Atrasado no COCM</strong>
+        Material entregue ao COCM sem previsão de execução registrada. ${esc(f.evidencia || '')}</div>` : ''}
+      <div class="campos" style="margin-bottom:16px">
+        ${campo('Onde está agora', esc(f.onde_esta || '—'))}
+      </div>
+      ${(f.etapas || []).length ? `<div class="cronologia">${f.etapas.map((et) => `
+        <div><time>${esc(et.inicio ? dataBr(et.inicio) : '—')}</time>
+        <span><strong style="font-family:var(--cond);text-transform:uppercase;letter-spacing:.06em;font-size:12px">${esc(et.etapa)}</strong>
+        · ${esc(et.numero_ss || '')} ${esc(et.equipe ? '· ' + et.equipe : '')} ${esc(et.situacao ? '· ' + et.situacao : '')}${et.fim ? ' · concluída ' + dataBr(et.fim) : ''}</span></div>`).join('')}</div>` : ''}
+      ${(f.quebras || []).length ? f.quebras.map((q) => `<div class="nota branda" style="margin-top:12px">
+        <strong>Quebra de fluxo</strong>${esc(typeof q === 'string' ? q : (q.descricao || JSON.stringify(q)))}</div>`).join('') : ''}`));
+  }
+
+  if (e.aic) {
+    const x = e.aic;
+    partes.push(bloco('Obra no AIC', `
+      <div class="campos">
+        ${campo('Veredito', esc(x.veredito || '—'))}
+        ${campo('Obra principal', esc(x.obra_principal || '—'))}
+        ${campo('Como foi ligada', esc(x.via || '—'))}
+        ${campo('SIGCO', esc(x.sigco || '—'))}
+        ${campo('Status no AIC', esc(x.status_aic || '—'))}
+        ${campo('Encerramento', x.data_encerramento ? dataBr(x.data_encerramento) : '—')}
+        ${campo('Confiança do vínculo', esc(x.confianca || '—'))}
+      </div>
+      ${(x.outras_obras || []).length ? `<div class="nota calma" style="margin-top:12px">
+        <strong>Outras obras do ativo</strong>${x.outras_obras.map((o) => esc(typeof o === 'string' ? o : (o.num_obra || '') + ' ' + (o.status || ''))).join('<br>')}</div>` : ''}`));
+  }
+
+  if (e.sigco && (e.sigco.veredito || e.sigco.sigco_aic || e.sigco.sigco_emd)) {
+    partes.push(bloco('SIGCO da obra', `
+      ${e.sigco.veredito === 'sigco_errado' ? `<div class="nota" style="margin-bottom:12px">
+        <strong>SIGCO errado</strong>Obra no projeto ${esc(e.sigco.sigco_aic || e.sigco.sigco_emd || '?')} — o correto para ${esc(e.tipo_nome.toLowerCase())} é ${e.tipo === '58' ? '8481' : '8495'}.</div>` : ''}
+      <div class="campos">
+        ${campo('SIGCO no EMD', esc(e.sigco.sigco_emd || '—'))}
+        ${campo('SIGCO no AIC', esc(e.sigco.sigco_aic || '—'))}
+        ${campo('Veredito', esc(e.sigco.veredito || '—'))}
+        ${campo('Conflito EMD × AIC', e.sigco.conflito_emd_aic ? 'sim' : 'não')}
+      </div>`));
   }
 
   if (a) {
@@ -855,6 +902,81 @@ function abrirColecao(id) {
         }).join('')}</tbody></table></div></section>`;
   }
 
+  if (id === 'dcmd') {
+    const mi = m.missao || {};
+    const d = mi.dcmd, sg = mi.sigco, fl = mi.fluxo;
+    const partes = [cabecaColecao('Missão DCMD',
+      'Quantas SS de religador e regulador o fluxo DCMD concluiu em 2026, o que ainda vai entrar, ' +
+      'se as obras estão no SIGCO correto (8481 = regulador, 8495 = religador) e onde cada um dos ' +
+      '129 da carteira está no fluxo COI → DEOP → DMSL → COEP → COCM.')];
+
+    const pendente = (nome) => `<div class="nota calma" style="margin-bottom:16px">
+      <strong>${nome} em processamento</strong>Os agentes ainda estão lendo a base — recarregue em alguns minutos.</div>`;
+
+    if (d) {
+      const e = d.recorte_estrito || {}, a = d.recorte_amplo || {};
+      const ec = e.concluidas_2026 || {}, ee = e.a_entrar || {};
+      const ac = a.concluidas_2026 || {}, ae = a.a_entrar || {};
+      partes.push(`<section class="bloco"><h3>Concluídas em 2026 e o que vai entrar</h3>
+        <div class="numeros">
+          ${num({ rotulo: 'Concluídas 2026 · recorte estrito', valor: ec.total ?? '—', nota: 'só o fluxo claro de eq. especiais', tom: 'bom' })}
+          ${num({ rotulo: 'Concluídas 2026 · recorte amplo', valor: ac.total ?? '—', nota: 'toda SS de RL/RT atendida' })}
+          ${num({ rotulo: 'Vão entrar · estrito', valor: ee.total ?? '—', nota: 'pendentes e repassadas', tom: 'atento' })}
+          ${num({ rotulo: 'Vão entrar · amplo', valor: ae.total ?? '—', nota: `${ee.na_carteira_129 ?? '—'} já estão na carteira dos 129`, tom: 'critico' })}
+        </div>
+        <div class="grade">
+          ${ec.por_tipo ? `<div class="quadro"><header><h3>Concluídas por tipo (estrito)</h3></header>${barras(Object.entries(ec.por_tipo).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+          ${ec.por_mes ? `<div class="quadro"><header><h3>Concluídas por mês (estrito)</h3></header>${barras(Object.entries(ec.por_mes).sort().map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+          ${ec.por_equipe ? `<div class="quadro"><header><h3>Por equipe (estrito)</h3></header>${barras(Object.entries(ec.por_equipe).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+          ${ee.por_tipo ? `<div class="quadro"><header><h3>Vão entrar por tipo (estrito)</h3></header>${barras(Object.entries(ee.por_tipo).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+        </div>
+        ${(d.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta contagem</strong>${(d.premissas || []).map(esc).join('<br>')}</div>` : ''}
+      </section>`);
+    } else partes.push(pendente('Contagem DCMD'));
+
+    if (sg) {
+      const r = sg.resumo || {};
+      partes.push(`<section class="bloco"><h3>Auditoria de SIGCO</h3>
+        <div class="numeros">
+          ${num({ rotulo: 'Obras no SIGCO correto', valor: r.corretas ?? '—', tom: 'bom' })}
+          ${num({ rotulo: 'SIGCO errado', valor: r.sigco_errado ?? '—', nota: 'RL/RT em outro projeto', tom: 'critico' })}
+          ${num({ rotulo: 'Valor nas erradas', valor: r.valor_nas_erradas != null ? moeda(r.valor_nas_erradas) : '—', tom: 'atento' })}
+          ${num({ rotulo: 'Erradas já encerradas', valor: r.erradas_encerradas ?? '—', nota: `${r.erradas_em_andamento ?? '—'} ainda corrigíveis`, tom: 'atento' })}
+        </div>
+        ${r.por_sigco ? `<div class="grade"><div class="quadro"><header><h3>Obras de RL/RT por SIGCO</h3></header>${barras(Object.entries(r.por_sigco).sort((x, y) => y[1] - x[1]).slice(0, 10).map(([k, v]) => ({ rotulo: k || '(vazio)', total: v })))}</div></div>` : ''}
+        ${(sg.obras || []).filter((o) => o.veredito === 'sigco_errado').length ? `
+          <h3 style="margin:26px 0 14px;border-bottom:1px solid var(--tinta);padding-bottom:5px;font-size:14.5px">Obras no projeto errado</h3>
+          <div class="cartas">${(sg.obras || []).filter((o) => o.veredito === 'sigco_errado').slice(0, 60).map((o) => `
+            <button class="carta" ${o.ativo_ligado ? `data-ativo="${esc(o.ativo_ligado)}"` : ''}>
+              <div class="topo-carta"><span class="cod">${esc(o.num_obra)}</span>
+                <span class="selo ${o.tipo === 'regulador' ? 'destaque' : 'neutro'}">${esc(o.tipo || '?')}</span>
+                <span class="atraso">SIGCO ${esc(o.sigco || '—')} → devia ${esc(o.sigco_certo || '—')}</span></div>
+              <div class="onde">${esc(o.status || '')}</div>
+              <p>${esc((o.descricao_curta || '').slice(0, 160))}</p>
+            </button>`).join('')}</div>` : ''}
+        ${(sg.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas</strong>${(sg.premissas || []).map(esc).join('<br>')}</div>` : ''}
+      </section>`);
+    } else partes.push(pendente('Auditoria de SIGCO'));
+
+    if (fl) {
+      const ag = fl.agregado || {};
+      partes.push(`<section class="bloco"><h3>Fluxo de repasse dos 129</h3>
+        <div class="numeros">
+          ${num({ rotulo: 'Atrasados no COCM', valor: ag.atrasados_cocm ?? '—', nota: 'material entregue, sem previsão dada', tom: 'critico' })}
+          ${num({ rotulo: 'Quebras de fluxo', valor: ag.quebras ? Object.values(ag.quebras).reduce((s, v) => s + v, 0) : '—', nota: 'repasse sem rastro ou buraco >60 dias', tom: 'atento' })}
+        </div>
+        <div class="grade">
+          ${ag.por_estagio ? `<div class="quadro"><header><h3>Onde cada ativo está</h3></header>${barras(Object.entries(ag.por_estagio).sort((x, y) => y[1] - x[1]).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+          ${ag.tempos_medianos_dias ? `<div class="quadro"><header><h3>Tempo mediano entre etapas (dias)</h3></header>${barras(Object.entries(ag.tempos_medianos_dias).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+        </div>
+        ${(fl.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas</strong>${(fl.premissas || []).map(esc).join('<br>')}</div>` : ''}
+        <p style="margin-top:16px;font-size:13.5px;color:var(--tinta-2)">O fluxo completo de cada ativo — etapas, datas e quebras — está na ficha do equipamento. Busque o ativo e abra.</p>
+      </section>`);
+    } else partes.push(pendente('Fluxo de repasse'));
+
+    html = partes.join('');
+  }
+
   if (id === 'metodo') html = cabecaColecao('Metodologia', 'De onde vem cada número e o que ele não prova.') + prosaMetodo();
 
   paginaLeitura(html, 'colecao');
@@ -954,6 +1076,16 @@ function prosaMetodo() {
       <li>Quando o texto não sustenta uma conclusão, o campo fica como não informado.</li>
       <li>Cada registro carrega um nível de confiança da leitura, visível na ficha.</li>
     </ul>
+
+    <h3>A missão DCMD e suas premissas</h3>
+    <p>As contagens de concluídas em 2026, a auditoria de SIGCO e o fluxo de repasse foram
+    produzidas sobre a base completa de SS/OS (352 mil linhas, das quais 6.305 de religador e
+    regulador) e o extrato do AIC de 07/08/2026 (124 mil obras, 2.386 ligadas a RL/RT), por
+    quatro análises independentes. <strong>Cada uma registra as próprias premissas</strong>,
+    exibidas junto dos números na coleção Missão DCMD. Duas premissas do próprio usuário:
+    parecer «em processo de aquisição» não implica EMD emitida — a EMD nasce quando a compra
+    vira requisição; e material entregue ao COCM sem previsão de execução dada conta como
+    atrasado.</p>
 
     <h3>Como as planilhas foram casadas</h3>
     <p>Pelo <strong>código do ativo</strong>, não pela SS. As planilhas usam numerações de

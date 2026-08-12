@@ -23,7 +23,7 @@ ORDEM_CRITICIDADE = ["Muito Alta", "Alta", "Média", "Baixa", "Sem classificaç�
 
 # Gravidade de cada tipo de divergência, usada para ordenar a lista no site.
 GRAVIDADE = {
-    "Aquisição sem requisição": "Crítica",
+    "Em aquisição, ainda sem EMD": "Baixa",
     "SS atribuída a outro ativo": "Crítica",
     "Ativo divergente dentro do EMD": "Crítica",
     "Substituição feita, SS aberta": "Alta",
@@ -243,15 +243,19 @@ def cruzar(registros_criticidade, registros_emd):
                       f"equipamento errado. O campo Posto COEP «{emd.get('Posto COEP') or '—'}» "
                       f"é o desempate.")
 
-    # 10. declarado em aquisição sem nenhuma linha no EMD
+    # 10. declarado em aquisição e ainda sem linha no EMD.
+    # Premissa do usuário (12/08): "Em processo de aquisição" NÃO implica EMD emitida —
+    # a EMD só nasce quando a compra vira requisição de material. Portanto isso não é
+    # divergência crítica; é acompanhamento do funil de compra.
     for crit in registros_criticidade:
         em_aquisicao = "aquisi" in crit["parecer_coep"].lower()
         if em_aquisicao and crit["ativo"] not in emd_por_ativo:
-            registrar(crit["ativo"], "Aquisição sem requisição", "Parecer COEP",
+            registrar(crit["ativo"], "Em aquisição, ainda sem EMD", "Parecer COEP",
                       "sem linha na planilha de EMD", crit["parecer_coep"],
-                      f"O Parecer COEP diz «{crit['parecer_coep']}», mas o ativo não aparece "
-                      f"em nenhuma linha da planilha de EMD — não há requisição de material "
-                      f"correspondente no arquivo analisado.")
+                      f"O Parecer COEP diz «{crit['parecer_coep']}» e o ativo ainda não tem "
+                      f"linha de EMD. Pela regra do fluxo isso é esperado durante a compra — "
+                      f"a EMD nasce quando o material vira requisição. Vale acompanhar a "
+                      f"conversão, não tratar como erro.")
 
     divergencias.sort(key=lambda d: (
         ["Crítica", "Alta", "Média", "Baixa"].index(d["gravidade"]),

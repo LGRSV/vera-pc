@@ -29,6 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from conclusoes import montar as montar_conclusoes  # noqa: E402
 from cruzamento_emd import cruzar, ler_emd  # noqa: E402
 from gestao_equipamentos import carregar as carregar_gestao  # noqa: E402
+from missao import anotar_registros, carregar as carregar_missao  # noqa: E402
 from plano_compras import conferir, ler_plano, montar_resumo  # noqa: E402
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -399,6 +400,9 @@ def main():
     meta = montar_meta(registros, alertas, divergencias, emd_por_ativo, lotes)
     meta["compras"] = montar_resumo(itens_compra, achados_compra, emd_por_ativo)
     meta["gestao"] = resumo_gestao
+    pacote_missao = carregar_missao()
+    anotar_registros(registros, pacote_missao)
+    meta["missao"] = pacote_missao
     meta["conclusao"] = montar_conclusoes(registros)
 
     ativos_com_alerta = {a["ativo"] for a in alertas}
