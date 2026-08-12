@@ -1393,6 +1393,11 @@ function prosaMetodo() {
       não entram nos gráficos de categoria de defeito.</li>
       <li>As divergências apontadas são indícios para verificação com as áreas, não conclusões
       administrativas.</li>
+      <li>A aba Planilha1 da Gestão de Equipamentos guarda, abaixo de uma linha em branco, um
+      segundo bloco sem cabeçalho (pares de ativos e material de compra) cujas colunas não
+      correspondem ao cabeçalho de cima. Esse bloco é <strong>ignorado na leitura</strong> —
+      lido como se fosse a tabela principal, punha o número de outro ativo no campo
+      «SS no SGM» de 65 fichas (defeito corrigido em 12/08).</li>
     </ul></div>`;
 }
 

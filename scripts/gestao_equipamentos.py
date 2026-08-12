@@ -126,16 +126,27 @@ def data_de(valor):
     return None
 
 
-def _linhas(planilha):
-    """Lê a aba assumindo cabeçalho na primeira linha."""
+def _linhas(planilha, ate_vazia=False):
+    """Lê a aba assumindo cabeçalho na primeira linha.
+
+    ate_vazia=True encerra a leitura no primeiro vazio: a Planilha1 e a Plan1
+    guardam, abaixo de uma linha em branco, um segundo bloco sem cabeçalho
+    (pares de ativos e material de compra) cujas colunas não correspondem ao
+    cabeçalho de cima — lidas como se fossem, punham o número de OUTRO ativo
+    no campo "SS SGM" de 65 fichas.
+    """
     bruto = list(planilha.iter_rows(values_only=True))
     if not bruto:
         return []
     cabecalho = [texto(c) for c in bruto[0]]
-    return [
-        {cabecalho[i]: linha[i] for i in range(len(cabecalho)) if cabecalho[i]}
-        for linha in bruto[1:]
-    ]
+    linhas = []
+    for linha in bruto[1:]:
+        if ate_vazia and not any(texto(c) for c in linha):
+            break
+        linhas.append(
+            {cabecalho[i]: linha[i] for i in range(len(cabecalho)) if cabecalho[i]}
+        )
+    return linhas
 
 
 def carregar(ativos_validos):
@@ -193,7 +204,7 @@ def carregar(ativos_validos):
         registro["ss"] = dados_ss
 
     # --- modelo, status de gestão e valor previsto ---
-    for linha in _linhas(livro["Planilha1"]):
+    for linha in _linhas(livro["Planilha1"], ate_vazia=True):
         registro = alvo(linha.get("Ativo"))
         if registro is None:
             continue
@@ -211,7 +222,7 @@ def carregar(ativos_validos):
         registro.setdefault("gestao", {}).update({k: v for k, v in gestao.items() if v})
 
     # --- dias pendente ---
-    for linha in _linhas(livro["Plan1"]):
+    for linha in _linhas(livro["Plan1"], ate_vazia=True):
         registro = alvo(linha.get("Ativo"))
         if registro is None:
             continue
