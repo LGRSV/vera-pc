@@ -9,9 +9,10 @@ Duas vias contam um ativo como tratado:
 Regra do gestor (12/08/2026), refinada no mesmo dia: um candidato só conta como tratado
 se o ativo NÃO tiver demanda aberta — pela lógica das cadeias (demandas.py): SS PENDENTE
 de qualquer idade bloqueia; SS REPASSADA consumida por sucessora não bloqueia; rotina de
-bateria/cadastro não bloqueia. E a terceira via, também do gestor: ativo com SS cancelada
-e NENHUMA demanda aberta = "provável resolvido" (a demanda morreu cancelada e nada
-reabriu — muito provavelmente foi resolvido em campo).
+bateria/cadastro não bloqueia. E, por decisão do gestor no mesmo dia: ativo com SS
+cancelada e NENHUMA demanda aberta CONTA COMO cancelada em operação — o cancelamento sem
+reabertura indica equipamento operando. A origem fica marcada (confirmada pelo COI, via
+leitura M5, ou inferida pela não-reincidência).
 """
 
 import datetime
@@ -26,9 +27,10 @@ DATA_REF = datetime.date(2026, 8, 12)
 PREMISSAS = [
     "Realizada (confirmada) = obra principal encerrada no AIC (M4) OU cancelamento "
     "confirmado em operação pelo COI (M5), sem demanda aberta do mesmo ativo.",
-    "Provável resolvido = ativo com SS cancelada (não-rotina) e nenhuma demanda aberta "
-    "— regra do gestor de 12/08: cancelada sem reincidência muito provavelmente foi "
-    "resolvida em campo. Nível separado das confirmadas, porque não há prova positiva.",
+    "Cancelada em operação tem duas origens, ambas contando como realizada por decisão "
+    "do gestor (12/08): confirmada pelo COI no texto do cancelamento (leitura M5) ou "
+    "inferida — SS cancelada (não-rotina) sem nenhuma demanda aberta no ativo. A origem "
+    "fica marcada em cada ficha.",
     "Demanda aberta = cadeia com SS PENDENTE (qualquer idade) ou repasse pendurado, "
     "excluída rotina de bateria/cadastro. Repassada consumida por sucessora não bloqueia.",
     "Cancelamentos com resposta 'FICOU EM OPERAÇÃO? NÃO' no formulário do DMSL não contam "
@@ -57,11 +59,10 @@ def montar(registros):
         "premissas": PREMISSAS + list((m5 or {}).get("premissas", [])),
         "m5_disponivel": m5 is not None,
         "total": 0,
-        "provaveis": 0,
         "por_via": {"AIC": 0, "Cancelada em operação": 0, "Ambas": 0},
+        "por_origem_cancelamento": {"COI confirmou": 0, "Sem reincidência": 0},
         "bloqueadas_por_demanda_aberta": 0,
         "lista": [],
-        "lista_provaveis": [],
         "bloqueadas": [],
     }
 
@@ -94,8 +95,19 @@ def montar(registros):
         abertas = [d for d in demandas if d.get("situacao") == "aberta" and not d.get("rotina")]
         canceladas = [d for d in demandas if d.get("situacao") == "cancelada" and not d.get("rotina")]
 
+        origem_cancelamento = None
+        if m5_dado:
+            origem_cancelamento = "COI confirmou"
+        elif canceladas and not abertas:
+            # Decisão do gestor: cancelada sem reincidência = cancelada em operação.
+            vias.append("Cancelada em operação")
+            evidencias.append(
+                f"{len(canceladas)} demanda(s) cancelada(s) e nenhuma demanda aberta no "
+                f"ativo — sem reincidência, equipamento dado como operando"
+            )
+            origem_cancelamento = "Sem reincidência"
+
         veredito = bool(vias) and not abertas
-        provavel = (not vias) and bool(canceladas) and not abertas
 
         bloqueio = None
         if abertas:
@@ -111,35 +123,27 @@ def montar(registros):
 
         reg["realizada"] = {
             "veredito": veredito,
-            "provavel": provavel,
-            "vias": vias if vias else (["Cancelada sem reincidência"] if provavel else []),
-            "evidencias": evidencias if evidencias else (
-                [f"{len(canceladas)} demanda(s) cancelada(s) e nenhuma demanda aberta no ativo"]
-                if provavel else []),
+            "vias": vias,
+            "origem_cancelamento": origem_cancelamento,
+            "evidencias": evidencias,
             "demanda_bloqueando": bloqueio,
             "confianca_m5": (m5_dado or {}).get("confianca"),
         }
 
         if veredito:
             resumo["total"] += 1
-            chave = "Ambas" if len(vias) == 2 else vias[0]
+            chave = "Ambas" if len(set(vias)) == 2 else vias[0]
             resumo["por_via"][chave] += 1
+            if origem_cancelamento:
+                resumo["por_origem_cancelamento"][origem_cancelamento] += 1
             resumo["lista"].append({
                 "ativo": ativo,
                 "localidade": reg["localidade"],
                 "tipo": reg["tipo_nome"],
                 "criticidade": reg["criticidade"],
-                "vias": vias,
+                "vias": sorted(set(vias)),
+                "origem_cancelamento": origem_cancelamento,
                 "evidencia": evidencias[0] if evidencias else "",
-            })
-        elif provavel:
-            resumo["provaveis"] += 1
-            resumo["lista_provaveis"].append({
-                "ativo": ativo,
-                "localidade": reg["localidade"],
-                "tipo": reg["tipo_nome"],
-                "criticidade": reg["criticidade"],
-                "canceladas": len(canceladas),
             })
         elif vias:
             resumo["bloqueadas_por_demanda_aberta"] += 1

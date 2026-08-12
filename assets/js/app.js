@@ -153,7 +153,6 @@ async function carregar() {
     ['Em aberto', m.total_abertos, ''],
     ['Muito alta', m.por_criticidade.find((i) => i.rotulo === 'Muito Alta')?.total ?? 0, 'crit'],
     ['Realizadas', m.realizadas?.total ?? m.conclusao.confirmadas, ''],
-    ...(m.realizadas?.provaveis != null ? [['Prováveis', m.realizadas.provaveis, '']] : []),
     ...(chipDcmd != null ? [['DCMD 2026', chipDcmd, '']] : []),
   ].map(([k, v, c]) => `<div class="${c}"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
 
@@ -489,7 +488,7 @@ function abrirAtivo(ativo) {
     s?.faixa_potencia && s.faixa_potencia !== 'Não se aplica' ? `<span class="selo neutro">${esc(s.faixa_potencia)}</span>` : '',
     s?.classe_tensao ? `<span class="selo neutro">${esc(s.classe_tensao)}</span>` : '',
     e.realizada?.veredito ? '<span class="selo c-baixa">✓ Realizada</span>' : '',
-    e.realizada?.provavel ? '<span class="selo c-media">~ Provável resolvido</span>' : '',
+    e.realizada?.origem_cancelamento === 'Sem reincidência' ? '<span class="selo neutro">sem reincidência</span>' : '',
     c ? `<span class="selo ${c.situacao === 'Confirmada no AIC' ? 'c-baixa' : c.situacao === 'Indício contestado' ? 'c-alta' : 'neutro'}">${esc(c.situacao)}</span>` : '',
   ].filter(Boolean).join('');
 
@@ -503,12 +502,12 @@ function abrirAtivo(ativo) {
     const r = e.realizada;
     partes.push(bloco('Foi realizada?', `
       <p class="destaque-texto">${r.veredito
-        ? 'Sim — pela régua do gestor: ' + esc(r.vias.join(' e ')) + ', sem demanda aberta no ativo.'
-        : r.provavel
-          ? 'Provavelmente — a demanda morreu cancelada e nada reabriu no ativo (regra do gestor de 12/08). Sem prova positiva, fica no nível de provável.'
-          : (r.vias.length
-            ? 'Candidata (' + esc(r.vias.join(' e ')) + '), mas o ativo ainda tem demanda aberta.'
-            : 'Não — nenhuma via se aplica: sem AIC encerrado, sem cancelamento em operação, e há demanda aberta ou nenhuma cancelada.')}</p>
+        ? 'Sim — pela régua do gestor: ' + esc(r.vias.join(' e ')) +
+          (r.origem_cancelamento === 'Sem reincidência' ? ' (inferida: cancelada e nada reabriu no ativo)' : '') +
+          ', sem demanda aberta.'
+        : (r.vias.length
+          ? 'Candidata (' + esc(r.vias.join(' e ')) + '), mas o ativo ainda tem demanda aberta.'
+          : 'Não — nenhuma via se aplica: sem AIC encerrado, sem cancelamento em operação, e há demanda aberta ou nenhuma cancelada.')}</p>
       ${r.evidencias.map((ev) => `<div class="item-linha"><span>${esc(ev)}</span><b>evidência</b></div>`).join('')}
       ${r.demanda_bloqueando ? `<div class="nota branda" style="margin-top:10px">
         <strong>Demanda aberta bloqueando</strong>${esc(r.demanda_bloqueando.numero_ss || '—')} (${esc(r.demanda_bloqueando.equipe || '—')}) · ${esc((r.demanda_bloqueando.situacao || '').replace('SS ', ''))} · aberta em ${dataBr(r.demanda_bloqueando.abertura)}</div>` : ''}
@@ -649,8 +648,13 @@ function abrirAtivo(ativo) {
       </div>`));
   }
 
+  const demAberta = (e.demandas || []).find((d) => d.situacao === 'aberta' && !d.rotina);
+  const ssAtual = demAberta
+    ? (demAberta.ss.filter((x) => x.situacao !== 'SS ATENDIDA' && x.situacao !== 'SS CANCELADA').slice(-1)[0] || demAberta.ss.slice(-1)[0])
+    : null;
   partes.push(bloco('Registro na planilha de criticidade', `<div class="campos">
-    ${campo('SS aberta', esc(e.ss || '—'))}
+    ${campo('SS aberta atual (base SS/OS)', ssAtual ? esc(`${ssAtual.numero} · ${ssAtual.equipe}`) : 'nenhuma demanda aberta')}
+    ${campo('SS na planilha', esc(e.ss || '—'))}
     ${campo('Parecer COEP', esc(e.parecer_coep || '—'))}
     ${campo('Check de conclusão', esc(e.check || '—'))}
     ${campo('Observação', esc(e.observacao || '—'))}
@@ -789,34 +793,29 @@ function abrirColecao(id) {
     const r = m.realizadas || {};
     html = cabecaColecao('Conclusões', 'Quantos equipamentos já foram realizados — e o quanto disso é certeza.') +
       `<div class="numeros">
-        ${num({ rotulo: 'REALIZADAS (confirmadas)', valor: r.total ?? '—', nota: 'AIC encerrado ou COI confirmou operação', tom: 'bom' })}
-        ${num({ rotulo: 'PROVÁVEIS RESOLVIDOS', valor: r.provaveis ?? '—', nota: 'cancelada sem reincidência no ativo', tom: 'bom' })}
-        ${num({ rotulo: 'Tratados no total', valor: (r.total ?? 0) + (r.provaveis ?? 0), nota: 'confirmadas + prováveis' })}
+        ${num({ rotulo: 'REALIZADAS', valor: r.total ?? '—', nota: 'pela régua do gestor, abaixo', tom: 'bom' })}
+        ${num({ rotulo: 'Via AIC', valor: r.por_via ? r.por_via.AIC + r.por_via.Ambas : '—', nota: 'obra encerrada no AIC' })}
+        ${num({ rotulo: 'Cancelada em operação · COI', valor: r.por_origem_cancelamento?.['COI confirmou'] ?? '—', nota: 'confirmação no texto do cancelamento' })}
+        ${num({ rotulo: 'Cancelada em operação · sem reincidência', valor: r.por_origem_cancelamento?.['Sem reincidência'] ?? '—', nota: 'cancelada e nada reabriu no ativo' })}
         ${num({ rotulo: 'Candidatas bloqueadas', valor: r.bloqueadas_por_demanda_aberta ?? '—', nota: 'o ativo ainda tem demanda aberta', tom: 'atento' })}
       </div>
       <div class="nota calma" style="margin-bottom:24px">
         <strong>A régua das realizadas</strong>
-        Confirmada = obra encerrada no AIC (07/08/2026) OU cancelamento com o COI confirmando
-        operação — sem nenhuma demanda aberta no ativo. Provável = a demanda morreu cancelada e
-        nada reabriu (regra do gestor de 12/08). Bloqueio por demanda aberta usa a lógica das
-        cadeias: pendente de qualquer idade bloqueia; repassada consumida e rotina de bateria não
-        bloqueiam. Conclusão física sem encerramento contábil não conta até o AIC registrar.
+        Realizada = obra encerrada no AIC (07/08/2026) OU cancelada em operação — que tem duas
+        origens, ambas valendo por decisão do gestor (12/08): o COI confirmou no texto do
+        cancelamento, ou a inferência de não-reincidência (cancelada e nada reabriu no ativo).
+        Bloqueio por demanda aberta usa a lógica das cadeias: pendente de qualquer idade
+        bloqueia; repassada consumida e rotina de bateria não bloqueiam. Conclusão física sem
+        encerramento contábil não conta até o AIC registrar.
       </div>
       ${(r.lista || []).length ? `<section class="bloco"><h3>As realizadas</h3><div class="cartas">
         ${r.lista.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
           <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
             <span class="selo c-baixa">Realizada</span>
-            <span class="selo neutro">${esc(x.vias.join(' + '))}</span></div>
+            <span class="selo neutro">${esc(x.vias.join(' + '))}</span>
+            ${x.origem_cancelamento ? `<span class="selo ${x.origem_cancelamento === 'COI confirmou' ? 'destaque' : 'neutro'}">${esc(x.origem_cancelamento)}</span>` : ''}</div>
           <div class="onde">${esc(x.localidade)} · ${esc(x.tipo)}</div>
           <p>${esc(x.evidencia)}</p></button>`).join('')}</div></section>` : ''}
-      ${(r.lista_provaveis || []).length ? `<section class="bloco"><h3>Prováveis resolvidos (cancelada sem reincidência)</h3>
-        <div class="cartas">${r.lista_provaveis.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
-          <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
-            <span class="selo c-media">~ Provável</span>
-            <span class="selo neutro">${esc(x.tipo)}</span></div>
-          <div class="onde">${esc(x.localidade)} · criticidade ${esc(x.criticidade)}</div>
-          <p>${x.canceladas} demanda(s) cancelada(s) e nenhuma demanda aberta no ativo.</p>
-        </button>`).join('')}</div></section>` : ''}
       ${(r.bloqueadas || []).length ? `<section class="bloco"><h3>Candidatas bloqueadas por demanda aberta</h3>
         <div class="cartas">${r.bloqueadas.map((x) => `<button class="carta" data-ativo="${esc(x.ativo)}">
           <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
@@ -1291,6 +1290,13 @@ function prosaMetodo() {
     parecer «em processo de aquisição» não implica EMD emitida — a EMD nasce quando a compra
     vira requisição; e material entregue ao COCM sem previsão de execução dada conta como
     atrasado.</p>
+
+    <h3>Hierarquia de fontes</h3>
+    <p>Definida pelo gestor em 12/08: o <strong>último Parecer COEP</strong> vale o que está na
+    planilha de criticidade (a coluna é mantida atualizada); a <strong>SS aberta atual</strong> de
+    cada ativo vale o que está na base de SS/OS do SGM — a coluna de SS da planilha pode estar
+    defasada. A ficha de cada ativo mostra as duas lado a lado, e as cadeias de demanda usam
+    sempre a base de SS/OS.</p>
 
     <h3>Como as planilhas foram casadas</h3>
     <p>Pelo <strong>código do ativo</strong>, não pela SS. As planilhas usam numerações de
