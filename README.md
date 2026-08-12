@@ -1,4 +1,4 @@
-# Equipamentos Especiais — console de operação
+# Equipamentos Especiais — interface de pesquisa
 
 Site estático que consolida a situação dos religadores e reguladores de tensão
 indisponíveis da ETO, cruzando quatro planilhas que hoje vivem separadas:
@@ -14,20 +14,16 @@ Posição de **12/08/2026**.
 
 ## O que o site mostra
 
-- **Visão geral** — 129 equipamentos, distribuição por criticidade, categoria de defeito,
-  faixa de potência, classe de tensão, regional, polo, responsável pela próxima ação e
-  situação operacional em campo.
-- **Equipamentos** — painel dividido: a lista filtrável à esquerda e a ficha do ativo
-  selecionado à direita, com a descrição integral da SS, a categorização do defeito, a
-  especificação técnica, as coordenadas, a requisição de EMD e os itens de compra.
-- **Parecer COEP** — o que já deveria estar concluído: SS de anos anteriores ainda abertas,
-  prazo-limite do sistema estourado, previsões vencidas e SS fechadas com pendência aberta.
-- **Cruzamento EMD** — divergências entre a planilha de requisição e a de criticidade.
-- **Plano de Compras** — o pedido de 17/07/2026, os prazos contratuais (120 dias para
-  religador, 180 para regulador) e a conferência contra as demais planilhas.
-- **Mapa e frota** — localização geográfica dos equipamentos, marca e modelo do parque,
-  idade das SS e a especificação técnica de cada ativo.
-- **Metodologia** — de onde vem cada número e quais são os limites da análise.
+A página abre numa única pergunta — a busca. Digitar filtra os 129 equipamentos por
+qualquer campo (ativo, cidade, SS, defeito, marca, alimentador) e também encontra as
+**coleções**: Conclusões, Parecer COEP, Cruzamento EMD, Plano de compras, Mapa e frota,
+Visão geral e Metodologia. As pastilhas abaixo da busca filtram por situação (em aberto,
+com pendência, com divergência, by-passado…) e por criticidade. Navegação completa por
+teclado: `/` foca a busca, setas percorrem, Enter abre, Esc volta.
+
+Cada equipamento abre numa página de leitura com a resposta à pergunta central — **está
+concluído?** — seguida do defeito, especificação, SS no sistema, requisição, compras,
+coordenadas e a descrição integral da SS.
 
 ## Como rodar
 
@@ -67,6 +63,17 @@ descrição de SS sem categorização correspondente.
 | `scripts/plano_compras.py` | calcula os prazos do pedido e confere o plano contra as demais planilhas |
 | `scripts/gestao_equipamentos.py` | lê a planilha de gestão: coordenadas, especificação e datas reais da SS |
 | `scripts/build_single_file.py` | empacota o site num HTML autocontido |
+
+## O que conta como concluído
+
+Nada é dado como concluído por conta própria. A prova é a obra aparecer no **AIC como
+encerrada**; enquanto o extrato do AIC não estiver em `data/raw/aic_obras.csv` (colunas
+`ativo;obra;situacao;data_encerramento`, separador `;`), o contador de confirmadas fica em
+zero e o resto é indício, pesado por fonte: SGM vale 4, EMD 3, Check e SS 2 cada, Parecer
+COEP 1. Quando algo no mesmo registro desmente o indício — Check pendente, SS ainda aberta,
+prazo estourado — ele vira *contestado* em vez de somar. Hoje: 0 confirmadas, 19 com
+indício forte, 14 contestadas, 8 isoladas, 88 sem indício. Nenhuma das SS tem data de
+término no SGM.
 
 ## Faixa de potência e classe de tensão
 
