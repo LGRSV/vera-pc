@@ -1074,6 +1074,32 @@ function abrirColecao(id) {
       </section>`);
     }
 
+    const oc = m.obra_cruzada;
+    if (oc && (oc.achados || []).length) {
+      const NOMES_OC = {
+        obra_em_dois_ativos: 'Mesma obra em ativos diferentes',
+        obra_ss_vs_emd: 'SS diz um ativo, EMD diz outro',
+        emd_vs_descricao_aic: 'EMD diz um ativo, a descrição da obra cita outro',
+        obra_fantasma: 'Obra declarada que não existe no AIC',
+        m4_vs_ssos: 'Obra principal aparecendo em SS de outro ativo',
+      };
+      partes.push(`<section class="bloco"><h3>Obra × ativo — caminhos inversos</h3>
+        <p style="margin:0 0 14px;color:var(--tinta-2);font-size:13.5px;font-style:italic">
+          Partindo do número da obra e perguntando a quais ativos 58/79 ele está preso em cada
+          fonte (SS/OS, EMD, descrição no AIC). Conferência contra o índice completo do AIC:
+          124.084 obras — e as 202 obras declaradas nas SS existem todas, corrigindo a leitura
+          anterior de que algumas seriam inexistentes (estavam só fora do recorte de RL/RT).</p>
+        <div class="cartas">${oc.achados.map((a) => `<div class="carta" ${a.na_carteira.length ? `data-ativo="${esc(a.na_carteira[0])}"` : 'style="cursor:default"'}>
+          <div class="topo-carta"><span class="cod">${esc(a.obra)}</span>
+            <span class="selo ${a.tipo === 'obra_fantasma' ? 'c-muito-alta' : 'c-alta'}">${esc(NOMES_OC[a.tipo] || a.tipo)}</span>
+            ${a.aic ? `<span class="selo neutro">${esc(a.aic.st.split(':')[0])}${a.aic.sig ? ' · SIGCO ' + esc(a.aic.sig) : ''}</span>` : ''}</div>
+          <p>${esc(a.detalhe)}</p>
+          ${a.na_carteira.length ? `<div class="rodape"><span>na carteira: ${esc(a.na_carteira.join(', '))}</span></div>` : ''}
+        </div>`).join('')}</div>
+        ${(oc.premissas || []).length ? `<div class="nota calma" style="margin-top:14px"><strong>Premissas</strong>${oc.premissas.map(esc).join('<br>')}</div>` : ''}
+      </section>`);
+    }
+
     if (d) {
       const e = d.recorte_estrito || {}, a = d.recorte_amplo || {};
       const ec = e.concluidas_2026 || {}, ee = e.a_entrar || {};

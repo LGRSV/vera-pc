@@ -30,6 +30,7 @@ from conclusoes import montar as montar_conclusoes  # noqa: E402
 from cruzamento_emd import cruzar, ler_emd  # noqa: E402
 from gestao_equipamentos import carregar as carregar_gestao  # noqa: E402
 from missao import anotar_registros, carregar as carregar_missao, enxugar  # noqa: E402
+from obra_cruzada import montar as montar_obra_cruzada  # noqa: E402
 from plano_compras import conferir, ler_plano, montar_resumo  # noqa: E402
 from demandas import montar as montar_demandas  # noqa: E402
 from realizadas import montar as montar_realizadas  # noqa: E402
@@ -408,6 +409,7 @@ def main():
     meta["conclusao"] = montar_conclusoes(registros)
     meta["demandas"] = montar_demandas(registros)
     meta["realizadas"] = montar_realizadas(registros)
+    meta["obra_cruzada"] = montar_obra_cruzada(registros)
 
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}
