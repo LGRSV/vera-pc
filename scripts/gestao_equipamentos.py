@@ -74,6 +74,40 @@ def utm_para_latlon(leste, norte):
     return math.degrees(lat), MERIDIANO_CENTRAL + math.degrees(lon)
 
 
+def faixa_de_potencia(bruto):
+    """
+    Classifica a potência do regulador. O campo aceita valor único ("400") ou um por fase
+    ("167/250/167") nos bancos montados com células de capacidades diferentes — nesse caso
+    a faixa não é um número só, e o banco é marcado como misto.
+    """
+    numeros = [float(n) for n in re.findall(r"\d+(?:[.,]\d+)?", (bruto or "").replace(",", "."))]
+    if not numeros:
+        return "", None
+    if len(set(numeros)) > 1:
+        return "Banco misto", max(numeros)
+    valor = numeros[0]
+    if valor <= 200:
+        return "até 200 kvar", valor
+    if valor <= 300:
+        return "201 a 300 kvar", valor
+    return "301 a 400 kvar", valor
+
+
+def classe_de_tensao(bruto):
+    """Normaliza «34.500», «34,5» e «34.5» para a mesma classe."""
+    achado = re.search(r"\d+(?:[.,]\d+)?", (bruto or "").replace(".", "").replace(",", "."))
+    if not achado:
+        return ""
+    valor = float(achado.group())
+    while valor >= 1000:
+        valor /= 1000
+    if 12 <= valor <= 15:
+        return "13,8 kV"
+    if 30 <= valor <= 40:
+        return "34,5 kV"
+    return f"{valor:g} kV".replace(".", ",")
+
+
 def texto(valor):
     if valor is None:
         return ""
@@ -200,6 +234,8 @@ def carregar(ativos_validos):
             "tipo_instalacao": texto(linha.get("TIPO")),
             "alimentador": texto(linha.get("ALIMENTADOR")),
             "tensao_kv": texto(linha.get("TENSÃO")),
+            "classe_tensao": classe_de_tensao(texto(linha.get("TENSÃO"))),
+            "faixa_potencia": "Não se aplica",
             "estudo": texto(linha.get("ESTUDO")),
             "ajustes": {
                 "Religamentos": texto(linha.get("RELIGAMENTOS")),
@@ -220,12 +256,17 @@ def carregar(ativos_validos):
             continue
         parte_ativa = texto(linha.get("PARTE ATIVA"))
         controlador = texto(linha.get("CONTROLADOR"))
+        potencia_bruta = texto(linha.get("POTÊNCIA [Kvar]"))
+        faixa, potencia_max = faixa_de_potencia(potencia_bruta)
         especificacao = {
             "familia": "Regulador de Tensão",
             "marca_modelo": " / ".join(filter(None, [parte_ativa, controlador])),
             "parte_ativa": parte_ativa,
             "controlador": controlador,
-            "potencia_kvar": texto(linha.get("POTÊNCIA [Kvar]")),
+            "potencia_kvar": potencia_bruta,
+            "faixa_potencia": faixa,
+            "potencia_max_kvar": potencia_max,
+            "classe_tensao": classe_de_tensao(texto(linha.get("TENSÃO PRIMÁRIA [Kv]"))),
             "corrente_a": texto(linha.get("CORRENTE [A]")),
             "tensao_controle_v": texto(linha.get("TENSÃO CONTROLE [V]")),
             "tensao_primaria": texto(linha.get("TENSÃO PRIMÁRIA [Kv]")),
@@ -269,7 +310,24 @@ def resumir(por_ativo):
         if d.get("gestao", {}).get("dias_pendente") is not None
     ]
 
+    def contar(campo, filtro=None):
+        contagem = Counter(
+            d["especificacao"][campo]
+            for d in por_ativo.values()
+            if d.get("especificacao", {}).get(campo)
+            and (filtro is None or d["especificacao"].get("familia") == filtro)
+        )
+        return [{"rotulo": k, "total": v} for k, v in contagem.most_common()]
+
+    ordem_faixa = ["até 200 kvar", "201 a 300 kvar", "301 a 400 kvar", "Banco misto"]
+    por_faixa = sorted(
+        contar("faixa_potencia", "Regulador de Tensão"),
+        key=lambda i: ordem_faixa.index(i["rotulo"]) if i["rotulo"] in ordem_faixa else 99,
+    )
+
     return {
+        "por_faixa_potencia": por_faixa,
+        "por_classe_tensao": contar("classe_tensao"),
         "com_especificacao": sum(1 for d in por_ativo.values() if d.get("especificacao")),
         "com_coordenada": len(com_geo),
         "com_data_ss": len(com_ss),

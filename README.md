@@ -1,4 +1,4 @@
-# Equipamentos Especiais — painel de indisponibilidade
+# Equipamentos Especiais — console de operação
 
 Site estático que consolida a situação dos religadores e reguladores de tensão
 indisponíveis da ETO, cruzando quatro planilhas que hoje vivem separadas:
@@ -15,10 +15,11 @@ Posição de **12/08/2026**.
 ## O que o site mostra
 
 - **Visão geral** — 129 equipamentos, distribuição por criticidade, categoria de defeito,
-  regional, polo, responsável pela próxima ação e situação operacional em campo.
-- **Equipamentos** — tabela filtrável com a ficha completa de cada ativo: a descrição
-  integral da SS, a categorização do defeito, a especificação técnica, as coordenadas, a
-  requisição de EMD e os itens de compra.
+  faixa de potência, classe de tensão, regional, polo, responsável pela próxima ação e
+  situação operacional em campo.
+- **Equipamentos** — painel dividido: a lista filtrável à esquerda e a ficha do ativo
+  selecionado à direita, com a descrição integral da SS, a categorização do defeito, a
+  especificação técnica, as coordenadas, a requisição de EMD e os itens de compra.
 - **Parecer COEP** — o que já deveria estar concluído: SS de anos anteriores ainda abertas,
   prazo-limite do sistema estourado, previsões vencidas e SS fechadas com pendência aberta.
 - **Cruzamento EMD** — divergências entre a planilha de requisição e a de criticidade.
@@ -66,6 +67,22 @@ descrição de SS sem categorização correspondente.
 | `scripts/plano_compras.py` | calcula os prazos do pedido e confere o plano contra as demais planilhas |
 | `scripts/gestao_equipamentos.py` | lê a planilha de gestão: coordenadas, especificação e datas reais da SS |
 | `scripts/build_single_file.py` | empacota o site num HTML autocontido |
+
+## Faixa de potência e classe de tensão
+
+A **faixa de potência** vale só para os reguladores de tensão, que são os que têm capacidade
+em kvar na planilha de gestão — 12 até 200 kvar, 4 entre 201 e 300, 13 entre 301 e 400. O campo
+aceita um valor único ou um por fase; bancos montados com células de capacidades diferentes
+ficam marcados como *banco misto*, porque não cabem numa faixa só.
+
+Os religadores não têm kvar registrado. Para eles a dimensão comparável é a **classe de
+tensão** — 99 equipamentos em 34,5 kV e 28 em 13,8 kV —, que o console também mostra e filtra.
+
+## Atualização automática
+
+Uma Rotina semanal (segundas, 7h de Brasília) atualiza a data de referência, roda o build,
+regera o arquivo único e faz push na mesma branch. Como todos os prazos são calculados contra
+`DATA_REF`, os atrasos ficam corretos sem intervenção manual.
 
 Para atualizar a posição da análise, altere `DATA_REF` em `scripts/build_data.py`
 (e, se o pedido de compra mudar, `DATA_PEDIDO` em `scripts/plano_compras.py`) e rode o
