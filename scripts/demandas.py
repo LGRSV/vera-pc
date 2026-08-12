@@ -40,7 +40,10 @@ PREMISSAS = [
     "até 7 dias após uma SS REPASSADA; aberturas a mais de 180 dias sem elo são ciclos "
     "(demandas) distintos.",
     "Departamento por equipe — regra do gestor (12/08): RD/ENC/DOLP = DCMD; TELE, "
-    "DMSL e SE = DMSL; DEOP, COI e PROT = DEOP; COEP = COEP; cadastro e SCADA fora do fluxo.",
+    "DMSL e SE = DMSL; DEOP, COI e PROT = DEOP; COEP = COEP; SCADA fora do fluxo. "
+    "CADTOC/CADCH dividida pelo TIPOSS (decisão de 12/08 com os textos na mesa): "
+    "Proteção & Seletividade = ajuste (DEOP); demais = Cadastro, a cauda da demanda "
+    "(atualizar mapa/GIS depois da troca) — aparece no caminho, não muda a contagem DCMD.",
     "Troca preventiva de bateria, atualização cadastral, uso mútuo e comissionamento de "
     "obra nova não são ação do DCMD — ficam fora do recorte do gestor (regra de 12/08: "
     "se foi só bateria pelo DMSL, o ativo nem passou pelo posto).",
@@ -57,9 +60,16 @@ ROTINA = re.compile(
 )
 
 
-def departamento(equipe):
+def departamento(equipe, tiposs=""):
     e = (equipe or "").upper()
-    if "CADTOC" in e or "CADCH" in e or "SCADA" in e or "AUTOM" in e:
+    if "CADTOC" in e or "CADCH" in e:
+        # CADTOC é mistura, e o TIPOSS separa (12/08, com os textos na mesa):
+        # Proteção & Seletividade tramitando no cadastro técnico é ajuste -> DEOP;
+        # o resto é a cauda cadastral da demanda (atualizar mapa/GIS após a troca).
+        if "PROTE" in (tiposs or "").upper():
+            return "DEOP"
+        return "Cadastro"
+    if "SCADA" in e or "AUTOM" in e:
         return "Fora do fluxo"
     if "TELE" in e or "DMSL" in e or re.search(r"\bETO-SE\b|ETO-SE-", e):
         return "DMSL"
@@ -122,7 +132,7 @@ def resumir_demanda(dem):
     ss = dem["ss"]
     postos = []
     for linha in ss:
-        d = departamento(linha.get("COD_EQUIPE"))
+        d = departamento(linha.get("COD_EQUIPE"), linha.get("TIPOSS"))
         if not postos or postos[-1] != d:
             postos.append(d)
     atendidas = [l for l in ss if l.get("SITUACAO_SS") == "SS ATENDIDA"]
@@ -132,10 +142,10 @@ def resumir_demanda(dem):
     ultima = ss[-1]
     repasse_pendurado = ultima.get("SITUACAO_SS") == "SS REPASSADA"
     if pendentes:
-        posto_atual = departamento(pendentes[-1].get("COD_EQUIPE"))
+        posto_atual = departamento(pendentes[-1].get("COD_EQUIPE"), pendentes[-1].get("TIPOSS"))
         situacao = "aberta"
     elif repasse_pendurado:
-        posto_atual = departamento(ultima.get("COD_EQUIPE"))
+        posto_atual = departamento(ultima.get("COD_EQUIPE"), ultima.get("TIPOSS"))
         situacao = "aberta"
     elif atendidas:
         posto_atual = None
@@ -153,7 +163,7 @@ def resumir_demanda(dem):
             {
                 "numero": l.get("NUMERO_SS"),
                 "equipe": l.get("COD_EQUIPE"),
-                "departamento": departamento(l.get("COD_EQUIPE")),
+                "departamento": departamento(l.get("COD_EQUIPE"), l.get("TIPOSS")),
                 "situacao": l.get("SITUACAO_SS"),
                 "abertura": (_dt(l.get("DATA_ABERTURA_SS", "")) or datetime.datetime.min).strftime("%Y-%m-%d"),
             }
