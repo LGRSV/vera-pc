@@ -22,6 +22,7 @@ ARQUIVOS_DADOS = {
     "divergencias": "divergencias_emd.json",
     "compras": "plano_compras.json",
     "meta": "meta.json",
+    "geo": "geo_tocantins.json",
 }
 
 

@@ -60,6 +60,19 @@ const COLECOES = [
   { id: 'metodo', nome: 'Metodologia', desc: 'De onde vem cada número e o que ele não prova', termos: 'metodologia metodo fonte limite como foi feito' },
 ];
 
+function bucketParecer(p) {
+  const t = puro(p || '');
+  if (!t.trim()) return 'Sem parecer';
+  if (t.includes('aquisi')) return 'Em aquisição';
+  if (t.includes('logistic')) return 'Em logística';
+  if (t.includes('comission')) return 'Aguardando comissionamento';
+  if (t.includes('ajust')) return 'Em fase de ajustes';
+  if (t.includes('entregue')) return 'Entregue ao COCM';
+  if (t.includes('conclu') || t.includes('substitu')) return 'Concluído/substituído';
+  if (t.includes('dmsl') || t.includes('laudo')) return 'Aguardando DMSL/laudo';
+  return 'Outros pareceres';
+}
+
 const estado = {
   equipamentos: [], alertas: [], divergencias: [], compras: [], meta: null,
   termo: '', facetas: {}, limite: 40, selecionado: -1, vista: 'busca',
@@ -110,14 +123,15 @@ async function carregar() {
     Object.assign(estado, DADOS_EMBUTIDOS);
   } else {
     try {
-      const [equipamentos, alertas, divergencias, compras, meta] = await Promise.all([
+      const [equipamentos, alertas, divergencias, compras, meta, geo] = await Promise.all([
         fetch('data/equipamentos.json').then((r) => r.json()),
         fetch('data/alertas_coep.json').then((r) => r.json()),
         fetch('data/divergencias_emd.json').then((r) => r.json()),
         fetch('data/plano_compras.json').then((r) => r.json()),
         fetch('data/meta.json').then((r) => r.json()),
+        fetch('data/geo_tocantins.json').then((r) => r.json()).catch(() => null),
       ]);
-      Object.assign(estado, { equipamentos, alertas, divergencias, compras, meta });
+      Object.assign(estado, { equipamentos, alertas, divergencias, compras, meta, geo });
     } catch (erro) {
       $('#palco').innerHTML = '<div class="prosa"><h3>Não foi possível carregar os dados</h3>' +
         '<p>Os arquivos em <code>data/</code> precisam ser servidos por HTTP. Rode ' +
@@ -155,6 +169,7 @@ const FACETAS = [
   { id: 'potencia', rotulo: 'Potência', valores: null, de: (e) => e.especificacao?.faixa_potencia },
   { id: 'tensao', rotulo: 'Tensão', valores: null, de: (e) => e.especificacao?.classe_tensao },
   { id: 'conclusao', rotulo: 'Conclusão', valores: null, de: (e) => e.conclusao?.situacao },
+  { id: 'parecer', rotulo: 'Parecer COEP', valores: null, de: (e) => bucketParecer(e.parecer_coep) },
 ];
 
 function montarFacetas() {
@@ -167,6 +182,15 @@ function montarFacetas() {
   ];
   estado.atalhos = atalhos;
 
+  const ordemParecer = ['Em aquisição', 'Em logística', 'Entregue ao COCM',
+    'Aguardando comissionamento', 'Em fase de ajustes', 'Aguardando DMSL/laudo',
+    'Concluído/substituído', 'Outros pareceres', 'Sem parecer'];
+  const chipsParecer = ordemParecer
+    .map((bkt) => [bkt, estado.equipamentos.filter((e) => bucketParecer(e.parecer_coep) === bkt).length])
+    .filter(([, n]) => n)
+    .map(([bkt, n]) => `<button class="pastilha" data-faceta="parecer" data-valor="${esc(bkt)}" aria-pressed="false">${esc(bkt)} <b>${n}</b></button>`)
+    .join('');
+
   const html = atalhos.map((a) => {
     const n = estado.equipamentos.filter(a.teste).length;
     return `<button class="pastilha" data-atalho="${a.id}" aria-pressed="false">${esc(a.rotulo)} <b>${n}</b></button>`;
@@ -175,7 +199,7 @@ function montarFacetas() {
     .map((c) => {
       const n = estado.equipamentos.filter((e) => e.criticidade === c).length;
       return `<button class="pastilha" data-faceta="criticidade" data-valor="${esc(c)}" aria-pressed="false">${esc(c)} <b>${n}</b></button>`;
-    }).join('') +
+    }).join('') + chipsParecer +
   `<button class="pastilha limpar" id="limpar-facetas" hidden>limpar</button>`;
 
   $('#fichas').innerHTML = html;
@@ -494,6 +518,18 @@ function abrirAtivo(ativo) {
       <div class="nota ${['Média', 'Baixa'].includes(x.gravidade) ? 'branda' : ''}">
         <strong>${esc(x.tipo_alerta || x.tipo)}${x.dias_atraso ? ` · ${x.dias_atraso} dias de atraso` : ''}</strong>
         ${esc(x.detalhe)}</div>`).join('')));
+  }
+
+  if (e.demandas?.length) {
+    const naoRotina = e.demandas.filter((d) => !d.rotina);
+    if (naoRotina.length) {
+      partes.push(bloco('Demandas encadeadas (a lógica do SGM)', naoRotina.slice(0, 6).map((d) => `
+        <div class="nota ${d.situacao === 'aberta' ? (d.repasse_pendurado ? '' : 'branda') : 'calma'}" style="margin-bottom:10px">
+          <strong>${esc(d.postos.join(' → '))} · ${esc(d.situacao)}${d.posto_atual ? ' no ' + esc(d.posto_atual) : ''}${d.repasse_pendurado ? ' · repasse pendurado' : ''}</strong>
+          ${d.ss.map((x) => `${esc(x.numero)} (${esc(x.equipe)}, ${esc(x.situacao).replace('SS ', '')})`).join(' → ')}
+          ${d.abertura ? `<br>aberta em ${dataBr(d.abertura)}${d.termino ? ' · concluída em ' + dataBr(d.termino) : ''}` : ''}
+        </div>`).join('')));
+    }
   }
 
   if (e.fluxo) {
@@ -889,6 +925,7 @@ function abrirColecao(id) {
           <button class="pastilha" data-modo="criticidade">Ver por criticidade</button>
           <button class="pastilha" data-modo="tipo">Ver por tipo (RL × RT)</button>
           <button class="pastilha" data-modo="situacao">Ver por situação</button>
+          <button class="pastilha" id="alternar-estradas">Estradas</button>
         </div>
         <div class="mapa" id="mapa"></div><div class="legenda-mapa" id="legenda-mapa"></div></section>
       <div class="grade" style="margin-bottom:34px">
@@ -918,11 +955,15 @@ function abrirColecao(id) {
     paginaLeitura(html, 'colecao');
     estado._mapaItens = comGeo;
     desenharMapa(comGeo);
-    $$('#modo-mapa .pastilha').forEach((b) => {
+    $$('#modo-mapa .pastilha[data-modo]').forEach((b) => {
       b.addEventListener('click', () => {
         estado.mapaModo = b.dataset.modo;
         desenharMapa(estado._mapaItens);
       });
+    });
+    $('#alternar-estradas').addEventListener('click', () => {
+      estado.mapaEstradas = !estado.mapaEstradas;
+      desenharMapa(estado._mapaItens);
     });
     ligarCartas();
     return;
@@ -973,11 +1014,36 @@ function abrirColecao(id) {
     const pendente = (nome) => `<div class="nota calma" style="margin-bottom:16px">
       <strong>${nome} em processamento</strong>Os agentes ainda estão lendo a base — recarregue em alguns minutos.</div>`;
 
+    const dem = m.demandas;
+    if (dem) {
+      const c2 = dem.concluidas_dcmd_2026 || {}, ab = dem.abertas || {};
+      partes.push(`<section class="bloco"><h3>Recorte do gestor — por demanda encadeada</h3>
+        <div class="numeros">
+          ${num({ rotulo: 'Concluídas pelo DCMD em 2026', valor: c2.total ?? '—', nota: 'demandas executadas por equipe RD/ENC/DOLP', tom: 'bom' })}
+          ${num({ rotulo: 'Religador / Regulador', valor: `${c2.por_tipo?.['Religador'] ?? 0} / ${c2.por_tipo?.['Regulador de Tensão'] ?? 0}` })}
+          ${num({ rotulo: 'Passaram pelo COEP', valor: c2.passaram_pelo_coep ?? '—', nota: 'com etapa de compra na cadeia' })}
+          ${num({ rotulo: 'Demandas abertas', valor: ab.total ?? '—', nota: `${ab.na_carteira_129 ?? '—'} ativos da carteira`, tom: 'atento' })}
+          ${num({ rotulo: 'Repasses pendurados', valor: ab.repasses_pendurados ?? '—', nota: 'repassada sem SS sucessora', tom: 'critico' })}
+        </div>
+        <div class="grade">
+          ${c2.por_mes ? `<div class="quadro"><header><h3>Concluídas DCMD por mês</h3></header>${barras(Object.entries(c2.por_mes).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+          ${ab.por_posto_atual ? `<div class="quadro"><header><h3>Abertas por posto atual</h3></header>${barras(Object.entries(ab.por_posto_atual).map(([k, v]) => ({ rotulo: k, total: v })))}</div>` : ''}
+          ${dem.caminhos_mais_comuns ? `<div class="quadro"><header><h3>Caminhos mais comuns</h3><p>postos percorridos pela demanda</p></header>${barras(dem.caminhos_mais_comuns.slice(0, 8).map((x) => ({ rotulo: x.caminho, total: x.demandas })))}</div>` : ''}
+        </div>
+        <div class="nota calma" style="margin-top:16px"><strong>A lógica das SS gêmeas</strong>
+        ${esc(`${dem.total_ss} SS de RL/RT viram ${dem.total_demandas} demandas (média ${dem.ss_por_demanda_media} SS por demanda). `)}
+        Cadeia: mesmo ativo + mesmo carimbo de abertura (padrão do repasse no SGM), ou SS aberta
+        em até 7 dias após uma repassada; ciclos separados a 180 dias. Rotina de bateria/cadastro
+        fora do recorte, como definido em 12/08.</div>
+        ${(dem.premissas || []).length ? `<div class="nota calma" style="margin-top:10px"><strong>Premissas</strong>${dem.premissas.map(esc).join('<br>')}</div>` : ''}
+      </section>`);
+    }
+
     if (d) {
       const e = d.recorte_estrito || {}, a = d.recorte_amplo || {};
       const ec = e.concluidas_2026 || {}, ee = e.a_entrar || {};
       const ac = a.concluidas_2026 || {}, ae = a.a_entrar || {};
-      partes.push(`<section class="bloco"><h3>Concluídas em 2026 e o que vai entrar</h3>
+      partes.push(`<section class="bloco"><h3>Contagem por SS (recorte por natureza — anterior à regra do gestor)</h3>
         <div class="numeros">
           ${num({ rotulo: 'Concluídas 2026 · recorte estrito', valor: ec.total ?? '—', nota: 'só o fluxo claro de eq. especiais', tom: 'bom' })}
           ${num({ rotulo: 'Concluídas 2026 · recorte amplo', valor: ac.total ?? '—', nota: 'toda SS de RL/RT atendida' })}
@@ -1082,7 +1148,14 @@ function desenharMapa(itens) {
     b.setAttribute('aria-pressed', String(b.dataset.modo === (estado.mapaModo || 'criticidade'))));
 
   const margem = 42;
-  const lats = itens.map((e) => e.geo.lat), lons = itens.map((e) => e.geo.lon);
+  const geo = estado.geo;
+  let lats = itens.map((e) => e.geo.lat), lons = itens.map((e) => e.geo.lon);
+  if (geo?.fronteira?.length) {
+    // O contorno do estado emoldura o mapa: a bbox passa a ser a do Tocantins.
+    const anel = geo.fronteira.flat();
+    lats = anel.map((p) => p[1]);
+    lons = anel.map((p) => p[0]);
+  }
   const latMin = Math.min(...lats), latMax = Math.max(...lats);
   const lonMin = Math.min(...lons), lonMax = Math.max(...lons);
   const fLat = (latMax - latMin) * 0.04 || 0.1, fLon = (lonMax - lonMin) * 0.04 || 0.1;
@@ -1121,8 +1194,17 @@ function desenharMapa(itens) {
     </circle>`;
   }).join('');
 
+  const caminho = (pts) => 'M' + pts.map((p) => `${px(p[0]).toFixed(1)},${py(p[1]).toFixed(1)}`).join('L');
+  const fronteira = (geo?.fronteira || [])
+    .map((anel) => `<path d="${caminho(anel)}Z" fill="none" stroke="var(--tinta-2)" stroke-width="1.4"/>`)
+    .join('');
+  const estradas = (estado.mapaEstradas && geo?.estradas)
+    ? geo.estradas.map((t) => `<path d="${caminho(t.pts)}" fill="none" stroke="var(--filete-2)" stroke-width="1"/>`).join('')
+    : '';
+  $('#alternar-estradas')?.setAttribute('aria-pressed', String(!!estado.mapaEstradas));
+
   caixa.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="max-width:${W}px;margin:0 auto" role="img"
-    aria-label="Distribuição geográfica dos equipamentos indisponíveis">${grade.join('')}${pontos}</svg>`;
+    aria-label="Distribuição geográfica dos equipamentos indisponíveis">${grade.join('')}${estradas}${fronteira}${pontos}</svg>`;
 
   $('#legenda-mapa').innerHTML = modo.ordem
     .filter((c) => itens.some((e) => modo.rotulo(e) === c))
