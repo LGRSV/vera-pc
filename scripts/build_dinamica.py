@@ -164,6 +164,8 @@ def main():
             d["mes_a_mes"] = {
                 "total": mm["total"],
                 "curva": mm["curva"],
+                "saldo": mm.get("saldo", []),
+                "universo": mm.get("universo", mm["total"]),
                 "legado": mm["legado"],
                 "serie_coep": [x for x in mm["serie_coep"] if x["mes"] >= "2026-01"],
                 "tratativas": [t for t in mm["tratativas"] if t["mes_resolucao"]],

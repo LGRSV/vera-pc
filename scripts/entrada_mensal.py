@@ -338,7 +338,7 @@ def montar(entrada):
     # As três colunas do gestor no mesmo eixo de tempo: o estoque herdado pela
     # abertura da SS, o que entrou novo no posto e o que foi tratado de fato.
     base = _base_ssos()
-    serie_coep, _ = entrantes_no_coep(base, {x["ativo"] for x in lista})
+    serie_coep, detalhe_coep = entrantes_no_coep(base, {x["ativo"] for x in lista})
     tratativas = _datas_de_tratativa(lista, entrada, base)
     entrantes = {x["mes"]: x["novos"] for x in serie_coep}
     saidas = Counter(t["mes_resolucao"] for t in tratativas if t["mes_resolucao"])
@@ -352,8 +352,40 @@ def montar(entrada):
         "resolvidos": saidas.get(m, 0),
     } for m in do_ano]
 
+    # Livro-caixa da carteira: saldo inicial + quem entrou − quem saiu = saldo final.
+    # Cada ativo entra UMA vez. A foto manda o mês de quem está nela (com a regra de
+    # janeiro); quem não está entra pelo mês da primeira SS do posto. Sem isso, somar
+    # a coluna da foto com a dos entrantes contaria duas vezes o mesmo equipamento.
+    primeiro_coep = {x["ativo"]: x["mes"] for x in detalhe_coep}
+    na_foto = {x["ativo"]: x["mes"] for x in lista}
+    entrada_de = dict(na_foto)
+    for a, m in primeiro_coep.items():
+        if a not in entrada_de and m in do_ano:
+            entrada_de[a] = m
+    saida_de = {t["ativo"]: t["mes_resolucao"] for t in tratativas if t["mes_resolucao"]}
+    entram = Counter(m for m in entrada_de.values() if m in do_ano)
+    saem = Counter(m for m in saida_de.values() if m in do_ano)
+
+    saldo, corrente = [], 0
+    for m in do_ano:
+        inicial = corrente
+        e, s = entram[m], saem[m]
+        corrente = inicial + e - s
+        da_foto = sum(1 for a, k in entrada_de.items() if k == m and a in na_foto)
+        novos = entrantes.get(m, 0)
+        saldo.append({
+            "mes": m, "rotulo": rotulo(m),
+            "inicial": inicial, "entram": e, "saem": s, "final": corrente,
+            # a soma direta das duas colunas do gráfico conta duas vezes quem aparece
+            # nas duas bases; guardo a duplicata para poder mostrar a diferença
+            "soma_ingenua": da_foto + novos,
+            "duplicata": da_foto + novos - e,
+        })
+
     return {
         "curva": curva,
+        "saldo": saldo,
+        "universo": len(entrada_de),
         "serie_coep": serie_coep,
         "tratativas": tratativas,
         "total": total,

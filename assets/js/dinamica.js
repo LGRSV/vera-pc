@@ -103,6 +103,73 @@ function barrasTresColunas(curva) {
   </figure>`;
 }
 
+/* O saldo da carteira mês a mês: uma série só, então sem legenda — o título já
+   diz o que está plotado. A coluna é o que sobrou no fim do mês. */
+function colunaSaldo(saldo) {
+  const teto = Math.ceil(Math.max(...saldo.map((s) => s.final), 1) / 20) * 20;
+  const L = 44, R = 12, T = 22, B = 44;
+  const largura = 96, alturaPlot = 190;
+  const W = L + R + largura * saldo.length;
+  const H = T + alturaPlot + B;
+  const barra = 34;
+  const y = (v) => T + alturaPlot - (v / teto) * alturaPlot;
+  const pico = Math.max(...saldo.map((s) => s.final));
+  const riscos = [];
+  for (let v = 0; v <= teto; v += 20) riscos.push(v);
+
+  return `<figure class="grafico-barras grafico-saldo">
+    <div class="tela-grafico">
+    <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
+         aria-label="Saldo da carteira no fim de cada mês de 2026: ${saldo.map((s) => `${s.rotulo}, ${s.final}`).join('; ')}">
+      ${riscos.map((v) => `<g>
+        <line x1="${L}" x2="${W - R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="risco"/>
+        <text x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" class="rot-eixo" text-anchor="end">${v}</text>
+      </g>`).join('')}
+      <line x1="${L}" x2="${W - R}" y1="${T + alturaPlot}" y2="${T + alturaPlot}" class="base-eixo"/>
+      ${saldo.map((s, i) => {
+        const x = L + i * largura + (largura - barra) / 2;
+        const alt = Math.max((s.final / teto) * alturaPlot, s.final ? 2 : 0);
+        return `<g class="barra-mes ${s.final === pico ? 'pico' : ''}">
+          <title>${esc(s.rotulo)}: começou com ${s.inicial}, entraram ${s.entram}, saíram ${s.saem}, sobrou ${s.final}</title>
+          <rect x="${x}" y="${(T + alturaPlot - alt).toFixed(1)}" width="${barra}"
+                height="${alt.toFixed(1)}" rx="4" ry="4"/>
+          <rect x="${x}" y="${(T + alturaPlot - Math.min(alt, 5)).toFixed(1)}"
+                width="${barra}" height="${Math.min(alt, 5).toFixed(1)}"/>
+          <text x="${x + barra / 2}" y="${(T + alturaPlot - alt - 6).toFixed(1)}"
+                class="rot-valor" text-anchor="middle">${s.final}</text>
+          <text x="${x + barra / 2}" y="${T + alturaPlot + 18}" class="rot-mes"
+                text-anchor="middle">${esc(s.rotulo)}</text>
+        </g>`;
+      }).join('')}
+    </svg>
+    </div>
+    <figcaption>Passe o mouse numa coluna para ver a conta do mês inteiro.</figcaption>
+  </figure>`;
+}
+
+/* O livro-caixa: saldo inicial + quem entrou − quem saiu = saldo final. */
+function livroCaixa(saldo, universo, total) {
+  const dup = saldo.reduce((n, s) => n + s.duplicata, 0);
+  return `${colunaSaldo(saldo)}
+  <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr>
+    <th>Mês</th><th class="num">Começou com</th><th class="num">Entraram</th>
+    <th class="num">Saíram</th><th class="num">Sobrou no fim</th>
+    <th class="num">Variação</th></tr></thead><tbody>
+    ${saldo.map((s) => {
+      const d = s.final - s.inicial;
+      return `<tr><td>${esc(s.rotulo)}</td><td class="num">${s.inicial}</td>
+        <td class="num">${s.entram || '—'}</td><td class="num">${s.saem || '—'}</td>
+        <td class="num"><b>${s.final}</b></td>
+        <td class="num ${d > 0 ? 'sobe' : d < 0 ? 'desce' : ''}">${d > 0 ? '+' : ''}${d || '—'}</td></tr>`;
+    }).join('')}
+  </tbody></table></div>
+  <div class="nota" style="margin-top:14px"><strong>Por que «entraram» não é a soma das duas colunas de cima</strong>
+  Cada ativo entra uma vez só. Em fevereiro, por exemplo, a foto traz 7 e os entrantes 4 — somando dá
+  11, mas 3 daqueles 4 já estavam dentro dos 7, então entraram 8 de fato. No ano inteiro a soma
+  ingênua contaria ${dup} equipamentos duas vezes. O universo do livro-caixa é de ${universo} ativos:
+  os ${total} da foto mais os ${universo - total} que chegaram por fora dela.</div>`;
+}
+
 /* A mesma coisa somando: onde cada série chegou até o fim de cada mês. Linha em
    vez de barra porque o que importa aqui é a distância entre as curvas — o
    tamanho da fila contra o que já saiu — e barra empilhada esconde isso. */
@@ -191,6 +258,11 @@ function mesAMes() {
     distância entre as curvas: enquanto a laranja sobe e a verde fica no chão, a fila está
     crescendo; quando a verde encosta na laranja, o posto passou a dar conta do que entra.</p>
     ${linhaAcumulada(c)}
+    ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
+    <p class="destaque-texto">O livro-caixa do posto: o saldo do mês anterior, mais quem entrou,
+    menos quem foi tratado, dá o que sobrou. Cada equipamento entra uma vez só — quem aparece na
+    foto e também na base de entrantes conta uma vez, não duas.</p>
+    ${livroCaixa(mm.saldo, mm.universo, mm.total)}` : ''}
     <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
     <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
     ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
