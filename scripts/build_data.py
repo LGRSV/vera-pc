@@ -455,6 +455,13 @@ def main():
             "lista": sorted(reportes, key=lambda x: (x.get("data", ""), x["ativo"])),
         }
 
+    # Realocação de peças e orçamento do AIC por SIGCO — levantamento de 13/08, revisado
+    # três vezes a pedido do gestor. O que sobreviveu às revisões está no arquivo.
+    arq_pecas = os.path.join(RAIZ, "data", "raw", "pecas_orcamento.json")
+    if os.path.exists(arq_pecas):
+        with open(arq_pecas, encoding="utf-8") as fh:
+            meta["pecas_orcamento"] = json.load(fh)
+
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}
     ativos_no_plano = {i["Ativo"] for i in itens_compra}
