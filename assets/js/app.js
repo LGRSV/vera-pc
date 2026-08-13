@@ -1796,13 +1796,111 @@ function abrirColecao(id) {
         essa coluna preenchida e a data saiu do cruzamento pelo número da SS na base de SS/OS,
         como você mandou.</div>
 
-        ${(mm.curva || []).length ? `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
+        ${(mm.curva || []).length ? (() => {
+          const c = mm.curva;
+          const tot = (k) => c.reduce((n, x) => n + x[k], 0);
+          const anos = mm.legado.por_ano;
+          const janProprio = (c.find((x) => x.mes === '2026-01')?.ativos || 0) - mm.legado.qtd;
+          const s26 = (mm.serie_coep || []).filter((x) => x.mes >= '2026-01');
+          const tot26 = (k) => s26.reduce((n, x) => n + x[k], 0);
+          const tratadas = (mm.tratativas || []).filter((t) => t.mes_resolucao);
+          const meses = [...new Set(tratadas.map((t) => t.mes_resolucao))].sort();
+          const conta = (lista, f) => lista.filter(f).length;
+          return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
         <p class="destaque-texto">As três leituras no mesmo eixo. <b>Ativos</b> é a foto dos ${mm.total}
         pela data de abertura da SS, com janeiro carregando o acervo. <b>Entrantes</b> é ativo novo
         no posto, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é pelo mês em que a
-        tratativa aconteceu — término da SS ou repasse.</p>
-        ${barrasTresColunas(mm.curva)}
+        tratativa aconteceu — término da SS ou repasse. As três medem coisas diferentes e não se
+        somam entre si: estoque parado, fluxo de chegada e fluxo de saída.</p>
+        ${barrasTresColunas(c)}
+        <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
+        <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
+        ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
+          <td class="num">${x.ativos || '—'}</td><td class="num">${x.entrantes || '—'}</td>
+          <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
+        </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot('ativos')}</b></td>
+        <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
+        </tr></tfoot></table></div>
+        </section>
+
+        <section class="bloco"><h3>O que janeiro carrega</h3>
+        <p class="destaque-texto">Janeiro é metade da carteira e é quase tudo acervo: dos
+        ${c.find((x) => x.mes === '2026-01')?.ativos || 0} ativos, só ${janProprio} têm SS aberta no
+        próprio mês. Sem a regra, esses ${mm.legado.qtd} ficariam espalhados por 2023, 2024 e 2025 e
+        a curva de 2026 perderia o tamanho do que foi herdado.</p>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Origem</th>
+        <th class="num">Ativos</th><th class="num">% de janeiro</th></tr></thead><tbody>
+        <tr><td>SS aberta em jan/2026</td><td class="num">${janProprio}</td>
+          <td class="num">${(100 * janProprio / (c.find((x) => x.mes === '2026-01')?.ativos || 1)).toFixed(1).replace('.', ',')}%</td></tr>
+        ${[...anos].reverse().map((a) => `<tr><td>Acervo — SS aberta em ${a.ano}</td>
+          <td class="num">${a.qtd}</td>
+          <td class="num">${(100 * a.qtd / (c.find((x) => x.mes === '2026-01')?.ativos || 1)).toFixed(1).replace('.', ',')}%</td></tr>`).join('')}
+        </tbody><tfoot><tr><td>Total de janeiro</td>
+        <td class="num"><b>${c.find((x) => x.mes === '2026-01')?.ativos || 0}</b></td>
+        <td class="num"><b>100,0%</b></td></tr></tfoot></table></div>
+        ${mm.legado.mais_antiga ? `<div class="nota branda" style="margin-top:12px">
+        <strong>A mais velha da carteira</strong>${esc(mm.legado.mais_antiga.numero_ss)}, ativo
+        ${esc(mm.legado.mais_antiga.ativo)} em ${esc(mm.legado.mais_antiga.localidade)}, aberta em
+        ${esc(dataBr(mm.legado.mais_antiga.abertura))}.</div>` : ''}
+        </section>
+
+        ${s26.length ? `<section class="bloco"><h3>Os entrantes por dentro</h3>
+        <p class="destaque-texto">Duas leituras dos ${tot26('novos')} entrantes de 2026. À esquerda,
+        quanto de cada mês já estava na foto dos ${mm.total} e quanto é demanda que chegou por fora
+        dela. À direita, quanto é SS realmente nova e quanto é SS de ano anterior que o SGM
+        re-carimbou com data nova ao reabrir ou repassar.</p>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês</th>
+        <th class="num">Entrantes</th><th class="num">Já estavam nos ${mm.total}</th>
+        <th class="num">Fora dos ${mm.total}</th><th class="num">SS do próprio ano</th>
+        <th class="num">SS de ano anterior re-carimbada</th></tr></thead><tbody>
+        ${s26.map((x) => `<tr><td>${esc(x.rotulo)}</td><td class="num"><b>${x.novos}</b></td>
+          <td class="num">${x.na_foto || '—'}</td><td class="num">${x.fora_da_foto || '—'}</td>
+          <td class="num">${x.ss_do_ano || '—'}</td><td class="num">${x.ss_recarimbada || '—'}</td></tr>`).join('')}
+        </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot26('novos')}</b></td>
+        <td class="num"><b>${tot26('na_foto')}</b></td><td class="num"><b>${tot26('fora_da_foto')}</b></td>
+        <td class="num"><b>${tot26('ss_do_ano')}</b></td><td class="num"><b>${tot26('ss_recarimbada')}</b></td>
+        </tr></tfoot></table></div>
+        <div class="nota" style="margin-top:12px"><strong>Duas armadilhas na coluna de entrantes</strong>
+        Dos ${tot26('novos')} entrantes, ${tot26('na_foto')} já estavam na foto dos ${mm.total} — são o
+        mesmo problema visto por outra base, não demanda nova. E ${tot26('ss_recarimbada')} têm número
+        de SS de ano anterior com abertura em 2026, porque o SGM re-carimba a data quando a SS é
+        reaberta ou repassada. Abril é o extremo: de 11 entrantes, 9 são SS re-carimbada.</div>
         </section>` : ''}
+
+        ${meses.length ? `<section class="bloco"><h3>Quando cada um foi tratado de verdade</h3>
+        <p class="destaque-texto">Mês da tratativa, não da abertura. A data é o término da SS de
+        entrada; quando a SS foi repassada em vez de encerrada, vale a data do repasse. Faltando as
+        duas, entram obra encerrada no AIC, reporte de campo, decisão do gestor e, por último, a SS
+        mais recente atendida no ativo.</p>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês da tratativa</th>
+        <th class="num">Resolvidos</th><th class="num">Acumulado</th>
+        <th class="num">Por cancelamento da SS</th><th class="num">Por repasse</th>
+        <th class="num">Outras vias</th><th class="num">Com parecer COEP</th></tr></thead><tbody>
+        ${(() => { let ac = 0; return meses.map((k) => {
+          const g = tratadas.filter((t) => t.mes_resolucao === k);
+          ac += g.length;
+          const canc = conta(g, (t) => t.via === 'cancelamento da SS de entrada');
+          const rep = conta(g, (t) => t.via === 'repasse para a etapa seguinte');
+          const [a, mnum] = k.split('-');
+          return `<tr><td>${['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'][+mnum - 1]}/${a}</td>
+            <td class="num"><b>${g.length}</b></td><td class="num">${ac}</td>
+            <td class="num">${canc || '—'}</td><td class="num">${rep || '—'}</td>
+            <td class="num">${(g.length - canc - rep) || '—'}</td>
+            <td class="num">${conta(g, (t) => t.parecer_coep) || '—'}</td></tr>`;
+        }).join(''); })()}
+        </tbody><tfoot><tr><td>Total</td><td class="num"><b>${tratadas.length}</b></td><td class="num">—</td>
+        <td class="num"><b>${conta(tratadas, (t) => t.via === 'cancelamento da SS de entrada')}</b></td>
+        <td class="num"><b>${conta(tratadas, (t) => t.via === 'repasse para a etapa seguinte')}</b></td>
+        <td class="num"><b>${conta(tratadas, (t) => !['cancelamento da SS de entrada', 'repasse para a etapa seguinte'].includes(t.via))}</b></td>
+        <td class="num"><b>${conta(tratadas, (t) => t.parecer_coep)}</b></td></tr></tfoot></table></div>
+        <div class="nota" style="margin-top:12px"><strong>O desenho da atuação</strong>
+        ${conta(tratadas, (t) => t.mes_resolucao >= '2026-04')} dos ${tratadas.length} foram tratados de
+        abril em diante. Maio e junho são limpeza de fila — a maioria saiu por cancelamento de SS.
+        Julho vira o jogo: a maior parte sai por repasse, e é o mês em que quase todos os que tinham
+        parecer COEP foram embora. Repasse quer dizer que a demanda saiu do posto, não que o serviço
+        acabou em campo.</div>
+        </section>` : ''}`;
+        })() : ''}
 
         <section class="bloco"><h3>A curva de entrada</h3>
         <p class="destaque-texto">Cada barra é um mês; a parte verde é o que já saiu da carteira e a
@@ -1819,10 +1917,14 @@ function abrirColecao(id) {
           <span class="am-fluxo"></span> ainda no fluxo</div>
         </section>
 
-        <section class="bloco"><h3>O mês a mês em números</h3>
-        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês</th>
+        <section class="bloco"><h3>Como cada safra de entrada terminou</h3>
+        <p class="destaque-texto">Aqui a linha é o mês em que a SS <b>abriu</b> e as duas últimas
+        colunas dizem onde aquela safra está <b>hoje</b> — não em que mês foi tratada. É outra
+        pergunta: a tabela lá em cima conta a saída pelo mês da tratativa, esta conta o destino de
+        quem entrou em cada mês.</p>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês de abertura</th>
         <th class="num">Ativos</th><th class="num">De antes de 2026</th><th class="num">Abertos no mês</th>
-        <th class="num">Resolvidos</th><th class="num">No fluxo</th><th class="num">% resolvido</th></tr></thead><tbody>
+        <th class="num">Já resolvidos hoje</th><th class="num">Ainda no fluxo</th><th class="num">% resolvido</th></tr></thead><tbody>
         ${mm.meses.map((b) => `<tr><td>${esc(b.rotulo)}</td>
           <td class="num"><b>${b.qtd}</b></td>
           <td class="num">${b.legado || '—'}</td><td class="num">${b.no_mes || '—'}</td>
