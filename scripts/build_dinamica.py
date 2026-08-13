@@ -99,6 +99,27 @@ def main():
                 item["reporte_campo"] = r
         d["com_reporte"] = sum(1 for i in d["lista"] if i.get("reporte_campo"))
 
+        # As fotos entram como data URI: a página é um arquivo só e não busca nada
+        # na rede. São ~1,7 MB, o preço de ter a prova junto do número.
+        imagens = {}
+        arq_img = os.path.join(RAIZ, "data", "reportes_imagens.json")
+        if os.path.exists(arq_img):
+            with open(arq_img, encoding="utf-8") as fh:
+                imagens = json.load(fh)
+        onde = {i["ativo"]: i for i in d["lista"]}
+        d["reportes"] = {
+            "total": len(reportes),
+            "ativos": sorted(por_ativo),
+            "fotos": sum(r["anexo"]["fotos"] if r.get("anexo") else bool(r.get("imagem"))
+                         for r in reportes),
+            "lista": [{**r,
+                       "localidade_carteira": onde.get(r["ativo"], {}).get("localidade", ""),
+                       "etapa": onde.get(r["ativo"], {}).get("etapa", "")}
+                      for r in sorted(reportes, key=lambda x: (x.get("data", ""), x["ativo"]),
+                                      reverse=True)],
+            "imagens": {k: v for k, v in imagens.items()},
+        }
+
     # O valor evitado de cada cancelado vem de scripts/economia_cancelados.py, que
     # o monta peça a peça na convenção material + mão de obra. Se algum ativo ainda
     # não tiver passado por lá, cai no valor da planilha de gestão.

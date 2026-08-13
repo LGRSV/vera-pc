@@ -53,7 +53,8 @@ const COLECOES = [
   { id: 'consolidado', nome: 'Carteira consolidada', desc: 'As duas listas fundidas: onde cada equipamento está de fato', termos: 'consolidado consolidada tudo junto fundido uniao das duas listas onde esta ponto atual situacao real resolvido pendente escada total geral 159 160' },
   { id: 'acompanhamento', nome: 'Acompanhamento atual', desc: 'Como está cada equipamento hoje, pelo parecer COEP mais recente', termos: 'acompanhamento atual hoje situacao em operacao cancelada errada dmsl pendente fluxo em analise desmobilizado check concluidas parecer atualizada novo primeiro ataque divergencia' },
   { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
-  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'Os 117 da foto de junho pela data de abertura da SS', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes' },
+  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'Os 117 da foto de junho pela data de abertura da SS', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes grafico barras entrantes resolvidos' },
+  { id: 'reportes', nome: 'Reportes de campo', desc: 'As fotos que a equipe mandou, todas num lugar só', termos: 'reportes reporte campo foto fotos imagem imagens anexo anexos galeria prova equipe servico feito comprovacao ver as fotos' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
   { id: 'coep', nome: 'Parecer COEP', desc: 'O que já deveria estar concluído e não está', termos: 'coep parecer pendencia atraso prazo vencido sla' },
@@ -1769,6 +1770,75 @@ function abrirColecao(id) {
 
         ${(ac.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta leitura</strong>${ac.premissas.map(esc).join('<br>')}</div>` : ''}`;
     }
+  }
+
+  if (id === 'reportes') {
+    const rc = m.reportes_campo;
+    if (!rc || !rc.lista?.length) {
+      html = cabecaColecao('Reportes de campo', 'Nenhum reporte carregado ainda.');
+    } else {
+      // Quem tem foto embutida vem primeiro; quem só anunciou o anexo vem depois.
+      const comFoto = rc.lista.filter((r) => r.imagem && estado.imagens?.[r.imagem]);
+      const anunciados = rc.lista.filter((r) => !(r.imagem && estado.imagens?.[r.imagem]) && r.anexo);
+      const semAnexo = rc.lista.filter((r) => !(r.imagem && estado.imagens?.[r.imagem]) && !r.anexo);
+      const ficha = (a) => estado.equipamentos.find((x) => x.ativo === a);
+
+      const cartao = (r) => {
+        const e = ficha(r.ativo);
+        const foto = r.imagem && estado.imagens?.[r.imagem];
+        return `<figure class="reporte-galeria">
+          ${foto ? `<a href="${estado.imagens[r.imagem]}" target="_blank" rel="noopener">
+            <img src="${estado.imagens[r.imagem]}" loading="lazy"
+              alt="Reporte de campo do ativo ${esc(r.ativo)} em ${dataBr(r.data)}"></a>`
+            : r.anexo
+              ? `<div class="sem-foto"><b>${r.anexo.fotos} foto${r.anexo.fotos > 1 ? 's' : ''}</b>
+                <span>${esc(r.anexo.estado)}</span></div>`
+              : `<div class="sem-foto"><b>Sem foto</b><span>reporte só em texto</span></div>`}
+          <figcaption>
+            <div class="topo-galeria">
+              ${e ? `<button class="cod abre-ficha" data-ativo="${esc(r.ativo)}">${esc(r.ativo)}</button>`
+                  : `<span class="cod">${esc(r.ativo)}</span>`}
+              <span class="reporte-data">${dataBr(r.data)}</span>
+            </div>
+            <b>${esc(r.titulo)}</b>
+            <span class="onde">${esc(r.local || r.subtitulo || '')}${r.equipe ? ` · ${esc(r.equipe)}` : ''}</span>
+            ${r.servico_executado ? `<span class="feito">${esc(r.servico_executado)}</span>` : ''}
+            ${r.equipamento_instalado ? `<span class="feito mono">${esc(r.equipamento_instalado)}</span>` : ''}
+            ${!foto && r.anexo?.descricao ? `<span class="feito">${esc(r.anexo.descricao)}</span>` : ''}
+          </figcaption>
+        </figure>`;
+      };
+
+      html = cabecaColecao('Reportes de campo',
+        `Todas as fotos que a equipe mandou, num lugar só. ${rc.fotos} foto${rc.fotos > 1 ? 's' : ''} em
+         ${rc.total} reporte${rc.total > 1 ? 's' : ''}, cobrindo ${rc.ativos.length} equipamentos.
+         Clique na foto para abrir em tamanho cheio, ou no código do ativo para ir à ficha.`) +
+        `<div class="numeros">
+          ${num({ rotulo: 'Reportes recebidos', valor: rc.total, nota: `${rc.ativos.length} equipamentos` })}
+          ${num({ rotulo: 'Fotos', valor: rc.fotos, nota: `${comFoto.length} já embutidas na página`, tom: 'bom' })}
+          ${anunciados.length ? num({ rotulo: 'Anexo anunciado', valor: anunciados.length, nota: 'esperando o arquivo da foto', tom: 'atento' }) : ''}
+          ${semAnexo.length ? num({ rotulo: 'Sem foto', valor: semAnexo.length, nota: 'reporte só em texto' }) : ''}
+        </div>
+
+        <div class="nota calma" style="margin:-6px 0 26px"><strong>Por que isso é a prova mais forte</strong>
+        O reporte é a equipe assinando que subiu no poste e trocou. Nenhuma inferência sobre o texto
+        da SS ganha disso — por isso o reporte de campo entra como via de resolução na carteira, mesmo
+        quando o SGM ainda não registrou nada.</div>
+
+        <section class="bloco"><h3>Com foto (${comFoto.length})</h3>
+        <div class="galeria">${comFoto.map(cartao).join('')}</div></section>
+
+        ${anunciados.length ? `<section class="bloco"><h3>Anexo anunciado, arquivo pendente (${anunciados.length})</h3>
+        <p class="destaque-texto">O reporte chegou pela conversa e as fotos ainda não viraram arquivo
+        no repositório. O que dá para ler nelas já está descrito aqui.</p>
+        <div class="galeria">${anunciados.map(cartao).join('')}</div></section>` : ''}
+
+        ${semAnexo.length ? `<section class="bloco"><h3>Reportes só em texto (${semAnexo.length})</h3>
+        <div class="galeria">${semAnexo.map(cartao).join('')}</div></section>` : ''}`;
+    }
+    paginaLeitura(html, 'colecao');
+    $$('.abre-ficha').forEach((el) => el.addEventListener('click', () => abrirAtivo(el.dataset.ativo)));
+    return;
   }
 
   if (id === 'mensal') {

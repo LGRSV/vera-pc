@@ -662,6 +662,39 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 .reporte-foto img { width: 100%; height: auto; display: block; }
 .reporte-foto:hover { border-color: var(--tinta); }
 
+/* ---------- galeria dos reportes de campo ---------- */
+
+.galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; }
+
+.reporte-galeria { margin: 0; border: 1px solid var(--filete); background: var(--papel-2); }
+.reporte-galeria > a { display: block; line-height: 0; border-bottom: 1px solid var(--filete); }
+.reporte-galeria img { width: 100%; height: auto; display: block; }
+.reporte-galeria > a:hover { outline: 2px solid var(--sinal); outline-offset: -2px; }
+
+.reporte-galeria .sem-foto {
+  display: grid; place-content: center; gap: 4px; text-align: center;
+  min-height: 130px; padding: 20px;
+  border-bottom: 1px solid var(--filete);
+  background: repeating-linear-gradient(135deg,
+    var(--papel-3) 0 6px, var(--papel-2) 6px 12px);
+}
+.reporte-galeria .sem-foto b {
+  font: 700 15px var(--cond); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-2);
+}
+.reporte-galeria .sem-foto span { color: var(--tinta-3); font: 400 12px var(--mono); }
+
+.reporte-galeria figcaption { display: grid; gap: 4px; padding: 12px 14px 14px; }
+.reporte-galeria .topo-galeria { display: flex; align-items: baseline; gap: 10px; }
+.reporte-galeria .cod { font: 600 14.5px var(--mono); margin-right: auto; }
+.reporte-galeria button.cod { color: var(--sinal); text-decoration: underline; text-underline-offset: 3px; }
+.reporte-galeria button.cod:hover { color: var(--tinta); }
+.reporte-galeria figcaption > b {
+  font: 700 14px/1.2 var(--cond); letter-spacing: .04em; text-transform: uppercase; color: var(--tinta);
+}
+.reporte-galeria .onde { color: var(--tinta-2); font-size: 13px; font-style: italic; }
+.reporte-galeria .feito { color: var(--tinta-3); font-size: 12.5px; }
+.reporte-galeria .feito.mono { font-family: var(--mono); font-size: 11.5px; }
+
 /* Classificação do gestor: o painel dá a leitura, ele dá a palavra final. */
 .opcoes-classif { display: flex; flex-wrap: wrap; gap: 6px; }
 .opcoes-classif .op-classif[aria-pressed="true"] {

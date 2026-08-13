@@ -208,6 +208,54 @@ function mesAMes() {
   </section>` : ''}`;
 }
 
+/* As fotos que a equipe mandou, todas num lugar só. É a prova mais forte que
+   existe: a equipe assinando que subiu no poste e trocou. */
+function galeriaReportes() {
+  const R = D.reportes;
+  if (!R || !R.lista?.length) return '';
+  const img = R.imagens || {};
+  const comFoto = R.lista.filter((r) => r.imagem && img[r.imagem]);
+  const anunciados = R.lista.filter((r) => !(r.imagem && img[r.imagem]) && r.anexo);
+  const semAnexo = R.lista.filter((r) => !(r.imagem && img[r.imagem]) && !r.anexo);
+
+  const cartao = (r) => {
+    const foto = r.imagem && img[r.imagem];
+    return `<figure class="reporte-galeria">
+      ${foto ? `<a href="${foto}" target="_blank" rel="noopener">
+        <img src="${foto}" loading="lazy"
+          alt="Reporte de campo do ativo ${esc(r.ativo)} em ${esc(dataBr(r.data))}"></a>`
+        : r.anexo
+          ? `<div class="sem-foto"><b>${r.anexo.fotos} foto${r.anexo.fotos > 1 ? 's' : ''}</b>
+            <span>${esc(r.anexo.estado)}</span></div>`
+          : `<div class="sem-foto"><b>Sem foto</b><span>reporte só em texto</span></div>`}
+      <figcaption>
+        <div class="topo-galeria"><span class="cod">${esc(r.ativo)}</span>
+          <span class="reporte-data">${esc(dataBr(r.data))}</span></div>
+        <b>${esc(r.titulo)}</b>
+        <span class="onde">${esc(r.local || r.subtitulo || '')}${r.equipe ? ` · ${esc(r.equipe)}` : ''}</span>
+        ${r.etapa ? `<span class="feito">na carteira: ${esc(r.etapa)}</span>` : ''}
+        ${r.servico_executado ? `<span class="feito">${esc(r.servico_executado)}</span>` : ''}
+        ${r.equipamento_instalado ? `<span class="feito mono">${esc(r.equipamento_instalado)}</span>` : ''}
+        ${!foto && r.anexo?.descricao ? `<span class="feito">${esc(r.anexo.descricao)}</span>` : ''}
+      </figcaption>
+    </figure>`;
+  };
+
+  return `<section class="bloco"><h3>As fotos de campo (${R.fotos})</h3>
+    <p class="destaque-texto">Todas as fotos que a equipe mandou, num lugar só: ${R.fotos} em
+    ${R.total} reportes, cobrindo ${R.ativos.length} equipamentos. Clique para abrir em tamanho
+    cheio. O reporte é a equipe assinando que subiu no poste e trocou — nenhuma inferência sobre o
+    texto da SS ganha disso, e é por isso que ele conta como resolução mesmo quando o SGM ainda não
+    registrou nada.</p>
+    <div class="galeria">${comFoto.map(cartao).join('')}</div>
+    ${anunciados.length ? `<p class="destaque-texto" style="margin-top:24px">Anexo anunciado, arquivo
+    ainda não veio — o que dá para ler nas fotos já está descrito aqui.</p>
+    <div class="galeria">${anunciados.map(cartao).join('')}</div>` : ''}
+    ${semAnexo.length ? `<p class="destaque-texto" style="margin-top:24px">Reportes só em texto.</p>
+    <div class="galeria">${semAnexo.map(cartao).join('')}</div>` : ''}
+  </section>`;
+}
+
 function escada() {
   const maior = Math.max(...D.por_etapa.map((e) => e.qtd));
   return `<div class="escada">${D.por_etapa.map((e) => `
@@ -356,6 +404,8 @@ function desenhar() {
     <section class="bloco"><h3>Etapa × criticidade</h3>
       <p class="destaque-texto">Onde está o risco: quantos de cada criticidade em cada etapa.</p>
       ${matriz()}</section>
+
+    ${galeriaReportes()}
 
     ${D.notas_campo.length ? `<section class="bloco"><h3>O que o campo anotou (${D.notas_campo.length})</h3>
       <div class="itens">${D.notas_campo.map((x) => `<div class="item-linha">
