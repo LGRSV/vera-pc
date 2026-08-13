@@ -103,5 +103,12 @@
     "data": "2026-08-13",
     "decisao": "executado",
     "nota": "Revisão dos 3 revisores: houve intervenção comprovada — nobreak, relé, cabo e bateria trocados. O que ficou faltando é o controle completo, negado pelo COEP; a ETO-COEP 00216/2025 seguiu REPASSADA. Equipamento manutencionado, processo ainda em curso."
+  },
+  {
+    "ativo": "5850308009",
+    "localidade": "GUARAI",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: essa realmente foi cancelada e havia SS para consertar, mas o equipamento já estava em operação. O laudo de controle danificado e a fase em manual que aparecem no mesmo texto são do ciclo anterior — o controle foi substituído por completo em 12/09/2025 e a visita de campo confirmou o equipamento operando, o que liberou o redirecionamento do controle comprado para Arapoema (5800371025)."
   }
 ]

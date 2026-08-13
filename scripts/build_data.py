@@ -489,6 +489,11 @@ def main():
                 reg["agenda_campo"] = por_ativo_agenda[reg["ativo"]]
         meta["agenda_campo"] = sorted(agenda, key=lambda x: x.get("data", ""))
 
+    arq_emd_aic = os.path.join(RAIZ, "data", "raw", "emd_no_aic.json")
+    if os.path.exists(arq_emd_aic):
+        with open(arq_emd_aic, encoding="utf-8") as fh:
+            meta["emd_no_aic"] = json.load(fh)
+
     arq_obras_eq = os.path.join(RAIZ, "data", "raw", "obras_equipamento.json")
     if os.path.exists(arq_obras_eq):
         with open(arq_obras_eq, encoding="utf-8") as fh:

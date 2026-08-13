@@ -58,6 +58,7 @@ const COLECOES = [
   { id: 'coep', nome: 'Parecer COEP', desc: 'O que já deveria estar concluído e não está', termos: 'coep parecer pendencia atraso prazo vencido sla' },
   { id: 'emd', nome: 'Cruzamento EMD', desc: 'Divergências entre a requisição e a criticidade', termos: 'emd requisicao divergencia obra deposito material' },
   { id: 'compras', nome: 'Plano de compras', desc: 'Pedido de 17/07/2026, prazos e conferência', termos: 'compras compra pedido plano valor preco prazo 120 180 portilho' },
+  { id: 'classificacoes', nome: 'Minhas classificações', desc: 'O que você marcou à mão e o arquivo para me mandar', termos: 'minhas classificacoes classificar marcar corrigir gestor decisao exportar download json' },
   { id: 'pecas', nome: 'Peças e orçamento', desc: 'O que dá para realocar e quanto o AIC já realizou', termos: 'pecas peca realocar realocacao estoque sobra tanque controle celula chave faca orcamento aic sigco 8481 8495 realizado mao de obra material' },
   { id: 'frota', nome: 'Mapa e frota', desc: 'Onde estão, marca, potência e especificação', termos: 'mapa frota coordenada localizacao marca modelo potencia tensao kvar especificacao ajustes' },
   { id: 'visao', nome: 'Visão geral', desc: 'Distribuição da carteira em números', termos: 'visao geral panorama distribuicao criticidade resumo grafico' },
@@ -78,7 +79,7 @@ function bucketParecer(p) {
 }
 
 const estado = {
-  equipamentos: [], alertas: [], divergencias: [], compras: [], meta: null, imagens: {},
+  equipamentos: [], alertas: [], divergencias: [], compras: [], meta: null, imagens: {}, classificacoes: {},
   termo: '', facetas: {}, limite: 40, selecionado: -1, vista: 'busca',
 };
 
@@ -126,6 +127,7 @@ function indice(e) {
 /* ---------------- carregamento ---------------- */
 
 async function carregar() {
+  estado.classificacoes = lerClassificacoes();
   if (typeof DADOS_EMBUTIDOS !== 'undefined') {
     Object.assign(estado, DADOS_EMBUTIDOS);
   } else {
@@ -474,6 +476,98 @@ function paginaLeitura(conteudo, classe = 'leitura') {
   window.scrollTo({ top: 0 });
 }
 
+/* ---------------- classificação do gestor ----------------
+   O painel é um arquivo só, sem servidor. O que o gestor classifica fica no
+   navegador dele e sai daqui por download, para virar decisão no repositório. */
+
+const ESCADA_GESTOR = [
+  'Em operação',
+  'Executado — falta ajuste ou comissionamento',
+  'Em execução',
+  'Pendente no COEP',
+  'Pendente com outra equipe',
+  'Cancelada errada pelo DMSL',
+  'Em análise',
+  'Sem ação do COEP',
+  'Fora da análise',
+];
+
+const CHAVE_CLASSIF = 'coep.classificacoes.v1';
+
+function lerClassificacoes() {
+  try { return JSON.parse(localStorage.getItem(CHAVE_CLASSIF) || '{}'); } catch { return {}; }
+}
+
+function gravarClassificacao(ativo, dados) {
+  const todas = lerClassificacoes();
+  if (dados) todas[ativo] = dados; else delete todas[ativo];
+  try { localStorage.setItem(CHAVE_CLASSIF, JSON.stringify(todas)); } catch { /* modo privado */ }
+  estado.classificacoes = todas;
+}
+
+function painelClassificacao(e) {
+  const minha = (estado.classificacoes || {})[e.ativo];
+  const atual = e.consolidado?.situacao || '—';
+  return `<section class="bloco" id="classificar"><h3>Sua classificação</h3>
+    <p class="destaque-texto">O painel diz <b>${esc(atual)}</b>. Se você sabe que é outra coisa, marque aqui —
+    fica guardado neste navegador e sai por download para virar decisão no repositório.</p>
+    ${minha ? `<div class="nota" style="margin-bottom:12px"><strong>Já classificado por você</strong>
+      ${esc(minha.situacao)}${minha.nota ? ` — ${esc(minha.nota)}` : ''} <i>(${esc(minha.data)})</i></div>` : ''}
+    <div class="opcoes-classif">
+      ${ESCADA_GESTOR.map((s) => `<button class="pastilha op-classif" data-situacao="${esc(s)}"
+        aria-pressed="${minha?.situacao === s}">${esc(s)}</button>`).join('')}
+    </div>
+    <label class="rotulo" for="nota-classif" style="display:block;margin:16px 0 6px">Por quê</label>
+    <textarea id="nota-classif" rows="3" placeholder="o que você sabe que o sistema não sabe"
+      >${esc(minha?.nota || '')}</textarea>
+    <div class="acoes-classif">
+      <button class="pastilha" id="salvar-classif">Salvar</button>
+      ${minha ? '<button class="pastilha limpar" id="apagar-classif">Apagar a minha</button>' : ''}
+      <a class="pastilha" href="#" data-colecao="classificacoes">Ver todas as minhas</a>
+    </div></section>`;
+}
+
+function ligarClassificacao(e) {
+  const secao = $('#classificar');
+  if (!secao) return;
+  let escolhida = (estado.classificacoes || {})[e.ativo]?.situacao || '';
+  secao.querySelectorAll('.op-classif').forEach((b) => b.addEventListener('click', () => {
+    escolhida = b.dataset.situacao;
+    secao.querySelectorAll('.op-classif').forEach((o) => o.setAttribute('aria-pressed', o === b));
+  }));
+  $('#salvar-classif')?.addEventListener('click', () => {
+    if (!escolhida) { alert('Escolha uma situação primeiro.'); return; }
+    gravarClassificacao(e.ativo, {
+      ativo: e.ativo,
+      localidade: e.localidade || '',
+      situacao: escolhida,
+      nota: $('#nota-classif').value.trim(),
+      situacao_do_painel: e.consolidado?.situacao || '',
+      data: new Date().toLocaleDateString('pt-BR'),
+    });
+    abrirAtivo(e.ativo);
+  });
+  $('#apagar-classif')?.addEventListener('click', () => {
+    gravarClassificacao(e.ativo, null);
+    abrirAtivo(e.ativo);
+  });
+}
+
+async function baixarClassificacoes() {
+  const todas = Object.values(estado.classificacoes || {});
+  if (!todas.length) { alert('Você ainda não classificou nenhum ativo.'); return; }
+  const conteudo = JSON.stringify(todas, null, 2);
+  if (window.claude?.downloads?.save) {
+    try {
+      await window.claude.downloads.save({ filename: 'classificacoes-coep.json', data: conteudo });
+      return;
+    } catch (erro) { console.warn('download recusado', erro); }
+  }
+  // Fora do visualizador: mostra o JSON para copiar.
+  const area = $('#json-classif');
+  if (area) { area.value = conteudo; area.style.display = 'block'; area.select(); }
+}
+
 /* ---------------- ficha do equipamento ---------------- */
 
 const bloco = (titulo, corpo) => `<section class="bloco"><h3>${esc(titulo)}</h3>${corpo}</section>`;
@@ -498,6 +592,7 @@ function abrirAtivo(ativo) {
     e.realizada?.veredito ? '<span class="selo c-baixa">✓ Realizada</span>' : '',
     e.realizada?.origem_cancelamento === 'Sem reincidência' ? '<span class="selo neutro">sem reincidência</span>' : '',
     c ? `<span class="selo ${c.situacao === 'Confirmada no AIC' ? 'c-baixa' : c.situacao === 'Indício contestado' ? 'c-alta' : 'neutro'}">${esc(c.situacao)}</span>` : '',
+    (estado.classificacoes || {})[e.ativo] ? `<span class="selo destaque">classificado por você</span>` : '',
   ].filter(Boolean).join('');
 
   const partes = [`<header class="cabeca">
@@ -830,7 +925,10 @@ function abrirAtivo(ativo) {
       <div class="item-linha somatorio"><span><strong>Total</strong></span><b>${e.priorizacao}</b></div></div>`));
   }
 
+  partes.push(painelClassificacao(e));
+
   paginaLeitura(partes.join(''));
+  ligarClassificacao(e);
 }
 
 /* ---------------- coleções ---------------- */
@@ -1042,6 +1140,35 @@ function abrirColecao(id) {
       turmas(estado.compras, 'tipo', DESC_COMPRA, (x) => `<div class="rodape"><span>${esc(x.materiais)}</span></div>`);
   }
 
+  if (id === 'classificacoes') {
+    const minhas = Object.values(estado.classificacoes || {})
+      .sort((a, b) => (a.localidade || '').localeCompare(b.localidade || ''));
+    html = cabecaColecao('Minhas classificações',
+      'O que você marcou à mão, direto na ficha do ativo. Fica guardado neste navegador — ' +
+      'baixe o arquivo e me mande, que eu transformo em decisão registrada no repositório.') +
+      (minhas.length ? `<div class="numeros">
+        ${num({ rotulo: 'Ativos classificados por você', valor: minhas.length })}
+        ${num({ rotulo: 'Onde você discorda do painel', valor: minhas.filter((x) => x.situacao !== x.situacao_do_painel).length, tom: 'atento' })}
+      </div>
+      <div class="acoes-classif" style="margin-bottom:22px">
+        <button class="pastilha" id="baixar-classif">Baixar o arquivo para me mandar</button>
+        <button class="pastilha limpar" id="limpar-classif">Apagar tudo</button>
+      </div>
+      <textarea id="json-classif" rows="10" style="display:none;width:100%"></textarea>
+      <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+      <th>O painel diz</th><th>Você diz</th><th>Por quê</th><th>Quando</th></tr></thead><tbody>
+      ${minhas.map((x) => `<tr data-ativo="${esc(x.ativo)}">
+        <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade || '—')}</td>
+        <td>${esc(x.situacao_do_painel || '—')}</td>
+        <td><b>${esc(x.situacao)}</b></td><td>${esc(x.nota || '—')}</td>
+        <td class="mono">${esc(x.data)}</td></tr>`).join('')}
+      </tbody></table></div>`
+      : `<div class="nota calma"><strong>Ainda vazio</strong>
+        Abra a ficha de um ativo e vá até o bloco «Sua classificação», no fim da página.
+        Marque a situação que você sabe que é a certa e escreva o porquê. Aqui vai aparecer a lista,
+        com o botão para baixar o arquivo.</div>`);
+  }
+
   if (id === 'pecas') {
     const po = m.pecas_orcamento;
     if (!po) {
@@ -1111,6 +1238,43 @@ function abrirColecao(id) {
         <td class="num">${rs(re.falta_comprar_total)}</td></tr></tfoot></table></div>
         <p class="destaque-texto" style="margin-top:12px">Fora os três ativos sem diagnóstico, que
         ainda não dá para dimensionar.</p></section>
+
+        ${m.emd_no_aic ? (() => {
+          const ea = m.emd_no_aic;
+          const errados = new Set((ea.sigco_errado || []).map((x) => x.ativo));
+          return `<section class="bloco"><h3>As obras do EMD no AIC — em que passo cada uma está</h3>
+        <p class="destaque-texto">As ${ea.total} obras da planilha de EMD procuradas uma a uma no AIC de
+        07/08/2026: a etapa em que estão, se o SIGCO é o certo e quanto já foi realizado.
+        ${ea.regra_sigco}</p>
+        <div class="numeros">
+          ${num({ rotulo: 'Obras do EMD', valor: ea.total, nota: `${ea.no_aic} encontradas no AIC` })}
+          ${num({ rotulo: 'Já realizado', valor: rs(ea.realizado), nota: `de ${rs(ea.orcado)} orçados`, tom: 'bom' })}
+          ${num({ rotulo: 'Com SIGCO errado', valor: (ea.sigco_errado || []).length, nota: `${rs(ea.sigco_errado_realizado)} lançados na conta errada`, tom: 'critico' })}
+        </div>
+        <div class="itens">${(ea.etapas || []).map((e) => `<div class="item-linha">
+          <span>${esc(e.etapa)}<i class="linha-nota">${esc(e.ativos.join(' · '))}</i></span>
+          <b>${e.obras} · ${rs(e.realizado)}</b></div>`).join('')}</div>
+
+        <div class="tabela-rol" style="margin-top:18px"><table class="matriz rol-entrada"><thead><tr>
+        <th>Ativo</th><th>Localidade</th><th>Tipo</th><th>Obra</th><th>SIGCO</th><th>Etapa</th>
+        <th class="num">Realizado</th><th class="num">Orçado</th></tr></thead><tbody>
+        ${(ea.linhas || []).map((x) => `<tr data-ativo="${esc(x.ativo)}">
+          <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.local || '—')}</td>
+          <td>${esc(x.tipo === 'Religador' ? 'RL' : 'RT')}</td>
+          <td class="mono">${esc(x.obra)}</td>
+          <td>${x.sigco_ok ? `<span class="mono">${esc(x.sigco)}</span>`
+            : `<span class="selo c-alta">${esc(x.sigco || 'vazio')} → ${esc(x.esperado)}</span>`}</td>
+          <td>${esc(x.etapa)}</td>
+          <td class="num">${x.real ? rs(x.real) : '—'}</td>
+          <td class="num">${x.orc ? rs(x.orc) : '—'}</td></tr>`).join('')}
+        </tbody></table></div>
+
+        ${errados.size ? `<div class="nota" style="margin-top:14px"><strong>O que o SIGCO errado custa</strong>
+        ${(ea.sigco_errado || []).length} obras estão na conta errada, e ${rs(ea.sigco_errado_realizado)} já
+        foram lançados nelas. Quatro reguladores caíram no 8389, que não é de equipamento especial; o de
+        Silvanópolis foi para o 8495, que é de religador; e a de Ponte Alta está sem SIGCO nenhum. Enquanto não
+        corrigir, o consumo dos códigos 8481 e 8495 aparece menor do que é.</div>` : ''}
+        </section>`; })() : ''}
 
         ${m.obras_equipamento ? (() => {
           const oe = m.obras_equipamento;
@@ -1985,6 +2149,13 @@ function abrirColecao(id) {
 
   paginaLeitura(html, 'colecao');
   ligarCartas();
+  $('#baixar-classif')?.addEventListener('click', baixarClassificacoes);
+  $('#limpar-classif')?.addEventListener('click', () => {
+    if (!confirm('Apagar todas as suas classificações deste navegador?')) return;
+    try { localStorage.removeItem(CHAVE_CLASSIF); } catch { /* ignora */ }
+    estado.classificacoes = {};
+    abrirColecao('classificacoes');
+  });
 }
 
 /* ---------------- mapa ---------------- */

@@ -580,3 +580,18 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 .reporte-foto { display: block; margin-top: 14px; border: 1px solid var(--filete); line-height: 0; }
 .reporte-foto img { width: 100%; height: auto; display: block; }
 .reporte-foto:hover { border-color: var(--tinta); }
+
+/* Classificação do gestor: o painel dá a leitura, ele dá a palavra final. */
+.opcoes-classif { display: flex; flex-wrap: wrap; gap: 6px; }
+.opcoes-classif .op-classif[aria-pressed="true"] {
+  border: 2px solid var(--sinal); padding: 3px 9px; color: var(--sinal); background: var(--sinal-papel);
+}
+#nota-classif, #json-classif {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--filete-2);
+  background: var(--papel-2); color: var(--tinta);
+  font-family: var(--leitura); font-size: 14.5px; resize: vertical;
+}
+#nota-classif:focus, #json-classif:focus { outline: 0; border-color: var(--sinal); }
+#json-classif { font-family: var(--mono); font-size: 12px; margin-top: 12px; }
+.acoes-classif { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.acoes-classif .pastilha { text-decoration: none; }
