@@ -1368,29 +1368,15 @@ function abrirColecao(id) {
           ${num({ rotulo: 'Aguardando a compra', valor: compra, nota: 'na fila do posto', tom: 'critico' })}
         </div>
 
-        <section class="bloco"><h3>A carteira em duas contas</h3>
-        <div class="confronto-duplo">
-          <div>
-            <h4 class="rotulo-coluna">Resolvidos — ${R.resolvidos_total}</h4>
-            <p class="destaque-texto">Saíram do problema. ${R.manutencionados.total} com intervenção física,
-            ${R.por_cancelamento ? R.por_cancelamento.total : 0} por cancelamento.</p>
-            <div class="itens">
-              ${linha('Em operação, nada falta', falta['Nada — em operação'] || 0, 'serviço fechado')}
-              ${linha('Canceladas', R.por_cancelamento ? R.por_cancelamento.total : 0, 'não precisaram de substituição')}
-              ${linha('Ajuste da Proteção', falta['Ajuste da Proteção'] || 0, 'trocado, falta o ajuste')}
-              ${linha('Comissionamento', falta['Comissionamento do DMSL'] || 0, 'trocado, falta comissionar')}
-              ${falta['Baixa da SS no sistema'] ? linha('Baixa da SS', falta['Baixa da SS no sistema'], 'trocado, falta só encerrar') : ''}
-            </div>
-          </div>
-          <div>
-            <h4 class="rotulo-coluna">Aguardando a compra — ${compra}</h4>
-            <p class="destaque-texto">${pl.criterio_do_corte || 'Quem já tem a compra decidida carrega a marcação no parecer do COEP.'}</p>
-            <div class="itens">
-              ${linha('Compra já pedida', pl.com_decisao ?? noPlano, '«equipamento selecionado para compra» no parecer do COEP')}
-              ${linha('Ainda sem pedido', pl.sem_pedido ?? depois, 'sem pedido de compra registrado no parecer')}
-              ${linha('Destes, orçados no plano de Muito Alta + Alta', noPlano, pl.valor_no_plano ? `R$ ${moedaBR(pl.valor_no_plano)}` : '')}
-            </div>
-          </div>
+        <section class="bloco"><h3>Como os resolvidos se dividem</h3>
+        <p class="destaque-texto">Saíram do problema. ${R.manutencionados.total} com intervenção física,
+        ${R.por_cancelamento ? R.por_cancelamento.total : 0} por cancelamento.</p>
+        <div class="itens">
+          ${linha('Em operação, nada falta', falta['Nada — em operação'] || 0, 'serviço fechado')}
+          ${linha('Canceladas', R.por_cancelamento ? R.por_cancelamento.total : 0, 'não precisaram de substituição')}
+          ${linha('Ajuste da Proteção', falta['Ajuste da Proteção'] || 0, 'trocado, falta o ajuste')}
+          ${linha('Comissionamento', falta['Comissionamento do DMSL'] || 0, 'trocado, falta comissionar')}
+          ${falta['Baixa da SS no sistema'] ? linha('Baixa da SS', falta['Baixa da SS no sistema'], 'trocado, falta só encerrar') : ''}
         </div></section>
 `; })()}
 
