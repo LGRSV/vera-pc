@@ -59,7 +59,8 @@ PREMISSAS = [
     "Precedência das fontes: decisão do gestor > planilha de hoje (parecer COEP, observação e "
     "check de concluídas) > base de SS/OS > veredito da carteira de entrada.",
     "Regra do gestor (13/08): equipamento em comissionamento ou em ajuste já foi manutencionado "
-    "— o serviço foi feito e falta a cauda. Troca de bateria pelo DMSL é rotina e não conta.",
+    "— o serviço foi feito e falta a etapa seguinte do fluxo. Troca de bateria pelo DMSL é "
+    "rotina e não conta.",
     "Ativo que saiu da lista de hoje e estava dado como resolvido na entrada conta como "
     "resolvido: ele deixou de ser acompanhado porque foi tratado.",
     "«Cancelada errada pelo DMSL» é pendência: a SS foi encerrada no sistema sem o serviço.",
@@ -105,7 +106,16 @@ def montar(registros, entrada, acompanhamento):
     ficha = {r["ativo"]: r for r in registros}
 
     consolidado = []
+    fora_da_analise = []
     for ativo in sorted(set(hoje) | set(da_entrada) | excluidos):
+        if ativo in excluidos:
+            fora_da_analise.append({
+                "ativo": ativo,
+                "localidade": (decisoes.get(ativo) or {}).get("localidade", ""),
+                "nota": (decisoes.get(ativo) or {}).get("nota", ""),
+                "data": (decisoes.get(ativo) or {}).get("data", ""),
+            })
+            continue
         na_lista_hoje = ativo in hoje
         veio_da_entrada = ativo in da_entrada
         h = hoje.get(ativo, {})
@@ -125,11 +135,7 @@ def montar(registros, entrada, acompanhamento):
         # --- a escada ---
         situacao, porque = None, ""
 
-        if ativo in excluidos:
-            situacao = "Fora da análise"
-            porque = (decisao or {}).get("nota", "excluído por decisão do gestor")
-
-        elif decisao and decisao.get("decisao") == "pendente":
+        if decisao and decisao.get("decisao") == "pendente":
             situacao = ("Cancelada errada pelo DMSL"
                         if h.get("situacao_planilha") == "Cancelada errada pelo DMSL"
                         else "Pendente no COEP" if (posto or "COEP") == "COEP"
@@ -255,6 +261,34 @@ def montar(registros, entrada, acompanhamento):
             else:
                 i["espera"] = "Sem SS aberta — indefinido"
 
+    for i in consolidado:
+        if not i["manutencionado"]:
+            i["como_resolveu"] = ""
+            continue
+        motivo = (i.get("entrada_motivo") or "").lower()
+        parecer = (i["parecer_coep"] or "").upper()
+        porque = (i["porque"] or "").lower()
+        if i["falta"] == "Ajuste da Proteção":
+            i["como_resolveu"] = "Trocado — falta o ajuste da Proteção"
+        elif i["falta"] == "Comissionamento do DMSL":
+            i["como_resolveu"] = "Trocado — falta o comissionamento do DMSL"
+        elif i["falta"] == "Baixa da SS no sistema":
+            i["como_resolveu"] = "Trocado — falta só baixar a SS"
+        elif "cancelad" in motivo or "cancelad" in porque:
+            i["como_resolveu"] = "Cancelada — equipamento operando, sem precisar de SS nova"
+        elif "obra encerrada" in motivo:
+            i["como_resolveu"] = "Obra encerrada no AIC"
+        elif "comissionamento" in motivo:
+            i["como_resolveu"] = "Comissionamento concluído"
+        elif "desmobilizado" in porque or i["situacao"] == "Sem ação do COEP":
+            i["como_resolveu"] = "Desmobilizado — não era caso do posto"
+        elif "check de concluídas" in porque:
+            i["como_resolveu"] = "Check de concluídas «Ok» na planilha de hoje"
+        elif "concluída" in motivo or "CONCLU" in parecer or "SUBSTITU" in parecer:
+            i["como_resolveu"] = "Serviço concluído e registrado"
+        else:
+            i["como_resolveu"] = "Resolvido — origem registrada na ficha"
+
     manutencionados = [i for i in consolidado if i["manutencionado"]]
     nao = [i for i in consolidado if not i["manutencionado"] and i["situacao"] != "Fora da análise"]
 
@@ -262,6 +296,16 @@ def montar(registros, entrada, acompanhamento):
         "manutencionados": {
             "total": len(manutencionados),
             "por_falta": dict(Counter(i["falta"] for i in manutencionados)),
+            "por_como_resolveu": dict(Counter(i["como_resolveu"] for i in manutencionados).most_common()),
+            "listas_como": {
+                k: [
+                    {kk: i[kk] for kk in ("ativo", "localidade", "tipo", "criticidade",
+                                          "parecer_coep", "posto_atual", "origem")}
+                    for i in sorted(manutencionados, key=lambda x: (x["localidade"] or "", x["ativo"]))
+                    if i["como_resolveu"] == k
+                ]
+                for k in dict(Counter(i["como_resolveu"] for i in manutencionados))
+            },
             "listas": {
                 f: [
                     {k: i[k] for k in ("ativo", "localidade", "tipo", "criticidade",
@@ -296,6 +340,7 @@ def montar(registros, entrada, acompanhamento):
         "total": len(consolidado),
         "por_situacao": {s: por_situacao.get(s, 0) for s in ESCADA},
         "por_origem": dict(Counter(i["origem"] for i in consolidado)),
+        "fora_da_analise": fora_da_analise,
         "resolvidos": len(resolvidos),
         "pendentes": len(pendentes),
         "em_execucao": por_situacao.get("Em execução", 0),
@@ -312,6 +357,49 @@ def montar(registros, entrada, acompanhamento):
             key=lambda i: (ESCADA.index(i["situacao"]), i["localidade"] or "", i["ativo"]),
         ),
     }
+    # --- recorte DCMD: tira o primeiro ataque, que ainda não é do posto ---
+    # Regra do gestor (13/08): equipamento parado no DMSL sem ter passado pelo COEP, ou
+    # marcado «Novo», está em primeiro ataque — diagnóstico de campo. Não é análise do DCMD.
+    for i in consolidado:
+        ativo = i["ativo"]
+        passou_coep = any(
+            "COEP" in (l.get("COD_EQUIPE") or "").upper() for l in por_ativo.get(ativo, [])
+        )
+        i["passou_pelo_coep"] = passou_coep
+        i["primeiro_ataque"] = (
+            not i["manutencionado"]
+            and i["situacao"] != "Fora da análise"
+            and (i["espera"] in ("Análise / primeiro ataque", "Laudo do DMSL")
+                 or i["posto_atual"] == "DMSL")
+            and not passou_coep
+        )
+
+    recorte = [i for i in consolidado if not i["primeiro_ataque"] and i["situacao"] != "Fora da análise"]
+    ataque = [i for i in consolidado if i["primeiro_ataque"]]
+    nao_rec = [i for i in recorte if not i["manutencionado"]]
+
+    resumo["recorte_dcmd"] = {
+        "total": len(recorte),
+        "manutencionados": sum(1 for i in recorte if i["manutencionado"]),
+        "nao_manutencionados": len(nao_rec),
+        "por_espera": dict(Counter(i["espera"] for i in nao_rec).most_common()),
+        "por_posto": dict(Counter(i["posto_atual"] or "sem SS aberta" for i in nao_rec).most_common()),
+        "no_coep": sum(1 for i in nao_rec if (i["posto_atual"] or "COEP") == "COEP"),
+        "nos_cocm": sum(1 for i in nao_rec if i["posto_atual"] == "DCMD"),
+        "primeiro_ataque": {
+            "total": len(ataque),
+            "novos": sum(1 for i in ataque if (i["parecer_coep"] or "").upper() == "NOVO"),
+            "lista": [
+                {k: i[k] for k in ("ativo", "localidade", "tipo", "criticidade", "parecer_coep",
+                                   "posto_atual", "ss_planilha")}
+                for i in sorted(ataque, key=lambda x: (x["localidade"] or "", x["ativo"]))
+            ],
+        },
+        "percentual_manutencionado": round(
+            100 * sum(1 for i in recorte if i["manutencionado"]) / max(len(recorte), 1), 1
+        ),
+    }
+
     # --- auditoria da base: de onde vêm os números e se há repetição ---
     import re as _re
 
@@ -337,9 +425,11 @@ def montar(registros, entrada, acompanhamento):
 
     resumo["auditoria"] = {
         "entrada_distintos": len(set(da_entrada) | excluidos),
+        "excluidos": len(excluidos),
         "hoje_distintos": len(hoje),
         "em_comum": len((set(da_entrada) | excluidos) & set(hoje)),
-        "uniao": len(consolidado),
+        "uniao": len(consolidado) + len(excluidos),
+        "na_analise": len(consolidado),
         "linhas": len(consolidado),
         "distintos": len({i["ativo"] for i in consolidado}),
         "codigos_validos": len(validos),
@@ -348,6 +438,45 @@ def montar(registros, entrada, acompanhamento):
         "universo_2026": len(universo_2026),
         "universo_2026_na_carteira": len(universo_2026 & {i["ativo"] for i in consolidado}),
     }
+    plano = os.path.join(RAIZ, "data", "raw", "plano_compras.csv")
+    if os.path.exists(plano):
+        import csv as _csv
+
+        por_ativo_plano = defaultdict(lambda: {"itens": 0, "valor": 0.0, "materiais": []})
+        with open(plano, encoding="utf-8") as fh:
+            for item in _csv.DictReader(fh, delimiter=";"):
+                ativo_item = (item.get("Ativo") or "").strip()
+                if not ativo_item:
+                    continue
+                alvo = por_ativo_plano[ativo_item]
+                alvo["itens"] += 1
+                try:
+                    alvo["valor"] += float(item.get("Valor Total") or 0)
+                except ValueError:
+                    pass
+                alvo["materiais"].append((item.get("Material") or "").split("·")[-1].strip())
+        aquisicao = [i for i in consolidado if i.get("espera") == "Compra do material (aquisição)"]
+        dentro = [i for i in aquisicao if i["ativo"] in por_ativo_plano]
+        fora_plano = [i for i in aquisicao if i["ativo"] not in por_ativo_plano]
+        resposta["aquisicao_x_plano"] = {
+            "em_aquisicao": len(aquisicao),
+            "no_plano": len(dentro),
+            "fora_do_plano": len(fora_plano),
+            "valor_no_plano": round(sum(por_ativo_plano[i["ativo"]]["valor"] for i in dentro), 2),
+            "lista_no_plano": [
+                {"ativo": i["ativo"], "localidade": i["localidade"], "criticidade": i["criticidade"],
+                 "valor": round(por_ativo_plano[i["ativo"]]["valor"], 2),
+                 "itens": por_ativo_plano[i["ativo"]]["itens"],
+                 "materiais": por_ativo_plano[i["ativo"]]["materiais"]}
+                for i in sorted(dentro, key=lambda x: -por_ativo_plano[x["ativo"]]["valor"])
+            ],
+            "lista_fora": [
+                {"ativo": i["ativo"], "localidade": i["localidade"], "criticidade": i["criticidade"],
+                 "tipo": i["tipo"], "parecer_coep": i["parecer_coep"]}
+                for i in sorted(fora_plano, key=lambda x: (x["localidade"] or "", x["ativo"]))
+            ],
+        }
+
     resumo["resposta"] = resposta
     resumo["percentual_resolvido"] = round(100 * len(resolvidos) / max(len(consolidado), 1), 1)
     resumo["percentual_manutencionado"] = round(

@@ -1128,6 +1128,10 @@ function abrirColecao(id) {
             <div class="itens">${Object.entries(co.resposta.manutencionados.por_falta)
               .sort((a, b) => b[1] - a[1])
               .map(([k, v]) => `<div class="item-linha"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
+            ${co.resposta.manutencionados.por_como_resolveu ? `
+            <p class="destaque-texto" style="margin-top:16px">Como cada um saiu:</p>
+            <div class="itens">${Object.entries(co.resposta.manutencionados.por_como_resolveu)
+              .map(([k, v]) => `<div class="item-linha"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>` : ''}
           </div>
           <div>
             <h4 class="rotulo-coluna">Ainda não manutencionados — ${co.resposta.nao_manutencionados.total}</h4>
@@ -1187,12 +1191,51 @@ function abrirColecao(id) {
           <td>${esc(i.origem)}</td></tr>`).join('')}
         </tbody></table></div></section>`).join('')}
 
+        ${co.recorte_dcmd ? `<section class="bloco"><h3>Recorte do DCMD — tirando o primeiro ataque</h3>
+        <p class="destaque-texto">Equipamento parado no DMSL que nunca passou pelo COEP, ou marcado «Novo»,
+        está em primeiro ataque: é diagnóstico de campo, ainda não é demanda do posto. Fora esses
+        ${co.recorte_dcmd.primeiro_ataque.total} (${co.recorte_dcmd.primeiro_ataque.novos} deles «Novo»),
+        a carteira do DCMD é esta:</p>
+        <div class="numeros">
+          ${num({ rotulo: 'Carteira do DCMD', valor: co.recorte_dcmd.total, nota: 'sem o primeiro ataque' })}
+          ${num({ rotulo: 'Já manutencionados', valor: co.recorte_dcmd.manutencionados, nota: `${co.recorte_dcmd.percentual_manutencionado}% do recorte`, tom: 'bom' })}
+          ${num({ rotulo: 'No posto do COEP', valor: co.recorte_dcmd.no_coep, nota: 'compra, logística ou reabertura', tom: 'critico' })}
+          ${num({ rotulo: 'Com o DCMD / COCM', valor: co.recorte_dcmd.nos_cocm, nota: 'material entregue, falta executar', tom: 'atento' })}
+        </div></section>` : ''}
+
+        ${co.resposta?.aquisicao_x_plano ? `<section class="bloco"><h3>Os ${co.resposta.aquisicao_x_plano.em_aquisicao} em aquisição × o plano de compras</h3>
+        <div class="numeros">
+          ${num({ rotulo: 'Pedidos em 17/07', valor: co.resposta.aquisicao_x_plano.no_plano, nota: moeda(co.resposta.aquisicao_x_plano.valor_no_plano), tom: 'bom' })}
+          ${num({ rotulo: 'Sem pedido no plano', valor: co.resposta.aquisicao_x_plano.fora_do_plano, nota: 'em aquisição, mas fora do pedido', tom: 'critico' })}
+        </div>
+        <div class="nota" style="margin:14px 0"><strong>O plano é só material</strong>
+        Os 40 itens do pedido de 17/07 são tanque/parte ativa, controle, célula, chave faca e bateria+rádio.
+        Não há nenhuma linha de mão de obra ou serviço — a execução corre por conta dos COCMs, fora deste valor.</div>
+        <h3 style="margin-top:20px;border:0;padding:0;font-size:12px">No plano</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Criticidade</th><th>Itens</th><th>Valor</th><th>Material</th></tr></thead><tbody>
+        ${co.resposta.aquisicao_x_plano.lista_no_plano.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td><b class="mono">${esc(i.ativo)}</b></td><td>${esc(i.localidade || '—')}</td>
+          <td>${esc(i.criticidade || '—')}</td><td>${i.itens}</td><td>${moeda(i.valor)}</td>
+          <td>${esc(i.materiais.join(' · '))}</td></tr>`).join('')}
+        </tbody></table></div>
+        <h3 style="margin-top:22px;border:0;padding:0;font-size:12px">Em aquisição, mas sem pedido no plano</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Tipo</th><th>Criticidade</th><th>Parecer COEP</th></tr></thead><tbody>
+        ${co.resposta.aquisicao_x_plano.lista_fora.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td><b class="mono">${esc(i.ativo)}</b></td><td>${esc(i.localidade || '—')}</td>
+          <td>${esc(i.tipo === 'Religador' ? 'RL' : 'RT')}</td><td>${esc(i.criticidade || '—')}</td>
+          <td>${esc(i.parecer_coep || '—')}</td></tr>`).join('')}
+        </tbody></table></div></section>` : ''}
+
         ${co.auditoria ? `<section class="bloco"><h3>De onde vêm os ${co.auditoria.uniao} — e por que não há repetido</h3>
         <div class="itens">
           <div class="item-linha"><span>Foto de entrada (as duas abas), ativos distintos</span><b>${co.auditoria.entrada_distintos}</b></div>
           <div class="item-linha"><span>Lista de hoje (ATUALIZADA6), ativos distintos</span><b>${co.auditoria.hoje_distintos}</b></div>
           <div class="item-linha"><span>Estão nas duas listas (contados uma vez só)</span><b>− ${co.auditoria.em_comum}</b></div>
           <div class="item-linha"><span><b>União</b></span><b>${co.auditoria.uniao}</b></div>
+          <div class="item-linha"><span>Excluídos da análise por decisão sua</span><b>− ${co.auditoria.excluidos ?? 0}</b></div>
+          <div class="item-linha"><span><b>Na análise</b></span><b>${co.auditoria.na_analise ?? co.auditoria.uniao}</b></div>
           <div class="item-linha"><span>Linhas na tabela × ativos distintos</span><b>${co.auditoria.linhas} × ${co.auditoria.distintos}</b></div>
           <div class="item-linha"><span>Códigos no padrão 79/58 + 8 dígitos</span><b>${co.auditoria.codigos_validos}</b></div>
           <div class="item-linha"><span>Ativos repetidos</span><b>${Object.keys(co.auditoria.repetidos).length ? Object.keys(co.auditoria.repetidos).join(', ') : 'nenhum'}</b></div>
@@ -1400,7 +1443,7 @@ function abrirColecao(id) {
         ou para o DMSL comissionar (${en.cauda.por_etapa.DMSL || 0}). É a etapa seguinte do mesmo serviço,
         não uma reincidência. Só conta quando o texto da cadeia registra a execução.</p>
         <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
-        <th>Etapa que falta</th><th>SS da cauda</th><th>Situação</th></tr></thead><tbody>
+        <th>Etapa que falta</th><th>SS do fluxo</th><th>Situação</th></tr></thead><tbody>
         ${en.cauda.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
           <td>${fichaLink(i.ativo)}</td><td>${esc(i.localidade || '—')}</td>
           <td>${i.etapa_final === 'DEOP' ? 'ajustes da Proteção' : 'comissionamento do DMSL'}</td>
