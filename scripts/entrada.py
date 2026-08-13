@@ -42,15 +42,24 @@ TIPO_INDISPONIBILIDADE = "INDISPONIBILIDADE PARA OPERA"
 ENCERRADA = "ENCERRAMENTO"
 
 PREMISSAS = [
-    "Foto de entrada = aba «Dados» da planilha 1_Base_SS_OS_Equipamentos_especiais.xlsx: "
-    "170 SS do posto ETO-COEP, todas SS PENDENTE. O recorte do gestor (13/08) fica com as "
-    "100 de religador (79…) e regulador (58…), em 99 ativos.",
+    "Foto de entrada = as duas abas da planilha 1_Base_SS_OS_Equipamentos_especiais.xlsx: "
+    "«Dados» (extrato cru do SGM) e «Dados Tratados» (a triagem do gestor, com o STATUS que "
+    "ele deu a cada SS). São fotos do mesmo momento, mas não coincidem: 19 ativos de RL/RT "
+    "só aparecem na segunda. A carteira de entrada é a união, sem repetir SS.",
     "Situação atual de cada SS vem da base de SS/OS completa — a mais atualizada, conforme "
     "a hierarquia de fontes do gestor. O parecer COEP vem da planilha de criticidade e só "
     "existe para os ativos da carteira dos 129.",
-    "Bloqueio dos itens 4, 5 e 6: outra SS do MESMO ativo, do tipo INDISPONIBILIDADE PARA "
-    "OPERAÇÃO, em situação SS PENDENTE, diferente da SS de entrada. Havendo, o ativo não "
-    "entra como resolvido e vai para a lista de verificação.",
+    "Bloqueio dos itens 4, 5 e 6: SS do MESMO ativo, tipo INDISPONIBILIDADE PARA OPERAÇÃO, "
+    "PENDENTE e de OUTRA demanda. SS pendente da MESMA cadeia não bloqueia — é a cauda da "
+    "própria intervenção (correção do gestor em 13/08): o DCMD executa e repassa no mesmo "
+    "carimbo para a Proteção ajustar ou para o DMSL comissionar; a SS nova é a etapa "
+    "seguinte, não uma reincidência.",
+    "Cauda pós-execução = a cadeia passou por equipe do DCMD, a SS pendente que sobrou está "
+    "no DEOP/Proteção (ajustes) ou no DMSL/SE (comissionamento) E o texto da cadeia registra "
+    "a execução (substituído, instalado, comissionar, ajustes). Se a SS pendente voltou ao "
+    "COEP ou ao DCMD, ou se o texto só fala em espera de material, a intervenção não terminou.",
+    "Alerta na cauda: quando o texto da SS pendente fala em cabo rompido, falha de comunicação "
+    "ou espera de peça, o ativo fica marcado — a troca foi feita, mas apareceu pendência nova.",
     "Item 3 (ajustes): o parecer de ajuste conta como resolvido pelo gestor; a marca "
     "«ainda na Proteção» sai da base de SS/OS — SS PENDENTE ou REPASSADA em equipe PROT.",
     "Item 7 (obra): obra encerrada no AIC (status começa com ENCERRAMENTO) E ligada a ESTA "
@@ -84,33 +93,109 @@ def _txt(valor):
     return str(valor).strip() if valor is not None else ""
 
 
+def _linhas_da_aba(livro, nome):
+    linhas = list(livro[nome].iter_rows(values_only=True))
+    cabecalho = [_txt(c) for c in linhas[0]]
+    return [dict(zip(cabecalho, linha)) for linha in linhas[1:] if any(linha)]
+
+
+def _data_br(texto):
+    """Converte 12/06/2026 09:26:14 (ou 2026-06-12 …) em 2026-06-12."""
+    texto = _txt(texto)
+    if not texto:
+        return ""
+    if re.match(r"\d{4}-\d{2}-\d{2}", texto):
+        return texto[:10]
+    partes = re.match(r"(\d{2})/(\d{2})/(\d{4})", texto)
+    return f"{partes.group(3)}-{partes.group(2)}-{partes.group(1)}" if partes else ""
+
+
 def ler_foto():
-    """Devolve as SS de RL/RT da foto de entrada."""
+    """Devolve as SS de RL/RT da foto de entrada — as duas abas, sem repetir SS.
+
+    A planilha guarda duas fotos do mesmo momento: «Dados» (extrato cru do SGM, 170 SS) e
+    «Dados Tratados» (a triagem do gestor, 183 linhas, com o STATUS que ele deu a cada uma).
+    Elas não são iguais: 19 ativos de RL/RT só existem na segunda. A carteira de entrada é
+    a união das duas.
+    """
     import openpyxl
 
     livro = openpyxl.load_workbook(XLSX, data_only=True, read_only=True)
-    linhas = list(livro["Dados"].iter_rows(values_only=True))
-    cabecalho = [_txt(c) for c in linhas[0]]
-    registros = [dict(zip(cabecalho, linha)) for linha in linhas[1:] if any(linha)]
+    foto, vistos = [], set()
+    total = 0
 
-    foto = []
-    for reg in registros:
+    for reg in _linhas_da_aba(livro, "Dados"):
+        total += 1
         ativo = _txt(reg.get("PLACEMENTDESC"))
         if not re.fullmatch(r"(79|58)\d{8}", ativo):
             continue
+        numero = _txt(reg.get("NUMERO_SS"))
+        vistos.add(numero)
         foto.append({
-            "numero_ss": _txt(reg.get("NUMERO_SS")),
+            "numero_ss": numero,
             "ativo": ativo,
             "tipo": "Religador" if ativo.startswith("79") else "Regulador de Tensão",
             "tiposs": _txt(reg.get("TIPOSS")),
             "criticidade_ss": _txt(reg.get("CRITICIDADE_SS")),
             "localidade": _txt(reg.get("LOCALIDADE")),
-            "abertura": _txt(reg.get("DATA_ABERTURA_SS"))[:10],
-            "limite": _txt(reg.get("DATA_LIMITE_SS"))[:10],
+            "abertura": _data_br(reg.get("DATA_ABERTURA_SS")),
+            "limite": _data_br(reg.get("DATA_LIMITE_SS")),
             "ano": _txt(reg.get("ANO")),
             "descricao_ativo": _txt(reg.get("OBJSPECDESC")),
+            "aba": "Dados",
+            "status_gestor": "",
         })
-    return foto, len(registros)
+
+    for reg in _linhas_da_aba(livro, "Dados Tratados"):
+        total += 1
+        ativo = _txt(reg.get("Localização"))
+        if not re.fullmatch(r"(79|58)\d{8}", ativo):
+            continue
+        numero = _txt(reg.get("SS"))
+        if numero in vistos:
+            continue
+        vistos.add(numero)
+        foto.append({
+            "numero_ss": numero,
+            "ativo": ativo,
+            "tipo": "Religador" if ativo.startswith("79") else "Regulador de Tensão",
+            "tiposs": _txt(reg.get("SS-Tipos")),
+            "criticidade_ss": _txt(reg.get("DescPrioridade")),
+            "localidade": _txt(reg.get("LOCALIDADE")),
+            "abertura": _data_br(reg.get("DataOcorrência")),
+            "limite": _data_br(reg.get("Data/Hora Limite")),
+            "ano": _txt(reg.get("Ano")),
+            "descricao_ativo": _txt(reg.get("Espécies")),
+            "aba": "Dados Tratados",
+            "status_gestor": _txt(reg.get("STATUS")),
+        })
+
+    return foto, total
+
+
+ARQ_SS_129 = os.path.join(RAIZ, "data", "missao", "ssos_129.json")
+
+EXECUCAO_NO_TEXTO = re.compile(
+    r"SUBSTITU[IÍ]D|FOI SUBSTITU|EQUIPAMENTO SUBSTITU|INSTALAD[OA]|FOI INSTALADO|"
+    r"COMISSIONAR|COMISSIONAMENTO|AJUSTES? (DO|DA|DISPONIBILIZAD)", re.I
+)
+ESPERA_NO_TEXTO = re.compile(
+    r"V[ÃA]O CHEGAR|AT[ÉE] ESSA DATA MANTER|AGUARDANDO (A )?(CHEGAD|PE[ÇC]A|MATERIAL|CABO)|"
+    r"FALHA DE COMUNICA|ROMPID|N[ÃA]O FOI SUBSTITU", re.I
+)
+
+
+def _textos_das_ss():
+    """Texto da SS e da OS, por número — existe só para os ativos da carteira dos 129."""
+    if not os.path.exists(ARQ_SS_129):
+        return {}
+    with open(ARQ_SS_129, encoding="utf-8") as fh:
+        return {
+            _txt(l.get("NUMERO_SS")): " ".join(
+                f"{l.get('DESCRIPTION_SS') or ''} {l.get('DESCRICAO_OS') or ''}".split()
+            )
+            for l in json.load(fh)
+        }
 
 
 ACAO_NO_EQUIPAMENTO = re.compile(
@@ -250,6 +335,7 @@ def montar(registros):
         por_ativo[_txt(linha.get("NUM_TRAFO"))].append(linha)
 
     indice_aic, detalhe_aic, obras_por_ativo = _indice_aic()
+    textos_ss = _textos_das_ss()
     parecer_por_ativo = {r["ativo"]: (r.get("parecer_coep") or "") for r in registros}
     carteira = {r["ativo"] for r in registros}
     localidade_carteira = {r["ativo"]: r.get("localidade", "") for r in registros}
@@ -276,20 +362,59 @@ def montar(registros):
         resumo_cadeia = D.resumir_demanda(cadeia) if cadeia else None
         ss_cadeia = cadeia["ss"] if cadeia else [minha]
 
-        # bloqueio: outra SS de indisponibilidade PENDENTE no mesmo ativo
-        indisponibilidades = [
-            {
+        # SS de indisponibilidade ainda pendentes no ativo. A que está na MESMA cadeia é a
+        # cauda da própria intervenção (o DCMD executou e repassou para a Proteção ajustar
+        # ou para o DMSL comissionar) — pela regra do gestor isso não é reincidência. Só
+        # bloqueia SS de OUTRA demanda.
+        numeros_da_cadeia = {_txt(l.get("NUMERO_SS")) for l in ss_cadeia}
+
+        def _resumo_ss(l):
+            return {
                 "numero": _txt(l.get("NUMERO_SS")),
                 "equipe": _txt(l.get("COD_EQUIPE")),
                 "departamento": D.departamento(l.get("COD_EQUIPE"), l.get("TIPOSS")),
                 "abertura": _txt(l.get("DATA_ABERTURA_SS"))[:10],
                 "limite": _txt(l.get("DATA_LIMITE_SS"))[:10],
             }
-            for l in linhas
+
+        pendentes_indisponibilidade = [
+            l for l in linhas
             if TIPO_INDISPONIBILIDADE in (l.get("TIPOSS") or "").upper()
             and l.get("SITUACAO_SS") == "SS PENDENTE"
             and _txt(l.get("NUMERO_SS")) != entrada["numero_ss"]
         ]
+        indisponibilidades = [
+            _resumo_ss(l) for l in pendentes_indisponibilidade
+            if _txt(l.get("NUMERO_SS")) not in numeros_da_cadeia
+        ]
+        cauda = [
+            _resumo_ss(l) for l in pendentes_indisponibilidade
+            if _txt(l.get("NUMERO_SS")) in numeros_da_cadeia
+        ]
+
+        # a cauda só vale como «já executado» se o DCMD passou pela cadeia e a etapa que
+        # sobrou é ajuste (Proteção/DEOP) ou comissionamento (DMSL/SE)
+        passou_dcmd = any(
+            D.departamento(l.get("COD_EQUIPE"), l.get("TIPOSS")) == "DCMD" for l in ss_cadeia
+        )
+        etapa_final = cauda[-1]["departamento"] if cauda else None
+
+        # o texto decide os casos de fronteira: a cauda só vale se alguma SS da cadeia
+        # registrar execução (substituído/instalado/comissionar/ajustes). Quando o texto
+        # da etapa pendente fala em espera de material ou em defeito novo — cabo rompido,
+        # falha de comunicação — a cauda fica marcada com alerta.
+        texto_cadeia = " ".join(textos_ss.get(_txt(l.get("NUMERO_SS")), "") for l in ss_cadeia)
+        texto_cauda = " ".join(textos_ss.get(c["numero"], "") for c in cauda)
+        executado_no_texto = bool(EXECUCAO_NO_TEXTO.search(texto_cadeia))
+        espera_no_texto = bool(ESPERA_NO_TEXTO.search(texto_cauda))
+        tem_texto = bool(texto_cadeia.strip())
+        alerta_cauda = bool(cauda) and espera_no_texto
+        cauda_pos_execucao = (
+            bool(cauda)
+            and passou_dcmd
+            and etapa_final in ("DEOP", "DMSL")
+            and (executado_no_texto or not tem_texto)
+        )
 
         # obras do ativo: as escritas nas SS (vínculo direto) e as que citam o ativo no AIC
         obras_na_ss = {
@@ -340,7 +465,19 @@ def montar(registros):
 
         # veredito, na ordem de força definida nas premissas
         veredito, motivo, regra = "em_andamento", "", None
-        if encerradas:
+        if cauda_pos_execucao and alerta_cauda and not indisponibilidades:
+            veredito = "verificar"
+            regra = 5 if etapa_final == "DMSL" else 3
+            motivo = (
+                "Cauda da mesma demanda, mas o texto da SS pendente fala em espera de material "
+                "ou em defeito novo (cabo rompido, falha de comunicação) — precisa da sua leitura"
+            )
+        elif cauda_pos_execucao and not indisponibilidades:
+            etapa = "ajustes da Proteção" if etapa_final == "DEOP" else "comissionamento do DMSL"
+            veredito = "resolvido"
+            motivo = f"Executado pelo DCMD, na cauda: aguardando {etapa}"
+            regra = 3 if etapa_final == "DEOP" else 5
+        elif encerradas:
             veredito, motivo, regra = "resolvido", MOTIVOS["obra_encerrada"], 7
         elif concluida and not indisponibilidades:
             veredito, motivo, regra = "resolvido", MOTIVOS["concluida"], 4
@@ -377,6 +514,12 @@ def montar(registros):
             "tratativa": tratativa,
             "atendimento_tecnico": atendimento_tecnico,
             "indisponibilidades_abertas": indisponibilidades,
+            "cauda_mesma_demanda": cauda,
+            "etapa_final": etapa_final,
+            "cauda_pos_execucao": cauda_pos_execucao,
+            "alerta_cauda": alerta_cauda,
+            "executado_no_texto": executado_no_texto,
+            "passou_dcmd": passou_dcmd,
             "obras": obras_status,
             "obras_encerradas": [o["numero"] for o in encerradas],
             "obras_da_demanda": encerradas,
@@ -403,6 +546,8 @@ def montar(registros):
         "total_ss": len(itens) + len(sem_rastro),
         "total_ativos": len({i["ativo"] for i in itens} | {s["ativo"] for s in sem_rastro}),
         "por_tipo": dict(Counter(i["tipo"] for i in itens)),
+        "por_aba": dict(Counter(i["aba"] for i in itens)),
+        "status_gestor": dict(Counter(i["status_gestor"] for i in itens if i["status_gestor"])),
         "sem_rastro": sem_rastro,
         "resolvidos": {
             "ss": len(resolvidos),
@@ -412,7 +557,9 @@ def montar(registros):
             "lista": [
                 {k: i[k] for k in ("numero_ss", "ativo", "tipo", "localidade", "motivo",
                                    "regra", "parecer_coep", "na_carteira", "na_protecao",
-                                   "obras_encerradas", "situacao_hoje")}
+                                   "aba", "status_gestor",
+                                   "obras_encerradas", "situacao_hoje", "cauda_mesma_demanda",
+                                   "etapa_final")}
                 for i in sorted(resolvidos, key=lambda x: (x["regra"] or 9, x["ativo"]))
             ],
         },
@@ -421,8 +568,8 @@ def montar(registros):
             "ativos": len(ativos(verificar)),
             "lista": [
                 {k: i[k] for k in ("numero_ss", "ativo", "tipo", "localidade", "motivo",
-                                   "parecer_coep", "indisponibilidades_abertas",
-                                   "na_carteira", "situacao_hoje")}
+                                   "parecer_coep", "indisponibilidades_abertas", "aba", "status_gestor",
+                                   "na_carteira", "situacao_hoje", "cauda_mesma_demanda")}
                 for i in sorted(verificar, key=lambda x: x["ativo"])
             ],
         },
@@ -432,8 +579,8 @@ def montar(registros):
             "por_posto": dict(Counter(i["posto_atual"] or "—" for i in andamento)),
             "lista": [
                 {k: i[k] for k in ("numero_ss", "ativo", "tipo", "localidade", "posto_atual",
-                                   "parecer_coep", "repasse_pendurado", "na_carteira",
-                                   "situacao_hoje", "abertura")}
+                                   "parecer_coep", "repasse_pendurado", "na_carteira", "aba", "status_gestor",
+                                   "situacao_hoje", "abertura", "cauda_mesma_demanda")}
                 for i in sorted(andamento, key=lambda x: (x["posto_atual"] or "", x["ativo"]))
             ],
         },
@@ -464,6 +611,18 @@ def montar(registros):
                                 key=lambda x: x["ativo"])
             ],
         },
+        "cauda": {
+            "ss": sum(1 for i in itens if i["cauda_pos_execucao"]),
+            "por_etapa": dict(Counter(i["etapa_final"] for i in itens if i["cauda_pos_execucao"])),
+            "com_alerta": sum(1 for i in itens if i["cauda_pos_execucao"] and i["alerta_cauda"]),
+            "lista": [
+                {"numero_ss": i["numero_ss"], "ativo": i["ativo"], "localidade": i["localidade"],
+                 "etapa_final": i["etapa_final"], "veredito": i["veredito"],
+                 "cauda_mesma_demanda": i["cauda_mesma_demanda"], "parecer_coep": i["parecer_coep"],
+                 "alerta_cauda": i["alerta_cauda"], "motivo": i["motivo"]}
+                for i in sorted((x for x in itens if x["cauda_pos_execucao"]), key=lambda x: x["ativo"])
+            ],
+        },
         "ajustes": {
             "ss": len(ajustes),
             "ainda_na_protecao": sum(1 for i in ajustes if i["na_protecao"]),
@@ -490,7 +649,8 @@ def montar(registros):
                 {k: m[k] for k in ("numero_ss", "abertura", "tiposs", "situacao_hoje",
                                    "veredito", "motivo", "regra", "posto_atual",
                                    "indisponibilidades_abertas", "obras_encerradas",
-                                   "tratativa")}
+                                   "tratativa", "cauda_mesma_demanda", "etapa_final",
+                                   "cauda_pos_execucao", "alerta_cauda")}
                 for m in meus
             ]
 

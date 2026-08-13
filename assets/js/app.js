@@ -530,8 +530,12 @@ function abrirAtivo(ativo) {
       ${(x.tratativa || []).length ? `<div class="itens" style="margin-top:10px">${x.tratativa.map((t) =>
         `<div class="item-linha"><span>${esc(t)}</span><b>tratativa</b></div>`).join('')}</div>` : ''}
       ${(x.obras_encerradas || []).length ? `<div class="item-linha"><span>Obra encerrada no AIC</span><b>${x.obras_encerradas.map(esc).join(' · ')}</b></div>` : ''}
+      ${(x.cauda_mesma_demanda || []).length ? `<div class="nota ${x.alerta_cauda ? '' : 'calma'}" style="margin-top:10px">
+        <strong>Cauda da mesma demanda${x.etapa_final ? ' — falta ' + (x.etapa_final === 'DEOP' ? 'o ajuste da Proteção' : 'o comissionamento do DMSL') : ''}</strong>
+        ${x.cauda_mesma_demanda.map((i) => `${esc(i.numero)} · ${esc(i.equipe)} (${esc(i.departamento)}) · aberta em ${dataBr(i.abertura)}`).join('<br>')}
+        ${x.alerta_cauda ? '<br>Atenção: o texto desta SS fala em espera de material ou defeito novo.' : ''}</div>` : ''}
       ${(x.indisponibilidades_abertas || []).length ? `<div class="nota" style="margin-top:10px">
-        <strong>SS de indisponibilidade ainda aberta</strong>${x.indisponibilidades_abertas.map((i) =>
+        <strong>SS de indisponibilidade de outra demanda</strong>${x.indisponibilidades_abertas.map((i) =>
           `${esc(i.numero)} · ${esc(i.equipe)} (${esc(i.departamento)}) · aberta em ${dataBr(i.abertura)}`).join('<br>')}</div>` : ''}`).join('<div class="separador-bloco"></div>')));
   }
 
@@ -800,7 +804,7 @@ function turmas(itens, campoTipo, descricoes, extras) {
 }
 
 function ligarCartas() {
-  $$('.carta[data-ativo], .tabela tbody tr[data-ativo], .ponto-mapa[data-ativo]').forEach((el) => {
+  $$('.carta[data-ativo], .tabela tbody tr[data-ativo], .matriz tbody tr[data-ativo], .ponto-mapa[data-ativo]').forEach((el) => {
     el.addEventListener('click', () => abrirAtivo(el.dataset.ativo));
   });
 }
@@ -1073,14 +1077,16 @@ function abrirColecao(id) {
       const fichaLink = (a) => `<b class="mono">${esc(a)}</b>`;
 
       html = cabecaColecao('Carteira de entrada',
-        `Quando o posto foi assumido, ${en.total_foto} SS estavam pendentes no ETO-COEP. ` +
-        `Deste bolo, ${en.total_ss} são de religador (79…) e regulador (58…), em ${en.total_ativos} ativos — ` +
-        'este é o recorte. A pergunta é uma só: quanto disso já foi embora, pelas sete réguas do gestor.') +
+        'A planilha de entrada guarda duas fotos do mesmo momento — o extrato cru do SGM (aba Dados) e ' +
+        `a triagem do gestor (aba Dados Tratados). Juntas, sem repetir SS, são ${en.total_ss} SS de religador ` +
+        `(79…) e regulador (58…) pendentes no ETO-COEP, em ${en.total_ativos} ativos: ${en.por_aba['Dados'] || 0} ` +
+        `vieram do extrato e ${en.por_aba['Dados Tratados'] || 0} só existem na triagem. A pergunta é uma só: ` +
+        'quanto disso já foi embora, pelas sete réguas do gestor.') +
         `<div class="numeros">
-          ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores` })}
+          ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores · ${en.total_ss} SS` })}
           ${num({ rotulo: 'Já resolvidos', valor: res.ativos, nota: `${en.reducao_percentual}% da carteira herdada`, tom: 'bom' })}
           ${num({ rotulo: 'Ainda no fluxo', valor: and.ss, nota: `${and.por_posto['COEP'] || 0} ainda no COEP`, tom: 'atento' })}
-          ${num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'concluídas com SS de indisponibilidade aberta', tom: 'critico' })}
+          ${num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'cauda com sinal de espera ou defeito novo', tom: 'critico' })}
           ${num({ rotulo: 'Canceladas', valor: en.canceladas.ss, nota: `${en.canceladas.sem_reincidencia} sem reincidência` })}
           ${num({ rotulo: 'Tratativa no equipamento', valor: en.tratativas.ss, nota: `+ ${en.tratativas.atendimento_tecnico_ss} só com atendimento técnico` })}
         </div>
@@ -1095,22 +1101,39 @@ function abrirColecao(id) {
           <div class="item-linha"><span>Item 2 · Tratativa com equipamento registrada</span><b>${en.tratativas.ss}</b></div>
         </div>
         <div class="nota calma" style="margin-top:14px"><strong>Leitura</strong>
+        SS pendente da MESMA cadeia não bloqueia: é a cauda do próprio serviço (ajuste ou comissionamento
+        depois da troca), e não reincidência — correção do gestor em 13/08.
         As 25 canceladas aparecem no item 1 e voltam no item 6 quando não houve reincidência —
         são o mesmo ativo, contado uma vez no total. O item 2 mede intervenção no equipamento
         (execução do DCMD, obra de substituição, parecer de troca/entrega); laudo do DMSL e ajuste
         do DEOP ficam em «atendimento técnico», à parte.</div></section>
 
         ${ver.lista.length ? `<section class="bloco"><h3>Para você verificar — ${ver.ativos} ativos</h3>
-        <p class="destaque-texto">Estão como concluída, cancelada ou aguardando comissionamento, mas o
-        ativo tem outra SS de INDISPONIBILIDADE PARA OPERAÇÃO ainda pendente. Pela sua régua, não entram
-        como resolvidos até você conferir.</p>
+        <p class="destaque-texto">Ou têm SS de INDISPONIBILIDADE PARA OPERAÇÃO de OUTRA demanda ainda
+        pendente, ou a cauda da própria demanda traz sinal de espera de material / defeito novo no texto.
+        Pela sua régua não entram como resolvidos até você conferir.</p>
         <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
         <th>SS de entrada</th><th>Situação</th><th>SS de indisponibilidade aberta</th><th>Parecer COEP</th></tr></thead><tbody>
         ${ver.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
           <td>${fichaLink(i.ativo)}</td><td>${esc(i.localidade || '—')}</td>
           <td>${esc(i.numero_ss)}</td><td>${esc((i.situacao_hoje || '').replace('SS ', ''))}</td>
-          <td>${i.indisponibilidades_abertas.map((x) => `${esc(x.numero)} · ${esc(x.equipe)} · ${dataBr(x.abertura)}`).join('<br>')}</td>
+          <td>${[...(i.indisponibilidades_abertas || []), ...(i.cauda_mesma_demanda || [])]
+            .map((x) => `${esc(x.numero)} · ${esc(x.equipe)} · ${dataBr(x.abertura)}`).join('<br>') || '—'}</td>
           <td>${esc(i.parecer_coep || '—')}</td></tr>`).join('')}
+        </tbody></table></div></section>` : ''}
+
+        ${en.cauda && en.cauda.ss ? `<section class="bloco"><h3>Cauda da mesma intervenção — ${en.cauda.ss} ativos</h3>
+        <p class="destaque-texto">Correção de 13/08: a SS que aparecia «bloqueando» estes ativos é da MESMA cadeia —
+        o DCMD executou e repassou no mesmo carimbo para a Proteção ajustar (${en.cauda.por_etapa.DEOP || 0})
+        ou para o DMSL comissionar (${en.cauda.por_etapa.DMSL || 0}). É a etapa seguinte do mesmo serviço,
+        não uma reincidência. Só conta quando o texto da cadeia registra a execução.</p>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Etapa que falta</th><th>SS da cauda</th><th>Situação</th></tr></thead><tbody>
+        ${en.cauda.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td>${fichaLink(i.ativo)}</td><td>${esc(i.localidade || '—')}</td>
+          <td>${i.etapa_final === 'DEOP' ? 'ajustes da Proteção' : 'comissionamento do DMSL'}</td>
+          <td>${i.cauda_mesma_demanda.map((c) => `${esc(c.numero)} · ${esc(c.equipe)} · ${dataBr(c.abertura)}`).join('<br>')}</td>
+          <td>${i.alerta_cauda ? '<b>a verificar</b> — o texto fala em espera de material ou defeito novo' : 'conta como resolvido'}</td></tr>`).join('')}
         </tbody></table></div></section>` : ''}
 
         <section class="bloco"><h3>Os ${res.ativos} que saíram</h3>
