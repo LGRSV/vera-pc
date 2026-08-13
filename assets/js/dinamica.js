@@ -103,6 +103,67 @@ function barrasTresColunas(curva) {
   </figure>`;
 }
 
+/* A mesma coisa somando: onde cada série chegou até o fim de cada mês. Linha em
+   vez de barra porque o que importa aqui é a distância entre as curvas — o
+   tamanho da fila contra o que já saiu — e barra empilhada esconde isso. */
+function linhaAcumulada(curva) {
+  const SERIES = [
+    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)' },
+    { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)' },
+  ];
+  let soma = { ativos: 0, entrantes: 0, resolvidos: 0 };
+  const ac = curva.map((m) => {
+    soma = { ativos: soma.ativos + m.ativos, entrantes: soma.entrantes + m.entrantes,
+             resolvidos: soma.resolvidos + m.resolvidos };
+    return { ...soma, mes: m.mes, rotulo: m.rotulo };
+  });
+  const bruto = Math.max(...ac.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
+  const passo = bruto <= 50 ? 10 : 20;
+  const teto = Math.ceil(bruto / passo) * passo;
+  const L = 44, R = 58, T = 20, B = 44;
+  const largura = 108, alturaPlot = 210;
+  const W = L + R + largura * (ac.length - 1);
+  const H = T + alturaPlot + B;
+  const x = (i) => L + i * largura;
+  const y = (v) => T + alturaPlot - (v / teto) * alturaPlot;
+  const riscos = [];
+  for (let v = 0; v <= teto; v += passo) riscos.push(v);
+
+  return `<figure class="grafico-barras grafico-linha">
+    <div class="legenda-series">
+      ${SERIES.map((s) => `<span class="serie"><i style="background:${s.cor}"></i>
+        <b>${esc(s.nome)}</b> <em>somando mês a mês</em></span>`).join('')}
+    </div>
+    <div class="tela-grafico">
+    <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
+         aria-label="Acumulado de 2026 até cada mês: ${ac.map((m) => `${m.rotulo}, ${SERIES.map((s) => `${s.nome} ${m[s.chave]}`).join(', ')}`).join('; ')}">
+      ${riscos.map((v) => `<g>
+        <line x1="${L}" x2="${W - R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="risco"/>
+        <text x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" class="rot-eixo" text-anchor="end">${v}</text>
+      </g>`).join('')}
+      <line x1="${L}" x2="${W - R}" y1="${T + alturaPlot}" y2="${T + alturaPlot}" class="base-eixo"/>
+      ${ac.map((m, i) => `<text x="${x(i)}" y="${T + alturaPlot + 18}" class="rot-mes"
+        text-anchor="middle">${esc(m.rotulo)}</text>`).join('')}
+      ${SERIES.map((s) => `<polyline class="traco" stroke="${s.cor}"
+        points="${ac.map((m, i) => `${x(i)},${y(m[s.chave]).toFixed(1)}`).join(' ')}"/>`).join('')}
+      ${SERIES.map((s) => ac.map((m, i) => `<g class="ponto-linha">
+        <title>${esc(m.rotulo)} · ${esc(s.nome)}, acumulado: ${m[s.chave]}</title>
+        <circle cx="${x(i)}" cy="${y(m[s.chave]).toFixed(1)}" r="4.5" fill="${s.cor}"/>
+        <circle cx="${x(i)}" cy="${y(m[s.chave]).toFixed(1)}" r="11" fill="transparent"/>
+      </g>`).join('')).join('')}
+      ${SERIES.map((s) => {
+        const ultimo = ac[ac.length - 1];
+        return `<text x="${x(ac.length - 1) + 12}" y="${(y(ultimo[s.chave]) + 4).toFixed(1)}"
+          class="rot-fim" text-anchor="start">${ultimo[s.chave]}</text>`;
+      }).join('')}
+    </svg>
+    </div>
+    <figcaption>O número no fim de cada linha é onde ela chegou em agosto. Passe o
+    mouse num ponto para ver o acumulado daquele mês.</figcaption>
+  </figure>`;
+}
+
 /* O mês a mês do posto: a mesma sequência da planilha entregue ao gestor. */
 function mesAMes() {
   const mm = D.mes_a_mes;
@@ -125,6 +186,11 @@ function mesAMes() {
     pelo mês em que a tratativa aconteceu — término da SS ou repasse. As três medem coisas
     diferentes e não se somam entre si: estoque parado, fluxo de chegada e fluxo de saída.</p>
     ${barrasTresColunas(c)}
+    <h4 class="sub-grafico">O mesmo, somando</h4>
+    <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
+    distância entre as curvas: enquanto a laranja sobe e a verde fica no chão, a fila está
+    crescendo; quando a verde encosta na laranja, o posto passou a dar conta do que entra.</p>
+    ${linhaAcumulada(c)}
     <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
     <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
     ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
