@@ -1515,6 +1515,21 @@ function prosaMetodo() {
     vira requisição; e material entregue ao COCM sem previsão de execução dada conta como
     atrasado.</p>
 
+    <h3>Primeiro ataque e a ausência de parecer</h3>
+    <p>Regra do gestor (13/08): demanda parada no <strong>DMSL</strong> pode ainda estar no
+    <strong>primeiro ataque</strong> — o diagnóstico em campo, antes de qualquer compra. É por isso
+    que esses ativos costumam não ter parecer COEP na planilha de criticidade: a demanda ainda não
+    chegou ao posto de compra. Falta de parecer não é falta de tratamento.</p>
+
+    <h3>Quando a palavra do gestor entra na conta</h3>
+    <p>O SGM nem sempre registra o que já aconteceu em campo — SS de execução que ninguém baixa,
+    repasse para a Proteção que não sai. Quando o gestor confirma o que houve, isso vale como fonte
+    nos dois sentidos: <em>executado</em> conta o ativo como resolvido mesmo sem registro, e
+    <em>pendente</em> tira o ativo da conta mesmo quando as réguas automáticas o dariam por
+    resolvido. Cada decisão fica gravada em <code>data/raw/decisoes_gestor.json</code> com data e
+    motivo, aparece na ficha do ativo e numa seção própria da coleção Carteira de entrada — o
+    número não vira palpite, e dá para auditar depois.</p>
+
     <h3>Hierarquia de fontes</h3>
     <p>Definida pelo gestor em 12/08: o <strong>último Parecer COEP</strong> vale o que está na
     planilha de criticidade (a coluna é mantida atualizada); a <strong>SS aberta atual</strong> de

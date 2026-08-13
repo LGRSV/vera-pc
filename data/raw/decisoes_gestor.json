@@ -12,5 +12,26 @@
     "data": "2026-08-13",
     "decisao": "executado",
     "nota": "Gestor confirmou: controle instalado recentemente. O SGM ainda não registrou — a SS de execução ETO-RD-AR 01231/2026 (10/08, obra 0612600565) segue PENDENTE no DCMD, a ETO-COEP 00120/2026 continua pendurada no COEP desde 30/06 e não há SS de Proteção aberta: a última do ativo é a ETO-PROT 00370/2024, atendida em 2024."
+  },
+  {
+    "ativo": "7900594026",
+    "localidade": "PONTE ALTA DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: resolvido pelo COEP — foi o primeiro remanejamento de equipamento do posto. As SS da ETO-SE-PA (00107/2026 e 00115/2026) são a cauda do mesmo serviço, no comissionamento."
+  },
+  {
+    "ativo": "7926089013",
+    "localidade": "PARAISO DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou: continua pendente de verdade. O cancelamento da SS de entrada não resolveu o ativo — a demanda seguinte está aberta no COEP."
+  },
+  {
+    "ativo": "7908196047",
+    "localidade": "FIGUEIROPOLIS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou: continua pendente. Tem duas demandas abertas — uma no COEP e outra no DMSL, esta provavelmente ainda em primeiro ataque, que é a razão de o ativo não ter parecer COEP na planilha de criticidade."
   }
 ]

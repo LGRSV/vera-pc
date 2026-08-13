@@ -64,9 +64,14 @@ PREMISSAS = [
     "Atenção: a descrição da SS no SGM é CUMULATIVA (o parecer novo é colado em cima do antigo "
     "e herdado pelas SS seguintes), então um parecer velho pode parecer atual; por isso o alerta "
     "leva o caso para verificação humana em vez de mudar a contagem sozinho.",
-    "Decisão do gestor (data/raw/decisoes_gestor.json): quando ele confirma que a execução "
-    "aconteceu em campo, isso vale como fonte mesmo sem registro no SGM — o ativo conta como "
-    "resolvido pelo item 2 e a ficha mostra o que falta na higiene do sistema.",
+    "Decisão do gestor (data/raw/decisoes_gestor.json): a palavra dele vale como fonte, nos "
+    "dois sentidos — «executado» conta o ativo como resolvido mesmo sem registro no SGM, e "
+    "«pendente» tira o ativo da conta mesmo quando as réguas automáticas o dariam por "
+    "resolvido. Cada decisão fica gravada com data e motivo, e aparece na ficha.",
+    "Primeiro ataque (regra do gestor, 13/08): demanda parada no DMSL pode ainda estar no "
+    "primeiro ataque — o diagnóstico de campo. É por isso que esses ativos costumam não ter "
+    "parecer COEP na planilha de criticidade: a demanda ainda não chegou ao posto de compra. "
+    "Ausência de parecer não é falta de tratamento.",
     "Item 3 (ajustes): o parecer de ajuste conta como resolvido pelo gestor; a marca "
     "«ainda na Proteção» sai da base de SS/OS — SS PENDENTE ou REPASSADA em equipe PROT.",
     "Item 7 (obra): obra encerrada no AIC (status começa com ENCERRAMENTO) E ligada a ESTA "
@@ -488,13 +493,18 @@ def montar(registros):
         # veredito, na ordem de força definida nas premissas
         decisao = decisoes.get(ativo)
         executado_pelo_gestor = bool(decisao) and decisao.get("decisao") == "executado"
+        pendente_pelo_gestor = bool(decisao) and decisao.get("decisao") == "pendente"
         if executado_pelo_gestor:
             executado_no_texto = True
             alerta_cauda = False
             cauda_pos_execucao = bool(cauda) and etapa_final in ("DEOP", "DMSL")
 
         veredito, motivo, regra = "em_andamento", "", None
-        if executado_pelo_gestor and not indisponibilidades:
+        if pendente_pelo_gestor:
+            posto = (resumo_cadeia or {}).get("posto_atual")
+            onde = f"posto atual {posto}" if posto else "sem SS aberta nesta cadeia"
+            motivo = f"Gestor confirmou que segue pendente — {onde}"
+        elif executado_pelo_gestor and not indisponibilidades:
             etapa = {
                 "DEOP": ", aguardando o ajuste da Proteção",
                 "DMSL": ", aguardando o comissionamento do DMSL",
