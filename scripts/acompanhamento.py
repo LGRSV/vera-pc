@@ -46,6 +46,10 @@ PREMISSAS = [
     "Fonte: planilha «Relação dos Equipamentos Indisponíveis ETO ATUALIZADA6», aba "
     "«Criticidade por Equipamento» — o parecer COEP mais recente (13/08). Os 129 ativos são "
     "os mesmos da versão anterior; 25 pareceres mudaram e entraram 13 marcados «Novo».",
+    "Check em branco NÃO significa automaticamente «em análise»: quando há parecer COEP, é ele "
+    "que manda (correção apontada pelo gestor em 13/08 no ativo 7953610256, que tinha parecer "
+    "«Concluído DCMD» e caiu em análise por causa do check vazio). Em análise fica quem não tem "
+    "check nem parecer — os marcados «Novo», do primeiro ataque.",
     "Régua do gestor (13/08) sobre a coluna «Check de concluídas»: Ok, Em operação ou "
     "Desmobilizado = equipamento em operação; Pendente com a SS dada como CONCLUÍDA = "
     "cancelada errada pelo DMSL; Pendente com a SS ainda aberta = pendência seguindo no "
@@ -75,9 +79,17 @@ def _txt(valor):
     return str(valor).strip() if valor is not None else ""
 
 
-def _situacao(check, ss_aberta):
+def _situacao(check, ss_aberta, parecer=""):
+    """A régua do gestor. Quando o check está em branco, quem manda é o PARECER.
+
+    Defeito corrigido em 13/08, apontado pelo gestor no ativo 7953610256: o check vazio
+    estava atropelando um parecer «Concluído DCMD» e jogando o ativo em «Em análise».
+    Em branco só significa «em análise» quando o parecer também não diz nada — que é o caso
+    dos marcados «Novo», o primeiro ataque da TELE.
+    """
     c = check.strip().lower()
     ss = ss_aberta.strip().upper()
+    p = (parecer or "").strip().upper()
     concluida = "CONCLU" in ss
 
     if c in ("ok", "em operação", "em operacao", "desmobilizado"):
@@ -86,7 +98,21 @@ def _situacao(check, ss_aberta):
         return "Cancelada errada pelo DMSL" if concluida else "Pendente no fluxo"
     if c == "em andamento":
         return "Em andamento"
-    return "Em análise"
+
+    # check em branco: o parecer decide
+    if not p or p == "NOVO":
+        return "Em análise"
+    if "CONCLU" in p or "SUBSTITU" in p or "MELHORIA" in p and "CONCLU" in p:
+        return "Em andamento"       # serviço feito; o que falta é a etapa seguinte do fluxo
+    if "COMISSION" in p or "AJUSTE" in p:
+        return "Em andamento"
+    if "OPERANDO" in p or "EM OPERA" in p or "LINHA VIVA" in p:
+        return "Em operação"
+    if "AQUISI" in p or "LOG" in p or "ENTREGUE" in p or "COCM" in p:
+        return "Pendente no fluxo"
+    if "ATAQUE" in p or "DMSL" in p:
+        return "Em análise"
+    return "Pendente no fluxo"
 
 
 def _bucket_parecer(parecer):
@@ -147,7 +173,7 @@ def montar(registros, entrada=None):
         ss_planilha = _txt(reg.get("ss"))
         parecer = _txt(reg.get("parecer_coep"))
         observacao = _txt(reg.get("observacao"))
-        situacao = _situacao(check, ss_planilha)
+        situacao = _situacao(check, ss_planilha, parecer)
         decisao = decisoes.get(ativo)
         if decisao and decisao.get("decisao") == "pendente" and situacao not in (
             "Cancelada errada pelo DMSL", "Pendente no fluxo"

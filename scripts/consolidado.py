@@ -165,9 +165,16 @@ def montar(registros, entrada, acompanhamento):
         elif h.get("situacao_planilha") == "Em andamento":
             bucket = (h.get("bucket_parecer") or "")
             parecer = (h.get("parecer_coep") or "").upper()
-            if "AJUSTE" in parecer or "COMISSION" in parecer or posto in ("DEOP", "DMSL"):
-                situacao = "Executado — falta ajuste ou comissionamento"
-                porque = "parecer de ajuste/comissionamento — o serviço já foi feito"
+            executado_no_parecer = any(
+                x in parecer for x in ("AJUSTE", "COMISSION", "CONCLU", "SUBSTITU", "MELHORIA")
+            )
+            if executado_no_parecer or posto in ("DEOP", "DMSL"):
+                if not posto:
+                    situacao = "Em operação"
+                    porque = "parecer registra o serviço feito e não há SS aberta no ativo"
+                else:
+                    situacao = "Executado — falta ajuste ou comissionamento"
+                    porque = "parecer registra o serviço feito — falta a etapa seguinte do fluxo"
             else:
                 situacao = "Em execução"
                 porque = "check «Em andamento» — execução em curso"
@@ -229,7 +236,7 @@ def montar(registros, entrada, acompanhamento):
         i["manutencionado"] = manutencionado
 
         if manutencionado:
-            if situacao == "Em operação":
+            if situacao == "Em operação" or not posto:
                 i["falta"] = "Nada — em operação"
             elif posto == "DEOP":
                 i["falta"] = "Ajuste da Proteção"
