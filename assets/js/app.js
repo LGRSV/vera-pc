@@ -1078,37 +1078,45 @@ function abrirColecao(id) {
       };
       const fichaLink = (a) => `<b class="mono">${esc(a)}</b>`;
 
-      html = cabecaColecao('Carteira de entrada',
-        'A planilha de entrada guarda duas fotos do mesmo momento — o extrato cru do SGM (aba Dados) e ' +
-        `a triagem do gestor (aba Dados Tratados). Juntas, sem repetir SS, são ${en.total_ss} SS de religador ` +
-        `(79…) e regulador (58…) pendentes no ETO-COEP, em ${en.total_ativos} ativos: ${en.por_aba['Dados'] || 0} ` +
-        `vieram do extrato e ${en.por_aba['Dados Tratados'] || 0} só existem na triagem. A pergunta é uma só: ` +
-        'quanto disso já foi embora, pelas sete réguas do gestor.') +
+      html = cabecaColecao('Carteira de entrada', '') +
         `<div class="numeros">
           ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores · ${en.total_ss} SS` })}
           ${num({ rotulo: 'Já resolvidos', valor: res.ativos, nota: `${en.reducao_percentual}% da carteira herdada`, tom: 'bom' })}
           ${num({ rotulo: 'Ainda no fluxo', valor: and.ativos, nota: `${and.por_posto['COEP'] || 0} SS ainda no COEP`, tom: 'atento' })}
           ${ver.ativos ? num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'cauda com sinal de espera ou defeito novo', tom: 'critico' })
-            : num({ rotulo: 'Sem rastro no SGM', valor: en.sem_rastro_ativos ?? 0, nota: 'SS de 2023 que sumiram da base', tom: 'atento' })}
-          ${num({ rotulo: 'Canceladas', valor: en.canceladas.ss, nota: `${en.canceladas.sem_reincidencia} sem reincidência` })}
-          ${num({ rotulo: 'Tratativa no equipamento', valor: en.tratativas.ss, nota: `+ ${en.tratativas.atendimento_tecnico_ss} só com atendimento técnico` })}
+            : en.sem_rastro_ativos ? num({ rotulo: 'Sem rastro no SGM', valor: en.sem_rastro_ativos, nota: 'SS de 2023 que sumiram da base', tom: 'atento' })
+            : num({ rotulo: 'Fora da análise', valor: en.excluidos_ativos ?? 0, nota: 'excluídos por decisão do gestor' })}
         </div>
 
         <div class="nota calma" style="margin:-6px 0 26px"><strong>A conta fecha assim</strong>
-        ${res.ativos} resolvidos + ${and.ativos} ainda no fluxo${ver.ativos ? ` + ${ver.ativos} a verificar` : ''}
-        + ${en.sem_rastro_ativos ?? 0} sem rastro no SGM = ${en.total_ativos} ativos da carteira de entrada.
-        Cada ativo entra num balde só. Os «sem rastro» são as SS de 2023 que não existem mais na base de
-        SS/OS — ficam de fora do veredito porque não há o que conferir.</div>
+        ${res.ativos} resolvidos + ${and.ativos} ainda no fluxo${ver.ativos ? ` + ${ver.ativos} a verificar` : ''}${en.sem_rastro_ativos ? ` + ${en.sem_rastro_ativos} sem rastro no SGM` : ''}
+        = ${en.total_ativos} ativos da carteira de entrada. Cada ativo entra num balde só.
+        ${en.excluidos_ativos ? `Fora da conta, por decisão sua: ${en.excluidos_ativos} ${en.excluidos_ativos === 1 ? 'ativo excluído' : 'ativos excluídos'} da análise
+        (${[...new Set(en.excluidos.map((x) => x.ativo + ' · ' + (x.localidade || '')))].map(esc).join('; ')}).` : ''}
+        ${en.ss_sumida_com_ativo_vivo ? `Em ${en.ss_sumida_com_ativo_vivo} caso${en.ss_sumida_com_ativo_vivo > 1 ? 's' : ''} a SS de 2023 sumiu do SGM,
+        mas o ativo tem histórico — aí a leitura passa a ser a cadeia mais recente dele.` : ''}</div>
+
+        <section class="bloco"><h3>Detalhamento</h3>
+        <div class="numeros" style="margin-bottom:0">
+          ${num({ rotulo: 'Canceladas', valor: en.canceladas.ss, nota: 'SS da foto que hoje estão canceladas' })}
+          ${num({ rotulo: 'Tratativa no equipamento', valor: en.tratativas.ss, nota: 'troca, instalação ou obra registrada' })}
+        </div></section>
 
         <section class="bloco"><h3>As sete réguas, uma a uma</h3>
         <p class="destaque-texto">Cada ativo entra uma vez só: quando mais de uma régua se aplica, vale a mais forte
         (obra encerrada → concluída → comissionamento → cancelada → ajustes).</p>
         <div class="itens">
-          ${Object.entries(res.por_regra).map(([r, n]) =>
-            `<div class="item-linha"><span>Item ${esc(r)} · ${esc(REGRAS[r] || '')}</span><b>${n}</b></div>`).join('')}
-          <div class="item-linha"><span>Item 1 · Canceladas (SS de entrada cancelada hoje)</span><b>${en.canceladas.ss}</b></div>
-          <div class="item-linha"><span>Item 2 · Tratativa com equipamento registrada</span><b>${en.tratativas.ss}</b></div>
+          ${[1, 2, 3, 4, 5, 6, 7].map((r) => {
+            const valor = r === 1 ? en.canceladas.ss : r === 2 ? en.tratativas.ss : (res.por_regra[r] || 0);
+            const extra = r === 1 ? ' — o que você cancelou'
+              : r === 2 ? ` — ${res.por_regra[2] || 0} entraram na conta por confirmação sua`
+              : '';
+            return `<div class="item-linha"><span>Item ${r} · ${esc(REGRAS[r])}${extra}</span><b>${valor}</b></div>`;
+          }).join('')}
         </div>
+        <p class="destaque-texto" style="margin-top:12px">Os itens 1 e 2 medem o que foi feito e não somam
+        no total: uma SS cancelada volta no item 6 quando não houve reincidência, e a tratativa entra pelo
+        item que fechou o caso. A soma dos resolvidos são os itens 3 a 7.</p>
         <div class="nota calma" style="margin-top:14px"><strong>Leitura</strong>
         SS pendente da MESMA cadeia não bloqueia: é a cauda do próprio serviço (ajuste ou comissionamento
         depois da troca), e não reincidência — correção do gestor em 13/08.
@@ -1180,6 +1188,11 @@ function abrirColecao(id) {
         como «em fase de ajuste».</p>
         <div class="itens">${en.ajustes.lista.map((i) =>
           `<div class="item-linha"><span>${fichaLink(i.ativo)} · ${esc(i.localidade || '')}</span><b>${i.na_protecao ? 'na Proteção' : 'fora da Proteção'}</b></div>`).join('')}</div></section>` : ''}
+
+        ${(en.excluidos || []).length ? `<section class="bloco"><h3>Fora da análise por decisão sua</h3>
+        ${en.excluidos.map((x) => `<div class="nota calma" style="margin-bottom:10px">
+          <strong>${esc(x.ativo)} · ${esc(x.localidade || '')} — SS ${esc(x.numero_ss)}</strong>${esc(x.nota || '')}</div>`).join('')}
+        </section>` : ''}
 
         ${en.sem_rastro.length ? `<section class="bloco"><h3>Sem rastro na base de hoje</h3>
         <p class="destaque-texto">${en.sem_rastro.length} SS de 2023 da foto de entrada não existem mais na base

@@ -87,9 +87,11 @@ PREMISSAS = [
     "Um ativo resolvido por mais de uma régua é contado uma vez só; o motivo registrado é "
     "o mais forte, na ordem obra encerrada → concluída → comissionamento → cancelada → "
     "ajustes.",
-    "Três SS de 2023 da foto de entrada (ETO-COEP 00011, 00013 e 00063/2023) não existem "
-    "na base de SS/OS de hoje — sumiram do SGM entre as duas fotos. Ficam listadas à parte, "
-    "sem veredito.",
+    "SS de 2023 da foto de entrada sumiram do SGM entre as duas fotos. Quando o ATIVO ainda "
+    "tem histórico na base, a leitura passa a ser a cadeia mais recente dele e o ativo continua "
+    "com veredito (marcado «SS sumiu do SGM»); só fica sem veredito quem não tem registro "
+    "nenhum. O gestor também pode mandar excluir um ativo da análise — a exclusão fica "
+    "registrada com o motivo.",
 ]
 
 MOTIVOS = {
@@ -369,25 +371,40 @@ def montar(registros):
 
     itens = []
     sem_rastro = []
+    excluidos = []
 
     for entrada in foto:
         ativo = entrada["ativo"]
+        fora = decisoes.get(ativo)
+        if fora and fora.get("decisao") == "excluir":
+            excluidos.append({**entrada, "nota": fora.get("nota", ""), "data": fora.get("data", "")})
+            continue
+
         linhas = por_ativo.get(ativo, [])
         minha = next(
             (l for l in linhas if _txt(l.get("NUMERO_SS")) == entrada["numero_ss"]), None
         )
-        if minha is None:
-            sem_rastro.append({**entrada, "motivo": "SS não existe mais na base de SS/OS"})
+        # A SS de entrada pode ter sumido do SGM sem que o ATIVO tenha sumido: nesse caso a
+        # leitura passa a ser a cadeia mais recente do ativo, e o ativo continua com veredito.
+        ss_sumiu = minha is None
+        if ss_sumiu and not linhas:
+            sem_rastro.append({**entrada, "motivo": "SS e ativo sem nenhum registro na base de SS/OS"})
             continue
 
         cadeias = D.encadear(linhas)
-        cadeia = next(
-            (c for c in cadeias
-             if any(_txt(l.get("NUMERO_SS")) == entrada["numero_ss"] for l in c["ss"])),
-            None,
-        )
+        if ss_sumiu:
+            cadeia = max(
+                cadeias,
+                key=lambda c: max((_txt(l.get("DATA_ABERTURA_SS")) for l in c["ss"]), default=""),
+            )
+        else:
+            cadeia = next(
+                (c for c in cadeias
+                 if any(_txt(l.get("NUMERO_SS")) == entrada["numero_ss"] for l in c["ss"])),
+                None,
+            )
         resumo_cadeia = D.resumir_demanda(cadeia) if cadeia else None
-        ss_cadeia = cadeia["ss"] if cadeia else [minha]
+        ss_cadeia = cadeia["ss"] if cadeia else ([minha] if minha else [])
 
         # SS de indisponibilidade ainda pendentes no ativo. A que está na MESMA cadeia é a
         # cauda da própria intervenção (o DCMD executou e repassou para a Proteção ajustar
@@ -476,7 +493,7 @@ def montar(registros):
 
         parecer = parecer_por_ativo.get(ativo, "")
         categoria = _categoria_parecer(parecer)
-        situacao_ss = _txt(minha.get("SITUACAO_SS"))
+        situacao_ss = _txt(minha.get("SITUACAO_SS")) if minha else "SS sumiu do SGM"
         situacao_cadeia = (resumo_cadeia or {}).get("situacao")
         na_protecao = any(
             "PROT" in (l.get("COD_EQUIPE") or "").upper()
@@ -548,6 +565,7 @@ def montar(registros):
         itens.append({
             **entrada,
             "na_carteira": ativo in carteira,
+            "ss_sumiu": ss_sumiu,
             "localidade": entrada["localidade"] or localidade_carteira.get(ativo, ""),
             "situacao_hoje": situacao_ss,
             "situacao_cadeia": situacao_cadeia,
@@ -595,11 +613,15 @@ def montar(registros):
         "total_foto": total_foto,
         "total_ss": len(itens) + len(sem_rastro),
         "total_ativos": len({i["ativo"] for i in itens} | {s["ativo"] for s in sem_rastro}),
+        "total_ss_na_foto": len(foto),
         "por_tipo": dict(Counter(i["tipo"] for i in itens)),
         "por_aba": dict(Counter(i["aba"] for i in itens)),
         "sem_rastro_ativos": len({s["ativo"] for s in sem_rastro}),
         "status_gestor": dict(Counter(i["status_gestor"] for i in itens if i["status_gestor"])),
         "sem_rastro": sem_rastro,
+        "excluidos": excluidos,
+        "excluidos_ativos": len({e["ativo"] for e in excluidos}),
+        "ss_sumida_com_ativo_vivo": sum(1 for i in itens if i.get("ss_sumiu")),
         "resolvidos": {
             "ss": len(resolvidos),
             "ativos": len(ativos(resolvidos)),

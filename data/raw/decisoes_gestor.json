@@ -40,5 +40,12 @@
     "data": "2026-08-13",
     "decisao": "pendente",
     "nota": "Gestor confirmou: entra como pendente. É a única exceção do tipo — a SS foi baixada como «equipamento operacional» (ETO-TELE 00961/2026, parecer «em operação no SCADA»), mas a equipe verificou o religador em campo e já está dando tratativa. A parte ativa danificada continua lá."
+  },
+  {
+    "ativo": "7915029003",
+    "localidade": "GURUPI",
+    "data": "2026-08-13",
+    "decisao": "excluir",
+    "nota": "Gestor mandou tirar da análise (13/08). As duas SS de 2023 da foto de entrada (ETO-COEP 00013 e 00063/2023) não existem mais no SGM; o ativo tem histórico só com o DMSL, encerrado em 06/01/2026."
   }
 ]
