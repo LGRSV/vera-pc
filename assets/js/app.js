@@ -1121,6 +1121,10 @@ function abrirColecao(id) {
         </div>
 
         ${co.resposta ? `<section class="bloco"><h3>A pergunta em duas colunas</h3>
+        <p class="destaque-texto">${co.resposta.manutencionados.total} manutencionados +
+        ${co.resposta.por_cancelamento ? co.resposta.por_cancelamento.total : 0} resolvidos por cancelamento +
+        ${co.resposta.nao_manutencionados.total} ainda no fluxo = ${co.total} ativos. Os cancelados saíram da
+        carteira sem intervenção física — ficam no detalhamento logo abaixo.</p>
         <div class="confronto-duplo">
           <div>
             <h4 class="rotulo-coluna">Já manutencionados — ${co.resposta.manutencionados.total}</h4>
@@ -1140,6 +1144,31 @@ function abrirColecao(id) {
               .map(([k, v]) => `<div class="item-linha"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
           </div>
         </div></section>
+
+        ${co.resposta.por_cancelamento ? `<section class="bloco"><h3>Detalhamento dos resolvidos — como cada um saiu da carteira</h3>
+        <p class="destaque-texto">Resolvido não é sinônimo de manutencionado. Destes ${co.resposta.resolvidos_total}
+        que saíram do problema, ${co.resposta.manutencionados.total} tiveram alguém subindo no poste e
+        ${co.resposta.por_cancelamento.total} se resolveram por cancelamento — não precisaram de substituição
+        nem de SS nova.</p>
+        <div class="itens">
+          <div class="item-linha"><span>Cancelados — não precisaram de substituição</span><b>${co.resposta.por_cancelamento.total}</b></div>
+          <div class="item-linha"><span>Trocados e em operação, nada falta</span><b>${co.resposta.manutencionados.por_falta['Nada — em operação'] || 0}</b></div>
+          <div class="item-linha"><span>Trocados — falta o ajuste da Proteção</span><b>${co.resposta.manutencionados.por_falta['Ajuste da Proteção'] || 0}</b></div>
+          <div class="item-linha"><span>Trocados — falta o comissionamento do DMSL</span><b>${co.resposta.manutencionados.por_falta['Comissionamento do DMSL'] || 0}</b></div>
+          <div class="item-linha"><span>Trocados — falta só baixar a SS</span><b>${co.resposta.manutencionados.por_falta['Baixa da SS no sistema'] || 0}</b></div>
+          <div class="item-linha"><span>Em processo de logística — material comprado, a caminho</span><b>${co.resposta.nao_manutencionados.por_espera['Logística — material comprado, a caminho'] || 0}</b></div>
+        </div></section>
+
+        <section class="bloco"><h3>Cancelados sem precisar de substituição (${co.resposta.por_cancelamento.total})</h3>
+        <p class="destaque-texto">A demanda foi cancelada e nenhuma SS de indisponibilidade voltou no mesmo ativo.
+        O equipamento está operando — só não houve intervenção física.</p>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Tipo</th><th>Criticidade</th><th>Parecer COEP</th><th>Como saiu</th></tr></thead><tbody>
+        ${co.resposta.por_cancelamento.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}"><td><b class="mono">${esc(i.ativo)}</b></td>
+          <td>${esc(i.localidade || '—')}</td><td>${esc(i.tipo === 'Religador' ? 'RL' : 'RT')}</td>
+          <td>${esc(i.criticidade || '—')}</td><td>${esc(i.parecer_coep || '—')}</td>
+          <td>${esc(i.entrada_motivo || 'cancelada sem reincidência')}</td></tr>`).join('')}
+        </tbody></table></div></section>` : ''}
 
         ${Object.entries(co.resposta.manutencionados.listas).filter(([k]) => k !== 'Nada — em operação').map(([k, lista]) => `
         <section class="bloco"><h3>Manutencionados — falta ${esc(k.toLowerCase())} (${lista.length})</h3>
@@ -1199,6 +1228,7 @@ function abrirColecao(id) {
         <div class="numeros">
           ${num({ rotulo: 'Carteira do DCMD', valor: co.recorte_dcmd.total, nota: 'sem o primeiro ataque' })}
           ${num({ rotulo: 'Já manutencionados', valor: co.recorte_dcmd.manutencionados, nota: `${co.recorte_dcmd.percentual_manutencionado}% do recorte`, tom: 'bom' })}
+          ${num({ rotulo: 'Resolvidos no total', valor: co.recorte_dcmd.resolvidos ?? co.recorte_dcmd.manutencionados, nota: `${co.recorte_dcmd.percentual_resolvido ?? co.recorte_dcmd.percentual_manutencionado}% — inclui ${co.recorte_dcmd.por_cancelamento ?? 0} por cancelamento`, tom: 'bom' })}
           ${num({ rotulo: 'No posto do COEP', valor: co.recorte_dcmd.no_coep, nota: 'compra, logística ou reabertura', tom: 'critico' })}
           ${num({ rotulo: 'Com o DCMD / COCM', valor: co.recorte_dcmd.nos_cocm, nota: 'material entregue, falta executar', tom: 'atento' })}
         </div></section>` : ''}

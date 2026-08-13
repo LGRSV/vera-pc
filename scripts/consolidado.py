@@ -64,6 +64,10 @@ PREMISSAS = [
     "Ativo que saiu da lista de hoje e estava dado como resolvido na entrada conta como "
     "resolvido: ele deixou de ser acompanhado porque foi tratado.",
     "«Cancelada errada pelo DMSL» é pendência: a SS foi encerrada no sistema sem o serviço.",
+    "Primeiro ataque é decidido pela DEMANDA ABERTA, não pelo histórico do ativo: se a cadeia "
+    "aberta só passou pelo DMSL e nunca pelo COEP, é diagnóstico de campo — mesmo que o ativo "
+    "tenha passado pelo posto numa demanda antiga, já encerrada (correção do gestor, 13/08, "
+    "sobre o 7900275024 de Itaporã).",
     "Resolvido = em operação + executado esperando ajuste ou comissionamento + sem ação do "
     "COEP. Pendente = no "
     "COEP + com outra equipe + cancelada errada. Em análise e em execução ficam à parte, "
@@ -127,6 +131,18 @@ def montar(registros, entrada, acompanhamento):
         resumos = [D.resumir_demanda(c) for c in D.encadear(linhas)] if linhas else []
         aberta = next((r for r in resumos if r["situacao"] == "aberta" and not r["rotina"]), None)
         posto = _posto(aberta)
+        # Cadastro (CADTOC) não é etapa do fluxo de manutenção: SS de atualização cadastral
+        # não segura equipamento no poste. Pedido do gestor em 13/08 — tirar esse balde.
+        if posto == "Cadastro":
+            aberta, posto = None, None
+        # A demanda ABERTA é que conta para dizer se é primeiro ataque. O ativo pode ter
+        # passado pelo COEP numa demanda antiga, já encerrada — como o 7900275024 (Itaporã),
+        # cuja SS de 2025 foi cancelada e a SS aberta é uma da TELE de 10/08/2026, sozinha
+        # na cadeia. Correção apontada pelo gestor em 13/08.
+        cadeia_passou_coep = bool(aberta) and any(
+            "COEP" in (s.get("equipe") or "").upper() for s in (aberta.get("ss") or [])
+        )
+        cadeia_so_dmsl = bool(aberta) and set(aberta.get("postos") or []) == {"DMSL"}
 
         origem = ("Nas duas listas" if na_lista_hoje and veio_da_entrada
                   else "Só na lista de hoje" if na_lista_hoje
@@ -151,8 +167,16 @@ def montar(registros, entrada, acompanhamento):
             porque = "desmobilizado na planilha — não era caso do posto"
 
         elif h.get("situacao_planilha") == "Em operação":
-            situacao = "Em operação"
-            porque = f"check de concluídas «{h.get('check')}» na planilha de hoje"
+            # Leitura dos 3 revisores (13/08): o check «Ok» conta a troca, não o fecho do
+            # processo. Palmeiras (7967181127) está com a chave faca trocada em 01/07 e a
+            # ETO-TELE 01035/2026 PENDENTE de comissionamento — é executado, não fechado.
+            if posto in ("DEOP", "DMSL"):
+                situacao = "Executado — falta ajuste ou comissionamento"
+                porque = (f"check «{h.get('check')}» na planilha, mas a base mostra SS aberta "
+                          f"no {posto} — falta o ajuste/comissionamento")
+            else:
+                situacao = "Em operação"
+                porque = f"check de concluídas «{h.get('check')}» na planilha de hoje"
 
         elif h.get("situacao_planilha") == "Cancelada errada pelo DMSL":
             situacao = "Cancelada errada pelo DMSL"
@@ -163,18 +187,25 @@ def montar(registros, entrada, acompanhamento):
             porque = f"check pendente na planilha; demanda {('no ' + posto) if posto else 'sem SS aberta na base'}"
 
         elif h.get("situacao_planilha") == "Em andamento":
-            bucket = (h.get("bucket_parecer") or "")
             parecer = (h.get("parecer_coep") or "").upper()
             executado_no_parecer = any(
                 x in parecer for x in ("AJUSTE", "COMISSION", "CONCLU", "SUBSTITU", "MELHORIA")
             )
-            if executado_no_parecer or posto in ("DEOP", "DMSL"):
-                if not posto:
-                    situacao = "Em operação"
-                    porque = "parecer registra o serviço feito e não há SS aberta no ativo"
-                else:
-                    situacao = "Executado — falta ajuste ou comissionamento"
-                    porque = "parecer registra o serviço feito — falta a etapa seguinte do fluxo"
+            # Contraprova dos revisores (13/08): o parecer é a última DECISÃO conhecida, não o
+            # estado do ativo. Quando existe SS aberta depois dele, quem manda é a SS — foi o
+            # que pegou o furto de cabo de Ponte Alta (30/07) e o comissionamento pendente de
+            # Palmeiras. Sem SS aberta, aí sim o parecer decide.
+            if not posto:
+                situacao = "Em operação" if executado_no_parecer else "Em execução"
+                porque = ("parecer registra o serviço feito e não há SS aberta no ativo"
+                          if executado_no_parecer else "check «Em andamento», sem SS aberta")
+            elif posto in ("DEOP", "DMSL"):
+                situacao = "Executado — falta ajuste ou comissionamento"
+                porque = f"serviço feito; SS aberta no {posto} — ajuste ou comissionamento"
+            elif posto in ("DCMD", "COEP") and executado_no_parecer:
+                situacao = "Em execução"
+                porque = (f"parecer registra serviço feito, mas há SS aberta no {posto} — "
+                          "ciclo novo ou execução em curso")
             else:
                 situacao = "Em execução"
                 porque = "check «Em andamento» — execução em curso"
@@ -186,7 +217,11 @@ def montar(registros, entrada, acompanhamento):
         elif not na_lista_hoje:
             # saiu da lista: vale o que a entrada concluiu, conferido na base
             if e.get("balde") == "resolvidos":
-                if aberta:
+                if aberta and cadeia_so_dmsl and not cadeia_passou_coep:
+                    situacao = "Em análise"
+                    porque = ("a demanda antiga foi encerrada; a SS aberta é nova, sozinha no DMSL — "
+                              "primeiro ataque")
+                elif aberta:
                     situacao = ("Executado — falta ajuste ou comissionamento" if posto in ("DEOP", "DMSL")
                                 else "Pendente no COEP" if posto == "COEP"
                                 else "Pendente com outra equipe")
@@ -222,6 +257,8 @@ def montar(registros, entrada, acompanhamento):
             "entrada_balde": e.get("balde"),
             "entrada_motivo": e.get("motivo", ""),
             "decisao_gestor": (decisao or {}).get("decisao"),
+            "cadeia_passou_coep": cadeia_passou_coep,
+            "cadeia_so_dmsl": cadeia_so_dmsl,
         })
 
     # --- o corte que o gestor pediu: foi manutencionado? o que falta? ---
@@ -230,10 +267,20 @@ def montar(registros, entrada, acompanhamento):
         situacao = i["situacao"]
         posto = i["posto_atual"]
 
-        manutencionado = situacao in ("Em operação", "Executado — falta ajuste ou comissionamento") or (
-            i["decisao_gestor"] == "executado"
+        motivo_entrada = (i.get("entrada_motivo") or "").lower()
+        so_cancelamento = (
+            "cancelada" in motivo_entrada
+            and "obra" not in motivo_entrada
+            and not any(x in parecer for x in ("CONCLU", "SUBSTITU", "AJUSTE", "COMISSION"))
         )
+        resolvido = situacao in ("Em operação", "Executado — falta ajuste ou comissionamento",
+                                 "Sem ação do COEP") or i["decisao_gestor"] == "executado"
+        # Contraprova dos revisores: cancelamento não é manutenção. O ativo pode estar
+        # resolvido (operando) sem que ninguém tenha subido no poste.
+        manutencionado = resolvido and not so_cancelamento
+        i["resolvido"] = resolvido
         i["manutencionado"] = manutencionado
+        i["resolvido_por_cancelamento"] = resolvido and so_cancelamento
 
         if manutencionado:
             if situacao == "Em operação" or not posto:
@@ -252,7 +299,7 @@ def montar(registros, entrada, acompanhamento):
             if situacao == "Cancelada errada pelo DMSL":
                 i["espera"] = "Reabrir a SS que foi cancelada errada"
             elif situacao == "Em análise":
-                i["espera"] = "Análise / primeiro ataque"
+                i["espera"] = "Primeiro ataque / Laudo do DMSL"
             elif "AQUISI" in parecer:
                 i["espera"] = "Compra do material (aquisição)"
             elif "LOGIST" in parecer or "LOGISTICA" in parecer:
@@ -260,11 +307,11 @@ def montar(registros, entrada, acompanhamento):
             elif "ENTREGUE" in parecer or "COCM" in parecer:
                 i["espera"] = "Execução pelo COCM/DCMD — material já entregue"
             elif posto == "DMSL":
-                i["espera"] = "Laudo do DMSL"
-            elif posto == "Cadastro":
-                i["espera"] = "Atualização cadastral"
+                i["espera"] = "Primeiro ataque / Laudo do DMSL"
             elif posto:
                 i["espera"] = f"Com o {posto}"
+            elif situacao == "Pendente no COEP":
+                i["espera"] = "Com o COEP"
             else:
                 i["espera"] = "Sem SS aberta — indefinido"
 
@@ -297,9 +344,19 @@ def montar(registros, entrada, acompanhamento):
             i["como_resolveu"] = "Resolvido — origem registrada na ficha"
 
     manutencionados = [i for i in consolidado if i["manutencionado"]]
-    nao = [i for i in consolidado if not i["manutencionado"] and i["situacao"] != "Fora da análise"]
+    por_cancelamento = [i for i in consolidado if i.get("resolvido_por_cancelamento")]
+    nao = [i for i in consolidado if not i["resolvido"] and i["situacao"] != "Fora da análise"]
 
     resposta = {
+        "resolvidos_total": len([i for i in consolidado if i.get("resolvido")]),
+        "por_cancelamento": {
+            "total": len(por_cancelamento),
+            "lista": [
+                {k: i[k] for k in ("ativo", "localidade", "tipo", "criticidade", "parecer_coep",
+                                   "entrada_motivo", "origem")}
+                for i in sorted(por_cancelamento, key=lambda x: (x["localidade"] or "", x["ativo"]))
+            ],
+        },
         "manutencionados": {
             "total": len(manutencionados),
             "por_falta": dict(Counter(i["falta"] for i in manutencionados)),
@@ -368,26 +425,24 @@ def montar(registros, entrada, acompanhamento):
     # Regra do gestor (13/08): equipamento parado no DMSL sem ter passado pelo COEP, ou
     # marcado «Novo», está em primeiro ataque — diagnóstico de campo. Não é análise do DCMD.
     for i in consolidado:
-        ativo = i["ativo"]
-        passou_coep = any(
-            "COEP" in (l.get("COD_EQUIPE") or "").upper() for l in por_ativo.get(ativo, [])
-        )
-        i["passou_pelo_coep"] = passou_coep
         i["primeiro_ataque"] = (
             not i["manutencionado"]
             and i["situacao"] != "Fora da análise"
-            and (i["espera"] in ("Análise / primeiro ataque", "Laudo do DMSL")
+            and (i["espera"] == "Primeiro ataque / Laudo do DMSL"
                  or i["posto_atual"] == "DMSL")
-            and not passou_coep
+            and not i.get("cadeia_passou_coep")
         )
 
     recorte = [i for i in consolidado if not i["primeiro_ataque"] and i["situacao"] != "Fora da análise"]
     ataque = [i for i in consolidado if i["primeiro_ataque"]]
-    nao_rec = [i for i in recorte if not i["manutencionado"]]
+    # não-resolvidos do recorte: cancelamento também tira o ativo da fila do DCMD
+    nao_rec = [i for i in recorte if not i["resolvido"]]
 
     resumo["recorte_dcmd"] = {
         "total": len(recorte),
         "manutencionados": sum(1 for i in recorte if i["manutencionado"]),
+        "resolvidos": sum(1 for i in recorte if i["resolvido"]),
+        "por_cancelamento": sum(1 for i in recorte if i.get("resolvido_por_cancelamento")),
         "nao_manutencionados": len(nao_rec),
         "por_espera": dict(Counter(i["espera"] for i in nao_rec).most_common()),
         "por_posto": dict(Counter(i["posto_atual"] or "sem SS aberta" for i in nao_rec).most_common()),
@@ -404,6 +459,9 @@ def montar(registros, entrada, acompanhamento):
         },
         "percentual_manutencionado": round(
             100 * sum(1 for i in recorte if i["manutencionado"]) / max(len(recorte), 1), 1
+        ),
+        "percentual_resolvido": round(
+            100 * sum(1 for i in recorte if i["resolvido"]) / max(len(recorte), 1), 1
         ),
     }
 
