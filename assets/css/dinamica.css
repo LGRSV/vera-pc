@@ -42,6 +42,23 @@
 
 .filtros { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
 
+/* O que o gestor decidiu nesta rodada, antes da tabela que a decisão mudou. */
+.decisoes { display: grid; gap: 8px; margin: 0 0 18px; }
+@media (min-width: 900px) { .decisoes { grid-template-columns: repeat(3, 1fr); } }
+
+/* Tabela dos cancelados: peça, material e mão de obra em colunas; a leitura da
+   SS desce para uma linha própria, senão a coluna da peça vira um cordão. */
+.matriz.economia { min-width: 900px; }
+.matriz.economia td { text-align: left; vertical-align: top; }
+.matriz.economia td.num, .matriz.economia th.num { text-align: right; white-space: nowrap; }
+.matriz.economia tr.cabeca td { border-bottom: none; padding-bottom: 4px; }
+.matriz.economia tr.rodape-linha td {
+  padding: 0 8px 10px;
+  font: italic 400 12px/1.45 var(--leitura);
+  color: var(--tinta-3);
+  text-align: left;
+}
+
 /* Vermelho: dinheiro que NÃO foi gasto. Aparece, mas não soma em lugar nenhum. */
 .evitado { color: var(--muito-alta); font-style: normal; }
 .numero.evitado b { color: var(--muito-alta); }

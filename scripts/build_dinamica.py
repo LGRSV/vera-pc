@@ -81,12 +81,15 @@ def main():
 
     # Cancelado em operacao nao consome orcamento: o valor nao entra em nenhuma soma.
     # Ele vira "valor evitado" — o que teria sido gasto se a SS nao tivesse caido.
+    # O valor evitado de cada cancelado vem de scripts/economia_cancelados.py, que
+    # o monta peça a peça na convenção material + mão de obra. Se algum ativo ainda
+    # não tiver passado por lá, cai no valor da planilha de gestão.
     EVITADA = "Cancelada em operação"
     evitado = 0.0
     for item in d["lista"]:
         if item["etapa"] == EVITADA:
-            evitado += item["valor"]
-            item["valor_evitado"] = item["valor"]
+            item["valor_evitado"] = item.get("valor_evitado") or item["valor"]
+            evitado += item["valor_evitado"]
             item["valor"] = 0.0
     for e in d["por_etapa"]:
         if e["etapa"] == EVITADA:

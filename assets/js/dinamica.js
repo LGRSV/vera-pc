@@ -120,51 +120,60 @@ function desenhar() {
     ${D.economia ? `<section class="bloco"><h3>O que teria sido gasto nos cancelados em operação</h3>
       <p class="destaque-texto">${esc(D.economia.criterio)}</p>
       <div class="numeros">
-        ${num({ rotulo: 'Total evitado', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} equipamentos`, tom: 'evitado' })}
-        ${num({ rotulo: 'Só material de catálogo', valor: rs(D.economia.material_puro), nota: `sem o adicional de obra de ${rs(D.economia.adicional_obra)}` })}
+        ${num({ rotulo: 'O que teria sido gasto', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} equipamentos, material + mão de obra`, tom: 'evitado' })}
+        ${num({ rotulo: 'Material de catálogo', valor: rs(D.economia.material), nota: `mão de obra de campo: ${rs(D.economia.mao_de_obra)}` })}
         ${num({ rotulo: 'Com peça identificada', valor: D.economia.com_material, nota: `${D.economia.sem_material} não precisavam de peça · ${D.economia.indeterminados} sem laudo que decida` })}
-        ${D.economia.teto ? num({ rotulo: 'Teto, se os 4 duvidosos se confirmarem', valor: rs(D.economia.teto.valor), nota: `mais ${rs(D.economia.teto.cortado)} que a contraprova cortou`, tom: 'evitado' }) : ''}
+        ${D.economia.orcado ? num({ rotulo: 'Ainda dentro do orçamento', valor: rs(D.economia.orcado.liberavel), nota: `${D.economia.orcado.com_custo} cancelados com custo lançado — dinheiro a liberar`, tom: 'evitado' }) : ''}
       </div>
-      <div class="tabela-rol"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
-      <th>Criticidade</th><th>Tensão</th><th>Peça que teria sido comprada</th><th>Confiança</th>
-      <th class="num">Valor evitado</th></tr></thead><tbody>
-      ${D.economia.lista.map((x) => `<tr>
+      ${(D.economia.decisoes || []).length ? `<div class="decisoes">
+      ${D.economia.decisoes.map((x) => `<div class="nota branda"><strong>${esc(x.titulo)}</strong>${esc(x.texto)}</div>`).join('')}
+      </div>` : ''}
+      <div class="tabela-rol"><table class="matriz economia"><thead><tr><th>Ativo</th><th>Localidade</th>
+      <th>Criticidade</th><th>Tensão</th><th>Peça que teria sido comprada</th>
+      <th class="num">Material</th><th class="num">Mão de obra</th><th class="num">Total</th>
+      <th>Fonte do valor</th></tr></thead><tbody>
+      ${D.economia.lista.map((x) => `<tr class="cabeca">
         <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade || '—')}</td>
-        <td>${esc(x.criticidade || '—')}</td><td>${esc(x.classe_tensao || '—')}</td>
-        <td>${x.materiais.length ? x.materiais.map((m) => esc(m.split('|')[1] ? m.split('|')[1].trim() : m)).join('<br>')
-          : `<i>${x.veredito === 'sem_material' ? 'não precisava de peça' : 'o laudo não permite dizer'}</i>`}
-          ${x.defeito ? `<span class="nota-campo">${esc(x.defeito)}</span>` : ''}</td>
-        <td>${esc(x.confianca || '—')}</td>
-        <td class="num">${x.valor ? `<i class="evitado">${esc(rs(x.valor))}</i>` : '—'}</td></tr>`).join('')}
-      </tbody><tfoot><tr><td colspan="6">Total</td>
-      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.total))}</b></i></td></tr></tfoot></table></div>
-      ${D.economia.teto ? `<div class="nota" style="margin-top:16px"><strong>As quatro peças que a contraprova cortou</strong>
-      ${esc(D.economia.teto.explica)}</div>
-      <div class="tabela-rol" style="margin-top:10px"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
-      <th>Criticidade</th><th>Peça que caiu</th><th>Por que caiu</th><th class="num">Valor cortado</th></tr></thead><tbody>
-      ${D.economia.teto.linhas.map((l) => `<tr><td><b class="mono">${esc(l.ativo)}</b></td>
-        <td>${esc(l.localidade)}</td><td>${esc(l.criticidade)}</td><td>${esc(l.peca)}</td>
-        <td>${esc(l.porque)}</td><td class="num"><i class="evitado">${esc(rs(l.valor))}</i></td></tr>`).join('')}
-      </tbody><tfoot><tr><td colspan="5">Total cortado</td>
-      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.teto.cortado))}</b></i></td></tr></tfoot></table></div>` : ''}
+        <td>${esc(x.criticidade || '—')}</td>
+        <td>${esc(x.classe_tensao || '—')}${x.kva ? `<br>${x.kva} kVA` : ''}</td>
+        <td>${x.linhas.length ? x.linhas.map((l) => `${esc(l.descricao)}${l.qtd > 1 ? ` × ${l.qtd}` : ''} <span class="mono">${esc(l.codigo)}</span>`).join('<br>')
+          : `<i>${x.veredito === 'sem_material' ? 'não precisava de peça' : 'o laudo não permite dizer'}</i>`}</td>
+        <td class="num">${x.material ? esc(rs(x.material)) : '—'}</td>
+        <td class="num">${x.mao_de_obra ? esc(rs(x.mao_de_obra)) : '—'}</td>
+        <td class="num">${x.valor ? `<i class="evitado"><b>${esc(rs(x.valor))}</b></i>` : '—'}</td>
+        <td>${esc(x.fonte)}${x.no_orcamento ? `<br><i>aba «${esc(x.no_orcamento)}»</i>` : ''}</td></tr>
+        ${x.nota ? `<tr class="rodape-linha"><td colspan="9">${esc(x.nota)}</td></tr>` : ''}`).join('')}
+      </tbody><tfoot><tr><td colspan="5">Total</td>
+      <td class="num"><b>${esc(rs(D.economia.material))}</b></td>
+      <td class="num"><b>${esc(rs(D.economia.mao_de_obra))}</b></td>
+      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.total))}</b></i></td>
+      <td></td></tr></tfoot></table></div>
 
-      ${D.economia.conciliacao ? (() => { const c = D.economia.conciliacao; return `
-      <div class="nota" style="margin-top:16px"><strong>${esc(c.pergunta)}</strong>${esc(c.resumo)}</div>
+      ${D.economia.orcado ? `<div class="nota" style="margin-top:16px"><strong>Você tinha razão: parte dos cancelados ainda está orçada</strong>
+      ${D.economia.orcado.citados} dos ${D.economia.total_ativos} aparecem no ORCAMENTO_EQ_ESPECIAIS revisado.
+      ${D.economia.orcado.com_custo} deles estão nas abas que somam no orçamento, com
+      ${esc(rs(D.economia.orcado.liberavel))} de custo lançado para equipamento que já está rodando.
+      Esse é o valor que dá para liberar da fila de compra sem mexer em mais nada. Os outros
+      ${D.economia.orcado.citados - D.economia.orcado.com_custo} estão em «Repassados» e «Em Análise», que já ficam fora da conta.</div>
       <div class="tabela-rol" style="margin-top:10px"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
-      <th class="num">Planilha de gestão</th><th class="num">Leitura das SS</th><th class="num">Diferença</th>
-      <th>Por quê</th></tr></thead><tbody>
-      ${c.linhas.map((l) => `<tr><td><b class="mono">${esc(l.ativo)}</b></td><td>${esc(l.localidade)}</td>
-        <td class="num">${esc(rs(l.planilha))}</td><td class="num">${esc(rs(l.leitura))}</td>
-        <td class="num">${l.diferenca ? `<i class="evitado">${esc(rs(l.diferenca))}</i>` : '—'}</td>
-        <td>${esc(l.explica)}</td></tr>`).join('')}
-      <tr><td colspan="2"><b>Os outros ${c.fora_da_planilha}</b></td><td class="num">—</td>
-        <td class="num">${esc(rs(c.vem_de_fora))}</td><td class="num">—</td>
-        <td>Não estão na planilha de gestão, que cobre 65 dos 129 ativos. Para eles a planilha não mostra
-        valor nenhum — o número vem inteiro da leitura das SS.</td></tr>
-      </tbody></table></div>`; })() : ''}
-      ${D.economia.comparacao ? `<div class="nota branda" style="margin-top:12px"><strong>Contra a estimativa por mediana que estava aqui antes</strong>${esc(D.economia.comparacao)}</div>` : ''}
-      ${(D.economia.ressalvas || []).length ? `<p class="destaque-texto" style="margin-top:16px">Onde a leitura pede cuidado:</p>
-      ${D.economia.ressalvas.map((x) => `<div class="nota branda" style="margin-bottom:8px">${esc(x)}</div>`).join('')}` : ''}
+      <th>SS</th><th>Aba do orçamento</th><th class="num">Valor lançado</th></tr></thead><tbody>
+      ${D.economia.orcado.ativos.map((l) => `<tr><td><b class="mono">${esc(l.ativo)}</b></td>
+        <td>${esc(l.localidade)}</td><td class="mono">${esc(l.ss)}</td><td>${esc(l.aba)}</td>
+        <td class="num">${l.soma ? `<i class="evitado">${esc(rs(l.valor))}</i>` : '<i>fora do total</i>'}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="4">A liberar da fila de compra</td>
+      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.orcado.liberavel))}</b></i></td></tr></tfoot></table></div>` : ''}
+
+      ${D.economia.teto ? `<div class="nota" style="margin-top:16px"><strong>O teto, se os ${D.economia.teto.ativos} indeterminados se confirmarem</strong>
+      Estes não têm laudo que nomeie a peça e ficam em R$ 0 no número oficial, por instrução de errar para baixo.
+      Se os três laudos vierem como o texto sugere, entram mais ${esc(rs(D.economia.teto.extra))} e o total vai a
+      ${esc(rs(D.economia.teto.valor))}.</div>
+      <div class="tabela-rol" style="margin-top:10px"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
+      <th>Peça provável</th><th>O que falta para decidir</th><th class="num">Valor em aberto</th></tr></thead><tbody>
+      ${D.economia.teto.linhas.map((l) => `<tr><td><b class="mono">${esc(l.ativo)}</b></td>
+        <td>${esc(l.localidade)}</td><td>${esc(l.peca)}</td>
+        <td>${esc(l.porque)}</td><td class="num"><i class="evitado">${esc(rs(l.valor))}</i></td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="4">Total em aberto</td>
+      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.teto.extra))}</b></i></td></tr></tfoot></table></div>` : ''}
     </section>` : ''}
 
     <section class="bloco"><h3>Etapa × criticidade</h3>
