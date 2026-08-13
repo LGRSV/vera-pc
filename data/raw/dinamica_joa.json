@@ -3203,5 +3203,188 @@
       "defeito": "Tanque e antena",
       "valor": 32802.66
     }
-  ]
+  ],
+  "economia": {
+    "total_ativos": 23,
+    "comprovada": {
+      "ativos": 3,
+      "valor": 218788.36,
+      "lista": [
+        {
+          "ativo": "5800090147",
+          "localidade": "TAIPAS DO TOCANTINS",
+          "criticidade": "Média",
+          "tipo": "RT",
+          "valor": 138038.91
+        },
+        {
+          "ativo": "7957126085",
+          "localidade": "MONTE SANTO DO TOCANTINS",
+          "criticidade": "Média",
+          "tipo": "RL",
+          "valor": 51304.06
+        },
+        {
+          "ativo": "5850308009",
+          "localidade": "GUARAI",
+          "criticidade": "Média",
+          "tipo": "RT",
+          "valor": 29445.39
+        }
+      ]
+    },
+    "estimada": {
+      "ativos": 20,
+      "valor": 1332914.45,
+      "referencia": {
+        "RL": 51360.82,
+        "RT": 112500.43
+      },
+      "lista": [
+        {
+          "ativo": "7900543083",
+          "localidade": "APARECIDA DO RIO NEGRO",
+          "criticidade": "Muito Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7900930040",
+          "localidade": "ARAGOMINAS",
+          "criticidade": "Muito Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7900648055",
+          "localidade": "ARAGUACEMA",
+          "criticidade": "Muito Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "5836764032",
+          "localidade": "ARAGUACU",
+          "criticidade": "Muito Alta",
+          "tipo": "RT",
+          "valor_estimado": 112500.43
+        },
+        {
+          "ativo": "7903569004",
+          "localidade": "ARAGUAINA",
+          "criticidade": "Muito Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "5800291077",
+          "localidade": "GOIATINS",
+          "criticidade": "Muito Alta",
+          "tipo": "RT",
+          "valor_estimado": 112500.43
+        },
+        {
+          "ativo": "7931383086",
+          "localidade": "MARIANOPOLIS",
+          "criticidade": "Muito Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "5800440256",
+          "localidade": "MATEIROS",
+          "criticidade": "Muito Alta",
+          "tipo": "RT",
+          "valor_estimado": 112500.43
+        },
+        {
+          "ativo": "7921040031",
+          "localidade": "RIO DOS BOIS",
+          "criticidade": "Muito Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7955523028",
+          "localidade": "NATIVIDADE",
+          "criticidade": "Alta",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "5800366016",
+          "localidade": "WANDERLANDIA",
+          "criticidade": "Alta",
+          "tipo": "RT",
+          "valor_estimado": 112500.43
+        },
+        {
+          "ativo": "7922995039",
+          "localidade": "ARAGUATINS",
+          "criticidade": "Média",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7944319149",
+          "localidade": "CASEARA",
+          "criticidade": "Média",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7967181127",
+          "localidade": "PALMEIRAS DO TOCANTINS",
+          "criticidade": "Média",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7908206074",
+          "localidade": "DIANOPOLIS",
+          "criticidade": "Baixa",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7954668084",
+          "localidade": "DIVINOPOLIS",
+          "criticidade": "Baixa",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7955430075",
+          "localidade": "DOIS IRMAOS DO TOCANTINS",
+          "criticidade": "Baixa",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7955686076",
+          "localidade": "DUERE",
+          "criticidade": "Baixa",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "7900505026",
+          "localidade": "PONTE ALTA TOCANTINS",
+          "criticidade": "Baixa",
+          "tipo": "RL",
+          "valor_estimado": 51360.82
+        },
+        {
+          "ativo": "5820790038",
+          "localidade": "TAGUATINGA",
+          "criticidade": "Sem classificação",
+          "tipo": "RT",
+          "valor_estimado": 112500.43
+        }
+      ]
+    },
+    "total": 1551702.81,
+    "criterio": "Cancelada em operação quer dizer que a SS caiu porque o equipamento já estava operando: nenhuma peça precisou ser comprada. O que estava orçado para eles deixou de ser gasto.",
+    "ressalva": "Só 3 dos 23 têm valor orçado na planilha de gestão. Para os outros 20 usei a mediana do valor previsto do próprio tipo na mesma planilha — é estimativa, não valor de catálogo."
+  }
 }

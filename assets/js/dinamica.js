@@ -110,10 +110,34 @@ function desenhar() {
       ${num({ rotulo: 'Na carteira', valor: D.total, nota: D.por_tipo.map((t) => `${t.qtd} ${t.tipo}`).join(' · ') })}
       ${num({ rotulo: 'Com serviço feito', valor: feito.qtd, nota: `${Math.round(100 * feito.qtd / D.total)}% da carteira`, tom: 'bom' })}
       ${num({ rotulo: 'Na fila de compra', valor: D.por_etapa.find((e) => e.etapa === 'Em compra')?.qtd ?? 0, nota: 'esperando material', tom: 'critico' })}
-      ${num({ rotulo: 'Valor previsto', valor: rs(D.valor_total), nota: `${D.com_valor} ativos orçados` })}
+      ${D.economia ? num({ rotulo: 'Economia', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} cancelados em operação`, tom: 'bom' })
+        : num({ rotulo: 'Valor previsto', valor: rs(D.valor_total), nota: `${D.com_valor} ativos orçados` })}
     </div>
 
     <section class="bloco"><h3>A escada</h3>${escada()}</section>
+
+    ${D.economia ? `<section class="bloco"><h3>A economia dos cancelados em operação</h3>
+      <p class="destaque-texto">${esc(D.economia.criterio)}</p>
+      <div class="numeros">
+        ${num({ rotulo: 'Economia comprovada', valor: rs(D.economia.comprovada.valor), nota: `${D.economia.comprovada.ativos} com valor orçado na planilha`, tom: 'bom' })}
+        ${num({ rotulo: 'Economia estimada', valor: rs(D.economia.estimada.valor), nota: `${D.economia.estimada.ativos} sem valor na planilha`, tom: 'atento' })}
+        ${num({ rotulo: 'Total evitado', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} equipamentos`, tom: 'bom' })}
+      </div>
+      <div class="tabela-rol"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
+      <th>Tipo</th><th>Criticidade</th><th>Base</th><th class="num">Valor evitado</th></tr></thead><tbody>
+      ${D.economia.comprovada.lista.map((x) => `<tr>
+        <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade)}</td>
+        <td>${esc(x.tipo)}</td><td>${esc(x.criticidade)}</td>
+        <td>orçado na planilha</td><td class="num"><b>${esc(rs(x.valor))}</b></td></tr>`).join('')}
+      ${D.economia.estimada.lista.map((x) => `<tr>
+        <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade)}</td>
+        <td>${esc(x.tipo)}</td><td>${esc(x.criticidade)}</td>
+        <td>mediana do tipo</td><td class="num">${esc(rs(x.valor_estimado))}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="5">Total</td>
+      <td class="num"><b>${esc(rs(D.economia.total))}</b></td></tr></tfoot></table></div>
+      <div class="nota branda" style="margin-top:12px"><strong>Onde a conta é estimativa</strong>${esc(D.economia.ressalva)}
+      Mediana usada: religador ${rs(D.economia.estimada.referencia.RL)}, regulador ${rs(D.economia.estimada.referencia.RT)}.</div>
+    </section>` : ''}
 
     <section class="bloco"><h3>Etapa × criticidade</h3>
       <p class="destaque-texto">Onde está o risco: quantos de cada criticidade em cada etapa.</p>
