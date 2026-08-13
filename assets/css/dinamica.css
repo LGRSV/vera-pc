@@ -1,0 +1,43 @@
+/* Dinâmica do posto — recorte de uma página só, no mesmo Prontuário Industrial. */
+
+.folha { max-width: 1180px; margin: 0 auto; padding: clamp(28px, 5vh, 56px) clamp(20px, 4vw, 44px) 90px; }
+
+.folha > header { border-bottom: 2px solid var(--tinta); padding-bottom: 14px; margin-bottom: 30px; }
+.folha > header h1 {
+  margin: 0;
+  font: 700 clamp(34px, 5.4vw, 52px)/0.98 var(--cond);
+  letter-spacing: .015em;
+  text-transform: uppercase;
+}
+.folha > header .sub { margin: 8px 0 0; max-width: 720px; color: var(--tinta-2); font-size: 15px; }
+.folha > header .carimbo {
+  display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px;
+  font: 400 12px var(--mono); color: var(--tinta-3);
+}
+
+/* Barra da dinâmica: cada etapa é uma faixa proporcional ao que representa. */
+.escada { display: flex; flex-direction: column; gap: 2px; margin: 26px 0 8px; }
+.degrau {
+  display: grid;
+  grid-template-columns: minmax(190px, 240px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 9px 10px;
+  border-bottom: 1px dotted var(--filete-2);
+}
+.degrau:hover { background: var(--papel-2); }
+.degrau > .nome { font: 600 13.5px var(--cond); letter-spacing: .08em; text-transform: uppercase; }
+.degrau > .barra { height: 15px; background: var(--papel-3); position: relative; }
+.degrau > .barra i { display: block; height: 100%; background: var(--sem-classe); }
+.degrau.bom > .barra i { background: var(--baixa); }
+.degrau.atento > .barra i { background: var(--alta); }
+.degrau.critico > .barra i { background: var(--muito-alta); }
+.degrau > .lado { text-align: right; white-space: nowrap; font: 400 12px var(--mono); color: var(--tinta-3); }
+.degrau > .lado b { font-size: 15px; color: var(--tinta); margin-right: 8px; }
+
+.matriz-etapa td.zero { color: var(--tinta-3); }
+.matriz-etapa th:first-child, .matriz-etapa td:first-child { text-align: left; }
+
+.rol .nota-campo { display: block; margin-top: 3px; color: var(--tinta-3); font-size: 12.5px; font-style: italic; }
+
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
