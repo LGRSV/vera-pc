@@ -51,15 +51,15 @@ PREMISSAS = [
     "a hierarquia de fontes do gestor. O parecer COEP vem da planilha de criticidade e só "
     "existe para os ativos da carteira dos 129.",
     "Bloqueio dos itens 4, 5 e 6: SS do MESMO ativo, tipo INDISPONIBILIDADE PARA OPERAÇÃO, "
-    "PENDENTE e de OUTRA demanda. SS pendente da MESMA cadeia não bloqueia — é a cauda da "
+    "PENDENTE e de OUTRA demanda. SS pendente da MESMA cadeia não bloqueia — é a etapa seguinte da "
     "própria intervenção (correção do gestor em 13/08): o DCMD executa e repassa no mesmo "
     "carimbo para a Proteção ajustar ou para o DMSL comissionar; a SS nova é a etapa "
     "seguinte, não uma reincidência.",
-    "Cauda pós-execução = a cadeia passou por equipe do DCMD, a SS pendente que sobrou está "
+    "Etapa seguinte pós-execução = a cadeia passou por equipe do DCMD, a SS pendente que sobrou está "
     "no DEOP/Proteção (ajustes) ou no DMSL/SE (comissionamento) E o texto da cadeia registra "
     "a execução (substituído, instalado, comissionar, ajustes). Se a SS pendente voltou ao "
     "COEP ou ao DCMD, ou se o texto só fala em espera de material, a intervenção não terminou.",
-    "Alerta na cauda: quando o texto da SS pendente fala em cabo rompido, falha de comunicação "
+    "Alerta na etapa seguinte: quando o texto da SS pendente fala em cabo rompido, falha de comunicação "
     "ou espera de peça, o ativo fica marcado — a troca foi feita, mas apareceu pendência nova. "
     "Atenção: a descrição da SS no SGM é CUMULATIVA (o parecer novo é colado em cima do antigo "
     "e herdado pelas SS seguintes), então um parecer velho pode parecer atual; por isso o alerta "

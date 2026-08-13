@@ -560,7 +560,7 @@ function abrirAtivo(ativo) {
       ${x.decisao_gestor ? `<div class="nota calma" style="margin-top:10px">
         <strong>Confirmado pelo gestor em ${dataBr(x.decisao_gestor.data)}</strong>${esc(x.decisao_gestor.nota)}</div>` : ''}
       ${(x.cauda_mesma_demanda || []).length ? `<div class="nota ${x.alerta_cauda ? '' : 'calma'}" style="margin-top:10px">
-        <strong>Cauda da mesma demanda${x.etapa_final ? ' — falta ' + (x.etapa_final === 'DEOP' ? 'o ajuste da Proteção' : 'o comissionamento do DMSL') : ''}</strong>
+        <strong>Mesma demanda, etapa seguinte${x.etapa_final ? ' — falta ' + (x.etapa_final === 'DEOP' ? 'o ajuste da Proteção' : 'o comissionamento do DMSL') : ''}</strong>
         ${x.cauda_mesma_demanda.map((i) => `${esc(i.numero)} · ${esc(i.equipe)} (${esc(i.departamento)}) · aberta em ${dataBr(i.abertura)}`).join('<br>')}
         ${x.alerta_cauda ? '<br>Atenção: o texto desta SS fala em espera de material ou defeito novo.' : ''}</div>` : ''}
       ${(x.indisponibilidades_abertas || []).length ? `<div class="nota" style="margin-top:10px">
@@ -1098,7 +1098,7 @@ function abrirColecao(id) {
       html = cabecaColecao('Carteira consolidada', 'Ainda não processada.');
     } else {
       const TOM = {
-        'Em operação': 'bom', 'Executado, aguardando cauda': 'bom', 'Em execução': '',
+        'Em operação': 'bom', 'Executado — falta ajuste ou comissionamento': 'bom', 'Em execução': '',
         'Pendente no COEP': 'critico', 'Pendente com outra equipe': 'atento',
         'Cancelada errada pelo DMSL': 'critico', 'Em análise': '', 'Sem ação do COEP': '',
         'Fora da análise': '',
@@ -1113,7 +1113,7 @@ function abrirColecao(id) {
         `<div class="numeros">
           ${num({ rotulo: 'Já manutencionados', valor: co.resposta?.manutencionados.total ?? co.resolvidos, nota: `${co.percentual_manutencionado ?? co.percentual_resolvido}% da carteira`, tom: 'bom' })}
           ${num({ rotulo: 'Em operação, nada falta', valor: co.resposta?.manutencionados.por_falta['Nada — em operação'] ?? 0, nota: 'serviço fechado', tom: 'bom' })}
-          ${num({ rotulo: 'Falta ajuste ou comissionamento', valor: (co.resposta?.manutencionados.por_falta['Ajuste da Proteção'] ?? 0) + (co.resposta?.manutencionados.por_falta['Comissionamento do DMSL'] ?? 0), nota: 'trocado, esperando a cauda', tom: 'atento' })}
+          ${num({ rotulo: 'Falta ajuste ou comissionamento', valor: (co.resposta?.manutencionados.por_falta['Ajuste da Proteção'] ?? 0) + (co.resposta?.manutencionados.por_falta['Comissionamento do DMSL'] ?? 0), nota: 'trocado, falta fechar o processo', tom: 'atento' })}
           ${num({ rotulo: 'Esperando compra', valor: co.resposta?.nao_manutencionados.por_espera['Compra do material (aquisição)'] ?? 0, nota: 'em aquisição no COEP', tom: 'critico' })}
           ${num({ rotulo: 'Em execução', valor: co.em_execucao, nota: 'material entregue, obra em curso' })}
           ${num({ rotulo: 'Em análise', valor: co.em_analise, nota: 'primeiro ataque, sem parecer' })}
@@ -1124,7 +1124,7 @@ function abrirColecao(id) {
         <div class="confronto-duplo">
           <div>
             <h4 class="rotulo-coluna">Já manutencionados — ${co.resposta.manutencionados.total}</h4>
-            <p class="destaque-texto">Alguém foi ao ativo e fez o serviço. Falta, no máximo, a cauda.</p>
+            <p class="destaque-texto">Alguém foi ao ativo e fez o serviço: o equipamento está no poste. Falta, no máximo, fechar o processo — o ajuste da Proteção, o comissionamento do DMSL ou a baixa da SS.</p>
             <div class="itens">${Object.entries(co.resposta.manutencionados.por_falta)
               .sort((a, b) => b[1] - a[1])
               .map(([k, v]) => `<div class="item-linha"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
@@ -1161,7 +1161,7 @@ function abrirColecao(id) {
 
         <div class="nota calma" style="margin:-6px 0 26px"><strong>Como ler a escada</strong>
         Cada equipamento aparece uma vez só, na etapa mais avançada em que ele está.
-        <b>Resolvido</b> = em operação + executado aguardando cauda + sem ação do COEP —
+        <b>Resolvido</b> = em operação + executado esperando ajuste/comissionamento + sem ação do COEP —
         porque, na sua régua, equipamento em ajuste ou comissionamento já foi manutencionado.
         <b>Pendente</b> = no COEP + com outra equipe + cancelada errada pelo DMSL.
         Em execução e em análise ficam à parte: não são nem uma coisa nem outra.</div>
@@ -1311,7 +1311,7 @@ function abrirColecao(id) {
           ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores · ${en.total_ss} SS` })}
           ${num({ rotulo: 'Já resolvidos', valor: res.ativos, nota: `${en.reducao_percentual}% da carteira herdada`, tom: 'bom' })}
           ${num({ rotulo: 'Ainda no fluxo', valor: and.ativos, nota: `${and.por_posto['COEP'] || 0} SS ainda no COEP`, tom: 'atento' })}
-          ${ver.ativos ? num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'cauda com sinal de espera ou defeito novo', tom: 'critico' })
+          ${ver.ativos ? num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'etapa seguinte com sinal de espera ou defeito novo', tom: 'critico' })
             : en.sem_rastro_ativos ? num({ rotulo: 'Sem rastro no SGM', valor: en.sem_rastro_ativos, nota: 'SS de 2023 que sumiram da base', tom: 'atento' })
             : num({ rotulo: 'Fora da análise', valor: en.excluidos_ativos ?? 0, nota: 'excluídos por decisão do gestor' })}
         </div>
@@ -1346,8 +1346,8 @@ function abrirColecao(id) {
         no total: uma SS cancelada volta no item 6 quando não houve reincidência, e a tratativa entra pelo
         item que fechou o caso. A soma dos resolvidos são os itens 3 a 7.</p>
         <div class="nota calma" style="margin-top:14px"><strong>Leitura</strong>
-        SS pendente da MESMA cadeia não bloqueia: é a cauda do próprio serviço (ajuste ou comissionamento
-        depois da troca), e não reincidência — correção do gestor em 13/08.
+        SS pendente da MESMA cadeia não bloqueia: é a etapa seguinte do próprio serviço (ajuste ou
+        comissionamento depois da troca), e não reincidência — correção do gestor em 13/08.
         As 25 canceladas aparecem no item 1 e voltam no item 6 quando não houve reincidência —
         são o mesmo ativo, contado uma vez no total. O item 2 mede intervenção no equipamento
         (execução do DCMD, obra de substituição, parecer de troca/entrega); laudo do DMSL e ajuste
@@ -1355,7 +1355,7 @@ function abrirColecao(id) {
 
         ${ver.lista.length ? `<section class="bloco"><h3>Para você verificar — ${ver.ativos} ativos</h3>
         <p class="destaque-texto">Ou têm SS de INDISPONIBILIDADE PARA OPERAÇÃO de OUTRA demanda ainda
-        pendente, ou a cauda da própria demanda traz sinal de espera de material / defeito novo no texto.
+        pendente, ou a etapa seguinte da própria demanda traz sinal de espera de material / defeito novo no texto.
         Pela sua régua não entram como resolvidos até você conferir.</p>
         <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
         <th>SS de entrada</th><th>Situação</th><th>SS de indisponibilidade aberta</th><th>Parecer COEP</th></tr></thead><tbody>
@@ -1374,8 +1374,8 @@ function abrirColecao(id) {
           <strong>${esc(d.ativo)} · ${esc(d.localidade)} — ${esc(d.motivo)}</strong>${esc(d.nota)}</div>`).join('')}
         </section>` : ''}
 
-        ${en.cauda && en.cauda.ss ? `<section class="bloco"><h3>Cauda da mesma intervenção — ${en.cauda.ss} ativos</h3>
-        <p class="destaque-texto">Correção de 13/08: a SS que aparecia «bloqueando» estes ativos é da MESMA cadeia —
+        ${en.cauda && en.cauda.ss ? `<section class="bloco"><h3>Etapa seguinte do mesmo serviço — ${en.cauda.ss} ativos</h3>
+        <p class="destaque-texto">Correção de 13/08: a SS que aparecia «bloqueando» estes ativos é da MESMA cadeia — 
         o DCMD executou e repassou no mesmo carimbo para a Proteção ajustar (${en.cauda.por_etapa.DEOP || 0})
         ou para o DMSL comissionar (${en.cauda.por_etapa.DMSL || 0}). É a etapa seguinte do mesmo serviço,
         não uma reincidência. Só conta quando o texto da cadeia registra a execução.</p>

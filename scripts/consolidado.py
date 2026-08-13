@@ -12,7 +12,7 @@ A escada de situações, do fim para o começo do fluxo:
 
   Em operação                  o equipamento está operando — check Ok/Em operação na planilha,
                                ou saiu da carteira por ter sido resolvido
-  Executado, aguardando cauda  a troca foi feita; falta o ajuste da Proteção ou o comissionamento
+  Executado — falta ajuste     a troca foi feita; falta o ajuste da Proteção ou o comissionamento
                                do DMSL (regra do gestor: em ajuste ou comissionamento = já
                                manutencionado; bateria pelo DMSL é rotina e não conta)
   Em execução                  material entregue, obra em curso, check «Em andamento»
@@ -40,7 +40,7 @@ ARQ_DECISOES = os.path.join(RAIZ, "data", "raw", "decisoes_gestor.json")
 
 ESCADA = [
     "Em operação",
-    "Executado, aguardando cauda",
+    "Executado — falta ajuste ou comissionamento",
     "Em execução",
     "Pendente no COEP",
     "Pendente com outra equipe",
@@ -50,7 +50,7 @@ ESCADA = [
     "Fora da análise",
 ]
 
-RESOLVIDAS = ("Em operação", "Executado, aguardando cauda", "Sem ação do COEP")
+RESOLVIDAS = ("Em operação", "Executado — falta ajuste ou comissionamento", "Sem ação do COEP")
 PENDENTES = ("Pendente no COEP", "Pendente com outra equipe", "Cancelada errada pelo DMSL")
 
 PREMISSAS = [
@@ -63,7 +63,8 @@ PREMISSAS = [
     "Ativo que saiu da lista de hoje e estava dado como resolvido na entrada conta como "
     "resolvido: ele deixou de ser acompanhado porque foi tratado.",
     "«Cancelada errada pelo DMSL» é pendência: a SS foi encerrada no sistema sem o serviço.",
-    "Resolvido = em operação + executado aguardando cauda + sem ação do COEP. Pendente = no "
+    "Resolvido = em operação + executado esperando ajuste ou comissionamento + sem ação do "
+    "COEP. Pendente = no "
     "COEP + com outra equipe + cancelada errada. Em análise e em execução ficam à parte, "
     "porque não são nem uma coisa nem outra.",
 ]
@@ -136,7 +137,7 @@ def montar(registros, entrada, acompanhamento):
             porque = "decisão do gestor: segue pendente"
 
         elif decisao and decisao.get("decisao") == "executado":
-            situacao = "Executado, aguardando cauda" if posto in ("DEOP", "DMSL") else "Em execução"
+            situacao = "Executado — falta ajuste ou comissionamento" if posto in ("DEOP", "DMSL") else "Em execução"
             porque = "decisão do gestor: execução confirmada em campo"
 
         elif h.get("sem_acao_coep"):
@@ -159,7 +160,7 @@ def montar(registros, entrada, acompanhamento):
             bucket = (h.get("bucket_parecer") or "")
             parecer = (h.get("parecer_coep") or "").upper()
             if "AJUSTE" in parecer or "COMISSION" in parecer or posto in ("DEOP", "DMSL"):
-                situacao = "Executado, aguardando cauda"
+                situacao = "Executado — falta ajuste ou comissionamento"
                 porque = "parecer de ajuste/comissionamento — o serviço já foi feito"
             else:
                 situacao = "Em execução"
@@ -173,7 +174,7 @@ def montar(registros, entrada, acompanhamento):
             # saiu da lista: vale o que a entrada concluiu, conferido na base
             if e.get("balde") == "resolvidos":
                 if aberta:
-                    situacao = ("Executado, aguardando cauda" if posto in ("DEOP", "DMSL")
+                    situacao = ("Executado — falta ajuste ou comissionamento" if posto in ("DEOP", "DMSL")
                                 else "Pendente no COEP" if posto == "COEP"
                                 else "Pendente com outra equipe")
                     porque = f"saiu da lista de acompanhamento, mas a base ainda mostra demanda no {posto}"
@@ -216,7 +217,7 @@ def montar(registros, entrada, acompanhamento):
         situacao = i["situacao"]
         posto = i["posto_atual"]
 
-        manutencionado = situacao in ("Em operação", "Executado, aguardando cauda") or (
+        manutencionado = situacao in ("Em operação", "Executado — falta ajuste ou comissionamento") or (
             i["decisao_gestor"] == "executado"
         )
         i["manutencionado"] = manutencionado
