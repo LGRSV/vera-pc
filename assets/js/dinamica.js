@@ -123,6 +123,7 @@ function desenhar() {
         ${num({ rotulo: 'Total evitado', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} equipamentos`, tom: 'evitado' })}
         ${num({ rotulo: 'Só material de catálogo', valor: rs(D.economia.material_puro), nota: `sem o adicional de obra de ${rs(D.economia.adicional_obra)}` })}
         ${num({ rotulo: 'Com peça identificada', valor: D.economia.com_material, nota: `${D.economia.sem_material} não precisavam de peça · ${D.economia.indeterminados} sem laudo que decida` })}
+        ${D.economia.teto ? num({ rotulo: 'Teto, se os 4 duvidosos se confirmarem', valor: rs(D.economia.teto.valor), nota: `mais ${rs(D.economia.teto.cortado)} que a contraprova cortou`, tom: 'evitado' }) : ''}
       </div>
       <div class="tabela-rol"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
       <th>Criticidade</th><th>Tensão</th><th>Peça que teria sido comprada</th><th>Confiança</th>
@@ -137,6 +138,16 @@ function desenhar() {
         <td class="num">${x.valor ? `<i class="evitado">${esc(rs(x.valor))}</i>` : '—'}</td></tr>`).join('')}
       </tbody><tfoot><tr><td colspan="6">Total</td>
       <td class="num"><i class="evitado"><b>${esc(rs(D.economia.total))}</b></i></td></tr></tfoot></table></div>
+      ${D.economia.teto ? `<div class="nota" style="margin-top:16px"><strong>As quatro peças que a contraprova cortou</strong>
+      ${esc(D.economia.teto.explica)}</div>
+      <div class="tabela-rol" style="margin-top:10px"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
+      <th>Criticidade</th><th>Peça que caiu</th><th>Por que caiu</th><th class="num">Valor cortado</th></tr></thead><tbody>
+      ${D.economia.teto.linhas.map((l) => `<tr><td><b class="mono">${esc(l.ativo)}</b></td>
+        <td>${esc(l.localidade)}</td><td>${esc(l.criticidade)}</td><td>${esc(l.peca)}</td>
+        <td>${esc(l.porque)}</td><td class="num"><i class="evitado">${esc(rs(l.valor))}</i></td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="5">Total cortado</td>
+      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.teto.cortado))}</b></i></td></tr></tfoot></table></div>` : ''}
+
       ${D.economia.conciliacao ? (() => { const c = D.economia.conciliacao; return `
       <div class="nota" style="margin-top:16px"><strong>${esc(c.pergunta)}</strong>${esc(c.resumo)}</div>
       <div class="tabela-rol" style="margin-top:10px"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>

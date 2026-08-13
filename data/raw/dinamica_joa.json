@@ -3722,6 +3722,46 @@
         }
       ],
       "resumo": "A planilha de gestão só tem valor para 3 dos 23 cancelados, somando R$ 218.788,36. Os outros 20 não estão lá — para eles a planilha não mostra nada, e os R$ 687.737,84 que eles somam vêm da leitura das SS. Nos 3 que existem nas duas bases, a diferença é de R$ 24.354,45 e está toda em duas linhas."
+    },
+    "teto": {
+      "valor": 1123406.47,
+      "cortado": 241234.72,
+      "ativos": 4,
+      "linhas": [
+        {
+          "ativo": "5836764032",
+          "localidade": "ARAGUACU",
+          "criticidade": "Muito Alta",
+          "peca": "Célula — Regulador 34,5 kV",
+          "valor": 126893.8,
+          "porque": "O texto nunca manda substituir. Pede manutenção nas chaves e melhoria da malha de aterramento, e «falha na fase B» não nomeia peça."
+        },
+        {
+          "ativo": "7921040031",
+          "localidade": "RIO DOS BOIS",
+          "criticidade": "Muito Alta",
+          "peca": "Tanque / parte ativa — Religador 34,5 kV",
+          "valor": 38151.48,
+          "porque": "O laudo de defeito no tanque não tem data própria e foi desmentido pela mesma equipe em 15/12/2025. Depois disso o equipamento passou em comissionamento completo duas vezes."
+        },
+        {
+          "ativo": "7900648055",
+          "localidade": "ARAGUACEMA",
+          "criticidade": "Muito Alta",
+          "peca": "Controle — Religador 34,5 kV",
+          "valor": 38094.72,
+          "porque": "A palavra «controle» não aparece em nenhum texto do ativo. O valor vinha de inferir a partir de «relé apagado», e a única hipótese escrita na OS é troca de bateria."
+        },
+        {
+          "ativo": "7954668084",
+          "localidade": "DIVINOPOLIS",
+          "criticidade": "Baixa",
+          "peca": "Controle — Religador 34,5 kV",
+          "valor": 38094.72,
+          "porque": "O defeito é real e é de material — display queimado, não liga —, mas nenhuma SS diz qual peça, e a própria área declara que ainda não sabe: «precisa ser feito a análise do DMSL, para a compra do equipamento»."
+        }
+      ],
+      "explica": "A contraprova derrubou estas quatro peças por instrução minha de errar para baixo: peça que não está escrita no texto não entra. Elas estão em R$ 0 no número oficial. Se você quiser o teto — o cenário em que os quatro laudos se confirmam —, é este valor."
     }
   }
 }
