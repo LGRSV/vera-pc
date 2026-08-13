@@ -1088,10 +1088,17 @@ function abrirColecao(id) {
           ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores · ${en.total_ss} SS` })}
           ${num({ rotulo: 'Já resolvidos', valor: res.ativos, nota: `${en.reducao_percentual}% da carteira herdada`, tom: 'bom' })}
           ${num({ rotulo: 'Ainda no fluxo', valor: and.ativos, nota: `${and.por_posto['COEP'] || 0} SS ainda no COEP`, tom: 'atento' })}
-          ${num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'cauda com sinal de espera ou defeito novo', tom: 'critico' })}
+          ${ver.ativos ? num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'cauda com sinal de espera ou defeito novo', tom: 'critico' })
+            : num({ rotulo: 'Sem rastro no SGM', valor: en.sem_rastro_ativos ?? 0, nota: 'SS de 2023 que sumiram da base', tom: 'atento' })}
           ${num({ rotulo: 'Canceladas', valor: en.canceladas.ss, nota: `${en.canceladas.sem_reincidencia} sem reincidência` })}
           ${num({ rotulo: 'Tratativa no equipamento', valor: en.tratativas.ss, nota: `+ ${en.tratativas.atendimento_tecnico_ss} só com atendimento técnico` })}
         </div>
+
+        <div class="nota calma" style="margin:-6px 0 26px"><strong>A conta fecha assim</strong>
+        ${res.ativos} resolvidos + ${and.ativos} ainda no fluxo${ver.ativos ? ` + ${ver.ativos} a verificar` : ''}
+        + ${en.sem_rastro_ativos ?? 0} sem rastro no SGM = ${en.total_ativos} ativos da carteira de entrada.
+        Cada ativo entra num balde só. Os «sem rastro» são as SS de 2023 que não existem mais na base de
+        SS/OS — ficam de fora do veredito porque não há o que conferir.</div>
 
         <section class="bloco"><h3>As sete réguas, uma a uma</h3>
         <p class="destaque-texto">Cada ativo entra uma vez só: quando mais de uma régua se aplica, vale a mais forte

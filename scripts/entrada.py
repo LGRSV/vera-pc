@@ -597,6 +597,7 @@ def montar(registros):
         "total_ativos": len({i["ativo"] for i in itens} | {s["ativo"] for s in sem_rastro}),
         "por_tipo": dict(Counter(i["tipo"] for i in itens)),
         "por_aba": dict(Counter(i["aba"] for i in itens)),
+        "sem_rastro_ativos": len({s["ativo"] for s in sem_rastro}),
         "status_gestor": dict(Counter(i["status_gestor"] for i in itens if i["status_gestor"])),
         "sem_rastro": sem_rastro,
         "resolvidos": {
