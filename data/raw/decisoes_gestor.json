@@ -33,5 +33,12 @@
     "data": "2026-08-13",
     "decisao": "pendente",
     "nota": "Gestor confirmou: continua pendente. Tem duas demandas abertas — uma no COEP e outra no DMSL, esta provavelmente ainda em primeiro ataque, que é a razão de o ativo não ter parecer COEP na planilha de criticidade."
+  },
+  {
+    "ativo": "7955520116",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou: entra como pendente. É a única exceção do tipo — a SS foi baixada como «equipamento operacional» (ETO-TELE 00961/2026, parecer «em operação no SCADA»), mas a equipe verificou o religador em campo e já está dando tratativa. A parte ativa danificada continua lá."
   }
 ]
