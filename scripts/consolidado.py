@@ -134,19 +134,21 @@ def _decisao_de_compra(aquisicao, ficha):
         else:
             sem.append({**resumo, "marcador": ""})
 
+    # Regra do gestor (13/08): pedir modelo e tensão ainda não é compra pedida — é o COEP
+    # levantando a especificação. Esses contam com quem ainda não tem pedido nenhum.
     ordenar = lambda l: sorted(l, key=lambda x: (x["localidade"] or "", x["ativo"]))
     return {
-        "com_decisao": len(firmes) + len(fracos),
+        "com_decisao": len(firmes),
         "decisao_firme": len(firmes),
-        "decisao_iniciada": len(fracos),
-        "sem_pedido": len(sem),
+        "aguardando_especificacao": len(fracos),
+        "sem_pedido": len(fracos) + len(sem),
         "lista_decisao_firme": ordenar(firmes),
-        "lista_decisao_iniciada": ordenar(fracos),
-        "lista_sem_pedido": ordenar(sem),
+        "lista_aguardando_especificacao": ordenar(fracos),
+        "lista_sem_pedido": ordenar(fracos + sem),
         "orcamento": ORCAMENTO_DCMD,
         "criterio_do_corte": (
-            "Quem já tem a compra decidida é quem carrega «equipamento selecionado para compra» "
-            "no parecer do COEP. Nenhuma fonte marca exercício seguinte."
+            "Compra pedida é quem carrega «equipamento selecionado para compra» no parecer do "
+            "COEP. O plano de compras cobre só a criticidade Muito Alta e Alta."
         ),
     }
 
@@ -607,6 +609,16 @@ def montar(registros, entrada, acompanhamento):
             ],
         }
         resposta["aquisicao_x_plano"].update(_decisao_de_compra(aquisicao, ficha))
+        # O plano só cobre Muito Alta e Alta. Quem tem compra pedida e ficou fora dele é,
+        # por construção, Média ou Baixa — vale dizer isso em número, não em suposição.
+        _apx = resposta["aquisicao_x_plano"]
+        _no_plano = {i["ativo"] for i in dentro}
+        _pedidos = {i["ativo"] for i in _apx["lista_decisao_firme"]}
+        _apx["no_plano_com_pedido"] = len(_no_plano & _pedidos)
+        _apx["fora_do_plano_com_pedido"] = len(_pedidos - _no_plano)
+        _apx["fora_do_plano_com_pedido_lista"] = [
+            i for i in _apx["lista_decisao_firme"] if i["ativo"] not in _no_plano
+        ]
 
     resumo["resposta"] = resposta
     # o percentual segue a mesma régua do balde "Resolvidos" da primeira visão:

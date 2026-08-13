@@ -1169,10 +1169,16 @@ function abrirColecao(id) {
             <h4 class="rotulo-coluna">Aguardando a compra — ${compra}</h4>
             <p class="destaque-texto">${pl.criterio_do_corte || 'Quem já tem a compra decidida carrega a marcação no parecer do COEP.'}</p>
             <div class="itens">
-              ${linha('Compra já decidida no parecer', pl.com_decisao ?? noPlano, `${pl.decisao_firme ?? 0} com «selecionado para compra» · ${pl.decisao_iniciada ?? 0} com o COEP pedindo modelo e tensão`)}
-              ${linha('Sem pedido nenhum ainda', pl.sem_pedido ?? depois, 'nenhuma palavra de compra no parecer')}
-              ${linha('Destes, já orçados no plano de MA+Alta', noPlano, pl.valor_no_plano ? `R$ ${moedaBR(pl.valor_no_plano)}` : '')}
+              ${linha('Compra já pedida', pl.com_decisao ?? noPlano, '«equipamento selecionado para compra» no parecer do COEP')}
+              ${linha('Ainda sem pedido', pl.sem_pedido ?? depois, `${pl.aguardando_especificacao ?? 0} deles esperando o COEP levantar modelo e tensão`)}
+              ${linha('Destes, orçados no plano de Muito Alta + Alta', noPlano, pl.valor_no_plano ? `R$ ${moedaBR(pl.valor_no_plano)}` : '')}
             </div>
+            ${pl.fora_do_plano_com_pedido ? `<div class="nota branda" style="margin-top:14px">
+            <strong>O que o plano não cobre</strong>
+            Os ${pl.fora_do_plano_com_pedido} equipamentos que você já mandou comprar e não têm linha no plano
+            são <b>todos de criticidade Média e Baixa</b> — o plano de compras cobre só Muito Alta e Alta.
+            Dos ${pl.com_decisao} com compra pedida, os ${pl.no_plano_com_pedido} de Muito Alta e Alta estão
+            todos orçados.</div>` : ''}
             ${pl.orcamento ? `<p class="destaque-texto" style="margin-top:16px">${esc(pl.orcamento.titulo)} —
             ${pl.orcamento.religador.qtd} religadores (${pl.orcamento.religador.dmsl} pelo DMSL,
             ${pl.orcamento.religador.deop} pelo DEOP) a R$ ${moedaBR(pl.orcamento.religador.unitario)} cada
