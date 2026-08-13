@@ -210,6 +210,82 @@ def montar(registros, entrada, acompanhamento):
             "decisao_gestor": (decisao or {}).get("decisao"),
         })
 
+    # --- o corte que o gestor pediu: foi manutencionado? o que falta? ---
+    for i in consolidado:
+        parecer = (i["parecer_coep"] or "").upper()
+        situacao = i["situacao"]
+        posto = i["posto_atual"]
+
+        manutencionado = situacao in ("Em operação", "Executado, aguardando cauda") or (
+            i["decisao_gestor"] == "executado"
+        )
+        i["manutencionado"] = manutencionado
+
+        if manutencionado:
+            if situacao == "Em operação":
+                i["falta"] = "Nada — em operação"
+            elif posto == "DEOP":
+                i["falta"] = "Ajuste da Proteção"
+            elif posto == "DMSL":
+                i["falta"] = "Comissionamento do DMSL"
+            elif posto in ("COEP", "DCMD"):
+                i["falta"] = "Baixa da SS no sistema"
+            else:
+                i["falta"] = "Nada — em operação"
+            i["espera"] = ""
+        else:
+            i["falta"] = ""
+            if situacao == "Cancelada errada pelo DMSL":
+                i["espera"] = "Reabrir a SS que foi cancelada errada"
+            elif situacao == "Em análise":
+                i["espera"] = "Análise / primeiro ataque"
+            elif "AQUISI" in parecer:
+                i["espera"] = "Compra do material (aquisição)"
+            elif "LOGIST" in parecer or "LOGISTICA" in parecer:
+                i["espera"] = "Logística — material comprado, a caminho"
+            elif "ENTREGUE" in parecer or "COCM" in parecer:
+                i["espera"] = "Execução pelo COCM/DCMD — material já entregue"
+            elif posto == "DMSL":
+                i["espera"] = "Laudo do DMSL"
+            elif posto == "Cadastro":
+                i["espera"] = "Atualização cadastral"
+            elif posto:
+                i["espera"] = f"Com o {posto}"
+            else:
+                i["espera"] = "Sem SS aberta — indefinido"
+
+    manutencionados = [i for i in consolidado if i["manutencionado"]]
+    nao = [i for i in consolidado if not i["manutencionado"] and i["situacao"] != "Fora da análise"]
+
+    resposta = {
+        "manutencionados": {
+            "total": len(manutencionados),
+            "por_falta": dict(Counter(i["falta"] for i in manutencionados)),
+            "listas": {
+                f: [
+                    {k: i[k] for k in ("ativo", "localidade", "tipo", "criticidade",
+                                       "parecer_coep", "posto_atual", "origem", "porque")}
+                    for i in sorted(manutencionados, key=lambda x: (x["localidade"] or "", x["ativo"]))
+                    if i["falta"] == f
+                ]
+                for f in dict(Counter(i["falta"] for i in manutencionados))
+            },
+        },
+        "nao_manutencionados": {
+            "total": len(nao),
+            "por_espera": dict(Counter(i["espera"] for i in nao).most_common()),
+            "listas": {
+                e: [
+                    {k: i[k] for k in ("ativo", "localidade", "tipo", "criticidade",
+                                       "parecer_coep", "posto_atual", "origem", "situacao")}
+                    for i in sorted(nao, key=lambda x: (x["localidade"] or "", x["ativo"]))
+                    if i["espera"] == e
+                ]
+                for e in dict(Counter(i["espera"] for i in nao))
+            },
+        },
+    }
+
     por_situacao = Counter(i["situacao"] for i in consolidado)
     resolvidos = [i for i in consolidado if i["situacao"] in RESOLVIDAS]
     pendentes = [i for i in consolidado if i["situacao"] in PENDENTES]
@@ -235,11 +311,17 @@ def montar(registros, entrada, acompanhamento):
             key=lambda i: (ESCADA.index(i["situacao"]), i["localidade"] or "", i["ativo"]),
         ),
     }
+    resumo["resposta"] = resposta
     resumo["percentual_resolvido"] = round(100 * len(resolvidos) / max(len(consolidado), 1), 1)
+    resumo["percentual_manutencionado"] = round(
+        100 * resposta["manutencionados"]["total"] / max(len(consolidado) - por_situacao.get("Fora da análise", 0), 1), 1
+    )
 
     for reg in registros:
         meu = next((i for i in consolidado if i["ativo"] == reg["ativo"]), None)
         if meu:
-            reg["consolidado"] = {k: meu[k] for k in ("situacao", "porque", "origem", "posto_atual")}
+            reg["consolidado"] = {k: meu[k] for k in ("situacao", "porque", "origem",
+                                                      "posto_atual", "manutencionado",
+                                                      "falta", "espera")}
 
     return resumo

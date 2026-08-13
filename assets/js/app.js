@@ -1111,12 +1111,53 @@ function abrirColecao(id) {
         `acompanhamento de hoje. São ${co.total} equipamentos, e a pergunta é uma só — em que ponto cada ` +
         `um está de fato.`) +
         `<div class="numeros">
-          ${num({ rotulo: 'Resolvidos', valor: co.resolvidos, nota: `${co.percentual_resolvido}% da carteira toda`, tom: 'bom' })}
-          ${num({ rotulo: 'Pendentes', valor: co.pendentes, nota: 'COEP, outra equipe ou cancelada errada', tom: 'critico' })}
+          ${num({ rotulo: 'Já manutencionados', valor: co.resposta?.manutencionados.total ?? co.resolvidos, nota: `${co.percentual_manutencionado ?? co.percentual_resolvido}% da carteira`, tom: 'bom' })}
+          ${num({ rotulo: 'Em operação, nada falta', valor: co.resposta?.manutencionados.por_falta['Nada — em operação'] ?? 0, nota: 'serviço fechado', tom: 'bom' })}
+          ${num({ rotulo: 'Falta ajuste ou comissionamento', valor: (co.resposta?.manutencionados.por_falta['Ajuste da Proteção'] ?? 0) + (co.resposta?.manutencionados.por_falta['Comissionamento do DMSL'] ?? 0), nota: 'trocado, esperando a cauda', tom: 'atento' })}
+          ${num({ rotulo: 'Esperando compra', valor: co.resposta?.nao_manutencionados.por_espera['Compra do material (aquisição)'] ?? 0, nota: 'em aquisição no COEP', tom: 'critico' })}
           ${num({ rotulo: 'Em execução', valor: co.em_execucao, nota: 'material entregue, obra em curso' })}
           ${num({ rotulo: 'Em análise', valor: co.em_analise, nota: 'primeiro ataque, sem parecer' })}
           ${num({ rotulo: 'Total', valor: co.total, nota: `${co.por_origem['Nas duas listas'] || 0} nas duas listas · ${co.por_origem['Só na lista de hoje'] || 0} novos · ${co.por_origem['Saiu da lista de hoje'] || 0} já saíram` })}
         </div>
+
+        ${co.resposta ? `<section class="bloco"><h3>A pergunta em duas colunas</h3>
+        <div class="confronto-duplo">
+          <div>
+            <h4 class="rotulo-coluna">Já manutencionados — ${co.resposta.manutencionados.total}</h4>
+            <p class="destaque-texto">Alguém foi ao ativo e fez o serviço. Falta, no máximo, a cauda.</p>
+            <div class="itens">${Object.entries(co.resposta.manutencionados.por_falta)
+              .sort((a, b) => b[1] - a[1])
+              .map(([k, v]) => `<div class="item-linha"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
+          </div>
+          <div>
+            <h4 class="rotulo-coluna">Ainda não manutencionados — ${co.resposta.nao_manutencionados.total}</h4>
+            <p class="destaque-texto">Ninguém mexeu no equipamento ainda. O que cada um está esperando:</p>
+            <div class="itens">${Object.entries(co.resposta.nao_manutencionados.por_espera)
+              .map(([k, v]) => `<div class="item-linha"><span>${esc(k)}</span><b>${v}</b></div>`).join('')}</div>
+          </div>
+        </div></section>
+
+        ${Object.entries(co.resposta.manutencionados.listas).filter(([k]) => k !== 'Nada — em operação').map(([k, lista]) => `
+        <section class="bloco"><h3>Manutencionados — falta ${esc(k.toLowerCase())} (${lista.length})</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Tipo</th><th>Criticidade</th><th>Parecer COEP</th><th>Onde está a SS</th></tr></thead><tbody>
+        ${lista.map((i) => `<tr data-ativo="${esc(i.ativo)}"><td><b class="mono">${esc(i.ativo)}</b></td>
+          <td>${esc(i.localidade || '—')}</td><td>${esc(i.tipo === 'Religador' ? 'RL' : 'RT')}</td>
+          <td>${esc(i.criticidade || '—')}</td><td>${esc(i.parecer_coep || '—')}</td>
+          <td>${esc(i.posto_atual || '—')}</td></tr>`).join('')}
+        </tbody></table></div></section>`).join('')}
+
+        ${['Compra do material (aquisição)', 'Logística — material comprado, a caminho', 'Execução pelo COCM/DCMD — material já entregue', 'Reabrir a SS que foi cancelada errada']
+          .filter((k) => co.resposta.nao_manutencionados.listas[k])
+          .map((k) => { const lista = co.resposta.nao_manutencionados.listas[k]; return `
+        <section class="bloco"><h3>Não manutencionados — ${esc(k)} (${lista.length})</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Tipo</th><th>Criticidade</th><th>Parecer COEP</th><th>Onde está a SS</th></tr></thead><tbody>
+        ${lista.map((i) => `<tr data-ativo="${esc(i.ativo)}"><td><b class="mono">${esc(i.ativo)}</b></td>
+          <td>${esc(i.localidade || '—')}</td><td>${esc(i.tipo === 'Religador' ? 'RL' : 'RT')}</td>
+          <td>${esc(i.criticidade || '—')}</td><td>${esc(i.parecer_coep || '—')}</td>
+          <td>${esc(i.posto_atual || '—')}</td></tr>`).join('')}
+        </tbody></table></div></section>`; }).join('')}` : ''}
 
         <div class="nota calma" style="margin:-6px 0 26px"><strong>Como ler a escada</strong>
         Cada equipamento aparece uma vez só, na etapa mais avançada em que ele está.
