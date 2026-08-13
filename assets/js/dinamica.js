@@ -5,8 +5,6 @@ const D = DINAMICA;
 const $ = (s) => document.querySelector(s);
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const chave = (t) => String(t ?? '').toLowerCase().normalize('NFD')
-  .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const rs = (v) => `R$ ${Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 const TOM = {
@@ -84,6 +82,7 @@ function rol() {
       <td>${esc(x.criticidade)}</td>
       <td>${esc(x.etapa)}</td>
       <td>${esc(x.parecer || '—')}
+        ${x.o_que_trocar ? `<span class="nota-campo">troca: ${esc(x.o_que_trocar)}</span>` : ''}
         ${x.nota_campo ? `<span class="nota-campo">${esc(x.nota_campo)}</span>` : ''}
         ${x.observacao && x.observacao !== x.nota_campo ? `<span class="nota-campo">${esc(x.observacao)}</span>` : ''}</td>
       <td>${esc(x.check || '—')}</td>
@@ -148,6 +147,12 @@ function desenhar() {
         <span><b class="mono">${esc(x.ativo)}</b> · ${esc(x.localidade)}
         <i class="linha-nota">${esc(x.nota_campo)}</i></span>
         <b>${esc(x.etapa)}</b></div>`).join('')}</div></section>` : ''}
+
+    ${(D.ajustes || []).length ? `<section class="bloco"><h3>Ajustes que você mandou fazer</h3>
+      <div class="itens">${D.ajustes.map((a) => `<div class="item-linha">
+        <span><b class="mono">${esc(a.ativo)}</b> · ${esc(a.localidade)} — ${esc(a.o_que_trocar)}
+        <i class="linha-nota">${esc(a.motivo)}</i></span><b>${esc(rs(a.valor))}</b></div>`).join('')}</div>
+      </section>` : ''}
 
     <section class="bloco"><h3>A carteira inteira</h3>${rol()}</section>
   </div>`;
