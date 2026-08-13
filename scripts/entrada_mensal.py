@@ -352,40 +352,35 @@ def montar(entrada):
         "resolvidos": saidas.get(m, 0),
     } for m in do_ano]
 
-    # Livro-caixa da carteira: saldo inicial + quem entrou − quem saiu = saldo final.
-    # Cada ativo entra UMA vez. A foto manda o mês de quem está nela (com a regra de
-    # janeiro); quem não está entra pelo mês da primeira SS do posto. Sem isso, somar
-    # a coluna da foto com a dos entrantes contaria duas vezes o mesmo equipamento.
+    # Livro-caixa da carteira herdada: o acervo de antes de 2026 é o saldo de
+    # abertura; cada mês soma as SS abertas no próprio mês e desconta as tratadas.
+    # Universo = os 117 da foto, que têm entrada E saída rastreadas. Quem passou
+    # pelo posto por fora da foto fica anotado à parte: sem SS na foto de entrada
+    # não há data de tratativa para dar baixa, e o ativo inflaria o saldo para
+    # sempre.
+    abertura_acervo = sum(1 for x in lista if x["legado"])
+    abriu_no_mes = Counter(x["mes"] for x in lista if not x["legado"])
+    baixas = Counter(t["mes_resolucao"] for t in tratativas if t["mes_resolucao"])
     primeiro_coep = {x["ativo"]: x["mes"] for x in detalhe_coep}
-    na_foto = {x["ativo"]: x["mes"] for x in lista}
-    entrada_de = dict(na_foto)
-    for a, m in primeiro_coep.items():
-        if a not in entrada_de and m in do_ano:
-            entrada_de[a] = m
-    saida_de = {t["ativo"]: t["mes_resolucao"] for t in tratativas if t["mes_resolucao"]}
-    entram = Counter(m for m in entrada_de.values() if m in do_ano)
-    saem = Counter(m for m in saida_de.values() if m in do_ano)
+    na_foto = {x["ativo"] for x in lista}
+    fora_do_livro = sum(1 for a, m in primeiro_coep.items()
+                        if a not in na_foto and m in do_ano)
 
-    saldo, corrente = [], 0
+    saldo, corrente = [], abertura_acervo
     for m in do_ano:
         inicial = corrente
-        e, s = entram[m], saem[m]
-        corrente = inicial + e - s
-        da_foto = sum(1 for a, k in entrada_de.items() if k == m and a in na_foto)
-        novos = entrantes.get(m, 0)
+        e, s_ = abriu_no_mes.get(m, 0), baixas.get(m, 0)
+        corrente = inicial + e - s_
         saldo.append({
             "mes": m, "rotulo": rotulo(m),
-            "inicial": inicial, "entram": e, "saem": s, "final": corrente,
-            # a soma direta das duas colunas do gráfico conta duas vezes quem aparece
-            # nas duas bases; guardo a duplicata para poder mostrar a diferença
-            "soma_ingenua": da_foto + novos,
-            "duplicata": da_foto + novos - e,
+            "inicial": inicial, "entram": e, "saem": s_, "final": corrente,
         })
 
     return {
         "curva": curva,
         "saldo": saldo,
-        "universo": len(entrada_de),
+        "abertura": abertura_acervo,
+        "fora_do_livro": fora_do_livro,
         "serie_coep": serie_coep,
         "tratativas": tratativas,
         "total": total,

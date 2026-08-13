@@ -1033,71 +1033,88 @@ function barrasTresColunas(curva) {
   </figure>`;
 }
 
-/* O saldo da carteira mês a mês: uma série só, então sem legenda — o título já
-   diz o que está plotado. A coluna é o que sobrou no fim do mês. */
-function colunaSaldo(saldo) {
-  const teto = Math.ceil(Math.max(...saldo.map((s) => s.final), 1) / 20) * 20;
+/* O saldo da carteira herdada, mês a mês. Série única — sem caixa de legenda;
+   a coluna cinza da frente é o acervo com que o posto abriu o ano. */
+function colunaSaldo(mm) {
+  const cols = [
+    { rotulo: 'Acervo', final: mm.abertura, tipo: 'acervo',
+      conta: `Acervo: ${mm.abertura} SS de 2023–2025 pendentes na abertura de 2026` },
+    ...mm.saldo.map((s) => ({ rotulo: s.rotulo, final: s.final, tipo: '',
+      conta: `${s.rotulo}: começou com ${s.inicial}, abriram ${s.entram}, tratados ${s.saem}, sobrou ${s.final}` })),
+  ];
+  const picoV = Math.max(...mm.saldo.map((s) => s.final));
+  const teto = Math.ceil(Math.max(picoV, mm.abertura, 1) / 20) * 20;
   const L = 44, R = 12, T = 22, B = 44;
-  const largura = 96, alturaPlot = 190;
-  const W = L + R + largura * saldo.length;
+  const largura = 88, alturaPlot = 190;
+  const W = L + R + largura * cols.length;
   const H = T + alturaPlot + B;
   const barra = 34;
   const y = (v) => T + alturaPlot - (v / teto) * alturaPlot;
-  const pico = Math.max(...saldo.map((s) => s.final));
   const riscos = [];
   for (let v = 0; v <= teto; v += 20) riscos.push(v);
 
   return `<figure class="grafico-barras grafico-saldo">
     <div class="tela-grafico">
     <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
-         aria-label="Saldo da carteira no fim de cada mês de 2026: ${saldo.map((s) => `${s.rotulo}, ${s.final}`).join('; ')}">
+         aria-label="Saldo da carteira herdada no fim de cada mês: ${cols.map((c) => `${c.rotulo}, ${c.final}`).join('; ')}">
       ${riscos.map((v) => `<g>
         <line x1="${L}" x2="${W - R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="risco"/>
         <text x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" class="rot-eixo" text-anchor="end">${v}</text>
       </g>`).join('')}
       <line x1="${L}" x2="${W - R}" y1="${T + alturaPlot}" y2="${T + alturaPlot}" class="base-eixo"/>
-      ${saldo.map((s, i) => {
+      ${cols.map((c, i) => {
         const x = L + i * largura + (largura - barra) / 2;
-        const alt = Math.max((s.final / teto) * alturaPlot, s.final ? 2 : 0);
-        return `<g class="barra-mes ${s.final === pico ? 'pico' : ''}">
-          <title>${esc(s.rotulo)}: começou com ${s.inicial}, entraram ${s.entram}, saíram ${s.saem}, sobrou ${s.final}</title>
+        const alt = Math.max((c.final / teto) * alturaPlot, c.final ? 2 : 0);
+        return `<g class="barra-mes ${c.tipo}${!c.tipo && c.final === picoV ? ' pico' : ''}">
+          <title>${esc(c.conta)}</title>
           <rect x="${x}" y="${(T + alturaPlot - alt).toFixed(1)}" width="${barra}"
                 height="${alt.toFixed(1)}" rx="4" ry="4"/>
           <rect x="${x}" y="${(T + alturaPlot - Math.min(alt, 5)).toFixed(1)}"
                 width="${barra}" height="${Math.min(alt, 5).toFixed(1)}"/>
           <text x="${x + barra / 2}" y="${(T + alturaPlot - alt - 6).toFixed(1)}"
-                class="rot-valor" text-anchor="middle">${s.final}</text>
+                class="rot-valor" text-anchor="middle">${c.final}</text>
           <text x="${x + barra / 2}" y="${T + alturaPlot + 18}" class="rot-mes"
-                text-anchor="middle">${esc(s.rotulo)}</text>
+                text-anchor="middle">${esc(c.rotulo)}</text>
         </g>`;
       }).join('')}
     </svg>
     </div>
-    <figcaption>Passe o mouse numa coluna para ver a conta do mês inteiro.</figcaption>
+    <figcaption>A coluna cinza é o acervo herdado; as azuis, o saldo no fim de cada mês;
+    a laranja marca o topo da fila. Passe o mouse para ver a conta do mês inteiro.</figcaption>
   </figure>`;
 }
 
-/* O livro-caixa: saldo inicial + quem entrou − quem saiu = saldo final. */
-function livroCaixa(saldo, universo, total) {
-  const dup = saldo.reduce((n, s) => n + s.duplicata, 0);
-  return `${colunaSaldo(saldo)}
+/* O livro-caixa: saldo do mês anterior + SS abertas no mês − tratadas = sobra. */
+function livroCaixa(mm) {
+  const sal = mm.saldo;
+  const totE = sal.reduce((n, s) => n + s.entram, 0);
+  const totS = sal.reduce((n, s) => n + s.saem, 0);
+  const fim = sal[sal.length - 1];
+  return `${colunaSaldo(mm)}
   <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr>
     <th>Mês</th><th class="num">Começou com</th><th class="num">Entraram</th>
     <th class="num">Saíram</th><th class="num">Sobrou no fim</th>
     <th class="num">Variação</th></tr></thead><tbody>
-    ${saldo.map((s) => {
+    <tr><td>Acervo de 2023–2025 <i>(saldo de abertura)</i></td><td class="num">—</td>
+      <td class="num">—</td><td class="num">—</td><td class="num"><b>${mm.abertura}</b></td>
+      <td class="num">—</td></tr>
+    ${sal.map((s) => {
       const d = s.final - s.inicial;
       return `<tr><td>${esc(s.rotulo)}</td><td class="num">${s.inicial}</td>
         <td class="num">${s.entram || '—'}</td><td class="num">${s.saem || '—'}</td>
         <td class="num"><b>${s.final}</b></td>
         <td class="num ${d > 0 ? 'sobe' : d < 0 ? 'desce' : ''}">${d > 0 ? '+' : ''}${d || '—'}</td></tr>`;
     }).join('')}
-  </tbody></table></div>
-  <div class="nota" style="margin-top:14px"><strong>Por que «entraram» não é a soma das duas colunas de cima</strong>
-  Cada ativo entra uma vez só. Em fevereiro, por exemplo, a foto traz 7 e os entrantes 4 — somando dá
-  11, mas 3 daqueles 4 já estavam dentro dos 7, então entraram 8 de fato. No ano inteiro a soma
-  ingênua contaria ${dup} equipamentos duas vezes. O universo do livro-caixa é de ${universo} ativos:
-  os ${total} da foto mais os ${universo - total} que chegaram por fora dela.</div>`;
+  </tbody><tfoot><tr><td>Total do ano</td><td class="num">—</td>
+    <td class="num"><b>${totE}</b></td><td class="num"><b>${totS}</b></td>
+    <td class="num"><b>${fim.final}</b></td>
+    <td class="num">${fim.final - mm.abertura > 0 ? '+' : ''}${fim.final - mm.abertura}</td></tr></tfoot></table></div>
+  <div class="nota" style="margin-top:14px"><strong>A conta fecha na carteira</strong>
+  ${mm.abertura} do acervo + ${totE} abertas em 2026 = ${mm.abertura + totE} ativos da foto;
+  ${totS} tratados; sobram ${fim.final} — exatamente os que a carteira mostra ainda no fluxo.
+  Os ${mm.fora_do_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram neste
+  livro: sem SS na foto de entrada, não há data de tratativa rastreada para dar baixa. Eles
+  seguem na coluna de entrantes e na lista própria.</div>`;
 }
 
 /* A mesma coisa somando: onde cada série chegou até o fim de cada mês. Linha em
@@ -2017,10 +2034,11 @@ function abrirColecao(id) {
     crescendo; quando a verde encosta na laranja, o posto passou a dar conta do que entra.</p>
     ${linhaAcumulada(c)}
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
-    <p class="destaque-texto">O livro-caixa do posto: o saldo do mês anterior, mais quem entrou,
-    menos quem foi tratado, dá o que sobrou. Cada equipamento entra uma vez só — quem aparece na
-    foto e também na base de entrantes conta uma vez, não duas.</p>
-    ${livroCaixa(mm.saldo, mm.universo, mm.total)}` : ''}
+    <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
+    ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o
+    que foi tratado. Janeiro: ${mm.abertura} + ${mm.saldo[0].entram} − ${mm.saldo[0].saem} =
+    ${mm.saldo[0].final}, e fevereiro já começa com ${mm.saldo[0].final}.</p>
+    ${livroCaixa(mm)}` : ''}
         <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
         <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
         ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>

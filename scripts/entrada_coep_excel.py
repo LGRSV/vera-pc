@@ -332,6 +332,45 @@ def montar(meta, serie, detalhe, res):
         "parado, ENTRANTES é fluxo de chegada, RESOLVIDOS é fluxo de saída.",
     ], 4)
 
+    # ------------------------------------------------- 1b. Livro-caixa
+    ws = wb.create_sheet("Livro-caixa")
+    sal = mm.get("saldo") or []
+    abertura = mm.get("abertura", 0)
+    fora_livro = mm.get("fora_do_livro", 0)
+    titulo(ws, "O LIVRO-CAIXA DA CARTEIRA",
+           f"O acervo de anos anteriores ({abertura} SS de 2023–2025) é o saldo de abertura. "
+           "Cada mês soma as SS abertas no próprio mês e desconta as tratadas: o que sobra é o "
+           "saldo com que o mês seguinte começa. Universo = os 117 da foto, que têm entrada e "
+           "saída rastreadas.", 6)
+    cabecalho(ws, 4, [("Mês", 30), ("Começou com", 14), ("Entraram", 12),
+                      ("Saíram", 12), ("Sobrou no fim", 14), ("Variação", 12)])
+    linha = 5
+    linha = corpo(ws, linha, ["Acervo de 2023–2025 (saldo de abertura)", "—", "—", "—",
+                              abertura, "—"], fundo=DESTAQUE)
+    for s_ in sal:
+        var = s_["final"] - s_["inicial"]
+        linha = corpo(ws, linha, [s_["rotulo"], s_["inicial"], s_["entram"] or "—",
+                                  s_["saem"] or "—", s_["final"],
+                                  f"{var:+d}" if var else "—"],
+                      fundo=ATUACAO if s_["mes"] >= "2026-04" else None)
+    corpo(ws, linha, ["Total do ano", "—",
+                      sum(s_["entram"] for s_ in sal),
+                      sum(s_["saem"] for s_ in sal),
+                      sal[-1]["final"] if sal else abertura, ""], negrito=True, topo=True)
+    linha += 2
+    linha = prosa(ws, linha, [
+        f"Janeiro: {abertura} + {sal[0]['entram'] if sal else 0} − {sal[0]['saem'] if sal else 0} "
+        f"= {sal[0]['final'] if sal else abertura}; fevereiro já começa com "
+        f"{sal[0]['final'] if sal else abertura}. E assim em diante.",
+        f"Agosto fecha em {sal[-1]['final'] if sal else abertura} — exatamente os «ainda no "
+        "fluxo» da carteira de entrada. A conta fecha ativo a ativo.",
+        f"Os {fora_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram "
+        "aqui: sem SS na foto de entrada, não há data de tratativa para dar baixa. Eles estão "
+        "na aba «Entrantes ativo a ativo».",
+        "O topo da fila foi 99, no fim de abril, segurado em maio — o primeiro mês em que "
+        "entrada e saída se anularam. De lá até agosto a carteira caiu 46.",
+    ], 6)
+
     # ------------------------------------------------- 2. Janeiro por dentro
     ws = wb.create_sheet("Janeiro por dentro")
     titulo(ws, "O QUE JANEIRO CARREGA",
@@ -553,6 +592,11 @@ def montar(meta, serie, detalhe, res):
          "Os agregados foram calculados em Python e gravados como número, porque o LibreOffice "
          "não roda no ambiente que gerou o arquivo e uma fórmula ficaria sem valor em cache. "
          "Cada total tem a aba de detalhe que o sustenta: «Base 117» e «Entrantes ativo a ativo»."),
+        ("Livro-caixa",
+         "Saldo de abertura = o acervo (SS de 2023–2025 pendentes na chegada). Entraram = SS da "
+         "foto abertas no próprio mês. Saíram = tratativas do mês (término, cancelamento ou "
+         "repasse). O fecho de agosto bate com os «ainda no fluxo» da carteira. Os ativos que "
+         "passaram pelo posto por fora da foto ficam fora do livro por não terem data de baixa."),
         ("Posição",
          "Base de SS/OS e AIC de 07/08/2026; foto de entrada de junho/2026; pareceres e decisões "
          "do gestor até 13/08/2026."),

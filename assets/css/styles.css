@@ -482,6 +482,7 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 /* Saldo: série única, uma cor só. O pico ganha o laranja do sinal — é o mês em
    que a fila foi mais longa, e é o ponto de virada da leitura. */
 .grafico-saldo .barra-mes rect { fill: var(--serie-1); }
+.grafico-saldo .barra-mes.acervo rect { fill: var(--sem-classe); }
 .grafico-saldo .barra-mes.pico rect { fill: var(--serie-2); }
 .matriz td.sobe { color: var(--muito-alta); }
 .matriz td.desce { color: var(--baixa); }
