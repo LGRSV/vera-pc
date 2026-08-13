@@ -91,6 +91,32 @@ def rotulo(mes):
     return f"{MESES_PT[int(m) - 1]}/{ano}"
 
 
+RECORTE = "INDISPONIBILIDADE"
+
+
+def _tiposs_por_ss(base):
+    """NUMERO_SS → TIPOSS, da aba «Dados» com fallback na base de SS/OS."""
+    tp = {}
+    if os.path.exists(XLSX):
+        ws = openpyxl.load_workbook(XLSX, data_only=True, read_only=True)["Dados"]
+        linhas = ws.iter_rows(values_only=True)
+        cabecalho = list(next(linhas))
+        try:
+            i_ss, i_tp = cabecalho.index("NUMERO_SS"), cabecalho.index("TIPOSS")
+        except ValueError:
+            i_ss = i_tp = None
+        if i_ss is not None:
+            for r in linhas:
+                n = str(r[i_ss] or "").strip()
+                if n and n not in tp and str(r[i_tp] or "").strip():
+                    tp[n] = str(r[i_tp] or "").strip()
+    for r in base:
+        n = (r.get("NUMERO_SS") or "").strip()
+        if n and n not in tp and (r.get("TIPOSS") or "").strip():
+            tp[n] = (r.get("TIPOSS") or "").strip()
+    return tp
+
+
 def _base_ssos():
     if not os.path.exists(ARQ_MIN):
         return []
@@ -111,6 +137,9 @@ def entrantes_no_coep(base, foto=frozenset()):
     coep = []
     for r in base:
         if (r.get("COD_EQUIPE") or "").strip() != "ETO-COEP":
+            continue
+        # Recorte do gestor: só SS de INDISPONIBILIDADE PARA OPERAÇÃO.
+        if not (r.get("TIPOSS") or "").strip().upper().startswith(RECORTE):
             continue
         d = _data(r.get("DATA_ABERTURA_SS"))
         a = (r.get("NUM_TRAFO") or "").strip()
@@ -258,6 +287,8 @@ def montar(entrada):
     if not itens:
         return None
 
+    base = _base_ssos()
+    tiposs = _tiposs_por_ss(base)
     da_planilha = _aberturas_da_planilha()
     da_base = _aberturas_da_base()
 
@@ -268,6 +299,28 @@ def montar(entrada):
             d, fonte = da_base.get(ss), CRUZAMENTO
         i["abertura"] = d
         i["fonte_data"] = fonte if d else "não encontrada"
+        i["tiposs"] = tiposs.get(ss, "")
+
+    # Recorte do gestor (13/08): só SS com TIPOSS «INDISPONIBILIDADE PARA
+    # OPERAÇÃO» entram na conta. O resto da foto — obras, comissionamento,
+    # anomalia em operação — fica anotado à parte, sem sumir.
+    dentro = [i for i in itens if i["tiposs"].upper().startswith(RECORTE)]
+    ativos_dentro = {i["ativo"] for i in dentro}
+    fora_por_ativo = {}
+    for i in sorted((x for x in itens if x["ativo"] not in ativos_dentro),
+                    key=lambda x: x["abertura"] or datetime.date.max):
+        fora_por_ativo.setdefault(i["ativo"], i)
+    fora_do_recorte = {
+        "qtd": len(fora_por_ativo),
+        "por_tipo": Counter(i["tiposs"] or "sem tipo"
+                            for i in fora_por_ativo.values()).most_common(),
+        "lista": [{
+            "ativo": i["ativo"], "numero_ss": i["numero_ss"],
+            "tiposs": i["tiposs"], "localidade": i.get("localidade", ""),
+            "resolvido": i["balde"] == "resolvidos",
+        } for i in fora_por_ativo.values()],
+    }
+    itens = dentro
 
     sem_data = [i for i in itens if not i["abertura"]]
 
@@ -337,7 +390,6 @@ def montar(entrada):
 
     # As três colunas do gestor no mesmo eixo de tempo: o estoque herdado pela
     # abertura da SS, o que entrou novo no posto e o que foi tratado de fato.
-    base = _base_ssos()
     serie_coep, detalhe_coep = entrantes_no_coep(base, {x["ativo"] for x in lista})
     tratativas = _datas_de_tratativa(lista, entrada, base)
     entrantes = {x["mes"]: x["novos"] for x in serie_coep}
@@ -377,6 +429,8 @@ def montar(entrada):
         })
 
     return {
+        "recorte": "só SS com TIPO «INDISPONIBILIDADE PARA OPERAÇÃO»",
+        "fora_do_recorte": fora_do_recorte,
         "curva": curva,
         "saldo": saldo,
         "abertura": abertura_acervo,
@@ -403,6 +457,7 @@ def montar(entrada):
         ],
         "sem_data": [x["numero_ss"] for x in sem_data],
         "regra": (
+            "Recorte: só SS com TIPOSS «INDISPONIBILIDADE PARA OPERAÇÃO». "
             "Mês da carteira de entrada = mês em que a SS foi aberta. SS aberta antes de "
             "2026 cai em janeiro de 2026, por decisão do gestor — janeiro concentra o que "
             "já era antigo quando o posto assumiu. Ativo com mais de uma SS na foto entra "

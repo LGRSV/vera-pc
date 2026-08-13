@@ -53,7 +53,7 @@ const COLECOES = [
   { id: 'consolidado', nome: 'Carteira consolidada', desc: 'As duas listas fundidas: onde cada equipamento está de fato', termos: 'consolidado consolidada tudo junto fundido uniao das duas listas onde esta ponto atual situacao real resolvido pendente escada total geral 159 160' },
   { id: 'acompanhamento', nome: 'Acompanhamento atual', desc: 'Como está cada equipamento hoje, pelo parecer COEP mais recente', termos: 'acompanhamento atual hoje situacao em operacao cancelada errada dmsl pendente fluxo em analise desmobilizado check concluidas parecer atualizada novo primeiro ataque divergencia' },
   { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
-  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'Os 117 da foto de junho pela data de abertura da SS', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes grafico barras entrantes resolvidos' },
+  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'A carteira herdada pela abertura da SS — só indisponibilidade para operação', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes grafico barras entrantes resolvidos indisponibilidade recorte tiposs' },
   { id: 'reportes', nome: 'Reportes de campo', desc: 'As fotos que a equipe mandou, todas num lugar só', termos: 'reportes reporte campo foto fotos imagem imagens anexo anexos galeria prova equipe servico feito comprovacao ver as fotos' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
@@ -1997,7 +1997,8 @@ function abrirColecao(id) {
       const porMes = (mes) => mm.lista.filter((x) => x.mes === mes);
 
       html = cabecaColecao('Entrada mês a mês',
-        `Os ${mm.total} ativos da foto de junho, distribuídos pelo mês em que a SS foi aberta.`) +
+        `Os ${mm.total} ativos de indisponibilidade da foto de junho, pelo mês em que a SS foi
+         aberta — recorte: ${esc(mm.recorte || '')}.`) +
         `<div class="numeros">
           ${num({ rotulo: 'Na foto de entrada', valor: mm.total, nota: `${mm.total_ss} SS — ativo com mais de uma entra pela mais antiga` })}
           ${num({ rotulo: 'Herdados de antes de 2026', valor: mm.legado.qtd, nota: `${Math.round(100 * mm.legado.qtd / mm.total)}% da carteira — ${anos}`, tom: 'critico' })}
@@ -2047,6 +2048,10 @@ function abrirColecao(id) {
         </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot('ativos')}</b></td>
         <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
         </tr></tfoot></table></div>
+        ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
+        Da foto de entrada, ${mm.fora_do_recorte.qtd} ativos têm SS de outros tipos e não entram nesta
+        conta: ${mm.fora_do_recorte.por_tipo.map(([t, q]) => `${q} ${esc(t.toLowerCase())}`).join(' · ')}.
+        Eles continuam na coleção «Carteira de entrada».</div>` : ''}
         </section>
 
         <section class="bloco"><h3>O que janeiro carrega</h3>

@@ -163,6 +163,8 @@ def main():
         if mm.get("curva"):
             d["mes_a_mes"] = {
                 "total": mm["total"],
+                "recorte": mm.get("recorte", ""),
+                "fora_do_recorte": mm.get("fora_do_recorte"),
                 "curva": mm["curva"],
                 "saldo": mm.get("saldo", []),
                 "abertura": mm.get("abertura", 0),

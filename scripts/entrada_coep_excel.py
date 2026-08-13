@@ -2,7 +2,9 @@
 """
 Planilha da entrada do posto ETO-COEP, mês a mês — três colunas, como o gestor pediu.
 
-  1. ATIVOS — os 117 da foto de junho pela data de abertura da SS. Janeiro carrega
+Recorte: só SS com TIPOSS «INDISPONIBILIDADE PARA OPERAÇÃO».
+
+  1. ATIVOS — os indisponíveis da foto de junho pela data de abertura da SS. Janeiro carrega
      os entrantes de janeiro mais tudo que foi aberto no COEP em anos anteriores.
   2. ENTRANTES — ativos novos no posto pela data de abertura da SS, direto da base
      de SS/OS do ETO-COEP. Novo = primeira SS do posto naquele ativo em toda a base.
@@ -90,6 +92,9 @@ def entrantes_no_coep(base, foto):
     coep = []
     for r in base:
         if (r.get("COD_EQUIPE") or "").strip() != "ETO-COEP":
+            continue
+        # Recorte do gestor: só SS de INDISPONIBILIDADE PARA OPERAÇÃO.
+        if not (r.get("TIPOSS") or "").strip().upper().startswith("INDISPONIBILIDADE"):
             continue
         d = dbr(r.get("DATA_ABERTURA_SS"))
         a = (r.get("NUM_TRAFO") or "").strip()
@@ -285,14 +290,15 @@ def montar(meta, serie, detalhe, res):
     ws = wb.active
     ws.title = "Mês a mês"
     titulo(ws, "ETO-COEP — MÊS A MÊS DE 2026",
-           "Três leituras do mesmo posto. ATIVOS: os 117 da foto de junho pela data de abertura "
+           f"Recorte: só SS com TIPO «INDISPONIBILIDADE PARA OPERAÇÃO». Três leituras do mesmo "
+           f"posto. ATIVOS: os {mm['total']} indisponíveis da foto de junho pela data de abertura "
            "da SS, com janeiro carregando o acervo dos anos anteriores. ENTRANTES: ativos novos "
-           "no posto pela abertura da SS, direto da base de SS/OS do ETO-COEP. RESOLVIDOS: pelo "
-           "mês em que a tratativa aconteceu — término da SS ou repasse —, não pelo mês em que "
-           "a SS abriu.", 4)
+           "no posto pela abertura da SS de indisponibilidade, direto da base de SS/OS do "
+           "ETO-COEP. RESOLVIDOS: pelo mês em que a tratativa aconteceu — término da SS ou "
+           "repasse —, não pelo mês em que a SS abriu.", 4)
     cabecalho(ws, 4, [
         ("Mês", 22),
-        ("ATIVOS\nfoto dos 117, pela abertura da SS", 26),
+        (f"ATIVOS\nfoto dos {mm['total']}, pela abertura da SS", 26),
         ("ENTRANTES\nativos novos no COEP, pela abertura da SS", 26),
         ("RESOLVIDOS\npelo mês da tratativa ou do repasse", 26),
     ], altura=48)
@@ -340,8 +346,8 @@ def montar(meta, serie, detalhe, res):
     titulo(ws, "O LIVRO-CAIXA DA CARTEIRA",
            f"O acervo de anos anteriores ({abertura} SS de 2023–2025) é o saldo de abertura. "
            "Cada mês soma as SS abertas no próprio mês e desconta as tratadas: o que sobra é o "
-           "saldo com que o mês seguinte começa. Universo = os 117 da foto, que têm entrada e "
-           "saída rastreadas.", 6)
+           f"saldo com que o mês seguinte começa. Universo = os {mm['total']} indisponíveis da "
+           "foto, que têm entrada e saída rastreadas.", 6)
     cabecalho(ws, 4, [("Mês", 30), ("Começou com", 14), ("Entraram", 12),
                       ("Saíram", 12), ("Sobrou no fim", 14), ("Variação", 12)])
     linha = 5
@@ -406,12 +412,12 @@ def montar(meta, serie, detalhe, res):
     # -------------------------------------------- 3. Entrantes por dentro
     ws = wb.create_sheet("Entrantes por dentro")
     titulo(ws, "OS ENTRANTES DE 2026, ABERTOS EM DUAS DIREÇÕES",
-           "À esquerda, quanto de cada mês já estava na foto dos 117 e quanto é demanda que "
+           f"À esquerda, quanto de cada mês já estava na foto dos {mm['total']} e quanto é demanda que "
            "chegou por fora dela. À direita, quanto de cada mês é SS realmente nova e quanto é "
            "SS de ano anterior que o SGM re-carimbou com data nova ao reabrir ou repassar.", 6)
     cabecalho(ws, 4, [
-        ("Mês", 14), ("Entrantes", 12), ("Já estavam nos 117", 17),
-        ("Fora dos 117", 14), ("SS do próprio ano", 16), ("SS de ano anterior\nre-carimbada", 18),
+        ("Mês", 14), ("Entrantes", 12), (f"Já estavam nos {mm['total']}", 17),
+        (f"Fora dos {mm['total']}", 14), ("SS do próprio ano", 16), ("SS de ano anterior\nre-carimbada", 18),
     ], altura=42)
     linha = 5
     por_mes_serie = {x["mes"]: x for x in serie}
@@ -433,7 +439,7 @@ def montar(meta, serie, detalhe, res):
     linha += 2
     prosa(ws, linha, [
         f"Dos {sum(x['novos'] for x in alvos)} entrantes de 2026, "
-        f"{sum(x['na_foto'] for x in alvos)} já estavam na foto dos 117 — são o mesmo problema "
+        f"{sum(x['na_foto'] for x in alvos)} já estavam na foto dos {mm['total']} — são o mesmo problema "
         f"visto por outra base. Só {sum(x['fora_da_foto'] for x in alvos)} são demanda que chegou "
         "por fora da carteira herdada.",
         f"{sum(x['ss_recarimbada'] for x in alvos)} dos entrantes têm número de SS de ano "
@@ -487,14 +493,14 @@ def montar(meta, serie, detalhe, res):
     linha += 1
     linha = prosa(ws, linha, [
         f"{sum(1 for x in com_data if x['parecer_coep'])} dos {len(com_data)} tinham parecer "
-        "COEP registrado na planilha de criticidade — a coluna está na aba «Base 117».",
+        "COEP registrado na planilha de criticidade — a coluna está na aba «Base do recorte».",
         "Repasse quer dizer que a demanda saiu do posto, não que o serviço acabou em campo. "
         "Em vários casos a etapa seguinte segue aberta no DMSL ou na Proteção.",
     ], 7)
 
-    # ------------------------------------------------------ 5. Base dos 117
-    ws = wb.create_sheet("Base 117")
-    titulo(ws, "OS 117, ATIVO A ATIVO",
+    # ------------------------------------------------------ 5. Base do recorte
+    ws = wb.create_sheet("Base do recorte")
+    titulo(ws, f"OS {mm['total']} DO RECORTE, ATIVO A ATIVO",
            "Uma linha por ativo da foto de entrada: a SS que o trouxe, o mês de abertura, o mês "
            "da tratativa e de onde saiu cada data. Linhas sombreadas = resolvidos.", 15)
     cabecalho(ws, 4, [("Ativo", 13), ("Localidade", 24), ("Tipo", 19), ("SS de entrada", 20),
@@ -547,7 +553,7 @@ def montar(meta, serie, detalhe, res):
     cabecalho(ws, 4, [("Ativo", 13), ("Localidade", 22), ("Equipamento", 32),
                       ("Primeira SS no COEP", 20), ("Abertura", 12), ("Mês", 12),
                       ("Criticidade da SS", 16), ("Situação da SS hoje", 18),
-                      ("Está nos 117", 13), ("SS re-carimbada", 15)], altura=42)
+                      (f"Está nos {mm['total']}", 13), ("SS re-carimbada", 15)], altura=42)
     linha = 5
     for x in detalhe:
         linha = corpo(ws, linha, [
@@ -591,12 +597,18 @@ def montar(meta, serie, detalhe, res):
         ("Valores, não fórmulas",
          "Os agregados foram calculados em Python e gravados como número, porque o LibreOffice "
          "não roda no ambiente que gerou o arquivo e uma fórmula ficaria sem valor em cache. "
-         "Cada total tem a aba de detalhe que o sustenta: «Base 117» e «Entrantes ativo a ativo»."),
+         "Cada total tem a aba de detalhe que o sustenta: «Base do recorte» e «Entrantes ativo a ativo»."),
         ("Livro-caixa",
          "Saldo de abertura = o acervo (SS de 2023–2025 pendentes na chegada). Entraram = SS da "
          "foto abertas no próprio mês. Saíram = tratativas do mês (término, cancelamento ou "
          "repasse). O fecho de agosto bate com os «ainda no fluxo» da carteira. Os ativos que "
          "passaram pelo posto por fora da foto ficam fora do livro por não terem data de baixa."),
+        ("Recorte de TIPOSS",
+         "Toda a planilha considera só SS com TIPO «INDISPONIBILIDADE PARA OPERAÇÃO», por "
+         f"decisão do gestor (13/08/2026). Da foto de entrada ficam fora "
+         f"{(meta['entrada_mensal'].get('fora_do_recorte') or {}).get('qtd', 0)} ativos de outros "
+         "tipos — obras, comissionamento, anomalia em operação, ajustes; na base do COEP, SS de "
+         "outros tipos não contam como entrantes."),
         ("Posição",
          "Base de SS/OS e AIC de 07/08/2026; foto de entrada de junho/2026; pareceres e decisões "
          "do gestor até 13/08/2026."),
