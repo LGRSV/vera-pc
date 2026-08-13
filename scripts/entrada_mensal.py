@@ -138,9 +138,6 @@ def entrantes_no_coep(base, foto=frozenset()):
     for r in base:
         if (r.get("COD_EQUIPE") or "").strip() != "ETO-COEP":
             continue
-        # Recorte do gestor: só SS de INDISPONIBILIDADE PARA OPERAÇÃO.
-        if not (r.get("TIPOSS") or "").strip().upper().startswith(RECORTE):
-            continue
         d = _data(r.get("DATA_ABERTURA_SS"))
         a = (r.get("NUM_TRAFO") or "").strip()
         if d and a:
@@ -301,12 +298,9 @@ def montar(entrada):
         i["fonte_data"] = fonte if d else "não encontrada"
         i["tiposs"] = tiposs.get(ss, "")
 
-    # Recorte do gestor (13/08): SS de «INDISPONIBILIDADE PARA OPERAÇÃO» entram
-    # sempre; SS de outros tipos entram SE o ativo já foi concluído — trabalho
-    # feito conta, seja qual for o tipo. Só fica fora quem é de outro tipo E
-    # continua pendente.
-    dentro = [i for i in itens
-              if i["tiposs"].upper().startswith(RECORTE) or i["balde"] == "resolvidos"]
+    # Decisão final do gestor (13/08): TODOS os tipos de SS contam. O tiposs
+    # fica anotado em cada item, mas nada é filtrado por ele.
+    dentro = list(itens)
     ativos_dentro = {i["ativo"] for i in dentro}
     fora_por_ativo = {}
     for i in sorted((x for x in itens if x["ativo"] not in ativos_dentro),
@@ -408,7 +402,15 @@ def montar(entrada):
                           if m.startswith("2026") and m > JANELA_FIM),
         "entrantes": sum(q for m, q in entrantes.items()
                          if m.startswith("2026") and m > JANELA_FIM),
+        "lista": [{"ativo": t["ativo"], "localidade": t["localidade"]}
+                  for t in tratativas
+                  if t["mes_resolucao"].startswith("2026") and t["mes_resolucao"] > JANELA_FIM],
     }
+    # A conta por SS difere da conta por ativo: ativos com duas SS resolvidas na
+    # foto contam uma vez aqui e duas lá. Guardo as duas para a conciliação.
+    ss_resolvidas = sum(1 for i in itens if i["balde"] == "resolvidos")
+    duplicados = sorted(a for a, g in ss_por_ativo.items()
+                        if sum(1 for i in g if i["balde"] == "resolvidos") > 1)
     curva = [{
         "mes": m, "rotulo": rotulo(m),
         "ativos": next((b["qtd"] for b in blocos if b["mes"] == m), 0),
@@ -441,10 +443,11 @@ def montar(entrada):
         })
 
     return {
-        "recorte": "SS de «INDISPONIBILIDADE PARA OPERAÇÃO», mais as de outros "
-                   "tipos que já foram concluídas",
+        "recorte": "todos os tipos de SS",
         "janela": "janeiro a julho de 2026",
         "apos_janela": apos_janela,
+        "ss_resolvidas": ss_resolvidas,
+        "resolvidos_duplicados": duplicados,
         "fora_do_recorte": fora_do_recorte,
         "curva": curva,
         "saldo": saldo,
@@ -472,8 +475,7 @@ def montar(entrada):
         ],
         "sem_data": [x["numero_ss"] for x in sem_data],
         "regra": (
-            "Recorte: SS com TIPOSS «INDISPONIBILIDADE PARA OPERAÇÃO» entram sempre; "
-            "SS de outros tipos entram se o ativo já foi concluído. "
+            "Todos os tipos de SS contam. "
             "Mês da carteira de entrada = mês em que a SS foi aberta. SS aberta antes de "
             "2026 cai em janeiro de 2026, por decisão do gestor — janeiro concentra o que "
             "já era antigo quando o posto assumiu. Ativo com mais de uma SS na foto entra "

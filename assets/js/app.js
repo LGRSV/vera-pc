@@ -53,7 +53,7 @@ const COLECOES = [
   { id: 'consolidado', nome: 'Carteira consolidada', desc: 'As duas listas fundidas: onde cada equipamento está de fato', termos: 'consolidado consolidada tudo junto fundido uniao das duas listas onde esta ponto atual situacao real resolvido pendente escada total geral 159 160' },
   { id: 'acompanhamento', nome: 'Acompanhamento atual', desc: 'Como está cada equipamento hoje, pelo parecer COEP mais recente', termos: 'acompanhamento atual hoje situacao em operacao cancelada errada dmsl pendente fluxo em analise desmobilizado check concluidas parecer atualizada novo primeiro ataque divergencia' },
   { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
-  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'A carteira herdada pela abertura da SS — indisponibilidade, mais o concluído de outros tipos', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes grafico barras entrantes resolvidos indisponibilidade recorte tiposs' },
+  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'A carteira herdada pela abertura da SS, todos os tipos, com o livro-caixa do posto', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes grafico barras entrantes resolvidos indisponibilidade recorte tiposs' },
   { id: 'reportes', nome: 'Reportes de campo', desc: 'As fotos que a equipe mandou, todas num lugar só', termos: 'reportes reporte campo foto fotos imagem imagens anexo anexos galeria prova equipe servico feito comprovacao ver as fotos' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
@@ -1112,8 +1112,9 @@ function livroCaixa(mm) {
   <div class="nota" style="margin-top:14px"><strong>A conta fecha na carteira</strong>
   ${mm.abertura} do acervo + ${totE} abertas em 2026 = ${mm.abertura + totE} ativos da foto;
   ${totS} tratados na janela; sobram ${fim.final} no fim de julho${mm.apos_janela?.resolvidos
-    ? ` — e mais ${mm.apos_janela.resolvidos} já ${mm.apos_janela.resolvidos > 1 ? 'foram tratados' : 'foi tratado'} em agosto, fora da janela, deixando ${fim.final - mm.apos_janela.resolvidos} no fluxo hoje`
+    ? ` — e mais ${mm.apos_janela.resolvidos} já ${mm.apos_janela.resolvidos > 1 ? 'foram tratados' : 'foi tratado'} em agosto${(mm.apos_janela.lista || []).length ? ` (${mm.apos_janela.lista.map((x) => esc(x.localidade)).join(' e ')})` : ''}, fora da janela, deixando ${fim.final - mm.apos_janela.resolvidos} no fluxo hoje`
     : ' — exatamente os que a carteira mostra ainda no fluxo'}.
+  ${mm.ss_resolvidas > totS + (mm.apos_janela?.resolvidos || 0) ? `Na conta por SS são ${mm.ss_resolvidas} resolvidas — ${(mm.resolvidos_duplicados || []).map((a) => `<b class="mono">${esc(a)}</b>`).join(' e ')} tinham duas SS cada na foto e contam uma vez no livro. Contando por SS e com agosto dentro, julho fecharia em ${mm.abertura + totE - mm.ss_resolvidas}.` : ''}
   Os ${mm.fora_do_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram neste
   livro: sem SS na foto de entrada, não há data de tratativa rastreada para dar baixa. Eles
   seguem na coluna de entrantes e na lista própria.</div>`;
@@ -1999,7 +2000,7 @@ function abrirColecao(id) {
       const porMes = (mes) => mm.lista.filter((x) => x.mes === mes);
 
       html = cabecaColecao('Entrada mês a mês',
-        `Os ${mm.total} ativos do recorte da foto de junho, pelo mês em que a SS foi
+        `Os ${mm.total} ativos da foto de junho, pelo mês em que a SS foi
          aberta — recorte: ${esc(mm.recorte || '')}.`) +
         `<div class="numeros">
           ${num({ rotulo: 'Na foto de entrada', valor: mm.total, nota: `${mm.total_ss} SS — ativo com mais de uma entra pela mais antiga` })}

@@ -182,8 +182,9 @@ function livroCaixa(mm) {
   <div class="nota" style="margin-top:14px"><strong>A conta fecha na carteira</strong>
   ${mm.abertura} do acervo + ${totE} abertas em 2026 = ${mm.abertura + totE} ativos da foto;
   ${totS} tratados na janela; sobram ${fim.final} no fim de julho${mm.apos_janela?.resolvidos
-    ? ` — e mais ${mm.apos_janela.resolvidos} já ${mm.apos_janela.resolvidos > 1 ? 'foram tratados' : 'foi tratado'} em agosto, fora da janela, deixando ${fim.final - mm.apos_janela.resolvidos} no fluxo hoje`
+    ? ` — e mais ${mm.apos_janela.resolvidos} já ${mm.apos_janela.resolvidos > 1 ? 'foram tratados' : 'foi tratado'} em agosto${(mm.apos_janela.lista || []).length ? ` (${mm.apos_janela.lista.map((x) => esc(x.localidade)).join(' e ')})` : ''}, fora da janela, deixando ${fim.final - mm.apos_janela.resolvidos} no fluxo hoje`
     : ' — exatamente os que a carteira mostra ainda no fluxo'}.
+  ${mm.ss_resolvidas > totS + (mm.apos_janela?.resolvidos || 0) ? `Na conta por SS são ${mm.ss_resolvidas} resolvidas — ${(mm.resolvidos_duplicados || []).map((a) => `<b class="mono">${esc(a)}</b>`).join(' e ')} tinham duas SS cada na foto e contam uma vez no livro. Contando por SS e com agosto dentro, julho fecharia em ${mm.abertura + totE - mm.ss_resolvidas}.` : ''}
   Os ${mm.fora_do_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram neste
   livro: sem SS na foto de entrada, não há data de tratativa rastreada para dar baixa. Eles
   seguem na coluna de entrantes e na lista própria.</div>`;
@@ -269,7 +270,7 @@ function mesAMes() {
   return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
     <p class="destaque-texto">Recorte: ${esc(mm.recorte || '')}. Janela: ${esc(mm.janela || '')} —
     agosto está em curso e fica fora; o que já aconteceu nele está nas notas. Três leituras no mesmo eixo.
-    <b>Ativos</b> é a carteira que o posto herdou — ${mm.total} do recorte, pela data de
+    <b>Ativos</b> é a carteira que o posto herdou — ${mm.total} da foto, pela data de
     abertura da SS, com janeiro carregando o acervo.
     <b>Entrantes</b> é ativo novo no COEP, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é
     pelo mês em que a tratativa aconteceu — término da SS ou repasse. As três medem coisas

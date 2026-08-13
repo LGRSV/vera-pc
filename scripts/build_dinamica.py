@@ -167,6 +167,8 @@ def main():
                 "fora_do_recorte": mm.get("fora_do_recorte"),
                 "janela": mm.get("janela", ""),
                 "apos_janela": mm.get("apos_janela"),
+                "ss_resolvidas": mm.get("ss_resolvidas", 0),
+                "resolvidos_duplicados": mm.get("resolvidos_duplicados", []),
                 "curva": mm["curva"],
                 "saldo": mm.get("saldo", []),
                 "abertura": mm.get("abertura", 0),

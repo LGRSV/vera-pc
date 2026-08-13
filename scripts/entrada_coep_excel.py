@@ -2,7 +2,7 @@
 """
 Planilha da entrada do posto ETO-COEP, mês a mês — três colunas, como o gestor pediu.
 
-Recorte: só SS com TIPOSS «INDISPONIBILIDADE PARA OPERAÇÃO».
+Todos os tipos de SS contam.
 
   1. ATIVOS — os indisponíveis da foto de junho pela data de abertura da SS. Janeiro carrega
      os entrantes de janeiro mais tudo que foi aberto no COEP em anos anteriores.
@@ -92,9 +92,6 @@ def entrantes_no_coep(base, foto):
     coep = []
     for r in base:
         if (r.get("COD_EQUIPE") or "").strip() != "ETO-COEP":
-            continue
-        # Recorte do gestor: só SS de INDISPONIBILIDADE PARA OPERAÇÃO.
-        if not (r.get("TIPOSS") or "").strip().upper().startswith("INDISPONIBILIDADE"):
             continue
         d = dbr(r.get("DATA_ABERTURA_SS"))
         a = (r.get("NUM_TRAFO") or "").strip()
@@ -290,9 +287,8 @@ def montar(meta, serie, detalhe, res):
     ws = wb.active
     ws.title = "Mês a mês"
     titulo(ws, "ETO-COEP — MÊS A MÊS DE 2026",
-           f"Recorte: SS de «INDISPONIBILIDADE PARA OPERAÇÃO», mais as de outros tipos já "
-           f"concluídas — trabalho feito conta, seja qual for o tipo. Três leituras do mesmo "
-           f"posto. ATIVOS: os {mm['total']} do recorte da foto de junho pela data de abertura "
+           f"Todos os tipos de SS contam. Três leituras do mesmo "
+           f"posto. ATIVOS: os {mm['total']} da foto de junho pela data de abertura "
            "da SS, com janeiro carregando o acervo dos anos anteriores. ENTRANTES: ativos novos "
            "no posto pela abertura da SS de indisponibilidade, direto da base de SS/OS do "
            "ETO-COEP. RESOLVIDOS: pelo mês em que a tratativa aconteceu — término da SS ou "
@@ -347,8 +343,8 @@ def montar(meta, serie, detalhe, res):
     titulo(ws, "O LIVRO-CAIXA DA CARTEIRA",
            f"O acervo de anos anteriores ({abertura} SS de 2023–2025) é o saldo de abertura. "
            "Cada mês soma as SS abertas no próprio mês e desconta as tratadas: o que sobra é o "
-           f"saldo com que o mês seguinte começa. Universo = os {mm['total']} do recorte da "
-           "foto, que têm entrada e saída rastreadas.", 6)
+           f"saldo com que o mês seguinte começa. Universo = os {mm['total']} da foto, que têm "
+           "entrada e saída rastreadas.", 6)
     cabecalho(ws, 4, [("Mês", 30), ("Começou com", 14), ("Entraram", 12),
                       ("Saíram", 12), ("Sobrou no fim", 14), ("Variação", 12)])
     linha = 5
@@ -377,7 +373,12 @@ def montar(meta, serie, detalhe, res):
         f"Os {fora_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram "
         "aqui: sem SS na foto de entrada, não há data de tratativa para dar baixa. Eles estão "
         "na aba «Entrantes ativo a ativo».",
-        "O topo da fila foi 99, no fim de abril. De lá até julho a carteira caiu 45.",
+        "O topo da fila foi 99, no fim de abril e segurado em maio. De lá até julho a "
+        "carteira caiu 44.",
+        f"Na conta por SS são {mm.get('ss_resolvidas', 0)} resolvidas — "
+        f"{' e '.join(mm.get('resolvidos_duplicados', []))} tinham duas SS cada na foto e "
+        "contam uma vez no livro. Contando por SS e com agosto dentro, julho fecharia em "
+        f"{mm.get('abertura', 0) + sum(s_['entram'] for s_ in sal) - mm.get('ss_resolvidas', 0)}.",
     ], 6)
 
     # ------------------------------------------------- 2. Janeiro por dentro
@@ -497,16 +498,16 @@ def montar(meta, serie, detalhe, res):
     linha += 1
     linha = prosa(ws, linha, [
         f"Fora da janela: {len(com_data) - len(jan_jul)} tratados em agosto/2026 — estão na "
-        "«Base do recorte», só não entram na tabela mensal.",
+        "«Base da foto», só não entram na tabela mensal.",
         f"{sum(1 for x in com_data if x['parecer_coep'])} dos {len(com_data)} tinham parecer "
-        "COEP registrado na planilha de criticidade — a coluna está na aba «Base do recorte».",
+        "COEP registrado na planilha de criticidade — a coluna está na aba «Base da foto».",
         "Repasse quer dizer que a demanda saiu do posto, não que o serviço acabou em campo. "
         "Em vários casos a etapa seguinte segue aberta no DMSL ou na Proteção.",
     ], 7)
 
     # ------------------------------------------------------ 5. Base do recorte
-    ws = wb.create_sheet("Base do recorte")
-    titulo(ws, f"OS {mm['total']} DO RECORTE, ATIVO A ATIVO",
+    ws = wb.create_sheet("Base da foto")
+    titulo(ws, f"OS {mm['total']} DA FOTO, ATIVO A ATIVO",
            "Uma linha por ativo da foto de entrada: a SS que o trouxe, o mês de abertura, o mês "
            "da tratativa e de onde saiu cada data. Linhas sombreadas = resolvidos.", 15)
     cabecalho(ws, 4, [("Ativo", 13), ("Localidade", 24), ("Tipo", 19), ("SS de entrada", 20),
@@ -603,22 +604,20 @@ def montar(meta, serie, detalhe, res):
         ("Valores, não fórmulas",
          "Os agregados foram calculados em Python e gravados como número, porque o LibreOffice "
          "não roda no ambiente que gerou o arquivo e uma fórmula ficaria sem valor em cache. "
-         "Cada total tem a aba de detalhe que o sustenta: «Base do recorte» e «Entrantes ativo a ativo»."),
+         "Cada total tem a aba de detalhe que o sustenta: «Base da foto» e «Entrantes ativo a ativo»."),
         ("Livro-caixa",
          "Saldo de abertura = o acervo (SS de 2023–2025 pendentes na chegada). Entraram = SS da "
          "foto abertas no próprio mês. Saíram = tratativas do mês (término, cancelamento ou "
          "repasse). O fecho de agosto bate com os «ainda no fluxo» da carteira. Os ativos que "
          "passaram pelo posto por fora da foto ficam fora do livro por não terem data de baixa."),
-        ("Recorte de TIPOSS",
-         "SS de «INDISPONIBILIDADE PARA OPERAÇÃO» entram sempre; SS de outros tipos entram se o "
-         "ativo já foi concluído — decisão do gestor (13/08/2026): trabalho feito conta, seja "
-         "qual for o tipo. Só fica fora quem é de outro tipo E continua pendente "
-         f"({(meta['entrada_mensal'].get('fora_do_recorte') or {}).get('qtd', 0)} ativo). Na "
-         "coluna de ENTRANTES a régua segue sendo a primeira SS de indisponibilidade do ativo."),
+        ("Tipos de SS",
+         "Todos os tipos de SS contam, na carteira e nos entrantes — decisão final do gestor "
+         "(13/08/2026). O TIPOSS de cada SS segue anotado na «Base da foto» para quem quiser "
+         "recortar depois."),
         ("Janela de exibição",
          "As tabelas mensais vão de janeiro a julho de 2026. Agosto está em curso e ficaria como "
          "um toco enganoso no fim das curvas; o que já aconteceu nele — tratativas e entrantes — "
-         "está anotado nas notas das abas e aparece na «Base do recorte», que é completa."),
+         "está anotado nas notas das abas e aparece na «Base da foto», que é completa."),
         ("Posição",
          "Base de SS/OS e AIC de 07/08/2026; foto de entrada de junho/2026; pareceres e decisões "
          "do gestor até 13/08/2026."),
