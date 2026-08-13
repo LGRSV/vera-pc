@@ -348,6 +348,72 @@
       "5850308009 | obra 0712600418 | SIGCO 8389 | realizado R$ 0,00 | encerrada 2026-07-30 | MANUTENCAO CORRETIVA",
       "5800859011 | obra 0712600419 | SIGCO 8481 | realizado R$ 0,00 | sem encerramento | MANUTENCAO PREVENTIVA"
     ],
-    "resumo": "O arquivo AIC tem 124.084 linhas de dados (linha 1 cabecalho, linha 2 vazia, dados da linha 3 em diante), 1 obra por linha (124.084 NUM_OBRA distintos) e 341 valores distintos de NUM_PROJETO_SIGCO.\n\n8481 - REGULADORES: 151 obras. Orcado R$ 11.318.964,00 (MO 925.348,00 + MT 9.756.309,00 + TX 637.311,00). Realizado R$ 8.983.328,00 (MO 1.113.412,00 + MT 7.860.182,00 + TXA 9.730,00). Saldo SICOC R$ 107.191,00. 133 encerradas x 18 sem data de encerramento. Primeira encerrada 06/03/2019, ultima 30/06/2026. Das encerradas em 2026 (9 obras) entrou R$ 558.970,00.\n\n8495 - RELIGADORES: 376 obras. Orcado R$ 17.064.300,00 (MO 1.434.526,00 + MT 14.735.487,00 + TX 894.302,00). Realizado R$ 13.517.519,00 (MO 1.853.202,00 + MT 11.646.814,00 + TXA 17.504,00). Saldo SICOC R$ 700.612,00. 269 encerradas x 107 sem data. Primeira encerrada 25/04/2019, ultima 30/06/2026. Das encerradas em 2026 (15 obras) entrou R$ 618.111,00.\n\nTEM MAO DE OBRA E MATERIAL, SIM. E o material domina: em 8481 o MT e 87,5% do realizado (7.860.182 de 8.983.328) e a MO 12,4%. Em 8495 o MT e 86,2% (11.646.814 de 13.517.519) e a MO 13,7%. Taxa e residual nos dois (0,1%). Ou seja, o custo dessas obras e basicamente a peca, nao a equipe - o que casa com o plano de compras.\n\nREALIZADO MENOR QUE O ORCADO NOS DOIS: 8481 realizou 79,4% do orcado, 8495 realizou 79,2%. Parte disso e obra indeferida entrando na conta: 20 indeferidas em 8481 e 37 em 8495, todas com realizado zero. No total, 28 das 151 obras de 8481 e 123 das 376 de 8495 estao com TOTAL_REALIZADO = 0,00.\n\nCURVA POR ANO DE ENCERRAMENTO (realizado):\n8481 - 2019: 678.022,00 (15 obras) | 2020: 356.424,00 (9) | 2021: 1.152.106,00 (12) | 2022: 720.881,00 (14) | 2023: 1.087.785,00 (18) | 2024: 2.815.322,00 (32) | 2025: 1.513.907,00 (24) | 2026: 558.970,00 (9)\n8495 - 2019: 769.379,00 (19) | 2020: 448.159,00 (12) | 2021: 1.159.519,00 (37) | 2022: 793.380,00 (18) | 2023: 2.272.997,00 (49) | 2024: 1.454.117,00 (32) | 2025: 5.366.132,00 (87) | 2026: 618.111,00 (15)\n2025 foi o pico dos religadores (5,37 milhoes, 87 obras encerradas). 2026 ate 30/06 esta bem abaixo dos dois - so 24 obras encerradas somando 1.177.081,00 nos dois codigos juntos. A base foi extraida em 07/08/2026, entao 2026 e ano parcial.\n\nOS DOIS CODIGOS SAO POUCO REPRESENTATIVOS NO BOLO GERAL: 8495 e o 27o SIGCO por realizado e 8481 o 32o, de 341. Juntos dao R$ 22.500.847,00 num arquivo onde so o 11341 (ramal rural) tem R$ 400,29 milhoes.\n\nCONFIRMACAO DO ROTULO: sim, 8481 e Regulador e 8495 e Religador, mas a classificacao vaza nas duas pontas. Em 8481 ha 17 obras cujo texto fala de RELIGADOR (ex.: obra 0612400377, encerrada 25/06/2024, R$ 82.145,00, DESCRICAO_OBRA \"SUBSTITUICAO DE RELIGADOR 7900478025\"; obra 0662400211, 26/06/2024, R$ 100.474,00, \"SUBSTITUICAO DE RELIGADOR - RELIG. - 7900225090 - 34,5 KV\"). Em 8495 ha 13 obras cujo texto fala de REGULADOR (ex.: obra 0312500254, encerrada 30/10/2025, R$ 221.898,00, \"SUBSTUICAO DO REGULADOR\"; obra 0312500255, 07/11/2025, R$ 110.600,00, \"SUBSTITUICAO DE REGULADOR DANIFICADO\"). Nao e erro de leitura: e apontamento errado na abertura da obra. Entao o valor por SIGCO tem um ruido de classificacao da ordem de 10% das obras - se voce for defender numero de regulador vs religador em reuniao, esse e o ponto que te questionam.\n\nALERTA NA CARTEIRA: das 40 obras dos seus ativos, 6 estao em SIGCO 8389 (que nao e nem regulador nem religador) e 2 estao com NUM_PROJETO_SIGCO EM BRANCO no AIC (obras 0312600354 do religador 7900594026 e 0612600152 do regulador 5800366016). Obra em branco no SIGCO nao entra em nenhum orcamento - vale cobrar o apontamento. E o ativo 7919270014 esta na obra 0212501060, que e SIGCO 8805 (POSTE DANIFICADO), encerrada em 26/03/2026 com R$ 51.082,00 - obra de poste, nao de religador.\n\nOBSERVACAO DE PRECISAO: o AIC nao guarda centavos. Todos os campos financeiros de 8481 e 8495 vem como numero inteiro (0 valores com centavos em 527 linhas verificadas). Os \",00\" abaixo sao do arquivo, nao arredondamento meu."
+    "resumo": "O arquivo AIC tem 124.084 linhas de dados (linha 1 cabecalho, linha 2 vazia, dados da linha 3 em diante), 1 obra por linha (124.084 NUM_OBRA distintos) e 341 valores distintos de NUM_PROJETO_SIGCO.\n\n8481 - REGULADORES: 151 obras. Orcado R$ 11.318.964,00 (MO 925.348,00 + MT 9.756.309,00 + TX 637.311,00). Realizado R$ 8.983.328,00 (MO 1.113.412,00 + MT 7.860.182,00 + TXA 9.730,00). Saldo SICOC R$ 107.191,00. 133 encerradas x 18 sem data de encerramento. Primeira encerrada 06/03/2019, ultima 30/06/2026. Das encerradas em 2026 (9 obras) entrou R$ 558.970,00.\n\n8495 - RELIGADORES: 376 obras. Orcado R$ 17.064.300,00 (MO 1.434.526,00 + MT 14.735.487,00 + TX 894.302,00). Realizado R$ 13.517.519,00 (MO 1.853.202,00 + MT 11.646.814,00 + TXA 17.504,00). Saldo SICOC R$ 700.612,00. 269 encerradas x 107 sem data. Primeira encerrada 25/04/2019, ultima 30/06/2026. Das encerradas em 2026 (15 obras) entrou R$ 618.111,00.\n\nTEM MAO DE OBRA E MATERIAL, SIM. E o material domina: em 8481 o MT e 87,5% do realizado (7.860.182 de 8.983.328) e a MO 12,4%. Em 8495 o MT e 86,2% (11.646.814 de 13.517.519) e a MO 13,7%. Taxa e residual nos dois (0,1%). Ou seja, o custo dessas obras e basicamente a peca, nao a equipe - o que casa com o plano de compras.\n\nREALIZADO MENOR QUE O ORCADO NOS DOIS: 8481 realizou 79,4% do orcado, 8495 realizou 79,2%. Parte disso e obra indeferida entrando na conta: 20 indeferidas em 8481 e 37 em 8495, todas com realizado zero. No total, 28 das 151 obras de 8481 e 123 das 376 de 8495 estao com TOTAL_REALIZADO = 0,00.\n\nCURVA POR ANO DE ENCERRAMENTO (realizado):\n8481 - 2019: 678.022,00 (15 obras) | 2020: 356.424,00 (9) | 2021: 1.152.106,00 (12) | 2022: 720.881,00 (14) | 2023: 1.087.785,00 (18) | 2024: 2.815.322,00 (32) | 2025: 1.513.907,00 (24) | 2026: 558.970,00 (9)\n8495 - 2019: 769.379,00 (19) | 2020: 448.159,00 (12) | 2021: 1.159.519,00 (37) | 2022: 793.380,00 (18) | 2023: 2.272.997,00 (49) | 2024: 1.454.117,00 (32) | 2025: 5.366.132,00 (87) | 2026: 618.111,00 (15)\n2025 foi o pico dos religadores (5,37 milhoes, 87 obras encerradas). 2026 ate 30/06 esta bem abaixo dos dois - so 24 obras encerradas somando 1.177.081,00 nos dois codigos juntos. A base foi extraida em 07/08/2026, entao 2026 e ano parcial.\n\nOS DOIS CODIGOS SAO POUCO REPRESENTATIVOS NO BOLO GERAL: 8495 e o 27o SIGCO por realizado e 8481 o 32o, de 341. Juntos dao R$ 22.500.847,00 num arquivo onde so o 11341 (ramal rural) tem R$ 400,29 milhoes.\n\nCONFIRMACAO DO ROTULO: sim, 8481 e Regulador e 8495 e Religador, mas a classificacao vaza nas duas pontas. Em 8481 ha 17 obras cujo texto fala de RELIGADOR (ex.: obra 0612400377, encerrada 25/06/2024, R$ 82.145,00, DESCRICAO_OBRA \"SUBSTITUICAO DE RELIGADOR 7900478025\"; obra 0662400211, 26/06/2024, R$ 100.474,00, \"SUBSTITUICAO DE RELIGADOR - RELIG. - 7900225090 - 34,5 KV\"). Em 8495 ha 13 obras cujo texto fala de REGULADOR (ex.: obra 0312500254, encerrada 30/10/2025, R$ 221.898,00, \"SUBSTUICAO DO REGULADOR\"; obra 0312500255, 07/11/2025, R$ 110.600,00, \"SUBSTITUICAO DE REGULADOR DANIFICADO\"). Nao e erro de leitura: e apontamento errado na abertura da obra. Entao o valor por SIGCO tem um ruido de classificacao da ordem de 10% das obras - se voce for defender numero de regulador vs religador em reuniao, esse e o ponto que te questionam.\n\nALERTA NA CARTEIRA: das 40 obras dos seus ativos, 6 estao em SIGCO 8389 (que nao e nem regulador nem religador) e 2 estao com NUM_PROJETO_SIGCO EM BRANCO no AIC (obras 0312600354 do religador 7900594026 e 0612600152 do regulador 5800366016). Obra em branco no SIGCO nao entra em nenhum orcamento - vale cobrar o apontamento. E o ativo 7919270014 esta na obra 0212501060, que e SIGCO 8805 (POSTE DANIFICADO), encerrada em 26/03/2026 com R$ 51.082,00 - obra de poste, nao de religador.\n\nOBSERVACAO DE PRECISAO: o AIC nao guarda centavos. Todos os campos financeiros de 8481 e 8495 vem como numero inteiro (0 valores com centavos em 527 linhas verificadas). Os \",00\" abaixo sao do arquivo, nao arredondamento meu.",
+    "ano": 2026,
+    "extracao": "2026-08-07",
+    "sigco_2026": [
+      {
+        "codigo": "8481",
+        "rotulo": "Regulador de Tensão",
+        "obras": 16,
+        "indeferidas": 1,
+        "indeferidas_orcado": 411495.0,
+        "mo": 62271.0,
+        "mt": 596608.0,
+        "tx": 0.0,
+        "realizado": 658881.0,
+        "orcado": 1510280.0,
+        "consumo_pct": 43.6,
+        "mo_pct": 9.5,
+        "mt_pct": 90.5,
+        "encerradas": 8,
+        "encerradas_realizado": 558970.0,
+        "abertas": 13,
+        "abertas_realizado": 318254.0,
+        "abertas_orcado": 1134672.0,
+        "obras_indeferidas": [
+          {
+            "obra": "0662600361",
+            "descricao": "SUBSTITUIÇÃO DE REGULADOR",
+            "orcado": 411495.0
+          }
+        ]
+      },
+      {
+        "codigo": "8495",
+        "rotulo": "Religador",
+        "obras": 33,
+        "indeferidas": 2,
+        "indeferidas_orcado": 79814.0,
+        "mo": 124305.0,
+        "mt": 990649.0,
+        "tx": 0.0,
+        "realizado": 1114954.0,
+        "orcado": 1234909.0,
+        "consumo_pct": 90.3,
+        "mo_pct": 11.1,
+        "mt_pct": 88.9,
+        "encerradas": 13,
+        "encerradas_realizado": 618111.0,
+        "abertas": 28,
+        "abertas_realizado": 866718.0,
+        "abertas_orcado": 1078417.0,
+        "obras_indeferidas": [
+          {
+            "obra": "0212500367",
+            "descricao": "MANUTENÇÃO CORRETIVA",
+            "orcado": 19128.0
+          },
+          {
+            "obra": "0312500619",
+            "descricao": "MANUTENÇÃO CORRETIVA",
+            "orcado": 60686.0
+          }
+        ]
+      }
+    ],
+    "total_realizado_2026": 1773835.0,
+    "total_orcado_2026": 2745189.0,
+    "criterio": "Obra de 2026 = aberta ou encerrada em 2026. Obra INDEFERIDA fica fora da cota — não consome orçamento. Base extraída em 07/08/2026, então o ano está parcial."
   }
 }

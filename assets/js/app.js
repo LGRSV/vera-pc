@@ -78,7 +78,7 @@ function bucketParecer(p) {
 }
 
 const estado = {
-  equipamentos: [], alertas: [], divergencias: [], compras: [], meta: null,
+  equipamentos: [], alertas: [], divergencias: [], compras: [], meta: null, imagens: {},
   termo: '', facetas: {}, limite: 40, selecionado: -1, vista: 'busca',
 };
 
@@ -130,15 +130,16 @@ async function carregar() {
     Object.assign(estado, DADOS_EMBUTIDOS);
   } else {
     try {
-      const [equipamentos, alertas, divergencias, compras, meta, geo] = await Promise.all([
+      const [equipamentos, alertas, divergencias, compras, meta, geo, imagens] = await Promise.all([
         fetch('data/equipamentos.json').then((r) => r.json()),
         fetch('data/alertas_coep.json').then((r) => r.json()),
         fetch('data/divergencias_emd.json').then((r) => r.json()),
         fetch('data/plano_compras.json').then((r) => r.json()),
         fetch('data/meta.json').then((r) => r.json()),
         fetch('data/geo_tocantins.json').then((r) => r.json()).catch(() => null),
+        fetch('data/reportes_imagens.json').then((r) => r.json()).catch(() => ({})),
       ]);
-      Object.assign(estado, { equipamentos, alertas, divergencias, compras, meta, geo });
+      Object.assign(estado, { equipamentos, alertas, divergencias, compras, meta, geo, imagens });
     } catch (erro) {
       $('#palco').innerHTML = '<div class="prosa"><h3>Não foi possível carregar os dados</h3>' +
         '<p>Os arquivos em <code>data/</code> precisam ser servidos por HTTP. Rode ' +
@@ -540,6 +541,12 @@ function abrirAtivo(ativo) {
           ${rc.servico_executado ? campo('Serviço executado', esc(rc.servico_executado)) : ''}
         </div>
         ${rc.objetivo ? `<p class="destaque-texto" style="margin-top:12px">${esc(rc.objetivo)}</p>` : ''}
+        ${rc.imagem && estado.imagens?.[rc.imagem]
+          ? `<a class="reporte-foto" href="${estado.imagens[rc.imagem]}" target="_blank" rel="noopener">
+             <img src="${estado.imagens[rc.imagem]}" alt="Reporte de campo do ativo ${esc(rc.ativo)} em ${dataBr(rc.data)}" loading="lazy"></a>`
+          : ''}
+        ${rc.vinculo ? `<div class="nota branda" style="margin-top:12px">
+          <strong>Como esse reporte foi ligado ao ativo</strong>${esc(rc.vinculo)}</div>` : ''}
         <div class="reporte-fonte">${esc(rc.fonte || '')}</div>
       </div>`));
   });
@@ -1084,24 +1091,47 @@ function abrirColecao(id) {
         <p class="destaque-texto" style="margin-top:12px">Fora os três ativos sem diagnóstico, que
         ainda não dá para dimensionar.</p></section>
 
-        <section class="bloco"><h3>Orçamento no AIC — SIGCO 8481 e 8495</h3>
+        <section class="bloco"><h3>Orçamento de 2026 no AIC — SIGCO 8481 e 8495</h3>
         <p class="destaque-texto">Tem mão de obra e material, sim — e o material domina. O custo
         dessas obras é a peça, não a equipe, que é exatamente o que o plano de compras diz.</p>
-        <div class="tabela-rol"><table class="matriz"><thead><tr><th>SIGCO</th><th>Obras</th>
-        <th class="num">Mão de obra</th><th class="num">Material</th><th class="num">Taxa</th>
-        <th class="num">Realizado</th><th class="num">Orçado</th><th>Encerradas</th>
-        <th class="num">Realizado em 2026</th></tr></thead><tbody>
-        ${(ai.sigco || []).map((s) => `<tr>
-          <td><b class="mono">${esc(s.codigo)}</b><br><span class="mono" style="font-size:11px">${s.codigo === '8481' ? 'Regulador' : 'Religador'}</span></td>
-          <td class="num">${s.obras}</td>
-          <td class="num">${rs(s.mo_realizado)}<br><span style="font-size:11px">${Math.round(100 * s.mo_realizado / s.total_realizado)}%</span></td>
-          <td class="num">${rs(s.mt_realizado)}<br><span style="font-size:11px">${Math.round(100 * s.mt_realizado / s.total_realizado)}%</span></td>
-          <td class="num">${rs(s.txa_realizado)}</td>
-          <td class="num"><b>${rs(s.total_realizado)}</b></td>
-          <td class="num">${rs(s.val_total_orcado)}<br><span style="font-size:11px">${Math.round(100 * s.total_realizado / s.val_total_orcado)}% consumido</span></td>
-          <td class="num">${s.obras_encerradas} de ${s.obras}<br><span style="font-size:11px">até ${dataBr(s.ultima_encerrada)}</span></td>
-          <td class="num">${rs(s.realizado_2026)}</td></tr>`).join('')}
-        </tbody></table></div></section>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>SIGCO</th><th class="num">Obras</th>
+        <th class="num">Mão de obra</th><th class="num">Material</th>
+        <th class="num">Realizado</th><th class="num">Orçado</th><th class="num">Consumo</th>
+        <th class="num">Encerradas</th><th class="num">Abertas no ano</th></tr></thead><tbody>
+        ${(ai.sigco_2026 || []).map((s) => `<tr>
+          <td><b class="mono">${esc(s.codigo)}</b><br><span style="font-size:11px">${esc(s.rotulo)}</span></td>
+          <td class="num">${s.obras}<br><span style="font-size:11px">${s.indeferidas} indeferida${s.indeferidas === 1 ? '' : 's'} fora</span></td>
+          <td class="num">${rs(s.mo)}<br><span style="font-size:11px">${s.mo_pct}%</span></td>
+          <td class="num">${rs(s.mt)}<br><span style="font-size:11px">${s.mt_pct}%</span></td>
+          <td class="num"><b>${rs(s.realizado)}</b></td>
+          <td class="num">${rs(s.orcado)}</td>
+          <td class="num"><b>${s.consumo_pct}%</b></td>
+          <td class="num">${s.encerradas}<br><span style="font-size:11px">${rs(s.encerradas_realizado)}</span></td>
+          <td class="num">${s.abertas}<br><span style="font-size:11px">${rs(s.abertas_realizado)}</span></td></tr>`).join('')}
+        </tbody><tfoot><tr><td>Total 2026</td>
+        <td class="num">${(ai.sigco_2026 || []).reduce((s, x) => s + x.obras, 0)}</td>
+        <td class="num">${rs((ai.sigco_2026 || []).reduce((s, x) => s + x.mo, 0))}</td>
+        <td class="num">${rs((ai.sigco_2026 || []).reduce((s, x) => s + x.mt, 0))}</td>
+        <td class="num"><b>${rs(ai.total_realizado_2026 || 0)}</b></td>
+        <td class="num">${rs(ai.total_orcado_2026 || 0)}</td>
+        <td class="num">${Math.round(100 * (ai.total_realizado_2026 || 0) / Math.max(ai.total_orcado_2026 || 1, 1))}%</td>
+        <td></td><td></td></tr></tfoot></table></div>
+        <div class="nota calma" style="margin-top:14px"><strong>Como esse recorte foi feito</strong>
+        ${esc(ai.criterio || '')}</div>
+        ${(ai.sigco_2026 || []).some((s) => s.indeferidas) ? `<div class="nota branda" style="margin-top:10px">
+        <strong>Indeferidas que ficaram fora da cota</strong>
+        ${(ai.sigco_2026 || []).flatMap((s) => (s.obras_indeferidas || []).map((o) =>
+          `${esc(o.obra)} · ${esc(o.descricao)} · ${rs(o.orcado)} orçados, nada realizado`)).join(' — ')}.
+        Juntas seguravam ${rs((ai.sigco_2026 || []).reduce((s, x) => s + (x.indeferidas_orcado || 0), 0))} de
+        orçamento que não é consumo.</div>` : ''}</section>
+
+        ${(ai.sigco || []).length ? `<section class="bloco"><h3>Histórico completo — desde 2019</h3>
+        <p class="destaque-texto">Para comparação, o acumulado dos dois códigos desde a primeira obra.
+        Aqui as indeferidas entram na contagem de obras, como vêm do AIC.</p>
+        <div class="itens">${(ai.sigco || []).map((s) => `<div class="item-linha">
+          <span>${esc(s.codigo)} · ${s.codigo === '8481' ? 'Regulador' : 'Religador'}
+          <i class="linha-nota">${s.obras} obras · ${s.obras_encerradas} encerradas · primeira em ${dataBr(s.primeira_encerrada)}</i></span>
+          <b>${rs(s.total_realizado)}</b></div>`).join('')}</div></section>` : ''}
 
         ${(ai.obras_dos_ativos || []).length ? `<section class="bloco">
         <h3>Obras da carteira no AIC (${ai.obras_dos_ativos.length})</h3>
@@ -1274,12 +1304,6 @@ function abrirColecao(id) {
             são <b>todos de criticidade Média e Baixa</b> — o plano de compras cobre só Muito Alta e Alta.
             Dos ${pl.com_decisao} com compra pedida, os ${pl.no_plano_com_pedido} de Muito Alta e Alta estão
             todos orçados.</div>` : ''}
-            ${pl.orcamento ? `<p class="destaque-texto" style="margin-top:16px">${esc(pl.orcamento.titulo)} —
-            ${pl.orcamento.religador.qtd} religadores (${pl.orcamento.religador.dmsl} pelo DMSL,
-            ${pl.orcamento.religador.deop} pelo DEOP) a R$ ${moedaBR(pl.orcamento.religador.unitario)} cada
-            e ${pl.orcamento.regulador.qtd} reguladores a R$ ${moedaBR(pl.orcamento.regulador.unitario)}:
-            <b>${pl.orcamento.qtd_total} equipamentos, R$ ${moedaBR(pl.orcamento.valor_total)}</b>.
-            <i class="linha-nota">${esc(pl.orcamento.fonte)}</i></p>` : ''}
           </div>
         </div></section>
 `; })()}

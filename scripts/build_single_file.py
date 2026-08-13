@@ -23,6 +23,7 @@ ARQUIVOS_DADOS = {
     "compras": "plano_compras.json",
     "meta": "meta.json",
     "geo": "geo_tocantins.json",
+    "imagens": "reportes_imagens.json",
 }
 
 

@@ -575,3 +575,8 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
   margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--filete);
   font: italic 400 12px var(--leitura); color: var(--tinta-3);
 }
+
+/* Foto do reporte de campo: o documento inteiro, clicável para abrir em tamanho real. */
+.reporte-foto { display: block; margin-top: 14px; border: 1px solid var(--filete); line-height: 0; }
+.reporte-foto img { width: 100%; height: auto; display: block; }
+.reporte-foto:hover { border-color: var(--tinta); }

@@ -87,17 +87,6 @@ def _posto(resumo_cadeia):
     return (resumo_cadeia or {}).get("posto_atual")
 
 
-# Bloco de orçamento digitado pelo gestor na aba "Dados Apresentação" da planilha de gestão
-# (GESTAO_DE_EQUIPAMENTOS.xlsx, F17:I19). É de lá que sai o 21: 19 religadores pelo DMSL + 2
-# pelo DEOP, ao valor de referência de G9. A linha de cima faz o mesmo para regulador (4 + 1).
-ORCAMENTO_DCMD = {
-    "titulo": "Previsão de consumo de orçamento — DCMD",
-    "fonte": "GESTAO_DE_EQUIPAMENTOS.xlsx · aba «Dados Apresentação» · bloco F17:I19",
-    "religador": {"dmsl": 19, "deop": 2, "qtd": 21, "unitario": 57865.69, "total": 1215179.49},
-    "regulador": {"dmsl": 4, "deop": 1, "qtd": 5, "unitario": 154648.08, "total": 773240.40},
-    "qtd_total": 26,
-    "valor_total": 1988419.89,
-}
 
 # Marcadores de decisão de compra no texto do parecer, em ordem de firmeza.
 _MARCA_FIRME = ("SELECIONADO PARA COMPRA", "SELECIONADO  PARA COMPRA", "SLEECIONADO")
@@ -147,7 +136,6 @@ def _decisao_de_compra(aquisicao, ficha):
         "lista_decisao_firme": ordenar(firmes),
         "lista_aguardando_especificacao": ordenar(fracos),
         "lista_sem_pedido": ordenar(fracos + sem),
-        "orcamento": ORCAMENTO_DCMD,
         "criterio_do_corte": (
             "Compra pedida é quem carrega «equipamento selecionado para compra» no parecer do "
             "COEP. O plano de compras cobre só a criticidade Muito Alta e Alta."

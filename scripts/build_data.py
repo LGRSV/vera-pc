@@ -16,6 +16,7 @@ Saídas
 Uso:  python3 scripts/build_data.py
 """
 
+import base64
 import csv
 import datetime
 import glob
@@ -452,8 +453,21 @@ def main():
         meta["reportes_campo"] = {
             "total": len(reportes),
             "ativos": sorted(por_ativo_reporte),
+            "com_imagem": sum(1 for r in reportes if r.get("imagem")),
             "lista": sorted(reportes, key=lambda x: (x.get("data", ""), x["ativo"])),
         }
+        # As fotos viram data URI: o painel é um arquivo só e não pode buscar nada na rede.
+        dir_img = os.path.join(RAIZ, "assets", "reportes")
+        imagens = {}
+        if os.path.isdir(dir_img):
+            for nome in sorted(os.listdir(dir_img)):
+                if not nome.lower().endswith((".jpg", ".jpeg", ".png")):
+                    continue
+                with open(os.path.join(dir_img, nome), "rb") as fh:
+                    bruto = base64.b64encode(fh.read()).decode("ascii")
+                tipo = "png" if nome.lower().endswith(".png") else "jpeg"
+                imagens[nome] = f"data:image/{tipo};base64,{bruto}"
+        meta["_imagens_reportes"] = imagens
 
     # Realocação de peças e orçamento do AIC por SIGCO — levantamento de 13/08, revisado
     # três vezes a pedido do gestor. O que sobreviveu às revisões está no arquivo.
@@ -493,6 +507,7 @@ def main():
         ("divergencias_emd.json", divergencias),
         ("plano_compras.json", achados_compra),
         ("meta.json", meta),
+        ("reportes_imagens.json", meta.pop("_imagens_reportes", {})),
     ):
         destino = os.path.join(DIR_SAIDA, nome)
         with open(destino, "w", encoding="utf-8") as fh:
