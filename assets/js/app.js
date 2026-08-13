@@ -1069,14 +1069,20 @@ function abrirColecao(id) {
           <strong>${esc(x.ativo)}</strong>${esc(x.ressalva)}</div>`).join('')}</section>
 
         <section class="bloco"><h3>Quem continua descoberto — ${re.descobertos.length}</h3>
+        <p class="destaque-texto">Com o modelo, a classe de tensão e a potência de cada um, tirados
+        das abas de ajustes da planilha de gestão — é o que o pedido de compra precisa ter.</p>
         <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
-        <th>Criticidade</th><th>Peça que falta</th><th>Por quê</th></tr></thead><tbody>
+        <th>Criticidade</th><th>Modelo</th><th>Tensão</th><th>Potência</th>
+        <th>Peça que falta</th></tr></thead><tbody>
         ${[...re.descobertos].sort((a, b) => (critOrdem[a.criticidade] ?? 9) - (critOrdem[b.criticidade] ?? 9)
           || (a.localidade || '').localeCompare(b.localidade || ''))
           .map((x) => `<tr data-ativo="${esc(x.ativo)}">
           <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade || '—')}</td>
-          <td>${esc(x.criticidade || '—')}</td><td>${esc(x.peca_faltante || '—')}</td>
-          <td>${esc((x.porque || '').slice(0, 190))}</td></tr>`).join('')}
+          <td>${esc(x.criticidade || '—')}</td><td>${esc(x.modelo || '—')}</td>
+          <td>${esc(x.classe_tensao || '—')}</td>
+          <td>${x.potencia_kvar ? esc(x.potencia_kvar) + ' kvar' : '—'}</td>
+          <td>${esc(x.peca_faltante || '—')}
+          ${x.alerta_spec ? `<i class="linha-nota">⚠ ${esc(x.alerta_spec)}</i>` : ''}</td></tr>`).join('')}
         </tbody></table></div></section>
 
         <section class="bloco"><h3>O que falta comprar para fechar a fila</h3>

@@ -475,6 +475,25 @@ def main():
     if os.path.exists(arq_pecas):
         with open(arq_pecas, encoding="utf-8") as fh:
             meta["pecas_orcamento"] = json.load(fh)
+        # Sem modelo, classe de tensão e potência não dá para pedir a peça certa. Isso vem das
+        # abas de ajustes da planilha de gestão, que cobrem 156 dos 159 ativos da carteira.
+        ficha_esp = {r["ativo"]: (r.get("especificacao") or {}) for r in registros}
+        for item in meta["pecas_orcamento"].get("realocacao", {}).get("descobertos", []):
+            esp = ficha_esp.get(item["ativo"], {})
+            if not esp:
+                continue
+            item["classe_tensao"] = esp.get("classe_tensao") or item.get("classe_tensao") or ""
+            item["modelo"] = esp.get("marca_modelo") or " / ".join(
+                x for x in (esp.get("parte_ativa"), esp.get("controlador")) if x
+            )
+            item["potencia_kvar"] = esp.get("potencia_kvar") or ""
+            # Regulador de 200 kvar não pede célula de 400: superespecificação custa caro.
+            pot = esp.get("potencia_max_kvar")
+            if pot and pot <= 300 and "690241" in (item.get("peca_faltante") or ""):
+                item["alerta_spec"] = (
+                    f"O código 690241 é célula de 400 kvar e este regulador é de {esp.get('potencia_kvar')} kvar "
+                    "— conferir se a especificação é essa mesmo antes de pedir."
+                )
 
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}
