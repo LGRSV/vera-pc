@@ -1,11 +1,12 @@
 {
   "gerado_em": "2026-08-13",
-  "fonte": "Relação dos Equipamentos Indisponíveis ETO — ATUALIZADA7, aba «Criticidade por Equipamento Joa»",
+  "fonte": "Relação dos Equipamentos Indisponíveis ETO — ATUALIZADA8, aba «Criticidade por Equipamento Joa»",
   "total": 129,
+  "sem_parecer": 0,
   "por_etapa": [
     {
       "etapa": "Concluído",
-      "qtd": 11,
+      "qtd": 12,
       "valor": 652745.95,
       "ativos": [
         "5800438116",
@@ -16,6 +17,7 @@
         "7908686014",
         "7911120026",
         "7929376022",
+        "7930359149",
         "7934698002",
         "7953610256",
         "7957620015"
@@ -23,12 +25,14 @@
     },
     {
       "etapa": "Cancelada em operação",
-      "qtd": 14,
+      "qtd": 23,
       "valor": 218788.36,
       "ativos": [
         "5800090147",
+        "5800291077",
         "5800366016",
         "5800440256",
+        "5820790038",
         "5836764032",
         "5850308009",
         "7900505026",
@@ -36,10 +40,17 @@
         "7900648055",
         "7900930040",
         "7903569004",
+        "7908206074",
         "7921040031",
+        "7922995039",
         "7931383086",
+        "7944319149",
+        "7954668084",
+        "7955430075",
         "7955523028",
-        "7957126085"
+        "7955686076",
+        "7957126085",
+        "7967181127"
       ]
     },
     {
@@ -144,25 +155,49 @@
     },
     {
       "etapa": "Com o DMSL",
-      "qtd": 16,
+      "qtd": 2,
       "valor": 565067.52,
+      "ativos": [
+        "5858783119",
+        "7900532053"
+      ]
+    },
+    {
+      "etapa": "Primeiro ataque do DMSL",
+      "qtd": 20,
+      "valor": 0.0,
       "ativos": [
         "5839141113",
         "5848305116",
-        "5858783119",
         "7900001096",
         "7900259096",
         "7900451096",
-        "7900532053",
         "7900722193",
+        "7902098003",
+        "7908300096",
         "7908302256",
         "7908683122",
         "7908716091",
         "7923110021",
+        "7925713040",
         "7929663074",
+        "7949648145",
         "7955792076",
+        "7955832052",
+        "7957021094",
         "7961368005",
         "7962734119"
+      ]
+    },
+    {
+      "etapa": "Em análise",
+      "qtd": 4,
+      "valor": 0.0,
+      "ativos": [
+        "7934697002",
+        "7948412064",
+        "7953211079",
+        "7953570026"
       ]
     },
     {
@@ -180,40 +215,6 @@
       "valor": 0.0,
       "ativos": [
         "5841308190"
-      ]
-    },
-    {
-      "etapa": "Outros",
-      "qtd": 1,
-      "valor": 0.0,
-      "ativos": [
-        "7967181127"
-      ]
-    },
-    {
-      "etapa": "Sem parecer",
-      "qtd": 19,
-      "valor": 0.0,
-      "ativos": [
-        "5800291077",
-        "5820790038",
-        "7902098003",
-        "7908206074",
-        "7908300096",
-        "7922995039",
-        "7925713040",
-        "7930359149",
-        "7934697002",
-        "7944319149",
-        "7948412064",
-        "7949648145",
-        "7953211079",
-        "7953570026",
-        "7954668084",
-        "7955430075",
-        "7955686076",
-        "7955832052",
-        "7957021094"
       ]
     }
   ],
@@ -271,13 +272,13 @@
     {
       "etapa": "Concluído",
       "criticidade": "Sem classificação",
-      "qtd": 1,
+      "qtd": 2,
       "valor": 15000.0
     },
     {
       "etapa": "Cancelada em operação",
       "criticidade": "Muito Alta",
-      "qtd": 8,
+      "qtd": 9,
       "valor": 0.0
     },
     {
@@ -289,12 +290,18 @@
     {
       "etapa": "Cancelada em operação",
       "criticidade": "Média",
-      "qtd": 3,
+      "qtd": 6,
       "valor": 218788.36
     },
     {
       "etapa": "Cancelada em operação",
       "criticidade": "Baixa",
+      "qtd": 5,
+      "valor": 0.0
+    },
+    {
+      "etapa": "Cancelada em operação",
+      "criticidade": "Sem classificação",
       "qtd": 1,
       "valor": 0.0
     },
@@ -384,20 +391,26 @@
     },
     {
       "etapa": "Com o DMSL",
-      "criticidade": "Alta",
-      "qtd": 1,
-      "valor": 0.0
-    },
-    {
-      "etapa": "Com o DMSL",
       "criticidade": "Baixa",
       "qtd": 2,
       "valor": 565067.52
     },
     {
-      "etapa": "Com o DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "criticidade": "Alta",
+      "qtd": 1,
+      "valor": 0.0
+    },
+    {
+      "etapa": "Primeiro ataque do DMSL",
       "criticidade": "Sem classificação",
-      "qtd": 13,
+      "qtd": 19,
+      "valor": 0.0
+    },
+    {
+      "etapa": "Em análise",
+      "criticidade": "Sem classificação",
+      "qtd": 4,
       "valor": 0.0
     },
     {
@@ -417,40 +430,10 @@
       "criticidade": "Baixa",
       "qtd": 1,
       "valor": 0.0
-    },
-    {
-      "etapa": "Outros",
-      "criticidade": "Média",
-      "qtd": 1,
-      "valor": 0.0
-    },
-    {
-      "etapa": "Sem parecer",
-      "criticidade": "Muito Alta",
-      "qtd": 1,
-      "valor": 0.0
-    },
-    {
-      "etapa": "Sem parecer",
-      "criticidade": "Média",
-      "qtd": 2,
-      "valor": 0.0
-    },
-    {
-      "etapa": "Sem parecer",
-      "criticidade": "Baixa",
-      "qtd": 4,
-      "valor": 0.0
-    },
-    {
-      "etapa": "Sem parecer",
-      "criticidade": "Sem classificação",
-      "qtd": 12,
-      "valor": 0.0
     }
   ],
   "feito": {
-    "qtd": 43,
+    "qtd": 53,
     "valor": 1529967.65,
     "etapas": [
       "Concluído",
@@ -477,9 +460,7 @@
       "nota_campo": "PROBLEMA NO ENVIO DO CONTROLE",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
     },
     {
       "ativo": "7957620015",
@@ -496,9 +477,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7908686014",
@@ -515,9 +494,7 @@
       "nota_campo": "Previsão de Substiuição atrasada",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "5854566043",
@@ -534,9 +511,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "Report Edson",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 207212.3,
-      "no_allan": true
+      "valor": 207212.3
     },
     {
       "ativo": "5800859011",
@@ -553,9 +528,7 @@
       "nota_campo": "",
       "report": "Report Kelliton",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 29445.39,
-      "no_allan": true
+      "valor": 29445.39
     },
     {
       "ativo": "7900018004",
@@ -572,9 +545,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7903112004",
@@ -591,9 +562,7 @@
       "nota_campo": "CONTROLE NOJA ENVIADO",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
     },
     {
       "ativo": "7953610256",
@@ -610,9 +579,7 @@
       "nota_campo": "Utilizaremos o que foi direcionado para o Polo Paraíso que já estava em operação e enviar para esse caso",
       "report": "",
       "defeito": "Tanque e cabo umbilical",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7934698002",
@@ -629,9 +596,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5800438116",
@@ -648,9 +613,24 @@
       "nota_campo": "NÃO PRECISA REQUISITAR EQUIPAMENTO, VAMOS UTILIZAR EQ RETIRADO DE OBRA DE CONSTRUÇÃO.",
       "report": "",
       "defeito": "Célula",
-      "qtd": "2",
-      "valor": 195758.5,
-      "no_allan": true
+      "valor": 195758.5
+    },
+    {
+      "ativo": "7930359149",
+      "tipo": "RL",
+      "localidade": "CASEARA",
+      "polo": "DIVINOPOLIS",
+      "regional": "CENTRO",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-COEP 00138/2026",
+      "parecer": "Concluído DCMD",
+      "etapa": "Concluído",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "7911120026",
@@ -667,9 +647,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 15000.0,
-      "no_allan": true
+      "valor": 15000.0
     },
     {
       "ativo": "7900543083",
@@ -686,9 +664,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900930040",
@@ -705,9 +681,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900648055",
@@ -724,9 +698,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5836764032",
@@ -743,9 +715,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7903569004",
@@ -762,9 +732,24 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
+    },
+    {
+      "ativo": "5800291077",
+      "tipo": "RT",
+      "localidade": "GOIATINS",
+      "polo": "ARAGUAINA",
+      "regional": "NORTE",
+      "criticidade": "Muito Alta",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Ok",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "7931383086",
@@ -781,9 +766,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5800440256",
@@ -800,9 +783,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7921040031",
@@ -819,9 +800,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7955523028",
@@ -838,9 +817,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5800366016",
@@ -857,9 +834,41 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
+    },
+    {
+      "ativo": "7922995039",
+      "tipo": "RL",
+      "localidade": "ARAGUATINS",
+      "polo": "AUGUSTINOPOLIS",
+      "regional": "NORTE",
+      "criticidade": "Média",
+      "ss": "ETO-PROT 00135/2026",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Em operação",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7944319149",
+      "tipo": "RL",
+      "localidade": "CASEARA",
+      "polo": "DIVINOPOLIS",
+      "regional": "CENTRO",
+      "criticidade": "Média",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Ok",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "5850308009",
@@ -876,9 +885,7 @@
       "nota_campo": "Equipamento em operação em campo de acordo com a visita do Luanderson tem fotos Equipamento já em operação , realocar controle de Regulador para Arapoema 5800371025",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 29445.39,
-      "no_allan": true
+      "valor": 29445.39
     },
     {
       "ativo": "7957126085",
@@ -895,9 +902,24 @@
       "nota_campo": "Equipamento em operação no SCADA, favor enviar tanque enviado para Porto Nacional e cancelar a Obra. Utilizaremos tanque para Porto7953610256",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
+    },
+    {
+      "ativo": "7967181127",
+      "tipo": "RL",
+      "localidade": "PALMEIRAS DO TOCANTINS",
+      "polo": "TOCANTINOPOLIS",
+      "regional": "NORTE",
+      "criticidade": "Média",
+      "ss": "CONCLUÍDA",
+      "parecer": "Linha viva substiui as chaves pode ser que esteja dentro de operação",
+      "etapa": "Cancelada em operação",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "5800090147",
@@ -914,9 +936,75 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 138038.91,
-      "no_allan": true
+      "valor": 138038.91
+    },
+    {
+      "ativo": "7908206074",
+      "tipo": "RL",
+      "localidade": "DIANOPOLIS",
+      "polo": "DIANOPOLIS",
+      "regional": "SUL",
+      "criticidade": "Baixa",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Ok",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7954668084",
+      "tipo": "RL",
+      "localidade": "DIVINOPOLIS",
+      "polo": "DIVINOPOLIS",
+      "regional": "CENTRO",
+      "criticidade": "Baixa",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Ok",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7955430075",
+      "tipo": "RL",
+      "localidade": "DOIS IRMAOS DO TOCANTINS",
+      "polo": "DIVINOPOLIS",
+      "regional": "CENTRO",
+      "criticidade": "Baixa",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Ok",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7955686076",
+      "tipo": "RL",
+      "localidade": "DUERE",
+      "polo": "GURUPI",
+      "regional": "SUL",
+      "criticidade": "Baixa",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "Ok",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "7900505026",
@@ -933,9 +1021,24 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
+    },
+    {
+      "ativo": "5820790038",
+      "tipo": "RT",
+      "localidade": "TAGUATINGA",
+      "polo": "DIANOPOLIS",
+      "regional": "SUL",
+      "criticidade": "Sem classificação",
+      "ss": "CONCLUÍDA",
+      "parecer": "Cancelada em operação",
+      "etapa": "Cancelada em operação",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "7933726256",
@@ -952,9 +1055,7 @@
       "nota_campo": "Utilizaremos o que foi direcionado para Santa Rita , Favor Cancelar a obra COCM´S",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 13209.34,
-      "no_allan": true
+      "valor": 13209.34
     },
     {
       "ativo": "7900230155",
@@ -971,9 +1072,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "Tanque e PR do trafo e chave",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900117013",
@@ -990,9 +1089,7 @@
       "nota_campo": "Calendário logistco vai sair hoje 29/05/2026, assim que tiver rota de entrga avisamos",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 66619.48,
-      "no_allan": true
+      "valor": 66619.48
     },
     {
       "ativo": "5865120195",
@@ -1009,9 +1106,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 15000.0,
-      "no_allan": true
+      "valor": 15000.0
     },
     {
       "ativo": "7900573047",
@@ -1028,9 +1123,7 @@
       "nota_campo": "ATRASO COCM´S",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 66619.48,
-      "no_allan": true
+      "valor": 66619.48
     },
     {
       "ativo": "5801866013",
@@ -1047,9 +1140,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 79018.76,
-      "no_allan": true
+      "valor": 79018.76
     },
     {
       "ativo": "7925087021",
@@ -1066,9 +1157,7 @@
       "nota_campo": "ETO-RD-GU 1391/2026 (atrasada) Aguardando previsão de substituição",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7927169001",
@@ -1085,9 +1174,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "",
-      "valor": 66619.48,
-      "no_allan": true
+      "valor": 66619.48
     },
     {
       "ativo": "7943790134",
@@ -1104,9 +1191,7 @@
       "nota_campo": "Ainda no nosso posto , mas de acordo com o Luanderson vai disponibilizar a equipe na terça-feira 03/06",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7931610122",
@@ -1123,9 +1208,7 @@
       "nota_campo": "Em andamento",
       "report": "Report Marcelo Primo ou Edson",
       "defeito": "Tanque e antena",
-      "qtd": "1",
-      "valor": 32802.66,
-      "no_allan": true
+      "valor": 32802.66
     },
     {
       "ativo": "7900594026",
@@ -1142,9 +1225,7 @@
       "nota_campo": "Deslocamento  da ASPO Alinhado com o Allan de Guaraí para Pedro Afonso",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7933766059",
@@ -1161,9 +1242,7 @@
       "nota_campo": "Em andamento",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 32802.66,
-      "no_allan": true
+      "valor": 32802.66
     },
     {
       "ativo": "5800371025",
@@ -1180,9 +1259,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 109925.12,
-      "no_allan": true
+      "valor": 109925.12
     },
     {
       "ativo": "5851753086",
@@ -1199,9 +1276,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5800291035",
@@ -1218,9 +1293,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 20000.0,
-      "no_allan": true
+      "valor": 20000.0
     },
     {
       "ativo": "5846328094",
@@ -1237,9 +1310,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5827102054",
@@ -1256,9 +1327,7 @@
       "nota_campo": "Cancelar a obra tentar vedação do equipamento Melhoria de aterramento",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": true
+      "valor": 0.0
     },
     {
       "ativo": "7942572059",
@@ -1275,9 +1344,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 15000.0,
-      "no_allan": true
+      "valor": 15000.0
     },
     {
       "ativo": "5856070091",
@@ -1294,9 +1361,7 @@
       "nota_campo": "REQUISITAR 03 PEÇAS POIS 02  PÇ FOI RETIRADA PARA INSTALAÇÃO EM OBRA DE CONSTRUÇÃO.",
       "report": "",
       "defeito": "Células + controle",
-      "qtd": "3",
-      "valor": 460999.9,
-      "no_allan": true
+      "valor": 460999.9
     },
     {
       "ativo": "7908705049",
@@ -1313,9 +1378,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 66619.48,
-      "no_allan": true
+      "valor": 66619.48
     },
     {
       "ativo": "5844630060",
@@ -1332,9 +1395,7 @@
       "nota_campo": "Entrega 16/07",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 112500.43,
-      "no_allan": true
+      "valor": 112500.43
     },
     {
       "ativo": "5803327001",
@@ -1351,9 +1412,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Controle e aterramento",
-      "qtd": "1",
-      "valor": 15000.0,
-      "no_allan": true
+      "valor": 15000.0
     },
     {
       "ativo": "5800961074",
@@ -1370,9 +1429,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Células + melhoria de aterramento",
-      "qtd": "3",
-      "valor": 253479.73,
-      "no_allan": true
+      "valor": 253479.73
     },
     {
       "ativo": "5836786094",
@@ -1389,9 +1446,7 @@
       "nota_campo": "Aguardando criação da Obra",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 253479.73,
-      "no_allan": true
+      "valor": 253479.73
     },
     {
       "ativo": "7923673004",
@@ -1408,9 +1463,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 35000.0,
-      "no_allan": true
+      "valor": 35000.0
     },
     {
       "ativo": "7925744087",
@@ -1427,9 +1480,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque e cabo umbilical",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7925871077",
@@ -1446,9 +1497,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7927413001",
@@ -1465,9 +1514,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7947203070",
@@ -1484,9 +1531,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7900453110",
@@ -1503,9 +1548,7 @@
       "nota_campo": "Equipamento entregue, redirecionaremos para o Caso 7933726256",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7931608059",
@@ -1522,9 +1565,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque e rádio",
-      "qtd": "1",
-      "valor": 47414.74,
-      "no_allan": true
+      "valor": 47414.74
     },
     {
       "ativo": "7955520116",
@@ -1541,9 +1582,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7936038076",
@@ -1560,9 +1599,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7920024127",
@@ -1579,9 +1616,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle e chave",
-      "qtd": "1",
-      "valor": 90191.97,
-      "no_allan": true
+      "valor": 90191.97
     },
     {
       "ativo": "7926089013",
@@ -1598,9 +1633,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7927646026",
@@ -1617,9 +1650,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7930428001",
@@ -1636,9 +1667,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7928564039",
@@ -1655,9 +1684,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "5840227063",
@@ -1674,9 +1701,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7944559149",
@@ -1693,9 +1718,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
     },
     {
       "ativo": "7933585074",
@@ -1712,9 +1735,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7955986084",
@@ -1731,9 +1752,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7927396052",
@@ -1750,9 +1769,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7900525015",
@@ -1769,9 +1786,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7925733015",
@@ -1788,9 +1803,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7900535058",
@@ -1807,9 +1820,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7908249152",
@@ -1826,9 +1837,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7927713200",
@@ -1845,9 +1854,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7937102148",
@@ -1864,9 +1871,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "5856156091",
@@ -1883,9 +1888,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Células + controle",
-      "qtd": "3",
-      "valor": 460999.9,
-      "no_allan": true
+      "valor": 460999.9
     },
     {
       "ativo": "5862236091",
@@ -1902,9 +1905,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 207212.3,
-      "no_allan": true
+      "valor": 207212.3
     },
     {
       "ativo": "5855411017",
@@ -1921,9 +1922,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 29445.39,
-      "no_allan": true
+      "valor": 29445.39
     },
     {
       "ativo": "7901110084",
@@ -1940,9 +1939,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7913662076",
@@ -1959,9 +1956,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 33539.09,
-      "no_allan": true
+      "valor": 33539.09
     },
     {
       "ativo": "7908196047",
@@ -1978,9 +1973,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7910027196",
@@ -1997,9 +1990,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7938137007",
@@ -2016,9 +2007,7 @@
       "nota_campo": "Não Houve entrega do Material",
       "report": "",
       "defeito": "Trafo auxiliar e completo",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7955946007",
@@ -2035,9 +2024,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7926442035",
@@ -2054,9 +2041,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Trafo auxiliar e tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7923927122",
@@ -2073,9 +2058,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7942485096",
@@ -2092,9 +2075,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7919270014",
@@ -2111,9 +2092,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7921202014",
@@ -2130,9 +2109,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 35000.0,
-      "no_allan": true
+      "valor": 35000.0
     },
     {
       "ativo": "7927446001",
@@ -2149,9 +2126,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7928241200",
@@ -2168,28 +2143,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
-    },
-    {
-      "ativo": "7908302256",
-      "tipo": "RL",
-      "localidade": "MATEIROS",
-      "polo": "PONTE ALTA TOCANTINS",
-      "regional": "CENTRO",
-      "criticidade": "Alta",
-      "ss": "ETO-TELE 00997/2026",
-      "parecer": "Primeiro ataque DMSL",
-      "etapa": "Com o DMSL",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 51360.82
     },
     {
       "ativo": "7900532053",
@@ -2206,9 +2160,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Completo",
-      "qtd": "",
-      "valor": 104067.62,
-      "no_allan": true
+      "valor": 104067.62
     },
     {
       "ativo": "5858783119",
@@ -2225,9 +2177,24 @@
       "nota_campo": "Redirecionado para atender 5854566043 e 5862236091",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 460999.9,
-      "no_allan": true
+      "valor": 460999.9
+    },
+    {
+      "ativo": "7908302256",
+      "tipo": "RL",
+      "localidade": "MATEIROS",
+      "polo": "PONTE ALTA TOCANTINS",
+      "regional": "CENTRO",
+      "criticidade": "Alta",
+      "ss": "ETO-TELE 00997/2026",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "5839141113",
@@ -2237,16 +2204,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 00985/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5848305116",
@@ -2256,16 +2221,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01005/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900001096",
@@ -2275,16 +2238,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01018/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900259096",
@@ -2294,16 +2255,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01021/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900451096",
@@ -2313,16 +2272,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01020/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900722193",
@@ -2332,16 +2289,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01029/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7908683122",
@@ -2351,16 +2306,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 00998/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7908716091",
@@ -2370,16 +2323,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01019/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7923110021",
@@ -2389,16 +2340,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01027/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7929663074",
@@ -2408,16 +2357,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01026/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7955792076",
@@ -2427,16 +2374,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 00999/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7961368005",
@@ -2446,16 +2391,14 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01007/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7962734119",
@@ -2465,16 +2408,184 @@
       "regional": "",
       "criticidade": "Sem classificação",
       "ss": "ETO-TELE 01008/2026",
-      "parecer": "Novo",
-      "etapa": "Com o DMSL",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
       "check": "",
       "observacao": "",
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
+    },
+    {
+      "ativo": "7925713040",
+      "tipo": "RL",
+      "localidade": "ARAGOMINAS",
+      "polo": "ARAGUAINA",
+      "regional": "NORTE",
+      "criticidade": "Sem classificação",
+      "ss": "CONCLUÍDA",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7955832052",
+      "tipo": "RL",
+      "localidade": "FORMOSO DO ARAGUAIA",
+      "polo": "FORMOSO DO ARAGUAIA",
+      "regional": "SUL",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-TELE 00982/2026",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7902098003",
+      "tipo": "RL",
+      "localidade": "GURUPI",
+      "polo": "GURUPI",
+      "regional": "SUL",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-TELE 00932/2026",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7949648145",
+      "tipo": "RL",
+      "localidade": "MAURILANDIA DO TOCANTINS",
+      "polo": "AUGUSTINOPOLIS",
+      "regional": "NORTE",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-TELE 00929/2026",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7957021094",
+      "tipo": "RL",
+      "localidade": "PEIXE",
+      "polo": "PEIXE",
+      "regional": "SUL",
+      "criticidade": "Sem classificação",
+      "ss": "CONCLUÍDA",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7908300096",
+      "tipo": "RL",
+      "localidade": "PINDORAMA DO TOCANTINS",
+      "polo": "PONTE ALTA TOCANTINS",
+      "regional": "CENTRO",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-TELE 00938/2026",
+      "parecer": "Primeiro ataque DMSL",
+      "etapa": "Primeiro ataque do DMSL",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7948412064",
+      "tipo": "RL",
+      "localidade": "BRASILANDIA DO TOCANTINS",
+      "polo": "GUARAI",
+      "regional": "NORTE",
+      "criticidade": "Sem classificação",
+      "ss": "CONCLUÍDA",
+      "parecer": "Em análise",
+      "etapa": "Em análise",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7953211079",
+      "tipo": "RL",
+      "localidade": "ITAPIRATINS",
+      "polo": "GUARAI",
+      "regional": "NORTE",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-COEP 00147/2026",
+      "parecer": "Em análise",
+      "etapa": "Em análise",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7953570026",
+      "tipo": "RL",
+      "localidade": "PONTE ALTA TOCANTINS",
+      "polo": "PONTE ALTA TOCANTINS",
+      "regional": "CENTRO",
+      "criticidade": "Sem classificação",
+      "ss": "ETO-TELE 00892/2026",
+      "parecer": "Em análise",
+      "etapa": "Em análise",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
+    },
+    {
+      "ativo": "7934697002",
+      "tipo": "RL",
+      "localidade": "TOCANTINOPOLIS",
+      "polo": "TOCANTINOPOLIS",
+      "regional": "NORTE",
+      "criticidade": "Sem classificação",
+      "ss": "CONCLUÍDA",
+      "parecer": "Em análise",
+      "etapa": "Em análise",
+      "check": "",
+      "observacao": "",
+      "nota_campo": "",
+      "report": "",
+      "defeito": "",
+      "valor": 0.0
     },
     {
       "ativo": "5853360007",
@@ -2491,9 +2602,7 @@
       "nota_campo": "Melhoria de aterramento",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 15000.0,
-      "no_allan": true
+      "valor": 15000.0
     },
     {
       "ativo": "7908708116",
@@ -2510,9 +2619,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "5841308190",
@@ -2529,389 +2636,7 @@
       "nota_campo": "",
       "report": "",
       "defeito": "-",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7967181127",
-      "tipo": "RL",
-      "localidade": "PALMEIRAS DO TOCANTINS",
-      "polo": "TOCANTINOPOLIS",
-      "regional": "NORTE",
-      "criticidade": "Média",
-      "ss": "CONCLUÍDA",
-      "parecer": "Linha viva substiui as chaves pode ser que esteja dentro de operação",
-      "etapa": "Outros",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "5800291077",
-      "tipo": "RT",
-      "localidade": "GOIATINS",
-      "polo": "ARAGUAINA",
-      "regional": "NORTE",
-      "criticidade": "Muito Alta",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Ok",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7922995039",
-      "tipo": "RL",
-      "localidade": "ARAGUATINS",
-      "polo": "AUGUSTINOPOLIS",
-      "regional": "NORTE",
-      "criticidade": "Média",
-      "ss": "ETO-PROT 00135/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Em operação",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7944319149",
-      "tipo": "RL",
-      "localidade": "CASEARA",
-      "polo": "DIVINOPOLIS",
-      "regional": "CENTRO",
-      "criticidade": "Média",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Ok",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7908206074",
-      "tipo": "RL",
-      "localidade": "DIANOPOLIS",
-      "polo": "DIANOPOLIS",
-      "regional": "SUL",
-      "criticidade": "Baixa",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Ok",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7954668084",
-      "tipo": "RL",
-      "localidade": "DIVINOPOLIS",
-      "polo": "DIVINOPOLIS",
-      "regional": "CENTRO",
-      "criticidade": "Baixa",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Ok",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7955430075",
-      "tipo": "RL",
-      "localidade": "DOIS IRMAOS DO TOCANTINS",
-      "polo": "DIVINOPOLIS",
-      "regional": "CENTRO",
-      "criticidade": "Baixa",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Ok",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7955686076",
-      "tipo": "RL",
-      "localidade": "DUERE",
-      "polo": "GURUPI",
-      "regional": "SUL",
-      "criticidade": "Baixa",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "Ok",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7925713040",
-      "tipo": "RL",
-      "localidade": "ARAGOMINAS",
-      "polo": "ARAGUAINA",
-      "regional": "NORTE",
-      "criticidade": "Sem classificação",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7948412064",
-      "tipo": "RL",
-      "localidade": "BRASILANDIA DO TOCANTINS",
-      "polo": "GUARAI",
-      "regional": "NORTE",
-      "criticidade": "Sem classificação",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7930359149",
-      "tipo": "RL",
-      "localidade": "CASEARA",
-      "polo": "DIVINOPOLIS",
-      "regional": "CENTRO",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-COEP 00138/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7955832052",
-      "tipo": "RL",
-      "localidade": "FORMOSO DO ARAGUAIA",
-      "polo": "FORMOSO DO ARAGUAIA",
-      "regional": "SUL",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-TELE 00982/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7902098003",
-      "tipo": "RL",
-      "localidade": "GURUPI",
-      "polo": "GURUPI",
-      "regional": "SUL",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-TELE 00932/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7953211079",
-      "tipo": "RL",
-      "localidade": "ITAPIRATINS",
-      "polo": "GUARAI",
-      "regional": "NORTE",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-COEP 00147/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7949648145",
-      "tipo": "RL",
-      "localidade": "MAURILANDIA DO TOCANTINS",
-      "polo": "AUGUSTINOPOLIS",
-      "regional": "NORTE",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-TELE 00929/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7957021094",
-      "tipo": "RL",
-      "localidade": "PEIXE",
-      "polo": "PEIXE",
-      "regional": "SUL",
-      "criticidade": "Sem classificação",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7908300096",
-      "tipo": "RL",
-      "localidade": "PINDORAMA DO TOCANTINS",
-      "polo": "PONTE ALTA TOCANTINS",
-      "regional": "CENTRO",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-TELE 00938/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7953570026",
-      "tipo": "RL",
-      "localidade": "PONTE ALTA TOCANTINS",
-      "polo": "PONTE ALTA TOCANTINS",
-      "regional": "CENTRO",
-      "criticidade": "Sem classificação",
-      "ss": "ETO-TELE 00892/2026",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "5820790038",
-      "tipo": "RT",
-      "localidade": "TAGUATINGA",
-      "polo": "DIANOPOLIS",
-      "regional": "SUL",
-      "criticidade": "Sem classificação",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
-    },
-    {
-      "ativo": "7934697002",
-      "tipo": "RL",
-      "localidade": "TOCANTINOPOLIS",
-      "polo": "TOCANTINOPOLIS",
-      "regional": "NORTE",
-      "criticidade": "Sem classificação",
-      "ss": "CONCLUÍDA",
-      "parecer": "",
-      "etapa": "Sem parecer",
-      "check": "",
-      "observacao": "",
-      "nota_campo": "",
-      "report": "",
-      "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     }
   ],
   "notas_campo": [
@@ -2930,9 +2655,7 @@
       "nota_campo": "NÃO PRECISA REQUISITAR EQUIPAMENTO, VAMOS UTILIZAR EQ RETIRADO DE OBRA DE CONSTRUÇÃO.",
       "report": "",
       "defeito": "Célula",
-      "qtd": "2",
-      "valor": 195758.5,
-      "no_allan": true
+      "valor": 195758.5
     },
     {
       "ativo": "5801866013",
@@ -2949,9 +2672,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 79018.76,
-      "no_allan": true
+      "valor": 79018.76
     },
     {
       "ativo": "5827102054",
@@ -2968,9 +2689,7 @@
       "nota_campo": "Cancelar a obra tentar vedação do equipamento Melhoria de aterramento",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": true
+      "valor": 0.0
     },
     {
       "ativo": "5836786094",
@@ -2987,9 +2706,7 @@
       "nota_campo": "Aguardando criação da Obra",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 253479.73,
-      "no_allan": true
+      "valor": 253479.73
     },
     {
       "ativo": "5844630060",
@@ -3006,9 +2723,7 @@
       "nota_campo": "Entrega 16/07",
       "report": "",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 112500.43,
-      "no_allan": true
+      "valor": 112500.43
     },
     {
       "ativo": "5850308009",
@@ -3025,9 +2740,7 @@
       "nota_campo": "Equipamento em operação em campo de acordo com a visita do Luanderson tem fotos Equipamento já em operação , realocar controle de Regulador para Arapoema 5800371025",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 29445.39,
-      "no_allan": true
+      "valor": 29445.39
     },
     {
       "ativo": "5853360007",
@@ -3044,9 +2757,7 @@
       "nota_campo": "Melhoria de aterramento",
       "report": "",
       "defeito": "Melhoria de aterramento",
-      "qtd": "1",
-      "valor": 15000.0,
-      "no_allan": true
+      "valor": 15000.0
     },
     {
       "ativo": "5854566043",
@@ -3063,9 +2774,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "Report Edson",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 207212.3,
-      "no_allan": true
+      "valor": 207212.3
     },
     {
       "ativo": "5855411017",
@@ -3082,9 +2791,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 29445.39,
-      "no_allan": true
+      "valor": 29445.39
     },
     {
       "ativo": "5856070091",
@@ -3101,9 +2808,7 @@
       "nota_campo": "REQUISITAR 03 PEÇAS POIS 02  PÇ FOI RETIRADA PARA INSTALAÇÃO EM OBRA DE CONSTRUÇÃO.",
       "report": "",
       "defeito": "Células + controle",
-      "qtd": "3",
-      "valor": 460999.9,
-      "no_allan": true
+      "valor": 460999.9
     },
     {
       "ativo": "5858783119",
@@ -3120,9 +2825,7 @@
       "nota_campo": "Redirecionado para atender 5854566043 e 5862236091",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 460999.9,
-      "no_allan": true
+      "valor": 460999.9
     },
     {
       "ativo": "7900018004",
@@ -3139,9 +2842,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900117013",
@@ -3158,9 +2859,7 @@
       "nota_campo": "Calendário logistco vai sair hoje 29/05/2026, assim que tiver rota de entrga avisamos",
       "report": "",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 66619.48,
-      "no_allan": true
+      "valor": 66619.48
     },
     {
       "ativo": "7900230155",
@@ -3177,9 +2876,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "Tanque e PR do trafo e chave",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7900453110",
@@ -3196,9 +2893,7 @@
       "nota_campo": "Equipamento entregue, redirecionaremos para o Caso 7933726256",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7900573047",
@@ -3215,9 +2910,7 @@
       "nota_campo": "ATRASO COCM´S",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 66619.48,
-      "no_allan": true
+      "valor": 66619.48
     },
     {
       "ativo": "7900594026",
@@ -3234,9 +2927,7 @@
       "nota_campo": "Deslocamento  da ASPO Alinhado com o Allan de Guaraí para Pedro Afonso",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 89455.54,
-      "no_allan": true
+      "valor": 89455.54
     },
     {
       "ativo": "7903112004",
@@ -3253,9 +2944,7 @@
       "nota_campo": "CONTROLE NOJA ENVIADO",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
     },
     {
       "ativo": "7908686014",
@@ -3272,9 +2961,7 @@
       "nota_campo": "Previsão de Substiuição atrasada",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7925087021",
@@ -3291,9 +2978,7 @@
       "nota_campo": "ETO-RD-GU 1391/2026 (atrasada) Aguardando previsão de substituição",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7929376022",
@@ -3310,9 +2995,7 @@
       "nota_campo": "PROBLEMA NO ENVIO DO CONTROLE",
       "report": "",
       "defeito": "Tanque + controle",
-      "qtd": "1",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
     },
     {
       "ativo": "7931610122",
@@ -3329,9 +3012,7 @@
       "nota_campo": "Em andamento",
       "report": "Report Marcelo Primo ou Edson",
       "defeito": "Tanque e antena",
-      "qtd": "1",
-      "valor": 32802.66,
-      "no_allan": true
+      "valor": 32802.66
     },
     {
       "ativo": "7933726256",
@@ -3348,9 +3029,7 @@
       "nota_campo": "Utilizaremos o que foi direcionado para Santa Rita , Favor Cancelar a obra COCM´S",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 13209.34,
-      "no_allan": true
+      "valor": 13209.34
     },
     {
       "ativo": "7933766059",
@@ -3367,9 +3046,7 @@
       "nota_campo": "Em andamento",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 32802.66,
-      "no_allan": true
+      "valor": 32802.66
     },
     {
       "ativo": "7934698002",
@@ -3386,9 +3063,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7938137007",
@@ -3405,9 +3080,7 @@
       "nota_campo": "Não Houve entrega do Material",
       "report": "",
       "defeito": "Trafo auxiliar e completo",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7943790134",
@@ -3424,9 +3097,7 @@
       "nota_campo": "Ainda no nosso posto , mas de acordo com o Luanderson vai disponibilizar a equipe na terça-feira 03/06",
       "report": "",
       "defeito": "Tanque",
-      "qtd": "1",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     },
     {
       "ativo": "7953610256",
@@ -3443,9 +3114,7 @@
       "nota_campo": "Utilizaremos o que foi direcionado para o Polo Paraíso que já estava em operação e enviar para esse caso",
       "report": "",
       "defeito": "Tanque e cabo umbilical",
-      "qtd": "1",
-      "valor": 51360.82,
-      "no_allan": true
+      "valor": 51360.82
     },
     {
       "ativo": "7957126085",
@@ -3462,9 +3131,7 @@
       "nota_campo": "Equipamento em operação no SCADA, favor enviar tanque enviado para Porto Nacional e cancelar a Obra. Utilizaremos tanque para Porto7953610256",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 51304.06,
-      "no_allan": true
+      "valor": 51304.06
     },
     {
       "ativo": "7957620015",
@@ -3481,9 +3148,7 @@
       "nota_campo": "Concluido",
       "report": "",
       "defeito": "",
-      "qtd": "",
-      "valor": 0.0,
-      "no_allan": false
+      "valor": 0.0
     }
   ],
   "reports": [
@@ -3502,9 +3167,7 @@
       "nota_campo": "",
       "report": "Report Kelliton",
       "defeito": "Controle",
-      "qtd": "1",
-      "valor": 29445.39,
-      "no_allan": true
+      "valor": 29445.39
     },
     {
       "ativo": "5854566043",
@@ -3521,9 +3184,7 @@
       "nota_campo": "Aguardando previsão de substituição",
       "report": "Report Edson",
       "defeito": "Célula",
-      "qtd": "1",
-      "valor": 207212.3,
-      "no_allan": true
+      "valor": 207212.3
     },
     {
       "ativo": "7931610122",
@@ -3540,9 +3201,7 @@
       "nota_campo": "Em andamento",
       "report": "Report Marcelo Primo ou Edson",
       "defeito": "Tanque e antena",
-      "qtd": "1",
-      "valor": 32802.66,
-      "no_allan": true
+      "valor": 32802.66
     }
   ]
 }

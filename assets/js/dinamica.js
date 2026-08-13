@@ -23,7 +23,9 @@ const EXPLICA = {
   'Entregue ao COCM': 'material na mão da equipe, falta subir no poste',
   'Em logística': 'comprado, a caminho',
   'Em compra': 'na fila do posto',
-  'Com o DMSL': 'diagnóstico de campo, ainda sem parecer do COEP',
+  'Com o DMSL': 'laudo pedido, esperando o DMSL responder',
+  'Primeiro ataque do DMSL': 'entrou agora, o DMSL vai ao campo diagnosticar',
+  'Em análise': 'o posto está lendo o caso',
   'Travado': 'parado por coisa que não é material',
   'Desmobilizado': 'não era caso do posto',
   'Sem parecer': 'ainda não foi olhado',
@@ -95,8 +97,9 @@ function desenhar() {
     <header>
       <h1>Dinâmica do posto</h1>
       <p class="sub">Onde cada um dos ${D.total} religadores e reguladores da carteira do ETO-COEP está
-      hoje, pelo parecer mais recente. As quatro primeiras etapas já tiveram serviço:
-      <b>${feito.qtd} equipamentos</b>, ${rs(feito.valor)} de valor previsto.</p>
+      hoje, pelo parecer mais recente${D.sem_parecer === 0 ? ' — e agora todos têm parecer' : ''}.
+      As quatro primeiras etapas já tiveram serviço: <b>${feito.qtd} equipamentos</b>,
+      ${rs(feito.valor)} de valor previsto.</p>
       <div class="carimbo">
         <span>${esc(D.fonte)}</span>
         <span>posição de ${esc(D.gerado_em.split('-').reverse().join('/'))}</span>
