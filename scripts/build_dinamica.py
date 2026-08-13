@@ -217,6 +217,9 @@ def main():
     pagina = (
         '<meta charset="utf-8">\n'
         "<title>Dinâmica do Posto</title>\n"
+        # Modo claro fixo, por decisão do gestor: o papel é a cara do prontuário.
+        # O data-tema="claro" desarma o bloco escuro do prefers-color-scheme.
+        '<script>document.documentElement.dataset.tema = "claro";</script>\n'
         f"<style>\n{ler('assets', 'css', 'fontes.css')}\n</style>\n"
         f"<style>\n{ler('assets', 'css', 'styles.css')}\n</style>\n"
         f"<style>\n{ler('assets', 'css', 'dinamica.css')}\n</style>\n"

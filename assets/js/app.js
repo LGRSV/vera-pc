@@ -2704,8 +2704,9 @@ function prosaMetodo() {
 
 /* ---------------- tema e início ---------------- */
 
-const temaSalvo = localStorage.getItem('tema-equip');
-if (temaSalvo) document.documentElement.dataset.tema = temaSalvo;
+/* O padrão é o modo claro, por decisão do gestor — o papel é a cara do
+   prontuário. O botão de tema segue funcionando e a escolha fica guardada. */
+document.documentElement.dataset.tema = localStorage.getItem('tema-equip') || 'claro';
 
 document.addEventListener('click', (ev) => {
   if (ev.target.closest('#tema')) {
