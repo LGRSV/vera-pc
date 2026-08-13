@@ -1150,6 +1150,28 @@ function abrirColecao(id) {
           <span><b class="mono">${esc(d.ativo)}</b> · ${esc(d.localidade || '')} — ${esc(d.alertas[0])}</span>
           <b>${esc(d.situacao)}</b></div>`).join('')}</div></section>` : ''}
 
+        ${ac.reconciliacao ? `<section class="bloco"><h3>Da foto de entrada até hoje</h3>
+        <p class="destaque-texto">Duas listas diferentes, do mesmo posto, em momentos diferentes: a foto de
+        entrada (junho) e o acompanhamento de hoje. Quem foi resolvido saiu da lista — por isso o número de
+        «em operação» de hoje não é a conta do que você concluiu.</p>
+        <div class="numeros">
+          ${num({ rotulo: 'Vieram da foto de entrada', valor: ac.reconciliacao.continuam, nota: `de ${ac.reconciliacao.entrada_total} que estavam lá` })}
+          ${num({ rotulo: 'Saíram da lista', valor: ac.reconciliacao.sairam, nota: `${ac.reconciliacao.sairam_resolvidos} deles eu já dava por resolvidos`, tom: 'bom' })}
+          ${num({ rotulo: 'Entrantes novos', valor: ac.reconciliacao.novos, nota: 'não estavam na foto de entrada', tom: 'atento' })}
+          ${num({ rotulo: 'Pendência total hoje', valor: ac.pendencia_total, nota: 'no fluxo + canceladas erradas pelo DMSL', tom: 'critico' })}
+        </div>
+        <div class="grade" style="margin:18px 0">
+          <div class="quadro"><header><h3>Como estão os entrantes novos</h3></header>
+          ${barras(Object.entries(ac.reconciliacao.novos_por_situacao).map(([k, v]) => ({ rotulo: k, total: v })))}</div>
+        </div>
+        <h3 style="margin-top:24px;border:0;padding:0;font-size:12px">Os ${ac.reconciliacao.sairam} que saíram da lista</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Como eu classifiquei na entrada</th></tr></thead><tbody>
+        ${ac.reconciliacao.lista_sairam.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td><b class="mono">${esc(i.ativo)}</b></td><td>${esc(i.localidade || '—')}</td>
+          <td>${esc(i.motivo || (i.balde === 'em_andamento' ? 'ainda no fluxo' : i.balde))}</td></tr>`).join('')}
+        </tbody></table></div></section>` : ''}
+
         ${(ac.confronto_entrada || []).length ? `<section class="bloco"><h3>Confronto com a carteira de entrada</h3>
         <p class="destaque-texto">Como os ativos que vieram da foto de entrada estão hoje. ${ac.fora_da_entrada}
         dos ${ac.total} não estavam na foto — entraram depois.</p>

@@ -32,6 +32,7 @@ import demandas as D
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQ_MIN = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
 ARQ_SS_129 = os.path.join(RAIZ, "data", "missao", "ssos_129.json")
+ARQ_DECISOES = os.path.join(RAIZ, "data", "raw", "decisoes_gestor.json")
 
 SITUACOES = [
     "Em operação",
@@ -59,6 +60,14 @@ PREMISSAS = [
     "São indícios para conferência, não conclusões.",
     "Parecer «Novo» são as SS de primeiro ataque abertas pela TELE que ainda não passaram "
     "pelo COEP — por isso não têm parecer nem criticidade calculada.",
+    "Regra do gestor (13/08): equipamento em COMISSIONAMENTO ou em AJUSTE já foi manutencionado "
+    "— alguém foi ao ativo e fez o serviço. A exceção é troca de bateria pelo DMSL, que é rotina "
+    "e não conta como ação do posto.",
+    "Cancelada errada pelo DMSL é uma forma de PENDÊNCIA (decisão do gestor, 13/08): a SS foi "
+    "encerrada no sistema sem o serviço ter sido feito, então o equipamento continua pendente. "
+    "As duas categorias somam a pendência total.",
+    "As decisões do gestor (data/raw/decisoes_gestor.json) valem aqui também: «pendente» força o "
+    "ativo para a pendência mesmo quando a planilha o daria por resolvido.",
 ]
 
 
@@ -101,8 +110,16 @@ def _bucket_parecer(parecer):
     return "Outros"
 
 
+def _decisoes():
+    if not os.path.exists(ARQ_DECISOES):
+        return {}
+    with open(ARQ_DECISOES, encoding="utf-8") as fh:
+        return {d["ativo"]: d for d in json.load(fh)}
+
+
 def montar(registros, entrada=None):
     """Classifica os 129 e confere cada um contra a base de SS/OS."""
+    decisoes = _decisoes()
     with open(ARQ_MIN, encoding="utf-8") as fh:
         base = json.load(fh)
     textos = {}
@@ -131,6 +148,13 @@ def montar(registros, entrada=None):
         parecer = _txt(reg.get("parecer_coep"))
         observacao = _txt(reg.get("observacao"))
         situacao = _situacao(check, ss_planilha)
+        decisao = decisoes.get(ativo)
+        if decisao and decisao.get("decisao") == "pendente" and situacao not in (
+            "Cancelada errada pelo DMSL", "Pendente no fluxo"
+        ):
+            situacao = "Pendente no fluxo"
+        if decisao and decisao.get("decisao") == "executado" and situacao == "Em análise":
+            situacao = "Em andamento"
 
         linhas = por_ativo.get(ativo, [])
         ordenadas = sorted(linhas, key=lambda l: _txt(l.get("DATA_ABERTURA_SS")))
@@ -191,6 +215,7 @@ def montar(registros, entrada=None):
             "na_base": na_base,
             "alertas": alertas,
             "na_carteira_entrada": entrada_por_ativo.get(ativo),
+            "decisao_gestor": decisao,
             "texto_ultima_ss": textos.get(na_base["ss_mais_recente"], "")[:400],
         }
         itens.append(item)
@@ -203,7 +228,8 @@ def montar(registros, entrada=None):
         return [
             {k: i[k] for k in ("ativo", "tipo", "localidade", "criticidade", "check",
                                "ss_planilha", "parecer_coep", "observacao", "na_base",
-                               "alertas", "sem_acao_coep", "na_carteira_entrada")}
+                               "alertas", "sem_acao_coep", "na_carteira_entrada",
+                               "decisao_gestor")}
             for i in sorted(itens, key=lambda x: (x["localidade"] or "", x["ativo"]))
             if i["situacao"] == situacao
         ]
@@ -226,7 +252,45 @@ def montar(registros, entrada=None):
             for i in sorted(divergencias, key=lambda x: (x["situacao"], x["ativo"]))
         ],
         "total_divergencias": len(divergencias),
+        "pendencia_total": sum(
+            1 for i in itens if i["situacao"] in ("Pendente no fluxo", "Cancelada errada pelo DMSL")
+        ),
+        "decisoes_gestor": [
+            {"ativo": i["ativo"], "localidade": i["localidade"], "situacao": i["situacao"],
+             "decisao": (i["decisao_gestor"] or {}).get("decisao"),
+             "nota": (i["decisao_gestor"] or {}).get("nota", "")}
+            for i in sorted(itens, key=lambda x: x["ativo"]) if i.get("decisao_gestor")
+        ],
     }
+
+    # ponte entre as duas fotos: quem veio da entrada, quem saiu, quem é novo
+    if entrada:
+        entrada_todos = {}
+        for chave in ("resolvidos", "verificar", "em_andamento"):
+            for item in (entrada.get(chave) or {}).get("lista", []):
+                entrada_todos.setdefault(item["ativo"], {**item, "balde": chave})
+        atuais = {i["ativo"] for i in itens}
+        sairam = [v for a, v in sorted(entrada_todos.items()) if a not in atuais]
+        novos = [i for i in itens if i["ativo"] not in entrada_todos]
+        resumo["reconciliacao"] = {
+            "entrada_total": len(entrada_todos),
+            "continuam": len(entrada_todos) - len(sairam),
+            "sairam": len(sairam),
+            "sairam_resolvidos": sum(1 for v in sairam if v["balde"] == "resolvidos"),
+            "novos": len(novos),
+            "novos_por_situacao": dict(Counter(i["situacao"] for i in novos)),
+            "lista_sairam": [
+                {"ativo": v["ativo"], "localidade": v.get("localidade"), "tipo": v.get("tipo"),
+                 "balde": v["balde"], "motivo": v.get("motivo", "")}
+                for v in sorted(sairam, key=lambda x: (x.get("localidade") or "", x["ativo"]))
+            ],
+            "lista_novos": [
+                {"ativo": i["ativo"], "localidade": i["localidade"], "tipo": i["tipo"],
+                 "situacao": i["situacao"], "check": i["check"], "parecer_coep": i["parecer_coep"],
+                 "ss_planilha": i["ss_planilha"]}
+                for i in sorted(novos, key=lambda x: (x["situacao"], x["localidade"] or "", x["ativo"]))
+            ],
+        }
 
     # confronto com a carteira de entrada
     if entrada:

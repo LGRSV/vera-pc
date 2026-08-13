@@ -47,5 +47,47 @@
     "data": "2026-08-13",
     "decisao": "excluir",
     "nota": "Gestor mandou tirar da análise (13/08). As duas SS de 2023 da foto de entrada (ETO-COEP 00013 e 00063/2023) não existem mais no SGM; o ativo tem histórico só com o DMSL, encerrado em 06/01/2026."
+  },
+  {
+    "ativo": "5862236091",
+    "localidade": "ALMAS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente. O check da planilha ATUALIZADA6 está «Pendente» e a demanda segue aberta no COEP — as peças foram redirecionadas para o 5856070091, de prioridade maior."
+  },
+  {
+    "ativo": "7919270014",
+    "localidade": "PIUM",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente. Check «Pendente» na planilha atual e demanda aberta no COEP; a obra encerrada no AIC não fecha esta demanda."
+  },
+  {
+    "ativo": "7936038076",
+    "localidade": "DUERE",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. A SS foi dada como CONCLUÍDA no sistema sem o serviço ter sido feito, e ainda não houve reabertura."
+  },
+  {
+    "ativo": "7908708116",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. Parecer «Equipamento Fora de operação»; a demanda foi reaberta e está no DCMD."
+  },
+  {
+    "ativo": "7910027196",
+    "localidade": "LAGOA DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. SS dada como CONCLUÍDA com check pendente; a demanda voltou a existir no COEP."
+  },
+  {
+    "ativo": "7927713200",
+    "localidade": "SAO SALVADOR DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. SS dada como CONCLUÍDA com check pendente; demanda aberta no COEP."
   }
 ]
