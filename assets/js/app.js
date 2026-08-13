@@ -50,6 +50,7 @@ const DESC_CONCLUSAO = {
 };
 
 const COLECOES = [
+  { id: 'acompanhamento', nome: 'Acompanhamento atual', desc: 'Como está cada equipamento hoje, pelo parecer COEP mais recente', termos: 'acompanhamento atual hoje situacao em operacao cancelada errada dmsl pendente fluxo em analise desmobilizado check concluidas parecer atualizada novo primeiro ataque divergencia' },
   { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
@@ -513,6 +514,21 @@ function abrirAtivo(ativo) {
       ${r.demanda_bloqueando ? `<div class="nota branda" style="margin-top:10px">
         <strong>Demanda aberta bloqueando</strong>${esc(r.demanda_bloqueando.numero_ss || '—')} (${esc(r.demanda_bloqueando.equipe || '—')}) · ${esc((r.demanda_bloqueando.situacao || '').replace('SS ', ''))} · aberta em ${dataBr(r.demanda_bloqueando.abertura)}</div>` : ''}
       ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
+  }
+
+  if (e.acompanhamento) {
+    const ac = e.acompanhamento;
+    partes.push(bloco('Acompanhamento atual', `
+      <p class="destaque-texto">${esc(ac.situacao)}${ac.sem_acao_coep ? ' — desmobilizado, caso sem ação do COEP' : ''}</p>
+      <div class="campos">
+        ${campo('Check de concluídas', esc(ac.check))}
+        ${campo('SS mais recente na base', esc(ac.na_base.ss_mais_recente || '—'))}
+        ${campo('Equipe', esc(ac.na_base.equipe || '—'))}
+        ${campo('Situação dessa SS', esc((ac.na_base.situacao || '—').replace('SS ', '')))}
+        ${campo('Demanda aberta hoje', ac.na_base.demanda_aberta ? esc(ac.na_base.posto_atual || 'sim') : 'nenhuma')}
+      </div>
+      ${(ac.alertas || []).length ? ac.alertas.map((x) => `<div class="nota" style="margin-top:10px">
+        <strong>Planilha × base</strong>${esc(x)}</div>`).join('') : ''}`));
   }
 
   if ((e.entrada || []).length) {
@@ -1063,6 +1079,86 @@ function abrirColecao(id) {
             return `<td><span class="calor" style="background:${CORES[c]};opacity:${(0.18 + (n / max) * 0.62).toFixed(2)};color:var(--fundo)">${n}</span></td>`;
           }).join('')}<td><strong>${t}</strong></td></tr>`;
         }).join('')}</tbody></table></div></section>`;
+  }
+
+  if (id === 'acompanhamento') {
+    const ac = m.acompanhamento;
+    if (!ac) {
+      html = cabecaColecao('Acompanhamento atual', 'A planilha atualizada ainda não foi carregada.');
+    } else {
+      const TOM = {
+        'Em operação': 'bom', 'Cancelada errada pelo DMSL': 'critico',
+        'Pendente no fluxo': 'atento', 'Em andamento': '', 'Em análise': '',
+      };
+      const NOTA = {
+        'Em operação': 'check Ok, Em operação ou Desmobilizado',
+        'Cancelada errada pelo DMSL': 'SS dada como concluída, check pendente',
+        'Pendente no fluxo': 'check pendente, SS ainda aberta',
+        'Em andamento': 'execução em curso',
+        'Em análise': 'check em branco — inclui os «Novo»',
+      };
+      const tabela = (lista) => `<div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr>
+        <th>Ativo</th><th>Localidade</th><th>Tipo</th><th>Criticidade</th><th>SS na planilha</th>
+        <th>Parecer COEP</th><th>Observação</th><th>Na base de SS/OS</th></tr></thead><tbody>
+        ${lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td><b class="mono">${esc(i.ativo)}</b></td><td>${esc(i.localidade || '—')}</td>
+          <td>${esc(i.tipo === 'Religador' ? 'RL' : 'RT')}</td><td>${esc(i.criticidade || '—')}</td>
+          <td>${esc(i.ss_planilha || '—')}</td><td>${esc(i.parecer_coep || '—')}</td>
+          <td>${esc(i.observacao || '—')}${i.sem_acao_coep ? '<br><b>sem ação do COEP</b>' : ''}</td>
+          <td>${i.na_base.demanda_aberta ? `aberta no ${esc(i.na_base.posto_atual || '—')}` : 'sem demanda aberta'}
+            ${i.na_base.ss_mais_recente ? `<br><span class="mono">${esc(i.na_base.ss_mais_recente)} · ${esc((i.na_base.situacao || '').replace('SS ', ''))}</span>` : ''}</td>
+        </tr>`).join('')}</tbody></table></div>`;
+
+      html = cabecaColecao('Acompanhamento atual',
+        'A situação de cada um dos ' + ac.total + ' equipamentos hoje, lida do parecer COEP mais recente ' +
+        '(planilha ATUALIZADA6) e conferida contra a base de SS/OS pelo código operativo do ativo.') +
+        `<div class="numeros">
+          ${Object.entries(ac.por_situacao).map(([s, n]) => num({
+            rotulo: s, valor: n, nota: NOTA[s], tom: TOM[s] })).join('')}
+        </div>
+
+        <div class="nota calma" style="margin:-6px 0 26px"><strong>Como cada um foi classificado</strong>
+        A coluna «Check de concluídas» manda: <b>Ok</b>, <b>Em operação</b> ou <b>Desmobilizado</b> → em operação
+        (${ac.sem_acao_coep} desmobilizado, caso em que não deveria ter havido ação do COEP);
+        <b>Pendente</b> com a SS dada como CONCLUÍDA → cancelada errada pelo DMSL;
+        <b>Pendente</b> com a SS aberta → pendência seguindo no fluxo; <b>Em andamento</b> → execução em curso;
+        <b>em branco</b> → em análise. Soma: ${Object.values(ac.por_situacao).reduce((s, n) => s + n, 0)} = ${ac.total} ativos,
+        sem repetição (${Object.keys(ac.ativos_repetidos || {}).length ? 'ATENÇÃO: ' + Object.keys(ac.ativos_repetidos).join(', ') : 'conferido: nenhum ativo duplicado'}).</div>
+
+        ${ac.listas['Cancelada errada pelo DMSL'].length ? `<section class="bloco"><h3>Canceladas erradas pelo DMSL — ${ac.listas['Cancelada errada pelo DMSL'].length}</h3>
+        <p class="destaque-texto">A SS foi dada como concluída no sistema, mas o check diz que a pendência continua.
+        São as que precisam voltar a existir no SGM.</p>${tabela(ac.listas['Cancelada errada pelo DMSL'])}</section>` : ''}
+
+        <section class="bloco"><h3>Em operação — ${ac.listas['Em operação'].length}</h3>
+        ${tabela(ac.listas['Em operação'])}</section>
+
+        <section class="bloco"><h3>Pendente no fluxo — ${ac.listas['Pendente no fluxo'].length}</h3>
+        ${tabela(ac.listas['Pendente no fluxo'])}</section>
+
+        <section class="bloco"><h3>Em andamento — ${ac.listas['Em andamento'].length}</h3>
+        ${tabela(ac.listas['Em andamento'])}</section>
+
+        <section class="bloco"><h3>Em análise — ${ac.listas['Em análise'].length}</h3>
+        <p class="destaque-texto">Check em branco. Inclui os marcados «Novo» — SS de primeiro ataque abertas
+        pela TELE que ainda não passaram pelo COEP, por isso sem parecer e sem criticidade calculada.</p>
+        ${tabela(ac.listas['Em análise'])}</section>
+
+        ${ac.divergencias.length ? `<section class="bloco"><h3>Planilha × base de SS/OS — ${ac.divergencias.length} divergências</h3>
+        <p class="destaque-texto">O que a planilha diz e o que o SGM mostra não batem nestes ativos. São indícios
+        para conferência, não conclusões.</p>
+        <div class="itens">${ac.divergencias.map((d) => `<div class="item-linha" data-ativo="${esc(d.ativo)}" style="cursor:pointer">
+          <span><b class="mono">${esc(d.ativo)}</b> · ${esc(d.localidade || '')} — ${esc(d.alertas[0])}</span>
+          <b>${esc(d.situacao)}</b></div>`).join('')}</div></section>` : ''}
+
+        ${(ac.confronto_entrada || []).length ? `<section class="bloco"><h3>Confronto com a carteira de entrada</h3>
+        <p class="destaque-texto">Como os ativos que vieram da foto de entrada estão hoje. ${ac.fora_da_entrada}
+        dos ${ac.total} não estavam na foto — entraram depois.</p>
+        <div class="itens">${ac.confronto_entrada.map((c) => `<div class="item-linha">
+          <span>Entrada: <b>${esc(c.entrada === 'em_andamento' ? 'ainda no fluxo' : c.entrada)}</b> → hoje: ${esc(c.acompanhamento)}</span>
+          <b>${c.total}</b></div>`).join('')}</div></section>` : ''}
+
+        ${(ac.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta leitura</strong>${ac.premissas.map(esc).join('<br>')}</div>` : ''}`;
+    }
   }
 
   if (id === 'entrada') {
