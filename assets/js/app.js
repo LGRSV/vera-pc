@@ -89,6 +89,9 @@ const $$ = (s) => Array.from(document.querySelectorAll(s));
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+const moedaBR = (v) => Number(v || 0)
+  .toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
 const chave = (t) => String(t ?? '').toLowerCase().normalize('NFD')
   .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -1141,11 +1144,18 @@ function abrirColecao(id) {
           </div>
           <div>
             <h4 class="rotulo-coluna">Aguardando a compra — ${compra}</h4>
-            <p class="destaque-texto">${pl.criterio_do_corte || 'O plano deste ano cobre a criticidade Muito Alta e Alta; o resto entra no exercício seguinte.'}</p>
+            <p class="destaque-texto">${pl.criterio_do_corte || 'Quem já tem a compra decidida carrega a marcação no parecer do COEP.'}</p>
             <div class="itens">
-              ${linha('No plano de compras', noPlano, pl.valor_no_plano ? `R$ ${(pl.valor_no_plano).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '')}
-              ${linha('Definidos para o ano que vem', depois, 'sem pedido no plano atual')}
+              ${linha('Compra já decidida no parecer', pl.com_decisao ?? noPlano, `${pl.decisao_firme ?? 0} com «selecionado para compra» · ${pl.decisao_iniciada ?? 0} com o COEP pedindo modelo e tensão`)}
+              ${linha('Sem pedido nenhum ainda', pl.sem_pedido ?? depois, 'nenhuma palavra de compra no parecer')}
+              ${linha('Destes, já orçados no plano de MA+Alta', noPlano, pl.valor_no_plano ? `R$ ${moedaBR(pl.valor_no_plano)}` : '')}
             </div>
+            ${pl.orcamento ? `<p class="destaque-texto" style="margin-top:16px">${esc(pl.orcamento.titulo)} —
+            ${pl.orcamento.religador.qtd} religadores (${pl.orcamento.religador.dmsl} pelo DMSL,
+            ${pl.orcamento.religador.deop} pelo DEOP) a R$ ${moedaBR(pl.orcamento.religador.unitario)} cada
+            e ${pl.orcamento.regulador.qtd} reguladores a R$ ${moedaBR(pl.orcamento.regulador.unitario)}:
+            <b>${pl.orcamento.qtd_total} equipamentos, R$ ${moedaBR(pl.orcamento.valor_total)}</b>.
+            <i class="linha-nota">${esc(pl.orcamento.fonte)}</i></p>` : ''}
           </div>
         </div></section>
 `; })()}

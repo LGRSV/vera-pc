@@ -30,6 +30,7 @@ pela entrada e pela base.
 
 import json
 import os
+import unicodedata
 from collections import Counter, defaultdict
 
 import demandas as D
@@ -84,6 +85,70 @@ def _decisoes():
 
 def _posto(resumo_cadeia):
     return (resumo_cadeia or {}).get("posto_atual")
+
+
+# Bloco de orçamento digitado pelo gestor na aba "Dados Apresentação" da planilha de gestão
+# (GESTAO_DE_EQUIPAMENTOS.xlsx, F17:I19). É de lá que sai o 21: 19 religadores pelo DMSL + 2
+# pelo DEOP, ao valor de referência de G9. A linha de cima faz o mesmo para regulador (4 + 1).
+ORCAMENTO_DCMD = {
+    "titulo": "Previsão de consumo de orçamento — DCMD",
+    "fonte": "GESTAO_DE_EQUIPAMENTOS.xlsx · aba «Dados Apresentação» · bloco F17:I19",
+    "religador": {"dmsl": 19, "deop": 2, "qtd": 21, "unitario": 57865.69, "total": 1215179.49},
+    "regulador": {"dmsl": 4, "deop": 1, "qtd": 5, "unitario": 154648.08, "total": 773240.40},
+    "qtd_total": 26,
+    "valor_total": 1988419.89,
+}
+
+# Marcadores de decisão de compra no texto do parecer, em ordem de firmeza.
+_MARCA_FIRME = ("SELECIONADO PARA COMPRA", "SELECIONADO  PARA COMPRA", "SLEECIONADO")
+_MARCA_FRACA = ("PARA COMPRA", "PARA A COMPRA", "PARA AQUISICAO", "PARA COMPRA / AQUISICAO")
+
+
+def _sem_acento(texto):
+    texto = unicodedata.normalize("NFD", (texto or "").upper())
+    return "".join(c for c in texto if unicodedata.category(c) != "Mn")
+
+
+def _decisao_de_compra(aquisicao, ficha):
+    """Separa quem já tem decisão de compra escrita no parecer de quem não tem.
+
+    O gestor pergunta quantos dos que aguardam compra já foram pedidos. A resposta não está
+    em nenhuma coluna: está no texto do parecer COEP, onde o posto escreve «EQUIPAMENTO
+    SELECIONADO PARA COMPRA». Contamos o marcador firme separado do fraco (o COEP pedindo
+    modelo e tensão para comprar), porque um é decisão tomada e o outro é decisão começando.
+    """
+    firmes, fracos, sem = [], [], []
+    for item in aquisicao:
+        reg = ficha.get(item["ativo"], {})
+        texto = _sem_acento(
+            " ".join([reg.get("descricao_ss") or "", item.get("parecer_coep") or "",
+                      item.get("observacao") or ""])
+        )
+        resumo = {"ativo": item["ativo"], "localidade": item["localidade"],
+                  "criticidade": item["criticidade"] or "Sem classificação",
+                  "tipo": item["tipo"]}
+        if any(m in texto for m in _MARCA_FIRME):
+            firmes.append({**resumo, "marcador": "Equipamento selecionado para compra"})
+        elif any(m in texto for m in _MARCA_FRACA):
+            fracos.append({**resumo, "marcador": "COEP pediu modelo e tensão para comprar"})
+        else:
+            sem.append({**resumo, "marcador": ""})
+
+    ordenar = lambda l: sorted(l, key=lambda x: (x["localidade"] or "", x["ativo"]))
+    return {
+        "com_decisao": len(firmes) + len(fracos),
+        "decisao_firme": len(firmes),
+        "decisao_iniciada": len(fracos),
+        "sem_pedido": len(sem),
+        "lista_decisao_firme": ordenar(firmes),
+        "lista_decisao_iniciada": ordenar(fracos),
+        "lista_sem_pedido": ordenar(sem),
+        "orcamento": ORCAMENTO_DCMD,
+        "criterio_do_corte": (
+            "Quem já tem a compra decidida é quem carrega «equipamento selecionado para compra» "
+            "no parecer do COEP. Nenhuma fonte marca exercício seguinte."
+        ),
+    }
 
 
 def montar(registros, entrada, acompanhamento):
@@ -541,6 +606,7 @@ def montar(registros, entrada, acompanhamento):
                 for i in sorted(fora_plano, key=lambda x: (x["localidade"] or "", x["ativo"]))
             ],
         }
+        resposta["aquisicao_x_plano"].update(_decisao_de_compra(aquisicao, ficha))
 
     resumo["resposta"] = resposta
     # o percentual segue a mesma régua do balde "Resolvidos" da primeira visão:
