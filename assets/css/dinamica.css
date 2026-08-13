@@ -41,3 +41,8 @@
 .rol .nota-campo { display: block; margin-top: 3px; color: var(--tinta-3); font-size: 12.5px; font-style: italic; }
 
 .filtros { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+
+/* Vermelho: dinheiro que NÃO foi gasto. Aparece, mas não soma em lugar nenhum. */
+.evitado { color: var(--muito-alta); font-style: normal; }
+.numero.evitado b { color: var(--muito-alta); }
+.degrau .lado .evitado { font-size: 12px; }

@@ -79,6 +79,44 @@ def main():
         d["com_valor"] = sum(1 for i in d["lista"] if i["valor"] > 0)
         d["valor_total"] = round(sum(i["valor"] for i in d["lista"]), 2)
 
+    # Cancelado em operacao nao consome orcamento: o valor nao entra em nenhuma soma.
+    # Ele vira "valor evitado" — o que teria sido gasto se a SS nao tivesse caido.
+    EVITADA = "Cancelada em operação"
+    evitado = 0.0
+    for item in d["lista"]:
+        if item["etapa"] == EVITADA:
+            evitado += item["valor"]
+            item["valor_evitado"] = item["valor"]
+            item["valor"] = 0.0
+    for e in d["por_etapa"]:
+        if e["etapa"] == EVITADA:
+            e["valor_evitado"] = round(e["valor"], 2)
+            e["valor"] = 0.0
+    for m in d["matriz"]:
+        if m["etapa"] == EVITADA:
+            m["valor_evitado"] = m["valor"]
+            m["valor"] = 0.0
+    # o evitado inclui a estimativa dos que nao tem valor orcado, senao a escada
+    # mostra um numero menor do que o do topo da pagina
+    est = {x["ativo"]: x["valor_estimado"] for x in d.get("economia", {}).get("estimada", {}).get("lista", [])}
+    for item in d["lista"]:
+        if item["etapa"] == EVITADA and not item.get("valor_evitado") and item["ativo"] in est:
+            item["valor_evitado"] = est[item["ativo"]]
+            item["valor_estimado"] = True
+    evitado = sum(i.get("valor_evitado", 0) for i in d["lista"])
+    for e in d["por_etapa"]:
+        if e["etapa"] == EVITADA:
+            e["valor_evitado"] = round(evitado, 2)
+    for m in d["matriz"]:
+        if m["etapa"] == EVITADA:
+            g = [i for i in d["lista"] if i["etapa"] == EVITADA and i["criticidade"] == m["criticidade"]]
+            m["valor_evitado"] = round(sum(i.get("valor_evitado", 0) for i in g), 2)
+    d["valor_evitado_total"] = round(evitado, 2)
+    d["valor_total"] = round(sum(i["valor"] for i in d["lista"]), 2)
+    d["com_valor"] = sum(1 for i in d["lista"] if i["valor"] > 0)
+    feitos = [i for i in d["lista"] if i["etapa"] in d["feito"]["etapas"]]
+    d["feito"]["valor"] = round(sum(i["valor"] for i in feitos), 2)
+
     dados = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     pagina = (

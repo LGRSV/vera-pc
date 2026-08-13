@@ -40,7 +40,8 @@ function escada() {
     <button class="degrau ${TOM[e.etapa] || ''}" data-etapa="${esc(e.etapa)}">
       <span class="nome">${esc(e.etapa)}</span>
       <span class="barra"><i style="width:${(100 * e.qtd / maior).toFixed(1)}%"></i></span>
-      <span class="lado"><b>${e.qtd}</b>${e.valor ? esc(rs(e.valor)) : '—'}</span>
+      <span class="lado"><b>${e.qtd}</b>${e.valor ? esc(rs(e.valor))
+        : e.valor_evitado ? `<i class="evitado">${esc(rs(e.valor_evitado))} evitados</i>` : '—'}</span>
     </button>`).join('')}</div>
     <p class="destaque-texto" style="margin-top:10px">Clique numa etapa para filtrar a lista.
     O valor é o previsto na planilha de gestão — ${D.com_valor} dos ${D.total} têm valor lá.</p>`;
@@ -74,7 +75,7 @@ function rol() {
     </div>
     <div class="tabela-rol"><table class="matriz rol"><thead><tr><th>Ativo</th><th>Localidade</th>
     <th>Tipo</th><th>Criticidade</th><th>Etapa</th><th>Parecer COEP</th><th>Check</th>
-    <th class="num">Valor previsto</th></tr></thead><tbody>
+    <th class="num">Valor previsto<i class="linha-nota">em vermelho, o que foi evitado</i></th></tr></thead><tbody>
     ${lista.map((x) => `<tr>
       <td><b class="mono">${esc(x.ativo)}</b></td>
       <td>${esc(x.localidade || '—')}${x.polo ? `<span class="nota-campo">${esc(x.polo)}</span>` : ''}</td>
@@ -86,7 +87,8 @@ function rol() {
         ${x.nota_campo ? `<span class="nota-campo">${esc(x.nota_campo)}</span>` : ''}
         ${x.observacao && x.observacao !== x.nota_campo ? `<span class="nota-campo">${esc(x.observacao)}</span>` : ''}</td>
       <td>${esc(x.check || '—')}</td>
-      <td class="num">${x.valor ? esc(rs(x.valor)) : '—'}</td></tr>`).join('')}
+      <td class="num">${x.valor ? esc(rs(x.valor))
+        : x.valor_evitado ? `<i class="evitado">${esc(rs(x.valor_evitado))}${x.valor_estimado ? ' *' : ''}</i>` : '—'}</td></tr>`).join('')}
     </tbody></table></div>`;
 }
 
@@ -109,8 +111,8 @@ function desenhar() {
       ${num({ rotulo: 'Na carteira', valor: D.total, nota: D.por_tipo.map((t) => `${t.qtd} ${t.tipo}`).join(' · ') })}
       ${num({ rotulo: 'Com serviço feito', valor: feito.qtd, nota: `${Math.round(100 * feito.qtd / D.total)}% da carteira`, tom: 'bom' })}
       ${num({ rotulo: 'Na fila de compra', valor: D.por_etapa.find((e) => e.etapa === 'Em compra')?.qtd ?? 0, nota: 'esperando material', tom: 'critico' })}
-      ${D.economia ? num({ rotulo: 'Economia', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} cancelados em operação`, tom: 'bom' })
-        : num({ rotulo: 'Valor previsto', valor: rs(D.valor_total), nota: `${D.com_valor} ativos orçados` })}
+      ${num({ rotulo: 'Valor previsto', valor: rs(D.valor_total), nota: `${D.com_valor} ativos orçados — os cancelados não entram` })}
+      ${D.economia ? num({ rotulo: 'O que teria sido gasto', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} cancelados em operação`, tom: 'evitado' }) : ''}
     </div>
 
     <section class="bloco"><h3>A escada</h3>${escada()}</section>
