@@ -265,7 +265,7 @@ function mesAMes() {
 
   return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
     <p class="destaque-texto">Recorte: ${esc(mm.recorte || '')}. Três leituras no mesmo eixo.
-    <b>Ativos</b> é a carteira que o posto herdou — ${mm.total} indisponíveis, pela data de
+    <b>Ativos</b> é a carteira que o posto herdou — ${mm.total} do recorte, pela data de
     abertura da SS, com janeiro carregando o acervo.
     <b>Entrantes</b> é ativo novo no COEP, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é
     pelo mês em que a tratativa aconteceu — término da SS ou repasse. As três medem coisas
@@ -291,9 +291,10 @@ function mesAMes() {
     <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
     </tr></tfoot></table></div>
     ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
-    Da foto de entrada, ${mm.fora_do_recorte.qtd} ativos têm SS de outros tipos e não entram nesta
-    conta: ${mm.fora_do_recorte.por_tipo.map(([t, q]) => `${q} ${esc(t.toLowerCase())}`).join(' · ')}.
-    Eles continuam na carteira de entrada — só não são indisponibilidade para operação.</div>` : ''}
+    Concluído conta de qualquer tipo; pendente, só se for indisponibilidade. Da foto de entrada
+    fica fora ${mm.fora_do_recorte.qtd === 1 ? 'um ativo' : `${mm.fora_do_recorte.qtd} ativos`} de outro
+    tipo ainda pendente: ${mm.fora_do_recorte.por_tipo.map(([t, q]) => `${q} ${esc(t.toLowerCase())}`).join(' · ')}.
+    Segue na carteira de entrada.</div>` : ''}
   </section>
 
   <section class="bloco"><h3>O que janeiro carrega</h3>

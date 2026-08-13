@@ -301,10 +301,12 @@ def montar(entrada):
         i["fonte_data"] = fonte if d else "não encontrada"
         i["tiposs"] = tiposs.get(ss, "")
 
-    # Recorte do gestor (13/08): só SS com TIPOSS «INDISPONIBILIDADE PARA
-    # OPERAÇÃO» entram na conta. O resto da foto — obras, comissionamento,
-    # anomalia em operação — fica anotado à parte, sem sumir.
-    dentro = [i for i in itens if i["tiposs"].upper().startswith(RECORTE)]
+    # Recorte do gestor (13/08): SS de «INDISPONIBILIDADE PARA OPERAÇÃO» entram
+    # sempre; SS de outros tipos entram SE o ativo já foi concluído — trabalho
+    # feito conta, seja qual for o tipo. Só fica fora quem é de outro tipo E
+    # continua pendente.
+    dentro = [i for i in itens
+              if i["tiposs"].upper().startswith(RECORTE) or i["balde"] == "resolvidos"]
     ativos_dentro = {i["ativo"] for i in dentro}
     fora_por_ativo = {}
     for i in sorted((x for x in itens if x["ativo"] not in ativos_dentro),
@@ -429,7 +431,8 @@ def montar(entrada):
         })
 
     return {
-        "recorte": "só SS com TIPO «INDISPONIBILIDADE PARA OPERAÇÃO»",
+        "recorte": "SS de «INDISPONIBILIDADE PARA OPERAÇÃO», mais as de outros "
+                   "tipos que já foram concluídas",
         "fora_do_recorte": fora_do_recorte,
         "curva": curva,
         "saldo": saldo,
@@ -457,7 +460,8 @@ def montar(entrada):
         ],
         "sem_data": [x["numero_ss"] for x in sem_data],
         "regra": (
-            "Recorte: só SS com TIPOSS «INDISPONIBILIDADE PARA OPERAÇÃO». "
+            "Recorte: SS com TIPOSS «INDISPONIBILIDADE PARA OPERAÇÃO» entram sempre; "
+            "SS de outros tipos entram se o ativo já foi concluído. "
             "Mês da carteira de entrada = mês em que a SS foi aberta. SS aberta antes de "
             "2026 cai em janeiro de 2026, por decisão do gestor — janeiro concentra o que "
             "já era antigo quando o posto assumiu. Ativo com mais de uma SS na foto entra "

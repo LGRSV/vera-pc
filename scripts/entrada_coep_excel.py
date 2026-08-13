@@ -290,8 +290,9 @@ def montar(meta, serie, detalhe, res):
     ws = wb.active
     ws.title = "Mês a mês"
     titulo(ws, "ETO-COEP — MÊS A MÊS DE 2026",
-           f"Recorte: só SS com TIPO «INDISPONIBILIDADE PARA OPERAÇÃO». Três leituras do mesmo "
-           f"posto. ATIVOS: os {mm['total']} indisponíveis da foto de junho pela data de abertura "
+           f"Recorte: SS de «INDISPONIBILIDADE PARA OPERAÇÃO», mais as de outros tipos já "
+           f"concluídas — trabalho feito conta, seja qual for o tipo. Três leituras do mesmo "
+           f"posto. ATIVOS: os {mm['total']} do recorte da foto de junho pela data de abertura "
            "da SS, com janeiro carregando o acervo dos anos anteriores. ENTRANTES: ativos novos "
            "no posto pela abertura da SS de indisponibilidade, direto da base de SS/OS do "
            "ETO-COEP. RESOLVIDOS: pelo mês em que a tratativa aconteceu — término da SS ou "
@@ -346,7 +347,7 @@ def montar(meta, serie, detalhe, res):
     titulo(ws, "O LIVRO-CAIXA DA CARTEIRA",
            f"O acervo de anos anteriores ({abertura} SS de 2023–2025) é o saldo de abertura. "
            "Cada mês soma as SS abertas no próprio mês e desconta as tratadas: o que sobra é o "
-           f"saldo com que o mês seguinte começa. Universo = os {mm['total']} indisponíveis da "
+           f"saldo com que o mês seguinte começa. Universo = os {mm['total']} do recorte da "
            "foto, que têm entrada e saída rastreadas.", 6)
     cabecalho(ws, 4, [("Mês", 30), ("Começou com", 14), ("Entraram", 12),
                       ("Saíram", 12), ("Sobrou no fim", 14), ("Variação", 12)])
@@ -604,11 +605,11 @@ def montar(meta, serie, detalhe, res):
          "repasse). O fecho de agosto bate com os «ainda no fluxo» da carteira. Os ativos que "
          "passaram pelo posto por fora da foto ficam fora do livro por não terem data de baixa."),
         ("Recorte de TIPOSS",
-         "Toda a planilha considera só SS com TIPO «INDISPONIBILIDADE PARA OPERAÇÃO», por "
-         f"decisão do gestor (13/08/2026). Da foto de entrada ficam fora "
-         f"{(meta['entrada_mensal'].get('fora_do_recorte') or {}).get('qtd', 0)} ativos de outros "
-         "tipos — obras, comissionamento, anomalia em operação, ajustes; na base do COEP, SS de "
-         "outros tipos não contam como entrantes."),
+         "SS de «INDISPONIBILIDADE PARA OPERAÇÃO» entram sempre; SS de outros tipos entram se o "
+         "ativo já foi concluído — decisão do gestor (13/08/2026): trabalho feito conta, seja "
+         "qual for o tipo. Só fica fora quem é de outro tipo E continua pendente "
+         f"({(meta['entrada_mensal'].get('fora_do_recorte') or {}).get('qtd', 0)} ativo). Na "
+         "coluna de ENTRANTES a régua segue sendo a primeira SS de indisponibilidade do ativo."),
         ("Posição",
          "Base de SS/OS e AIC de 07/08/2026; foto de entrada de junho/2026; pareceres e decisões "
          "do gestor até 13/08/2026."),
