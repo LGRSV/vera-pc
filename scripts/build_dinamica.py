@@ -98,11 +98,6 @@ def main():
             m["valor"] = 0.0
     # o evitado inclui a estimativa dos que nao tem valor orcado, senao a escada
     # mostra um numero menor do que o do topo da pagina
-    est = {x["ativo"]: x["valor_estimado"] for x in d.get("economia", {}).get("estimada", {}).get("lista", [])}
-    for item in d["lista"]:
-        if item["etapa"] == EVITADA and not item.get("valor_evitado") and item["ativo"] in est:
-            item["valor_evitado"] = est[item["ativo"]]
-            item["valor_estimado"] = True
     evitado = sum(i.get("valor_evitado", 0) for i in d["lista"])
     for e in d["por_etapa"]:
         if e["etapa"] == EVITADA:

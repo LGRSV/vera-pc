@@ -664,7 +664,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "sem_material",
+      "material_lido": ""
     },
     {
       "ativo": "7900930040",
@@ -681,7 +685,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 66619.48,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 13,8 kV; Controle - Religador 13,8 kV; qtd 1"
     },
     {
       "ativo": "7900648055",
@@ -698,7 +706,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "indeterminado",
+      "material_lido": ""
     },
     {
       "ativo": "5836764032",
@@ -715,7 +727,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "indeterminado",
+      "material_lido": ""
     },
     {
       "ativo": "7903569004",
@@ -732,7 +748,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 66619.48,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 13,8 kV; Controle - Religador 13,8 kV; qtd 1"
     },
     {
       "ativo": "5800291077",
@@ -749,7 +769,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 126893.8,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Célula - Regulador 34,5 kV (1F 19,919 kV), fase B"
     },
     {
       "ativo": "7931383086",
@@ -766,7 +790,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 38151.48,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 34,5 kV; Para-raio da fase B da estrutura anterior"
     },
     {
       "ativo": "5800440256",
@@ -783,7 +811,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 126893.8,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Célula - Regulador 34,5 kV (1F 19,919 kV); Chave faca 34,5 kV, 3 chaves de entrada com ponto quente"
     },
     {
       "ativo": "7921040031",
@@ -800,7 +832,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "indeterminado",
+      "material_lido": ""
     },
     {
       "ativo": "7955523028",
@@ -817,7 +853,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "sem_material",
+      "material_lido": "Para-raios de entrada do religador; Cabo solto do isolador da fase B"
     },
     {
       "ativo": "5800366016",
@@ -834,7 +874,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 29445.39,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Controle de regulador com nobreak, substituição do controle completo RUA01"
     },
     {
       "ativo": "7922995039",
@@ -851,7 +895,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 66619.48,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 13,8 kV; Controle - Religador 13,8 kV; qtd 1; Troca do meio de comunicação, Orbcomm para antena Telespazio"
     },
     {
       "ativo": "7944319149",
@@ -868,7 +916,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "sem_material",
+      "material_lido": ""
     },
     {
       "ativo": "5850308009",
@@ -885,7 +937,11 @@
       "nota_campo": "Equipamento em operação em campo de acordo com a visita do Luanderson tem fotos Equipamento já em operação , realocar controle de Regulador para Arapoema 5800371025",
       "report": "",
       "defeito": "",
-      "valor": 29445.39
+      "valor": 29445.39,
+      "valor_evitado": 29445.39,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Controle de regulador com nobreak (ITB/RUA)"
     },
     {
       "ativo": "7957126085",
@@ -902,7 +958,11 @@
       "nota_campo": "Equipamento em operação no SCADA, favor enviar tanque enviado para Porto Nacional e cancelar a Obra. Utilizaremos tanque para Porto7953610256",
       "report": "",
       "defeito": "",
-      "valor": 51304.06
+      "valor": 51304.06,
+      "valor_evitado": 38094.72,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Controle - Religador 34,5 kV (NOJA RC10), controle completo queimado por surto; Cabo de alimentação da BT"
     },
     {
       "ativo": "7967181127",
@@ -919,7 +979,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 736.43,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Chave faca 34,5 kV, fase C (CH-[967181127C])"
     },
     {
       "ativo": "5800090147",
@@ -936,7 +1000,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 138038.91
+      "valor": 138038.91,
+      "valor_evitado": 126893.8,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Célula - Regulador 34,5 kV (1F 19,919 kV), fase C"
     },
     {
       "ativo": "7908206074",
@@ -953,7 +1021,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 38151.48,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 34,5 kV"
     },
     {
       "ativo": "7954668084",
@@ -970,7 +1042,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "indeterminado",
+      "material_lido": ""
     },
     {
       "ativo": "7955430075",
@@ -987,7 +1063,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 38151.48,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 34,5 kV"
     },
     {
       "ativo": "7955686076",
@@ -1004,7 +1084,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "sem_material",
+      "material_lido": ""
     },
     {
       "ativo": "7900505026",
@@ -1021,7 +1105,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 89455.54,
+      "valor_estimado": false,
+      "veredito_material": "material_identificado",
+      "material_lido": "Tanque / parte ativa - Religador 34,5 kV; Controle - Religador 34,5 kV; qtd 1"
     },
     {
       "ativo": "5820790038",
@@ -1038,7 +1126,11 @@
       "nota_campo": "",
       "report": "",
       "defeito": "",
-      "valor": 0.0
+      "valor": 0.0,
+      "valor_evitado": 0,
+      "valor_estimado": false,
+      "veredito_material": "sem_material",
+      "material_lido": ""
     },
     {
       "ativo": "7933726256",
@@ -3206,185 +3298,395 @@
   ],
   "economia": {
     "total_ativos": 23,
-    "comprovada": {
-      "ativos": 3,
-      "valor": 218788.36,
-      "lista": [
-        {
-          "ativo": "5800090147",
-          "localidade": "TAIPAS DO TOCANTINS",
-          "criticidade": "Média",
-          "tipo": "RT",
-          "valor": 138038.91
-        },
-        {
-          "ativo": "7957126085",
-          "localidade": "MONTE SANTO DO TOCANTINS",
-          "criticidade": "Média",
-          "tipo": "RL",
-          "valor": 51304.06
-        },
-        {
-          "ativo": "5850308009",
-          "localidade": "GUARAI",
-          "criticidade": "Média",
-          "tipo": "RT",
-          "valor": 29445.39
-        }
-      ]
-    },
-    "estimada": {
-      "ativos": 20,
-      "valor": 1332914.45,
-      "referencia": {
-        "RL": 51360.82,
-        "RT": 112500.43
+    "total": 882171.75,
+    "material_puro": 835911.59,
+    "adicional_obra": 46260.16,
+    "com_material": 14,
+    "sem_material": 5,
+    "indeterminados": 4,
+    "criterio": "Cancelada em operação quer dizer que a SS caiu porque o equipamento já estava operando. O valor é o material que teria sido comprado se o cancelamento não tivesse acontecido — lido no texto das 243 SS e OS desses 23 ativos, peça por peça.",
+    "comparacao": "A economia real é MENOR: R$ 882.171,75 contra R$ 1.551.702,81 do painel, ou seja R$ 669.531,06 a menos (43,1% abaixo). Reconstruí o número do painel e ele fecha ao centavo: 3 ativos pelo valor da ficha (R$ 218.788,36) + 20 pela mediana do tipo (R$ 1.332.914,45). A queda vem quase toda de um lugar só: 9 dos 23 ativos não têm material nenhum atribuível (5 sem_material + 4 indeterminados) e o painel imputa R$ 584.526,60 a eles - isso é 87% da diferença total. Os outros R$ 85.004,46 vêm dos 14 com material, onde a mediana erra para os dois lados e quase se cancela: erra para cima em 34,5 kV que só precisavam de uma peça (7931383086, 7955430075, 7908206074 e 7957126085, R$ 13.209,34 a menos cada, porque a mediana embute adicional de obra que não existe) e erra feio no 7967181127 (mediana R$ 51.360,82 contra R$ 736,43 reais de uma chave faca, 70x); e erra para baixo nos religadores completos e nas células de 34,5 kV (7900505026 R$ +38.094,72, os três reguladores R$ +14.393,37 cada, os três religadores 13,8 kV completos R$ +15.258,66 cada). Conclusão: a mediana não está apenas imprecisa, ela está sistematicamente inflada porque trata como \"equipamento inteiro\" um lote em que a maioria não precisava de peça alguma ou precisava de uma peça só.",
+    "ressalvas": [
+      "ECONOMIA DE MATERIAL NÃO É ECONOMIA DE CAIXA. Em 5 ativos a peça foi efetivamente consumida por outra frente (DCMD/estoque), somando R$ 261.846,58: 5800291077 (célula trocada 14/05/2026), 7931383086 (tanque trocado 19/03/2026), 7922995039 (religador de reposição já instalado), 5850308009 (controle trocado 12/09/2025) e 7967181127 (chave faca trocada 01/07/2026). O COEP não comprou, mas a Energisa gastou. Se a diretoria pedir economia líquida de caixa, o número cai para R$ 620.325,17.",
+      "7903569004 provavelmente não pertence ao balde de economia. A SS ETO-COEP 00152/2026 está PENDENTE e diz 'PARECER COEP 28/07/2026: EQUIPAMENTO SELECIONADO PARA COMPRA. Equipamento baypassado' - posterior ao registro de que estava em operação. Se a compra foi confirmada, os R$ 66.619,48 são despesa e não economia, e o total cai para R$ 815.552,27 (ou R$ 553.705,69 se combinado com o ajuste de caixa acima).",
+      "R$ 46.260,16 do total NÃO é material comprado: é adicional de obra da convenção do Allan, embutido nos 4 conjuntos completos (7900930040, 7903569004, 7922995039 e 7900505026). Material puro de catálogo: R$ 835.911,59. Se a diretoria quiser só peça comprada, use esse número.",
+      "5800090147: adotei o catálogo R$ 126.893,80 em vez dos R$ 138.038,91 da planilha de gestão. A diferença de R$ 11.145,11 não bate com nenhum adicional conhecido e não consegui rastrear. Se preferir manter a base da planilha, o total sobe para R$ 893.316,86.",
+      "5800090147 é a linha a validar com o DCMD antes de mostrar à diretoria: o defeito físico é um microswitch de reconhecimento de neutro e a célula inteira só é pedida porque célula ITB não se repara em campo. Se houver reparo de microswitch, R$ 126.893,80 viram quase zero.",
+      "7908206074 tem confiança média por dois motivos: as SS de 2024 pedem o religador COMPLETO ('tanque em curto e controle com defeito') e eu fiquei só no tanque por ancorar no laudo mais recente - pela leitura de 2024 o valor mais que dobraria para R$ 89.455,54; e há divergência de cadastro (a SS descreve COOPER F6-P2B, equipamentos.json registra NOJA RC10), o que abre a chance de o equipamento avariado já ter saído de campo, caso em que o ativo cai para R$ 0.",
+      "5800366016 tem confiança média: a visita mais recente (06/05/2026, SID 2390/2026) diz 'Em campo está tudo correto / FICOU EM OPERAÇÃO?: Sim', contradizendo o laudo do controle. Mantive porque quem foi era equipe TELE atendendo chamado de SCADA e o DMSL nunca retratou o laudo elétrico - mas vale uma confirmação.",
+      "5800440256, ressalva de fase: a SS do COEP cancelada em 30/03/2026 carregava o laudo da FASE A; o laudo da FASE B é de 06/08/2026, ciclo posterior ao cancelamento. Seja A ou B é 1 célula de 34,5 kV e o valor não muda, mas não afirme ao gestor que é a fase B da SS cancelada.",
+      "5850308009: a nota de campo manda realocar o controle para Arapoema (5800371025), que tem orçamento próprio de R$ 109.925,12 incluindo 'Controle RUA + kit comunicação + 3 células'. Se Arapoema receber este controle, aquele orçamento precisa ser abatido para não contar a mesma peça duas vezes.",
+      "Armadilha de texto de terceiro confirmada em 3 ativos: 7900543083 (laudo de tanque/parte ativa é do 7900448083), 7944319149 (laudo é do 7955430075, que também está nos 23 - contar lá e aqui pagaria a mesma peça duas vezes) e 7955686076 (SS ETO-RD-GU 00132/2026 é de um poste em outra localidade). Nos três, o material caiu para zero.",
+      "Armadilha do tanque enviado por engano: em 7957126085 o laudo manda ABAIXAR o tanque (reposicionar), não substituir, e a SS registra 'Foi enviado um tanque por engano o mesmo será respassado para porto atender o equipamento 7953610256'. Somar tanque ali inflaria em R$ 38.151,48 e colidiria com o orçamento de Mateiros.",
+      "Os 4 indeterminados estão em R$ 0 de propósito, não porque não haja defeito. 7954668084 é o mais provável de virar valor (display queimado é defeito de material confirmado, só falta o laudo de retorno da inspeção SID 4053/2026); 7900648055 depende do feedback da OS ETO-TELEPA 000289/2026; 5836764032 depende do ensaio das células do banco de Araguaçu; 7921040031 precisaria de uma inspeção nova posterior ao comissionamento de 03/03/2026, que hoje não existe. Se os quatro virassem material, o teto adicional seria da ordem de R$ 240 mil - mas nenhum deles tem hoje uma linha de texto que sustente um número."
+    ],
+    "texto": "Rodei os bots nas 243 SS/OS dos 23 ativos cancelados em operação, li o texto de cada uma e depois passei tudo por uma contraprova. Segue o que realmente teria sido comprado.\n\nECONOMIA REAL: R$ 882.171,75, contra os R$ 1.551.702,81 que o painel mostra hoje. São R$ 669.531,06 a menos, 43% abaixo. O painel não está errado por pouco: ele está inflado por construção, porque a mediana trata cada ativo como se fosse um equipamento inteiro.\n\nDe onde vem a diferença. Não é de ajuste fino nos valores: 87% da queda (R$ 584.526,60) vem de 9 ativos que simplesmente não tinham material nenhum a comprar e hoje recebem mediana cheia. O resto, R$ 85.004,46, vem dos 14 que têm peça, onde a mediana erra para os dois lados e quase se cancela.\n\nQUEM PUXA O NÚMERO. Três reguladores de 34,5 kV que precisavam de uma célula cada (R$ 126.893,80 a peça) somam R$ 380.681,40, ou 43% de tudo: Goiatins (5800291077), Mateiros (5800440256) e Taipas (5800090147). Com o religador completo de Ponte Alta (7900505026, R$ 89.455,54), quatro ativos respondem por 53% do total. Depois vêm três religadores 13,8 kV completos a R$ 66.619,48 (Aragominas, Araguaína e Araguatins) e três tanques de 34,5 kV a R$ 38.151,48.\n\nQUEM NÃO PRECISAVA DE PEÇA NENHUMA: 5 ativos, economia de material ZERO. Aparecida do Rio Negro (7900543083) e Caseara (7944319149) caíram porque o laudo caro colado na SS era de OUTRO equipamento — no caso de Caseara, o laudo é do 7955430075, que também está nesta lista, então valorizar os dois pagaria a mesma peça duas vezes. Natividade (7955523028) só tinha para-raios e cabo de rede, e o próprio DMSL escreveu \"da parte do DMSL não há pendências\". Duerê (7955686076) foi caminhão que bateu no poste: o pedido é refixar o controle, não trocar. Taguatinga (5820790038) tinha laudo de célula queimada, mas o regulador foi substituído em 06/08/2024 — contar ali seria cobrar duas vezes um equipamento trocado há dois anos. Só esses 5 tiram R$ 317.943,71 do painel.\n\nONDE A LEITURA NÃO FECHA: 4 ativos ficaram indeterminados e deixei em R$ 0 de propósito, em vez de chutar. Divinópolis (7954668084) tem display queimado — é defeito de material de verdade, mas nenhuma SS diz qual peça, e a própria área escreveu que ainda precisa analisar; falta o retorno da inspeção SID 4053/2026. Araguacema (7900648055) tem relé apagado e HOT LINE TAG, sem diagnóstico; falta o feedback da OS ETO-TELEPA 000289/2026. Araguaçu (5836764032) só diz \"falha na fase B\" e pede manutenção e aterramento, não troca; falta o ensaio das células. Rio dos Bois (7921040031) tinha laudo de tanque, mas a própria equipe retratou e o equipamento passou em comissionamento completo duas vezes depois disso. Esses 4 seguram hoje R$ 266.582,89 de mediana sem lastro.\n\nDUAS COISAS QUE PRECISO DIZER ANTES DE ISSO SUBIR PARA A DIRETORIA.\n\nPrimeira: economia de material não é economia de caixa. Em 5 ativos a peça foi efetivamente consumida por outra frente (DCMD ou estoque), somando R$ 261.846,58 — Goiatins, Marianópolis, Araguatins, Guaraí e Palmeiras. O COEP não comprou, mas a empresa gastou. Se a pergunta for \"quanto sobrou no caixa\", o número é R$ 620.325,17, não R$ 882 mil.\n\nSegunda: Araguaína (7903569004) provavelmente não deveria estar neste balde. A SS mais recente está PENDENTE e diz \"EQUIPAMENTO SELECIONADO PARA COMPRA, equipamento baypassado\", depois do registro de que estava em operação. Se a compra saiu, aqueles R$ 66.619,48 são despesa e não economia. Me confirma o status dessa compra que eu ajusto.\n\nDois detalhes técnicos para não haver surpresa: R$ 46.260,16 do total é adicional de obra da sua convenção, não peça — se quiser só material comprado, o número é R$ 835.911,59. E em Taipas usei o catálogo (R$ 126.893,80) em vez dos R$ 138.038,91 da planilha, porque não consegui rastrear a diferença de R$ 11.145,11.\n\nO caso que mais mostra o tamanho da distorção é Palmeiras (7967181127): o painel imputa R$ 51.360,82 e o material real é uma chave faca de R$ 736,43. Setenta vezes menor.",
+    "lista": [
+      {
+        "ativo": "5800291077",
+        "localidade": "GOIATINS",
+        "criticidade": "Muito Alta",
+        "tipo": "RT",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 126893.8,
+        "confianca": "alta",
+        "defeito": "Célula da fase B em curto, confirmado por ensaio de bancada no banco",
+        "materiais": [
+          "690241 | Célula - Regulador 34,5 kV (1F 19,919 kV), fase B | qtd 1 | R$ 126.893,80"
+        ],
+        "evidencia": "ETO-TELE 00498/2026 (08/04/2026) e ETO-COEP 00066/2026, SID 1709/2026, data 07/04/2026: 'Realizado ensaios nas células do banco 5800291077, identificado fase B em curto FICOU EM OPERAÇÃO?: Não PENDÊNCIA: SIM ... Realizar substituição da célula da fase B'. Reforço em ETO-RD-AR 00841/2026 (12/05/2026): 'Substituir fase B regulador 5800291077'.",
+        "porque_caiu": "SS do COEP cancelada porque o regulador seguia operando com a fase B comprometida. É o caso mais bem documentado dos 23: único com ensaio elétrico e SID amarrando o defeito à peça."
       },
-      "lista": [
-        {
-          "ativo": "7900543083",
-          "localidade": "APARECIDA DO RIO NEGRO",
-          "criticidade": "Muito Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7900930040",
-          "localidade": "ARAGOMINAS",
-          "criticidade": "Muito Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7900648055",
-          "localidade": "ARAGUACEMA",
-          "criticidade": "Muito Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "5836764032",
-          "localidade": "ARAGUACU",
-          "criticidade": "Muito Alta",
-          "tipo": "RT",
-          "valor_estimado": 112500.43
-        },
-        {
-          "ativo": "7903569004",
-          "localidade": "ARAGUAINA",
-          "criticidade": "Muito Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "5800291077",
-          "localidade": "GOIATINS",
-          "criticidade": "Muito Alta",
-          "tipo": "RT",
-          "valor_estimado": 112500.43
-        },
-        {
-          "ativo": "7931383086",
-          "localidade": "MARIANOPOLIS",
-          "criticidade": "Muito Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "5800440256",
-          "localidade": "MATEIROS",
-          "criticidade": "Muito Alta",
-          "tipo": "RT",
-          "valor_estimado": 112500.43
-        },
-        {
-          "ativo": "7921040031",
-          "localidade": "RIO DOS BOIS",
-          "criticidade": "Muito Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7955523028",
-          "localidade": "NATIVIDADE",
-          "criticidade": "Alta",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "5800366016",
-          "localidade": "WANDERLANDIA",
-          "criticidade": "Alta",
-          "tipo": "RT",
-          "valor_estimado": 112500.43
-        },
-        {
-          "ativo": "7922995039",
-          "localidade": "ARAGUATINS",
-          "criticidade": "Média",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7944319149",
-          "localidade": "CASEARA",
-          "criticidade": "Média",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7967181127",
-          "localidade": "PALMEIRAS DO TOCANTINS",
-          "criticidade": "Média",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7908206074",
-          "localidade": "DIANOPOLIS",
-          "criticidade": "Baixa",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7954668084",
-          "localidade": "DIVINOPOLIS",
-          "criticidade": "Baixa",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7955430075",
-          "localidade": "DOIS IRMAOS DO TOCANTINS",
-          "criticidade": "Baixa",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7955686076",
-          "localidade": "DUERE",
-          "criticidade": "Baixa",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "7900505026",
-          "localidade": "PONTE ALTA TOCANTINS",
-          "criticidade": "Baixa",
-          "tipo": "RL",
-          "valor_estimado": 51360.82
-        },
-        {
-          "ativo": "5820790038",
-          "localidade": "TAGUATINGA",
-          "criticidade": "Sem classificação",
-          "tipo": "RT",
-          "valor_estimado": 112500.43
-        }
-      ]
-    },
-    "total": 1551702.81,
-    "criterio": "Cancelada em operação quer dizer que a SS caiu porque o equipamento já estava operando: nenhuma peça precisou ser comprada. O que estava orçado para eles deixou de ser gasto.",
-    "ressalva": "Só 3 dos 23 têm valor orçado na planilha de gestão. Para os outros 20 usei a mediana do valor previsto do próprio tipo na mesma planilha — é estimativa, não valor de catálogo."
+      {
+        "ativo": "5800440256",
+        "localidade": "MATEIROS",
+        "criticidade": "Muito Alta",
+        "tipo": "RT",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 126893.8,
+        "confianca": "alta",
+        "defeito": "Célula do banco com isolação baixa/danificada (laudo de fase A no ciclo cancelado, fase B no laudo de 06/08/2026)",
+        "materiais": [
+          "690241 | Célula - Regulador 34,5 kV (1F 19,919 kV) | qtd 1 | R$ 126.893,80",
+          "90556 | Chave faca 34,5 kV, 3 chaves de entrada com ponto quente | qtd 3 | LISTADA, NÃO CONTABILIZADA (R$ 2.209,29)"
+        ],
+        "evidencia": "ETO-TELE 01034/2026 e ETO-COEP 00169/2026 (06/08/2026): 'PARECER DMSL 06/08: Substituir célula da Fase B do banco de Regulador de tensão e realizar melhorias na malha de aterramento do Regulador'. Laudo anterior colado em 9 SS: 'a fase A está com isolação muito baixa'.",
+        "porque_caiu": "SS cancelada em 30/03/2026 com o regulador operando. Cortei R$ 2.209,29 das 3 chaves faca: estão em SS separada de linha viva (DG-RD-PO 00432/2026, ponto quente em chave de entrada) e são manutenção de conexão de rede, não o material da indisponibilidade. Não apliquei o adicional de obra de R$ 80.318,50 - é 1 célula, não banco completo."
+      },
+      {
+        "ativo": "5800090147",
+        "localidade": "TAIPAS DO TOCANTINS",
+        "criticidade": "Média",
+        "tipo": "RT",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 126893.8,
+        "confianca": "alta",
+        "defeito": "Microswitch de reconhecimento de neutro da célula da fase C com defeito; regulador travando taps",
+        "materiais": [
+          "690241 | Célula - Regulador 34,5 kV (1F 19,919 kV), fase C | qtd 1 | R$ 126.893,80"
+        ],
+        "evidencia": "ETO-COEP 00117/2026 e ETO-TELE 00438/2026 (abertas 15/06/2026, canceladas 13/07/2026): 'PARECER DMSL: Favor, substituir a célula da fase C do RT 5800090147 pois o microswitch que renconhece o neutro do regulador está com defeito. Equipamento ficou operando devido ser possível manobrar de forma manual.'",
+        "porque_caiu": "A própria frase do laudo explica o cancelamento: ficou operando porque dava para manobrar na mão. Um dos 3 ativos com valor na planilha (R$ 138.038,91); adotei o catálogo R$ 126.893,80 por ser rastreável - a diferença de R$ 11.145,11 não bate com nenhum adicional conhecido. É a linha a validar com o DCMD: se o microswitch for reparável, a célula inteira cai."
+      },
+      {
+        "ativo": "7900505026",
+        "localidade": "PONTE ALTA TOCANTINS",
+        "criticidade": "Baixa",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 89455.54,
+        "confianca": "alta",
+        "defeito": "Falha de abertura para proteção, reincidente; substituição do equipamento completo",
+        "materiais": [
+          "690005 | Tanque / parte ativa - Religador 34,5 kV | qtd 1 | R$ 38.151,48",
+          "692263 | Controle - Religador 34,5 kV | qtd 1 | R$ 38.094,72",
+          "ADICIONAL DE OBRA (convenção Allan, religador completo 34,5 kV) | qtd 1 | R$ 13.209,34"
+        ],
+        "evidencia": "ETO-COEP 00042/2026 e ETO-PROT 00136/2026 (abertura 29/06/2026, cancelamento 14/07/2026): 'PARECER COEP: O Equipamento se encontra em operação no SCADA, favor verificar e reavaliar se existe pendência de substiuição PARECER DMSL: FAVOR REALIZAR A SUBSTITUIÇÃO DO EQUIOAMENTO COMPLETO, FALHA DE ABERTURA PARA PROTEÇÃO' (grafia original).",
+        "porque_caiu": "O conjunto completo está escrito no laudo, não é inferência. Reincidência sustenta: ETO-PROT 00022/2024 'equipamento não abriu' e ETO-PROT 00002/2026 'Equipamentos reincidentes em falha de proteção', fechada só com revisão de ajustes - ou seja, ajuste já foi tentado e não resolveu. Ressalva: é a maior linha de religador e o parecer DMSL não tem data escrita junto, só a da SS que o carrega."
+      },
+      {
+        "ativo": "7900930040",
+        "localidade": "ARAGOMINAS",
+        "criticidade": "Muito Alta",
+        "tipo": "RL",
+        "classe_tensao": "13,8 kV",
+        "veredito": "material_identificado",
+        "valor": 66619.48,
+        "confianca": "alta",
+        "defeito": "Tanque e controle danificados",
+        "materiais": [
+          "690001 | Tanque / parte ativa - Religador 13,8 kV | qtd 1 | R$ 21.785,72",
+          "690916 | Controle - Religador 13,8 kV | qtd 1 | R$ 33.816,82",
+          "ADICIONAL DE OBRA (convenção Allan, religador completo 13,8 kV) | qtd 1 | R$ 11.016,94"
+        ],
+        "evidencia": "Em 5 SS, incluindo ETO-RD-AR 01237/2025 (17/09/2025), ETO-COEP 00191/2025 e ETO-RD-AR 00737/2026 (23/04/2026), ETO-COEP 00079/2026 e ETO-RD-AR 00764/2026 (29/04/2026): 'Trocar tanque e controle Danificado do religador 7900930040 COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação. Segue nota para devidas tratativas.'",
+        "porque_caiu": "O próprio texto diz que estava em operação. As duas peças estão escritas ('tanque E controle'), não foi inferido conjunto. Classe 13,8 kV confirmada em equipamentos.json - o '38kV' da descrição do ativo é isolamento do NOJA RC10 e foi descartado. Material puro de catálogo: R$ 55.602,54."
+      },
+      {
+        "ativo": "7922995039",
+        "localidade": "ARAGUATINS",
+        "criticidade": "Média",
+        "tipo": "RL",
+        "classe_tensao": "13,8 kV",
+        "veredito": "material_identificado",
+        "valor": 66619.48,
+        "confianca": "alta",
+        "defeito": "Parte ativa e controle danificados, substituição completa",
+        "materiais": [
+          "690001 | Tanque / parte ativa - Religador 13,8 kV | qtd 1 | R$ 21.785,72",
+          "690916 | Controle - Religador 13,8 kV | qtd 1 | R$ 33.816,82",
+          "ADICIONAL DE OBRA (convenção Allan, religador completo 13,8 kV) | qtd 1 | R$ 11.016,94",
+          "sem_codigo | Troca do meio de comunicação, Orbcomm para antena Telespazio | sem preço, fora do valor"
+        ],
+        "evidencia": "ETO-TELE 00555/2025 (02/09/2025), herdado por ETO-PROT 00135/2026 e ETO-COEP 00179/2025: 'PARECER DMSL: Após testes, equipe DMSL constatou que o RLG 7922995039 encontra-se com parte ativa e controle danificados. Favor, realizar substituição completa do equipamento. Troca do sistema de comunicação do equipamento'.",
+        "porque_caiu": "Conjunto completo justificado: as duas metades estão condenadas no mesmo laudo e o texto usa 'completa'. A classe é o ponto caro e está certa - 13,8 kV em equipamentos.json e 'RELIGADOR DE LINHA - 13,8kV' nas SS. Se tivesse sido lido como 34,5 kV, o painel erraria R$ 22.836,06 para cima. RESSALVA: o religador de reposição já foi instalado ('Equipamento em operação, instalado com sucesso', 29/06/2026) - a peça foi consumida por outra frente."
+      },
+      {
+        "ativo": "7903569004",
+        "localidade": "ARAGUAINA",
+        "criticidade": "Muito Alta",
+        "tipo": "RL",
+        "classe_tensao": "13,8 kV",
+        "veredito": "material_identificado",
+        "valor": 66619.48,
+        "confianca": "alta",
+        "defeito": "Substituição do equipamento todo e parte ativa; relé apagado, não abriu nem pela alavanca mecânica",
+        "materiais": [
+          "690001 | Tanque / parte ativa - Religador 13,8 kV | qtd 1 | R$ 21.785,72",
+          "690916 | Controle - Religador 13,8 kV | qtd 1 | R$ 33.816,82",
+          "ADICIONAL DE OBRA (convenção Allan, religador completo 13,8 kV) | qtd 1 | R$ 11.016,94"
+        ],
+        "evidencia": "ETO-TELE 00360/2026 (30/03/2026), ETO-COEP 00060/2026, ETO-TELE 00963/2026 (29/06/2026) e ETO-COEP 00152/2026 (20/07/2026): 'PARECER DMSL: Realizar substituição do equipamento todo e parte ativa. Equipe: Adeilton e Edicleber. Data: 12/03'. Histórico: ETO-TELE 00778/2024 'Equipamento foi bay-passado, não foi possível abrir o mesmo em campo, nem mesmo pela alavanca de abertura mecânica. O relé estar apagado'.",
+        "porque_caiu": "ALERTA DE ENQUADRAMENTO - este provavelmente NÃO pertence ao balde de economia. A SS ETO-COEP 00152/2026 está PENDENTE e diz 'PARECER COEP 28/07/2026: EQUIPAMENTO SELECIONADO PARA COMPRA. Equipamento baypassado.', posterior ao 'está em operação no Scada' de 29/06/2026. Se a compra foi mesmo selecionada e o religador está bypassado, os R$ 66.619,48 são DESPESA, não economia. Recomendo tirar do cálculo até o gestor confirmar o status da compra."
+      },
+      {
+        "ativo": "7931383086",
+        "localidade": "MARIANOPOLIS",
+        "criticidade": "Muito Alta",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 38151.48,
+        "confianca": "alta",
+        "defeito": "Tanque danificado, confirmado em teste com giga; controle em bom estado",
+        "materiais": [
+          "690005 | Tanque / parte ativa - Religador 34,5 kV | qtd 1 | R$ 38.151,48",
+          "sem_codigo | Para-raio da fase B da estrutura anterior | qtd 1 | sem preço de catálogo, fora do valor"
+        ],
+        "evidencia": "ETO-TELE 00505/2025, OS ETO-TELE 000552/2025, SID 2654/2025, data 15/05/2025 escrita no laudo: 'Foi constatado que o tanque está danificado. Realizado testes com a giga. Necessário substituir tanque. Substituir também para raio da fase B na estrutura anterior que faz a proteção do equipamento. Controle em bom estado.' O mesmo parágrafo aparece colado em 6 SS - é um único laudo.",
+        "porque_caiu": "NÃO é conjunto completo: o laudo diz 'Controle em bom estado'. Quem aplicar os R$ 89.455,54 de religador completo aqui erra em R$ 51.304,06. RESSALVA: o tanque FOI trocado - 'PARECER DCMD: Foi realizado a substituição do tanque religador no dia 19-03-2026' (ETO-RD-PS 00135/2026). Como material que o COEP teria comprado está certo; como dinheiro poupado pela empresa, não é - o gasto ocorreu por outra frente."
+      },
+      {
+        "ativo": "7955430075",
+        "localidade": "DOIS IRMAOS DO TOCANTINS",
+        "criticidade": "Baixa",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 38151.48,
+        "confianca": "alta",
+        "defeito": "Sensor do tanque com defeito, não lê tensão na fase B; equipamento by-passado",
+        "materiais": [
+          "690005 | Tanque / parte ativa - Religador 34,5 kV | qtd 1 | R$ 38.151,48"
+        ],
+        "evidencia": "ETO-TELE 00920/2025 (24/09/2025), ETO-RD-PS 00302/2025 (17/10/2025) e ETO-COEP 00208/2025: 'PARECER DMSL: Data: 03/09/2025 Serviço Executado: Necessário substituir a parte ativa pois, após testes, foi constatado defeito no sensor do tanque. O mesmo não esta lendo tensão na fase B. Equipamento ficou em operação? NÃO. Pendência: Substituir parte ativa.' Casa com ENC-RD-PS 00912/2025 do mesmo dia: 'EQUIPAMENTO BY-PASSADO EM CAMPO DEVIDO FALHA NA PARTE ATIVA'.",
+        "porque_caiu": "Laudo com data escrita (03/09/2025), não aparece em nenhuma SS de 2024 - não é texto herdado. Não escalei para conjunto completo: o laudo pede parte ativa e só. ATENÇÃO: este mesmo laudo (SID 4589/2025) está colado indevidamente nas SS do 7944319149, que também está nos 23 - contar parte ativa lá seria pagar a mesma peça duas vezes."
+      },
+      {
+        "ativo": "7908206074",
+        "localidade": "DIANOPOLIS",
+        "criticidade": "Baixa",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 38151.48,
+        "confianca": "media",
+        "defeito": "Tanque queimado / em curto",
+        "materiais": [
+          "690005 | Tanque / parte ativa - Religador 34,5 kV | qtd 1 | R$ 38.151,48"
+        ],
+        "evidencia": "ETO-COEP 00063/2025 (aberta 15/04/2025, cancelada 29/06/2026), único texto não cumulativo do ativo: 'Equipe identificou em campo que o tanque se encontra queimado, solicitamos a substituição'.",
+        "porque_caiu": "ESCOLHA DELIBERADA DE ERRAR PARA BAIXO. Quatro SS de 2024 repetem 'Favor, substituir RLG 7908206074 por completo devido tanque em curto e controle com defeito' - pela leitura de 2024 o valor seria R$ 89.455,54, mais que o dobro. Ancorei no laudo mais recente (2025), que só cita tanque. Corrigi uma citação: a ETO-TELE 00832/2023 NÃO diz 'controle em bom estado', diz 'O controle se encontra em com estado' (truncado) e não prova nada. DIVERGÊNCIA DE CADASTRO: a SS descreve COOPER F6-P2B, equipamentos.json registra NOJA RC10; se o DCMD confirmar que o COOPER avariado já saiu de campo, este ativo cai para R$ 0."
+      },
+      {
+        "ativo": "7957126085",
+        "localidade": "MONTE SANTO DO TOCANTINS",
+        "criticidade": "Média",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 38094.72,
+        "confianca": "alta",
+        "defeito": "Para-raios das fases B e C fechando arco na cruzeta; curto desceu e queimou os componentes do controle",
+        "materiais": [
+          "692263 | Controle - Religador 34,5 kV (NOJA RC10), controle completo queimado por surto | qtd 1 | R$ 38.094,72",
+          "sem_codigo | Cabo de alimentação da BT | sem preço de catálogo, fora do valor"
+        ],
+        "evidencia": "Em 5 SS (ETO-TELE 00597/2025, ETO-RD-PS 00185/2025, ETO-COEP 00156/2025, ETO-COEP 00145/2026, ETO-RD-PS 00301/2026): 'Os para raios da fase B e C estão fechando arco na cruzeta. Curto desceu para o controle danificando os componentes. Necessário substituir controle completo, substituir cabo de alimentação da BT e abaixar o tanque para afastar das cruzetas.'",
+        "porque_caiu": "NÃO tem tanque, e isso importa: o verbo é ABAIXAR (reposicionar para afastar das cruzetas), não substituir. A própria SS diz 'Foi enviado um tanque por engano o mesmo será respassado para porto atender o equipamento 7953610256'. Somar 690005 aqui inflaria em R$ 38.151,48 e chocaria com o orçamento próprio do 7953610256. Conferência aritmética forte: a planilha traz R$ 51.304,06 = 38.094,72 + 13.209,34 de adicional de obra, exato. Usei o catálogo puro para errar para baixo."
+      },
+      {
+        "ativo": "5800366016",
+        "localidade": "WANDERLANDIA",
+        "criticidade": "Alta",
+        "tipo": "RT",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 29445.39,
+        "confianca": "media",
+        "defeito": "Controle completo (RUA01) danificado, tensões oscilando sem referência; equipamento by-passado",
+        "materiais": [
+          "651638 | Controle de regulador com nobreak, substituição do controle completo RUA01 | qtd 1 | R$ 29.445,39"
+        ],
+        "evidencia": "ETO-TELE 00375/2026, ETO-COEP 00052/2026, ETO-TELE 00350/2026 e ETO-COEP 00053/2026: 'PARECER DMSL: Realizar substituição do controle completo (RUA01). Equipe: Adeilton e Edicleber - Data: 18/03/2026. Regulador 5800366016, com tensões oscilando, sem referência, Foi by passado'. Laudo independente anterior, ETO-TELE 01107/2025 (09/10/2025): 'PARECER DMSL: Necessário a substituição do Relé'.",
+        "porque_caiu": "Dois ciclos, cinco meses de distância, mesma peça. A célula NÃO entra: a SS ETO-RD-AR 00275/2026 pedindo célula da fase A foi ATENDIDA em 31/01/2026 pela OS ENC-MLAR01 000078/2026 - somá-la jogaria R$ 126.893,80 indevidos no painel. CONFIANÇA REBAIXADA: a visita mais recente contradiz o laudo (06/05/2026, SID 2390/2026, 'Em campo está tudo correto', 'FICOU EM OPERAÇÃO?: Sim'), mas quem foi era equipe TELE atendendo chamado de SCADA e o DMSL nunca retratou o laudo elétrico."
+      },
+      {
+        "ativo": "5850308009",
+        "localidade": "GUARAI",
+        "criticidade": "Média",
+        "tipo": "RT",
+        "classe_tensao": "13,8 kV",
+        "veredito": "material_identificado",
+        "valor": 29445.39,
+        "confianca": "alta",
+        "defeito": "Controle danificado, regulador não trabalha automaticamente",
+        "materiais": [
+          "651638 | Controle de regulador com nobreak (ITB/RUA) | qtd 1 | R$ 29.445,39"
+        ],
+        "evidencia": "ETO-TELE 00913/2025 (02/09/2025), ETO-COEP 00180/2025 e ETO-COEP 00127/2026: 'PARECER DMSL: Após testes, foi constatado que o RT 5850308009 encontra-se com controle danificado, sendo necessária substituição do mesmo.' Reforço em ETO-RD-GR 00810/2025 (04/09/2025): 'Favo substituir o controle do RT RDU Guarai pois o mesmo não trabalha automaticamente'.",
+        "porque_caiu": "Nenhuma das 14 SS fala em célula, parte ativa ou fase queimada - não cabe conjunto completo. Valor bate ao centavo com a planilha de gestão (valor_previsto R$ 29.445,39, descrição 'Controle c/ nobreak'). RESSALVA CONTÁBIL: o DMSL já trocou o controle em 12/09/2025 com peça de estoque e a nota manda 'realocar controle de Regulador para Arapoema 5800371025'. Se o controle já foi comprado, isso não é economia de caixa e sim transferência - e o orçamento de Arapoema (R$ 109.925,12) precisa ser abatido."
+      },
+      {
+        "ativo": "7967181127",
+        "localidade": "PALMEIRAS DO TOCANTINS",
+        "criticidade": "Média",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "material_identificado",
+        "valor": 736.43,
+        "confianca": "alta",
+        "defeito": "Chave faca da fase C não fechou, sentindo carga",
+        "materiais": [
+          "90556 | Chave faca 34,5 kV, fase C (CH-[967181127C]) | qtd 1 | R$ 736,43"
+        ],
+        "evidencia": "Em 8 das 10 SS: 'PARECER DMSL: Fase C. Sentindo carga Chave faca não fechou, realizar substituição. DATA: 09/04/2026 SID 1756/2026'. A ETO-RD-AG 00670/2026 nomeia peça, tag e tensão. Execução confirmada: OS ETO-LVAG01 000230/2026 e ETO-TELE 01035/2026 (28/07/2026) 'PARECER DCMD: FOI REALIZADO A SUBSTITUIÇÃO DA CHAVE FACA FASE C CONFORME SOLICITADO NA DATA DE 01/07/2026'.",
+        "porque_caiu": "Varri as 10 SS: não há uma única menção a tanque, parte ativa, controle ou relé queimado. É o maior distorcedor do painel na direção contrária - a ficha está zerada, então hoje o painel imputa a mediana de R$ 51.360,82 para um ativo cujo material real é R$ 736,43, 70 vezes menor. Mantive qtd 1 (o parecer COEP está no plural, mas todo texto técnico nomeia só a fase C e a OS confirma uma chave)."
+      },
+      {
+        "ativo": "7900543083",
+        "localidade": "APARECIDA DO RIO NEGRO",
+        "criticidade": "Muito Alta",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "sem_material",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Somente falha de comunicação, normalizada via repetidor",
+        "materiais": [],
+        "evidencia": "ETO-TELE 00373/2026 / OS ETO-TELE 000397/2026, 06/04/2026: 'Foi normalizado a comunicação do equipamento através do repetidor. Equipamento ficou em operação? sim. Pendência: não. Bateria(s) substituída(s)? Não'. O laudo de peça é de OUTRO ativo: 'O equipamento 7900448083 funciona como repetidor, devido ele esta com problemas na parte ativa foi isolado' e 'PARECER COCM CENTRO SUBSTITUIDO O TRANQUE DO RL 7900448083'.",
+        "porque_caiu": "Armadilha 4 confirmada: tanque e parte ativa são do 7900448083, não deste ativo. Contra o 7900543083 só há comunicação e bateria preventiva (esquema PREVNP). Economia de material ZERO - o painel imputa hoje R$ 51.360,82 sem lastro."
+      },
+      {
+        "ativo": "7944319149",
+        "localidade": "CASEARA",
+        "criticidade": "Média",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "sem_material",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Nenhum defeito de material próprio; cabo RG 213 solto do conector, resolvido com solda",
+        "materiais": [],
+        "evidencia": "OS ETO-TELE 000983/2025, único texto que nomeia o ativo no corpo: 'RELIGADOR 7944319149 Data: 04/09/2025 SID: 4590/2025 Serviço Executado: Manutenção do cabo RG 213 que havia saído do conector, foi refeito a solda. Equipamento devolvido à operação. Equipamento ficou em operação: Sim Pendência: Não'.",
+        "porque_caiu": "Armadilha 4 na forma mais grave. O laudo caro colado em 3 SS tem cabeçalho de outro equipamento: 'RLG 7955430075 ... Necessário substituir a parte ativa' (SID 4589/2025) - e o 7955430075 TAMBÉM está nos 23, com o mesmo laudo nas SS dele. Valorizar parte ativa aqui contaria a mesma peça duas vezes dentro do balde. Marquei sem_material e não indeterminado justamente para não devolver a mediana de R$ 51.360,82 ao painel."
+      },
+      {
+        "ativo": "7955523028",
+        "localidade": "NATIVIDADE",
+        "criticidade": "Alta",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "sem_material",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Para-raios de entrada e cabo solto do isolador da fase B - itens de rede, sem peça de religador",
+        "materiais": [
+          "sem_codigo | Para-raios de entrada do religador | quantidade NÃO informada no texto | sem preço no plano de compras",
+          "sem_codigo | Cabo solto do isolador da fase B | qtd 1 | sem preço"
+        ],
+        "evidencia": "ETO-TELE 00294/2026 e ETO-RD-DP 00166/2026 (03/03/2026): 'PARECER DMSL: Favor, realizar substituição dos para-raios de entrada e cabo solto do isolador da fase B, do RLG 7955523028. Após relizar correções, favor colocar equipamento em operação e encerrar a nota, pois da parte do DMSL não há pendências.'",
+        "porque_caiu": "A frase final é a prova de que tanque e controle estão sadios. Nenhum laudo, em nenhum ciclo, aponta peça de religador: comissionamento de obra nova em 26/11/2024 sem pendência, e em 22/05/2025 só 'Fusível da Fonte CA queimado o mesmo foi substituído'. Nenhum item tem preço de catálogo, então o valor é zero. A mediana de R$ 51.360,82 superestima este ativo em praticamente o valor inteiro."
+      },
+      {
+        "ativo": "7955686076",
+        "localidade": "DUERE",
+        "criticidade": "Baixa",
+        "tipo": "RL",
+        "classe_tensao": "13,8 kV",
+        "veredito": "sem_material",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Controle deslocado do poste por batida de caminhão - refixação, não substituição",
+        "materiais": [],
+        "evidencia": "ETO-TELE 00347/2026 e ETO-RD-GU 00311/2026 (09/03/2026): 'caixa do religador 7955686076 caminhão de carvão passou no local e bateu ... PARECER DMSL: Favor, fixar novamente controle do equipamento 7955686076 no poste e retornar nota para o DMSL verificar a comunicação e colocar o RLG em operação'. OS ETO-RD-GU 000743/2026 encerra 'Executado OP'.",
+        "porque_caiu": "'Fixar novamente' é refixação, não substituição - nenhuma peça citada em nenhuma das 7 SS. O outro episódio de 2026 é comunicação pura, normalizada em 06/03/2026. Armadilha 4 também presente: a SS ETO-RD-GU 00132/2026 é de outro objeto (DESCIÇÃO DO ATIVO 'POSTE Concreto Duplo T', outra localidade, 3 chaves faca de 13,8 kV) e cita o religador só como causa de disponibilidade de equipe - as chaves faca não entram aqui."
+      },
+      {
+        "ativo": "5820790038",
+        "localidade": "TAGUATINGA",
+        "criticidade": "Sem classificação",
+        "tipo": "RT",
+        "classe_tensao": "34,5 kV",
+        "veredito": "sem_material",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Laudos de célula/tanque queimados são de 2024 e já foram liquidados com a troca do regulador em 06/08/2024",
+        "materiais": [],
+        "evidencia": "Fechamento na própria ETO-COEP 00095/2024: 'COCMS: REGULADOR DE TENSÃO FOI SUBSTITUÍDO NO DIA 06/08/2024. DADOS DE PLACA DO REGULADOR INSTALADO ESTÁ EM ANEXO', confirmado pela OS ETO-RD-DP 001790/2024 e pelo comissionamento do substituto (OS ETO-TELE 000624/2024, 'Equipamento ficou em operação?: Sim / Pendência: Não'). Ciclo 2026 é ajuste puro: ETO-PROT 00134/2026 'Alterado a tensão de referência de 20.120 para 21.000'.",
+        "porque_caiu": "Armadilha 1 desarmada. Os laudos de peça ('tanque da fase B queimado', 'célula fase B queimada', e ainda a fase C reprovada em ensaio na OS LLE-MPDP01 000312/2023) são todos anteriores a 06/08/2024 e foram liquidados pela mesma troca. Contar célula (R$ 126.893,80) ou o completo com adicional de R$ 80.318,50 aqui seria cobrar duas vezes um regulador já trocado há dois anos."
+      },
+      {
+        "ativo": "5836764032",
+        "localidade": "ARAGUACU",
+        "criticidade": "Muito Alta",
+        "tipo": "RT",
+        "classe_tensao": "34,5 kV",
+        "veredito": "indeterminado",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "'Falha no regulador fase B' - genérica, não nomeia peça; ações pedidas são manutenção e melhoria de aterramento",
+        "materiais": [],
+        "evidencia": "ETO-TELE 00836/2025, ETO-COEP 00166/2025, ETO-TELE 00807/2026 e ETO-RD-GU 00443/2026: 'PARECER DMSL: Realizar manutenção em todas as chaves do RT 5836764032, entrada, saída e baypass. Fazer melhoria na malha de aterramento. Foi Constatado Falha no Regulador de tensão 5836764032 fase B'. Desfecho de serviço puro: 'DCMD 28/04/2026 - Foi realizado a melhoria de aterramento e manutenção em todas as chaves conforme solicitado'.",
+        "porque_caiu": "REBAIXADO na contraprova: corte de R$ 126.893,80, o item mais perigoso do lote. O texto nunca manda substituir nada - 'falha' não nomeia peça, e as duas ações efetivamente pedidas são MANUTENÇÃO e MELHORIA. Compare com Goiatins (5800291077), onde está escrito 'Realizar substituição da célula da fase B' e há ensaio com SID; aqui essa frase não existe. O QUE FALTA PARA DECIDIR: ensaio elétrico das células do banco de Araguaçu."
+      },
+      {
+        "ativo": "7921040031",
+        "localidade": "RIO DOS BOIS",
+        "criticidade": "Muito Alta",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "indeterminado",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Laudo de 'defeito no tanque' sem data própria, desmentido pela mesma equipe e por dois comissionamentos posteriores",
+        "materiais": [],
+        "evidencia": "O laudo existe (ETO-TELE 01523/2025: 'Defeito no tanque ... PENDÊNCIA: Necesário substituir tanque') mas sem data escrita dentro. A mesma equipe retratou em 15/12/2025 (SID 6479/2025): 'EQUIPAMENTO ESTA NORMAL EM PR2ISA ABRIR CHAMADO NO SCADA PARA ATUALIZAR A BASE'. Depois passou em comissionamento completo duas vezes: 11/02/2026 (SID 976/2026) 'testado e colocado em operação ... Pendência: Não' e 03/03/2026 (ETO-DMSL-COM 00004/2026) 'Comissionamento executado' com relatório aprovado.",
+        "porque_caiu": "REBAIXADO na contraprova: corte de R$ 38.151,48. Um religador em curto no tanque não passa nesse ensaio. O contexto do laudo ('estava sem comunicação', 'está by pass') é o da ocorrência de dezembro/2025, já fechada. O parecer 'COEP: Realizar substituição do tanque' (24/02/2026) é endosso sobre texto herdado, não inspeção nova. O QUE FALTA: uma inspeção nova posterior a 03/03/2026 que reabra o defeito - hoje não existe."
+      },
+      {
+        "ativo": "7900648055",
+        "localidade": "ARAGUACEMA",
+        "criticidade": "Muito Alta",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "indeterminado",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Relé/display apagado, HOT LINE TAG ativado - causa não diagnosticada",
+        "materiais": [],
+        "evidencia": "ETO-SE-PA 00055/2026 (13/05/2026): 'equipamento está com relé apagado e sinalizando HOT LINE TAG ativado. Obs: display relé equipamento não está ligando, marca Noja'. A única hipótese escrita está na OS ETO-TELEPA 000289/2026: 'religador com displai apagado, verificar possível troca de bateria'.",
+        "porque_caiu": "REBAIXADO na contraprova: corte de R$ 38.094,72. A palavra 'controle' não aparece em nenhum texto do ativo - o valor anterior era inferência a partir de 'relé apagado', e a regra de ouro manda não inventar peça. A única hipótese registrada é bateria, que é preventiva e não conta. Só existem 3 SS e nenhuma traz feedback de serviço executado; as datas estão inconsistentes (ETO-TELE 00891/2026 consta aberta 06/06/2026 e encerrada 21/05/2026). O QUE FALTA: o feedback da OS ETO-TELEPA 000289/2026 junto ao DMSL."
+      },
+      {
+        "ativo": "7954668084",
+        "localidade": "DIVINOPOLIS",
+        "criticidade": "Baixa",
+        "tipo": "RL",
+        "classe_tensao": "34,5 kV",
+        "veredito": "indeterminado",
+        "valor": 0,
+        "confianca": "alta",
+        "defeito": "Display queimado, não liga - defeito de material confirmado, peça não especificada",
+        "materiais": [],
+        "evidencia": "ETO-TELE 00250/2026 (03/02/2026), ENC-RD-PS 00188/2026, repetido em ETO-TELE 00941/2026 e ETO-COEP 00028/2026: 'FEITO O PRIMEIRO ATAQUE NO RL 7954668084 E O DISPLAY ESTÁ QUEIMADO, NÃO LIGA' e 'PRECISA SER FEITO A ANÁLISE DO DMSL, PARA A COMPRA DO EQUIPAMENTO'. Única OS: ETO-TELEPA 000440/2026 (07/07/2026, SID 4053/2026) 'REALIZAR INSPEÇÃO NO EQUIPAMENTO, RL 7954668084 COM DISPLAY QUEIMADO, NÃO LIGA' - sem laudo de retorno.",
+        "porque_caiu": "REBAIXADO na contraprova: corte de R$ 38.094,72. O defeito é real e é de material (não é comunicação, ajuste, cadastro nem bateria), mas nenhuma SS diz qual peça - e a própria área declara que ainda não sabe ('para a COMPRA DO EQUIPAMENTO'). Ligar display ao controle 692263 é inferência técnica; a expressão literal puxaria para religador completo de 34,5 kV (R$ 89.455,54), pior ainda. O QUE FALTA: o laudo de retorno da inspeção SID 4053/2026. Este é o mais provável de virar valor quando o DMSL responder."
+      }
+    ]
   }
 }

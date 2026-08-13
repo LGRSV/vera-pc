@@ -75,7 +75,7 @@ function rol() {
     </div>
     <div class="tabela-rol"><table class="matriz rol"><thead><tr><th>Ativo</th><th>Localidade</th>
     <th>Tipo</th><th>Criticidade</th><th>Etapa</th><th>Parecer COEP</th><th>Check</th>
-    <th class="num">Valor previsto<i class="linha-nota">em vermelho, o que foi evitado</i></th></tr></thead><tbody>
+    <th class="num">Valor previsto<i class="linha-nota">em vermelho, o que teria sido gasto</i></th></tr></thead><tbody>
     ${lista.map((x) => `<tr>
       <td><b class="mono">${esc(x.ativo)}</b></td>
       <td>${esc(x.localidade || '—')}${x.polo ? `<span class="nota-campo">${esc(x.polo)}</span>` : ''}</td>
@@ -88,7 +88,7 @@ function rol() {
         ${x.observacao && x.observacao !== x.nota_campo ? `<span class="nota-campo">${esc(x.observacao)}</span>` : ''}</td>
       <td>${esc(x.check || '—')}</td>
       <td class="num">${x.valor ? esc(rs(x.valor))
-        : x.valor_evitado ? `<i class="evitado">${esc(rs(x.valor_evitado))}${x.valor_estimado ? ' *' : ''}</i>` : '—'}</td></tr>`).join('')}
+        : x.valor_evitado ? `<i class="evitado">${esc(rs(x.valor_evitado))}</i>` : '—'}</td></tr>`).join('')}
     </tbody></table></div>`;
 }
 
@@ -117,27 +117,29 @@ function desenhar() {
 
     <section class="bloco"><h3>A escada</h3>${escada()}</section>
 
-    ${D.economia ? `<section class="bloco"><h3>A economia dos cancelados em operação</h3>
+    ${D.economia ? `<section class="bloco"><h3>O que teria sido gasto nos cancelados em operação</h3>
       <p class="destaque-texto">${esc(D.economia.criterio)}</p>
       <div class="numeros">
-        ${num({ rotulo: 'Economia comprovada', valor: rs(D.economia.comprovada.valor), nota: `${D.economia.comprovada.ativos} com valor orçado na planilha`, tom: 'bom' })}
-        ${num({ rotulo: 'Economia estimada', valor: rs(D.economia.estimada.valor), nota: `${D.economia.estimada.ativos} sem valor na planilha`, tom: 'atento' })}
-        ${num({ rotulo: 'Total evitado', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} equipamentos`, tom: 'bom' })}
+        ${num({ rotulo: 'Total evitado', valor: rs(D.economia.total), nota: `${D.economia.total_ativos} equipamentos`, tom: 'evitado' })}
+        ${num({ rotulo: 'Só material de catálogo', valor: rs(D.economia.material_puro), nota: `sem o adicional de obra de ${rs(D.economia.adicional_obra)}` })}
+        ${num({ rotulo: 'Com peça identificada', valor: D.economia.com_material, nota: `${D.economia.sem_material} não precisavam de peça · ${D.economia.indeterminados} sem laudo que decida` })}
       </div>
       <div class="tabela-rol"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
-      <th>Tipo</th><th>Criticidade</th><th>Base</th><th class="num">Valor evitado</th></tr></thead><tbody>
-      ${D.economia.comprovada.lista.map((x) => `<tr>
-        <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade)}</td>
-        <td>${esc(x.tipo)}</td><td>${esc(x.criticidade)}</td>
-        <td>orçado na planilha</td><td class="num"><b>${esc(rs(x.valor))}</b></td></tr>`).join('')}
-      ${D.economia.estimada.lista.map((x) => `<tr>
-        <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade)}</td>
-        <td>${esc(x.tipo)}</td><td>${esc(x.criticidade)}</td>
-        <td>mediana do tipo</td><td class="num">${esc(rs(x.valor_estimado))}</td></tr>`).join('')}
-      </tbody><tfoot><tr><td colspan="5">Total</td>
-      <td class="num"><b>${esc(rs(D.economia.total))}</b></td></tr></tfoot></table></div>
-      <div class="nota branda" style="margin-top:12px"><strong>Onde a conta é estimativa</strong>${esc(D.economia.ressalva)}
-      Mediana usada: religador ${rs(D.economia.estimada.referencia.RL)}, regulador ${rs(D.economia.estimada.referencia.RT)}.</div>
+      <th>Criticidade</th><th>Tensão</th><th>Peça que teria sido comprada</th><th>Confiança</th>
+      <th class="num">Valor evitado</th></tr></thead><tbody>
+      ${D.economia.lista.map((x) => `<tr>
+        <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade || '—')}</td>
+        <td>${esc(x.criticidade || '—')}</td><td>${esc(x.classe_tensao || '—')}</td>
+        <td>${x.materiais.length ? x.materiais.map((m) => esc(m.split('|')[1] ? m.split('|')[1].trim() : m)).join('<br>')
+          : `<i>${x.veredito === 'sem_material' ? 'não precisava de peça' : 'o laudo não permite dizer'}</i>`}
+          ${x.defeito ? `<span class="nota-campo">${esc(x.defeito)}</span>` : ''}</td>
+        <td>${esc(x.confianca || '—')}</td>
+        <td class="num">${x.valor ? `<i class="evitado">${esc(rs(x.valor))}</i>` : '—'}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="6">Total</td>
+      <td class="num"><i class="evitado"><b>${esc(rs(D.economia.total))}</b></i></td></tr></tfoot></table></div>
+      ${D.economia.comparacao ? `<div class="nota" style="margin-top:14px"><strong>Contra a estimativa anterior</strong>${esc(D.economia.comparacao)}</div>` : ''}
+      ${(D.economia.ressalvas || []).length ? `<p class="destaque-texto" style="margin-top:16px">Onde a leitura pede cuidado:</p>
+      ${D.economia.ressalvas.map((x) => `<div class="nota branda" style="margin-bottom:8px">${esc(x)}</div>`).join('')}` : ''}
     </section>` : ''}
 
     <section class="bloco"><h3>Etapa × criticidade</h3>
