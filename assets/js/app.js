@@ -1375,12 +1375,6 @@ function abrirColecao(id) {
               ${linha('Ainda sem pedido', pl.sem_pedido ?? depois, 'sem pedido de compra registrado no parecer')}
               ${linha('Destes, orçados no plano de Muito Alta + Alta', noPlano, pl.valor_no_plano ? `R$ ${moedaBR(pl.valor_no_plano)}` : '')}
             </div>
-            ${pl.fora_do_plano_com_pedido ? `<div class="nota branda" style="margin-top:14px">
-            <strong>O que o plano não cobre</strong>
-            Os ${pl.fora_do_plano_com_pedido} equipamentos que você já mandou comprar e não têm linha no plano
-            são <b>todos de criticidade Média e Baixa</b> — o plano de compras cobre só Muito Alta e Alta.
-            Dos ${pl.com_decisao} com compra pedida, os ${pl.no_plano_com_pedido} de Muito Alta e Alta estão
-            todos orçados.</div>` : ''}
           </div>
         </div></section>
 `; })()}
