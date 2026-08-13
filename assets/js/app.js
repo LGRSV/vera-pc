@@ -563,9 +563,19 @@ async function baixarClassificacoes() {
       return;
     } catch (erro) { console.warn('download recusado', erro); }
   }
-  // Fora do visualizador: mostra o JSON para copiar.
+  // Sem o download disponível, mostra o JSON para copiar e cola na conversa.
   const area = $('#json-classif');
-  if (area) { area.value = conteudo; area.style.display = 'block'; area.select(); }
+  if (!area) return;
+  area.value = conteudo;
+  area.style.display = 'block';
+  area.focus();
+  area.select();
+  try { document.execCommand('copy'); } catch { /* o usuário copia à mão */ }
+  const aviso = $('#aviso-classif');
+  if (aviso) {
+    aviso.textContent = 'Copiado. Cole na conversa que eu registro como decisão no repositório.';
+    aviso.style.display = 'block';
+  }
 }
 
 /* ---------------- ficha do equipamento ---------------- */
@@ -1145,15 +1155,16 @@ function abrirColecao(id) {
       .sort((a, b) => (a.localidade || '').localeCompare(b.localidade || ''));
     html = cabecaColecao('Minhas classificações',
       'O que você marcou à mão, direto na ficha do ativo. Fica guardado neste navegador — ' +
-      'baixe o arquivo e me mande, que eu transformo em decisão registrada no repositório.') +
+      'gere o arquivo, cole na conversa e eu transformo em decisão registrada no repositório.') +
       (minhas.length ? `<div class="numeros">
         ${num({ rotulo: 'Ativos classificados por você', valor: minhas.length })}
         ${num({ rotulo: 'Onde você discorda do painel', valor: minhas.filter((x) => x.situacao !== x.situacao_do_painel).length, tom: 'atento' })}
       </div>
       <div class="acoes-classif" style="margin-bottom:22px">
-        <button class="pastilha" id="baixar-classif">Baixar o arquivo para me mandar</button>
+        <button class="pastilha" id="baixar-classif">Gerar o arquivo para me mandar</button>
         <button class="pastilha limpar" id="limpar-classif">Apagar tudo</button>
       </div>
+      <div class="nota" id="aviso-classif" style="display:none;margin-bottom:10px"></div>
       <textarea id="json-classif" rows="10" style="display:none;width:100%"></textarea>
       <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
       <th>O painel diz</th><th>Você diz</th><th>Por quê</th><th>Quando</th></tr></thead><tbody>
