@@ -13,13 +13,14 @@
     "servico_executado": "Substituição do controle completo do religador",
     "objetivo": "Substituição do controle completo do religador de Babaçulândia, fechando a demanda ETO-COEP 00068/2026 e regularizando o erro de controle apontado pelo DMSL.",
     "equipamento_instalado": "NOJA Power RC-10ES · série 0101523115475 · fabricação 12/2023 · alimentação auxiliar 110/220 Vac, 50/60 Hz · 42 kg · painel OP10-1-P",
-    "fonte": "Reporte de campo do gestor — 13/08/2026, 3 fotos",
+    "fonte": "Reporte construído pelo ETO-COEP a partir do registro de campo — 13/08/2026, 3 fotos",
     "anexo": {
       "fotos": 3,
-      "estado": "aguardando arquivo",
-      "descricao": "Foto 1: caixa de controle NOJA Power instalada no poste, plaqueta 29376, religador e cabo umbilical acima. Foto 2: placa de identificação — modelo RC-10ES, série 0101523115475, fabricação 12/23, 110/220 Vac, 50/60 Hz, 42 kg. Foto 3: painel OP10-1-P aberto, com PROT, EF, SEF, GRP, AR, CLP, LL e Hot Line Tag."
+      "estado": "arquivos recebidos e embutidos",
+      "descricao": "Foto 1: caixa de controle NOJA Power instalada no poste, plaqueta 29376, religador e cabo umbilical acima. Foto 2: placa de identificação — modelo RC-10ES, série 0101523115475, fabricação 12/23, 110/220 Vac, 50/60 Hz, 42 kg. Foto 3: painel OP10-1-P energizado."
     },
-    "vinculo": "Confirma a decisão do gestor de 13/08: o controle já está instalado, o SGM é que ainda não registrou. A ETO-RD-AR 01231/2026 segue PENDENTE no DCMD e a ETO-COEP 00120/2026 continua pendurada no COEP desde 30/06 — a foto é a prova que falta na base."
+    "vinculo": "Confirma a decisão do gestor de 13/08: o controle já está instalado e energizado, o SGM é que ainda não registrou. A ETO-RD-AR 01231/2026 segue PENDENTE no DCMD e a ETO-COEP 00120/2026 continua pendurada no COEP desde 30/06 — as fotos são a prova que faltava na base.",
+    "imagem": "7929376022_babaculandia_reporte.jpg"
   },
   {
     "ativo": "7908686014",
