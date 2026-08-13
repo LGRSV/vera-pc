@@ -3687,6 +3687,41 @@
         "evidencia": "ETO-TELE 00250/2026 (03/02/2026), ENC-RD-PS 00188/2026, repetido em ETO-TELE 00941/2026 e ETO-COEP 00028/2026: 'FEITO O PRIMEIRO ATAQUE NO RL 7954668084 E O DISPLAY ESTÁ QUEIMADO, NÃO LIGA' e 'PRECISA SER FEITO A ANÁLISE DO DMSL, PARA A COMPRA DO EQUIPAMENTO'. Única OS: ETO-TELEPA 000440/2026 (07/07/2026, SID 4053/2026) 'REALIZAR INSPEÇÃO NO EQUIPAMENTO, RL 7954668084 COM DISPLAY QUEIMADO, NÃO LIGA' - sem laudo de retorno.",
         "porque_caiu": "REBAIXADO na contraprova: corte de R$ 38.094,72. O defeito é real e é de material (não é comunicação, ajuste, cadastro nem bateria), mas nenhuma SS diz qual peça - e a própria área declara que ainda não sabe ('para a COMPRA DO EQUIPAMENTO'). Ligar display ao controle 692263 é inferência técnica; a expressão literal puxaria para religador completo de 34,5 kV (R$ 89.455,54), pior ainda. O QUE FALTA: o laudo de retorno da inspeção SID 4053/2026. Este é o mais provável de virar valor quando o DMSL responder."
       }
-    ]
+    ],
+    "conciliacao": {
+      "pergunta": "Por que esse valor está diferente do que a planilha apresenta?",
+      "na_planilha": 3,
+      "fora_da_planilha": 20,
+      "soma_planilha": 218788.36,
+      "soma_leitura_dos_3": 194433.91,
+      "vem_de_fora": 687737.84,
+      "linhas": [
+        {
+          "ativo": "5850308009",
+          "localidade": "GUARAI",
+          "planilha": 29445.39,
+          "leitura": 29445.39,
+          "diferenca": 0.0,
+          "explica": "Bate exatamente. Controle de regulador com nobreak, R$ 29.445,39 nos dois."
+        },
+        {
+          "ativo": "7957126085",
+          "localidade": "MONTE SANTO DO TOCANTINS",
+          "planilha": 51304.06,
+          "leitura": 38094.72,
+          "diferenca": -13209.34,
+          "explica": "A diferença é exatamente o adicional de obra de 34,5 kV. A planilha registra «Controle completo + cabo BT» e embute o adicional; eu só apliquei adicional onde o laudo pede conjunto completo, e aqui é só o controle. Se preferir a base da planilha, some R$ 13.209,34."
+        },
+        {
+          "ativo": "5800090147",
+          "localidade": "TAIPAS DO TOCANTINS",
+          "planilha": 138038.91,
+          "leitura": 126893.8,
+          "diferenca": -11145.11,
+          "explica": "A planilha traz R$ 138.038,91 para a célula da fase C e o catálogo do plano de compras traz R$ 126.893,80 para o mesmo código 690241. Os R$ 11.145,11 de diferença não batem com nenhum adicional conhecido e não consegui rastrear — fiquei com o catálogo, que é verificável."
+        }
+      ],
+      "resumo": "A planilha de gestão só tem valor para 3 dos 23 cancelados, somando R$ 218.788,36. Os outros 20 não estão lá — para eles a planilha não mostra nada, e os R$ 687.737,84 que eles somam vêm da leitura das SS. Nos 3 que existem nas duas bases, a diferença é de R$ 24.354,45 e está toda em duas linhas."
+    }
   }
 }

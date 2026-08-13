@@ -137,7 +137,21 @@ function desenhar() {
         <td class="num">${x.valor ? `<i class="evitado">${esc(rs(x.valor))}</i>` : '—'}</td></tr>`).join('')}
       </tbody><tfoot><tr><td colspan="6">Total</td>
       <td class="num"><i class="evitado"><b>${esc(rs(D.economia.total))}</b></i></td></tr></tfoot></table></div>
-      ${D.economia.comparacao ? `<div class="nota" style="margin-top:14px"><strong>Contra a estimativa anterior</strong>${esc(D.economia.comparacao)}</div>` : ''}
+      ${D.economia.conciliacao ? (() => { const c = D.economia.conciliacao; return `
+      <div class="nota" style="margin-top:16px"><strong>${esc(c.pergunta)}</strong>${esc(c.resumo)}</div>
+      <div class="tabela-rol" style="margin-top:10px"><table class="matriz"><thead><tr><th>Ativo</th><th>Localidade</th>
+      <th class="num">Planilha de gestão</th><th class="num">Leitura das SS</th><th class="num">Diferença</th>
+      <th>Por quê</th></tr></thead><tbody>
+      ${c.linhas.map((l) => `<tr><td><b class="mono">${esc(l.ativo)}</b></td><td>${esc(l.localidade)}</td>
+        <td class="num">${esc(rs(l.planilha))}</td><td class="num">${esc(rs(l.leitura))}</td>
+        <td class="num">${l.diferenca ? `<i class="evitado">${esc(rs(l.diferenca))}</i>` : '—'}</td>
+        <td>${esc(l.explica)}</td></tr>`).join('')}
+      <tr><td colspan="2"><b>Os outros ${c.fora_da_planilha}</b></td><td class="num">—</td>
+        <td class="num">${esc(rs(c.vem_de_fora))}</td><td class="num">—</td>
+        <td>Não estão na planilha de gestão, que cobre 65 dos 129 ativos. Para eles a planilha não mostra
+        valor nenhum — o número vem inteiro da leitura das SS.</td></tr>
+      </tbody></table></div>`; })() : ''}
+      ${D.economia.comparacao ? `<div class="nota branda" style="margin-top:12px"><strong>Contra a estimativa por mediana que estava aqui antes</strong>${esc(D.economia.comparacao)}</div>` : ''}
       ${(D.economia.ressalvas || []).length ? `<p class="destaque-texto" style="margin-top:16px">Onde a leitura pede cuidado:</p>
       ${D.economia.ressalvas.map((x) => `<div class="nota branda" style="margin-bottom:8px">${esc(x)}</div>`).join('')}` : ''}
     </section>` : ''}
