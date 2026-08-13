@@ -37,6 +37,7 @@ XLSX = os.path.join(RAIZ, "data", "raw", "BASE_SS_OS_EQ_ESPECIAIS_ENTRADA.xlsx")
 ARQ_MIN = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
 ARQ_AIC = os.path.join(RAIZ, "data", "missao", "aic_index.json")
 ARQ_AIC_RLRT = os.path.join(RAIZ, "data", "missao", "aic_rlrt.json")
+ARQ_DECISOES = os.path.join(RAIZ, "data", "raw", "decisoes_gestor.json")
 
 TIPO_INDISPONIBILIDADE = "INDISPONIBILIDADE PARA OPERA"
 ENCERRADA = "ENCERRAMENTO"
@@ -59,7 +60,13 @@ PREMISSAS = [
     "a execução (substituído, instalado, comissionar, ajustes). Se a SS pendente voltou ao "
     "COEP ou ao DCMD, ou se o texto só fala em espera de material, a intervenção não terminou.",
     "Alerta na cauda: quando o texto da SS pendente fala em cabo rompido, falha de comunicação "
-    "ou espera de peça, o ativo fica marcado — a troca foi feita, mas apareceu pendência nova.",
+    "ou espera de peça, o ativo fica marcado — a troca foi feita, mas apareceu pendência nova. "
+    "Atenção: a descrição da SS no SGM é CUMULATIVA (o parecer novo é colado em cima do antigo "
+    "e herdado pelas SS seguintes), então um parecer velho pode parecer atual; por isso o alerta "
+    "leva o caso para verificação humana em vez de mudar a contagem sozinho.",
+    "Decisão do gestor (data/raw/decisoes_gestor.json): quando ele confirma que a execução "
+    "aconteceu em campo, isso vale como fonte mesmo sem registro no SGM — o ativo conta como "
+    "resolvido pelo item 2 e a ficha mostra o que falta na higiene do sistema.",
     "Item 3 (ajustes): o parecer de ajuste conta como resolvido pelo gestor; a marca "
     "«ainda na Proteção» sai da base de SS/OS — SS PENDENTE ou REPASSADA em equipe PROT.",
     "Item 7 (obra): obra encerrada no AIC (status começa com ENCERRAMENTO) E ligada a ESTA "
@@ -183,6 +190,20 @@ ESPERA_NO_TEXTO = re.compile(
     r"V[ÃA]O CHEGAR|AT[ÉE] ESSA DATA MANTER|AGUARDANDO (A )?(CHEGAD|PE[ÇC]A|MATERIAL|CABO)|"
     r"FALHA DE COMUNICA|ROMPID|N[ÃA]O FOI SUBSTITU", re.I
 )
+
+
+def _decisoes_do_gestor():
+    """Confirmações que o gestor deu de viva voz, por ativo.
+
+    O SGM às vezes não registra o que já foi feito em campo — SS de execução que ninguém
+    baixa, repasse para a Proteção que não sai. Quando o gestor confirma a execução, isso
+    vale como fonte: fica gravado em data/raw/decisoes_gestor.json, com data e motivo, e o
+    site mostra a origem da informação em cada ficha.
+    """
+    if not os.path.exists(ARQ_DECISOES):
+        return {}
+    with open(ARQ_DECISOES, encoding="utf-8") as fh:
+        return {d["ativo"]: d for d in json.load(fh)}
 
 
 def _textos_das_ss():
@@ -336,6 +357,7 @@ def montar(registros):
 
     indice_aic, detalhe_aic, obras_por_ativo = _indice_aic()
     textos_ss = _textos_das_ss()
+    decisoes = _decisoes_do_gestor()
     parecer_por_ativo = {r["ativo"]: (r.get("parecer_coep") or "") for r in registros}
     carteira = {r["ativo"] for r in registros}
     localidade_carteira = {r["ativo"]: r.get("localidade", "") for r in registros}
@@ -464,8 +486,25 @@ def montar(registros):
         tratativa, atendimento_tecnico = _tratativa(ss_cadeia, obras_status, parecer)
 
         # veredito, na ordem de força definida nas premissas
+        decisao = decisoes.get(ativo)
+        executado_pelo_gestor = bool(decisao) and decisao.get("decisao") == "executado"
+        if executado_pelo_gestor:
+            executado_no_texto = True
+            alerta_cauda = False
+            cauda_pos_execucao = bool(cauda) and etapa_final in ("DEOP", "DMSL")
+
         veredito, motivo, regra = "em_andamento", "", None
-        if cauda_pos_execucao and alerta_cauda and not indisponibilidades:
+        if executado_pelo_gestor and not indisponibilidades:
+            etapa = {
+                "DEOP": ", aguardando o ajuste da Proteção",
+                "DMSL": ", aguardando o comissionamento do DMSL",
+                "COEP": " — SS ainda pendurada no COEP",
+                "DCMD": " — SS de execução ainda pendente no DCMD",
+            }.get((resumo_cadeia or {}).get("posto_atual"), "")
+            veredito = "resolvido"
+            motivo = f"Execução confirmada pelo gestor em {decisao.get('data', '')}{etapa}"
+            regra = 2
+        elif cauda_pos_execucao and alerta_cauda and not indisponibilidades:
             veredito = "verificar"
             regra = 5 if etapa_final == "DMSL" else 3
             motivo = (
@@ -524,6 +563,7 @@ def montar(registros):
             "obras_encerradas": [o["numero"] for o in encerradas],
             "obras_da_demanda": encerradas,
             "obras_descartadas": obras_descartadas,
+            "decisao_gestor": decisao,
             "veredito": veredito,
             "motivo": motivo,
             "regra": regra,
@@ -559,7 +599,7 @@ def montar(registros):
                                    "regra", "parecer_coep", "na_carteira", "na_protecao",
                                    "aba", "status_gestor",
                                    "obras_encerradas", "situacao_hoje", "cauda_mesma_demanda",
-                                   "etapa_final")}
+                                   "etapa_final", "decisao_gestor", "posto_atual")}
                 for i in sorted(resolvidos, key=lambda x: (x["regra"] or 9, x["ativo"]))
             ],
         },
@@ -611,6 +651,14 @@ def montar(registros):
                                 key=lambda x: x["ativo"])
             ],
         },
+        "decisoes_gestor": [
+            {"ativo": i["ativo"], "localidade": i["localidade"], "numero_ss": i["numero_ss"],
+             "posto_atual": i["posto_atual"], "veredito": i["veredito"], "motivo": i["motivo"],
+             "nota": (i["decisao_gestor"] or {}).get("nota", ""),
+             "data": (i["decisao_gestor"] or {}).get("data", ""),
+             "higiene": [s for s in (i["cauda_mesma_demanda"] or [])]}
+            for i in sorted((x for x in itens if x.get("decisao_gestor")), key=lambda x: x["ativo"])
+        ],
         "cauda": {
             "ss": sum(1 for i in itens if i["cauda_pos_execucao"]),
             "por_etapa": dict(Counter(i["etapa_final"] for i in itens if i["cauda_pos_execucao"])),
@@ -650,7 +698,7 @@ def montar(registros):
                                    "veredito", "motivo", "regra", "posto_atual",
                                    "indisponibilidades_abertas", "obras_encerradas",
                                    "tratativa", "cauda_mesma_demanda", "etapa_final",
-                                   "cauda_pos_execucao", "alerta_cauda")}
+                                   "cauda_pos_execucao", "alerta_cauda", "decisao_gestor")}
                 for m in meus
             ]
 

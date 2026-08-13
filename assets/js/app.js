@@ -530,6 +530,8 @@ function abrirAtivo(ativo) {
       ${(x.tratativa || []).length ? `<div class="itens" style="margin-top:10px">${x.tratativa.map((t) =>
         `<div class="item-linha"><span>${esc(t)}</span><b>tratativa</b></div>`).join('')}</div>` : ''}
       ${(x.obras_encerradas || []).length ? `<div class="item-linha"><span>Obra encerrada no AIC</span><b>${x.obras_encerradas.map(esc).join(' · ')}</b></div>` : ''}
+      ${x.decisao_gestor ? `<div class="nota calma" style="margin-top:10px">
+        <strong>Confirmado pelo gestor em ${dataBr(x.decisao_gestor.data)}</strong>${esc(x.decisao_gestor.nota)}</div>` : ''}
       ${(x.cauda_mesma_demanda || []).length ? `<div class="nota ${x.alerta_cauda ? '' : 'calma'}" style="margin-top:10px">
         <strong>Cauda da mesma demanda${x.etapa_final ? ' — falta ' + (x.etapa_final === 'DEOP' ? 'o ajuste da Proteção' : 'o comissionamento do DMSL') : ''}</strong>
         ${x.cauda_mesma_demanda.map((i) => `${esc(i.numero)} · ${esc(i.equipe)} (${esc(i.departamento)}) · aberta em ${dataBr(i.abertura)}`).join('<br>')}
@@ -1121,6 +1123,13 @@ function abrirColecao(id) {
             .map((x) => `${esc(x.numero)} · ${esc(x.equipe)} · ${dataBr(x.abertura)}`).join('<br>') || '—'}</td>
           <td>${esc(i.parecer_coep || '—')}</td></tr>`).join('')}
         </tbody></table></div></section>` : ''}
+
+        ${(en.decisoes_gestor || []).length ? `<section class="bloco"><h3>Confirmado por você — ${en.decisoes_gestor.length} ativos</h3>
+        <p class="destaque-texto">Casos em que o campo andou e o SGM não registrou. Sua confirmação vale como
+        fonte; o que falta aqui é higiene de sistema, não serviço.</p>
+        ${en.decisoes_gestor.map((d) => `<div class="nota calma" style="margin-bottom:12px">
+          <strong>${esc(d.ativo)} · ${esc(d.localidade)} — ${esc(d.motivo)}</strong>${esc(d.nota)}</div>`).join('')}
+        </section>` : ''}
 
         ${en.cauda && en.cauda.ss ? `<section class="bloco"><h3>Cauda da mesma intervenção — ${en.cauda.ss} ativos</h3>
         <p class="destaque-texto">Correção de 13/08: a SS que aparecia «bloqueando» estes ativos é da MESMA cadeia —

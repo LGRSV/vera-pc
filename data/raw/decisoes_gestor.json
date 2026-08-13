@@ -1,0 +1,16 @@
+[
+  {
+    "ativo": "5800371025",
+    "localidade": "ARAPOEMA",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: o controle já foi instalado. A SS pendente na TELE (ETO-TELE 01040/2026) é o comissionamento — o parecer sobre os cabos de 16/08 é de 16/07 e ficou herdado pela descrição cumulativa do SGM, não é a situação atual."
+  },
+  {
+    "ativo": "7929376022",
+    "localidade": "BABACULANDIA",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: controle instalado recentemente. O SGM ainda não registrou — a SS de execução ETO-RD-AR 01231/2026 (10/08, obra 0612600565) segue PENDENTE no DCMD, a ETO-COEP 00120/2026 continua pendurada no COEP desde 30/06 e não há SS de Proteção aberta: a última do ativo é a ETO-PROT 00370/2024, atendida em 2024."
+  }
+]
