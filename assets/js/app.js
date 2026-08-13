@@ -1338,10 +1338,18 @@ function abrirColecao(id) {
           ${num({ rotulo: 'Ainda por consumir', valor: rs2(saldo), nota: `${Math.round(100 * saldo / vd.orcamento_previsto)}% do previsto`, tom: 'atento' })}
         </div>
 
-        <p class="destaque-texto">Onde cada um está, na sua régua:</p>
-        <div class="itens">${vd.por_status.map((s) => `<div class="item-linha">
-          <span>${esc(s.status)}<i class="linha-nota">${esc(s.ativos.slice(0, 10).join(' · '))}${s.ativos.length > 10 ? ' …' : ''}</i></span>
+        <p class="destaque-texto">Onde cada um está <b>hoje</b>, pelo parecer COEP mais recente:</p>
+        <div class="itens">${(vd.por_etapa_hoje || []).map((s) => `<div class="item-linha">
+          <span>${esc(s.etapa)}<i class="linha-nota">${esc(s.ativos.slice(0, 10).join(' · '))}${s.ativos.length > 10 ? ' …' : ''}</i></span>
           <b>${s.qtd} · ${rs2(s.valor)}</b></div>`).join('')}</div>
+        ${vd.servico_feito ? `<div class="nota calma" style="margin-top:12px"><strong>Serviço já feito</strong>
+        ${vd.servico_feito.ativos} ativos somando ${rs2(vd.servico_feito.valor)}. ${esc(vd.servico_feito.nota)}</div>` : ''}
+        ${vd.variantes ? `<div class="nota branda" style="margin-top:10px"><strong>Grafia do parecer</strong>${esc(vd.variantes)}</div>` : ''}
+
+        <p class="destaque-texto" style="margin-top:20px">A foto que está na planilha do Allan, para comparar —
+        ${vd.mudaram_de_etapa} dos ${vd.ativos} mudaram de etapa desde então:</p>
+        <div class="itens">${vd.por_status.map((s) => `<div class="item-linha">
+          <span>${esc(s.status)}</span><b>${s.qtd} · ${rs2(s.valor)}</b></div>`).join('')}</div>
 
         <p class="destaque-texto" style="margin-top:20px">Por tipo e criticidade:</p>
         <div class="tabela-rol"><table class="matriz"><thead><tr><th>Tipo</th><th>Criticidade</th>
@@ -1370,14 +1378,15 @@ function abrirColecao(id) {
         </div>
 
         <div class="tabela-rol" style="margin-top:18px"><table class="matriz rol-entrada"><thead><tr>
-        <th>Ativo</th><th>Regional</th><th>Modelo</th><th>Criticidade</th><th>Status</th>
+        <th>Ativo</th><th>Regional</th><th>Modelo</th><th>Criticidade</th><th>Etapa hoje</th>
         <th>O que comprar</th><th class="num">Valor previsto</th></tr></thead><tbody>
         ${vd.lista.map((x) => `<tr data-ativo="${esc(x.ativo)}">
           <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.regional || '—')}</td>
           <td>${esc(x.modelo || '—')}</td><td>${esc(x.criticidade)}</td>
-          <td>${esc(x.status)}</td>
+          <td>${esc(x.etapa_hoje || x.status)}
+          ${x.status_allan && x.status_allan !== x.etapa_hoje ? `<i class="linha-nota">na planilha do Allan: ${esc(x.status_allan)}</i>` : ''}</td>
           <td>${esc(x.compra && x.compra !== '#N/A' ? x.compra : '—')}
-          ${x.observacao ? `<i class="linha-nota">${esc(x.observacao)}</i>` : ''}</td>
+          ${x.check ? `<i class="linha-nota">check: ${esc(x.check)}</i>` : ''}</td>
           <td class="num">${rs2(x.valor)}</td></tr>`).join('')}
         </tbody><tfoot><tr><td colspan="6">Total</td>
         <td class="num"><b>${rs2(vd.orcamento_previsto)}</b></td></tr></tfoot></table></div>
