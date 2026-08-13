@@ -1089,7 +1089,7 @@ function livroCaixa(mm) {
   const totS = sal.reduce((n, s) => n + s.saem, 0);
   const fim = sal[sal.length - 1];
   return `${colunaSaldo(mm)}
-  <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr>
+  <div class="tabela-rol" style="margin-top:18px"><table class="matriz livro"><thead><tr>
     <th>Mês</th><th class="num">Começou com</th><th class="num">Entraram</th>
     <th class="num">Saíram</th><th class="num">Sobrou no fim</th>
     <th class="num">Variação</th></tr></thead><tbody>
@@ -1103,7 +1103,7 @@ function livroCaixa(mm) {
         <td class="num"><b>${s.final}</b></td>
         <td class="num ${d > 0 ? 'sobe' : d < 0 ? 'desce' : ''}">${d > 0 ? '+' : ''}${d || '—'}</td></tr>`;
     }).join('')}
-  </tbody><tfoot><tr><td>Total do ano</td><td class="num">—</td>
+  </tbody><tfoot><tr><td>Total até julho</td><td class="num">—</td>
     <td class="num"><b>${totE}</b></td><td class="num"><b>${totS}</b></td>
     <td class="num"><b>${fim.final}</b></td>
     <td class="num">${fim.final - mm.abertura > 0 ? '+' : ''}${fim.final - mm.abertura}</td></tr></tfoot></table></div>
@@ -2039,7 +2039,7 @@ function abrirColecao(id) {
     que foi tratado. Janeiro: ${mm.abertura} + ${mm.saldo[0].entram} − ${mm.saldo[0].saem} =
     ${mm.saldo[0].final}, e fevereiro já começa com ${mm.saldo[0].final}.</p>
     ${livroCaixa(mm)}` : ''}
-        <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
+        <div class="tabela-rol" style="margin-top:18px"><table class="matriz livro"><thead><tr><th>Mês</th>
         <th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
         ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
           <td class="num">${x.entrantes || '—'}</td>

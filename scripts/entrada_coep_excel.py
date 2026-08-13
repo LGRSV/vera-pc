@@ -353,7 +353,7 @@ def montar(meta, serie, detalhe, res):
                                   s_["saem"] or "—", s_["final"],
                                   f"{var:+d}" if var else "—"],
                       fundo=ATUACAO if s_["mes"] >= "2026-04" else None)
-    corpo(ws, linha, ["Total do ano", "—",
+    corpo(ws, linha, ["Total até julho", "—",
                       sum(s_["entram"] for s_ in sal),
                       sum(s_["saem"] for s_ in sal),
                       sal[-1]["final"] if sal else abertura, ""], negrito=True, topo=True)

@@ -578,6 +578,45 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 .matriz td { padding: 8px; border-bottom: 1px dotted var(--filete-2); text-align: center; font: 400 12.5px var(--mono); }
 .matriz td:first-child { font-family: var(--leitura); color: var(--tinta-2); }
 .matriz .zero { color: var(--filete-2); }
+
+/* Livro-caixa: é o quadro que o gestor lê em voz alta na reunião, então vai
+   maior, em negrito e com a grade fechada, como formulário de papel. */
+.matriz.livro { font-size: 15px; border: 2px solid var(--tinta); }
+.matriz.livro th {
+  padding: 11px 12px;
+  border: 1px solid var(--tinta);
+  background: var(--papel-3);
+  color: var(--tinta);
+  font-size: 12.5px;
+}
+.matriz.livro td {
+  padding: 11px 12px;
+  border: 1px solid var(--filete-2);
+  font: 700 16px var(--mono);
+  color: var(--tinta);
+}
+.matriz.livro td:first-child {
+  font: 700 15px var(--cond);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.matriz.livro td:first-child i {
+  font: italic 400 13px var(--leitura);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--tinta-2);
+}
+.matriz.livro tbody tr:first-child td { background: var(--papel-2); }
+.matriz.livro tbody tr:hover td { background: var(--sinal-papel); }
+.matriz.livro tfoot td {
+  border-top: 2px solid var(--tinta);
+  background: var(--papel-2);
+  font-size: 17px;
+}
+.matriz.livro td.sobe { color: var(--muito-alta); }
+.matriz.livro td.desce { color: var(--baixa); }
 .calor { display: inline-block; min-width: 30px; padding: 2px 6px; font-weight: 600; color: var(--papel); }
 
 /* ---------- prazos ---------- */
