@@ -22,6 +22,14 @@
   --baixa: #3e6b4c;
   --sem-classe: #6d675a;
 
+  /* Séries do gráfico de barras. Distintas da escada de criticidade de
+     propósito: aqui a cor é identidade, não estado. Validadas em claro e
+     escuro para banda de luminosidade, croma, separação sob daltonismo e
+     contraste contra o papel. */
+  --serie-1: #2f56b0;
+  --serie-2: #bc4b0e;
+  --serie-3: #2e7f52;
+
   --cond: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
   --leitura: "Spectral", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -46,6 +54,10 @@
     --media: #a99a3f;
     --baixa: #6da184;
     --sem-classe: #8d8672;
+
+    --serie-1: #6b8fe0;
+    --serie-2: #e0703a;
+    --serie-3: #35a58c;
   }
 }
 
@@ -67,6 +79,10 @@
   --media: #a99a3f;
   --baixa: #6da184;
   --sem-classe: #8d8672;
+
+  --serie-1: #6b8fe0;
+  --serie-2: #e0703a;
+  --serie-3: #35a58c;
 }
 
 * { box-sizing: border-box; }
@@ -419,6 +435,36 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 .barra strong { font: 600 12px var(--mono); }
 .barra > i { display: block; height: 7px; background: var(--papel-3); }
 .barra > i b { display: block; height: 100%; background: var(--tinta); }
+
+/* ---------- barras agrupadas: três séries por mês ---------- */
+
+.grafico-barras { margin: 0 0 6px; }
+.grafico-barras .tela-grafico { overflow-x: auto; padding-bottom: 4px; }
+.grafico-barras svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.grafico-barras figcaption {
+  margin-top: 8px; color: var(--tinta-3); font-size: 12.5px; font-style: italic;
+}
+
+.legenda-series { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 14px; }
+.legenda-series .serie { display: inline-flex; align-items: baseline; gap: 8px; }
+.legenda-series i { width: 13px; height: 9px; flex: none; transform: translateY(-1px); }
+.legenda-series b {
+  font: 600 12px var(--cond); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta);
+}
+.legenda-series em { color: var(--tinta-3); font-size: 12.5px; }
+
+.grafico-barras .risco { stroke: var(--filete); stroke-width: 1; stroke-dasharray: 2 3; }
+.grafico-barras .base-eixo { stroke: var(--tinta); stroke-width: 1.5; }
+.grafico-barras .rot-eixo,
+.grafico-barras .rot-valor { font: 400 11px var(--mono); fill: var(--tinta-3); }
+.grafico-barras .rot-valor { font-weight: 600; fill: var(--tinta-2); }
+.grafico-barras .rot-mes {
+  font: 600 12px var(--cond); letter-spacing: .08em; text-transform: uppercase; fill: var(--tinta-2);
+}
+.grafico-barras .grupo-mes:hover .rot-mes { fill: var(--tinta); }
+.grafico-barras .barra-mes rect { transition: opacity .12s; }
+.grafico-barras .grupo-mes:hover .barra-mes rect { opacity: .82; }
+.grafico-barras .barra-mes:hover rect { opacity: 1; }
 
 /* ---------- curva de entrada mês a mês ---------- */
 /* Barra partida em dois: o que já saiu da carteira e o que ainda está no fluxo. */

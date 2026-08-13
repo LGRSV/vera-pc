@@ -18,6 +18,7 @@ chegou ao posto.
 import datetime
 import json
 import os
+import re
 from collections import Counter, defaultdict
 
 import openpyxl
@@ -88,6 +89,162 @@ def _aberturas_da_base():
 def rotulo(mes):
     ano, m = mes.split("-")
     return f"{MESES_PT[int(m) - 1]}/{ano}"
+
+
+def _base_ssos():
+    if not os.path.exists(ARQ_MIN):
+        return []
+    with open(ARQ_MIN, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+ANO_DA_SS = re.compile(r"/(\d{4})\s*$")
+
+
+def entrantes_no_coep(base, foto=frozenset()):
+    """Ativos que passaram pelo posto ETO-COEP, mês a mês, pela abertura da SS.
+
+    Entrante = a primeira SS do ETO-COEP daquele ativo em toda a base. Ativo que
+    volta ao posto conta como revisita, senão o mesmo equipamento inflaria a
+    entrada duas vezes.
+    """
+    coep = []
+    for r in base:
+        if (r.get("COD_EQUIPE") or "").strip() != "ETO-COEP":
+            continue
+        d = _data(r.get("DATA_ABERTURA_SS"))
+        a = (r.get("NUM_TRAFO") or "").strip()
+        if d and a:
+            coep.append({**r, "_d": d, "_a": a})
+    coep.sort(key=lambda r: r["_d"])
+
+    primeira = {}
+    for r in coep:
+        primeira.setdefault(r["_a"], r)
+
+    def recarimbada(r):
+        """SS cujo ano do número não bate com o ano da abertura.
+
+        O SGM re-carimba a DATA_ABERTURA_SS quando a SS é reaberta ou repassada:
+        uma SS de 2023 pode aparecer com abertura em 2026. Onde isso acontece, a
+        «entrada» do mês é demanda velha voltando, não demanda nova.
+        """
+        m = ANO_DA_SS.search(str(r.get("NUMERO_SS") or ""))
+        return bool(m) and int(m.group(1)) != r["_d"].year
+
+    por_mes = defaultdict(lambda: {"ss": 0, "ativos": set(), "novos": set()})
+    for r in coep:
+        e = por_mes[f"{r['_d'].year}-{r['_d'].month:02d}"]
+        e["ss"] += 1
+        e["ativos"].add(r["_a"])
+        if primeira[r["_a"]] is r:
+            e["novos"].add(r["_a"])
+
+    serie = []
+    for k, e in sorted(por_mes.items()):
+        novos = [primeira[a] for a in e["novos"]]
+        serie.append({
+            "mes": k, "rotulo": rotulo(k), "ss": e["ss"],
+            "ativos": len(e["ativos"]), "novos": len(novos),
+            "revisita": len(e["ativos"]) - len(novos),
+            "na_foto": sum(1 for r in novos if r["_a"] in foto),
+            "fora_da_foto": sum(1 for r in novos if r["_a"] not in foto),
+            "ss_do_ano": sum(1 for r in novos if not recarimbada(r)),
+            "ss_recarimbada": sum(1 for r in novos if recarimbada(r)),
+        })
+
+    detalhe = [{
+        "ativo": a, "primeira_ss": r["NUMERO_SS"], "abertura": r["_d"],
+        "mes": f"{r['_d'].year}-{r['_d'].month:02d}",
+        "localidade": r.get("LOCALIDADE", ""),
+        "equipamento": r.get("DESCICAO_DO_ATIVO", ""),
+        "criticidade_ss": r.get("CRITICIDADE_SS", ""),
+        "tiposs": r.get("TIPOSS", ""),
+        "situacao_hoje": r.get("SITUACAO_SS", ""),
+        "na_foto": "sim" if a in foto else "não",
+        "recarimbada": "sim" if recarimbada(r) else "não",
+    } for a, r in sorted(primeira.items(), key=lambda kv: kv[1]["_d"])]
+    return serie, detalhe
+
+
+def _datas_de_tratativa(lista, entrada, base):
+    """Quando cada resolvido saiu da carteira — término da SS ou repasse.
+
+    Ordem das fontes, da mais forte para a mais fraca: término da SS de entrada
+    (separando cancelamento de encerramento normal), data de repasse (a abertura
+    da SS seguinte da mesma demanda), obra encerrada no AIC, reporte de campo,
+    decisão do gestor e, em último caso, a SS mais recente atendida no ativo.
+    """
+    por_ss, por_ativo_ss = defaultdict(list), defaultdict(list)
+    for r in base:
+        por_ss[(r.get("NUMERO_SS") or "").strip()].append(r)
+        a = (r.get("NUM_TRAFO") or "").strip()
+        if a:
+            por_ativo_ss[a].append(r)
+
+    aic = {}
+    arq = os.path.join(RAIZ, "data", "raw", "aic_obras.csv")
+    if os.path.exists(arq):
+        import csv
+        with open(arq, encoding="utf-8") as fh:
+            for row in csv.DictReader(fh, delimiter=";"):
+                if row.get("data_encerramento"):
+                    aic.setdefault(row["obra"], row["data_encerramento"])
+
+    reportes = defaultdict(list)
+    arq = os.path.join(RAIZ, "data", "raw", "reportes_campo.json")
+    if os.path.exists(arq):
+        with open(arq, encoding="utf-8") as fh:
+            for r in json.load(fh):
+                reportes[r["ativo"]].append(r)
+
+    ficha = {}
+    for balde in ("resolvidos", "verificar", "em_andamento"):
+        for x in (entrada.get(balde) or {}).get("lista", []):
+            ficha.setdefault(x["ativo"], x)
+
+    fora = []
+    for x in lista:
+        e = ficha.get(x["ativo"], {})
+        d = via = None
+        if x["resolvido"]:
+            for r in por_ss.get(x["numero_ss"], []):
+                t = _data(r.get("DATA_TERMINO_SS"))
+                if t and (d is None or t < d):
+                    d, via = t, ("cancelamento da SS de entrada"
+                                 if "CANCELADA" in (r.get("SITUACAO_SS") or "").upper()
+                                 else "término da SS de entrada")
+            if not d and e.get("cauda_mesma_demanda"):
+                ds = [y for y in (_data(c.get("abertura")) for c in e["cauda_mesma_demanda"]) if y]
+                if ds:
+                    d, via = min(ds), "repasse para a etapa seguinte"
+            if not d and e.get("obras_encerradas"):
+                ds = [y for y in (_data(aic.get(o)) for o in e["obras_encerradas"]) if y]
+                if ds:
+                    d, via = max(ds), "obra encerrada no AIC"
+            if not d and reportes.get(x["ativo"]):
+                ds = [y for y in (_data(r["data"]) for r in reportes[x["ativo"]]) if y]
+                if ds:
+                    d, via = max(ds), "reporte de campo"
+            if not d and e.get("decisao_gestor"):
+                d = _data(e["decisao_gestor"].get("data"))
+                via = "decisão do gestor" if d else None
+            if not d:
+                abertura = _data(x["abertura"])
+                ds = [t for t in (_data(r.get("DATA_TERMINO_SS"))
+                                  for r in por_ativo_ss.get(x["ativo"], []))
+                      if t and (not abertura or t >= abertura)]
+                if ds:
+                    d, via = max(ds), "última SS atendida do ativo"
+        fora.append({
+            "ativo": x["ativo"], "localidade": x["localidade"],
+            "numero_ss": x["numero_ss"], "resolvido": x["resolvido"],
+            "parecer_coep": e.get("parecer_coep", ""),
+            "resolucao": d.isoformat() if d else "",
+            "mes_resolucao": f"{d.year}-{d.month:02d}" if d else "",
+            "via": via or ("" if x["resolvido"] else "ainda no fluxo"),
+        })
+    return fora
 
 
 def montar(entrada):
@@ -178,7 +335,27 @@ def montar(entrada):
     total = len(lista)
     resolvidos = sum(1 for x in lista if x["resolvido"])
 
+    # As três colunas do gestor no mesmo eixo de tempo: o estoque herdado pela
+    # abertura da SS, o que entrou novo no posto e o que foi tratado de fato.
+    base = _base_ssos()
+    serie_coep, _ = entrantes_no_coep(base, {x["ativo"] for x in lista})
+    tratativas = _datas_de_tratativa(lista, entrada, base)
+    entrantes = {x["mes"]: x["novos"] for x in serie_coep}
+    saidas = Counter(t["mes_resolucao"] for t in tratativas if t["mes_resolucao"])
+    do_ano = sorted({b["mes"] for b in blocos}
+                    | {m for m in entrantes if m.startswith("2026")}
+                    | {m for m in saidas if m.startswith("2026")})
+    curva = [{
+        "mes": m, "rotulo": rotulo(m),
+        "ativos": next((b["qtd"] for b in blocos if b["mes"] == m), 0),
+        "entrantes": entrantes.get(m, 0),
+        "resolvidos": saidas.get(m, 0),
+    } for m in do_ano]
+
     return {
+        "curva": curva,
+        "serie_coep": serie_coep,
+        "tratativas": tratativas,
         "total": total,
         "total_ss": len(itens),
         "resolvidos": resolvidos,

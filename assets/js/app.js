@@ -963,6 +963,75 @@ function num({ rotulo, valor, nota, tom = '' }) {
     ${nota ? `<small>${esc(nota)}</small>` : ''}</div>`;
 }
 
+/* Barras agrupadas — três séries por mês. As cores saem de --serie-1/2/3, que
+   passaram pelo validador de paleta nos dois temas: azul-tinta, o laranja do
+   sinal e o verde. Cada barra leva o valor escrito em cima, então a identidade
+   nunca depende só da cor. */
+function barrasTresColunas(curva) {
+  const SERIES = [
+    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)',
+      dica: 'da foto dos 117, pela abertura da SS' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)',
+      dica: 'ativos novos no COEP, pela abertura da SS' },
+    { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
+      dica: 'pelo mês da tratativa ou do repasse' },
+  ];
+  const teto = Math.max(...curva.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
+  const L = 44, R = 12, T = 22, B = 44;      // margens
+  const larguraGrupo = 96, alturaPlot = 210;
+  const W = L + R + larguraGrupo * curva.length;
+  const H = T + alturaPlot + B;
+  const larguraBarra = 24, vao = 2;          // 2px de papel entre barras vizinhas
+  const bloco = SERIES.length * larguraBarra + (SERIES.length - 1) * vao;
+
+  const passo = teto <= 10 ? 2 : teto <= 30 ? 10 : 20;
+  const riscos = [];
+  for (let v = 0; v <= teto; v += passo) riscos.push(v);
+
+  const y = (v) => T + alturaPlot - (v / teto) * alturaPlot;
+
+  return `<figure class="grafico-barras">
+    <div class="legenda-series">
+      ${SERIES.map((s) => `<span class="serie"><i style="background:${s.cor}"></i>
+        <b>${esc(s.nome)}</b> <em>${esc(s.dica)}</em></span>`).join('')}
+    </div>
+    <div class="tela-grafico">
+    <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
+         aria-label="Barras agrupadas por mês de 2026: ${curva.map((m) => `${m.rotulo}, ${SERIES.map((s) => `${s.nome} ${m[s.chave]}`).join(', ')}`).join('; ')}">
+      ${riscos.map((v) => `<g>
+        <line x1="${L}" x2="${W - R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="risco"/>
+        <text x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" class="rot-eixo" text-anchor="end">${v}</text>
+      </g>`).join('')}
+      <line x1="${L}" x2="${W - R}" y1="${T + alturaPlot}" y2="${T + alturaPlot}" class="base-eixo"/>
+      ${curva.map((m, i) => {
+        const x0 = L + i * larguraGrupo + (larguraGrupo - bloco) / 2;
+        return `<g class="grupo-mes">
+          ${SERIES.map((s, j) => {
+            const v = m[s.chave];
+            const x = x0 + j * (larguraBarra + vao);
+            const alt = Math.max((v / teto) * alturaPlot, v ? 2 : 0);
+            return `<g class="barra-mes">
+              <title>${esc(m.rotulo)} · ${esc(s.nome)}: ${v}</title>
+              <rect x="${x}" y="${(T + alturaPlot - alt).toFixed(1)}" width="${larguraBarra}"
+                    height="${alt.toFixed(1)}" rx="4" ry="4" fill="${s.cor}"
+                    class="${v ? '' : 'vazia'}"/>
+              ${v ? `<rect x="${x}" y="${(T + alturaPlot - Math.min(alt, 5)).toFixed(1)}"
+                    width="${larguraBarra}" height="${Math.min(alt, 5).toFixed(1)}" fill="${s.cor}"/>` : ''}
+              ${v ? `<text x="${x + larguraBarra / 2}" y="${(T + alturaPlot - alt - 5).toFixed(1)}"
+                    class="rot-valor" text-anchor="middle">${v}</text>` : ''}
+            </g>`;
+          }).join('')}
+          <text x="${(x0 + bloco / 2).toFixed(1)}" y="${T + alturaPlot + 18}"
+                class="rot-mes" text-anchor="middle">${esc(m.rotulo)}</text>
+        </g>`;
+      }).join('')}
+    </svg>
+    </div>
+    <figcaption>Cada barra traz o próprio número, então dá para ler a figura sem
+    depender da cor. Os mesmos valores estão na tabela abaixo.</figcaption>
+  </figure>`;
+}
+
 function barras(itens) {
   const max = Math.max(...itens.map((i) => i.total), 1);
   return `<div class="barras">${itens.map((i) => `<div class="barra">
@@ -1726,6 +1795,14 @@ function abrirColecao(id) {
         ${mm.fonte_data.find((f) => f.fonte.startsWith('cruzamento'))?.qtd || 0} ativos não tinham
         essa coluna preenchida e a data saiu do cruzamento pelo número da SS na base de SS/OS,
         como você mandou.</div>
+
+        ${(mm.curva || []).length ? `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
+        <p class="destaque-texto">As três leituras no mesmo eixo. <b>Ativos</b> é a foto dos ${mm.total}
+        pela data de abertura da SS, com janeiro carregando o acervo. <b>Entrantes</b> é ativo novo
+        no posto, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é pelo mês em que a
+        tratativa aconteceu — término da SS ou repasse.</p>
+        ${barrasTresColunas(mm.curva)}
+        </section>` : ''}
 
         <section class="bloco"><h3>A curva de entrada</h3>
         <p class="destaque-texto">Cada barra é um mês; a parte verde é o que já saiu da carteira e a
