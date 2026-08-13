@@ -378,6 +378,7 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 }
 .item-linha:last-child { border-bottom: 0; }
 .item-linha span small { display: block; margin-top: 2px; color: var(--tinta-3); font-size: 12px; font-style: italic; }
+.item-linha .linha-nota { display: block; margin-top: 2px; color: var(--tinta-3); font-size: 12px; font-style: italic; }
 .item-linha b { font: 600 13px var(--mono); }
 .item-linha.somatorio { border-top: 2px solid var(--tinta); border-bottom: 0; }
 

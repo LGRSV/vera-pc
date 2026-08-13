@@ -1110,15 +1110,45 @@ function abrirColecao(id) {
         `As duas listas do posto fundidas numa só, sem repetir ativo: a foto de entrada de junho e o ` +
         `acompanhamento de hoje. São ${co.total} equipamentos, e a pergunta é uma só — em que ponto cada ` +
         `um está de fato.`) +
-        `<div class="numeros">
-          ${num({ rotulo: 'Já manutencionados', valor: co.resposta?.manutencionados.total ?? co.resolvidos, nota: `${co.percentual_manutencionado ?? co.percentual_resolvido}% da carteira`, tom: 'bom' })}
-          ${num({ rotulo: 'Em operação, nada falta', valor: co.resposta?.manutencionados.por_falta['Nada — em operação'] ?? 0, nota: 'serviço fechado', tom: 'bom' })}
-          ${num({ rotulo: 'Falta ajuste ou comissionamento', valor: (co.resposta?.manutencionados.por_falta['Ajuste da Proteção'] ?? 0) + (co.resposta?.manutencionados.por_falta['Comissionamento do DMSL'] ?? 0), nota: 'trocado, falta fechar o processo', tom: 'atento' })}
-          ${num({ rotulo: 'Esperando compra', valor: co.resposta?.nao_manutencionados.por_espera['Compra do material (aquisição)'] ?? 0, nota: 'em aquisição no COEP', tom: 'critico' })}
-          ${num({ rotulo: 'Em execução', valor: co.em_execucao, nota: 'material entregue, obra em curso' })}
-          ${num({ rotulo: 'Em análise', valor: co.em_analise, nota: 'primeiro ataque, sem parecer' })}
-          ${num({ rotulo: 'Total', valor: co.total, nota: `${co.por_origem['Nas duas listas'] || 0} nas duas listas · ${co.por_origem['Só na lista de hoje'] || 0} novos · ${co.por_origem['Saiu da lista de hoje'] || 0} já saíram` })}
+        `${(() => {
+          const R = co.resposta;
+          if (!R) return '';
+          const falta = R.manutencionados.por_falta || {};
+          const pl = R.aquisicao_x_plano || {};
+          const compra = R.nao_manutencionados.por_espera['Compra do material (aquisição)'] || 0;
+          const noPlano = pl.no_plano ?? 0;
+          const depois = pl.ano_que_vem ?? Math.max(compra - noPlano, 0);
+          const linha = (r, v, nota) => `<div class="item-linha"><span>${esc(r)}${nota ? `<i class="linha-nota">${esc(nota)}</i>` : ''}</span><b>${v}</b></div>`;
+          return `<div class="numeros">
+          ${num({ rotulo: 'Total da carteira', valor: co.total, nota: `${co.por_origem['Nas duas listas'] || 0} nas duas listas · ${co.por_origem['Só na lista de hoje'] || 0} novos · ${co.por_origem['Saiu da lista de hoje'] || 0} já saíram` })}
+          ${num({ rotulo: 'Resolvidos', valor: R.resolvidos_total, nota: `${co.percentual_resolvido}% da carteira`, tom: 'bom' })}
+          ${num({ rotulo: 'Aguardando a compra', valor: compra, nota: 'na fila do posto', tom: 'critico' })}
         </div>
+
+        <section class="bloco"><h3>A carteira em duas contas</h3>
+        <div class="confronto-duplo">
+          <div>
+            <h4 class="rotulo-coluna">Resolvidos — ${R.resolvidos_total}</h4>
+            <p class="destaque-texto">Saíram do problema. ${R.manutencionados.total} com intervenção física,
+            ${R.por_cancelamento ? R.por_cancelamento.total : 0} por cancelamento.</p>
+            <div class="itens">
+              ${linha('Em operação, nada falta', falta['Nada — em operação'] || 0, 'serviço fechado')}
+              ${linha('Canceladas', R.por_cancelamento ? R.por_cancelamento.total : 0, 'não precisaram de substituição')}
+              ${linha('Ajuste da Proteção', falta['Ajuste da Proteção'] || 0, 'trocado, falta o ajuste')}
+              ${linha('Comissionamento', falta['Comissionamento do DMSL'] || 0, 'trocado, falta comissionar')}
+              ${falta['Baixa da SS no sistema'] ? linha('Baixa da SS', falta['Baixa da SS no sistema'], 'trocado, falta só encerrar') : ''}
+            </div>
+          </div>
+          <div>
+            <h4 class="rotulo-coluna">Aguardando a compra — ${compra}</h4>
+            <p class="destaque-texto">${pl.criterio_do_corte || 'O plano deste ano cobre a criticidade Muito Alta e Alta; o resto entra no exercício seguinte.'}</p>
+            <div class="itens">
+              ${linha('No plano de compras', noPlano, pl.valor_no_plano ? `R$ ${(pl.valor_no_plano).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '')}
+              ${linha('Definidos para o ano que vem', depois, 'sem pedido no plano atual')}
+            </div>
+          </div>
+        </div></section>
+`; })()}
 
         ${co.resposta ? `<section class="bloco"><h3>A pergunta em duas colunas</h3>
         <p class="destaque-texto">${co.resposta.manutencionados.total} manutencionados +

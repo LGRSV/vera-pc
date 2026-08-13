@@ -543,7 +543,11 @@ def montar(registros, entrada, acompanhamento):
         }
 
     resumo["resposta"] = resposta
-    resumo["percentual_resolvido"] = round(100 * len(resolvidos) / max(len(consolidado), 1), 1)
+    # o percentual segue a mesma régua do balde "Resolvidos" da primeira visão:
+    # manutencionados + resolvidos por cancelamento + decisão do gestor.
+    resumo["percentual_resolvido"] = round(
+        100 * resposta["resolvidos_total"] / max(len(consolidado), 1), 1
+    )
     resumo["percentual_manutencionado"] = round(
         100 * resposta["manutencionados"]["total"] / max(len(consolidado) - por_situacao.get("Fora da análise", 0), 1), 1
     )
