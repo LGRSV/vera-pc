@@ -970,10 +970,8 @@ function num({ rotulo, valor, nota, tom = '' }) {
    nunca depende só da cor. */
 function barrasTresColunas(curva) {
   const SERIES = [
-    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)',
-      dica: 'da foto dos 117, pela abertura da SS' },
-    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)',
-      dica: 'ativos novos no COEP, pela abertura da SS' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)',
+      dica: 'a carteira herdada, pela abertura da SS — janeiro carrega o acervo' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
       dica: 'pelo mês da tratativa ou do repasse' },
   ];
@@ -1125,14 +1123,12 @@ function livroCaixa(mm) {
    tamanho da fila contra o que já saiu — e barra empilhada esconde isso. */
 function linhaAcumulada(curva) {
   const SERIES = [
-    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)' },
-    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)' },
   ];
-  let soma = { ativos: 0, entrantes: 0, resolvidos: 0 };
+  let soma = { entrantes: 0, resolvidos: 0 };
   const ac = curva.map((m) => {
-    soma = { ativos: soma.ativos + m.ativos, entrantes: soma.entrantes + m.entrantes,
-             resolvidos: soma.resolvidos + m.resolvidos };
+    soma = { entrantes: soma.entrantes + m.entrantes, resolvidos: soma.resolvidos + m.resolvidos };
     return { ...soma, mes: m.mes, rotulo: m.rotulo };
   });
   const bruto = Math.max(...ac.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
@@ -2027,12 +2023,10 @@ function abrirColecao(id) {
           const meses = [...new Set(tj.map((x) => x.mes_resolucao))].sort();
           const conta = (lista, f) => lista.filter(f).length;
           return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
-        <p class="destaque-texto">As três leituras no mesmo eixo. <b>Ativos</b> é a foto dos ${mm.total}
-        pela data de abertura da SS, com janeiro carregando o acervo. <b>Entrantes</b> é ativo novo
-        no posto, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é pelo mês em que a
-        tratativa aconteceu — término da SS ou repasse. Janela: ${esc(mm.janela || 'janeiro a julho')} —
-        agosto está em curso e fica fora. As três medem coisas diferentes e não se
-        somam entre si: estoque parado, fluxo de chegada e fluxo de saída.</p>
+        <p class="destaque-texto">Duas séries, uma entrada e uma saída. <b>Entrantes</b> é a foto dos
+        ${mm.total}, cada ativo contado uma vez no mês em que a SS entrou, com janeiro carregando o
+        acervo. <b>Resolvidos</b> é pelo mês em que a tratativa aconteceu — término da SS ou
+        repasse. Janela: ${esc(mm.janela || 'janeiro a julho')} — agosto está em curso e fica fora.</p>
         ${barrasTresColunas(c)}
     <h4 class="sub-grafico">O mesmo, somando</h4>
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
@@ -2046,11 +2040,11 @@ function abrirColecao(id) {
     ${mm.saldo[0].final}, e fevereiro já começa com ${mm.saldo[0].final}.</p>
     ${livroCaixa(mm)}` : ''}
         <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
-        <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
+        <th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
         ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
-          <td class="num">${x.ativos || '—'}</td><td class="num">${x.entrantes || '—'}</td>
+          <td class="num">${x.entrantes || '—'}</td>
           <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tot('ativos')}</b></td>
+        </tbody><tfoot><tr><td>Total até julho</td>
         <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
         </tr></tfoot></table></div>
         ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
@@ -2081,28 +2075,7 @@ function abrirColecao(id) {
         ${esc(dataBr(mm.legado.mais_antiga.abertura))}.</div>` : ''}
         </section>
 
-        ${s26.length ? `<section class="bloco"><h3>Os entrantes por dentro</h3>
-        <p class="destaque-texto">Duas leituras dos ${tot26('novos')} entrantes de 2026. À esquerda,
-        quanto de cada mês já estava na foto dos ${mm.total} e quanto é demanda que chegou por fora
-        dela. À direita, quanto é SS realmente nova e quanto é SS de ano anterior que o SGM
-        re-carimbou com data nova ao reabrir ou repassar.</p>
-        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês</th>
-        <th class="num">Entrantes</th><th class="num">Já estavam nos ${mm.total}</th>
-        <th class="num">Fora dos ${mm.total}</th><th class="num">SS do próprio ano</th>
-        <th class="num">SS de ano anterior re-carimbada</th></tr></thead><tbody>
-        ${s26.map((x) => `<tr><td>${esc(x.rotulo)}</td><td class="num"><b>${x.novos}</b></td>
-          <td class="num">${x.na_foto || '—'}</td><td class="num">${x.fora_da_foto || '—'}</td>
-          <td class="num">${x.ss_do_ano || '—'}</td><td class="num">${x.ss_recarimbada || '—'}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tot26('novos')}</b></td>
-        <td class="num"><b>${tot26('na_foto')}</b></td><td class="num"><b>${tot26('fora_da_foto')}</b></td>
-        <td class="num"><b>${tot26('ss_do_ano')}</b></td><td class="num"><b>${tot26('ss_recarimbada')}</b></td>
-        </tr></tfoot></table></div>
-        <div class="nota" style="margin-top:12px"><strong>Duas armadilhas na coluna de entrantes</strong>
-        Dos ${tot26('novos')} entrantes, ${tot26('na_foto')} já estavam na foto dos ${mm.total} — são o
-        mesmo problema visto por outra base, não demanda nova. E ${tot26('ss_recarimbada')} têm número
-        de SS de ano anterior com abertura em 2026, porque o SGM re-carimba a data quando a SS é
-        reaberta ou repassada. Abril é o extremo: de 11 entrantes, 9 são SS re-carimbada.</div>
-        </section>` : ''}
+        
 
         ${meses.length ? `<section class="bloco"><h3>Quando cada um foi tratado de verdade</h3>
         <p class="destaque-texto">Mês da tratativa, não da abertura. A data é o término da SS de

@@ -43,10 +43,8 @@ const dataBr = (iso) => { const [a, m, d] = String(iso).split('-'); return d ? `
    escrito em cima, então a identidade nunca depende só da cor. */
 function barrasTresColunas(curva) {
   const SERIES = [
-    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)',
-      dica: 'da carteira herdada, pela abertura da SS' },
-    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)',
-      dica: 'ativos novos no COEP, pela abertura da SS' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)',
+      dica: 'a carteira herdada, pela abertura da SS — janeiro carrega o acervo' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
       dica: 'pelo mês da tratativa ou do repasse' },
   ];
@@ -195,14 +193,12 @@ function livroCaixa(mm) {
    tamanho da fila contra o que já saiu — e barra empilhada esconde isso. */
 function linhaAcumulada(curva) {
   const SERIES = [
-    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)' },
-    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)' },
   ];
-  let soma = { ativos: 0, entrantes: 0, resolvidos: 0 };
+  let soma = { entrantes: 0, resolvidos: 0 };
   const ac = curva.map((m) => {
-    soma = { ativos: soma.ativos + m.ativos, entrantes: soma.entrantes + m.entrantes,
-             resolvidos: soma.resolvidos + m.resolvidos };
+    soma = { entrantes: soma.entrantes + m.entrantes, resolvidos: soma.resolvidos + m.resolvidos };
     return { ...soma, mes: m.mes, rotulo: m.rotulo };
   });
   const bruto = Math.max(...ac.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
@@ -268,13 +264,11 @@ function mesAMes() {
   const pct = (v, base) => `${(100 * v / (base || 1)).toFixed(1).replace('.', ',')}%`;
 
   return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
-    <p class="destaque-texto">Recorte: ${esc(mm.recorte || '')}. Janela: ${esc(mm.janela || '')} —
-    agosto está em curso e fica fora; o que já aconteceu nele está nas notas. Três leituras no mesmo eixo.
-    <b>Ativos</b> é a carteira que o posto herdou — ${mm.total} da foto, pela data de
-    abertura da SS, com janeiro carregando o acervo.
-    <b>Entrantes</b> é ativo novo no COEP, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é
-    pelo mês em que a tratativa aconteceu — término da SS ou repasse. As três medem coisas
-    diferentes e não se somam entre si: estoque parado, fluxo de chegada e fluxo de saída.</p>
+    <p class="destaque-texto">Duas séries, uma entrada e uma saída. <b>Entrantes</b> é a carteira
+    que o posto herdou — os ${mm.total} da foto, cada um contado uma vez no mês em que a SS
+    entrou, com janeiro carregando o acervo. <b>Resolvidos</b> é pelo mês em que a tratativa
+    aconteceu — término da SS ou repasse. Janela: ${esc(mm.janela || '')} — agosto está em curso
+    e fica fora; o que já aconteceu nele está nas notas.</p>
     ${barrasTresColunas(c)}
     <h4 class="sub-grafico">O mesmo, somando</h4>
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
@@ -288,11 +282,11 @@ function mesAMes() {
     ${mm.saldo[0].final}, e fevereiro já começa com ${mm.saldo[0].final}.</p>
     ${livroCaixa(mm)}` : ''}
     <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
-    <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
+    <th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
     ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
-      <td class="num">${x.ativos || '—'}</td><td class="num">${x.entrantes || '—'}</td>
+      <td class="num">${x.entrantes || '—'}</td>
       <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
-    </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tot('ativos')}</b></td>
+    </tbody><tfoot><tr><td>Total até julho</td>
     <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
     </tr></tfoot></table></div>
     ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
@@ -320,28 +314,7 @@ function mesAMes() {
     ${esc(dataBr(mm.legado.mais_antiga.abertura))}.</div>` : ''}
   </section>
 
-  ${s26.length ? `<section class="bloco"><h3>Os entrantes por dentro</h3>
-    <p class="destaque-texto">Duas leituras dos ${tot26('novos')} entrantes de 2026. À esquerda,
-    quanto de cada mês já estava na carteira herdada e quanto é demanda que chegou por fora dela.
-    À direita, quanto é SS realmente nova e quanto é SS de ano anterior que o SGM re-carimbou com
-    data nova ao reabrir ou repassar.</p>
-    <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês</th>
-    <th class="num">Entrantes</th><th class="num">Já estavam nos ${mm.total}</th>
-    <th class="num">Fora dos ${mm.total}</th><th class="num">SS do próprio ano</th>
-    <th class="num">SS de ano anterior re-carimbada</th></tr></thead><tbody>
-    ${s26.map((x) => `<tr><td>${esc(x.rotulo)}</td><td class="num"><b>${x.novos}</b></td>
-      <td class="num">${x.na_foto || '—'}</td><td class="num">${x.fora_da_foto || '—'}</td>
-      <td class="num">${x.ss_do_ano || '—'}</td><td class="num">${x.ss_recarimbada || '—'}</td></tr>`).join('')}
-    </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tot26('novos')}</b></td>
-    <td class="num"><b>${tot26('na_foto')}</b></td><td class="num"><b>${tot26('fora_da_foto')}</b></td>
-    <td class="num"><b>${tot26('ss_do_ano')}</b></td><td class="num"><b>${tot26('ss_recarimbada')}</b></td>
-    </tr></tfoot></table></div>
-    <div class="nota" style="margin-top:12px"><strong>Duas armadilhas na coluna de entrantes</strong>
-    Dos ${tot26('novos')} entrantes, ${tot26('na_foto')} já estavam na carteira herdada — são o mesmo
-    problema visto por outra base, não demanda nova. E ${tot26('ss_recarimbada')} têm número de SS de
-    ano anterior com abertura em 2026, porque o SGM re-carimba a data quando a SS é reaberta ou
-    repassada. Abril é o extremo: de 11 entrantes, 9 são SS re-carimbada.</div>
-  </section>` : ''}
+  
 
   ${meses.length ? `<section class="bloco"><h3>Quando cada um foi tratado de verdade</h3>
     <p class="destaque-texto">Mês da tratativa, não da abertura. A data é o término da SS de entrada;
@@ -420,6 +393,42 @@ function galeriaReportes() {
     <div class="galeria">${anunciados.map(cartao).join('')}</div>` : ''}
     ${semAnexo.length ? `<p class="destaque-texto" style="margin-top:24px">Reportes só em texto.</p>
     <div class="galeria">${semAnexo.map(cartao).join('')}</div>` : ''}
+  </section>`;
+}
+
+/* A escada mede os 129 de hoje pelo parecer; o livro mede os 117 herdados pelas
+   réguas da entrada. A ponte cruza os dois, ativo a ativo, para a conta fechar
+   dos dois lados. */
+function ponte() {
+  const p = D.ponte, mm = D.mes_a_mes;
+  if (!p || !mm) return '';
+  const concl = D.por_etapa.find((e) => e.etapa === 'Concluído')?.qtd ?? '—';
+  return `<section class="bloco"><h3>Por que a escada não bate com o mês a mês — e como fecha</h3>
+    <p class="destaque-texto">A escada conta os ${D.total} de HOJE pelo parecer mais recente; o mês
+    a mês conta os ${mm.total} HERDADOS na foto de junho, pelas réguas da carteira de entrada. Nem
+    o universo nem a régua são os mesmos — por isso «Concluído ${concl}» lá em cima não é o
+    «${p.resolvidos} resolvidos» daqui de baixo. Ativo a ativo, a ponte fecha assim:</p>
+    <div class="itens">
+      <div class="item-linha"><span>Resolvidos do livro que já SAÍRAM da lista atual dos ${D.total}
+        <i class="linha-nota">tratados e fora da relação de indisponíveis de hoje</i></span>
+        <b>${p.fora_da_lista}</b></div>
+      <div class="item-linha"><span>Resolvidos do livro que aparecem na escada com serviço feito
+        <i class="linha-nota">${p.feito_por_etapa.map((x) => `${esc(x.etapa)} ${x.qtd}`).join(' · ')}</i></span>
+        <b>${p.com_feito}</b></div>
+      ${p.na_fila.length ? `<div class="item-linha"><span>Resolvidos pela régua da entrada, com a demanda atual ainda andando
+        <i class="linha-nota">${p.na_fila.map((x) => `${esc(x.ativo)} — ${esc(x.etapa)}`).join(' · ')}. O repasse foi feito; a etapa seguinte corre.</i></span>
+        <b>${p.na_fila.length}</b></div>` : ''}
+      <div class="item-linha"><span><b>Soma — os resolvidos do livro</b></span><b>${p.resolvidos}</b></div>
+    </div>
+    <div class="itens" style="margin-top:16px">
+      <div class="item-linha"><span>Serviço feito da escada que veio da foto de entrada</span><b>${p.feito_da_foto}</b></div>
+      <div class="item-linha"><span>Serviço feito da escada em ativos que entraram DEPOIS da foto</span><b>${p.feito_novos}</b></div>
+      <div class="item-linha"><span><b>Soma — o serviço feito da escada</b></span><b>${p.feito_escada}</b></div>
+    </div>
+    ${p.feito_foto_pendentes ? `<div class="nota branda" style="margin-top:12px"><strong>Os ${p.feito_foto_pendentes} que explicam o resto</strong>
+    ${p.feito_da_foto} feitos da escada vieram da foto, mas só ${p.com_feito} estão nos ${p.resolvidos} resolvidos do livro.
+    A diferença são ${p.feito_foto_pendentes} ativos em que o parecer atual dá o serviço como feito, mas ainda existe SS
+    pendente da mesma demanda — e a régua da entrada, que é mais dura, não deixa baixar.</div>` : ''}
   </section>`;
 }
 
@@ -506,6 +515,8 @@ function desenhar() {
     </div>
 
     <section class="bloco"><h3>A escada</h3>${escada()}</section>
+
+    ${ponte()}
 
     ${mesAMes()}
 

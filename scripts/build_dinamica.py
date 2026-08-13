@@ -12,6 +12,7 @@ Uso:  python3 scripts/build_dinamica.py [destino.html]
 import json
 import os
 import sys
+from collections import Counter
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DESTINO = os.path.join(RAIZ, "dist", "dinamica-posto.html")
@@ -174,11 +175,42 @@ def main():
                 "abertura": mm.get("abertura", 0),
                 "fora_do_livro": mm.get("fora_do_livro", 0),
                 "legado": mm["legado"],
-                "serie_coep": [x for x in mm["serie_coep"]
-                               if "2026-01" <= x["mes"] <= "2026-07"],
                 "tratativas": [t for t in mm["tratativas"] if t["mes_resolucao"]],
                 "regra": mm["regra"],
             }
+
+    # A ponte entre a escada e o livro: a escada conta os 129 de hoje pelo parecer;
+    # o livro conta os 117 herdados pelas réguas da entrada. Universos e réguas
+    # diferentes — o cruzamento ativo a ativo é o que fecha a conta dos dois lados.
+    mm_p = d.get("mes_a_mes") or {}
+    with open(os.path.join(RAIZ, "data", "meta.json"), encoding="utf-8") as fh:
+        lista_entrada = (json.load(fh).get("entrada_mensal") or {}).get("lista", [])
+    if mm_p and d.get("feito") and lista_entrada:
+        etapa_por_ativo = {i["ativo"]: i["etapa"] for i in d["lista"]}
+        feito_etapas = set(d["feito"]["etapas"])
+        foto = {x["ativo"] for x in lista_entrada}
+        res = [x for x in lista_entrada if x["resolvido"]]
+        resolvidos_set = {x["ativo"] for x in res}
+        na_lista = [(x["ativo"], etapa_por_ativo[x["ativo"]])
+                    for x in res if x["ativo"] in etapa_por_ativo]
+        por_etapa = Counter(e for _, e in na_lista)
+        feitos = [i for i in d["lista"] if i["etapa"] in feito_etapas]
+        feito_foto = [i for i in feitos if i["ativo"] in foto]
+        d["ponte"] = {
+            "resolvidos": len(res),
+            "fora_da_lista": len(res) - len(na_lista),
+            "na_lista": len(na_lista),
+            "com_feito": sum(q for e, q in por_etapa.items() if e in feito_etapas),
+            "feito_por_etapa": [{"etapa": e, "qtd": q}
+                                for e, q in por_etapa.most_common() if e in feito_etapas],
+            "na_fila": [{"ativo": a, "etapa": e} for a, e in na_lista
+                        if e not in feito_etapas],
+            "feito_escada": d["feito"]["qtd"],
+            "feito_da_foto": len(feito_foto),
+            "feito_novos": d["feito"]["qtd"] - len(feito_foto),
+            "feito_foto_pendentes": len(feito_foto) - sum(
+                1 for i in feito_foto if i["ativo"] in resolvidos_set),
+        }
 
     dados = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 

@@ -411,10 +411,12 @@ def montar(entrada):
     ss_resolvidas = sum(1 for i in itens if i["balde"] == "resolvidos")
     duplicados = sorted(a for a, g in ss_por_ativo.items()
                         if sum(1 for i in g if i["balde"] == "resolvidos") > 1)
+    # Duas séries, por decisão do gestor: a carteira herdada JÁ É entrada.
+    # Entrantes = os ativos da foto pelo mês de entrada, janeiro com o acervo;
+    # Resolvidos = pelo mês da tratativa. Cada ativo conta uma vez em cada série.
     curva = [{
         "mes": m, "rotulo": rotulo(m),
-        "ativos": next((b["qtd"] for b in blocos if b["mes"] == m), 0),
-        "entrantes": entrantes.get(m, 0),
+        "entrantes": next((b["qtd"] for b in blocos if b["mes"] == m), 0),
         "resolvidos": saidas.get(m, 0),
     } for m in do_ano]
 
