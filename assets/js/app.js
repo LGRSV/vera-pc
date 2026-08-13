@@ -1111,7 +1111,9 @@ function livroCaixa(mm) {
     <td class="num">${fim.final - mm.abertura > 0 ? '+' : ''}${fim.final - mm.abertura}</td></tr></tfoot></table></div>
   <div class="nota" style="margin-top:14px"><strong>A conta fecha na carteira</strong>
   ${mm.abertura} do acervo + ${totE} abertas em 2026 = ${mm.abertura + totE} ativos da foto;
-  ${totS} tratados; sobram ${fim.final} — exatamente os que a carteira mostra ainda no fluxo.
+  ${totS} tratados na janela; sobram ${fim.final} no fim de julho${mm.apos_janela?.resolvidos
+    ? ` — e mais ${mm.apos_janela.resolvidos} já ${mm.apos_janela.resolvidos > 1 ? 'foram tratados' : 'foi tratado'} em agosto, fora da janela, deixando ${fim.final - mm.apos_janela.resolvidos} no fluxo hoje`
+    : ' — exatamente os que a carteira mostra ainda no fluxo'}.
   Os ${mm.fora_do_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram neste
   livro: sem SS na foto de entrada, não há data de tratativa rastreada para dar baixa. Eles
   seguem na coluna de entrantes e na lista própria.</div>`;
@@ -1173,7 +1175,7 @@ function linhaAcumulada(curva) {
       }).join('')}
     </svg>
     </div>
-    <figcaption>O número no fim de cada linha é onde ela chegou em agosto. Passe o
+    <figcaption>O número no fim de cada linha é onde ela chegou no fim de julho. Passe o
     mouse num ponto para ver o acumulado daquele mês.</figcaption>
   </figure>`;
 }
@@ -2017,16 +2019,18 @@ function abrirColecao(id) {
           const tot = (k) => c.reduce((n, x) => n + x[k], 0);
           const anos = mm.legado.por_ano;
           const janProprio = (c.find((x) => x.mes === '2026-01')?.ativos || 0) - mm.legado.qtd;
-          const s26 = (mm.serie_coep || []).filter((x) => x.mes >= '2026-01');
+          const s26 = (mm.serie_coep || []).filter((x) => x.mes >= '2026-01' && x.mes <= '2026-07');
           const tot26 = (k) => s26.reduce((n, x) => n + x[k], 0);
           const tratadas = (mm.tratativas || []).filter((t) => t.mes_resolucao);
-          const meses = [...new Set(tratadas.map((t) => t.mes_resolucao))].sort();
+          const tj = tratadas.filter((x) => x.mes_resolucao <= '2026-07');
+          const meses = [...new Set(tj.map((x) => x.mes_resolucao))].sort();
           const conta = (lista, f) => lista.filter(f).length;
           return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
         <p class="destaque-texto">As três leituras no mesmo eixo. <b>Ativos</b> é a foto dos ${mm.total}
         pela data de abertura da SS, com janeiro carregando o acervo. <b>Entrantes</b> é ativo novo
         no posto, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é pelo mês em que a
-        tratativa aconteceu — término da SS ou repasse. As três medem coisas diferentes e não se
+        tratativa aconteceu — término da SS ou repasse. Janela: ${esc(mm.janela || 'janeiro a julho')} —
+        agosto está em curso e fica fora. As três medem coisas diferentes e não se
         somam entre si: estoque parado, fluxo de chegada e fluxo de saída.</p>
         ${barrasTresColunas(c)}
     <h4 class="sub-grafico">O mesmo, somando</h4>
@@ -2045,7 +2049,7 @@ function abrirColecao(id) {
         ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
           <td class="num">${x.ativos || '—'}</td><td class="num">${x.entrantes || '—'}</td>
           <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot('ativos')}</b></td>
+        </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tot('ativos')}</b></td>
         <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
         </tr></tfoot></table></div>
         ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
@@ -2088,7 +2092,7 @@ function abrirColecao(id) {
         ${s26.map((x) => `<tr><td>${esc(x.rotulo)}</td><td class="num"><b>${x.novos}</b></td>
           <td class="num">${x.na_foto || '—'}</td><td class="num">${x.fora_da_foto || '—'}</td>
           <td class="num">${x.ss_do_ano || '—'}</td><td class="num">${x.ss_recarimbada || '—'}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot26('novos')}</b></td>
+        </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tot26('novos')}</b></td>
         <td class="num"><b>${tot26('na_foto')}</b></td><td class="num"><b>${tot26('fora_da_foto')}</b></td>
         <td class="num"><b>${tot26('ss_do_ano')}</b></td><td class="num"><b>${tot26('ss_recarimbada')}</b></td>
         </tr></tfoot></table></div>
@@ -2120,14 +2124,14 @@ function abrirColecao(id) {
             <td class="num">${(g.length - canc - rep) || '—'}</td>
             <td class="num">${conta(g, (t) => t.parecer_coep) || '—'}</td></tr>`;
         }).join(''); })()}
-        </tbody><tfoot><tr><td>Total</td><td class="num"><b>${tratadas.length}</b></td><td class="num">—</td>
-        <td class="num"><b>${conta(tratadas, (t) => t.via === 'cancelamento da SS de entrada')}</b></td>
-        <td class="num"><b>${conta(tratadas, (t) => t.via === 'repasse para a etapa seguinte')}</b></td>
-        <td class="num"><b>${conta(tratadas, (t) => !['cancelamento da SS de entrada', 'repasse para a etapa seguinte'].includes(t.via))}</b></td>
-        <td class="num"><b>${conta(tratadas, (t) => t.parecer_coep)}</b></td></tr></tfoot></table></div>
+        </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tj.length}</b></td><td class="num">—</td>
+        <td class="num"><b>${conta(tj, (t) => t.via === 'cancelamento da SS de entrada')}</b></td>
+        <td class="num"><b>${conta(tj, (t) => t.via === 'repasse para a etapa seguinte')}</b></td>
+        <td class="num"><b>${conta(tj, (t) => !['cancelamento da SS de entrada', 'repasse para a etapa seguinte'].includes(t.via))}</b></td>
+        <td class="num"><b>${conta(tj, (t) => t.parecer_coep)}</b></td></tr></tfoot></table></div>
         <div class="nota" style="margin-top:12px"><strong>O desenho da atuação</strong>
-        ${conta(tratadas, (t) => t.mes_resolucao >= '2026-04')} dos ${tratadas.length} foram tratados de
-        abril em diante. Maio e junho são limpeza de fila — a maioria saiu por cancelamento de SS.
+        ${conta(tj, (t) => t.mes_resolucao >= '2026-04')} dos ${tj.length} foram tratados de
+        abril em diante na janela.${tratadas.length > tj.length ? ` Fora dela, em agosto, mais ${tratadas.length - tj.length}.` : ''} Maio e junho são limpeza de fila — a maioria saiu por cancelamento de SS.
         Julho vira o jogo: a maior parte sai por repasse, e é o mês em que quase todos os que tinham
         parecer COEP foram embora. Repasse quer dizer que a demanda saiu do posto, não que o serviço
         acabou em campo.</div>

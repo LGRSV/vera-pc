@@ -165,12 +165,15 @@ def main():
                 "total": mm["total"],
                 "recorte": mm.get("recorte", ""),
                 "fora_do_recorte": mm.get("fora_do_recorte"),
+                "janela": mm.get("janela", ""),
+                "apos_janela": mm.get("apos_janela"),
                 "curva": mm["curva"],
                 "saldo": mm.get("saldo", []),
                 "abertura": mm.get("abertura", 0),
                 "fora_do_livro": mm.get("fora_do_livro", 0),
                 "legado": mm["legado"],
-                "serie_coep": [x for x in mm["serie_coep"] if x["mes"] >= "2026-01"],
+                "serie_coep": [x for x in mm["serie_coep"]
+                               if "2026-01" <= x["mes"] <= "2026-07"],
                 "tratativas": [t for t in mm["tratativas"] if t["mes_resolucao"]],
                 "regra": mm["regra"],
             }

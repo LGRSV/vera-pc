@@ -36,7 +36,7 @@ SAIDA = os.path.join(RAIZ, "dist", "ENTRADA_COEP_MES_A_MES.xlsx")
 
 MESES_PT = ["jan", "fev", "mar", "abr", "mai", "jun",
             "jul", "ago", "set", "out", "nov", "dez"]
-MESES_2026 = [f"2026-{m:02d}" for m in range(1, 9)]
+MESES_2026 = [f"2026-{m:02d}" for m in range(1, 8)]  # janela: janeiro a julho
 
 FONTE = "Arial"
 TINTA = "1F1C17"
@@ -316,10 +316,10 @@ def montar(meta, serie, detalhe, res):
             entrantes.get(k, 0) or "—",
             resolvidos.get(k, 0) or "—",
         ], fundo=ATUACAO if depois else (DESTAQUE if k == "2026-01" else None))
-    corpo(ws, linha, ["Total de 2026",
+    corpo(ws, linha, ["Total até julho",
                       sum(foto.values()),
                       sum(entrantes.get(k, 0) for k in MESES_2026),
-                      sum(resolvidos.values())], negrito=True, topo=True)
+                      sum(resolvidos.get(k, 0) for k in MESES_2026)], negrito=True, topo=True)
     linha += 2
 
     linha = prosa(ws, linha, [
@@ -369,13 +369,15 @@ def montar(meta, serie, detalhe, res):
         f"Janeiro: {abertura} + {sal[0]['entram'] if sal else 0} − {sal[0]['saem'] if sal else 0} "
         f"= {sal[0]['final'] if sal else abertura}; fevereiro já começa com "
         f"{sal[0]['final'] if sal else abertura}. E assim em diante.",
-        f"Agosto fecha em {sal[-1]['final'] if sal else abertura} — exatamente os «ainda no "
-        "fluxo» da carteira de entrada. A conta fecha ativo a ativo.",
+        f"{sal[-1]['rotulo'] if sal else '—'} fecha em {sal[-1]['final'] if sal else abertura}; "
+        f"fora da janela, em agosto, mais "
+        f"{(mm.get('apos_janela') or {}).get('resolvidos', 0)} já foram tratados — a carteira "
+        f"mostra {(sal[-1]['final'] if sal else abertura) - (mm.get('apos_janela') or {}).get('resolvidos', 0)} "
+        "ainda no fluxo hoje. A conta fecha ativo a ativo.",
         f"Os {fora_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram "
         "aqui: sem SS na foto de entrada, não há data de tratativa para dar baixa. Eles estão "
         "na aba «Entrantes ativo a ativo».",
-        "O topo da fila foi 99, no fim de abril, segurado em maio — o primeiro mês em que "
-        "entrada e saída se anularam. De lá até agosto a carteira caiu 46.",
+        "O topo da fila foi 99, no fim de abril. De lá até julho a carteira caiu 45.",
     ], 6)
 
     # ------------------------------------------------- 2. Janeiro por dentro
@@ -431,7 +433,7 @@ def montar(meta, serie, detalhe, res):
                                   x["ss_recarimbada"] or "—"],
                       fundo=ATUACAO if k >= "2026-04" else None)
     alvos = [por_mes_serie[k] for k in MESES_2026 if k in por_mes_serie]
-    corpo(ws, linha, ["Total de 2026",
+    corpo(ws, linha, ["Total até julho",
                       sum(x["novos"] for x in alvos),
                       sum(x["na_foto"] for x in alvos),
                       sum(x["fora_da_foto"] for x in alvos),
@@ -462,10 +464,11 @@ def montar(meta, serie, detalhe, res):
     cabecalho(ws, 4, [("Mês da tratativa", 18), ("Resolvidos", 12), ("Acumulado", 12),
                       ("Por cancelamento da SS", 18), ("Por repasse", 12), ("Outras vias", 13),
                       ("Com parecer COEP", 16)], altura=42)
+    jan_jul = [x for x in com_data if x["mes_resolucao"] <= "2026-07"]
     linha = 5
     acumulado = 0
-    for k in sorted({x["mes_resolucao"] for x in com_data}):
-        doMes = [x for x in com_data if x["mes_resolucao"] == k]
+    for k in sorted({x["mes_resolucao"] for x in jan_jul}):
+        doMes = [x for x in jan_jul if x["mes_resolucao"] == k]
         acumulado += len(doMes)
         canc = sum(1 for x in doMes if x["via"] == "cancelamento da SS de entrada")
         rep = sum(1 for x in doMes if x["via"] == "repasse para a etapa seguinte")
@@ -473,13 +476,13 @@ def montar(meta, serie, detalhe, res):
         linha = corpo(ws, linha, [rotulo(k), len(doMes), acumulado, canc or "—",
                                   rep or "—", (len(doMes) - canc - rep) or "—", par or "—"],
                       fundo=ATUACAO if k >= "2026-04" else None)
-    corpo(ws, linha, ["Total", len(com_data), "",
-                      sum(1 for x in com_data if x["via"] == "cancelamento da SS de entrada"),
-                      sum(1 for x in com_data if x["via"] == "repasse para a etapa seguinte"),
-                      sum(1 for x in com_data
+    corpo(ws, linha, ["Total até julho", len(jan_jul), "",
+                      sum(1 for x in jan_jul if x["via"] == "cancelamento da SS de entrada"),
+                      sum(1 for x in jan_jul if x["via"] == "repasse para a etapa seguinte"),
+                      sum(1 for x in jan_jul
                           if x["via"] not in ("cancelamento da SS de entrada",
                                               "repasse para a etapa seguinte")),
-                      sum(1 for x in com_data if x["parecer_coep"])],
+                      sum(1 for x in jan_jul if x["parecer_coep"])],
           negrito=True, topo=True)
     linha += 2
 
@@ -493,6 +496,8 @@ def montar(meta, serie, detalhe, res):
         linha = corpo(ws, linha, [v, q, "", "", "", "", ""])
     linha += 1
     linha = prosa(ws, linha, [
+        f"Fora da janela: {len(com_data) - len(jan_jul)} tratados em agosto/2026 — estão na "
+        "«Base do recorte», só não entram na tabela mensal.",
         f"{sum(1 for x in com_data if x['parecer_coep'])} dos {len(com_data)} tinham parecer "
         "COEP registrado na planilha de criticidade — a coluna está na aba «Base do recorte».",
         "Repasse quer dizer que a demanda saiu do posto, não que o serviço acabou em campo. "
@@ -610,6 +615,10 @@ def montar(meta, serie, detalhe, res):
          "qual for o tipo. Só fica fora quem é de outro tipo E continua pendente "
          f"({(meta['entrada_mensal'].get('fora_do_recorte') or {}).get('qtd', 0)} ativo). Na "
          "coluna de ENTRANTES a régua segue sendo a primeira SS de indisponibilidade do ativo."),
+        ("Janela de exibição",
+         "As tabelas mensais vão de janeiro a julho de 2026. Agosto está em curso e ficaria como "
+         "um toco enganoso no fim das curvas; o que já aconteceu nele — tratativas e entrantes — "
+         "está anotado nas notas das abas e aparece na «Base do recorte», que é completa."),
         ("Posição",
          "Base de SS/OS e AIC de 07/08/2026; foto de entrada de junho/2026; pareceres e decisões "
          "do gestor até 13/08/2026."),
@@ -646,7 +655,7 @@ def main():
     for k in MESES_2026:
         print(f"  {rotulo(k):10} {foto.get(k, 0):>7} {entr.get(k, 0):>10} {resol.get(k, 0):>11}")
     print(f"  {'TOTAL':10} {sum(foto.values()):>7} "
-          f"{sum(entr.get(k, 0) for k in MESES_2026):>10} {sum(resol.values()):>11}")
+          f"{sum(entr.get(k, 0) for k in MESES_2026):>10} {sum(resol.get(k, 0) for k in MESES_2026):>11}")
     depois = sum(resol[k] for k in resol if k >= "2026-04")
     print(f"  tratados de abril em diante: {depois} de {sum(resol.values())}")
 

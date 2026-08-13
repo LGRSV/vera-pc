@@ -396,9 +396,19 @@ def montar(entrada):
     tratativas = _datas_de_tratativa(lista, entrada, base)
     entrantes = {x["mes"]: x["novos"] for x in serie_coep}
     saidas = Counter(t["mes_resolucao"] for t in tratativas if t["mes_resolucao"])
-    do_ano = sorted({b["mes"] for b in blocos}
+    # Janela de exibição: janeiro a julho. Agosto está em curso e ficaria como um
+    # toco enganoso no fim de toda curva; o que já aconteceu nele fica anotado.
+    JANELA_FIM = "2026-07"
+    do_ano = sorted(m for m in ({b["mes"] for b in blocos}
                     | {m for m in entrantes if m.startswith("2026")}
                     | {m for m in saidas if m.startswith("2026")})
+                    if m <= JANELA_FIM)
+    apos_janela = {
+        "resolvidos": sum(q for m, q in saidas.items()
+                          if m.startswith("2026") and m > JANELA_FIM),
+        "entrantes": sum(q for m, q in entrantes.items()
+                         if m.startswith("2026") and m > JANELA_FIM),
+    }
     curva = [{
         "mes": m, "rotulo": rotulo(m),
         "ativos": next((b["qtd"] for b in blocos if b["mes"] == m), 0),
@@ -433,6 +443,8 @@ def montar(entrada):
     return {
         "recorte": "SS de «INDISPONIBILIDADE PARA OPERAÇÃO», mais as de outros "
                    "tipos que já foram concluídas",
+        "janela": "janeiro a julho de 2026",
+        "apos_janela": apos_janela,
         "fora_do_recorte": fora_do_recorte,
         "curva": curva,
         "saldo": saldo,
