@@ -32,6 +32,7 @@ from cruzamento_emd import cruzar, ler_emd  # noqa: E402
 from acompanhamento import montar as montar_acompanhamento  # noqa: E402
 from consolidado import montar as montar_consolidado  # noqa: E402
 from entrada import montar as montar_entrada  # noqa: E402
+from entrada_mensal import montar as montar_entrada_mensal  # noqa: E402
 from gestao_equipamentos import carregar as carregar_gestao  # noqa: E402
 from missao import anotar_registros, carregar as carregar_missao, enxugar  # noqa: E402
 from obra_cruzada import montar as montar_obra_cruzada  # noqa: E402
@@ -417,6 +418,9 @@ def main():
     entrada = montar_entrada(registros)
     if entrada:
         meta["entrada"] = entrada
+        mensal = montar_entrada_mensal(entrada)
+        if mensal:
+            meta["entrada_mensal"] = mensal
     meta["acompanhamento"] = montar_acompanhamento(registros, entrada)
     meta["consolidado"] = montar_consolidado(registros, entrada, meta["acompanhamento"])
 

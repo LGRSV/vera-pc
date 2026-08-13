@@ -53,6 +53,7 @@ const COLECOES = [
   { id: 'consolidado', nome: 'Carteira consolidada', desc: 'As duas listas fundidas: onde cada equipamento está de fato', termos: 'consolidado consolidada tudo junto fundido uniao das duas listas onde esta ponto atual situacao real resolvido pendente escada total geral 159 160' },
   { id: 'acompanhamento', nome: 'Acompanhamento atual', desc: 'Como está cada equipamento hoje, pelo parecer COEP mais recente', termos: 'acompanhamento atual hoje situacao em operacao cancelada errada dmsl pendente fluxo em analise desmobilizado check concluidas parecer atualizada novo primeiro ataque divergencia' },
   { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
+  { id: 'mensal', nome: 'Entrada mês a mês', desc: 'Os 117 da foto de junho pela data de abertura da SS', termos: 'mensal mes a mes mensalizado mensalizada 117 data de abertura abertura ss janeiro jan fev mar abr mai jun 2026 legado antigo quando abriu curva ritmo entrada por mes' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
   { id: 'coep', nome: 'Parecer COEP', desc: 'O que já deveria estar concluído e não está', termos: 'coep parecer pendencia atraso prazo vencido sla' },
@@ -1686,6 +1687,93 @@ function abrirColecao(id) {
 
         ${(ac.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta leitura</strong>${ac.premissas.map(esc).join('<br>')}</div>` : ''}`;
     }
+  }
+
+  if (id === 'mensal') {
+    const mm = m.entrada_mensal;
+    if (!mm) {
+      html = cabecaColecao('Entrada mês a mês', 'A foto de entrada ainda não foi carregada.');
+    } else {
+      const pico = Math.max(...mm.meses.map((x) => x.qtd), 1);
+      const jan = mm.meses.find((x) => x.mes === '2026-01');
+      const anos = mm.legado.por_ano.map((x) => `${x.qtd} de ${x.ano}`).join(', ');
+      const porMes = (mes) => mm.lista.filter((x) => x.mes === mes);
+
+      html = cabecaColecao('Entrada mês a mês',
+        `Os ${mm.total} ativos da foto de junho, distribuídos pelo mês em que a SS foi aberta.`) +
+        `<div class="numeros">
+          ${num({ rotulo: 'Na foto de entrada', valor: mm.total, nota: `${mm.total_ss} SS — ativo com mais de uma entra pela mais antiga` })}
+          ${num({ rotulo: 'Herdados de antes de 2026', valor: mm.legado.qtd, nota: `${Math.round(100 * mm.legado.qtd / mm.total)}% da carteira — ${anos}`, tom: 'critico' })}
+          ${num({ rotulo: 'Abertos dentro de 2026', valor: mm.total - mm.legado.qtd, nota: 'de janeiro a junho' })}
+          ${num({ rotulo: 'Já resolvidos', valor: mm.resolvidos, nota: `${mm.em_andamento} ainda no fluxo${mm.fora_da_carteira ? ` · ${mm.fora_da_carteira} saíram da lista de hoje` : ''}`, tom: 'bom' })}
+        </div>
+
+        <div class="nota calma" style="margin:-6px 0 26px"><strong>A regra do mês</strong>
+        ${esc(mm.regra)} A data vem da coluna DATA_ABERTURA_SS da planilha de entrada;
+        ${mm.fonte_data.find((f) => f.fonte.startsWith('cruzamento'))?.qtd || 0} ativos não tinham
+        essa coluna preenchida e a data saiu do cruzamento pelo número da SS na base de SS/OS,
+        como você mandou.</div>
+
+        <section class="bloco"><h3>A curva de entrada</h3>
+        <p class="destaque-texto">Cada barra é um mês; a parte verde é o que já saiu da carteira e a
+        amarela é o que continua no fluxo. Janeiro é o mês do acervo: ${jan ? jan.legado : 0} das
+        ${jan ? jan.qtd : 0} demandas de janeiro são SS abertas antes de 2026.</p>
+        <div class="curva-mes">
+          ${mm.meses.map((b) => `<div class="mes-linha">
+            <span class="rot">${esc(b.rotulo)}</span>
+            <i class="trilho"><b style="width:${(b.resolvidos / pico * 100).toFixed(1)}%"></b><em style="width:${(b.em_andamento / pico * 100).toFixed(1)}%"></em></i>
+            <span class="lado"><b>${b.qtd}</b> ${b.resolvidos} resolvidos · ${b.em_andamento} no fluxo</span>
+          </div>`).join('')}
+        </div>
+        <div class="legenda-mes"><span class="am-feito"></span> resolvido
+          <span class="am-fluxo"></span> ainda no fluxo</div>
+        </section>
+
+        <section class="bloco"><h3>O mês a mês em números</h3>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês</th>
+        <th class="num">Ativos</th><th class="num">De antes de 2026</th><th class="num">Abertos no mês</th>
+        <th class="num">Resolvidos</th><th class="num">No fluxo</th><th class="num">% resolvido</th></tr></thead><tbody>
+        ${mm.meses.map((b) => `<tr><td>${esc(b.rotulo)}</td>
+          <td class="num"><b>${b.qtd}</b></td>
+          <td class="num">${b.legado || '—'}</td><td class="num">${b.no_mes || '—'}</td>
+          <td class="num">${b.resolvidos}</td><td class="num">${b.em_andamento}</td>
+          <td class="num">${b.percentual.toFixed(1).replace('.', ',')}%</td></tr>`).join('')}
+        </tbody><tfoot><tr><td>Total</td><td class="num"><b>${mm.total}</b></td>
+        <td class="num">${mm.legado.qtd}</td><td class="num">${mm.total - mm.legado.qtd}</td>
+        <td class="num">${mm.resolvidos}</td><td class="num">${mm.em_andamento}</td>
+        <td class="num">${(100 * mm.resolvidos / mm.total).toFixed(1).replace('.', ',')}%</td></tr></tfoot>
+        </table></div></section>
+
+        ${mm.meses.map((b) => `<section class="bloco"><h3>${esc(b.rotulo)} — ${b.qtd} ativos</h3>
+        <div class="cartas">${porMes(b.mes).map((x) => {
+          const abre = x.na_carteira;
+          return `<${abre ? 'button' : 'div'} class="carta"${abre ? ` data-ativo="${esc(x.ativo)}"` : ' style="cursor:default"'}>
+          <div class="topo-carta"><span class="cod">${esc(x.ativo)}</span>
+            <span class="selo ${x.resolvido ? 'c-baixa' : 'neutro'}">${x.resolvido ? 'resolvido' : 'no fluxo'}</span>
+            ${x.legado ? '<span class="selo destaque">acervo</span>' : ''}
+            ${abre ? '' : '<span class="selo neutro">saiu da lista de hoje</span>'}</div>
+          <div class="onde">${esc(x.localidade)} · ${esc(x.tipo)}</div>
+          <p><b class="mono">${esc(x.numero_ss)}</b> aberta em ${esc(dataBr(x.abertura))}${x.outras_ss.length ? ` · mais ${x.outras_ss.length} SS na foto` : ''}
+          ${x.motivo ? `<br>${esc(x.motivo)}` : ''}</p></${abre ? 'button' : 'div'}>`;
+        }).join('')}</div></section>`).join('')}
+
+        <section class="bloco"><h3>De onde veio cada data</h3>
+        <div class="itens">
+          ${mm.fonte_data.map((f) => `<div class="item-linha"><span>${esc(f.fonte)}</span><b>${f.qtd}</b></div>`).join('')}
+          ${mm.legado.mais_antiga ? `<div class="item-linha"><span>SS mais antiga da foto — ${esc(mm.legado.mais_antiga.numero_ss)},
+            ativo ${esc(mm.legado.mais_antiga.ativo)} em ${esc(mm.legado.mais_antiga.localidade)}</span>
+            <b>${esc(dataBr(mm.legado.mais_antiga.abertura))}</b></div>` : ''}
+          ${mm.multiplas_ss.length ? `<div class="item-linha"><span>Ativos com mais de uma SS na foto — entraram pela mais antiga</span>
+            <b>${mm.multiplas_ss.length}</b></div>` : ''}
+          ${mm.sem_data.length ? `<div class="item-linha"><span>SS sem data em nenhuma das duas bases</span><b>${mm.sem_data.length}</b></div>` : ''}
+        </div>
+        ${mm.multiplas_ss.length ? `<p class="destaque-texto" style="margin-top:14px">
+        ${mm.multiplas_ss.map((x) => `<b class="mono">${esc(x.ativo)}</b>: ${x.ss.map(esc).join(', ')} — usei a ${esc(x.usada)}`).join('<br>')}</p>` : ''}
+        </section>`;
+    }
+    paginaLeitura(html, 'colecao');
+    ligarCartas();
+    return;
   }
 
   if (id === 'entrada') {

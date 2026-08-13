@@ -420,6 +420,34 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 .barra > i { display: block; height: 7px; background: var(--papel-3); }
 .barra > i b { display: block; height: 100%; background: var(--tinta); }
 
+/* ---------- curva de entrada mês a mês ---------- */
+/* Barra partida em dois: o que já saiu da carteira e o que ainda está no fluxo. */
+
+.curva-mes { display: grid; gap: 6px; }
+.mes-linha {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--filete-2);
+}
+.mes-linha .rot { font: 600 13px var(--cond); letter-spacing: .07em; text-transform: uppercase; }
+.mes-linha .trilho { display: flex; height: 14px; background: var(--papel-3); }
+.mes-linha .trilho b { display: block; height: 100%; background: var(--baixa); }
+.mes-linha .trilho em { display: block; height: 100%; background: var(--alta); }
+.mes-linha .lado { white-space: nowrap; font: 400 12px var(--mono); color: var(--tinta-3); }
+.mes-linha .lado b { font-size: 15px; color: var(--tinta); margin-right: 8px; }
+
+.legenda-mes {
+  display: flex; align-items: center; gap: 7px; margin-top: 12px;
+  font: 400 12px var(--mono); color: var(--tinta-3);
+}
+.legenda-mes span { display: inline-block; width: 13px; height: 9px; }
+.legenda-mes span + span { margin-left: 12px; }
+.legenda-mes .am-feito { background: var(--baixa); }
+.legenda-mes .am-fluxo { background: var(--alta); }
+
 /* ---------- turmas de cartas ---------- */
 
 .turmas { display: grid; gap: 38px; }
