@@ -1,0 +1,16 @@
+[
+  {
+    "ativo": "5856070091",
+    "localidade": "ALMAS",
+    "data": "2026-08-22",
+    "condicional": "se a DB Machado for para o Sul",
+    "servico": "Substituição das 3 células do regulador",
+    "material": "690241 · Célula — Regulador 34,5 kV / 400 kVA · 3 peças",
+    "valor": 380681.40,
+    "situacao_material": "Entregue em 20/07/2026 — EMD 514814, depósito 5908, obra 0512600177, SIGCO 8481",
+    "quem_executa": "COCM / DCMD",
+    "fonte": "Gestor, 13/08/2026 — aba de mapeamento por criticidades",
+    "divergencia": "A planilha registra «nova previsão de entrega 21/08 se a DB Machado for para o Sul»; o gestor falou em 22/08. Um dia de diferença, sem efeito prático.",
+    "nota": "As 3 peças foram redirecionadas do 5862236091 (Almas, Baixa) para cá por prioridade maior, registrado na ETO-COEP 00158/2026 em 27/07. O 5862236091 ficou sem a célula da fase B."
+  }
+]

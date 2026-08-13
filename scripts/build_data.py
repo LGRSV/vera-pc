@@ -476,6 +476,19 @@ def main():
         with open(arq_leitura, encoding="utf-8") as fh:
             meta["leitura_canceladas"] = json.load(fh)
 
+    # Agenda de campo: data combinada de execução, com a condição que a trava.
+    arq_agenda = os.path.join(RAIZ, "data", "raw", "agenda_campo.json")
+    if os.path.exists(arq_agenda):
+        with open(arq_agenda, encoding="utf-8") as fh:
+            agenda = json.load(fh)
+        por_ativo_agenda = defaultdict(list)
+        for a in agenda:
+            por_ativo_agenda[a["ativo"]].append(a)
+        for reg in registros:
+            if reg["ativo"] in por_ativo_agenda:
+                reg["agenda_campo"] = por_ativo_agenda[reg["ativo"]]
+        meta["agenda_campo"] = sorted(agenda, key=lambda x: x.get("data", ""))
+
     arq_obras_eq = os.path.join(RAIZ, "data", "raw", "obras_equipamento.json")
     if os.path.exists(arq_obras_eq):
         with open(arq_obras_eq, encoding="utf-8") as fh:

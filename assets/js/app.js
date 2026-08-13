@@ -522,6 +522,21 @@ function abrirAtivo(ativo) {
       ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
   }
 
+  (e.agenda_campo || []).forEach((ag) => {
+    partes.push(bloco('Programado para campo', `
+      <p class="destaque-texto"><b>${dataBr(ag.data)}</b>${ag.condicional ? ` — ${esc(ag.condicional)}` : ''}.
+      ${esc(ag.servico || '')}</p>
+      <div class="campos">
+        ${campo('Material', esc(ag.material || '—'))}
+        ${campo('Quem executa', esc(ag.quem_executa || '—'))}
+        ${ag.valor ? campo('Valor', 'R$ ' + moedaBR(ag.valor)) : ''}
+      </div>
+      ${ag.situacao_material ? `<div class="item-linha" style="margin-top:8px"><span>Situação do material</span><b>${esc(ag.situacao_material)}</b></div>` : ''}
+      ${ag.nota ? `<div class="nota branda" style="margin-top:10px"><strong>Origem das peças</strong>${esc(ag.nota)}</div>` : ''}
+      ${ag.divergencia ? `<div class="nota" style="margin-top:10px"><strong>Divergência de data</strong>${esc(ag.divergencia)}</div>` : ''}
+      <div class="reporte-fonte">${esc(ag.fonte || '')}</div>`));
+  });
+
   (e.reportes_campo || []).forEach((rc) => {
     partes.push(bloco('Reporte de campo — serviço concluído', `
       <div class="reporte">
