@@ -587,6 +587,13 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
   color: var(--baixa); border: 1px solid var(--baixa); padding: 3px 8px;
 }
 .reporte-data { font: 600 12px var(--mono); color: var(--tinta-2); }
+/* Aviso de anexo: diz que o reporte tem foto antes de o leitor rolar até ela. */
+.reporte-anexo { margin-right: auto; }
+/* Clipe na linha da busca — dá para achar quem tem foto sem abrir a ficha. */
+.clipe {
+  font: 600 11px var(--mono); letter-spacing: .04em;
+  color: var(--tinta-2); border: 1px solid var(--filete-2); padding: 1px 6px;
+}
 .reporte-titulo {
   font: 700 20px/1.15 var(--cond); letter-spacing: .02em; text-transform: uppercase;
   color: var(--tinta); margin: 0;

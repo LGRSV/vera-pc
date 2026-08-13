@@ -458,6 +458,11 @@ def main():
             "total": len(reportes),
             "ativos": sorted(por_ativo_reporte),
             "com_imagem": sum(1 for r in reportes if r.get("imagem")),
+            "fotos": sum(r["anexo"]["fotos"] if r.get("anexo") else bool(r.get("imagem"))
+                         for r in reportes),
+            "aguardando_arquivo": sorted(
+                r["ativo"] for r in reportes
+                if r.get("anexo") and not r.get("imagem")),
             "lista": sorted(reportes, key=lambda x: (x.get("data", ""), x["ativo"])),
         }
         # As fotos viram data URI: o painel é um arquivo só e não pode buscar nada na rede.

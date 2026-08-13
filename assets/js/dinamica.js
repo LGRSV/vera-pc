@@ -83,6 +83,7 @@ function rol() {
       <td>${esc(x.criticidade)}</td>
       <td>${esc(x.etapa)}</td>
       <td>${esc(x.parecer || '—')}
+        ${x.reporte_campo ? `<span class="reporte-selo">reporte de campo entregue${x.reporte_campo.fotos ? ` · ${x.reporte_campo.fotos} foto${x.reporte_campo.fotos > 1 ? 's' : ''}` : ''}</span>` : ''}
         ${x.o_que_trocar ? `<span class="nota-campo">troca: ${esc(x.o_que_trocar)}</span>` : ''}
         ${x.nota_campo ? `<span class="nota-campo">${esc(x.nota_campo)}</span>` : ''}
         ${x.observacao && x.observacao !== x.nota_campo ? `<span class="nota-campo">${esc(x.observacao)}</span>` : ''}</td>

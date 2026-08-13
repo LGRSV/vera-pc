@@ -358,12 +358,15 @@ function render() {
 function linhaEquipamento(e, t, idx) {
   const dias = e.ss_sgm?.dias_aberta;
   const conc = e.conclusao?.situacao || '';
+  // Clipe na linha da busca: este ativo tem reporte de campo com foto anexa.
+  const fotos = (e.reportes_campo || []).reduce((n, r) => n + (r.imagem ? 1 : (r.anexo?.fotos || 0)), 0);
   return `<button class="linha fila c-${chave(e.criticidade)}" data-ativo="${esc(e.ativo)}" data-idx="${idx}">
     <span class="ponto"></span>
     <span>
       <span class="principal">
         <span class="cod">${esc(e.ativo)}</span>
         <span class="nome">${esc(e.localidade || '—')} · ${esc(e.tipo_nome)}</span>
+        ${fotos ? `<span class="clipe" title="reporte de campo com ${fotos} foto${fotos > 1 ? 's' : ''} anexa${fotos > 1 ? 's' : ''}">📎 ${fotos}</span>` : ''}
       </span>
       <span class="sob">${trecho(e, t)}</span>
     </span>
@@ -643,10 +646,19 @@ function abrirAtivo(ativo) {
   });
 
   (e.reportes_campo || []).forEach((rc) => {
+    // O anexo pode estar embutido (foto no repositório) ou só anunciado, quando o
+    // gestor mandou as fotos pela conversa e o arquivo ainda não chegou.
+    const temFoto = rc.imagem && estado.imagens?.[rc.imagem];
+    const anexo = temFoto
+      ? { texto: 'Foto anexa — clique para ampliar', tom: 'destaque' }
+      : rc.anexo
+        ? { texto: `${rc.anexo.fotos} foto${rc.anexo.fotos > 1 ? 's' : ''} anexa${rc.anexo.fotos > 1 ? 's' : ''} — ${esc(rc.anexo.estado)}`, tom: 'neutro' }
+        : null;
     partes.push(bloco('Reporte de campo — serviço concluído', `
       <div class="reporte">
         <div class="reporte-topo">
           <span class="reporte-acao">${esc(rc.acao || 'Ação de manutenção')}</span>
+          ${anexo ? `<span class="selo ${anexo.tom} reporte-anexo">${anexo.texto}</span>` : ''}
           <span class="reporte-data">${dataBr(rc.data)}</span>
         </div>
         <h4 class="reporte-titulo">${esc(rc.titulo)}</h4>
@@ -659,12 +671,13 @@ function abrirAtivo(ativo) {
           ${rc.polo ? campo('Polo', esc(rc.polo)) : ''}
           ${rc.ordem_servico ? campo('Ordem de serviço', esc(rc.ordem_servico)) : ''}
           ${rc.servico_executado ? campo('Serviço executado', esc(rc.servico_executado)) : ''}
+          ${rc.equipamento_instalado ? campo('Equipamento instalado', esc(rc.equipamento_instalado)) : ''}
         </div>
         ${rc.objetivo ? `<p class="destaque-texto" style="margin-top:12px">${esc(rc.objetivo)}</p>` : ''}
-        ${rc.imagem && estado.imagens?.[rc.imagem]
+        ${temFoto
           ? `<a class="reporte-foto" href="${estado.imagens[rc.imagem]}" target="_blank" rel="noopener">
              <img src="${estado.imagens[rc.imagem]}" alt="Reporte de campo do ativo ${esc(rc.ativo)} em ${dataBr(rc.data)}" loading="lazy"></a>`
-          : ''}
+          : rc.anexo ? `<div class="nota" style="margin-top:12px"><strong>${rc.anexo.fotos} foto${rc.anexo.fotos > 1 ? 's' : ''} deste reporte — ${esc(rc.anexo.estado)}</strong>${esc(rc.anexo.descricao)}</div>` : ''}
         ${rc.vinculo ? `<div class="nota branda" style="margin-top:12px">
           <strong>Como esse reporte foi ligado ao ativo</strong>${esc(rc.vinculo)}</div>` : ''}
         <div class="reporte-fonte">${esc(rc.fonte || '')}</div>

@@ -81,6 +81,24 @@ def main():
 
     # Cancelado em operacao nao consome orcamento: o valor nao entra em nenhuma soma.
     # Ele vira "valor evitado" — o que teria sido gasto se a SS nao tivesse caido.
+    # Reporte de campo entregue: a planilha pede «Construir Reporte» em vários ativos,
+    # e o reporte é a prova mais forte que existe. Marca quem já tem, com quantas fotos.
+    arq_rep = os.path.join(RAIZ, "data", "raw", "reportes_campo.json")
+    if os.path.exists(arq_rep):
+        with open(arq_rep, encoding="utf-8") as fh:
+            reportes = json.load(fh)
+        por_ativo = {}
+        for r in reportes:
+            e = por_ativo.setdefault(r["ativo"], {"qtd": 0, "fotos": 0, "data": ""})
+            e["qtd"] += 1
+            e["fotos"] += r["anexo"]["fotos"] if r.get("anexo") else bool(r.get("imagem"))
+            e["data"] = max(e["data"], r.get("data", ""))
+        for item in d["lista"]:
+            r = por_ativo.get(item["ativo"])
+            if r:
+                item["reporte_campo"] = r
+        d["com_reporte"] = sum(1 for i in d["lista"] if i.get("reporte_campo"))
+
     # O valor evitado de cada cancelado vem de scripts/economia_cancelados.py, que
     # o monta peça a peça na convenção material + mão de obra. Se algum ativo ainda
     # não tiver passado por lá, cai no valor da planilha de gestão.
