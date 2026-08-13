@@ -1087,7 +1087,7 @@ function abrirColecao(id) {
         `<div class="numeros">
           ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores · ${en.total_ss} SS` })}
           ${num({ rotulo: 'Já resolvidos', valor: res.ativos, nota: `${en.reducao_percentual}% da carteira herdada`, tom: 'bom' })}
-          ${num({ rotulo: 'Ainda no fluxo', valor: and.ss, nota: `${and.por_posto['COEP'] || 0} ainda no COEP`, tom: 'atento' })}
+          ${num({ rotulo: 'Ainda no fluxo', valor: and.ativos, nota: `${and.por_posto['COEP'] || 0} SS ainda no COEP`, tom: 'atento' })}
           ${num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'cauda com sinal de espera ou defeito novo', tom: 'critico' })}
           ${num({ rotulo: 'Canceladas', valor: en.canceladas.ss, nota: `${en.canceladas.sem_reincidencia} sem reincidência` })}
           ${num({ rotulo: 'Tratativa no equipamento', valor: en.tratativas.ss, nota: `+ ${en.tratativas.atendimento_tecnico_ss} só com atendimento técnico` })}
@@ -1145,7 +1145,7 @@ function abrirColecao(id) {
           <td>${i.alerta_cauda ? '<b>a verificar</b> — o texto fala em espera de material ou defeito novo' : 'conta como resolvido'}</td></tr>`).join('')}
         </tbody></table></div></section>` : ''}
 
-        <section class="bloco"><h3>Os ${res.ativos} que saíram</h3>
+        <section class="bloco"><h3>Os ${res.ativos} que saíram${res.ss !== res.ativos ? ` — ${res.ss} SS, porque ${res.ss - res.ativos} ${res.ss - res.ativos === 1 ? 'ativo trouxe duas SS' : 'ativos trouxeram duas SS'} da foto de entrada` : ''}</h3>
         <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Tipo</th><th>Localidade</th>
         <th>Régua</th><th>Por quê</th></tr></thead><tbody>
         ${res.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
@@ -1154,7 +1154,7 @@ function abrirColecao(id) {
           <td>${esc(i.motivo)}${i.obras_encerradas?.length ? ` · obra ${i.obras_encerradas.map(esc).join(', ')}` : ''}${i.na_protecao && i.regra === 3 ? ' · ainda na Proteção' : ''}</td></tr>`).join('')}
         </tbody></table></div></section>
 
-        <section class="bloco"><h3>Os ${and.ss} que continuam no fluxo</h3>
+        <section class="bloco"><h3>Os ${and.ativos} que continuam no fluxo${and.ss !== and.ativos ? ` — ${and.ss} SS` : ''}</h3>
         <div class="grade" style="margin-bottom:18px">
           <div class="quadro"><header><h3>Posto atual</h3><p>onde a demanda parou</p></header>
           ${barras(Object.entries(and.por_posto).map(([k, v]) => ({ rotulo: k, total: v })))}</div>
