@@ -1314,6 +1314,36 @@ function abrirColecao(id) {
         </div></section>
 `; })()}
 
+        ${m.leitura_canceladas ? (() => {
+          const lc = m.leitura_canceladas;
+          const rec = new Set(lc.reclassificar || []);
+          const perg = new Set(lc.perguntar_ao_gestor || []);
+          return `<section class="bloco"><h3>As canceladas da ETO-COEP, lidas fio a fio</h3>
+        <p class="destaque-texto">${esc(lc.criterio)}</p>
+        <div class="itens">
+          <div class="item-linha"><span>SS canceladas a partir de 01/05/2026<i class="linha-nota">em ${lc.universo.ativos} ativos</i></span><b>${lc.universo.ss_canceladas}</b></div>
+          <div class="item-linha"><span>Sem nenhuma SS nova depois<i class="linha-nota">a condição (a) passa</i></span><b>${lc.universo.sem_ss_nova}</b></div>
+          <div class="item-linha"><span>Resolvidos de verdade<i class="linha-nota">passam nas duas condições</i></span><b>${(lc.resolvidos || []).length}</b></div>
+          <div class="item-linha"><span>Pendência que o cancelamento escondia<i class="linha-nota">o texto pede peça, laudo ou reabertura</i></span><b>${(lc.pendencias || []).length}</b></div>
+          <div class="item-linha"><span>Sem evidência para os dois lados<i class="linha-nota">o texto não decide</i></span><b>${(lc.indefinidos || []).length}</b></div>
+        </div>
+        <p class="destaque-texto" style="margin-top:16px"><b>${rec.size} já foram reclassificados</b> no painel:
+        eram contados como resolvidos por cancelamento e voltaram para pendentes.
+        <b>${perg.size} dependem da sua palavra</b> — neles o painel não resolve pelo cancelamento, e sim
+        pela sua régua de «aguardando comissionamento já foi manutencionado», que a leitura contesta.</p>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>Veredito</th><th>Por quê</th></tr></thead><tbody>
+        ${(lc.pendencias || []).map((p) => `<tr data-ativo="${esc(p.ativo)}">
+          <td><b class="mono">${esc(p.ativo)}</b></td><td>${esc(p.localidade || '—')}</td>
+          <td>${rec.has(p.ativo) ? '<span class="selo c-alta">reclassificado</span>'
+            : perg.has(p.ativo) ? '<span class="selo neutro">aguarda você</span>'
+            : '<span class="selo neutro">já era pendente</span>'}</td>
+          <td>${esc((p.porque || '').slice(0, 240))}</td></tr>`).join('')}
+        </tbody></table></div>
+        ${lc.caso_5852775092 ? `<div class="nota" style="margin-top:14px">
+          <strong>O caso que você citou — 5852775092</strong>${esc(lc.caso_5852775092.slice(0, 1200))}</div>` : ''}
+        </section>`; })() : ''}
+
         ${co.resposta ? `<section class="bloco"><h3>A pergunta em duas colunas</h3>
         <p class="destaque-texto">${co.resposta.manutencionados.total} manutencionados +
         ${co.resposta.por_cancelamento ? co.resposta.por_cancelamento.total : 0} resolvidos por cancelamento +

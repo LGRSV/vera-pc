@@ -38,6 +38,7 @@ import demandas as D
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQ_MIN = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
 ARQ_DECISOES = os.path.join(RAIZ, "data", "raw", "decisoes_gestor.json")
+ARQ_LEITURA = os.path.join(RAIZ, "data", "raw", "leitura_canceladas.json")
 
 ESCADA = [
     "Em operação",
@@ -319,6 +320,16 @@ def montar(registros, entrada, acompanhamento):
         })
 
     # --- o corte que o gestor pediu: foi manutencionado? o que falta? ---
+    leitura = {}
+    if os.path.exists(ARQ_LEITURA):
+        with open(ARQ_LEITURA, encoding="utf-8") as fh:
+            leitura = json.load(fh)
+    _reclassificar = {
+        p["ativo"]: p.get("porque", "")
+        for p in leitura.get("pendencias", [])
+        if p["ativo"] in set(leitura.get("reclassificar", []))
+    }
+
     for i in consolidado:
         parecer = (i["parecer_coep"] or "").upper()
         situacao = i["situacao"]
@@ -338,6 +349,19 @@ def montar(registros, entrada, acompanhamento):
         i["resolvido"] = resolvido
         i["manutencionado"] = manutencionado
         i["resolvido_por_cancelamento"] = resolvido and so_cancelamento
+
+        # Leitura fio a fio das SS da ETO-COEP canceladas a partir de 01/05/2026, feita a pedido
+        # do gestor. A regra é dele: cancelamento só conta como resolução se nada foi reaberto E
+        # nenhum texto pede para abrir. Quando o texto pede, o cancelamento não segura o ativo.
+        if i["ativo"] in _reclassificar and i["resolvido_por_cancelamento"]:
+            i["situacao"] = "Pendente no COEP" if (posto or "COEP") == "COEP" else "Pendente com outra equipe"
+            i["porque"] = _reclassificar[i["ativo"]]
+            i["resolvido"] = False
+            i["manutencionado"] = False
+            i["resolvido_por_cancelamento"] = False
+            i["leitura_canceladas"] = "pendência que o cancelamento escondia"
+            situacao = i["situacao"]
+            resolvido = manutencionado = False
 
         if manutencionado:
             if situacao == "Em operação" or not posto:
