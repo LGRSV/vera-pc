@@ -1187,6 +1187,26 @@ function abrirColecao(id) {
           <td>${esc(i.origem)}</td></tr>`).join('')}
         </tbody></table></div></section>`).join('')}
 
+        ${co.auditoria ? `<section class="bloco"><h3>De onde vêm os ${co.auditoria.uniao} — e por que não há repetido</h3>
+        <div class="itens">
+          <div class="item-linha"><span>Foto de entrada (as duas abas), ativos distintos</span><b>${co.auditoria.entrada_distintos}</b></div>
+          <div class="item-linha"><span>Lista de hoje (ATUALIZADA6), ativos distintos</span><b>${co.auditoria.hoje_distintos}</b></div>
+          <div class="item-linha"><span>Estão nas duas listas (contados uma vez só)</span><b>− ${co.auditoria.em_comum}</b></div>
+          <div class="item-linha"><span><b>União</b></span><b>${co.auditoria.uniao}</b></div>
+          <div class="item-linha"><span>Linhas na tabela × ativos distintos</span><b>${co.auditoria.linhas} × ${co.auditoria.distintos}</b></div>
+          <div class="item-linha"><span>Códigos no padrão 79/58 + 8 dígitos</span><b>${co.auditoria.codigos_validos}</b></div>
+          <div class="item-linha"><span>Ativos repetidos</span><b>${Object.keys(co.auditoria.repetidos).length ? Object.keys(co.auditoria.repetidos).join(', ') : 'nenhum'}</b></div>
+        </div>
+        ${co.auditoria.quase_iguais.length ? `<div class="nota" style="margin-top:12px">
+          <strong>Pares que diferem em um dígito só — conferidos</strong>
+          ${co.auditoria.quase_iguais.map((p2) => esc(p2.join(' e '))).join('<br>')}<br>
+          Não são digitação errada: cada um tem SS, histórico e situação próprios na base.</div>` : ''}
+        <div class="nota calma" style="margin-top:12px"><strong>O que os 160 não são</strong>
+        Na base de SS/OS, ${co.auditoria.universo_2026} religadores e reguladores tiveram alguma SS em 2026 —
+        e só ${co.auditoria.universo_2026_na_carteira} deles estão nesta carteira. Os outros correram por
+        outras equipes sem passar pelo posto (troca de bateria, cadastro, comunicação). Esta base é o que
+        passou pelo COEP, não tudo que aconteceu com equipamento especial no ano.</div></section>` : ''}
+
         ${(co.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta consolidação</strong>${co.premissas.map(esc).join('<br>')}</div>` : ''}`;
     }
   }

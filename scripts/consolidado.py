@@ -312,6 +312,42 @@ def montar(registros, entrada, acompanhamento):
             key=lambda i: (ESCADA.index(i["situacao"]), i["localidade"] or "", i["ativo"]),
         ),
     }
+    # --- auditoria da base: de onde vêm os números e se há repetição ---
+    import re as _re
+
+    validos = [i["ativo"] for i in consolidado if _re.fullmatch(r"(79|58)\d{8}", i["ativo"])]
+    repetidos = {a: n for a, n in Counter(i["ativo"] for i in consolidado).items() if n > 1}
+    universo_2026 = set()
+    for ativo, linhas in por_ativo.items():
+        if not _re.fullmatch(r"(79|58)\d{8}", ativo):
+            continue
+        for l in linhas:
+            data = l.get("DATA_ABERTURA_SS") or ""
+            ano = data[6:10] if "/" in data else data[:4]
+            if ano == "2026":
+                universo_2026.add(ativo)
+                break
+    quase_iguais = []
+    ordenados = sorted({i["ativo"] for i in consolidado})
+    for x in range(len(ordenados)):
+        for y in range(x + 1, len(ordenados)):
+            a, b = ordenados[x], ordenados[y]
+            if sum(1 for p1, p2 in zip(a, b) if p1 != p2) == 1:
+                quase_iguais.append([a, b])
+
+    resumo["auditoria"] = {
+        "entrada_distintos": len(set(da_entrada) | excluidos),
+        "hoje_distintos": len(hoje),
+        "em_comum": len((set(da_entrada) | excluidos) & set(hoje)),
+        "uniao": len(consolidado),
+        "linhas": len(consolidado),
+        "distintos": len({i["ativo"] for i in consolidado}),
+        "codigos_validos": len(validos),
+        "repetidos": repetidos,
+        "quase_iguais": quase_iguais,
+        "universo_2026": len(universo_2026),
+        "universo_2026_na_carteira": len(universo_2026 & {i["ativo"] for i in consolidado}),
+    }
     resumo["resposta"] = resposta
     resumo["percentual_resolvido"] = round(100 * len(resolvidos) / max(len(consolidado), 1), 1)
     resumo["percentual_manutencionado"] = round(
