@@ -50,6 +50,7 @@ const DESC_CONCLUSAO = {
 };
 
 const COLECOES = [
+  { id: 'consolidado', nome: 'Carteira consolidada', desc: 'As duas listas fundidas: onde cada equipamento está de fato', termos: 'consolidado consolidada tudo junto fundido uniao das duas listas onde esta ponto atual situacao real resolvido pendente escada total geral 159 160' },
   { id: 'acompanhamento', nome: 'Acompanhamento atual', desc: 'Como está cada equipamento hoje, pelo parecer COEP mais recente', termos: 'acompanhamento atual hoje situacao em operacao cancelada errada dmsl pendente fluxo em analise desmobilizado check concluidas parecer atualizada novo primeiro ataque divergencia' },
   { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
@@ -514,6 +515,16 @@ function abrirAtivo(ativo) {
       ${r.demanda_bloqueando ? `<div class="nota branda" style="margin-top:10px">
         <strong>Demanda aberta bloqueando</strong>${esc(r.demanda_bloqueando.numero_ss || '—')} (${esc(r.demanda_bloqueando.equipe || '—')}) · ${esc((r.demanda_bloqueando.situacao || '').replace('SS ', ''))} · aberta em ${dataBr(r.demanda_bloqueando.abertura)}</div>` : ''}
       ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
+  }
+
+  if (e.consolidado) {
+    const c2 = e.consolidado;
+    partes.push(bloco('Em que ponto está', `
+      <p class="destaque-texto">${esc(c2.situacao)} — ${esc(c2.porque)}</p>
+      <div class="campos">
+        ${campo('Origem', esc(c2.origem))}
+        ${campo('Posto atual', esc(c2.posto_atual || 'sem demanda aberta'))}
+      </div>`));
   }
 
   if (e.acompanhamento) {
@@ -1079,6 +1090,64 @@ function abrirColecao(id) {
             return `<td><span class="calor" style="background:${CORES[c]};opacity:${(0.18 + (n / max) * 0.62).toFixed(2)};color:var(--fundo)">${n}</span></td>`;
           }).join('')}<td><strong>${t}</strong></td></tr>`;
         }).join('')}</tbody></table></div></section>`;
+  }
+
+  if (id === 'consolidado') {
+    const co = m.consolidado;
+    if (!co) {
+      html = cabecaColecao('Carteira consolidada', 'Ainda não processada.');
+    } else {
+      const TOM = {
+        'Em operação': 'bom', 'Executado, aguardando cauda': 'bom', 'Em execução': '',
+        'Pendente no COEP': 'critico', 'Pendente com outra equipe': 'atento',
+        'Cancelada errada pelo DMSL': 'critico', 'Em análise': '', 'Sem ação do COEP': '',
+        'Fora da análise': '',
+      };
+      const ORDEM = Object.keys(co.por_situacao).filter((s) => co.por_situacao[s]);
+      const grupo = (s) => co.lista.filter((i) => i.situacao === s);
+
+      html = cabecaColecao('Carteira consolidada',
+        `As duas listas do posto fundidas numa só, sem repetir ativo: a foto de entrada de junho e o ` +
+        `acompanhamento de hoje. São ${co.total} equipamentos, e a pergunta é uma só — em que ponto cada ` +
+        `um está de fato.`) +
+        `<div class="numeros">
+          ${num({ rotulo: 'Resolvidos', valor: co.resolvidos, nota: `${co.percentual_resolvido}% da carteira toda`, tom: 'bom' })}
+          ${num({ rotulo: 'Pendentes', valor: co.pendentes, nota: 'COEP, outra equipe ou cancelada errada', tom: 'critico' })}
+          ${num({ rotulo: 'Em execução', valor: co.em_execucao, nota: 'material entregue, obra em curso' })}
+          ${num({ rotulo: 'Em análise', valor: co.em_analise, nota: 'primeiro ataque, sem parecer' })}
+          ${num({ rotulo: 'Total', valor: co.total, nota: `${co.por_origem['Nas duas listas'] || 0} nas duas listas · ${co.por_origem['Só na lista de hoje'] || 0} novos · ${co.por_origem['Saiu da lista de hoje'] || 0} já saíram` })}
+        </div>
+
+        <div class="nota calma" style="margin:-6px 0 26px"><strong>Como ler a escada</strong>
+        Cada equipamento aparece uma vez só, na etapa mais avançada em que ele está.
+        <b>Resolvido</b> = em operação + executado aguardando cauda + sem ação do COEP —
+        porque, na sua régua, equipamento em ajuste ou comissionamento já foi manutencionado.
+        <b>Pendente</b> = no COEP + com outra equipe + cancelada errada pelo DMSL.
+        Em execução e em análise ficam à parte: não são nem uma coisa nem outra.</div>
+
+        <section class="bloco"><h3>A escada, degrau por degrau</h3>
+        <div class="itens">${ORDEM.map((s) => `<div class="item-linha">
+          <span>${esc(s)}</span><b>${co.por_situacao[s]}</b></div>`).join('')}</div>
+        <div class="grade" style="margin-top:18px">
+          <div class="quadro"><header><h3>De onde vem cada um</h3><p>as duas fotos do posto</p></header>
+          ${barras(Object.entries(co.por_origem).map(([k, v]) => ({ rotulo: k, total: v })))}</div>
+        </div></section>
+
+        ${ORDEM.map((s) => `<section class="bloco"><h3>${esc(s)} — ${co.por_situacao[s]}</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr>
+          <th>Ativo</th><th>Localidade</th><th>Tipo</th><th>Criticidade</th><th>Por quê</th>
+          <th>Parecer COEP</th><th>De onde vem</th></tr></thead><tbody>
+        ${grupo(s).map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td><b class="mono">${esc(i.ativo)}</b></td><td>${esc(i.localidade || '—')}</td>
+          <td>${esc(i.tipo === 'Religador' ? 'RL' : i.tipo === 'Regulador de Tensão' ? 'RT' : '—')}</td>
+          <td>${esc(i.criticidade || '—')}</td>
+          <td>${esc(i.porque)}${i.decisao_gestor ? ' <b>(decisão sua)</b>' : ''}</td>
+          <td>${esc(i.parecer_coep || '—')}</td>
+          <td>${esc(i.origem)}</td></tr>`).join('')}
+        </tbody></table></div></section>`).join('')}
+
+        ${(co.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta consolidação</strong>${co.premissas.map(esc).join('<br>')}</div>` : ''}`;
+    }
   }
 
   if (id === 'acompanhamento') {
