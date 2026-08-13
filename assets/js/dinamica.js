@@ -34,6 +34,180 @@ const num = ({ rotulo, valor, nota, tom = '' }) => `<div class="numero ${tom}">
 
 let filtro = null;
 
+const MES_PT = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const rotuloMes = (m) => `${MES_PT[+m.split('-')[1] - 1]}/${m.split('-')[0]}`;
+const dataBr = (iso) => { const [a, m, d] = String(iso).split('-'); return d ? `${d}/${m}/${a}` : iso; };
+
+/* Barras agrupadas — três séries por mês. As cores saem de --serie-1/2/3, que
+   passaram pelo validador de paleta nos dois temas. Cada barra leva o valor
+   escrito em cima, então a identidade nunca depende só da cor. */
+function barrasTresColunas(curva) {
+  const SERIES = [
+    { chave: 'ativos', nome: 'Ativos', cor: 'var(--serie-1)',
+      dica: 'da carteira herdada, pela abertura da SS' },
+    { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-2)',
+      dica: 'ativos novos no COEP, pela abertura da SS' },
+    { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
+      dica: 'pelo mês da tratativa ou do repasse' },
+  ];
+  const teto = Math.max(...curva.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
+  const L = 44, R = 12, T = 22, B = 44;
+  const larguraGrupo = 96, alturaPlot = 210;
+  const W = L + R + larguraGrupo * curva.length;
+  const H = T + alturaPlot + B;
+  const larguraBarra = 24, vao = 2;
+  const bloco = SERIES.length * larguraBarra + (SERIES.length - 1) * vao;
+  const passo = teto <= 10 ? 2 : teto <= 30 ? 10 : 20;
+  const riscos = [];
+  for (let v = 0; v <= teto; v += passo) riscos.push(v);
+  const y = (v) => T + alturaPlot - (v / teto) * alturaPlot;
+
+  return `<figure class="grafico-barras">
+    <div class="legenda-series">
+      ${SERIES.map((s) => `<span class="serie"><i style="background:${s.cor}"></i>
+        <b>${esc(s.nome)}</b> <em>${esc(s.dica)}</em></span>`).join('')}
+    </div>
+    <div class="tela-grafico">
+    <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
+         aria-label="Barras agrupadas por mês de 2026: ${curva.map((m) => `${m.rotulo}, ${SERIES.map((s) => `${s.nome} ${m[s.chave]}`).join(', ')}`).join('; ')}">
+      ${riscos.map((v) => `<g>
+        <line x1="${L}" x2="${W - R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="risco"/>
+        <text x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" class="rot-eixo" text-anchor="end">${v}</text>
+      </g>`).join('')}
+      <line x1="${L}" x2="${W - R}" y1="${T + alturaPlot}" y2="${T + alturaPlot}" class="base-eixo"/>
+      ${curva.map((m, i) => {
+        const x0 = L + i * larguraGrupo + (larguraGrupo - bloco) / 2;
+        return `<g class="grupo-mes">
+          ${SERIES.map((s, j) => {
+            const v = m[s.chave];
+            const x = x0 + j * (larguraBarra + vao);
+            const alt = Math.max((v / teto) * alturaPlot, v ? 2 : 0);
+            return `<g class="barra-mes">
+              <title>${esc(m.rotulo)} · ${esc(s.nome)}: ${v}</title>
+              <rect x="${x}" y="${(T + alturaPlot - alt).toFixed(1)}" width="${larguraBarra}"
+                    height="${alt.toFixed(1)}" rx="4" ry="4" fill="${s.cor}"/>
+              ${v ? `<rect x="${x}" y="${(T + alturaPlot - Math.min(alt, 5)).toFixed(1)}"
+                    width="${larguraBarra}" height="${Math.min(alt, 5).toFixed(1)}" fill="${s.cor}"/>` : ''}
+              ${v ? `<text x="${x + larguraBarra / 2}" y="${(T + alturaPlot - alt - 5).toFixed(1)}"
+                    class="rot-valor" text-anchor="middle">${v}</text>` : ''}
+            </g>`;
+          }).join('')}
+          <text x="${(x0 + bloco / 2).toFixed(1)}" y="${T + alturaPlot + 18}"
+                class="rot-mes" text-anchor="middle">${esc(m.rotulo)}</text>
+        </g>`;
+      }).join('')}
+    </svg>
+    </div>
+    <figcaption>Cada barra traz o próprio número, então dá para ler a figura sem
+    depender da cor. Os mesmos valores estão na tabela abaixo.</figcaption>
+  </figure>`;
+}
+
+/* O mês a mês do posto: a mesma sequência da planilha entregue ao gestor. */
+function mesAMes() {
+  const mm = D.mes_a_mes;
+  if (!mm || !mm.curva?.length) return '';
+  const c = mm.curva;
+  const tot = (k) => c.reduce((n, x) => n + x[k], 0);
+  const jan = c.find((x) => x.mes === '2026-01')?.ativos || 0;
+  const janProprio = jan - mm.legado.qtd;
+  const s26 = mm.serie_coep || [];
+  const tot26 = (k) => s26.reduce((n, x) => n + x[k], 0);
+  const t = mm.tratativas || [];
+  const meses = [...new Set(t.map((x) => x.mes_resolucao))].sort();
+  const conta = (lista, f) => lista.filter(f).length;
+  const pct = (v, base) => `${(100 * v / (base || 1)).toFixed(1).replace('.', ',')}%`;
+
+  return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
+    <p class="destaque-texto">Três leituras no mesmo eixo. <b>Ativos</b> é a carteira que o posto
+    herdou — ${mm.total} equipamentos, pela data de abertura da SS, com janeiro carregando o acervo.
+    <b>Entrantes</b> é ativo novo no COEP, pela abertura da SS na base de SS/OS. <b>Resolvidos</b> é
+    pelo mês em que a tratativa aconteceu — término da SS ou repasse. As três medem coisas
+    diferentes e não se somam entre si: estoque parado, fluxo de chegada e fluxo de saída.</p>
+    ${barrasTresColunas(c)}
+    <div class="tabela-rol" style="margin-top:18px"><table class="matriz"><thead><tr><th>Mês</th>
+    <th class="num">Ativos</th><th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
+    ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
+      <td class="num">${x.ativos || '—'}</td><td class="num">${x.entrantes || '—'}</td>
+      <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
+    </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot('ativos')}</b></td>
+    <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
+    </tr></tfoot></table></div>
+  </section>
+
+  <section class="bloco"><h3>O que janeiro carrega</h3>
+    <p class="destaque-texto">Janeiro é metade da carteira e é quase tudo acervo: dos ${jan} ativos,
+    só ${janProprio} têm SS aberta no próprio mês. Sem a regra, esses ${mm.legado.qtd} ficariam
+    espalhados por 2023, 2024 e 2025 e a curva de 2026 perderia o tamanho do que foi herdado.</p>
+    <div class="tabela-rol"><table class="matriz"><thead><tr><th>Origem</th>
+    <th class="num">Ativos</th><th class="num">% de janeiro</th></tr></thead><tbody>
+    <tr><td>SS aberta em jan/2026</td><td class="num">${janProprio}</td>
+      <td class="num">${pct(janProprio, jan)}</td></tr>
+    ${[...mm.legado.por_ano].reverse().map((a) => `<tr><td>Acervo — SS aberta em ${a.ano}</td>
+      <td class="num">${a.qtd}</td><td class="num">${pct(a.qtd, jan)}</td></tr>`).join('')}
+    </tbody><tfoot><tr><td>Total de janeiro</td><td class="num"><b>${jan}</b></td>
+    <td class="num"><b>100,0%</b></td></tr></tfoot></table></div>
+    ${mm.legado.mais_antiga ? `<div class="nota branda" style="margin-top:12px">
+    <strong>A mais velha da carteira</strong>${esc(mm.legado.mais_antiga.numero_ss)}, ativo
+    ${esc(mm.legado.mais_antiga.ativo)} em ${esc(mm.legado.mais_antiga.localidade)}, aberta em
+    ${esc(dataBr(mm.legado.mais_antiga.abertura))}.</div>` : ''}
+  </section>
+
+  ${s26.length ? `<section class="bloco"><h3>Os entrantes por dentro</h3>
+    <p class="destaque-texto">Duas leituras dos ${tot26('novos')} entrantes de 2026. À esquerda,
+    quanto de cada mês já estava na carteira herdada e quanto é demanda que chegou por fora dela.
+    À direita, quanto é SS realmente nova e quanto é SS de ano anterior que o SGM re-carimbou com
+    data nova ao reabrir ou repassar.</p>
+    <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês</th>
+    <th class="num">Entrantes</th><th class="num">Já estavam nos ${mm.total}</th>
+    <th class="num">Fora dos ${mm.total}</th><th class="num">SS do próprio ano</th>
+    <th class="num">SS de ano anterior re-carimbada</th></tr></thead><tbody>
+    ${s26.map((x) => `<tr><td>${esc(x.rotulo)}</td><td class="num"><b>${x.novos}</b></td>
+      <td class="num">${x.na_foto || '—'}</td><td class="num">${x.fora_da_foto || '—'}</td>
+      <td class="num">${x.ss_do_ano || '—'}</td><td class="num">${x.ss_recarimbada || '—'}</td></tr>`).join('')}
+    </tbody><tfoot><tr><td>Total de 2026</td><td class="num"><b>${tot26('novos')}</b></td>
+    <td class="num"><b>${tot26('na_foto')}</b></td><td class="num"><b>${tot26('fora_da_foto')}</b></td>
+    <td class="num"><b>${tot26('ss_do_ano')}</b></td><td class="num"><b>${tot26('ss_recarimbada')}</b></td>
+    </tr></tfoot></table></div>
+    <div class="nota" style="margin-top:12px"><strong>Duas armadilhas na coluna de entrantes</strong>
+    Dos ${tot26('novos')} entrantes, ${tot26('na_foto')} já estavam na carteira herdada — são o mesmo
+    problema visto por outra base, não demanda nova. E ${tot26('ss_recarimbada')} têm número de SS de
+    ano anterior com abertura em 2026, porque o SGM re-carimba a data quando a SS é reaberta ou
+    repassada. Abril é o extremo: de 11 entrantes, 9 são SS re-carimbada.</div>
+  </section>` : ''}
+
+  ${meses.length ? `<section class="bloco"><h3>Quando cada um foi tratado de verdade</h3>
+    <p class="destaque-texto">Mês da tratativa, não da abertura. A data é o término da SS de entrada;
+    quando a SS foi repassada em vez de encerrada, vale a data do repasse. Faltando as duas, entram
+    obra encerrada no AIC, reporte de campo, decisão do gestor e, por último, a SS mais recente
+    atendida no ativo.</p>
+    <div class="tabela-rol"><table class="matriz"><thead><tr><th>Mês da tratativa</th>
+    <th class="num">Resolvidos</th><th class="num">Acumulado</th>
+    <th class="num">Por cancelamento da SS</th><th class="num">Por repasse</th>
+    <th class="num">Outras vias</th><th class="num">Com parecer COEP</th></tr></thead><tbody>
+    ${(() => { let ac = 0; return meses.map((k) => {
+      const g = t.filter((x) => x.mes_resolucao === k);
+      ac += g.length;
+      const canc = conta(g, (x) => x.via === 'cancelamento da SS de entrada');
+      const rep = conta(g, (x) => x.via === 'repasse para a etapa seguinte');
+      return `<tr><td>${rotuloMes(k)}</td><td class="num"><b>${g.length}</b></td>
+        <td class="num">${ac}</td><td class="num">${canc || '—'}</td><td class="num">${rep || '—'}</td>
+        <td class="num">${(g.length - canc - rep) || '—'}</td>
+        <td class="num">${conta(g, (x) => x.parecer_coep) || '—'}</td></tr>`;
+    }).join(''); })()}
+    </tbody><tfoot><tr><td>Total</td><td class="num"><b>${t.length}</b></td><td class="num">—</td>
+    <td class="num"><b>${conta(t, (x) => x.via === 'cancelamento da SS de entrada')}</b></td>
+    <td class="num"><b>${conta(t, (x) => x.via === 'repasse para a etapa seguinte')}</b></td>
+    <td class="num"><b>${conta(t, (x) => !['cancelamento da SS de entrada', 'repasse para a etapa seguinte'].includes(x.via))}</b></td>
+    <td class="num"><b>${conta(t, (x) => x.parecer_coep)}</b></td></tr></tfoot></table></div>
+    <div class="nota" style="margin-top:12px"><strong>O desenho da atuação</strong>
+    ${conta(t, (x) => x.mes_resolucao >= '2026-04')} dos ${t.length} foram tratados de abril em diante.
+    Maio e junho são limpeza de fila — a maioria saiu por cancelamento de SS. Julho vira o jogo: a
+    maior parte sai por repasse, e é o mês em que quase todos os que tinham parecer COEP foram
+    embora. Repasse quer dizer que a demanda saiu do posto, não que o serviço acabou em campo.</div>
+  </section>` : ''}`;
+}
+
 function escada() {
   const maior = Math.max(...D.por_etapa.map((e) => e.qtd));
   return `<div class="escada">${D.por_etapa.map((e) => `
@@ -117,6 +291,8 @@ function desenhar() {
     </div>
 
     <section class="bloco"><h3>A escada</h3>${escada()}</section>
+
+    ${mesAMes()}
 
     ${D.economia ? `<section class="bloco"><h3>O que teria sido gasto nos cancelados em operação</h3>
       <p class="destaque-texto">${esc(D.economia.criterio)}</p>

@@ -133,6 +133,22 @@ def main():
     feitos = [i for i in d["lista"] if i["etapa"] in d["feito"]["etapas"]]
     d["feito"]["valor"] = round(sum(i["valor"] for i in feitos), 2)
 
+    # A entrada do posto mês a mês vem pronta do build principal: as três colunas
+    # (estoque herdado, entrantes e tratativas) e as tabelas que as sustentam.
+    arq = os.path.join(RAIZ, "data", "meta.json")
+    if os.path.exists(arq):
+        with open(arq, encoding="utf-8") as fh:
+            mm = json.load(fh).get("entrada_mensal") or {}
+        if mm.get("curva"):
+            d["mes_a_mes"] = {
+                "total": mm["total"],
+                "curva": mm["curva"],
+                "legado": mm["legado"],
+                "serie_coep": [x for x in mm["serie_coep"] if x["mes"] >= "2026-01"],
+                "tratativas": [t for t in mm["tratativas"] if t["mes_resolucao"]],
+                "regra": mm["regra"],
+            }
+
     dados = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     pagina = (
