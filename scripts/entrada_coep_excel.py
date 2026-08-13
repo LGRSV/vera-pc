@@ -22,6 +22,7 @@ import csv
 import datetime
 import json
 import os
+import re
 from collections import Counter, defaultdict
 
 from openpyxl import Workbook
@@ -81,7 +82,10 @@ def carregar():
     return meta, base, aic, reportes
 
 
-def entrantes_no_coep(base):
+ANO_DA_SS = re.compile(r"/(\d{4})\s*$")
+
+
+def entrantes_no_coep(base, foto):
     """Ativos que passaram pelo posto ETO-COEP, mês a mês, pela abertura da SS."""
     coep = []
     for r in base:
@@ -97,6 +101,16 @@ def entrantes_no_coep(base):
     for r in coep:
         primeira.setdefault(r["_a"], r)
 
+    def recarimbada(r):
+        """SS cujo ano do número não bate com o ano da abertura.
+
+        O SGM re-carimba a DATA_ABERTURA_SS quando a SS é reaberta ou repassada,
+        então uma SS de 2023 pode aparecer com abertura em 2026. Onde isso
+        acontece, a «entrada» daquele mês é demanda velha voltando, não nova.
+        """
+        m = ANO_DA_SS.search(str(r.get("NUMERO_SS") or ""))
+        return bool(m) and int(m.group(1)) != r["_d"].year
+
     por_mes = defaultdict(lambda: {"ss": 0, "ativos": set(), "novos": set()})
     for r in coep:
         e = por_mes[f"{r['_d'].year}-{r['_d'].month:02d}"]
@@ -105,11 +119,18 @@ def entrantes_no_coep(base):
         if primeira[r["_a"]] is r:
             e["novos"].add(r["_a"])
 
-    serie = [{
-        "mes": k, "rotulo": rotulo(k), "ss": e["ss"],
-        "ativos": len(e["ativos"]), "novos": len(e["novos"]),
-        "revisita": len(e["ativos"]) - len(e["novos"]),
-    } for k, e in sorted(por_mes.items())]
+    serie = []
+    for k, e in sorted(por_mes.items()):
+        novos = [primeira[a] for a in e["novos"]]
+        serie.append({
+            "mes": k, "rotulo": rotulo(k), "ss": e["ss"],
+            "ativos": len(e["ativos"]), "novos": len(novos),
+            "revisita": len(e["ativos"]) - len(novos),
+            "na_foto": sum(1 for r in novos if r["_a"] in foto),
+            "fora_da_foto": sum(1 for r in novos if r["_a"] not in foto),
+            "ss_do_ano": sum(1 for r in novos if not recarimbada(r)),
+            "ss_recarimbada": sum(1 for r in novos if recarimbada(r)),
+        })
 
     detalhe = [{
         "ativo": a, "primeira_ss": r["NUMERO_SS"], "abertura": r["_d"],
@@ -119,6 +140,8 @@ def entrantes_no_coep(base):
         "criticidade_ss": r.get("CRITICIDADE_SS", ""),
         "tiposs": r.get("TIPOSS", ""),
         "situacao_hoje": r.get("SITUACAO_SS", ""),
+        "na_foto": "sim" if a in foto else "não",
+        "recarimbada": "sim" if recarimbada(r) else "não",
     } for a, r in sorted(primeira.items(), key=lambda kv: kv[1]["_d"])]
     return serie, detalhe
 
@@ -309,7 +332,79 @@ def montar(meta, serie, detalhe, res):
         "parado, ENTRANTES é fluxo de chegada, RESOLVIDOS é fluxo de saída.",
     ], 4)
 
-    # ------------------------------------------------ 2. Resolvidos, detalhe
+    # ------------------------------------------------- 2. Janeiro por dentro
+    ws = wb.create_sheet("Janeiro por dentro")
+    titulo(ws, "O QUE JANEIRO CARREGA",
+           f"Janeiro é metade da carteira e é quase tudo acervo. Dos {foto.get('2026-01', 0)} "
+           f"ativos, só {jan_proprio} têm SS aberta no próprio mês; os outros {legado['qtd']} "
+           "vêm de anos anteriores e foram jogados em janeiro pela regra do gestor.", 3)
+    cabecalho(ws, 4, [("Origem", 34), ("Ativos", 12), ("% de janeiro", 14)])
+    linha = 5
+    total_jan = foto.get("2026-01", 0)
+    linha = corpo(ws, linha, ["SS aberta em jan/2026", jan_proprio,
+                              round(jan_proprio / max(total_jan, 1), 3)],
+                  numero={3: "0.0%"})
+    for ano, q in sorted(anos_legado.items(), reverse=True):
+        linha = corpo(ws, linha, [f"Acervo — SS aberta em {ano}", q,
+                                  round(q / max(total_jan, 1), 3)],
+                      fundo=DESTAQUE, numero={3: "0.0%"})
+    corpo(ws, linha, ["Total de janeiro", total_jan, 1.0], negrito=True, topo=True,
+          numero={3: "0.0%"})
+    linha += 2
+    mais_velha = legado.get("mais_antiga") or {}
+    prosa(ws, linha, [
+        f"A mais velha é de {(mais_velha.get('abertura') or '2023')[:4]}: "
+        f"{mais_velha.get('numero_ss', '—')}, ativo {mais_velha.get('ativo', '—')} em "
+        f"{mais_velha.get('localidade', '—')}, aberta em "
+        f"{dbr(mais_velha.get('abertura')).strftime('%d/%m/%Y') if dbr(mais_velha.get('abertura')) else '—'}.",
+        "Sem a regra de janeiro, esses ativos ficariam espalhados por 2023, 2024 e 2025 e a "
+        "curva de 2026 perderia o tamanho do que foi herdado. Com a regra, janeiro deixa de ser "
+        "um mês e passa a ser o carimbo do acervo.",
+        f"Os {jan_proprio} de janeiro de verdade são o volume normal de um mês antes de o posto "
+        "ser assumido — na mesma faixa de fevereiro e maio.",
+    ], 3)
+
+    # -------------------------------------------- 3. Entrantes por dentro
+    ws = wb.create_sheet("Entrantes por dentro")
+    titulo(ws, "OS ENTRANTES DE 2026, ABERTOS EM DUAS DIREÇÕES",
+           "À esquerda, quanto de cada mês já estava na foto dos 117 e quanto é demanda que "
+           "chegou por fora dela. À direita, quanto de cada mês é SS realmente nova e quanto é "
+           "SS de ano anterior que o SGM re-carimbou com data nova ao reabrir ou repassar.", 6)
+    cabecalho(ws, 4, [
+        ("Mês", 14), ("Entrantes", 12), ("Já estavam nos 117", 17),
+        ("Fora dos 117", 14), ("SS do próprio ano", 16), ("SS de ano anterior\nre-carimbada", 18),
+    ], altura=42)
+    linha = 5
+    por_mes_serie = {x["mes"]: x for x in serie}
+    for k in MESES_2026:
+        x = por_mes_serie.get(k)
+        if not x:
+            continue
+        linha = corpo(ws, linha, [rotulo(k), x["novos"], x["na_foto"] or "—",
+                                  x["fora_da_foto"] or "—", x["ss_do_ano"] or "—",
+                                  x["ss_recarimbada"] or "—"],
+                      fundo=ATUACAO if k >= "2026-04" else None)
+    alvos = [por_mes_serie[k] for k in MESES_2026 if k in por_mes_serie]
+    corpo(ws, linha, ["Total de 2026",
+                      sum(x["novos"] for x in alvos),
+                      sum(x["na_foto"] for x in alvos),
+                      sum(x["fora_da_foto"] for x in alvos),
+                      sum(x["ss_do_ano"] for x in alvos),
+                      sum(x["ss_recarimbada"] for x in alvos)], negrito=True, topo=True)
+    linha += 2
+    prosa(ws, linha, [
+        f"Dos {sum(x['novos'] for x in alvos)} entrantes de 2026, "
+        f"{sum(x['na_foto'] for x in alvos)} já estavam na foto dos 117 — são o mesmo problema "
+        f"visto por outra base. Só {sum(x['fora_da_foto'] for x in alvos)} são demanda que chegou "
+        "por fora da carteira herdada.",
+        f"{sum(x['ss_recarimbada'] for x in alvos)} dos entrantes têm número de SS de ano "
+        "anterior com data de abertura em 2026: o SGM re-carimba a data quando a SS é reaberta "
+        "ou repassada. Nesses casos a «entrada» do mês é demanda velha voltando, não demanda nova.",
+        "Abril é o caso extremo: de 11 entrantes, 9 são SS re-carimbada. Junho e julho têm 8 cada.",
+        "Ativo a ativo, com as duas marcas, na aba «Entrantes ativo a ativo».",
+    ], 6)
+
+    # ------------------------------------------------ 4. Resolvidos, detalhe
     ws = wb.create_sheet("Resolvidos por mês")
     feitos = [x for x in res if x["resolvido"]]
     com_data = [x for x in feitos if x["mes_resolucao"]]
@@ -319,7 +414,8 @@ def montar(meta, serie, detalhe, res):
            "seguinte da mesma demanda. Faltando as duas, entram obra encerrada no AIC, reporte "
            "de campo, decisão do gestor e, por último, a SS mais recente atendida no ativo.", 6)
     cabecalho(ws, 4, [("Mês da tratativa", 18), ("Resolvidos", 12), ("Acumulado", 12),
-                      ("Por cancelamento da SS", 18), ("Por repasse", 12), ("Outras vias", 13)])
+                      ("Por cancelamento da SS", 18), ("Por repasse", 12), ("Outras vias", 13),
+                      ("Com parecer COEP", 16)], altura=42)
     linha = 5
     acumulado = 0
     for k in sorted({x["mes_resolucao"] for x in com_data}):
@@ -327,15 +423,17 @@ def montar(meta, serie, detalhe, res):
         acumulado += len(doMes)
         canc = sum(1 for x in doMes if x["via"] == "cancelamento da SS de entrada")
         rep = sum(1 for x in doMes if x["via"] == "repasse para a etapa seguinte")
+        par = sum(1 for x in doMes if x["parecer_coep"])
         linha = corpo(ws, linha, [rotulo(k), len(doMes), acumulado, canc or "—",
-                                  rep or "—", (len(doMes) - canc - rep) or "—"],
+                                  rep or "—", (len(doMes) - canc - rep) or "—", par or "—"],
                       fundo=ATUACAO if k >= "2026-04" else None)
     corpo(ws, linha, ["Total", len(com_data), "",
                       sum(1 for x in com_data if x["via"] == "cancelamento da SS de entrada"),
                       sum(1 for x in com_data if x["via"] == "repasse para a etapa seguinte"),
                       sum(1 for x in com_data
                           if x["via"] not in ("cancelamento da SS de entrada",
-                                              "repasse para a etapa seguinte"))],
+                                              "repasse para a etapa seguinte")),
+                      sum(1 for x in com_data if x["parecer_coep"])],
           negrito=True, topo=True)
     linha += 2
 
@@ -343,19 +441,19 @@ def montar(meta, serie, detalhe, res):
         Font(name=FONTE, size=10, bold=True, color=TINTA)
     linha += 1
     cabecalho(ws, linha, [("Via", None), ("Ativos", None), ("", None),
-                          ("", None), ("", None), ("", None)], altura=20)
+                          ("", None), ("", None), ("", None), ("", None)], altura=20)
     linha += 1
     for v, q in Counter(x["via"] for x in com_data).most_common():
-        linha = corpo(ws, linha, [v, q, "", "", "", ""])
+        linha = corpo(ws, linha, [v, q, "", "", "", "", ""])
     linha += 1
     linha = prosa(ws, linha, [
         f"{sum(1 for x in com_data if x['parecer_coep'])} dos {len(com_data)} tinham parecer "
         "COEP registrado na planilha de criticidade — a coluna está na aba «Base 117».",
         "Repasse quer dizer que a demanda saiu do posto, não que o serviço acabou em campo. "
         "Em vários casos a etapa seguinte segue aberta no DMSL ou na Proteção.",
-    ], 6)
+    ], 7)
 
-    # ------------------------------------------------------ 3. Base dos 117
+    # ------------------------------------------------------ 5. Base dos 117
     ws = wb.create_sheet("Base 117")
     titulo(ws, "OS 117, ATIVO A ATIVO",
            "Uma linha por ativo da foto de entrada: a SS que o trouxe, o mês de abertura, o mês "
@@ -380,7 +478,7 @@ def montar(meta, serie, detalhe, res):
         for c in row:
             c.alignment = Alignment(horizontal="left", vertical="center")
 
-    # ------------------------------------------- 4. Entrantes, série completa
+    # ------------------------------------------- 6. Entrantes, série completa
     ws = wb.create_sheet("Entrantes série completa")
     titulo(ws, "TODOS OS MESES DO POSTO ETO-COEP",
            "Série inteira da base de SS/OS, de 2024 a 2026. Ativos tocados = ativos distintos "
@@ -402,22 +500,24 @@ def montar(meta, serie, detalhe, res):
         "«Ativos tocados» não soma na vertical porque o mesmo ativo pode aparecer em vários meses.",
     ], 5)
 
-    # ----------------------------------------------------- 5. Entrantes, lista
+    # ----------------------------------------------------- 7. Entrantes, lista
     ws = wb.create_sheet("Entrantes ativo a ativo")
     titulo(ws, "CADA ATIVO NA PRIMEIRA VEZ QUE PASSOU PELO COEP",
            "Uma linha por ativo, na data em que o posto o recebeu pela primeira vez. É a base "
-           "que sustenta a coluna ENTRANTES.", 8)
+           "que sustenta a coluna ENTRANTES.", 10)
     cabecalho(ws, 4, [("Ativo", 13), ("Localidade", 22), ("Equipamento", 32),
                       ("Primeira SS no COEP", 20), ("Abertura", 12), ("Mês", 12),
-                      ("Criticidade da SS", 16), ("Situação da SS hoje", 18)])
+                      ("Criticidade da SS", 16), ("Situação da SS hoje", 18),
+                      ("Está nos 117", 13), ("SS re-carimbada", 15)], altura=42)
     linha = 5
     for x in detalhe:
         linha = corpo(ws, linha, [
             x["ativo"], x["localidade"], x["equipamento"], x["primeira_ss"],
             x["abertura"], rotulo(x["mes"]), x["criticidade_ss"], x["situacao_hoje"],
+            x["na_foto"], x["recarimbada"],
         ], fundo=ATUACAO if x["mes"] >= "2026-04" else None, numero={5: "DD/MM/YYYY"})
 
-    # ---------------------------------------------------------- 6. Notas
+    # ---------------------------------------------------------- 8. Notas
     ws = wb.create_sheet("Notas")
     titulo(ws, "DE ONDE VEM CADA NÚMERO", "Fontes, réguas e o que a planilha não prova.", 2)
     ws.column_dimensions["A"].width = 32
@@ -474,7 +574,8 @@ def montar(meta, serie, detalhe, res):
 
 def main():
     meta, base, aic, reportes = carregar()
-    serie, detalhe = entrantes_no_coep(base)
+    foto = {x["ativo"] for x in meta["entrada_mensal"]["lista"]}
+    serie, detalhe = entrantes_no_coep(base, foto)
     res = resolucoes(meta, base, aic, reportes)
     wb = montar(meta, serie, detalhe, res)
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
