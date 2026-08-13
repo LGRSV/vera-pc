@@ -1265,7 +1265,7 @@ function abrirColecao(id) {
             <p class="destaque-texto">${pl.criterio_do_corte || 'Quem já tem a compra decidida carrega a marcação no parecer do COEP.'}</p>
             <div class="itens">
               ${linha('Compra já pedida', pl.com_decisao ?? noPlano, '«equipamento selecionado para compra» no parecer do COEP')}
-              ${linha('Ainda sem pedido', pl.sem_pedido ?? depois, `${pl.aguardando_especificacao ?? 0} deles esperando o COEP levantar modelo e tensão`)}
+              ${linha('Ainda sem pedido', pl.sem_pedido ?? depois, 'sem pedido de compra registrado no parecer')}
               ${linha('Destes, orçados no plano de Muito Alta + Alta', noPlano, pl.valor_no_plano ? `R$ ${moedaBR(pl.valor_no_plano)}` : '')}
             </div>
             ${pl.fora_do_plano_com_pedido ? `<div class="nota branda" style="margin-top:14px">

@@ -130,7 +130,9 @@ def _decisao_de_compra(aquisicao, ficha):
         if any(m in texto for m in _MARCA_FIRME):
             firmes.append({**resumo, "marcador": "Equipamento selecionado para compra"})
         elif any(m in texto for m in _MARCA_FRACA):
-            fracos.append({**resumo, "marcador": "COEP pediu modelo e tensão para comprar"})
+            # O parecer pede modelo e tensão, mas o gestor confirmou em 13/08 que a
+            # especificação já existe — o que falta nesses é só o pedido de compra.
+            fracos.append({**resumo, "marcador": "Compra citada, sem pedido registrado"})
         else:
             sem.append({**resumo, "marcador": ""})
 
