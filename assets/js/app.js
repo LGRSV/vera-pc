@@ -59,7 +59,6 @@ const COLECOES = [
   { id: 'emd', nome: 'Cruzamento EMD', desc: 'Divergências entre a requisição e a criticidade', termos: 'emd requisicao divergencia obra deposito material' },
   { id: 'compras', nome: 'Plano de compras', desc: 'Pedido de 17/07/2026, prazos e conferência', termos: 'compras compra pedido plano valor preco prazo 120 180 portilho' },
   { id: 'classificacoes', nome: 'Minhas classificações', desc: 'O que você marcou à mão e o arquivo para me mandar', termos: 'minhas classificacoes classificar marcar corrigir gestor decisao exportar download json' },
-  { id: 'pecas', nome: 'Peças e orçamento', desc: 'O que dá para realocar e quanto o AIC já realizou', termos: 'pecas peca realocar realocacao estoque sobra tanque controle celula chave faca orcamento aic sigco 8481 8495 realizado mao de obra material' },
   { id: 'frota', nome: 'Mapa e frota', desc: 'Onde estão, marca, potência e especificação', termos: 'mapa frota coordenada localizacao marca modelo potencia tensao kvar especificacao ajustes' },
   { id: 'visao', nome: 'Visão geral', desc: 'Distribuição da carteira em números', termos: 'visao geral panorama distribuicao criticidade resumo grafico' },
   { id: 'metodo', nome: 'Metodologia', desc: 'De onde vem cada número e o que ele não prova', termos: 'metodologia metodo fonte limite como foi feito' },
@@ -1180,237 +1179,6 @@ function abrirColecao(id) {
         com o botão para baixar o arquivo.</div>`);
   }
 
-  if (id === 'pecas') {
-    const po = m.pecas_orcamento;
-    if (!po) {
-      html = cabecaColecao('Peças e orçamento', 'Ainda não levantado.');
-    } else {
-      const re = po.realocacao;
-      const ai = po.aic;
-      const rs = (v) => `R$ ${moedaBR(v)}`;
-      const sig = (c) => (ai.sigco || []).find((s) => s.codigo === c) || {};
-      const s81 = sig('8481');
-      const s95 = sig('8495');
-      const critOrdem = { 'Muito Alta': 0, Alta: 1, 'Média': 2, Baixa: 3 };
-
-      html = cabecaColecao('Peças e orçamento',
-        `Duas perguntas do posto: o que dá para realocar das peças já pedidas, e quanto o orçamento ` +
-        `do AIC já consumiu de verdade. As duas foram revisadas três vezes, e a primeira mudou de ` +
-        `resposta na revisão.`) +
-        `<div class="numeros">
-          ${num({ rotulo: 'Peças que sobram de fato', valor: re.pecas_livres, nota: rs(re.valor_livre), tom: 'atento' })}
-          ${num({ rotulo: 'Ativos que continuam descobertos', valor: re.descobertos.length, nota: 'Muito Alta, Alta e Média', tom: 'critico' })}
-          ${num({ rotulo: 'Falta comprar', valor: rs(re.falta_comprar_total), nota: '24 peças para fechar a fila', tom: 'critico' })}
-          ${num({ rotulo: 'Realizado no AIC — 8481 + 8495', valor: rs((s81.total_realizado || 0) + (s95.total_realizado || 0)), nota: `${(s81.obras || 0) + (s95.obras || 0)} obras desde 2019`, tom: 'bom' })}
-        </div>
-
-        <div class="nota" style="margin:-6px 0 26px"><strong>A leitura que mudou na revisão</strong>
-        ${esc(re.premissa_corrigida)} Por isso o pool caiu de ${re.pool_aparente} peças
-        (${rs(re.valor_aparente)}) para <b>${re.pecas_livres} peças (${rs(re.valor_livre)})</b>.</div>
-
-        <section class="bloco"><h3>A única peça que sobrou de verdade</h3>
-        <p class="destaque-texto">${esc(re.porque_liberou)}</p>
-        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Vai para</th><th>Localidade</th>
-        <th>Criticidade</th><th>Peça</th><th>Valor</th><th>Confiança</th></tr></thead><tbody>
-        ${re.alocacoes.map((x) => `<tr data-ativo="${esc(x.ativo)}">
-          <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade || '—')}</td>
-          <td>${esc(x.criticidade || '—')}</td>
-          <td>${esc(x.codigo)} · ${esc(x.descricao_peca || '')}</td>
-          <td class="num">${rs(x.valor || 0)}</td><td>${esc(x.confianca || '—')}</td></tr>`).join('')}
-        </tbody></table></div>
-        ${re.alocacoes.filter((x) => x.ressalva).map((x) => `<div class="nota branda" style="margin-top:10px">
-          <strong>${esc(x.ativo)}</strong>${esc(x.ressalva)}</div>`).join('')}</section>
-
-        <section class="bloco"><h3>Quem continua descoberto — ${re.descobertos.length}</h3>
-        <p class="destaque-texto">Com o modelo, a classe de tensão e a potência de cada um, tirados
-        das abas de ajustes da planilha de gestão — é o que o pedido de compra precisa ter.</p>
-        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
-        <th>Criticidade</th><th>Modelo</th><th>Tensão</th><th>Potência</th>
-        <th>Peça que falta</th></tr></thead><tbody>
-        ${[...re.descobertos].sort((a, b) => (critOrdem[a.criticidade] ?? 9) - (critOrdem[b.criticidade] ?? 9)
-          || (a.localidade || '').localeCompare(b.localidade || ''))
-          .map((x) => `<tr data-ativo="${esc(x.ativo)}">
-          <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.localidade || '—')}</td>
-          <td>${esc(x.criticidade || '—')}</td><td>${esc(x.modelo || '—')}</td>
-          <td>${esc(x.classe_tensao || '—')}</td>
-          <td>${x.potencia_kvar ? esc(x.potencia_kvar) + ' kvar' : '—'}</td>
-          <td>${esc(x.peca_faltante || '—')}
-          ${x.alerta_spec ? `<i class="linha-nota">⚠ ${esc(x.alerta_spec)}</i>` : ''}</td></tr>`).join('')}
-        </tbody></table></div></section>
-
-        <section class="bloco"><h3>O que falta comprar para fechar a fila</h3>
-        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Código</th><th>Material</th>
-        <th class="num">Qtd</th><th class="num">Unitário</th><th class="num">Total</th></tr></thead><tbody>
-        ${re.falta_comprar.map((x) => `<tr><td class="mono">${esc(x.codigo)}</td><td>${esc(x.descricao)}</td>
-          <td class="num">${x.qtd}</td><td class="num">${rs(x.unitario)}</td>
-          <td class="num">${rs(x.total)}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td colspan="2">Total</td>
-        <td class="num">${re.falta_comprar.reduce((s, x) => s + x.qtd, 0)}</td><td></td>
-        <td class="num">${rs(re.falta_comprar_total)}</td></tr></tfoot></table></div>
-        <p class="destaque-texto" style="margin-top:12px">Fora os três ativos sem diagnóstico, que
-        ainda não dá para dimensionar.</p></section>
-
-        ${m.emd_no_aic ? (() => {
-          const ea = m.emd_no_aic;
-          const errados = new Set((ea.sigco_errado || []).map((x) => x.ativo));
-          return `<section class="bloco"><h3>As obras do EMD no AIC — em que passo cada uma está</h3>
-        <p class="destaque-texto">As ${ea.total} obras da planilha de EMD procuradas uma a uma no AIC de
-        07/08/2026: a etapa em que estão, se o SIGCO é o certo e quanto já foi realizado.
-        ${ea.regra_sigco}</p>
-        <div class="numeros">
-          ${num({ rotulo: 'Obras do EMD', valor: ea.total, nota: `${ea.no_aic} encontradas no AIC` })}
-          ${num({ rotulo: 'Já realizado', valor: rs(ea.realizado), nota: `de ${rs(ea.orcado)} orçados`, tom: 'bom' })}
-          ${num({ rotulo: 'Com SIGCO errado', valor: (ea.sigco_errado || []).length, nota: `${rs(ea.sigco_errado_realizado)} lançados na conta errada`, tom: 'critico' })}
-        </div>
-        <div class="itens">${(ea.etapas || []).map((e) => `<div class="item-linha">
-          <span>${esc(e.etapa)}<i class="linha-nota">${esc(e.ativos.join(' · '))}</i></span>
-          <b>${e.obras} · ${rs(e.realizado)}</b></div>`).join('')}</div>
-
-        <div class="tabela-rol" style="margin-top:18px"><table class="matriz rol-entrada"><thead><tr>
-        <th>Ativo</th><th>Localidade</th><th>Tipo</th><th>Obra</th><th>SIGCO</th><th>Etapa</th>
-        <th class="num">Realizado</th><th class="num">Orçado</th></tr></thead><tbody>
-        ${(ea.linhas || []).map((x) => `<tr data-ativo="${esc(x.ativo)}">
-          <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.local || '—')}</td>
-          <td>${esc(x.tipo === 'Religador' ? 'RL' : 'RT')}</td>
-          <td class="mono">${esc(x.obra)}</td>
-          <td>${x.sigco_ok ? `<span class="mono">${esc(x.sigco)}</span>`
-            : `<span class="selo c-alta">${esc(x.sigco || 'vazio')} → ${esc(x.esperado)}</span>`}</td>
-          <td>${esc(x.etapa)}</td>
-          <td class="num">${x.real ? rs(x.real) : '—'}</td>
-          <td class="num">${x.orc ? rs(x.orc) : '—'}</td></tr>`).join('')}
-        </tbody></table></div>
-
-        ${errados.size ? `<div class="nota" style="margin-top:14px"><strong>O que o SIGCO errado custa</strong>
-        ${(ea.sigco_errado || []).length} obras estão na conta errada, e ${rs(ea.sigco_errado_realizado)} já
-        foram lançados nelas. Quatro reguladores caíram no 8389, que não é de equipamento especial; o de
-        Silvanópolis foi para o 8495, que é de religador; e a de Ponte Alta está sem SIGCO nenhum. Enquanto não
-        corrigir, o consumo dos códigos 8481 e 8495 aparece menor do que é.</div>` : ''}
-        </section>`; })() : ''}
-
-        ${m.obras_equipamento ? (() => {
-          const oe = m.obras_equipamento;
-          const F = oe.financeiro;
-          return `<section class="bloco"><h3>Obras com equipamento — o que foi preciso levar</h3>
-        <p class="destaque-texto">${esc(oe.convencao)}</p>
-        <div class="numeros">
-          ${num({ rotulo: 'Obras na carteira', valor: oe.totais.obras, nota: `${oe.totais.linhas} linhas de material` })}
-          ${num({ rotulo: 'Peças levadas', valor: oe.totais.levado, nota: `de ${oe.totais.prev} previstas`, tom: 'atento' })}
-          ${num({ rotulo: 'Material que saiu e ficou', valor: rs(oe.totais.valor_levado), nota: `${oe.totais.rma} requisitadas − ${oe.totais.dma} devolvidas`, tom: 'critico' })}
-          ${num({ rotulo: 'Já realizado no AIC', valor: rs(F.ja_realizado), nota: `${Math.round(100 * F.realizado_material / F.ja_realizado)}% material`, tom: 'bom' })}
-        </div>
-        <div class="nota calma" style="margin:-6px 0 20px"><strong>O que são as quantidades</strong>${esc(oe.semantica)}</div>
-        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Família</th><th>Classe</th><th>Código</th>
-        <th>Material</th><th>Tensão</th><th class="num">Obras</th><th class="num">Previsto</th>
-        <th class="num">Requisitado</th><th class="num">Devolvido</th><th class="num">Levado</th>
-        <th class="num">Unitário</th><th class="num">Valor levado</th></tr></thead><tbody>
-        ${oe.quadro.map((q) => `<tr>
-          <td>${esc(q.familia)}</td><td><b>${esc(q.classe)}</b></td>
-          <td class="mono">${esc(q.codigo)}</td><td>${esc(q.descricao)}</td>
-          <td>${esc(q.classe_tensao)}</td><td class="num">${q.obras}</td>
-          <td class="num">${q.qtd_prev}</td><td class="num">${q.qtd_rma}</td><td class="num">${q.qtd_dma}</td>
-          <td class="num"><b>${q.qtd_liquida}</b></td>
-          <td class="num">${q.valor_unitario ? rs(q.valor_unitario) : '—'}${q.preco_confianca === 'piso' ? '<br><span style="font-size:11px">piso, real é maior</span>' : q.preco_confianca === 'sem_preco' ? '<br><span style="font-size:11px">sem preço</span>' : ''}</td>
-          <td class="num">${q.valor_total ? rs(q.valor_total) : '—'}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td colspan="5">Total</td><td class="num">${oe.totais.obras}</td>
-        <td class="num">${oe.totais.prev}</td><td class="num">${oe.totais.rma}</td>
-        <td class="num">${oe.totais.dma}</td><td class="num"><b>${oe.totais.levado}</b></td>
-        <td></td><td class="num"><b>${rs(oe.totais.valor_levado)}</b></td></tr></tfoot></table></div>
-
-        <p class="destaque-texto" style="margin-top:18px">Somando por classe:</p>
-        <div class="itens">${oe.por_classe.map((c) => `<div class="item-linha">
-          <span>${esc(c.familia)} · ${esc(c.classe)}<i class="linha-nota">${c.prev} previstas · ${c.rma} requisitadas · ${c.dma} devolvidas</i></span>
-          <b>${c.levado} peças · ${rs(c.valor)}</b></div>`).join('')}</div>
-        </section>
-
-        <section class="bloco"><h3>O financeiro, na ordem das suas perguntas</h3>
-        <div class="confronto-duplo">
-          <div>
-            <h4 class="rotulo-coluna">Quantas já concluí</h4>
-            <p class="destaque-texto"><b>Nesta base, nenhuma — e isso é o filtro, não o resultado.</b>
-            ${esc(F.concluidas_nota)}</p>
-          </div>
-          <div>
-            <h4 class="rotulo-coluna">Quanto já realizei</h4>
-            <p class="destaque-texto">${rs(F.ja_realizado)} nas 69 obras, contra ${rs(F.orcado)} orçados.
-            Sobra ${rs(F.saldo)} de saldo.</p>
-            <div class="itens">
-              <div class="item-linha"><span>Material</span><b>${rs(F.realizado_material)}</b></div>
-              <div class="item-linha"><span>Mão de obra</span><b>${rs(F.realizado_mo)}</b></div>
-              <div class="item-linha"><span>Taxa de administração</span><b>${rs(F.realizado_taxa)}</b></div>
-            </div>
-          </div>
-        </div>
-        <p class="destaque-texto" style="margin-top:18px"><b>Quantas ainda posso manutencionar em 2026</b> —
-        aqui o número depende de quanto você quer apostar, então vão os dois:</p>
-        <div class="itens">
-          <div class="item-linha"><span>Teto — tudo que não está travado<i class="linha-nota">saldo de ${rs(F.teto_2026_saldo)}</i></span><b>${F.teto_2026} obras</b></div>
-          <div class="item-linha"><span>Piso — material já no campo, só falta programar equipe<i class="linha-nota">${F.piso_2026_pecas} peças, ${rs(F.piso_2026_material)} já comprados · saldo a executar ${rs(F.piso_2026_saldo)}</i></span><b>${F.piso_2026} obras</b></div>
-          <div class="item-linha"><span>Dessas ${F.piso_2026}, com prazo contratual em 2026<i class="linha-nota">as outras ${F.piso_prazo_2027} vencem em 2027 e entram por antecipação, não por obrigação (${rs(F.piso_prazo_2027_saldo)})</i></span><b>${F.piso_prazo_2026} obras</b></div>
-          <div class="item-linha"><span>Só acontecem se o almoxarifado liberar material<i class="linha-nota">${F.dependem_material_pecas} peças previstas, ${rs(F.dependem_material_valor)}</i></span><b>${F.dependem_material} obras</b></div>
-          <div class="item-linha"><span>Fora de 2026<i class="linha-nota">suspensas, paralisadas ou sem material com prazo em 2027</i></span><b>${F.fora_2026} obras</b></div>
-        </div>
-        <div class="nota" style="margin-top:14px"><strong>Dinheiro parado</strong>
-        ${F.travadas} obras travadas seguram ${F.imobilizado_pecas} peças já retiradas do almoxarifado —
-        ${rs(F.imobilizado)} imobilizados em equipamento que não está trabalhando. E ${F.orcadas_sem_gasto} obras
-        estão orçadas e travadas sem ter gasto um centavo, segurando ${rs(F.orcadas_sem_gasto_valor)}.</div>
-        <div class="nota calma" style="margin-top:10px"><strong>Como o corte de 2026 foi feito</strong>${esc(oe.criterio_2026)}</div>
-        ${(oe.ressalvas || []).length ? `<p class="destaque-texto" style="margin-top:16px">Onde o dado é fraco:</p>
-        ${oe.ressalvas.map((x) => `<div class="nota branda" style="margin-bottom:8px">${esc(x)}</div>`).join('')}` : ''}
-        </section>`; })() : ''}
-
-        <section class="bloco"><h3>Orçamento de 2026 no AIC — SIGCO 8481 e 8495</h3>
-        <p class="destaque-texto">Tem mão de obra e material, sim — e o material domina. O custo
-        dessas obras é a peça, não a equipe, que é exatamente o que o plano de compras diz.</p>
-        <div class="tabela-rol"><table class="matriz"><thead><tr><th>SIGCO</th><th class="num">Obras</th>
-        <th class="num">Mão de obra</th><th class="num">Material</th>
-        <th class="num">Realizado</th><th class="num">Orçado</th><th class="num">Consumo</th>
-        <th class="num">Encerradas</th><th class="num">Abertas no ano</th></tr></thead><tbody>
-        ${(ai.sigco_2026 || []).map((s) => `<tr>
-          <td><b class="mono">${esc(s.codigo)}</b><br><span style="font-size:11px">${esc(s.rotulo)}</span></td>
-          <td class="num">${s.obras}<br><span style="font-size:11px">${s.indeferidas} indeferida${s.indeferidas === 1 ? '' : 's'} fora</span></td>
-          <td class="num">${rs(s.mo)}<br><span style="font-size:11px">${s.mo_pct}%</span></td>
-          <td class="num">${rs(s.mt)}<br><span style="font-size:11px">${s.mt_pct}%</span></td>
-          <td class="num"><b>${rs(s.realizado)}</b></td>
-          <td class="num">${rs(s.orcado)}</td>
-          <td class="num"><b>${s.consumo_pct}%</b></td>
-          <td class="num">${s.encerradas}<br><span style="font-size:11px">${rs(s.encerradas_realizado)}</span></td>
-          <td class="num">${s.abertas}<br><span style="font-size:11px">${rs(s.abertas_realizado)}</span></td></tr>`).join('')}
-        </tbody><tfoot><tr><td>Total 2026</td>
-        <td class="num">${(ai.sigco_2026 || []).reduce((s, x) => s + x.obras, 0)}</td>
-        <td class="num">${rs((ai.sigco_2026 || []).reduce((s, x) => s + x.mo, 0))}</td>
-        <td class="num">${rs((ai.sigco_2026 || []).reduce((s, x) => s + x.mt, 0))}</td>
-        <td class="num"><b>${rs(ai.total_realizado_2026 || 0)}</b></td>
-        <td class="num">${rs(ai.total_orcado_2026 || 0)}</td>
-        <td class="num">${Math.round(100 * (ai.total_realizado_2026 || 0) / Math.max(ai.total_orcado_2026 || 1, 1))}%</td>
-        <td></td><td></td></tr></tfoot></table></div>
-        <div class="nota calma" style="margin-top:14px"><strong>Como esse recorte foi feito</strong>
-        ${esc(ai.criterio || '')}</div>
-        ${(ai.sigco_2026 || []).some((s) => s.indeferidas) ? `<div class="nota branda" style="margin-top:10px">
-        <strong>Indeferidas que ficaram fora da cota</strong>
-        ${(ai.sigco_2026 || []).flatMap((s) => (s.obras_indeferidas || []).map((o) =>
-          `${esc(o.obra)} · ${esc(o.descricao)} · ${rs(o.orcado)} orçados, nada realizado`)).join(' — ')}.
-        Juntas seguravam ${rs((ai.sigco_2026 || []).reduce((s, x) => s + (x.indeferidas_orcado || 0), 0))} de
-        orçamento que não é consumo.</div>` : ''}</section>
-
-        ${(ai.sigco || []).length ? `<section class="bloco"><h3>Histórico completo — desde 2019</h3>
-        <p class="destaque-texto">Para comparação, o acumulado dos dois códigos desde a primeira obra.
-        Aqui as indeferidas entram na contagem de obras, como vêm do AIC.</p>
-        <div class="itens">${(ai.sigco || []).map((s) => `<div class="item-linha">
-          <span>${esc(s.codigo)} · ${s.codigo === '8481' ? 'Regulador' : 'Religador'}
-          <i class="linha-nota">${s.obras} obras · ${s.obras_encerradas} encerradas · primeira em ${dataBr(s.primeira_encerrada)}</i></span>
-          <b>${rs(s.total_realizado)}</b></div>`).join('')}</div></section>` : ''}
-
-        ${(ai.obras_dos_ativos || []).length ? `<section class="bloco">
-        <h3>Obras da carteira no AIC (${ai.obras_dos_ativos.length})</h3>
-        <div class="itens">${ai.obras_dos_ativos.map((o) => `<div class="item-linha"><span>${esc(o)}</span></div>`).join('')}</div>
-        </section>` : ''}
-
-        ${(re.ressalvas || []).length ? `<section class="bloco"><h3>Onde a informação é fraca</h3>
-        ${re.ressalvas.map((x) => `<div class="nota branda" style="margin-bottom:10px">${esc(x)}</div>`).join('')}
-        </section>` : ''}`;
-    }
-  }
-
   if (id === 'frota') {
     const g = m.gestao;
     const comGeo = estado.equipamentos.filter((e) => e.geo);
@@ -1554,6 +1322,66 @@ function abrirColecao(id) {
           ${falta['Baixa da SS no sistema'] ? linha('Baixa da SS', falta['Baixa da SS no sistema'], 'trocado, falta só encerrar') : ''}
         </div></section>
 `; })()}
+
+        ${m.visao_dcmd ? (() => {
+          const vd = m.visao_dcmd;
+          const rs2 = (v) => `R$ ${moedaBR(v)}`;
+          const saldo = vd.orcamento_previsto - vd.ja_consumido.total;
+          const crits = ['Muito Alta', 'Alta', 'Média', 'Baixa', 'Sem classificação'];
+          const stats = [...new Set(vd.matriz.map((x) => x.status))];
+          return `<section class="bloco"><h3>${esc(vd.titulo)}</h3>
+        <p class="destaque-texto">${esc(vd.fonte)}. São ${vd.ativos} ativos —
+        ${vd.por_tipo.map((t) => `${t.qtd} ${t.tipo}`).join(' e ')} — com valor previsto ativo a ativo.</p>
+        <div class="numeros">
+          ${num({ rotulo: 'Orçamento previsto', valor: rs2(vd.orcamento_previsto), nota: `${vd.ativos} ativos` })}
+          ${num({ rotulo: 'Já consumido', valor: rs2(vd.ja_consumido.total), nota: `RL ${rs2(vd.ja_consumido.rl)} · RT ${rs2(vd.ja_consumido.rt)}`, tom: 'bom' })}
+          ${num({ rotulo: 'Ainda por consumir', valor: rs2(saldo), nota: `${Math.round(100 * saldo / vd.orcamento_previsto)}% do previsto`, tom: 'atento' })}
+        </div>
+
+        <p class="destaque-texto">Onde cada um está, na sua régua:</p>
+        <div class="itens">${vd.por_status.map((s) => `<div class="item-linha">
+          <span>${esc(s.status)}<i class="linha-nota">${esc(s.ativos.slice(0, 10).join(' · '))}${s.ativos.length > 10 ? ' …' : ''}</i></span>
+          <b>${s.qtd} · ${rs2(s.valor)}</b></div>`).join('')}</div>
+
+        <p class="destaque-texto" style="margin-top:20px">Por tipo e criticidade:</p>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Tipo</th><th>Criticidade</th>
+        ${stats.map((s) => `<th class="num">${esc(s)}</th>`).join('')}
+        <th class="num">Total</th></tr></thead><tbody>
+        ${['RL', 'RT'].flatMap((t) => crits.map((c) => {
+          const linhas = vd.matriz.filter((x) => x.tipo === t && x.criticidade === c);
+          if (!linhas.length) return '';
+          const tot = linhas.reduce((a, x) => a + x.valor, 0);
+          const totq = linhas.reduce((a, x) => a + x.qtd, 0);
+          return `<tr><td><b>${t}</b></td><td>${esc(c)}</td>
+            ${stats.map((s) => { const x = linhas.find((y) => y.status === s);
+              return `<td class="num">${x ? `${x.qtd}<br><span style="font-size:11px">${rs2(x.valor)}</span>` : '—'}</td>`; }).join('')}
+            <td class="num"><b>${totq}</b><br><span style="font-size:11px">${rs2(tot)}</span></td></tr>`;
+        })).join('')}
+        </tbody></table></div>
+        <div class="nota branda" style="margin-top:12px"><strong>Anotação à mão na planilha</strong>${esc(vd.anotacao_gerar_5)}</div>
+
+        <div class="confronto-duplo" style="margin-top:18px">
+          <div><h4 class="rotulo-coluna">Em execução</h4>
+          <p class="destaque-texto">${vd.em_execucao.ativos} ativos · <b>${rs2(vd.em_execucao.valor)}</b>
+          <i class="linha-nota">${esc(vd.em_execucao.fonte)}</i></p></div>
+          <div><h4 class="rotulo-coluna">Em análise de compra</h4>
+          <p class="destaque-texto">${vd.em_analise_compra.ativos} ativos · <b>${rs2(vd.em_analise_compra.valor)}</b>
+          <i class="linha-nota">${esc(vd.em_analise_compra.fonte)}</i></p></div>
+        </div>
+
+        <div class="tabela-rol" style="margin-top:18px"><table class="matriz rol-entrada"><thead><tr>
+        <th>Ativo</th><th>Regional</th><th>Modelo</th><th>Criticidade</th><th>Status</th>
+        <th>O que comprar</th><th class="num">Valor previsto</th></tr></thead><tbody>
+        ${vd.lista.map((x) => `<tr data-ativo="${esc(x.ativo)}">
+          <td><b class="mono">${esc(x.ativo)}</b></td><td>${esc(x.regional || '—')}</td>
+          <td>${esc(x.modelo || '—')}</td><td>${esc(x.criticidade)}</td>
+          <td>${esc(x.status)}</td>
+          <td>${esc(x.compra && x.compra !== '#N/A' ? x.compra : '—')}
+          ${x.observacao ? `<i class="linha-nota">${esc(x.observacao)}</i>` : ''}</td>
+          <td class="num">${rs2(x.valor)}</td></tr>`).join('')}
+        </tbody><tfoot><tr><td colspan="6">Total</td>
+        <td class="num"><b>${rs2(vd.orcamento_previsto)}</b></td></tr></tfoot></table></div>
+        </section>`; })() : ''}
 
         ${m.leitura_canceladas ? (() => {
           const lc = m.leitura_canceladas;

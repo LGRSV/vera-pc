@@ -1,0 +1,1294 @@
+{
+  "titulo": "Visão DCMD — a leitura do Allan",
+  "fonte": "GESTAO_DE_EQUIPAMENTOS.xlsx · aba «Dados Apresentação» e a tabela-mãe da «Planilha1»",
+  "ativos": 65,
+  "orcamento_previsto": 5696917.69,
+  "por_tipo": [
+    {
+      "tipo": "RL",
+      "qtd": 45,
+      "valor": 2603956.04
+    },
+    {
+      "tipo": "RT",
+      "qtd": 20,
+      "valor": 3092961.65
+    }
+  ],
+  "ja_consumido": {
+    "rl": 419035.0,
+    "rt": 498815.0,
+    "total": 917850.0,
+    "fonte": "Dados Apresentação · L2 «Já consumido», M4 para RL e N4 para RT"
+  },
+  "por_status": [
+    {
+      "status": "Em compra",
+      "qtd": 31,
+      "valor": 3134909.14,
+      "ativos": [
+        5800090147,
+        5800371025,
+        5800961074,
+        5836786094,
+        5856070091,
+        5858783119,
+        7900525015,
+        7900535058,
+        7901110084,
+        7908249152,
+        7913662076,
+        7921202014,
+        7923673004,
+        7923927122,
+        7925733015,
+        7925744087,
+        7926089013,
+        7926442035,
+        7927396052,
+        7927413001,
+        7927446001,
+        7927646026,
+        7928564039,
+        7929376022,
+        7931608059,
+        7933585074,
+        7937102148,
+        7942485096,
+        7944559149,
+        7947203070,
+        7953610256
+      ]
+    },
+    {
+      "status": "Em logística",
+      "qtd": 13,
+      "valor": 1071000.16,
+      "ativos": [
+        5800859011,
+        5801866013,
+        5844630060,
+        5850308009,
+        5854566043,
+        5855411017,
+        5862236091,
+        7900117013,
+        7900453110,
+        7900573047,
+        7908686014,
+        7925087021,
+        7957126085
+      ]
+    },
+    {
+      "status": "Em execução",
+      "qtd": 14,
+      "valor": 1038267.56,
+      "ativos": [
+        5800291035,
+        5800438116,
+        5803327001,
+        5827102054,
+        5853360007,
+        5856156091,
+        7900594026,
+        7908705049,
+        7911120026,
+        7927169001,
+        7931610122,
+        7933726256,
+        7933766059,
+        7942572059
+      ]
+    },
+    {
+      "status": "Análise do DMSL",
+      "qtd": 6,
+      "valor": 437740.83,
+      "ativos": [
+        7900532053,
+        7903112004,
+        7919270014,
+        7920024127,
+        7925871077,
+        7928241200
+      ]
+    },
+    {
+      "status": "Comissionamento",
+      "qtd": 1,
+      "valor": 15000.0,
+      "ativos": [
+        5865120195
+      ]
+    }
+  ],
+  "matriz": [
+    {
+      "tipo": "RL",
+      "criticidade": "Muito Alta",
+      "status": "Em execução",
+      "qtd": 5,
+      "valor": 234889.68,
+      "ativos": [
+        7900594026,
+        7908705049,
+        7931610122,
+        7933726256,
+        7933766059
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Muito Alta",
+      "status": "Em logística",
+      "qtd": 3,
+      "valor": 207435.84,
+      "ativos": [
+        7900117013,
+        7900453110,
+        7908686014
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Muito Alta",
+      "status": "Em compra",
+      "qtd": 6,
+      "valor": 363990.7,
+      "ativos": [
+        7923673004,
+        7925744087,
+        7927413001,
+        7929376022,
+        7931608059,
+        7947203070
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Muito Alta",
+      "status": "Análise do DMSL",
+      "qtd": 1,
+      "valor": 51360.82,
+      "ativos": [
+        7925871077
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Alta",
+      "status": "Em execução",
+      "qtd": 1,
+      "valor": 66619.48,
+      "ativos": [
+        7927169001
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Alta",
+      "status": "Em logística",
+      "qtd": 2,
+      "valor": 117980.3,
+      "ativos": [
+        7900573047,
+        7925087021
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Alta",
+      "status": "Em compra",
+      "qtd": 3,
+      "valor": 154082.46,
+      "ativos": [
+        7926089013,
+        7927646026,
+        7953610256
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Alta",
+      "status": "Análise do DMSL",
+      "qtd": 2,
+      "valor": 141496.03,
+      "ativos": [
+        7903112004,
+        7920024127
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Média",
+      "status": "Em execução",
+      "qtd": 1,
+      "valor": 15000.0,
+      "ativos": [
+        7942572059
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Média",
+      "status": "Em logística",
+      "qtd": 1,
+      "valor": 51304.06,
+      "ativos": [
+        7957126085
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Média",
+      "status": "Em compra",
+      "qtd": 9,
+      "valor": 576474.78,
+      "ativos": [
+        7900525015,
+        7900535058,
+        7908249152,
+        7925733015,
+        7927396052,
+        7928564039,
+        7933585074,
+        7937102148,
+        7944559149
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Baixa",
+      "status": "Em compra",
+      "qtd": 7,
+      "valor": 363437.91,
+      "ativos": [
+        7901110084,
+        7913662076,
+        7921202014,
+        7923927122,
+        7926442035,
+        7927446001,
+        7942485096
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Baixa",
+      "status": "Análise do DMSL",
+      "qtd": 2,
+      "valor": 140816.36,
+      "ativos": [
+        7919270014,
+        7928241200
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Sem classificação",
+      "status": "Em execução",
+      "qtd": 1,
+      "valor": 15000.0,
+      "ativos": [
+        7911120026
+      ]
+    },
+    {
+      "tipo": "RL",
+      "criticidade": "Sem classificação",
+      "status": "Análise do DMSL",
+      "qtd": 1,
+      "valor": 104067.62,
+      "ativos": [
+        7900532053
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Muito Alta",
+      "status": "Em logística",
+      "qtd": 2,
+      "valor": 236657.69,
+      "ativos": [
+        5800859011,
+        5854566043
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Muito Alta",
+      "status": "Em compra",
+      "qtd": 1,
+      "valor": 460999.9,
+      "ativos": [
+        5856070091
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Alta",
+      "status": "Em execução",
+      "qtd": 2,
+      "valor": 30000.0,
+      "ativos": [
+        5803327001,
+        5853360007
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Alta",
+      "status": "Em logística",
+      "qtd": 1,
+      "valor": 79018.76,
+      "ativos": [
+        5801866013
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Alta",
+      "status": "Em compra",
+      "qtd": 1,
+      "valor": 109925.12,
+      "ativos": [
+        5800371025
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Alta",
+      "status": "Comissionamento",
+      "qtd": 1,
+      "valor": 15000.0,
+      "ativos": [
+        5865120195
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Média",
+      "status": "Em execução",
+      "qtd": 3,
+      "valor": 215758.5,
+      "ativos": [
+        5800291035,
+        5800438116,
+        5827102054
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Média",
+      "status": "Em logística",
+      "qtd": 1,
+      "valor": 29445.39,
+      "ativos": [
+        5850308009
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Média",
+      "status": "Em compra",
+      "qtd": 2,
+      "valor": 391518.64,
+      "ativos": [
+        5800090147,
+        5800961074
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Baixa",
+      "status": "Em execução",
+      "qtd": 1,
+      "valor": 460999.9,
+      "ativos": [
+        5856156091
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Baixa",
+      "status": "Em logística",
+      "qtd": 3,
+      "valor": 349158.12,
+      "ativos": [
+        5844630060,
+        5855411017,
+        5862236091
+      ]
+    },
+    {
+      "tipo": "RT",
+      "criticidade": "Baixa",
+      "status": "Em compra",
+      "qtd": 2,
+      "valor": 714479.63,
+      "ativos": [
+        5836786094,
+        5858783119
+      ]
+    }
+  ],
+  "lista": [
+    {
+      "ativo": 5856070091,
+      "regional": "SUL",
+      "modelo": "ITB",
+      "criticidade": "Muito Alta",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00130/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "Furto",
+      "compra": "3 células furtadas",
+      "valor": 460999.9
+    },
+    {
+      "ativo": 5854566043,
+      "regional": "CENTRO",
+      "modelo": "ITB",
+      "criticidade": "Muito Alta",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00160/2025",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Célula fase B",
+      "valor": 207212.3
+    },
+    {
+      "ativo": 7900453110,
+      "regional": "CENTRO",
+      "modelo": "COOPER F6",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00087/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Religador completo",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7947203070,
+      "regional": "CENTRO",
+      "modelo": "TAVRIDA",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00131/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Religador completo (parte ativa + tanque) — decisão COEP 08/07",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7927413001,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-RD-PO 00118/2026",
+      "responsavel": "COCM-C",
+      "status": "Em compra",
+      "observacao": "Verificar disponibilidade de material",
+      "compra": "#N/A",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7900594026,
+      "regional": "CENTRO",
+      "modelo": "COOPER F6",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00113/2026",
+      "responsavel": "COEP",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Religador completo (COOPER F6)",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7900117013,
+      "regional": "CENTRO",
+      "modelo": "COOPER F6",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00084/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Religador completo (Cooper F6→NOJA)",
+      "valor": 66619.48
+    },
+    {
+      "ativo": 7908705049,
+      "regional": "SUL",
+      "modelo": "COOPER F6",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-RD-DP 00409/2026",
+      "responsavel": "COCM-S",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Religador completo",
+      "valor": 66619.48
+    },
+    {
+      "ativo": 7908686014,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00086/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Tanque (não substituir controle)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7925744087,
+      "regional": "NORTE",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00059/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque + cabo umbilical",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7925871077,
+      "regional": "NORTE",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00048/2026",
+      "responsavel": "COEP",
+      "status": "Análise do DMSL",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7929376022,
+      "regional": "NORTE",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00120/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Controle completo",
+      "valor": 51304.06
+    },
+    {
+      "ativo": 7931608059,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00040/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque + rádio GE",
+      "valor": 47414.74
+    },
+    {
+      "ativo": 7923673004,
+      "regional": "NORTE",
+      "modelo": "ARTECHE P500",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00124/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Relé prot. 50/51 — MANDAR O RELÉ (decisão gestor 08/07)",
+      "valor": 35000.0
+    },
+    {
+      "ativo": 7933766059,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-RD-PA 00431/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 32802.66
+    },
+    {
+      "ativo": 7931610122,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-RD-PA 00433/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Tanque + antena",
+      "valor": 32802.66
+    },
+    {
+      "ativo": 5800859011,
+      "regional": "NORTE",
+      "modelo": "ITB",
+      "criticidade": "Muito Alta",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00115/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Controle c/ nobreak (retrofit RUA)",
+      "valor": 29445.39
+    },
+    {
+      "ativo": 7933726256,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Muito Alta",
+      "tipo": "RL",
+      "ss": "ETO-RD-PO 00181/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Tanque REAPROVEITADO (redirecionado de Santa Rita/7900453110)",
+      "valor": 13209.34
+    },
+    {
+      "ativo": 5800371025,
+      "regional": "NORTE",
+      "modelo": "TOSHIBA",
+      "criticidade": "Alta",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00187/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Controle RUA + kit comunicação + 3 células",
+      "valor": 109925.12
+    },
+    {
+      "ativo": 7920024127,
+      "regional": "NORTE",
+      "modelo": "SCHNEIDER ADVC",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00120/2025",
+      "responsavel": "COEP",
+      "status": "Análise do DMSL",
+      "observacao": "",
+      "compra": "Religador completo (→NOJA) + chave faca fase A",
+      "valor": 90191.97
+    },
+    {
+      "ativo": 5801866013,
+      "regional": "CENTRO",
+      "modelo": "TOSHIBA//ROMAGNOLE/TOSHIBA",
+      "criticidade": "Alta",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00077/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Célula fase C",
+      "valor": 79018.76
+    },
+    {
+      "ativo": 7900573047,
+      "regional": "SUL",
+      "modelo": "COOPER F6",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00080/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Religador completo (→NOJA RC10)",
+      "valor": 66619.48
+    },
+    {
+      "ativo": 7927169001,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-RD-PA 00432/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Religador completo — EM DÚVIDA (obras=completo x v1.5=tanque)",
+      "valor": 66619.48
+    },
+    {
+      "ativo": 7953610256,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00050/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque + cordão umbilical",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7925087021,
+      "regional": "SUL",
+      "modelo": "NOJA RC10",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00222/2025",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7927646026,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00029/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque + isoladores",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7926089013,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00078/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7903112004,
+      "regional": "NORTE",
+      "modelo": "COOPER F6",
+      "criticidade": "Alta",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00184/2025",
+      "responsavel": "COEP",
+      "status": "Análise do DMSL",
+      "observacao": "",
+      "compra": "Controle NOJA (tanque cooper reaproveitado do 7900018004)",
+      "valor": 51304.06
+    },
+    {
+      "ativo": 5853360007,
+      "regional": "CENTRO",
+      "modelo": "ITB",
+      "criticidade": "Alta",
+      "tipo": "RT",
+      "ss": "ETO-RD-PS 00323/2025",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "Problema de autorização de passagem",
+      "compra": "#N/A",
+      "valor": 15000.0
+    },
+    {
+      "ativo": 5803327001,
+      "regional": "CENTRO",
+      "modelo": "TOSHIBA",
+      "criticidade": "Alta",
+      "tipo": "RT",
+      "ss": "ETO-RD-PA 00434/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 15000.0
+    },
+    {
+      "ativo": 5865120195,
+      "regional": "NORTE",
+      "modelo": "ITB",
+      "criticidade": "Alta",
+      "tipo": "RT",
+      "ss": "ETO-RD-GR 00538/2026",
+      "responsavel": "COCM-N",
+      "status": "Comissionamento",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 15000.0
+    },
+    {
+      "ativo": 5800961074,
+      "regional": "SUL",
+      "modelo": "ITB",
+      "criticidade": "Média",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00221/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "3 células",
+      "valor": 253479.73
+    },
+    {
+      "ativo": 5800438116,
+      "regional": "SUL",
+      "modelo": "TOSHIBA",
+      "criticidade": "Média",
+      "tipo": "RT",
+      "ss": "ETO-RD-DP 00404/2026",
+      "responsavel": "COCM-S",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Células fases B e C — REAPROVEITAMENTO (eq. retirado de obra)",
+      "valor": 195758.5
+    },
+    {
+      "ativo": 5800090147,
+      "regional": "SUL",
+      "modelo": "ITB",
+      "criticidade": "Média",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00117/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Célula fase C (microswitch)",
+      "valor": 138038.91
+    },
+    {
+      "ativo": 7900535058,
+      "regional": "NORTE",
+      "modelo": "COOPER F6",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00173/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Religador completo (Cooper→NOJA RC10)",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7928564039,
+      "regional": "NORTE",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00123/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Religador completo (tanque+módulo+relé)",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7908249152,
+      "regional": "CENTRO",
+      "modelo": "COOPER F6",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00038/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Religador completo (parte ativa+controle)",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7937102148,
+      "regional": "SUL",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00129/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7933585074,
+      "regional": "SUL",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00024/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7927396052,
+      "regional": "SUL",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00045/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7925733015,
+      "regional": "NORTE",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00058/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7900525015,
+      "regional": "NORTE",
+      "modelo": "COOPER F6",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00125/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Buchas — aguardando definição (COCM?)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7957126085,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00156/2025",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Controle completo + cabo BT",
+      "valor": 51304.06
+    },
+    {
+      "ativo": 7944559149,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00063/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Placa => tratada como Controle completo",
+      "valor": 51304.06
+    },
+    {
+      "ativo": 5850308009,
+      "regional": "NORTE",
+      "modelo": "ITB",
+      "criticidade": "Média",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00127/2026",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Controle c/ nobreak",
+      "valor": 29445.39
+    },
+    {
+      "ativo": 5800291035,
+      "regional": "CENTRO",
+      "modelo": "TOSHIBA",
+      "criticidade": "Média",
+      "tipo": "RT",
+      "ss": "ETO-RD-PO 00097/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 20000.0
+    },
+    {
+      "ativo": 7942572059,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Média",
+      "tipo": "RL",
+      "ss": "ETO-RD-PA 00427/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 15000.0
+    },
+    {
+      "ativo": 5827102054,
+      "regional": "CENTRO",
+      "modelo": "TOSHIBA",
+      "criticidade": "Média",
+      "tipo": "RT",
+      "ss": "ETO-RD-PS 00289/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "Repasse COCM — tentar vedação do controle; cancelar obra",
+      "valor": 0.0
+    },
+    {
+      "ativo": 5858783119,
+      "regional": "NORTE",
+      "modelo": "ITB",
+      "criticidade": "Baixa",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00123/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "Furto",
+      "compra": "3 células (óleo furtado)",
+      "valor": 460999.9
+    },
+    {
+      "ativo": 5856156091,
+      "regional": "SUL",
+      "modelo": "ITB",
+      "criticidade": "Baixa",
+      "tipo": "RT",
+      "ss": "ETO-RD-DP 00403/2026",
+      "responsavel": "COCM-S",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 460999.9
+    },
+    {
+      "ativo": 5836786094,
+      "regional": "SUL",
+      "modelo": "ITB",
+      "criticidade": "Baixa",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00095/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "Furto",
+      "compra": "3 células (equipamento furtado)",
+      "valor": 253479.73
+    },
+    {
+      "ativo": 5862236091,
+      "regional": "SUL",
+      "modelo": "ITB",
+      "criticidade": "Baixa",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00223/2025",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Célula fase B",
+      "valor": 207212.3
+    },
+    {
+      "ativo": 5844630060,
+      "regional": "NORTE",
+      "modelo": "ITB",
+      "criticidade": "Baixa",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00167/2025",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Célula fase A",
+      "valor": 112500.43
+    },
+    {
+      "ativo": 7927446001,
+      "regional": "CENTRO",
+      "modelo": "TAVRIDA",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00143/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Religador completo (Tavrida s/ sobressalente)",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7919270014,
+      "regional": "CENTRO",
+      "modelo": "COOPER F6",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00074/2026",
+      "responsavel": "COEP",
+      "status": "Análise do DMSL",
+      "observacao": "",
+      "compra": "Religador completo (placa+parte ativa)",
+      "valor": 89455.54
+    },
+    {
+      "ativo": 7942485096,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00158/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7923927122,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00079/2025",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7928241200,
+      "regional": "SUL",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00128/2026",
+      "responsavel": "COEP",
+      "status": "Análise do DMSL",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7901110084,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00061/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque (parte ativa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7926442035,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00051/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque + trafo (trafo s/ premissa)",
+      "valor": 51360.82
+    },
+    {
+      "ativo": 7921202014,
+      "regional": "CENTRO",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00132/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 35000.0
+    },
+    {
+      "ativo": 7913662076,
+      "regional": "SUL",
+      "modelo": "NOJA RC10",
+      "criticidade": "Baixa",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00114/2026",
+      "responsavel": "COEP",
+      "status": "Em compra",
+      "observacao": "",
+      "compra": "Tanque + chave entrada fase B",
+      "valor": 33539.09
+    },
+    {
+      "ativo": 5855411017,
+      "regional": "CENTRO",
+      "modelo": "ROMAGNOLE",
+      "criticidade": "Baixa",
+      "tipo": "RT",
+      "ss": "ETO-COEP 00199/2025",
+      "responsavel": "COEP",
+      "status": "Em logística",
+      "observacao": "",
+      "compra": "Controle c/ nobreak",
+      "valor": 29445.39
+    },
+    {
+      "ativo": 7900532053,
+      "regional": "NORTE",
+      "modelo": "#N/A",
+      "criticidade": "Sem classificação",
+      "tipo": "RL",
+      "ss": "ETO-COEP 00102/2025",
+      "responsavel": "COEP",
+      "status": "Análise do DMSL",
+      "observacao": "",
+      "compra": "Religador completo + rádio GE",
+      "valor": 104067.62
+    },
+    {
+      "ativo": 7911120026,
+      "regional": "CENTRO",
+      "modelo": "COOPER F6",
+      "criticidade": "Sem classificação",
+      "tipo": "RL",
+      "ss": "DG-RD-PO 00444/2026",
+      "responsavel": "COCM-C",
+      "status": "Em execução",
+      "observacao": "",
+      "compra": "#N/A",
+      "valor": 15000.0
+    }
+  ],
+  "em_execucao": {
+    "ativos": 28,
+    "valor": 2124267.72,
+    "fonte": "pivô «EM EXECUÇÃO», A48:D62"
+  },
+  "em_analise_compra": {
+    "ativos": 35,
+    "valor": 3379126.81,
+    "fonte": "pivô «EM ANÁLISE DE COMPRA», A64:D80"
+  },
+  "anotacao_gerar_5": "Na linha RL / Média, que tem 9 ativos e R$ 576.474,78, está escrita à mão a instrução «GERAR SOMENTE 5»."
+}
