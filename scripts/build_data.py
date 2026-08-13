@@ -476,6 +476,11 @@ def main():
         with open(arq_leitura, encoding="utf-8") as fh:
             meta["leitura_canceladas"] = json.load(fh)
 
+    arq_obras_eq = os.path.join(RAIZ, "data", "raw", "obras_equipamento.json")
+    if os.path.exists(arq_obras_eq):
+        with open(arq_obras_eq, encoding="utf-8") as fh:
+            meta["obras_equipamento"] = json.load(fh)
+
     arq_pecas = os.path.join(RAIZ, "data", "raw", "pecas_orcamento.json")
     if os.path.exists(arq_pecas):
         with open(arq_pecas, encoding="utf-8") as fh:

@@ -1097,6 +1097,77 @@ function abrirColecao(id) {
         <p class="destaque-texto" style="margin-top:12px">Fora os três ativos sem diagnóstico, que
         ainda não dá para dimensionar.</p></section>
 
+        ${m.obras_equipamento ? (() => {
+          const oe = m.obras_equipamento;
+          const F = oe.financeiro;
+          return `<section class="bloco"><h3>Obras com equipamento — o que foi preciso levar</h3>
+        <p class="destaque-texto">${esc(oe.convencao)}</p>
+        <div class="numeros">
+          ${num({ rotulo: 'Obras na carteira', valor: oe.totais.obras, nota: `${oe.totais.linhas} linhas de material` })}
+          ${num({ rotulo: 'Peças levadas', valor: oe.totais.levado, nota: `de ${oe.totais.prev} previstas`, tom: 'atento' })}
+          ${num({ rotulo: 'Material que saiu e ficou', valor: rs(oe.totais.valor_levado), nota: `${oe.totais.rma} requisitadas − ${oe.totais.dma} devolvidas`, tom: 'critico' })}
+          ${num({ rotulo: 'Já realizado no AIC', valor: rs(F.ja_realizado), nota: `${Math.round(100 * F.realizado_material / F.ja_realizado)}% material`, tom: 'bom' })}
+        </div>
+        <div class="nota calma" style="margin:-6px 0 20px"><strong>O que são as quantidades</strong>${esc(oe.semantica)}</div>
+        <div class="tabela-rol"><table class="matriz"><thead><tr><th>Família</th><th>Classe</th><th>Código</th>
+        <th>Material</th><th>Tensão</th><th class="num">Obras</th><th class="num">Previsto</th>
+        <th class="num">Requisitado</th><th class="num">Devolvido</th><th class="num">Levado</th>
+        <th class="num">Unitário</th><th class="num">Valor levado</th></tr></thead><tbody>
+        ${oe.quadro.map((q) => `<tr>
+          <td>${esc(q.familia)}</td><td><b>${esc(q.classe)}</b></td>
+          <td class="mono">${esc(q.codigo)}</td><td>${esc(q.descricao)}</td>
+          <td>${esc(q.classe_tensao)}</td><td class="num">${q.obras}</td>
+          <td class="num">${q.qtd_prev}</td><td class="num">${q.qtd_rma}</td><td class="num">${q.qtd_dma}</td>
+          <td class="num"><b>${q.qtd_liquida}</b></td>
+          <td class="num">${q.valor_unitario ? rs(q.valor_unitario) : '—'}${q.preco_confianca === 'piso' ? '<br><span style="font-size:11px">piso, real é maior</span>' : q.preco_confianca === 'sem_preco' ? '<br><span style="font-size:11px">sem preço</span>' : ''}</td>
+          <td class="num">${q.valor_total ? rs(q.valor_total) : '—'}</td></tr>`).join('')}
+        </tbody><tfoot><tr><td colspan="5">Total</td><td class="num">${oe.totais.obras}</td>
+        <td class="num">${oe.totais.prev}</td><td class="num">${oe.totais.rma}</td>
+        <td class="num">${oe.totais.dma}</td><td class="num"><b>${oe.totais.levado}</b></td>
+        <td></td><td class="num"><b>${rs(oe.totais.valor_levado)}</b></td></tr></tfoot></table></div>
+
+        <p class="destaque-texto" style="margin-top:18px">Somando por classe:</p>
+        <div class="itens">${oe.por_classe.map((c) => `<div class="item-linha">
+          <span>${esc(c.familia)} · ${esc(c.classe)}<i class="linha-nota">${c.prev} previstas · ${c.rma} requisitadas · ${c.dma} devolvidas</i></span>
+          <b>${c.levado} peças · ${rs(c.valor)}</b></div>`).join('')}</div>
+        </section>
+
+        <section class="bloco"><h3>O financeiro, na ordem das suas perguntas</h3>
+        <div class="confronto-duplo">
+          <div>
+            <h4 class="rotulo-coluna">Quantas já concluí</h4>
+            <p class="destaque-texto"><b>Nesta base, nenhuma — e isso é o filtro, não o resultado.</b>
+            ${esc(F.concluidas_nota)}</p>
+          </div>
+          <div>
+            <h4 class="rotulo-coluna">Quanto já realizei</h4>
+            <p class="destaque-texto">${rs(F.ja_realizado)} nas 69 obras, contra ${rs(F.orcado)} orçados.
+            Sobra ${rs(F.saldo)} de saldo.</p>
+            <div class="itens">
+              <div class="item-linha"><span>Material</span><b>${rs(F.realizado_material)}</b></div>
+              <div class="item-linha"><span>Mão de obra</span><b>${rs(F.realizado_mo)}</b></div>
+              <div class="item-linha"><span>Taxa de administração</span><b>${rs(F.realizado_taxa)}</b></div>
+            </div>
+          </div>
+        </div>
+        <p class="destaque-texto" style="margin-top:18px"><b>Quantas ainda posso manutencionar em 2026</b> —
+        aqui o número depende de quanto você quer apostar, então vão os dois:</p>
+        <div class="itens">
+          <div class="item-linha"><span>Teto — tudo que não está travado<i class="linha-nota">saldo de ${rs(F.teto_2026_saldo)}</i></span><b>${F.teto_2026} obras</b></div>
+          <div class="item-linha"><span>Piso — material já no campo, só falta programar equipe<i class="linha-nota">${F.piso_2026_pecas} peças, ${rs(F.piso_2026_material)} já comprados · saldo a executar ${rs(F.piso_2026_saldo)}</i></span><b>${F.piso_2026} obras</b></div>
+          <div class="item-linha"><span>Dessas ${F.piso_2026}, com prazo contratual em 2026<i class="linha-nota">as outras ${F.piso_prazo_2027} vencem em 2027 e entram por antecipação, não por obrigação (${rs(F.piso_prazo_2027_saldo)})</i></span><b>${F.piso_prazo_2026} obras</b></div>
+          <div class="item-linha"><span>Só acontecem se o almoxarifado liberar material<i class="linha-nota">${F.dependem_material_pecas} peças previstas, ${rs(F.dependem_material_valor)}</i></span><b>${F.dependem_material} obras</b></div>
+          <div class="item-linha"><span>Fora de 2026<i class="linha-nota">suspensas, paralisadas ou sem material com prazo em 2027</i></span><b>${F.fora_2026} obras</b></div>
+        </div>
+        <div class="nota" style="margin-top:14px"><strong>Dinheiro parado</strong>
+        ${F.travadas} obras travadas seguram ${F.imobilizado_pecas} peças já retiradas do almoxarifado —
+        ${rs(F.imobilizado)} imobilizados em equipamento que não está trabalhando. E ${F.orcadas_sem_gasto} obras
+        estão orçadas e travadas sem ter gasto um centavo, segurando ${rs(F.orcadas_sem_gasto_valor)}.</div>
+        <div class="nota calma" style="margin-top:10px"><strong>Como o corte de 2026 foi feito</strong>${esc(oe.criterio_2026)}</div>
+        ${(oe.ressalvas || []).length ? `<p class="destaque-texto" style="margin-top:16px">Onde o dado é fraco:</p>
+        ${oe.ressalvas.map((x) => `<div class="nota branda" style="margin-bottom:8px">${esc(x)}</div>`).join('')}` : ''}
+        </section>`; })() : ''}
+
         <section class="bloco"><h3>Orçamento de 2026 no AIC — SIGCO 8481 e 8495</h3>
         <p class="destaque-texto">Tem mão de obra e material, sim — e o material domina. O custo
         dessas obras é a peça, não a equipe, que é exatamente o que o plano de compras diz.</p>
