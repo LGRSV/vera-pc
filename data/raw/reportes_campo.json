@@ -1,0 +1,31 @@
+[
+  {
+    "ativo": "7908686014",
+    "data": "2026-07-24",
+    "acao": "Ação de manutenção",
+    "titulo": "Reporte de substituição de religador",
+    "subtitulo": "Paraíso do Tocantins",
+    "faixa": "SS ETO-RD-PS 302/2026 — Emergencial",
+    "local": "Paraíso do Tocantins – TO",
+    "equipe": "Time de Manutenção Paraíso",
+    "cocm": "COCM Centro",
+    "ordem_servico": "SS ETO-RD-PS 302/2026 (Emergencial) — pendente há 687 dias",
+    "dias_pendente": 687,
+    "objetivo": "Substituição emergencial do religador em Paraíso do Tocantins, regularizando pendência de 687 dias e restabelecendo a proteção do alimentador, garantindo a continuidade do fornecimento.",
+    "fonte": "Reporte oficial de campo — Energisa, 24/07/2026"
+  },
+  {
+    "ativo": "5854566043",
+    "data": "2026-07-24",
+    "acao": "Ação de manutenção",
+    "titulo": "Reporte de manutenção em regulador de tensão",
+    "subtitulo": "RDR Silvanópolis",
+    "faixa": "Troca da célula Fase B — Emergencial",
+    "local": "Silvanópolis – TO",
+    "equipe": "Equipe Edson Curcino",
+    "polo": "Porto Nacional",
+    "servico_executado": "Troca da célula da Fase B (Emergencial)",
+    "objetivo": "Substituição emergencial da célula da Fase B do regulador de tensão em Silvanópolis, restabelecendo a regulação de tensão e garantindo a continuidade do fornecimento de energia.",
+    "fonte": "Reporte oficial de campo — Energisa, 24/07/2026"
+  }
+]

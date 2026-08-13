@@ -419,6 +419,42 @@ def main():
     meta["acompanhamento"] = montar_acompanhamento(registros, entrada)
     meta["consolidado"] = montar_consolidado(registros, entrada, meta["acompanhamento"])
 
+    # Reportes de campo: o gestor manda o relatório oficial da equipe depois do serviço feito.
+    # É a prova mais forte que existe — vale mais que qualquer inferência sobre o texto da SS.
+    arq_reportes = os.path.join(RAIZ, "data", "raw", "reportes_campo.json")
+    if os.path.exists(arq_reportes):
+        with open(arq_reportes, encoding="utf-8") as fh:
+            reportes = json.load(fh)
+        por_ativo_reporte = defaultdict(list)
+        for r in reportes:
+            por_ativo_reporte[r["ativo"]].append(r)
+        for reg in registros:
+            meus = por_ativo_reporte.get(reg["ativo"])
+            if not meus:
+                continue
+            reg["reportes_campo"] = sorted(meus, key=lambda x: x.get("data", ""))
+            # O reporte de campo manda: é a equipe assinando que subiu no poste e trocou.
+            # Nenhuma inferência sobre o texto da SS ganha disso.
+            prova = "; ".join(
+                f"Reporte de campo de {r['data'][8:10]}/{r['data'][5:7]}/{r['data'][:4]}: "
+                f"{r.get('servico_executado') or r['titulo']}"
+                for r in reg["reportes_campo"]
+            )
+            realizada = reg.get("realizada")
+            if isinstance(realizada, dict):
+                realizada["veredito"] = True
+                vias = realizada.setdefault("vias", [])
+                if "reporte de campo" not in vias:
+                    vias.append("reporte de campo")
+                realizada.setdefault("evidencias", []).append(prova)
+                realizada["demanda_bloqueando"] = None
+                realizada["confianca_m5"] = "alta — documento assinado pela equipe"
+        meta["reportes_campo"] = {
+            "total": len(reportes),
+            "ativos": sorted(por_ativo_reporte),
+            "lista": sorted(reportes, key=lambda x: (x.get("data", ""), x["ativo"])),
+        }
+
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}
     ativos_no_plano = {i["Ativo"] for i in itens_compra}

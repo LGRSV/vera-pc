@@ -541,3 +541,37 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
   margin: 0 0 8px; padding-bottom: 6px; border-bottom: 2px solid var(--tinta);
 }
 @media (max-width: 720px) { .confronto-duplo { grid-template-columns: 1fr; gap: 22px; } }
+
+/* Reporte de campo — o relatório oficial que a equipe manda depois do serviço feito.
+   Vale como prova: é o único documento da carteira assinado por quem subiu no poste. */
+.reporte {
+  border: 1px solid var(--filete);
+  border-left: 4px solid var(--baixa);
+  background: var(--papel-2);
+  padding: 16px 18px;
+}
+.reporte-topo {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 12px; margin-bottom: 10px;
+}
+.reporte-acao {
+  font: 600 10px var(--cond); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--baixa); border: 1px solid var(--baixa); padding: 3px 8px;
+}
+.reporte-data { font: 600 12px var(--mono); color: var(--tinta-2); }
+.reporte-titulo {
+  font: 700 20px/1.15 var(--cond); letter-spacing: .02em; text-transform: uppercase;
+  color: var(--tinta); margin: 0;
+}
+.reporte-sub {
+  font: 400 14px var(--leitura); color: var(--tinta-2); margin: 2px 0 0;
+}
+.reporte-faixa {
+  display: inline-block; margin: 10px 0 4px; padding: 5px 10px;
+  background: var(--tinta); color: var(--papel);
+  font: 600 11px var(--cond); letter-spacing: .1em; text-transform: uppercase;
+}
+.reporte-fonte {
+  margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--filete);
+  font: italic 400 12px var(--leitura); color: var(--tinta-3);
+}

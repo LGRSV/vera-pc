@@ -520,6 +520,29 @@ function abrirAtivo(ativo) {
       ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
   }
 
+  (e.reportes_campo || []).forEach((rc) => {
+    partes.push(bloco('Reporte de campo — serviço concluído', `
+      <div class="reporte">
+        <div class="reporte-topo">
+          <span class="reporte-acao">${esc(rc.acao || 'Ação de manutenção')}</span>
+          <span class="reporte-data">${dataBr(rc.data)}</span>
+        </div>
+        <h4 class="reporte-titulo">${esc(rc.titulo)}</h4>
+        <p class="reporte-sub">${esc(rc.subtitulo || '')}</p>
+        ${rc.faixa ? `<div class="reporte-faixa">${esc(rc.faixa)}</div>` : ''}
+        <div class="campos">
+          ${campo('Local', esc(rc.local || '—'))}
+          ${campo('Equipe', esc(rc.equipe || '—'))}
+          ${rc.cocm ? campo('COCM', esc(rc.cocm)) : ''}
+          ${rc.polo ? campo('Polo', esc(rc.polo)) : ''}
+          ${rc.ordem_servico ? campo('Ordem de serviço', esc(rc.ordem_servico)) : ''}
+          ${rc.servico_executado ? campo('Serviço executado', esc(rc.servico_executado)) : ''}
+        </div>
+        ${rc.objetivo ? `<p class="destaque-texto" style="margin-top:12px">${esc(rc.objetivo)}</p>` : ''}
+        <div class="reporte-fonte">${esc(rc.fonte || '')}</div>
+      </div>`));
+  });
+
   if (e.consolidado) {
     const c2 = e.consolidado;
     partes.push(bloco('Em que ponto está', `
