@@ -50,6 +50,7 @@ const DESC_CONCLUSAO = {
 };
 
 const COLECOES = [
+  { id: 'entrada', nome: 'Carteira de entrada', desc: 'O que estava pendente quando assumi e quanto já reduzi', termos: 'entrada herdada assumi reduzi reducao pendente quando entrei foto inicial baixa canceladas tratativas ajustes comissionamento resolvi resolvidos quantos' },
   { id: 'dcmd', nome: 'Missão DCMD', desc: 'Concluídas em 2026, o que vai entrar, SIGCO e o fluxo de repasse', termos: 'dcmd missao concluidas 2026 sigco 8481 8495 fluxo repasse cocm atrasado dmsl entrar' },
   { id: 'conclusao', nome: 'Conclusões', desc: 'Quantos já foram realizados, e com que certeza', termos: 'concluidas concluidos conclusao encerradas aic obras fechadas quantas quantos realizei realizadas realizados tratados tratadas provaveis resolvidos' },
   { id: 'coep', nome: 'Parecer COEP', desc: 'O que já deveria estar concluído e não está', termos: 'coep parecer pendencia atraso prazo vencido sla' },
@@ -512,6 +513,26 @@ function abrirAtivo(ativo) {
       ${r.demanda_bloqueando ? `<div class="nota branda" style="margin-top:10px">
         <strong>Demanda aberta bloqueando</strong>${esc(r.demanda_bloqueando.numero_ss || '—')} (${esc(r.demanda_bloqueando.equipe || '—')}) · ${esc((r.demanda_bloqueando.situacao || '').replace('SS ', ''))} · aberta em ${dataBr(r.demanda_bloqueando.abertura)}</div>` : ''}
       ${r.confianca_m5 ? `<div class="item-linha" style="margin-top:8px"><span>Confiança da leitura do cancelamento</span><b>${esc(r.confianca_m5)}</b></div>` : ''}`));
+  }
+
+  if ((e.entrada || []).length) {
+    const rotulo = { resolvido: 'Saiu da carteira de entrada', verificar: 'Precisa de verificação', em_andamento: 'Ainda no fluxo' };
+    partes.push(bloco('Estava na carteira de entrada', e.entrada.map((x) => `
+      <p class="destaque-texto">${esc(rotulo[x.veredito] || x.veredito)} — ${esc(x.motivo)}</p>
+      <div class="campos">
+        ${campo('SS da foto de entrada', esc(x.numero_ss))}
+        ${campo('Aberta em', x.abertura ? dataBr(x.abertura) : '—')}
+        ${campo('Tipo de SS', esc(x.tiposs || '—'))}
+        ${campo('Situação hoje', esc(x.situacao_hoje || '—'))}
+        ${campo('Régua do gestor', x.regra ? `item ${x.regra}` : '—')}
+        ${campo('Posto atual', esc(x.posto_atual || '—'))}
+      </div>
+      ${(x.tratativa || []).length ? `<div class="itens" style="margin-top:10px">${x.tratativa.map((t) =>
+        `<div class="item-linha"><span>${esc(t)}</span><b>tratativa</b></div>`).join('')}</div>` : ''}
+      ${(x.obras_encerradas || []).length ? `<div class="item-linha"><span>Obra encerrada no AIC</span><b>${x.obras_encerradas.map(esc).join(' · ')}</b></div>` : ''}
+      ${(x.indisponibilidades_abertas || []).length ? `<div class="nota" style="margin-top:10px">
+        <strong>SS de indisponibilidade ainda aberta</strong>${x.indisponibilidades_abertas.map((i) =>
+          `${esc(i.numero)} · ${esc(i.equipe)} (${esc(i.departamento)}) · aberta em ${dataBr(i.abertura)}`).join('<br>')}</div>` : ''}`).join('<div class="separador-bloco"></div>')));
   }
 
   if (c) {
@@ -1036,6 +1057,99 @@ function abrirColecao(id) {
             return `<td><span class="calor" style="background:${CORES[c]};opacity:${(0.18 + (n / max) * 0.62).toFixed(2)};color:var(--fundo)">${n}</span></td>`;
           }).join('')}<td><strong>${t}</strong></td></tr>`;
         }).join('')}</tbody></table></div></section>`;
+  }
+
+  if (id === 'entrada') {
+    const en = m.entrada;
+    if (!en) {
+      html = cabecaColecao('Carteira de entrada', 'A foto de entrada ainda não foi carregada.');
+    } else {
+      const res = en.resolvidos, ver = en.verificar, and = en.em_andamento;
+      const REGRAS = {
+        1: 'Canceladas', 2: 'Tratativa com equipamento', 3: 'Em fase de ajustes',
+        4: 'Concluída sem indisponibilidade aberta', 5: 'Aguardando comissionamento',
+        6: 'Cancelada sem reincidência', 7: 'Obra encerrada no AIC',
+      };
+      const fichaLink = (a) => `<b class="mono">${esc(a)}</b>`;
+
+      html = cabecaColecao('Carteira de entrada',
+        `Quando o posto foi assumido, ${en.total_foto} SS estavam pendentes no ETO-COEP. ` +
+        `Deste bolo, ${en.total_ss} são de religador (79…) e regulador (58…), em ${en.total_ativos} ativos — ` +
+        'este é o recorte. A pergunta é uma só: quanto disso já foi embora, pelas sete réguas do gestor.') +
+        `<div class="numeros">
+          ${num({ rotulo: 'Carteira de entrada', valor: en.total_ativos, nota: `${en.por_tipo['Religador'] || 0} religadores · ${en.por_tipo['Regulador de Tensão'] || 0} reguladores` })}
+          ${num({ rotulo: 'Já resolvidos', valor: res.ativos, nota: `${en.reducao_percentual}% da carteira herdada`, tom: 'bom' })}
+          ${num({ rotulo: 'Ainda no fluxo', valor: and.ss, nota: `${and.por_posto['COEP'] || 0} ainda no COEP`, tom: 'atento' })}
+          ${num({ rotulo: 'A verificar', valor: ver.ativos, nota: 'concluídas com SS de indisponibilidade aberta', tom: 'critico' })}
+          ${num({ rotulo: 'Canceladas', valor: en.canceladas.ss, nota: `${en.canceladas.sem_reincidencia} sem reincidência` })}
+          ${num({ rotulo: 'Tratativa no equipamento', valor: en.tratativas.ss, nota: `+ ${en.tratativas.atendimento_tecnico_ss} só com atendimento técnico` })}
+        </div>
+
+        <section class="bloco"><h3>As sete réguas, uma a uma</h3>
+        <p class="destaque-texto">Cada ativo entra uma vez só: quando mais de uma régua se aplica, vale a mais forte
+        (obra encerrada → concluída → comissionamento → cancelada → ajustes).</p>
+        <div class="itens">
+          ${Object.entries(res.por_regra).map(([r, n]) =>
+            `<div class="item-linha"><span>Item ${esc(r)} · ${esc(REGRAS[r] || '')}</span><b>${n}</b></div>`).join('')}
+          <div class="item-linha"><span>Item 1 · Canceladas (SS de entrada cancelada hoje)</span><b>${en.canceladas.ss}</b></div>
+          <div class="item-linha"><span>Item 2 · Tratativa com equipamento registrada</span><b>${en.tratativas.ss}</b></div>
+        </div>
+        <div class="nota calma" style="margin-top:14px"><strong>Leitura</strong>
+        As 25 canceladas aparecem no item 1 e voltam no item 6 quando não houve reincidência —
+        são o mesmo ativo, contado uma vez no total. O item 2 mede intervenção no equipamento
+        (execução do DCMD, obra de substituição, parecer de troca/entrega); laudo do DMSL e ajuste
+        do DEOP ficam em «atendimento técnico», à parte.</div></section>
+
+        ${ver.lista.length ? `<section class="bloco"><h3>Para você verificar — ${ver.ativos} ativos</h3>
+        <p class="destaque-texto">Estão como concluída, cancelada ou aguardando comissionamento, mas o
+        ativo tem outra SS de INDISPONIBILIDADE PARA OPERAÇÃO ainda pendente. Pela sua régua, não entram
+        como resolvidos até você conferir.</p>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>SS de entrada</th><th>Situação</th><th>SS de indisponibilidade aberta</th><th>Parecer COEP</th></tr></thead><tbody>
+        ${ver.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td>${fichaLink(i.ativo)}</td><td>${esc(i.localidade || '—')}</td>
+          <td>${esc(i.numero_ss)}</td><td>${esc((i.situacao_hoje || '').replace('SS ', ''))}</td>
+          <td>${i.indisponibilidades_abertas.map((x) => `${esc(x.numero)} · ${esc(x.equipe)} · ${dataBr(x.abertura)}`).join('<br>')}</td>
+          <td>${esc(i.parecer_coep || '—')}</td></tr>`).join('')}
+        </tbody></table></div></section>` : ''}
+
+        <section class="bloco"><h3>Os ${res.ativos} que saíram</h3>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Tipo</th><th>Localidade</th>
+        <th>Régua</th><th>Por quê</th></tr></thead><tbody>
+        ${res.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td>${fichaLink(i.ativo)}</td><td>${esc(i.tipo === 'Religador' ? 'RL' : 'RT')}</td>
+          <td>${esc(i.localidade || '—')}</td><td>item ${esc(String(i.regra))}</td>
+          <td>${esc(i.motivo)}${i.obras_encerradas?.length ? ` · obra ${i.obras_encerradas.map(esc).join(', ')}` : ''}${i.na_protecao && i.regra === 3 ? ' · ainda na Proteção' : ''}</td></tr>`).join('')}
+        </tbody></table></div></section>
+
+        <section class="bloco"><h3>Os ${and.ss} que continuam no fluxo</h3>
+        <div class="grade" style="margin-bottom:18px">
+          <div class="quadro"><header><h3>Posto atual</h3><p>onde a demanda parou</p></header>
+          ${barras(Object.entries(and.por_posto).map(([k, v]) => ({ rotulo: k, total: v })))}</div>
+        </div>
+        <div class="tabela-rol"><table class="matriz rol-entrada"><thead><tr><th>Ativo</th><th>Localidade</th>
+        <th>SS de entrada</th><th>Aberta em</th><th>Posto</th><th>Parecer COEP</th></tr></thead><tbody>
+        ${and.lista.map((i) => `<tr data-ativo="${esc(i.ativo)}">
+          <td>${fichaLink(i.ativo)}</td><td>${esc(i.localidade || '—')}</td><td>${esc(i.numero_ss)}</td>
+          <td>${i.abertura ? dataBr(i.abertura) : '—'}</td><td>${esc(i.posto_atual || '—')}</td>
+          <td>${esc(i.parecer_coep || (i.na_carteira ? '—' : 'fora da carteira dos 129'))}</td></tr>`).join('')}
+        </tbody></table></div></section>
+
+        ${en.ajustes.ss ? `<section class="bloco"><h3>Em fase de ajustes — item 3</h3>
+        <p class="destaque-texto">Pelo parecer COEP contam como resolvidos por você; ${en.ajustes.ainda_na_protecao}
+        dos ${en.ajustes.ss} ainda aparecem no posto da Proteção pela base de SS/OS, então seguem marcados
+        como «em fase de ajuste».</p>
+        <div class="itens">${en.ajustes.lista.map((i) =>
+          `<div class="item-linha"><span>${fichaLink(i.ativo)} · ${esc(i.localidade || '')}</span><b>${i.na_protecao ? 'na Proteção' : 'fora da Proteção'}</b></div>`).join('')}</div></section>` : ''}
+
+        ${en.sem_rastro.length ? `<section class="bloco"><h3>Sem rastro na base de hoje</h3>
+        <p class="destaque-texto">${en.sem_rastro.length} SS de 2023 da foto de entrada não existem mais na base
+        de SS/OS — sumiram do SGM entre as duas fotos. Ficam sem veredito.</p>
+        <div class="itens">${en.sem_rastro.map((i) =>
+          `<div class="item-linha"><span>${esc(i.numero_ss)} · ${fichaLink(i.ativo)} · ${esc(i.localidade || '')}</span><b>${esc(i.ano)}</b></div>`).join('')}</div></section>` : ''}
+
+        ${(en.premissas || []).length ? `<div class="nota calma" style="margin-top:18px"><strong>Premissas desta contagem</strong>${en.premissas.map(esc).join('<br>')}</div>` : ''}`;
+    }
   }
 
   if (id === 'dcmd') {

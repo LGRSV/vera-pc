@@ -28,6 +28,7 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from conclusoes import montar as montar_conclusoes  # noqa: E402
 from cruzamento_emd import cruzar, ler_emd  # noqa: E402
+from entrada import montar as montar_entrada  # noqa: E402
 from gestao_equipamentos import carregar as carregar_gestao  # noqa: E402
 from missao import anotar_registros, carregar as carregar_missao, enxugar  # noqa: E402
 from obra_cruzada import montar as montar_obra_cruzada  # noqa: E402
@@ -410,6 +411,9 @@ def main():
     meta["demandas"] = montar_demandas(registros)
     meta["realizadas"] = montar_realizadas(registros)
     meta["obra_cruzada"] = montar_obra_cruzada(registros)
+    entrada = montar_entrada(registros)
+    if entrada:
+        meta["entrada"] = entrada
 
     ativos_com_alerta = {a["ativo"] for a in alertas}
     ativos_com_divergencia = {d["ativo"] for d in divergencias}

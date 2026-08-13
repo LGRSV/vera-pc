@@ -526,3 +526,9 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
   .numero, .numero + .numero { padding-left: 0; border-left: 0; border-top: 1px dotted var(--filete-2); }
   .numero:first-child { border-top: 0; }
 }
+
+/* --- carteira de entrada: tabelas clicáveis e separador entre SS da mesma ficha --- */
+.matriz.rol-entrada td { text-align: left; vertical-align: top; }
+.matriz.rol-entrada tr[data-ativo] { cursor: pointer; }
+.matriz.rol-entrada tr[data-ativo]:hover td { background: rgba(188, 75, 14, .07); }
+.separador-bloco { height: 1px; margin: 18px 0; border-top: 1px dotted var(--filete-2); }
