@@ -57,7 +57,13 @@ FIM_DO_PARCIAL = datetime.date(2026, 8, 12)  # data da foto da base
 # reguladores com código válido (mais o "RT SE CRISTALÂNDIA", sem código): faltam 5
 # religadores e 8 reguladores que operam sem estudo de ajuste cadastrado. A diferença
 # não é erro de contagem, é lacuna de cadastro — e vale como achado por si.
-PARQUE = {"religador": 1297, "regulador": 197}
+# Correção do gestor (21/08, segunda rodada): 1.297 e 197 são o parque no INÍCIO de
+# 2026 — as instalações do ano somam por cima. Nos reguladores entraram 10 neste ano
+# (número do gestor), somando 207 hoje. O número do gestor manda; a contagem extraída
+# do texto das obras do AIC superconta (dava +28 RT em 2026 contra 10 reais) e só
+# vale onde ele não informou.
+PARQUE_INICIO_2026 = {"religador": 1297, "regulador": 197}
+INSTALADOS_GESTOR = {("regulador", "2026"): 10}
 
 # Equipamento novo instalado por ano, pelas obras do AIC concluídas fisicamente. Serve
 # para recuar o parque: quem foi instalado em 2025 não estava exposto em 2024.
@@ -106,21 +112,32 @@ def parque_por_ano():
     Premissa: o AIC registra as entradas, não as saídas. Se houve retirada de
     equipamento sem substituição, o parque antigo aqui está subestimado.
     """
-    inst = instalacoes_por_ano()
+    aic = instalacoes_por_ano()
+
+    def instalados(familia, ano):
+        chave = (familia, str(ano))
+        if chave in INSTALADOS_GESTOR:
+            return INSTALADOS_GESTOR[chave], "gestor"
+        return aic.get(str(ano), {}).get(familia, 0), "aic"
+
     saida = {}
-    for familia, hoje in PARQUE.items():
-        fim = {}
-        corrente = hoje
-        for ano in (2026, 2025, 2024):
-            fim[ano] = corrente
-            corrente -= inst.get(str(ano), {}).get(familia, 0)
-        inicio = {ano: fim[ano] - inst.get(str(ano), {}).get(familia, 0) for ano in fim}
+    for familia, base in PARQUE_INICIO_2026.items():
+        inicio, fim, fonte = {}, {}, {}
+        inicio[2026] = base
+        fim[2026] = base + instalados(familia, 2026)[0]
+        fim[2025] = base
+        inicio[2025] = base - instalados(familia, 2025)[0]
+        fim[2024] = inicio[2025]
+        inicio[2024] = fim[2024] - instalados(familia, 2024)[0]
+        for ano in (2024, 2025, 2026):
+            fonte[ano] = instalados(familia, ano)[1]
         saida[familia] = {
             str(ano): {
                 "inicio": inicio[ano],
                 "fim": fim[ano],
                 "medio": round((inicio[ano] + fim[ano]) / 2),
-                "instalados_no_ano": inst.get(str(ano), {}).get(familia, 0),
+                "instalados_no_ano": instalados(familia, ano)[0],
+                "fonte_dos_instalados": fonte[ano],
             }
             for ano in (2024, 2025, 2026)
         }
@@ -158,11 +175,13 @@ PREMISSAS = [
     "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o "
     "sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
 
-    "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, "
-    "informado pelo gestor) menos os equipamentos instalados depois. As instalações "
-    "vêm das obras do AIC, descontando remanejamento — equipamento que mudou de "
-    "ponto já estava no parque, não é expansão. Usa-se a média entre o início e o "
-    "fim do ano.",
+    "O parque do gestor — 1.297 religadores e 197 reguladores — é o do início de "
+    "2026: as instalações do ano somam por cima (10 RT em 2026, número do gestor, "
+    "chegando a 207). Os anos anteriores recuam tirando o instalado de cada ano. "
+    "Onde o gestor informou, o número dele manda; onde não, vale a estimativa pelas "
+    "obras do AIC — que superconta (dava 28 RT em 2026 contra 10 reais), então está "
+    "marcada como estimativa —, descontado o remanejamento. Média entre início e fim "
+    "do ano.",
 
     "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração "
     "decorrida (61%), senão pareceria queda só porque o ano não acabou.",
@@ -435,10 +454,10 @@ def exposicao(frota):
     return {
         "anos_cheios": anos_cheios,
         "fracao_parcial": round(fracao_parcial, 4),
-        "familia": dict(PARQUE),
+        "familia": dict(PARQUE_INICIO_2026),
         "no_cadastro_de_ajustes": dict(cadastradas),
         "sem_estudo_cadastrado": {
-            f: PARQUE[f] - cadastradas.get(f, 0) for f in PARQUE
+            f: PARQUE_INICIO_2026[f] - cadastradas.get(f, 0) for f in PARQUE_INICIO_2026
         },
         "marca": {f"{f}|{m}": n for (f, m), n in por_marca.items()},
     }
@@ -987,8 +1006,9 @@ def montar():
         "janela": {"cheios": list(ANOS_CHEIOS), "parcial": ANO_PARCIAL, "corte": FIM_DO_PARCIAL.isoformat()},
         "triagem_ss": dict(triagem),
         "parque": {
-            "religador": PARQUE["religador"],
-            "regulador": PARQUE["regulador"],
+            "religador": PARQUE_INICIO_2026["religador"],
+            "regulador": PARQUE_INICIO_2026["regulador"],
+            "nota": "parque no início de 2026; as instalações do ano somam por cima",
             "fonte": "informado pelo gestor em 21/08/2026",
             "no_cadastro_de_ajustes": exp["no_cadastro_de_ajustes"],
             "sem_estudo_de_ajuste_cadastrado": exp["sem_estudo_cadastrado"],

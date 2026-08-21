@@ -8,7 +8,7 @@
   "Equipamento trocado por obra direta, sem nunca entrar na carteira do COEP, também falhou: entra pela obra de substituição do AIC concluída no ano, descontando a obra que cita ativo já contado pela leitura. O ano é o da conclusão física da obra — a troca direta costuma sair na semana da falha.",
   "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias depois da falha, e em 16% dos casos cai em outro ano.",
   "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
-  "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, informado pelo gestor) menos os equipamentos instalados depois. As instalações vêm das obras do AIC, descontando remanejamento — equipamento que mudou de ponto já estava no parque, não é expansão. Usa-se a média entre o início e o fim do ano.",
+  "O parque do gestor — 1.297 religadores e 197 reguladores — é o do início de 2026: as instalações do ano somam por cima (10 RT em 2026, número do gestor, chegando a 207). Os anos anteriores recuam tirando o instalado de cada ano. Onde o gestor informou, o número dele manda; onde não, vale a estimativa pelas obras do AIC — que superconta (dava 28 RT em 2026 contra 10 reais), então está marcada como estimativa —, descontado o remanejamento. Média entre início e fim do ano.",
   "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração decorrida (61%), senão pareceria queda só porque o ano não acabou.",
   "Regulador é banco de três células. O parque conta banco, não célula. Falha de uma célula é uma falha do banco.",
   "A carteira dos 129 é o que o COEP acompanha. Equipamento trocado por obra direta, sem passar pela carteira, entra pelas obras de substituição do AIC.",
@@ -33,6 +33,7 @@
  "parque": {
   "religador": 1297,
   "regulador": 197,
+  "nota": "parque no início de 2026; as instalações do ano somam por cima",
   "fonte": "informado pelo gestor em 21/08/2026",
   "no_cadastro_de_ajustes": {
    "religador": 1292,
@@ -382,42 +383,48 @@
  "parque_por_ano": {
   "religador": {
    "2024": {
-    "inicio": 1031,
-    "fim": 1205,
-    "medio": 1118,
-    "instalados_no_ano": 174
+    "inicio": 1066,
+    "fim": 1240,
+    "medio": 1153,
+    "instalados_no_ano": 174,
+    "fonte_dos_instalados": "aic"
    },
    "2025": {
-    "inicio": 1205,
-    "fim": 1262,
-    "medio": 1234,
-    "instalados_no_ano": 57
+    "inicio": 1240,
+    "fim": 1297,
+    "medio": 1268,
+    "instalados_no_ano": 57,
+    "fonte_dos_instalados": "aic"
    },
    "2026": {
-    "inicio": 1262,
-    "fim": 1297,
-    "medio": 1280,
-    "instalados_no_ano": 35
+    "inicio": 1297,
+    "fim": 1332,
+    "medio": 1314,
+    "instalados_no_ano": 35,
+    "fonte_dos_instalados": "aic"
    }
   },
   "regulador": {
    "2024": {
-    "inicio": 124,
-    "fim": 141,
-    "medio": 132,
-    "instalados_no_ano": 17
+    "inicio": 152,
+    "fim": 169,
+    "medio": 160,
+    "instalados_no_ano": 17,
+    "fonte_dos_instalados": "aic"
    },
    "2025": {
-    "inicio": 141,
-    "fim": 169,
-    "medio": 155,
-    "instalados_no_ano": 28
-   },
-   "2026": {
     "inicio": 169,
     "fim": 197,
     "medio": 183,
-    "instalados_no_ano": 28
+    "instalados_no_ano": 28,
+    "fonte_dos_instalados": "aic"
+   },
+   "2026": {
+    "inicio": 197,
+    "fim": 207,
+    "medio": 202,
+    "instalados_no_ano": 10,
+    "fonte_dos_instalados": "gestor"
    }
   }
  },
