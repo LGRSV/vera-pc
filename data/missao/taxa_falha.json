@@ -1,19 +1,17 @@
 {
  "premissas": [
-  "O evento se ancora na DATA DE OCORRÊNCIA, não na abertura da SS — regra do gestor em 21/08. Abertura é o carimbo do registro: vem depois da falha (mediana de 21 dias, p75 de 63, cauda de 734) e o SGM ainda a reescreve ao reabrir ou repassar. Como a defasagem nunca é negativa, usar abertura erra sempre para o mesmo lado: infla o ano corrente e esvazia os anteriores.",
-  "Cobertura da ocorrência é a limitação de hoje: o extrato de 6.305 SS de RL/RT no repositório não traz a coluna DATA_OCORRENCIA_SS — ela só existe no extrato do COEP (211 SS, 120 casando com a base). O evento sem ocorrência declarada fica ancorado na abertura e MARCADO como tal; a taxa por ano só fecha de verdade com o extrato completo trazendo a coluna.",
-  "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado pela fração decorrida até 12/08.",
-  "SS não é falha. Ajuste de proteção, comissionamento, obra nova, atualização cadastral, inspeção preventiva e troca programada de bateria saem do numerador — são 2.362 das 6.305 SS de RL/RT da base.",
-  "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada demanda de falha conta UM evento.",
-  "O denominador é o parque informado pelo gestor em 21/08: 1.297 religadores e 197 reguladores. Não é a carteira de indisponíveis — a carteira é o resultado que se quer medir, usá-la como base daria taxa perto de 100%.",
-  "O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS alcança 1.292 religadores e 189 reguladores: 5 religadores e 8 reguladores do parque não têm estudo de ajuste cadastrado. A lacuna não muda a conta (o denominador é o parque do gestor), mas limita a estratificação por modelo, que só existe nesse cadastro.",
-  "O parque é foto de hoje aplicada ao passado: equipamento instalado em 2025 entra na exposição de 2024. Isso infla o denominador dos anos antigos e portanto SUBESTIMA a taxa de 2024. É viés conhecido e de sinal conhecido.",
-  "Regulador é banco de três células. O parque conta banco (197) e a SS quase sempre é do banco; falha de célula única (Araguaçu, fase B) é evento do banco, com o componente registrado na camada de modo de falha.",
-  "Ativo com SS que o cadastro de ajustes não tem entra no numerador com a família lida na descrição do ativo na própria SS — ele faz parte do parque do gestor, que é o denominador. Só fica de fora quem nem cadastro nem descrição identificam.",
-  "ORIGEM_SS e DEFEITO_SS são de preenchimento opcional no SGM. A distribuição de modo de falha vale sobre as SS que declararam o par, e a cobertura é publicada junto do percentual — não se extrapola o silêncio.",
-  "FABRICANTE_INSTALADO e FABRICANTE_RETIRADO não servem: 25 e 4 preenchimentos em 6.305 SS, vários deles com texto de e-mail colado. O que foi substituído sai de OBRAS_EQ_ESPECIAL (peça, código de material, data da substituição).",
-  "A SS pendura no código do religador mesmo quando o fato é do poste, da cruzeta ou da vegetação — o equipamento é o marco do trecho. Só entra no numerador a SS cujo objeto do fato é o equipamento (ORIGEM_SS do equipamento, ou esquema que não nomeia componente de rede). Sem esse filtro a taxa do ativo vira taxa do alimentador.",
-  "Taxa de falha e taxa de substituição são indicadores diferentes: nem toda falha vira troca de equipamento (parte é ajuste, religamento, reaperto) e a troca é a parcela cara. As duas são reportadas lado a lado."
+  "Falha é o que exigiu peça grande. Religador: controle, tanque ou completo. Regulador: célula, relé, completo ou furto. Definição do gestor em 21/08.",
+  "Não conta como falha: trafo auxiliar, chave faca, rádio, antena, bateria, aterramento, cabo, conector, poste, poda, ajuste de proteção, comissionamento e obra de equipamento novo. Vai em aba separada.",
+  "Agentes leram o texto completo das SS e das OS dos 129 ativos da carteira — 1.087 SS. Outro time revisou cada falha apontada e derrubou o que não se sustentava no texto.",
+  "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias depois da falha, e em 16% dos casos cai em outro ano.",
+  "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
+  "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, informado pelo gestor) menos os equipamentos instalados depois. As instalações vêm das obras do AIC. Usa-se a média entre o início e o fim do ano.",
+  "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração decorrida (61%), senão pareceria queda só porque o ano não acabou.",
+  "Regulador é banco de três células. O parque conta banco, não célula. Falha de uma célula é uma falha do banco.",
+  "A carteira dos 129 é o que o COEP acompanha. Equipamento trocado por obra direta, sem passar pela carteira, entra pelas obras de substituição do AIC.",
+  "A base de SS/OS só é confiável de 2024 em diante: tem 2 SS em 2022 e 58 em 2023, contra 2.197 em 2024. É extrato truncado, não parque saudável.",
+  "O texto da SS é cumulativo: o sistema cola parecer novo por cima do antigo. Vale sempre o parecer mais recente. Isso foi instruído aos agentes e conferido na revisão.",
+  "Quando a SS e a OS discordam, vale a OS. Ela traz o campo Serviço Executado, que é o registro do que foi feito de fato."
  ],
  "janela": {
   "cheios": [
@@ -377,6 +375,93 @@
     }
    }
   }
+ },
+ "parque_por_ano": {
+  "religador": {
+   "2024": {
+    "inicio": 1030,
+    "fim": 1205,
+    "medio": 1118,
+    "instalados_no_ano": 175
+   },
+   "2025": {
+    "inicio": 1205,
+    "fim": 1262,
+    "medio": 1234,
+    "instalados_no_ano": 57
+   },
+   "2026": {
+    "inicio": 1262,
+    "fim": 1297,
+    "medio": 1280,
+    "instalados_no_ano": 35
+   }
+  },
+  "regulador": {
+   "2024": {
+    "inicio": 120,
+    "fim": 141,
+    "medio": 130,
+    "instalados_no_ano": 21
+   },
+   "2025": {
+    "inicio": 141,
+    "fim": 169,
+    "medio": 155,
+    "instalados_no_ano": 28
+   },
+   "2026": {
+    "inicio": 169,
+    "fim": 197,
+    "medio": 183,
+    "instalados_no_ano": 28
+   }
+  }
+ },
+ "resolvidos_por_ano": {
+  "demandas_de_falha_encerradas": {
+   "2024": {
+    "religador": 471,
+    "regulador": 45
+   },
+   "2025": {
+    "religador": 672,
+    "regulador": 113
+   },
+   "2026": {
+    "religador": 416,
+    "regulador": 67
+   }
+  },
+  "obra_de_substituicao_concluida_em_campo": {
+   "2024": {
+    "religador": 53,
+    "regulador": 11
+   },
+   "2025": {
+    "religador": 27,
+    "regulador": 14
+   },
+   "2026": {
+    "religador": 5,
+    "regulador": 4
+   }
+  },
+  "obra_de_substituicao_encerrada_no_contabil": {
+   "2024": {
+    "religador": 35,
+    "regulador": 12
+   },
+   "2025": {
+    "religador": 53,
+    "regulador": 18
+   },
+   "2026": {
+    "religador": 4,
+    "regulador": 3
+   }
+  },
+  "leitura": "2026 vai só até 12/08 e a obra leva meses para encerrar no contábil, então a linha de obra encerrada subconta 2026 por atraso de sistema, não por queda de produção. A linha de demandas encerradas é a mais comparável entre anos."
  },
  "serie_por_ano": {
   "2024": {

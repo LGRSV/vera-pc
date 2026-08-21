@@ -59,56 +59,105 @@ FIM_DO_PARCIAL = datetime.date(2026, 8, 12)  # data da foto da base
 # não é erro de contagem, é lacuna de cadastro — e vale como achado por si.
 PARQUE = {"religador": 1297, "regulador": 197}
 
+# Equipamento novo instalado por ano, pelas obras do AIC concluídas fisicamente. Serve
+# para recuar o parque: quem foi instalado em 2025 não estava exposto em 2024.
+RE_OBRA_INSTALACAO = re.compile(
+    r"INSTALA[ÇC][ÃA]O\s+D[EO]\s*(\d{1,2})?\s*(?:CH\.?\s*RELIGADORA|RELIGADOR|REGULADOR)", re.I
+)
+
+
+def instalacoes_por_ano():
+    if not os.path.exists(ARQ_AIC_RLRT):
+        return {}
+    with open(ARQ_AIC_RLRT, encoding="utf-8") as fh:
+        obras = json.load(fh)
+    por_ano = defaultdict(Counter)
+    for obra in obras:
+        texto = obra.get("DESCRICAO_OBRA") or ""
+        m = RE_OBRA_INSTALACAO.search(texto)
+        if not m:
+            continue
+        familia = "regulador" if re.search(r"REGULADOR", texto, re.I) else "religador"
+        qtd = int(m.group(1)) if m.group(1) and m.group(1).isdigit() and int(m.group(1)) < 20 else 1
+        ano = (obra.get("DATA_CONCLUSAO_FISICA") or "")[:4]
+        if ano.isdigit():
+            por_ano[ano][familia] += qtd
+    return {a: dict(c) for a, c in por_ano.items()}
+
+
+def parque_por_ano():
+    """Parque médio de cada ano — o denominador que o gestor pediu.
+
+    Recua a partir do parque de hoje tirando o que foi instalado depois. Usa a média
+    entre o início e o fim do ano, que é a exposição real: equipamento que entrou em
+    julho ficou exposto meio ano, não o ano todo.
+
+    Premissa: o AIC registra as entradas, não as saídas. Se houve retirada de
+    equipamento sem substituição, o parque antigo aqui está subestimado.
+    """
+    inst = instalacoes_por_ano()
+    saida = {}
+    for familia, hoje in PARQUE.items():
+        fim = {}
+        corrente = hoje
+        for ano in (2026, 2025, 2024):
+            fim[ano] = corrente
+            corrente -= inst.get(str(ano), {}).get(familia, 0)
+        inicio = {ano: fim[ano] - inst.get(str(ano), {}).get(familia, 0) for ano in fim}
+        saida[familia] = {
+            str(ano): {
+                "inicio": inicio[ano],
+                "fim": fim[ano],
+                "medio": round((inicio[ano] + fim[ano]) / 2),
+                "instalados_no_ano": inst.get(str(ano), {}).get(familia, 0),
+            }
+            for ano in (2024, 2025, 2026)
+        }
+    return saida
+
 PREMISSAS = [
-    "O evento se ancora na DATA DE OCORRÊNCIA, não na abertura da SS — regra do "
-    "gestor em 21/08. Abertura é o carimbo do registro: vem depois da falha (mediana "
-    "de 21 dias, p75 de 63, cauda de 734) e o SGM ainda a reescreve ao reabrir ou "
-    "repassar. Como a defasagem nunca é negativa, usar abertura erra sempre para o "
-    "mesmo lado: infla o ano corrente e esvazia os anteriores.",
-    "Cobertura da ocorrência é a limitação de hoje: o extrato de 6.305 SS de RL/RT no "
-    "repositório não traz a coluna DATA_OCORRENCIA_SS — ela só existe no extrato do "
-    "COEP (211 SS, 120 casando com a base). O evento sem ocorrência declarada fica "
-    "ancorado na abertura e MARCADO como tal; a taxa por ano só fecha de verdade com "
-    "o extrato completo trazendo a coluna.",
-    "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato "
-    "truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado "
-    "pela fração decorrida até 12/08.",
-    "SS não é falha. Ajuste de proteção, comissionamento, obra nova, atualização "
-    "cadastral, inspeção preventiva e troca programada de bateria saem do numerador — "
-    "são 2.362 das 6.305 SS de RL/RT da base.",
-    "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; "
-    "as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada "
-    "demanda de falha conta UM evento.",
-    "O denominador é o parque informado pelo gestor em 21/08: 1.297 religadores e 197 "
-    "reguladores. Não é a carteira de indisponíveis — a carteira é o resultado que se "
-    "quer medir, usá-la como base daria taxa perto de 100%.",
-    "O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS alcança 1.292 religadores e 189 "
-    "reguladores: 5 religadores e 8 reguladores do parque não têm estudo de ajuste "
-    "cadastrado. A lacuna não muda a conta (o denominador é o parque do gestor), mas "
-    "limita a estratificação por modelo, que só existe nesse cadastro.",
-    "O parque é foto de hoje aplicada ao passado: equipamento instalado em 2025 entra "
-    "na exposição de 2024. Isso infla o denominador dos anos antigos e portanto "
-    "SUBESTIMA a taxa de 2024. É viés conhecido e de sinal conhecido.",
-    "Regulador é banco de três células. O parque conta banco (197) e a SS quase sempre "
-    "é do banco; falha de célula única (Araguaçu, fase "
-    "B) é evento do banco, com o componente registrado na camada de modo de falha.",
-    "Ativo com SS que o cadastro de ajustes não tem entra no numerador com a família "
-    "lida na descrição do ativo na própria SS — ele faz parte do parque do gestor, que "
-    "é o denominador. Só fica de fora quem nem cadastro nem descrição identificam.",
-    "ORIGEM_SS e DEFEITO_SS são de preenchimento opcional no SGM. A distribuição de "
-    "modo de falha vale sobre as SS que declararam o par, e a cobertura é publicada "
-    "junto do percentual — não se extrapola o silêncio.",
-    "FABRICANTE_INSTALADO e FABRICANTE_RETIRADO não servem: 25 e 4 preenchimentos em "
-    "6.305 SS, vários deles com texto de e-mail colado. O que foi substituído sai de "
-    "OBRAS_EQ_ESPECIAL (peça, código de material, data da substituição).",
-    "A SS pendura no código do religador mesmo quando o fato é do poste, da cruzeta ou "
-    "da vegetação — o equipamento é o marco do trecho. Só entra no numerador a SS cujo "
-    "objeto do fato é o equipamento (ORIGEM_SS do equipamento, ou esquema que não nomeia "
-    "componente de rede). Sem esse filtro a taxa do ativo vira taxa do alimentador.",
-    "Taxa de falha e taxa de substituição são indicadores diferentes: nem toda falha "
-    "vira troca de equipamento (parte é ajuste, religamento, reaperto) e a troca é a "
-    "parcela cara. As duas são reportadas lado a lado.",
+    "Falha é o que exigiu peça grande. Religador: controle, tanque ou completo. "
+    "Regulador: célula, relé, completo ou furto. Definição do gestor em 21/08.",
+
+    "Não conta como falha: trafo auxiliar, chave faca, rádio, antena, bateria, "
+    "aterramento, cabo, conector, poste, poda, ajuste de proteção, comissionamento e "
+    "obra de equipamento novo. Vai em aba separada.",
+
+    "Agentes leram o texto completo das SS e das OS dos 129 ativos da carteira — "
+    "1.087 SS. Outro time revisou cada falha apontada e derrubou o que não se "
+    "sustentava no texto.",
+
+    "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto "
+    "do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias "
+    "depois da falha, e em 16% dos casos cai em outro ano.",
+
+    "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o "
+    "sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
+
+    "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, "
+    "informado pelo gestor) menos os equipamentos instalados depois. As instalações "
+    "vêm das obras do AIC. Usa-se a média entre o início e o fim do ano.",
+
+    "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração "
+    "decorrida (61%), senão pareceria queda só porque o ano não acabou.",
+
+    "Regulador é banco de três células. O parque conta banco, não célula. Falha de uma "
+    "célula é uma falha do banco.",
+
+    "A carteira dos 129 é o que o COEP acompanha. Equipamento trocado por obra direta, "
+    "sem passar pela carteira, entra pelas obras de substituição do AIC.",
+
+    "A base de SS/OS só é confiável de 2024 em diante: tem 2 SS em 2022 e 58 em 2023, "
+    "contra 2.197 em 2024. É extrato truncado, não parque saudável.",
+
+    "O texto da SS é cumulativo: o sistema cola parecer novo por cima do antigo. Vale "
+    "sempre o parecer mais recente. Isso foi instruído aos agentes e conferido na "
+    "revisão.",
+
+    "Quando a SS e a OS discordam, vale a OS. Ela traz o campo Serviço Executado, que "
+    "é o registro do que foi feito de fato.",
 ]
+
 
 # ── Camada 1: o que é evento de falha ────────────────────────────────────────────
 FALHA_TIPOSS = {
@@ -574,6 +623,70 @@ def defasagem_medida():
     }
 
 
+def resolvidos_por_ano():
+    """O contraponto: quanto o posto tirou da mesa em cada ano.
+
+    Três medidas, porque elas contam coisas diferentes e a diferença é o recado:
+      demandas encerradas   a SS de falha terminou (atendida ou cancelada)
+      obra concluída        o serviço foi feito em campo (DATA_CONCLUSAO_FISICA)
+      obra encerrada        o contábil fechou (DTH_ENCERRAMENTO) — sempre atrasado
+    """
+    with open(ARQ_MIN, encoding="utf-8") as fh:
+        base = json.load(fh)
+    frota = parque()
+    por_ativo = defaultdict(list)
+    for ss in base:
+        cod = str(ss.get("NUM_TRAFO") or "").strip()
+        if cod.isdigit():
+            por_ativo[cod].append(ss)
+
+    encerradas = defaultdict(Counter)
+    for cod, linhas in por_ativo.items():
+        familia = frota.get(cod, {}).get("familia") or familia_pela_ss(linhas)
+        if familia not in ("religador", "regulador"):
+            continue
+        for dem in demandas.encadear(linhas):
+            if "falha" not in [classificar(s) for s in dem["ss"]]:
+                continue
+            fim = None
+            for s in dem["ss"]:
+                if s.get("SITUACAO_SS") in ("SS ATENDIDA", "SS CANCELADA"):
+                    d = demandas._dt(s.get("DATA_TERMINO_SS", "")) or demandas._dt(
+                        s.get("DATA_ABERTURA_SS", "")
+                    )
+                    if d and (fim is None or d > fim):
+                        fim = d
+            if fim:
+                encerradas[str(fim.year)][familia] += 1
+
+    obras = {"concluida": defaultdict(Counter), "encerrada": defaultdict(Counter)}
+    if os.path.exists(ARQ_AIC_RLRT):
+        with open(ARQ_AIC_RLRT, encoding="utf-8") as fh:
+            for obra in json.load(fh):
+                m = RE_OBRA_SUBST.search(obra.get("DESCRICAO_OBRA") or "")
+                if not m:
+                    continue
+                familia = "religador" if m.group(1).upper().startswith("RELIG") else "regulador"
+                for campo, rot in (("DATA_CONCLUSAO_FISICA", "concluida"),
+                                   ("DTH_ENCERRAMENTO", "encerrada")):
+                    ano = (obra.get(campo) or "")[:4]
+                    if ano.isdigit():
+                        obras[rot][ano][familia] += 1
+
+    anos = ("2024", "2025", "2026")
+    return {
+        "demandas_de_falha_encerradas": {a: dict(encerradas.get(a, {})) for a in anos},
+        "obra_de_substituicao_concluida_em_campo": {a: dict(obras["concluida"].get(a, {})) for a in anos},
+        "obra_de_substituicao_encerrada_no_contabil": {a: dict(obras["encerrada"].get(a, {})) for a in anos},
+        "leitura": (
+            "2026 vai só até 12/08 e a obra leva meses para encerrar no contábil, então "
+            "a linha de obra encerrada subconta 2026 por atraso de sistema, não por "
+            "queda de produção. A linha de demandas encerradas é a mais comparável "
+            "entre anos."
+        ),
+    }
+
+
 def _bloco_componente(eventos, exp):
     """A régua do gestor: taxa de falha só do que exige peça grande.
 
@@ -894,6 +1007,8 @@ def montar():
         },
         "regua_do_componente": _bloco_componente(eventos, exp),
         "peca_grande_em_campo": peca_grande_em_campo(),
+        "parque_por_ano": parque_por_ano(),
+        "resolvidos_por_ano": resolvidos_por_ano(),
         "serie_por_ano": serie,
         "incidencia": incidencia,
         "substituicao": substituicoes(),
