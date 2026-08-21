@@ -129,7 +129,16 @@ PREMISSAS = [
 
     "Agentes leram o texto completo das SS e das OS dos 129 ativos da carteira — "
     "1.087 SS. Outro time revisou cada falha apontada e derrubou o que não se "
-    "sustentava no texto.",
+    "sustentava no texto: de 127 apontadas, 113 ficaram e 14 caíram.",
+
+    "A taxa conta equipamentos que falharam no ano, não ocorrências: ativo que "
+    "falhou duas vezes no mesmo ano conta uma vez naquele ano — e conta de novo se "
+    "falhar em outro ano. As ocorrências aparecem ao lado, como detalhe.",
+
+    "Equipamento trocado por obra direta, sem nunca entrar na carteira do COEP, "
+    "também falhou: entra pela obra de substituição do AIC concluída no ano, "
+    "descontando a obra que cita ativo já contado pela leitura. O ano é o da "
+    "conclusão física da obra — a troca direta costuma sair na semana da falha.",
 
     "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto "
     "do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias "

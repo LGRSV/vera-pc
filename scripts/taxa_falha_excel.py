@@ -1,19 +1,16 @@
 """
-Planilha da taxa de falha de religadores e reguladores — ETO-COEP.
+Planilha da taxa de falha — dist/TAXA_DE_FALHA_RL_RT.xlsx.
 
-Consome data/missao/taxa_falha.json (a lógica em camadas) e
-data/missao/verificacao_tiposs.json (a leitura das SS pelos agentes, com revisão
-adversarial) e grava dist/TAXA_DE_FALHA_RL_RT.xlsx.
+Espelha a página dist/taxa-falha.html, em linguagem simples:
 
-Abas:
-  Síntese              a resposta da verificação, em texto, com a matriz
-  Taxa por ano         2024 / 2025 / 2026 nas duas réguas, lado a lado
-  Matriz da hipótese   INDISPONIBILIDADE × peça grande, precisão e cobertura
-  Verificação SS a SS  as 183 SS lidas, com veredito, evidência e revisão
-  Peça grande          a fila material por classe (convenção do Allan)
-  Premissas            tudo que sustenta os números
+  Taxa de falha    religador e regulador, 2024/2025/2026, na fórmula do gestor:
+                   equipamentos que falharam (peça grande) ÷ parque do ano
+  O que falhou     a peça de cada família por ano, e o rol das ocorrências
+                   confirmadas, uma a uma, com a evidência e o motivo da revisão
+  Resolvidos       o contraponto: o que o posto tirou da mesa em cada ano
+  Como foi feito   o passo a passo e as premissas
 
-LibreOffice não sobe neste ambiente, então a planilha grava VALORES, não fórmulas.
+Grava valores, não fórmulas: LibreOffice não sobe neste ambiente.
 
 Rodar: python3 scripts/taxa_falha_excel.py
 """
@@ -27,36 +24,40 @@ from openpyxl.utils import get_column_letter
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQ_TAXA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
-ARQ_VERIF = os.path.join(RAIZ, "data", "missao", "verificacao_tiposs.json")
+ARQ_LEITURA = os.path.join(RAIZ, "data", "missao", "leitura_ss_os.json")
 SAIDA = os.path.join(RAIZ, "dist", "TAXA_DE_FALHA_RL_RT.xlsx")
 
+ANOS = ("2024", "2025", "2026")
+ROT = {"religador": "RELIGADORES", "regulador": "REGULADORES"}
+FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.611}
+
 TINTA = "1A1A1A"
-PAPEL = "FFFFFF"
 FAIXA = "E8E4DC"
 DESTAQUE = "C8442A"
-CALMO = "F4F2ED"
 
-fina = Side(style="thin", color="B8B2A6")
+fina = Side(style="thin", color="8A8577")
 grossa = Side(style="medium", color=TINTA)
 GRADE = Border(left=fina, right=fina, top=fina, bottom=fina)
 
 
-def _titulo(ws, texto, subtitulo=None, largura=8):
+def _ler(caminho):
+    with open(caminho, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _titulo(ws, texto, sub, largura):
     ws["A1"] = texto
     ws["A1"].font = Font(name="Calibri", size=16, bold=True, color=TINTA)
     ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=largura)
-    linha = 2
-    if subtitulo:
-        ws["A2"] = subtitulo
-        ws["A2"].font = Font(name="Calibri", size=10, italic=True, color="5A5347")
-        ws["A2"].alignment = Alignment(wrap_text=True, vertical="top")
-        ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=largura)
-        ws.row_dimensions[2].height = 30
-        linha = 3
-    return linha + 1
+    ws["A2"] = sub
+    ws["A2"].font = Font(name="Calibri", size=11, italic=True, color="5A5347")
+    ws["A2"].alignment = Alignment(wrap_text=True, vertical="top")
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=largura)
+    ws.row_dimensions[2].height = 32
+    return 4
 
 
-def _cabecalho(ws, linha, colunas):
+def _cab(ws, linha, colunas):
     for i, nome in enumerate(colunas, start=1):
         c = ws.cell(row=linha, column=i, value=nome)
         c.font = Font(name="Calibri", size=11, bold=True, color=TINTA)
@@ -67,254 +68,190 @@ def _cabecalho(ws, linha, colunas):
     return linha + 1
 
 
-def _linha(ws, linha, valores, negrito=False, destaque=False, quebra=False):
+def _lin(ws, linha, valores, negrito=True, destaque_col=None, quebra=False):
     for i, v in enumerate(valores, start=1):
         c = ws.cell(row=linha, column=i, value=v)
-        c.font = Font(name="Calibri", size=11, bold=negrito,
-                      color=DESTAQUE if destaque else TINTA)
+        cor = DESTAQUE if destaque_col is not None and i == destaque_col else TINTA
+        c.font = Font(name="Calibri", size=12, bold=negrito, color=cor)
         c.border = GRADE
         c.alignment = Alignment(
             horizontal="left" if isinstance(v, str) else "center",
-            vertical="top" if quebra else "center",
-            wrap_text=quebra,
-        )
+            vertical="top" if quebra else "center", wrap_text=quebra)
     return linha + 1
 
 
-def _larguras(ws, larguras):
-    for i, w in enumerate(larguras, start=1):
+def _larguras(ws, ls):
+    for i, w in enumerate(ls, start=1):
         ws.column_dimensions[get_column_letter(i)].width = w
 
 
-def aba_sintese(wb, taxa, verif):
-    ws = wb.create_sheet("Síntese")
-    _larguras(ws, [26, 16, 16, 16, 16, 16, 16, 16])
+def aba_taxa(wb, taxa, leitura):
+    ws = wb.create_sheet("Taxa de falha")
+    _larguras(ws, [16, 14, 13, 16, 18, 14, 22, 10])
     linha = _titulo(
-        ws,
-        "Taxa de falha — religadores e reguladores de tensão · ETO",
-        "Régua do gestor (21/08/2026): conta na taxa a falha que exige peça grande — tanque, "
-        "controle ou equipamento completo no religador; controle, células ou banco completo no "
-        "regulador. Furto conta quando leva uma dessas peças. Posição de 12/08/2026.",
-    )
+        ws, "Taxa de falha — religadores e reguladores da ETO",
+        "Fórmula: equipamentos que falharam no ano ÷ parque do ano. Falha é o que exigiu peça "
+        "grande — religador: controle, tanque ou completo; regulador: célula, relé, completo ou "
+        "furto. Fonte: leitura das SS e OS pelos agentes, revisada, mais a troca por obra direta "
+        "do AIC. Posição de 12/08/2026; 2026 ajustado pela fração decorrida (61%).", 8)
 
-    m = (verif or {}).get("matriz") or {}
-    if m:
-        linha = _linha(ws, linha, ["A HIPÓTESE VERIFICADA"], negrito=True)
-        linha = _linha(ws, linha, [
-            'O gestor levantou: "quando tem que trocar algo de verdade, a SS fica com o tipo '
-            'INDISPONIBILIDADE PARA OPERAÇÃO". 183 SS foram lidas na íntegra por oito agentes '
-            'e os vereditos discordantes passaram por revisores adversariais.'
-        ], quebra=True)
-        ws.merge_cells(start_row=linha - 1, start_column=1, end_row=linha - 1, end_column=8)
-        ws.row_dimensions[linha - 1].height = 46
+    ppa = taxa.get("parque_por_ano") or {}
+    for fam in ("religador", "regulador"):
+        linha = _lin(ws, linha, [ROT[fam]], negrito=True)
+        linha = _cab(ws, linha, ["Ano", "Parque do ano", "Novos no ano", "Na carteira lida",
+                                 "Troca por obra direta", "Ocorrências",
+                                 "Equipamentos que falharam", "Taxa"])
+        for ano in ANOS:
+            p = (ppa.get(fam) or {}).get(ano, {})
+            k = f"{fam}|{ano}"
+            carteira = (leitura.get("contagem") or {}).get(k, 0)
+            obra = (leitura.get("complemento_obra_direta") or {}).get(k, 0)
+            n = (leitura.get("total_equipamentos_que_falharam") or {}).get(k, carteira + obra)
+            eq = (p.get("medio") or 0) * FATOR[ano]
+            taxa_pct = round(100.0 * n / eq, 1) if eq else None
+            linha = _lin(ws, linha, [
+                f"{ano}" + (" (até 12/08)" if ano == "2026" else ""),
+                p.get("medio"), f"+{p.get('instalados_no_ano')}",
+                carteira, obra, (leitura.get("ocorrencias") or {}).get(k, 0),
+                n, f"{taxa_pct}%".replace(".", ",")], destaque_col=8)
         linha += 1
-        linha = _cabecalho(ws, linha, ["", "Exigiu peça grande", "Não exigiu", "Indefinido", "Total"])
-        ind_tot = m.get("ind_grande", 0) + m.get("ind_nao", 0) + m.get("ind_null", 0)
-        out_tot = m.get("out_grande", 0) + m.get("out_nao", 0) + m.get("out_null", 0)
-        linha = _linha(ws, linha, ["SS de INDISPONIBILIDADE", m.get("ind_grande"), m.get("ind_nao"),
-                                   m.get("ind_null"), ind_tot], negrito=True)
-        linha = _linha(ws, linha, ["SS de outros tipos", m.get("out_grande"), m.get("out_nao"),
-                                   m.get("out_null"), out_tot])
+    return ws
+
+
+def aba_o_que_falhou(wb, leitura):
+    ws = wb.create_sheet("O que falhou")
+    _larguras(ws, [13, 12, 7, 12, 26, 11, 12, 60, 70])
+    linha = _titulo(
+        ws, "O que falhou — peça a peça, e cada ocorrência confirmada",
+        "Cada linha do rol é uma falha que sobreviveu à revisão: a SS que sustenta, a data que "
+        "ancorou o ano, se a troca já foi executada, o trecho do texto que prova e o motivo do "
+        "revisor para manter.", 9)
+
+    pp = leitura.get("por_peca") or {}
+    for fam in ("religador", "regulador"):
+        pecas = sorted({ch.split("|")[2] for ch in pp if ch.startswith(fam + "|")})
+        linha = _lin(ws, linha, [ROT[fam] + " — por peça"], negrito=True)
+        linha = _cab(ws, linha, ["Ano"] + [p.title() for p in pecas] + ["Total"])
+        for ano in ANOS:
+            vals = [pp.get(f"{fam}|{ano}|{p}", 0) for p in pecas]
+            linha = _lin(ws, linha, [ano] + vals + [sum(vals)])
         linha += 1
-        prec, cob = verif.get("precisao"), verif.get("cobertura")
-        linha = _linha(ws, linha, [
-            "Precisão da regra", f"{prec:.1f}%" if prec is not None else "n/d",
-            "das SS de INDISPONIBILIDADE realmente exigiram peça grande"], negrito=True, destaque=True)
-        ws.merge_cells(start_row=linha - 1, start_column=3, end_row=linha - 1, end_column=8)
-        linha = _linha(ws, linha, [
-            "Cobertura da regra", f"{cob:.1f}%" if cob is not None else "n/d",
-            "das SS que exigiram peça grande estavam classificadas como INDISPONIBILIDADE"],
-            negrito=True, destaque=True)
-        ws.merge_cells(start_row=linha - 1, start_column=3, end_row=linha - 1, end_column=8)
-        linha += 2
 
-    texto = (verif or {}).get("sintese") or ""
-    if texto:
-        linha = _linha(ws, linha, ["LEITURA DO RESULTADO"], negrito=True)
-        for paragrafo in [p.strip() for p in texto.split("\n") if p.strip()]:
-            c = ws.cell(row=linha, column=1, value=paragrafo)
-            c.font = Font(name="Calibri", size=11, color=TINTA)
-            c.alignment = Alignment(wrap_text=True, vertical="top")
-            ws.merge_cells(start_row=linha, start_column=1, end_row=linha, end_column=8)
-            ws.row_dimensions[linha] = ws.row_dimensions[linha]
-            ws.row_dimensions[linha].height = max(16, 15 * (len(paragrafo) // 110 + 1))
-            linha += 1
-    return ws
-
-
-def aba_taxa_por_ano(wb, taxa):
-    ws = wb.create_sheet("Taxa por ano")
-    _larguras(ws, [30, 14, 14, 14, 6, 14, 14, 14])
-    linha = _titulo(
-        ws,
-        "Taxa por ano — 2024, 2025 e 2026",
-        "2026 vai até 12/08 e a exposição usa o fator 0,611 do ano; sem isso a taxa sairia pela "
-        "metade e pareceria queda. Duas réguas lado a lado: a chamada atribuída ao equipamento "
-        "(tudo que a base registra contra o ativo) e a peça grande (a régua do gestor).",
-    )
-    serie = taxa.get("serie_por_ano") or {}
-    regua = (taxa.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
-    aic = (taxa.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
-
-    for fam, rotulo in (("religador", "RELIGADOR"), ("regulador", "REGULADOR")):
-        parque = (taxa.get("parque") or {}).get(fam)
-        linha = _linha(ws, linha, [f"{rotulo} — parque {parque}"], negrito=True)
-        linha = _cabecalho(ws, linha, [
-            "", "2024", "2025", "2026 (até 12/08)", "", "unidade", "", ""])
-        anos = ("2024", "2025", "2026")
-
-        def bloco(rot, fn, unidade, negrito=False, destaque=False):
-            nonlocal linha
-            linha = _linha(ws, linha, [rot] + [fn(a) for a in anos] + ["", unidade],
-                           negrito=negrito, destaque=destaque)
-
-        bloco("Parque exposto (equipamento-ano)",
-              lambda a: serie.get(a, {}).get(fam, {}).get("equipamento_ano"), "eq-ano")
-        linha = _linha(ws, linha, ["RÉGUA AMPLA — chamada atribuída ao equipamento"], negrito=True)
-        bloco("Eventos de falha", lambda a: serie.get(a, {}).get(fam, {}).get("eventos"), "eventos")
-        bloco("Taxa", lambda a: serie.get(a, {}).get(fam, {}).get("taxa_100"), "por 100 eq-ano", negrito=True)
-        bloco("— falha funcional (parou)", lambda a: serie.get(a, {}).get(fam, {}).get("funcional_100"), "por 100 eq-ano")
-        bloco("— anomalia (opera com defeito)", lambda a: serie.get(a, {}).get(fam, {}).get("anomalia_100"), "por 100 eq-ano")
-        bloco("Ativos distintos que falharam", lambda a: serie.get(a, {}).get(fam, {}).get("ativos_distintos"), "ativos")
-        bloco("Incidência sobre o parque", lambda a: serie.get(a, {}).get(fam, {}).get("incidencia_pct"), "%")
-
-        linha = _linha(ws, linha, ["RÉGUA DO GESTOR — só o que exige peça grande"], negrito=True)
-        bloco("Troca executada (obra encerrada no AIC)", lambda a: aic.get(a, {}).get(fam, 0), "obras")
-        bloco("Peça grande com evidência direta",
-              lambda a: regua.get(fam, {}).get(a, {}).get("com_peca_grande"), "eventos")
-        bloco("Taxa na régua do gestor",
-              lambda a: _taxa_gestor(taxa, fam, a), "por 100 eq-ano", negrito=True, destaque=True)
-        bloco("Acessório — trazido, não somado",
-              lambda a: regua.get(fam, {}).get(a, {}).get("acessorio_separado"), "eventos")
-        bloco("Sem evidência de componente",
-              lambda a: regua.get(fam, {}).get(a, {}).get("sem_evidencia_de_componente"), "eventos")
-        linha += 2
-    return ws
-
-
-def _taxa_gestor(taxa, fam, ano):
-    regua = (taxa.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
-    aic = (taxa.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
-    serie = taxa.get("serie_por_ano") or {}
-    eq_ano = serie.get(ano, {}).get(fam, {}).get("equipamento_ano")
-    if not eq_ano:
-        return None
-    n = (aic.get(ano, {}).get(fam, 0) or 0) + (regua.get(fam, {}).get(ano, {}).get("com_peca_grande") or 0)
-    return round(100.0 * n / eq_ano, 1)
-
-
-def aba_matriz(wb, verif):
-    ws = wb.create_sheet("Verificação SS a SS")
-    _larguras(ws, [22, 30, 13, 22, 12, 9, 58, 10, 46])
-    linha = _titulo(
-        ws,
-        "Verificação SS a SS — leitura integral com revisão adversarial",
-        "Oito agentes leram a descrição completa de cada SS. Os vereditos que contrariam a "
-        "hipótese do gestor, mais uma amostra de controle, passaram por revisores adversariais "
-        "instruídos a derrubar o veredito — só ficou o que resistiu.",
-        largura=9,
-    )
-    linha = _cabecalho(ws, linha, [
-        "SS", "Tipo da SS", "Peça grande?", "Componente", "Família", "Furto",
-        "Evidência no texto", "Confiança", "Revisão"])
-    for item in (verif or {}).get("itens", []):
-        veredito = item.get("peca_grande")
-        rotulo = "SIM" if veredito is True else ("não" if veredito is False else "indefinido")
-        revisao = ""
-        if item.get("revisado"):
-            revisao = ("manteve — " if item.get("revisao_manteve") else "DERRUBOU — ") + \
-                      (item.get("revisao_motivo") or "")[:220]
-        linha = _linha(ws, linha, [
-            item.get("ss"), item.get("tiposs"), rotulo, item.get("componente"),
-            item.get("familia"), "sim" if item.get("furto") else "",
-            (item.get("evidencia") or "")[:300], item.get("confianca"), revisao,
-        ], destaque=veredito is True, quebra=True)
-    ws.freeze_panes = ws.cell(row=linha - len((verif or {}).get("itens", [])), column=1)
-    return ws
-
-
-def aba_peca_grande(wb, taxa):
-    ws = wb.create_sheet("Peça grande")
-    _larguras(ws, [26, 22, 14, 20, 40])
-    linha = _titulo(
-        ws,
-        "Peça grande já levada ao campo — a fila material",
-        "Convenção do Allan, que é a régua do gestor letra por letra: religador se divide em "
-        "parte ativa e controle; regulador, em célula e controle. «Levado» é o que saiu do "
-        "almoxarifado e ficou na obra (RMA menos DMA). O extrato foi montado só com obra NÃO "
-        "concluída, então não se sobrepõe às obras encerradas do AIC.",
-        largura=5,
-    )
-    campo = taxa.get("peca_grande_em_campo") or {}
-    linha = _cabecalho(ws, linha, ["Família", "Classe da peça", "Peças levadas", "Valor", ""])
-    for fam, dados in (campo.get("por_familia") or {}).items():
-        for classe, qtd in (dados.get("detalhe") or {}).items():
-            linha = _linha(ws, linha, [fam.title(), classe, qtd, None, ""])
-        linha = _linha(ws, linha, [f"{fam.title()} — total", "", dados.get("pecas"),
-                                   dados.get("valor"), ""], negrito=True)
     linha += 1
-    linha = _linha(ws, linha, ["TOTAL", f"{campo.get('obras')} obras não concluídas",
-                               campo.get("pecas_levadas"), campo.get("valor_levado"), ""],
-                   negrito=True, destaque=True)
-    for r in range(1, linha + 1):
-        c = ws.cell(row=r, column=4)
-        if isinstance(c.value, (int, float)):
-            c.number_format = 'R$ #,##0.00'
+    linha = _lin(ws, linha, ["ROL DAS OCORRÊNCIAS CONFIRMADAS"], negrito=True)
+    linha = _cab(ws, linha, ["Ativo", "Família", "Ano", "Peça", "SS", "Data",
+                             "Troca executada?", "Evidência no texto", "O que o revisor conferiu"])
+    detalhe = sorted(leitura.get("detalhe") or [],
+                     key=lambda f: (f["familia"], f["ano"], f["ativo"]))
+    for f in detalhe:
+        linha = _lin(ws, linha, [
+            f.get("ativo"), f.get("familia"), f.get("ano"), f.get("peca"),
+            f.get("ss"), f.get("data"), "sim" if f.get("executada") else "não",
+            (f.get("evidencia") or "")[:280], (f.get("revisao_motivo") or "")[:300],
+        ], negrito=False, quebra=True)
 
-    linha += 2
-    sub = taxa.get("substituicao") or {}
-    linha = _linha(ws, linha, ["PEÇA REGISTRADA NA CARTEIRA DO COEP"], negrito=True)
-    linha = _cabecalho(ws, linha, ["Peça", "Ocorrências", "", "", ""])
-    for peca, n in (sub.get("peca_substituida") or [])[:16]:
-        linha = _linha(ws, linha, [peca, n, "", "", ""])
+    linha += 1
+    descartes = leitura.get("descartes") or []
+    if descartes:
+        linha = _lin(ws, linha, [f"O QUE A REVISÃO DERRUBOU ({len(descartes)})"], negrito=True)
+        linha = _cab(ws, linha, ["Ativo", "Família", "Ano", "Peça", "SS", "", "", "Motivo", ""])
+        for d in descartes:
+            linha = _lin(ws, linha, [
+                d.get("ativo"), d.get("familia"), d.get("ano"), d.get("peca"),
+                d.get("ss"), "", "", (d.get("motivo") or "")[:300], ""],
+                negrito=False, quebra=True)
     return ws
 
 
-def aba_premissas(wb, taxa, verif):
-    ws = wb.create_sheet("Premissas")
-    _larguras(ws, [4, 118])
+def aba_resolvidos(wb, taxa):
+    ws = wb.create_sheet("Resolvidos")
+    _larguras(ws, [16, 30, 26, 28])
     linha = _titulo(
-        ws, "Premissas",
-        "Cada número desta planilha depende do que está escrito aqui. Premissa que muda, "
-        "número que muda.", largura=2,
-    )
-    for i, p in enumerate(taxa.get("premissas", []), start=1):
+        ws, "O contraponto — o que o posto resolveu em cada ano",
+        "Demandas de falha encerradas é a SS que terminou (atendida ou cancelada) — a única "
+        "comparável entre anos. Obra encerrada no contábil vem sempre atrasada: as obras de "
+        "2026 ainda não fecharam no sistema — é atraso de papel, não queda de produção.", 4)
+    res = taxa.get("resolvidos_por_ano") or {}
+    dem = res.get("demandas_de_falha_encerradas") or {}
+    campo = res.get("obra_de_substituicao_concluida_em_campo") or {}
+    contab = res.get("obra_de_substituicao_encerrada_no_contabil") or {}
+    linha = _cab(ws, linha, ["Ano", "Demandas de falha encerradas", "Obra concluída em campo",
+                             "Obra encerrada no contábil"])
+    for ano in ANOS:
+        d = dem.get(ano) or {}
+        linha = _lin(ws, linha, [
+            f"{ano}" + (" (até 12/08)" if ano == "2026" else ""),
+            f"{sum(d.values())}  ({d.get('religador', 0)} RL · {d.get('regulador', 0)} RT)",
+            sum((campo.get(ano) or {}).values()),
+            sum((contab.get(ano) or {}).values())])
+    linha += 1
+    proj = round(sum((dem.get("2026") or {}).values()) / 0.611)
+    linha = _lin(ws, linha, [
+        "2026 está no ritmo mais alto já registrado: mantido o ritmo, fecha em torno de "
+        f"{proj} — empata com 2025 e fica bem acima de 2024."], quebra=True)
+    ws.merge_cells(start_row=linha - 1, start_column=1, end_row=linha - 1, end_column=4)
+    ws.row_dimensions[linha - 1].height = 30
+    return ws
+
+
+def aba_como(wb, taxa, leitura):
+    ws = wb.create_sheet("Como foi feito")
+    _larguras(ws, [5, 120])
+    linha = _titulo(
+        ws, "Como foi feito — o passo a passo e as premissas",
+        "Cada número da planilha depende do que está escrito aqui. "
+        "Premissa que muda, número que muda.", 2)
+
+    passos = [
+        "Separar o que é falha do que é serviço: ajustes, comissionamentos, obras novas, "
+        "cadastro e preventivas ficam de fora.",
+        "Juntar as SS gêmeas: o mesmo defeito repassado de equipe em equipe gera SS nova a "
+        "cada passagem — todas viram uma falha só.",
+        f"Ler o texto: agentes leram a SS e a OS dos {leitura.get('ativos_lidos')} ativos da "
+        f"carteira e apontaram {leitura.get('falhas_apontadas')} falhas. Revisores conferiram "
+        f"cada uma contra o texto original e derrubaram {leitura.get('derrubadas_pela_revisao')} "
+        f"— ficaram {leitura.get('confirmadas_pela_revisao')}.",
+        "Somar quem não passou pela carteira: equipamento trocado por obra direta entra pela "
+        "obra de substituição do AIC, descontando quem a leitura já contou.",
+        "Datar pela ocorrência: o ano da falha é quando ela aconteceu, não quando a SS foi "
+        "aberta — a abertura vem em média 65 dias depois.",
+        "Dividir pelo parque do ano: o parque de hoje (1.297 religadores e 197 reguladores) "
+        "menos o que foi instalado depois, na média do ano.",
+    ]
+    linha = _lin(ws, linha, ["O PASSO A PASSO"], negrito=True)
+    for i, p in enumerate(passos, start=1):
         c1 = ws.cell(row=linha, column=1, value=i)
-        c1.font = Font(name="Calibri", size=11, bold=True, color=DESTAQUE)
+        c1.font = Font(size=12, bold=True, color=DESTAQUE)
         c1.alignment = Alignment(horizontal="center", vertical="top")
         c2 = ws.cell(row=linha, column=2, value=p)
-        c2.font = Font(name="Calibri", size=11, color=TINTA)
+        c2.font = Font(size=11, color=TINTA)
         c2.alignment = Alignment(wrap_text=True, vertical="top")
-        ws.row_dimensions[linha].height = max(16, 14 * (len(p) // 115 + 1))
+        ws.row_dimensions[linha].height = max(18, 14 * (len(p) // 110 + 1))
         linha += 1
 
     linha += 1
-    limite = (taxa.get("regua_do_componente") or {}).get("limite")
-    if limite:
-        ws.cell(row=linha, column=2, value="LIMITE DA RÉGUA HOJE").font = Font(bold=True, color=DESTAQUE)
+    linha = _lin(ws, linha, ["AS PREMISSAS"], negrito=True)
+    for i, p in enumerate(taxa.get("premissas") or [], start=1):
+        c1 = ws.cell(row=linha, column=1, value=i)
+        c1.font = Font(size=12, bold=True, color=DESTAQUE)
+        c1.alignment = Alignment(horizontal="center", vertical="top")
+        c2 = ws.cell(row=linha, column=2, value=p)
+        c2.font = Font(size=11, color=TINTA)
+        c2.alignment = Alignment(wrap_text=True, vertical="top")
+        ws.row_dimensions[linha].height = max(18, 14 * (len(p) // 110 + 1))
         linha += 1
-        c = ws.cell(row=linha, column=2, value=limite)
-        c.alignment = Alignment(wrap_text=True, vertical="top")
-        ws.row_dimensions[linha].height = 14 * (len(limite) // 115 + 2)
     return ws
 
 
 def main():
-    with open(ARQ_TAXA, encoding="utf-8") as fh:
-        taxa = json.load(fh)
-    verif = None
-    if os.path.exists(ARQ_VERIF):
-        with open(ARQ_VERIF, encoding="utf-8") as fh:
-            verif = json.load(fh)
-
+    taxa = _ler(ARQ_TAXA)
+    leitura = _ler(ARQ_LEITURA)
     wb = Workbook()
     wb.remove(wb.active)
-    aba_sintese(wb, taxa, verif)
-    aba_taxa_por_ano(wb, taxa)
-    if verif:
-        aba_matriz(wb, verif)
-    aba_peca_grande(wb, taxa)
-    aba_premissas(wb, taxa, verif)
+    aba_taxa(wb, taxa, leitura)
+    aba_o_que_falhou(wb, leitura)
+    aba_resolvidos(wb, taxa)
+    aba_como(wb, taxa, leitura)
     for ws in wb.worksheets:
         ws.sheet_view.showGridLines = False
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)

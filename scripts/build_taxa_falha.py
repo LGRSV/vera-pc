@@ -40,15 +40,26 @@ def _pct(v):
 
 
 def tabela_familia(fam, ppa, leitura, regua, aic):
-    """Tabela da família: parque do ano, falhas e taxa. Leitura revisada quando há."""
+    """Tabela da família: parque do ano, quem falhou e a taxa.
+
+    Com a leitura pronta, o numerador é EQUIPAMENTO que falhou no ano (fórmula do
+    gestor): os achados na carteira lida mais as trocas por obra direta que nunca
+    passaram pela carteira. Sem leitura, vale a prévia por evidência direta.
+    """
     linhas = []
     for ano in ANOS:
         p = (ppa.get(fam) or {}).get(ano, {})
         medio = p.get("medio") or 0
         eq = medio * FATOR[ano]
         if leitura:
-            n = (leitura.get("contagem") or {}).get(f"{fam}|{ano}", 0)
-            partes = ""
+            carteira = (leitura.get("contagem") or {}).get(f"{fam}|{ano}", 0)
+            obra = (leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{ano}", 0)
+            oc = (leitura.get("ocorrencias") or {}).get(f"{fam}|{ano}", 0)
+            n = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|{ano}",
+                                                                          carteira + obra)
+            partes = (f'<td class="num">{carteira or "—"}</td>'
+                      f'<td class="num">{obra or "—"}</td>'
+                      f'<td class="num">{oc or "—"}</td>')
         else:
             evid = (regua.get(fam) or {}).get(ano, {}).get("com_peca_grande") or 0
             troca = (aic.get(ano) or {}).get(fam, 0)
@@ -65,12 +76,17 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
             f'<td class="num"><b>{n or "—"}</b></td>'
             f'<td class="num"><b>{_pct(taxa)}</b></td></tr>'
         )
-    extra = ("" if leitura else
-             "<th class=\"num\">Troca executada</th><th class=\"num\">Peça grande na fila</th>")
+    if leitura:
+        extra = ('<th class="num">Na carteira lida</th><th class="num">Troca por obra direta</th>'
+                 '<th class="num">Ocorrências</th>')
+        rot_n = "Equipamentos que falharam"
+    else:
+        extra = '<th class="num">Troca executada</th><th class="num">Peça grande na fila</th>'
+        rot_n = "Falhas"
     return (f'<h4 class="sub-grafico">{ROT[fam]}</h4>'
             f'<div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>'
             f'<th class="num">Parque do ano</th><th class="num">Novos no ano</th>{extra}'
-            f'<th class="num">Falhas</th><th class="num">Taxa</th></tr></thead>'
+            f'<th class="num">{rot_n}</th><th class="num">Taxa</th></tr></thead>'
             f'<tbody>{"".join(linhas)}</tbody></table></div>')
 
 
@@ -92,6 +108,25 @@ def tabela_pecas(fam, leitura):
     return (f'<div class="tabela-rol" style="margin-top:10px"><table class="matriz livro">'
             f'<thead><tr><th>{ROT[fam]} — o que falhou</th>{cab}</tr></thead>'
             f'<tbody>{corpo}</tbody></table></div>')
+
+
+def bloco_leitura(leitura):
+    """O carimbo de auditoria: quantos apontamentos ficaram e quantos caíram."""
+    if not leitura:
+        return ""
+    ex = ""
+    descartes = leitura.get("descartes") or []
+    if descartes:
+        tres = descartes[:3]
+        ex = " Exemplos do que caiu: " + " · ".join(
+            f'{d.get("ativo")} ({(d.get("motivo") or "")[:110].strip()}…)' for d in tres)
+    return (f'<div class="nota" style="margin-top:14px"><strong>Como estes números foram '
+            f'conferidos</strong> Os leitores apontaram {leitura.get("falhas_apontadas")} '
+            f'falhas nos {leitura.get("ativos_lidos")} ativos da carteira. Revisores '
+            f'independentes conferiram cada uma contra o texto original e derrubaram '
+            f'{leitura.get("derrubadas_pela_revisao")} — só {leitura.get("confirmadas_pela_revisao")} '
+            f'resistiram, e é com elas que a taxa é calculada. Um episódio relatado em duas '
+            f'SS foi contado uma vez só.{ex}</div>')
 
 
 def main():
@@ -181,6 +216,7 @@ def main():
     {tabela_pecas("religador", leitura)}
     {tabela_familia("regulador", ppa, leitura, regua, aic)}
     {tabela_pecas("regulador", leitura)}
+    {bloco_leitura(leitura)}
   </section>
 
   <section class="bloco"><h3>O contraponto: o que o posto resolveu</h3>
