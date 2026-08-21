@@ -1,5 +1,7 @@
 {
  "premissas": [
+  "O evento se ancora na DATA DE OCORRÊNCIA, não na abertura da SS — regra do gestor em 21/08. Abertura é o carimbo do registro: vem depois da falha (mediana de 21 dias, p75 de 63, cauda de 734) e o SGM ainda a reescreve ao reabrir ou repassar. Como a defasagem nunca é negativa, usar abertura erra sempre para o mesmo lado: infla o ano corrente e esvazia os anteriores.",
+  "Cobertura da ocorrência é a limitação de hoje: o extrato de 6.305 SS de RL/RT no repositório não traz a coluna DATA_OCORRENCIA_SS — ela só existe no extrato do COEP (211 SS, 120 casando com a base). O evento sem ocorrência declarada fica ancorado na abertura e MARCADO como tal; a taxa por ano só fecha de verdade com o extrato completo trazendo a coluna.",
   "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado pela fração decorrida até 12/08.",
   "SS não é falha. Ajuste de proteção, comissionamento, obra nova, atualização cadastral, inspeção preventiva e troca programada de bateria saem do numerador — são 2.362 das 6.305 SS de RL/RT da base.",
   "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada demanda de falha conta UM evento.",
@@ -32,20 +34,20 @@
   "orfaos_fora_da_conta": 51
  },
  "eventos": 1860,
- "eventos_na_janela_cheia": 1476,
+ "eventos_na_janela_cheia": 1504,
  "taxa_anos_cheios": {
   "religador": {
    "geral": {
-    "eventos": 1303,
+    "eventos": 1323,
     "equipamento_ano": 2584,
-    "taxa_100": 50.4,
+    "taxa_100": 51.2,
     "mtbf_anos": 2.0
    },
    "funcional": {
-    "eventos": 732,
+    "eventos": 752,
     "equipamento_ano": 2584,
-    "taxa_100": 28.3,
-    "mtbf_anos": 3.5
+    "taxa_100": 29.1,
+    "mtbf_anos": 3.4
    },
    "anomalia": {
     "eventos": 571,
@@ -57,16 +59,16 @@
   },
   "regulador": {
    "geral": {
-    "eventos": 173,
+    "eventos": 181,
     "equipamento_ano": 378,
-    "taxa_100": 45.8,
-    "mtbf_anos": 2.2
+    "taxa_100": 47.9,
+    "mtbf_anos": 2.1
    },
    "funcional": {
-    "eventos": 97,
+    "eventos": 105,
     "equipamento_ano": 378,
-    "taxa_100": 25.7,
-    "mtbf_anos": 3.9
+    "taxa_100": 27.8,
+    "mtbf_anos": 3.6
    },
    "anomalia": {
     "eventos": 76,
@@ -79,65 +81,65 @@
  },
  "taxa_2026_anualizada": {
   "religador": {
-   "eventos": 320,
+   "eventos": 300,
    "equipamento_ano": 789.4,
-   "taxa_100": 40.5,
-   "mtbf_anos": 2.5
+   "taxa_100": 38.0,
+   "mtbf_anos": 2.6
   },
   "regulador": {
-   "eventos": 64,
+   "eventos": 56,
    "equipamento_ano": 115.5,
-   "taxa_100": 55.4,
-   "mtbf_anos": 1.8
+   "taxa_100": 48.5,
+   "mtbf_anos": 2.1
   }
  },
  "taxa_por_marca": {
   "religador|NOJA": {
-   "eventos": 1015,
+   "eventos": 1032,
    "equipamento_ano": 2038,
-   "taxa_100": 49.8,
+   "taxa_100": 50.6,
    "mtbf_anos": 2.0,
    "parque": 1019
   },
   "religador|COOPER": {
-   "eventos": 160,
+   "eventos": 161,
    "equipamento_ano": 266,
-   "taxa_100": 60.2,
+   "taxa_100": 60.5,
    "mtbf_anos": 1.7,
    "parque": 133
   },
   "religador|SCHNEIDER": {
-   "eventos": 101,
+   "eventos": 102,
    "equipamento_ano": 210,
-   "taxa_100": 48.1,
+   "taxa_100": 48.6,
    "mtbf_anos": 2.1,
    "parque": 105
   },
   "religador|TAVRIDA": {
-   "eventos": 16,
+   "eventos": 17,
    "equipamento_ano": 54,
-   "taxa_100": 29.6,
-   "mtbf_anos": 3.4,
+   "taxa_100": 31.5,
+   "mtbf_anos": 3.2,
    "parque": 27
   },
   "regulador|ITB": {
-   "eventos": 132,
+   "eventos": 136,
    "equipamento_ano": 306,
-   "taxa_100": 43.1,
-   "mtbf_anos": 2.3,
+   "taxa_100": 44.4,
+   "mtbf_anos": 2.2,
    "parque": 153
   },
   "regulador|TOSHIBA": {
-   "eventos": 36,
+   "eventos": 39,
    "equipamento_ano": 62,
-   "taxa_100": 58.1,
-   "mtbf_anos": 1.7,
+   "taxa_100": 62.9,
+   "mtbf_anos": 1.6,
    "parque": 31
   }
  },
  "reincidencia": {
-  "ativos_com_mais_de_um_evento": 360,
-  "eventos_desses_ativos": 983,
+  "ativos_com_mais_de_um_evento": 370,
+  "eventos_desses_ativos": 1019,
   "pior": [
    [
     "7900722193",
@@ -156,10 +158,6 @@
     6
    ],
    [
-    "7908708116",
-    6
-   ],
-   [
     "7900618193",
     6
    ],
@@ -169,6 +167,10 @@
    ],
    [
     "7925736080",
+    6
+   ],
+   [
+    "7911120026",
     6
    ]
   ]
@@ -240,38 +242,79 @@
    ]
   ]
  },
+ "ancoragem": {
+  "por_ocorrencia": 96,
+  "por_abertura": 1764,
+  "cobertura_pct": 5.2
+ },
+ "defasagem_ocorrencia_abertura": {
+  "ss_com_as_duas_datas": 170,
+  "dias": {
+   "min": 0,
+   "p25": 1,
+   "mediana": 22,
+   "p75": 63,
+   "max": 734,
+   "media": 65.4
+  },
+  "mesmo_dia": 41,
+  "acima_de_180_dias": 18,
+  "trocam_de_ano": 27,
+  "trocam_de_ano_pct": 15.9,
+  "serie_por_ocorrencia": {
+   "2022": 1,
+   "2023": 4,
+   "2024": 14,
+   "2025": 92,
+   "2026": 59
+  },
+  "serie_por_abertura": {
+   "2023": 5,
+   "2024": 6,
+   "2025": 79,
+   "2026": 80
+  },
+  "leitura": "A defasagem nunca é negativa: a abertura sempre vem depois. O erro de usar abertura é portanto SISTEMÁTICO e direcional — empurra falha antiga para o ano corrente, inflando o ano recente e esvaziando os anteriores. Nesta amostra a abertura tira 8 eventos de 2024 e 13 de 2025 e joga 21 em 2026."
+ },
+ "impacto_da_ancora": {
+  "eventos_conferiveis": 96,
+  "mudaram_de_ano": 36,
+  "atraso_mediano_dias": 32,
+  "leitura": "Nos eventos em que dá para conferir as duas datas, mais de um terço estava no ano errado pela abertura. A série por abertura não serve para ler tendência; serve só para medir o próprio atraso de registro."
+ },
  "incidencia": {
   "religador": {
    "parque": 1292,
-   "ativos_com_ao_menos_um_evento": 748,
-   "incidencia_pct_em_2_anos": 57.9,
+   "ativos_com_ao_menos_um_evento": 750,
+   "incidencia_pct_em_2_anos": 58.0,
    "distribuicao_eventos_por_ativo": {
-    "1": 431,
-    "2": 173,
-    "3": 84,
-    "4": 43,
-    "5": 6,
+    "1": 426,
+    "2": 174,
+    "3": 88,
+    "4": 42,
+    "5": 9,
     "6": 8,
     "7": 2,
     "10": 1
    },
-   "ativos_com_3_ou_mais": 144,
-   "eventos_vindos_da_cauda": 526,
-   "pct_dos_eventos_na_cauda": 40.4
+   "ativos_com_3_ou_mais": 150,
+   "eventos_vindos_da_cauda": 549,
+   "pct_dos_eventos_na_cauda": 41.5
   },
   "regulador": {
    "parque": 189,
    "ativos_com_ao_menos_um_evento": 105,
    "incidencia_pct_em_2_anos": 55.6,
    "distribuicao_eventos_por_ativo": {
-    "1": 62,
-    "2": 22,
+    "1": 59,
+    "2": 23,
     "3": 17,
-    "4": 4
+    "4": 5,
+    "5": 1
    },
-   "ativos_com_3_ou_mais": 21,
-   "eventos_vindos_da_cauda": 67,
-   "pct_dos_eventos_na_cauda": 38.7
+   "ativos_com_3_ou_mais": 23,
+   "eventos_vindos_da_cauda": 76,
+   "pct_dos_eventos_na_cauda": 42.0
   }
  },
  "substituicao": {
@@ -446,18 +489,18 @@
  },
  "conversao_chamada_troca": {
   "religador": {
-   "chamadas_atribuidas_ao_equipamento": 1303,
+   "chamadas_atribuidas_ao_equipamento": 1323,
    "trocas_confirmadas": 80,
-   "taxa_chamada_100": 50.4,
+   "taxa_chamada_100": 51.2,
    "taxa_substituicao_100": 3.1,
-   "chamadas_por_troca": 16.3
+   "chamadas_por_troca": 16.5
   },
   "regulador": {
-   "chamadas_atribuidas_ao_equipamento": 173,
+   "chamadas_atribuidas_ao_equipamento": 181,
    "trocas_confirmadas": 25,
-   "taxa_chamada_100": 45.8,
+   "taxa_chamada_100": 47.9,
    "taxa_substituicao_100": 6.6,
-   "chamadas_por_troca": 6.9
+   "chamadas_por_troca": 7.2
   }
  }
 }

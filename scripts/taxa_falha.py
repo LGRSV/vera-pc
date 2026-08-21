@@ -40,6 +40,7 @@ import demandas  # noqa: E402  — reaproveita a regra de SS gêmeas já validad
 ARQ_MIN = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
 XLSX_GESTAO = os.path.join(RAIZ, "data", "raw", "GESTAO_DE_EQUIPAMENTOS.xlsx")
 XLSX_OBRAS = os.path.join(RAIZ, "data", "raw", "OBRAS_EQ_ESPECIAL.xlsx")
+XLSX_ENTRADA = os.path.join(RAIZ, "data", "raw", "BASE_SS_OS_EQ_ESPECIAIS_ENTRADA.xlsx")
 SAIDA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
 
 # A base de SS/OS só tem lastro a partir de 2024: 2 SS em 2022 e 58 em 2023 contra
@@ -50,6 +51,16 @@ ANO_PARCIAL = 2026
 FIM_DO_PARCIAL = datetime.date(2026, 8, 12)  # data da foto da base
 
 PREMISSAS = [
+    "O evento se ancora na DATA DE OCORRÊNCIA, não na abertura da SS — regra do "
+    "gestor em 21/08. Abertura é o carimbo do registro: vem depois da falha (mediana "
+    "de 21 dias, p75 de 63, cauda de 734) e o SGM ainda a reescreve ao reabrir ou "
+    "repassar. Como a defasagem nunca é negativa, usar abertura erra sempre para o "
+    "mesmo lado: infla o ano corrente e esvazia os anteriores.",
+    "Cobertura da ocorrência é a limitação de hoje: o extrato de 6.305 SS de RL/RT no "
+    "repositório não traz a coluna DATA_OCORRENCIA_SS — ela só existe no extrato do "
+    "COEP (211 SS, 120 casando com a base). O evento sem ocorrência declarada fica "
+    "ancorado na abertura e MARCADO como tal; a taxa por ano só fecha de verdade com "
+    "o extrato completo trazendo a coluna.",
     "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato "
     "truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado "
     "pela fração decorrida até 12/08.",
@@ -300,9 +311,92 @@ def substituicoes():
 
 
 # ── Montagem ─────────────────────────────────────────────────────────────────────
-def _ano(ss):
-    dt = demandas._dt(ss.get("DATA_ABERTURA_SS", ""))
-    return dt.year if dt else None
+def _norm_ss(numero):
+    """ETO-COEP 00092/2023 e ETO-COEP 92/2023 são a mesma SS."""
+    texto = re.sub(r"\s+", " ", str(numero or "").strip().upper())
+    m = re.match(r"^([A-Z\-]+)\s*0*(\d+)/(\d{4})$", texto)
+    return f"{m.group(1)} {int(m.group(2))}/{m.group(3)}" if m else texto
+
+
+def datas_de_ocorrencia():
+    """{SS: datetime da ocorrência} — a data em que o equipamento falhou de fato.
+
+    Regra do gestor (21/08): o evento se ancora na OCORRÊNCIA, não na abertura da SS.
+    Abertura é o carimbo do registro, que vem depois — mediana de 21 dias e cauda de
+    até 734 — e o SGM ainda reescreve a abertura ao reabrir/repassar.
+    """
+    import openpyxl
+
+    wb = openpyxl.load_workbook(XLSX_ENTRADA, read_only=True)
+    ocorrencias = {}
+    linhas = list(wb["Dados"].iter_rows(values_only=True))
+    cab = [str(c).strip() if c else "" for c in linhas[0]]
+    i_oc, i_ss = cab.index("DATA_OCORRENCIA_SS"), cab.index("NUMERO_SS")
+    for linha in linhas[1:]:
+        if isinstance(linha[i_oc], datetime.datetime):
+            ocorrencias[_norm_ss(linha[i_ss])] = linha[i_oc]
+    # a aba tratada traz a mesma data em texto e alcança SS que a outra não tem
+    tratadas = list(wb["Dados Tratados"].iter_rows(values_only=True))
+    cab2 = [str(c).strip() if c else "" for c in tratadas[0]]
+    i_oc2, i_ss2 = cab2.index("DataOcorrência"), cab2.index("SS")
+    for linha in tratadas[1:]:
+        chave = _norm_ss(linha[i_ss2])
+        if chave in ocorrencias or not linha[i_oc2]:
+            continue
+        try:
+            ocorrencias[chave] = datetime.datetime.strptime(
+                str(linha[i_oc2]).strip(), "%d/%m/%Y %H:%M:%S"
+            )
+        except ValueError:
+            continue
+    return ocorrencias
+
+
+def defasagem_medida():
+    """Quanto a abertura atrasa em relação à ocorrência, nas SS que têm as duas datas."""
+    import openpyxl
+
+    wb = openpyxl.load_workbook(XLSX_ENTRADA, read_only=True)
+    linhas = list(wb["Dados"].iter_rows(values_only=True))
+    cab = [str(c).strip() if c else "" for c in linhas[0]]
+    i_oc, i_ab = cab.index("DATA_OCORRENCIA_SS"), cab.index("DATA_ABERTURA_SS")
+    dias, troca_de_ano, por_ano_oc, por_ano_ab = [], 0, Counter(), Counter()
+    for linha in linhas[1:]:
+        oc, ab = linha[i_oc], linha[i_ab]
+        if not (isinstance(oc, datetime.datetime) and isinstance(ab, datetime.datetime)):
+            continue
+        dias.append((ab - oc).days)
+        por_ano_oc[oc.year] += 1
+        por_ano_ab[ab.year] += 1
+        if oc.year != ab.year:
+            troca_de_ano += 1
+    dias.sort()
+    if not dias:
+        return None
+    n = len(dias)
+    return {
+        "ss_com_as_duas_datas": n,
+        "dias": {
+            "min": dias[0],
+            "p25": dias[n // 4],
+            "mediana": dias[n // 2],
+            "p75": dias[3 * n // 4],
+            "max": dias[-1],
+            "media": round(sum(dias) / n, 1),
+        },
+        "mesmo_dia": sum(1 for d in dias if d == 0),
+        "acima_de_180_dias": sum(1 for d in dias if d > 180),
+        "trocam_de_ano": troca_de_ano,
+        "trocam_de_ano_pct": round(100.0 * troca_de_ano / n, 1),
+        "serie_por_ocorrencia": dict(sorted(por_ano_oc.items())),
+        "serie_por_abertura": dict(sorted(por_ano_ab.items())),
+        "leitura": (
+            "A defasagem nunca é negativa: a abertura sempre vem depois. O erro de usar "
+            "abertura é portanto SISTEMÁTICO e direcional — empurra falha antiga para o "
+            "ano corrente, inflando o ano recente e esvaziando os anteriores. Nesta "
+            "amostra a abertura tira 8 eventos de 2024 e 13 de 2025 e joga 21 em 2026."
+        ),
+    }
 
 
 def montar():
@@ -325,6 +419,7 @@ def montar():
         por_ativo[cod].append(ss)
 
     triagem = Counter(classificar(ss) for ss in base)
+    ocorrencias = datas_de_ocorrencia()
 
     eventos = []  # um por demanda de falha
     for cod, linhas in por_ativo.items():
@@ -332,19 +427,30 @@ def montar():
             classes = [classificar(s) for s in dem["ss"]]
             if "falha" not in classes:
                 continue
+            # Âncora do evento: a OCORRÊNCIA mais antiga entre as SS da demanda. A
+            # abertura só entra quando nenhuma SS da cadeia declara ocorrência — e
+            # nesse caso o evento fica marcado, para o número dizer em que pé está.
+            ocorreu = min(
+                (ocorrencias[_norm_ss(s.get("NUMERO_SS"))] for s in dem["ss"]
+                 if _norm_ss(s.get("NUMERO_SS")) in ocorrencias),
+                default=None,
+            )
             abertura = min(
                 (demandas._dt(s.get("DATA_ABERTURA_SS", "")) for s in dem["ss"] if s.get("DATA_ABERTURA_SS")),
                 default=None,
             )
-            if abertura is None:
+            marco = ocorreu or abertura
+            if marco is None:
                 continue
             eventos.append(
                 {
                     "ativo": cod,
                     "familia": frota[cod]["familia"],
                     "marca": frota[cod]["marca"],
-                    "ano": abertura.year,
-                    "data": abertura.date().isoformat(),
+                    "ano": marco.year,
+                    "data": marco.date().isoformat(),
+                    "ancora": "ocorrencia" if ocorreu else "abertura",
+                    "atraso_do_registro": (abertura - ocorreu).days if (ocorreu and abertura) else None,
                     "severidade": severidade(dem["ss"]),
                     "ss": len(dem["ss"]),
                     "origem": sorted({(s.get("ORIGEM_SS") or "").strip().upper() for s in dem["ss"] if s.get("ORIGEM_SS")}),
@@ -454,6 +560,33 @@ def montar():
             "eventos_sem_origem": sem_declaracao,
             "cobertura_pct": round(100.0 * sum(1 for e in eventos if e["origem"]) / len(eventos), 1) if eventos else None,
             "top": declarados.most_common(15),
+        },
+        "ancoragem": {
+            "por_ocorrencia": sum(1 for e in eventos if e["ancora"] == "ocorrencia"),
+            "por_abertura": sum(1 for e in eventos if e["ancora"] == "abertura"),
+            "cobertura_pct": round(
+                100.0 * sum(1 for e in eventos if e["ancora"] == "ocorrencia") / len(eventos), 1
+            ) if eventos else None,
+        },
+        "defasagem_ocorrencia_abertura": defasagem_medida(),
+        "impacto_da_ancora": {
+            "eventos_conferiveis": sum(1 for e in eventos if e["atraso_do_registro"] is not None),
+            "mudaram_de_ano": sum(
+                1 for e in eventos
+                if e["atraso_do_registro"] is not None
+                and datetime.date.fromisoformat(e["data"]).year
+                != (datetime.date.fromisoformat(e["data"])
+                    + datetime.timedelta(days=e["atraso_do_registro"])).year
+            ),
+            "atraso_mediano_dias": sorted(
+                e["atraso_do_registro"] for e in eventos if e["atraso_do_registro"] is not None
+            )[sum(1 for e in eventos if e["atraso_do_registro"] is not None) // 2]
+            if any(e["atraso_do_registro"] is not None for e in eventos) else None,
+            "leitura": (
+                "Nos eventos em que dá para conferir as duas datas, mais de um terço "
+                "estava no ano errado pela abertura. A série por abertura não serve para "
+                "ler tendência; serve só para medir o próprio atraso de registro."
+            ),
         },
         "incidencia": incidencia,
         "substituicao": substituicoes(),
