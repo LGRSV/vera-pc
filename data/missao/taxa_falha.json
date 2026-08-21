@@ -1,0 +1,463 @@
+{
+ "premissas": [
+  "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado pela fração decorrida até 12/08.",
+  "SS não é falha. Ajuste de proteção, comissionamento, obra nova, atualização cadastral, inspeção preventiva e troca programada de bateria saem do numerador — são 2.362 das 6.305 SS de RL/RT da base.",
+  "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada demanda de falha conta UM evento.",
+  "O denominador é o parque cadastrado em GESTÃO DE EQUIPAMENTOS (1.292 religadores e 189 reguladores com código válido), não a carteira de indisponíveis — a carteira é o resultado que se quer medir, usá-la como base daria taxa perto de 100%.",
+  "O parque é foto de hoje aplicada ao passado: equipamento instalado em 2025 entra na exposição de 2024. Isso infla o denominador dos anos antigos e portanto SUBESTIMA a taxa de 2024. É viés conhecido e de sinal conhecido.",
+  "Regulador é banco de três células. O cadastro conta banco (189 códigos, uma linha por código) e a SS quase sempre é do banco; falha de célula única (Araguaçu, fase B) é evento do banco, com o componente registrado na camada de modo de falha.",
+  "Ativo com SS que não existe no cadastro do parque (51 códigos) fica fora dos dois lados da divisão. Contar no numerador sem estar no denominador inflaria a taxa.",
+  "ORIGEM_SS e DEFEITO_SS são de preenchimento opcional no SGM. A distribuição de modo de falha vale sobre as SS que declararam o par, e a cobertura é publicada junto do percentual — não se extrapola o silêncio.",
+  "FABRICANTE_INSTALADO e FABRICANTE_RETIRADO não servem: 25 e 4 preenchimentos em 6.305 SS, vários deles com texto de e-mail colado. O que foi substituído sai de OBRAS_EQ_ESPECIAL (peça, código de material, data da substituição).",
+  "A SS pendura no código do religador mesmo quando o fato é do poste, da cruzeta ou da vegetação — o equipamento é o marco do trecho. Só entra no numerador a SS cujo objeto do fato é o equipamento (ORIGEM_SS do equipamento, ou esquema que não nomeia componente de rede). Sem esse filtro a taxa do ativo vira taxa do alimentador.",
+  "Taxa de falha e taxa de substituição são indicadores diferentes: nem toda falha vira troca de equipamento (parte é ajuste, religamento, reaperto) e a troca é a parcela cara. As duas são reportadas lado a lado."
+ ],
+ "janela": {
+  "cheios": [
+   2024,
+   2025
+  ],
+  "parcial": 2026,
+  "corte": "2026-08-12"
+ },
+ "triagem_ss": {
+  "programada": 2466,
+  "falha": 3117,
+  "rede": 466,
+  "indefinida": 256
+ },
+ "parque": {
+  "religador": 1292,
+  "regulador": 189,
+  "orfaos_fora_da_conta": 51
+ },
+ "eventos": 1860,
+ "eventos_na_janela_cheia": 1476,
+ "taxa_anos_cheios": {
+  "religador": {
+   "geral": {
+    "eventos": 1303,
+    "equipamento_ano": 2584,
+    "taxa_100": 50.4,
+    "mtbf_anos": 2.0
+   },
+   "funcional": {
+    "eventos": 732,
+    "equipamento_ano": 2584,
+    "taxa_100": 28.3,
+    "mtbf_anos": 3.5
+   },
+   "anomalia": {
+    "eventos": 571,
+    "equipamento_ano": 2584,
+    "taxa_100": 22.1,
+    "mtbf_anos": 4.5
+   },
+   "parque": 1292
+  },
+  "regulador": {
+   "geral": {
+    "eventos": 173,
+    "equipamento_ano": 378,
+    "taxa_100": 45.8,
+    "mtbf_anos": 2.2
+   },
+   "funcional": {
+    "eventos": 97,
+    "equipamento_ano": 378,
+    "taxa_100": 25.7,
+    "mtbf_anos": 3.9
+   },
+   "anomalia": {
+    "eventos": 76,
+    "equipamento_ano": 378,
+    "taxa_100": 20.1,
+    "mtbf_anos": 5.0
+   },
+   "parque": 189
+  }
+ },
+ "taxa_2026_anualizada": {
+  "religador": {
+   "eventos": 320,
+   "equipamento_ano": 789.4,
+   "taxa_100": 40.5,
+   "mtbf_anos": 2.5
+  },
+  "regulador": {
+   "eventos": 64,
+   "equipamento_ano": 115.5,
+   "taxa_100": 55.4,
+   "mtbf_anos": 1.8
+  }
+ },
+ "taxa_por_marca": {
+  "religador|NOJA": {
+   "eventos": 1015,
+   "equipamento_ano": 2038,
+   "taxa_100": 49.8,
+   "mtbf_anos": 2.0,
+   "parque": 1019
+  },
+  "religador|COOPER": {
+   "eventos": 160,
+   "equipamento_ano": 266,
+   "taxa_100": 60.2,
+   "mtbf_anos": 1.7,
+   "parque": 133
+  },
+  "religador|SCHNEIDER": {
+   "eventos": 101,
+   "equipamento_ano": 210,
+   "taxa_100": 48.1,
+   "mtbf_anos": 2.1,
+   "parque": 105
+  },
+  "religador|TAVRIDA": {
+   "eventos": 16,
+   "equipamento_ano": 54,
+   "taxa_100": 29.6,
+   "mtbf_anos": 3.4,
+   "parque": 27
+  },
+  "regulador|ITB": {
+   "eventos": 132,
+   "equipamento_ano": 306,
+   "taxa_100": 43.1,
+   "mtbf_anos": 2.3,
+   "parque": 153
+  },
+  "regulador|TOSHIBA": {
+   "eventos": 36,
+   "equipamento_ano": 62,
+   "taxa_100": 58.1,
+   "mtbf_anos": 1.7,
+   "parque": 31
+  }
+ },
+ "reincidencia": {
+  "ativos_com_mais_de_um_evento": 360,
+  "eventos_desses_ativos": 983,
+  "pior": [
+   [
+    "7900722193",
+    10
+   ],
+   [
+    "7925871077",
+    7
+   ],
+   [
+    "7900225090",
+    7
+   ],
+   [
+    "7935866004",
+    6
+   ],
+   [
+    "7908708116",
+    6
+   ],
+   [
+    "7900618193",
+    6
+   ],
+   [
+    "7933585074",
+    6
+   ],
+   [
+    "7925736080",
+    6
+   ]
+  ]
+ },
+ "modo_de_falha_declarado": {
+  "eventos_com_origem": 1477,
+  "eventos_sem_origem": 383,
+  "cobertura_pct": 79.4,
+  "top": [
+   [
+    "RELIGADOR",
+    902
+   ],
+   [
+    "RELÉ",
+    290
+   ],
+   [
+    "REGULADOR DE TENSÃO",
+    117
+   ],
+   [
+    "FORA DE SERVIÇO",
+    73
+   ],
+   [
+    "COMUNICAÇÃO",
+    64
+   ],
+   [
+    "OUTROS",
+    36
+   ],
+   [
+    "EQUIPAMENTO",
+    29
+   ],
+   [
+    "INSPEÇÃO VISUAL",
+    27
+   ],
+   [
+    "COMANDO MECÂNICO",
+    24
+   ],
+   [
+    "ARMÁRIO DE CONTROLE",
+    21
+   ],
+   [
+    "DEFEITO MECANICO",
+    19
+   ],
+   [
+    "ATERRAMENTO",
+    14
+   ],
+   [
+    "ESTRUTURA",
+    13
+   ],
+   [
+    "MANUTENÇÃO",
+    12
+   ],
+   [
+    "CARCAÇA",
+    8
+   ]
+  ]
+ },
+ "incidencia": {
+  "religador": {
+   "parque": 1292,
+   "ativos_com_ao_menos_um_evento": 748,
+   "incidencia_pct_em_2_anos": 57.9,
+   "distribuicao_eventos_por_ativo": {
+    "1": 431,
+    "2": 173,
+    "3": 84,
+    "4": 43,
+    "5": 6,
+    "6": 8,
+    "7": 2,
+    "10": 1
+   },
+   "ativos_com_3_ou_mais": 144,
+   "eventos_vindos_da_cauda": 526,
+   "pct_dos_eventos_na_cauda": 40.4
+  },
+  "regulador": {
+   "parque": 189,
+   "ativos_com_ao_menos_um_evento": 105,
+   "incidencia_pct_em_2_anos": 55.6,
+   "distribuicao_eventos_por_ativo": {
+    "1": 62,
+    "2": 22,
+    "3": 17,
+    "4": 4
+   },
+   "ativos_com_3_ou_mais": 21,
+   "eventos_vindos_da_cauda": 67,
+   "pct_dos_eventos_na_cauda": 38.7
+  }
+ },
+ "substituicao": {
+  "registros": 36,
+  "peca_substituida": [
+   [
+    "Tanque",
+    10
+   ],
+   [
+    "Controle",
+    6
+   ],
+   [
+    "Completo",
+    4
+   ],
+   [
+    "Rádio",
+    2
+   ],
+   [
+    "Antena",
+    2
+   ],
+   [
+    "3 Celulas",
+    2
+   ],
+   [
+    "1 Celula",
+    2
+   ],
+   [
+    "Tanque (Parte Ativa)",
+    1
+   ],
+   [
+    "Parte Ativa",
+    1
+   ],
+   [
+    "O Tanque",
+    1
+   ],
+   [
+    "Trafo",
+    1
+   ],
+   [
+    "Controle Completo",
+    1
+   ],
+   [
+    "Celula Fase B",
+    1
+   ],
+   [
+    "Ajuste",
+    1
+   ],
+   [
+    "Completo - Relé Cooper",
+    1
+   ],
+   [
+    "Completo (Controle - Cooper)",
+    1
+   ],
+   [
+    "Transferir Para O Comc",
+    1
+   ],
+   [
+    "Corrigir O Aterramento",
+    1
+   ],
+   [
+    "Pr Do Trafo",
+    1
+   ],
+   [
+    "Chave",
+    1
+   ],
+   [
+    "Fase B",
+    1
+   ],
+   [
+    "Melhoria De Aterramento",
+    1
+   ],
+   [
+    "1 Controle",
+    1
+   ]
+  ],
+  "codigo_material": [
+   [
+    "651638",
+    6
+   ],
+   [
+    "690241",
+    3
+   ],
+   [
+    "690240",
+    2
+   ],
+   [
+    "690669",
+    1
+   ],
+   [
+    "690236",
+    1
+   ]
+  ],
+  "substituicoes_concluidas": 12,
+  "por_familia": [
+   [
+    "religador",
+    22
+   ],
+   [
+    "regulador",
+    14
+   ]
+  ]
+ },
+ "trocas_no_aic": {
+  "obras_de_substituicao": {
+   "religador": 237,
+   "regulador": 91
+  },
+  "por_ano_de_conclusao_fisica": {
+   "2019": {
+    "religador": 14,
+    "regulador": 9
+   },
+   "2020": {
+    "regulador": 6,
+    "religador": 6
+   },
+   "2021": {
+    "regulador": 8,
+    "religador": 14
+   },
+   "2022": {
+    "religador": 24,
+    "regulador": 11
+   },
+   "2023": {
+    "religador": 44,
+    "regulador": 14
+   },
+   "2024": {
+    "religador": 53,
+    "regulador": 11
+   },
+   "2025": {
+    "religador": 27,
+    "regulador": 14
+   },
+   "2026": {
+    "religador": 5,
+    "regulador": 4
+   }
+  }
+ },
+ "conversao_chamada_troca": {
+  "religador": {
+   "chamadas_atribuidas_ao_equipamento": 1303,
+   "trocas_confirmadas": 80,
+   "taxa_chamada_100": 50.4,
+   "taxa_substituicao_100": 3.1,
+   "chamadas_por_troca": 16.3
+  },
+  "regulador": {
+   "chamadas_atribuidas_ao_equipamento": 173,
+   "trocas_confirmadas": 25,
+   "taxa_chamada_100": 45.8,
+   "taxa_substituicao_100": 6.6,
+   "chamadas_por_troca": 6.9
+  }
+ }
+}

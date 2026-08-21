@@ -1,0 +1,491 @@
+"""
+Taxa de falha de religadores e reguladores — lógica em quatro camadas.
+
+A pergunta do gestor (21/08): como medir a taxa de falha do parque de RL/RT usando a
+base de SS/OS, o tipo de fato e o que foi substituído.
+
+O problema é que a base SS/OS não é um registro de falhas: é um registro de SOLICITAÇÕES.
+Uma falha pode gerar quatro SS (repasse a repasse) e uma SS pode não ter falha nenhuma
+por trás (ajuste de proteção, comissionamento, obra nova). Medir "SS por equipamento"
+dá 4,9 SS/ativo/ano, número que não significa nada. A lógica abaixo separa as camadas:
+
+  C1  EVENTO      a SS vira evento de falha (régua de tipo) e as SS gêmeas colapsam
+                  numa demanda só (demandas.encadear) — 1 demanda = 1 evento
+  C2  EXPOSIÇÃO   o denominador é equipamento-ano do parque cadastrado, não a carteira
+                  de indisponíveis (que já é o resultado, não a população)
+  C3  MODO        o par ORIGEM_SS × DEFEITO_SS diz QUAL fato; cobertura parcial, então
+                  a distribuição vale sobre os declarados e isso é dito no número
+  C4  CONSEQUÊNCIA  o que foi substituído vem do OBRAS_EQ_ESPECIAL (peça + código de
+                  material + data), nunca dos campos FABRICANTE_* da SS, que estão vazios
+
+λ = eventos de falha ÷ equipamento-ano. Reportado por 100 equipamentos-ano para não
+trabalhar com três zeros à direita da vírgula.
+
+Rodar: python3 scripts/taxa_falha.py
+Grava: data/missao/taxa_falha.json
+"""
+
+import datetime
+import json
+import os
+import re
+import sys
+from collections import Counter, defaultdict
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, "scripts"))
+
+import demandas  # noqa: E402  — reaproveita a regra de SS gêmeas já validada
+
+ARQ_MIN = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
+XLSX_GESTAO = os.path.join(RAIZ, "data", "raw", "GESTAO_DE_EQUIPAMENTOS.xlsx")
+XLSX_OBRAS = os.path.join(RAIZ, "data", "raw", "OBRAS_EQ_ESPECIAL.xlsx")
+SAIDA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
+
+# A base de SS/OS só tem lastro a partir de 2024: 2 SS em 2022 e 58 em 2023 contra
+# 2.197 em 2024. Não é queda de falha, é extrato truncado. 2026 entra à parte porque
+# está aberto — anualizar ano parcial junto dos cheios mistura duas coisas.
+ANOS_CHEIOS = (2024, 2025)
+ANO_PARCIAL = 2026
+FIM_DO_PARCIAL = datetime.date(2026, 8, 12)  # data da foto da base
+
+PREMISSAS = [
+    "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato "
+    "truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado "
+    "pela fração decorrida até 12/08.",
+    "SS não é falha. Ajuste de proteção, comissionamento, obra nova, atualização "
+    "cadastral, inspeção preventiva e troca programada de bateria saem do numerador — "
+    "são 2.362 das 6.305 SS de RL/RT da base.",
+    "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; "
+    "as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada "
+    "demanda de falha conta UM evento.",
+    "O denominador é o parque cadastrado em GESTÃO DE EQUIPAMENTOS (1.292 religadores "
+    "e 189 reguladores com código válido), não a carteira de indisponíveis — a carteira "
+    "é o resultado que se quer medir, usá-la como base daria taxa perto de 100%.",
+    "O parque é foto de hoje aplicada ao passado: equipamento instalado em 2025 entra "
+    "na exposição de 2024. Isso infla o denominador dos anos antigos e portanto "
+    "SUBESTIMA a taxa de 2024. É viés conhecido e de sinal conhecido.",
+    "Regulador é banco de três células. O cadastro conta banco (189 códigos, uma linha "
+    "por código) e a SS quase sempre é do banco; falha de célula única (Araguaçu, fase "
+    "B) é evento do banco, com o componente registrado na camada de modo de falha.",
+    "Ativo com SS que não existe no cadastro do parque (51 códigos) fica fora dos dois "
+    "lados da divisão. Contar no numerador sem estar no denominador inflaria a taxa.",
+    "ORIGEM_SS e DEFEITO_SS são de preenchimento opcional no SGM. A distribuição de "
+    "modo de falha vale sobre as SS que declararam o par, e a cobertura é publicada "
+    "junto do percentual — não se extrapola o silêncio.",
+    "FABRICANTE_INSTALADO e FABRICANTE_RETIRADO não servem: 25 e 4 preenchimentos em "
+    "6.305 SS, vários deles com texto de e-mail colado. O que foi substituído sai de "
+    "OBRAS_EQ_ESPECIAL (peça, código de material, data da substituição).",
+    "A SS pendura no código do religador mesmo quando o fato é do poste, da cruzeta ou "
+    "da vegetação — o equipamento é o marco do trecho. Só entra no numerador a SS cujo "
+    "objeto do fato é o equipamento (ORIGEM_SS do equipamento, ou esquema que não nomeia "
+    "componente de rede). Sem esse filtro a taxa do ativo vira taxa do alimentador.",
+    "Taxa de falha e taxa de substituição são indicadores diferentes: nem toda falha "
+    "vira troca de equipamento (parte é ajuste, religamento, reaperto) e a troca é a "
+    "parcela cara. As duas são reportadas lado a lado.",
+]
+
+# ── Camada 1: o que é evento de falha ────────────────────────────────────────────
+FALHA_TIPOSS = {
+    "INDISPONIBILIDADE PARA OPERAÇÃO",
+    "EM OPERAÇÃO COM ANOMALIA",
+    "ANOMALIA EM RELIGADOR",
+    "ANOMALIA EM REGULADORES",
+    "AVISO DE ANOMALIA",
+    "AVISO DE EMERGÊNCIA",
+    "AVISO ELEMENTO REINCIDENTE",
+}
+NAO_FALHA_TIPOSS = {
+    "AJUSTES DE PROTEÇÃO",
+    "AJUSTE DE RELÉ",
+    "COMISSIONAMENTO",
+    "OBRAS (NOVOS EQUIPAMENTOS)",
+    "AVISO DE CADASTRO",
+    "AVISO PROTEÇÃO & SELETIVIDADE",
+    "AVISO DE INCONSISTÊNCIA",
+    "CLUSTER",
+    "MELHORIA POSTO DE TRANSFORMAÇÃO",
+}
+# Indisponibilidade é falha funcional (parou); anomalia é degradação (opera com defeito).
+FUNCIONAL = {"INDISPONIBILIDADE PARA OPERAÇÃO", "AVISO DE EMERGÊNCIA", "FORA DE SERVIÇO"}
+
+# Terceiro eixo, e o que mais engana nesta base: a SS pendura no código do religador
+# porque ele é o marco do trecho, mas o fato é do POSTE, da cruzeta, do conector, da
+# vegetação. Sem separar objeto do fato, a taxa de falha do equipamento vira taxa de
+# ocorrência do alimentador — 88 SS de POSTE e 41 de ATERRAMENTO entravam como falha
+# de religador. Só conta como falha quem tem o fato NO equipamento.
+ORIGEM_DA_REDE = {
+    "POSTE", "ESTRUTURA", "ESTRUTURA PRIMÁRIA", "CRUZETA", "ATERRAMENTO", "CONECTOR",
+    "CONECTOR DERIVAÇÃO CUNHA", "JUMPER MT/CONECTOR JUMPER MT", "CABOS MT", "CABOS BT",
+    "CABOS DE LIGAÇOES MT", "PÁRA-RAIOS", "ISOLADOR", "CHAVE", "CHAVE FUSÍVEL",
+    "EMENDAS", "ESTAI", "ESPAÇADOR", "VEGETAÇÃO PODA DE ÁRVORE",
+    "REDE PRIMÁRIA PODA DE ÁRVORE",
+}
+ORIGEM_ADMINISTRATIVA = {
+    "INEXISTENTE", "INCONSISTÊNCIA CADASTRAL", "PLACA DE IDENTIFICAÇÃO", "INSPEÇÃO VISUAL",
+}
+RE_ESQUEMA_DE_REDE = re.compile(
+    r"POSTE|PODA|CONDUTOR|ISOLADOR|CONEX[ÃA]O MT|CRUZETA|P[ÁA]RA-?RAIOS|ATERRAMENTO|"
+    r"SUBSTITUI[ÇC][ÃA]O DE CHAVE|LINHA VIVA|EMENDA",
+    re.I,
+)
+TIPOSS_DE_REDE = {
+    "NOTA DE SERVIÇO (NS) - LINHA VIVA", "NOTA DE SERVIÇO (NS) - PODA",
+    "FORMS SUBST DE POSTES", "FORMS CHAVE INST DEOP",
+}
+
+RE_MC = re.compile(r"^MC\s*-|^MC-|MANUTEN[ÇC][ÃA]O CORRETIVA", re.I)
+RE_PROGRAMADA = re.compile(
+    r"^MP\s*-|^PREVNP|^COM\s*-|^INSP|ATUALIZA[ÇC][ÃA]O CADASTRAL|INSP\w* PREV", re.I
+)
+
+
+def objeto_do_fato(ss):
+    """equipamento | rede | administrativo — de quem é o defeito, afinal."""
+    origem = (ss.get("ORIGEM_SS") or "").strip().upper()
+    esquema = (ss.get("ESQUEMA") or "").strip().upper()
+    tiposs = (ss.get("TIPOSS") or "").strip().upper()
+    if origem in ORIGEM_DA_REDE:
+        return "rede"
+    if origem in ORIGEM_ADMINISTRATIVA:
+        return "administrativo"
+    if tiposs in TIPOSS_DE_REDE:
+        return "rede"
+    # origem em branco: o esquema desempata. "MC - POSTES" no código do religador é
+    # serviço de poste, não falha de equipamento.
+    if not origem and RE_ESQUEMA_DE_REDE.search(esquema):
+        return "rede"
+    return "equipamento"
+
+
+def classificar(ss):
+    """falha | programada | rede | indefinida — a régua de numerador."""
+    tiposs = (ss.get("TIPOSS") or "").strip().upper()
+    esquema = (ss.get("ESQUEMA") or "").strip().upper()
+    objeto = objeto_do_fato(ss)
+    if objeto != "equipamento":
+        return objeto if objeto == "rede" else "programada"
+    if tiposs in FALHA_TIPOSS:
+        return "falha"
+    if tiposs in NAO_FALHA_TIPOSS:
+        return "programada"
+    if RE_MC.search(esquema):
+        return "falha"
+    if RE_PROGRAMADA.search(esquema):
+        return "programada"
+    if tiposs.startswith("FORMS") or tiposs.startswith("NOTA DE SERVIÇO"):
+        return "programada"
+    return "indefinida"
+
+
+def severidade(ss_da_demanda):
+    tipos = {(s.get("TIPOSS") or "").strip().upper() for s in ss_da_demanda}
+    origens = {(s.get("ORIGEM_SS") or "").strip().upper() for s in ss_da_demanda}
+    return "funcional" if (tipos | origens) & FUNCIONAL else "anomalia"
+
+
+# ── Camada 2: o parque ───────────────────────────────────────────────────────────
+def _celulas(ws, max_col=None):
+    return list(ws.iter_rows(min_row=2, max_col=max_col, values_only=True))
+
+
+def parque():
+    """Devolve {codigo: {familia, marca}} a partir do cadastro de ajustes."""
+    import openpyxl
+
+    wb = openpyxl.load_workbook(XLSX_GESTAO, read_only=True, data_only=False)
+    frota = {}
+    for linha in _celulas(wb["Ajustes RL Poste"], 14):
+        cod = str(linha[0] or "").strip()
+        if not cod.isdigit():
+            continue
+        marca = str(linha[10] or "").strip().upper() or "SEM CADASTRO"
+        frota[cod] = {"familia": "religador", "marca": marca.split()[0] if marca else "SEM CADASTRO"}
+    for linha in _celulas(wb["Ajustes Reguladores de Tensão"], 12):
+        cod = str(linha[0] or "").strip()
+        if not cod.isdigit():
+            continue
+        parte = str(linha[3] or "").strip().upper() or "SEM CADASTRO"
+        frota[cod] = {"familia": "regulador", "marca": parte.split("/")[0].split()[0]}
+    return frota
+
+
+def exposicao(frota):
+    """equipamento-ano por família e por marca, nos anos cheios e no parcial."""
+    anos_cheios = len(ANOS_CHEIOS)
+    fracao_parcial = (FIM_DO_PARCIAL - datetime.date(ANO_PARCIAL, 1, 1)).days / 365.0
+    por_familia = Counter(v["familia"] for v in frota.values())
+    por_marca = Counter((v["familia"], v["marca"]) for v in frota.values())
+    return {
+        "anos_cheios": anos_cheios,
+        "fracao_parcial": round(fracao_parcial, 4),
+        "familia": {k: v for k, v in por_familia.items()},
+        "marca": {f"{f}|{m}": n for (f, m), n in por_marca.items()},
+    }
+
+
+# ── Camada 4: o que foi substituído ──────────────────────────────────────────────
+# Objeto DIRETO da substituição. "SUBSTITUIÇÃO DE 02 POSTES E INSTALAÇÃO DE RELIGADOR"
+# é obra de poste; só conta quando o equipamento é o que está sendo trocado.
+RE_OBRA_SUBST = re.compile(
+    r"SUBSTITUI[ÇC][ÃA]O\s+D[EO]\s*(?:\d+\s+)?(?:CH\.?\s+)?(?:ATIVO\s+D[EO]\s+)?"
+    r"(RELIGADOR|REGULADOR)",
+    re.I,
+)
+ARQ_AIC_RLRT = os.path.join(RAIZ, "data", "missao", "aic_rlrt.json")
+RE_NAO_E_PECA = re.compile(r"REQUISITAR|APROVEITAR|VAMOS|VERIFICAR|AGUARD|^NA$|^N/?A$", re.I)
+
+
+def trocas_no_aic():
+    """Taxa de substituição: obra do AIC cujo objeto é o próprio equipamento."""
+    if not os.path.exists(ARQ_AIC_RLRT):
+        return None
+    with open(ARQ_AIC_RLRT, encoding="utf-8") as fh:
+        obras = json.load(fh)
+    por_ano = defaultdict(Counter)
+    total = Counter()
+    for obra in obras:
+        m = RE_OBRA_SUBST.search(obra.get("DESCRICAO_OBRA") or "")
+        if not m:
+            continue
+        familia = "religador" if m.group(1).upper().startswith("RELIG") else "regulador"
+        total[familia] += 1
+        ano = (obra.get("DATA_CONCLUSAO_FISICA") or "")[:4]
+        if ano.isdigit():
+            por_ano[ano][familia] += 1
+    return {
+        "obras_de_substituicao": dict(total),
+        "por_ano_de_conclusao_fisica": {a: dict(c) for a, c in sorted(por_ano.items())},
+    }
+
+
+def substituicoes():
+    import openpyxl
+
+    wb = openpyxl.load_workbook(XLSX_OBRAS, read_only=True, data_only=True)
+    linhas = list(wb["Planilha1"].iter_rows(values_only=True))
+    cab = [str(c).strip() if c else "" for c in linhas[1]]
+    idx = {nome: i for i, nome in enumerate(cab) if nome}
+    peca, material, concluidas, familia = Counter(), Counter(), 0, Counter()
+    total = 0
+    for linha in linhas[2:]:
+        ativo = str(linha[idx.get("Ativo", 2)] or "").strip()
+        if not ativo.isdigit():
+            continue
+        total += 1
+        d = str(linha[idx["Defeito identificado"]] or "").strip()
+        if d and d.lower() != "none":
+            for parte in re.split(r"[,/]| e ", d):
+                parte = parte.strip().strip(".").title()
+                # o campo é livre: o COEP às vezes escreve o encaminhamento em vez da
+                # peça ("Vamos requisitar", "Aproveitar do 79000...").
+                if len(parte) > 2 and not RE_NAO_E_PECA.search(parte):
+                    peca[parte] += 1
+        cod = str(linha[idx["Cod Material P/ Requisitar"]] or "").strip()
+        if cod.isdigit():
+            material[cod] += 1
+        status = str(linha[idx["Status da Substituição"]] or "").strip().lower()
+        if status.startswith("conclu"):
+            concluidas += 1
+        eq = str(linha[idx["Equipamento"]] or "").strip().lower()
+        if eq:
+            familia[eq] += 1
+    return {
+        "registros": total,
+        "peca_substituida": peca.most_common(),
+        "codigo_material": material.most_common(),
+        "substituicoes_concluidas": concluidas,
+        "por_familia": familia.most_common(),
+    }
+
+
+# ── Montagem ─────────────────────────────────────────────────────────────────────
+def _ano(ss):
+    dt = demandas._dt(ss.get("DATA_ABERTURA_SS", ""))
+    return dt.year if dt else None
+
+
+def montar():
+    with open(ARQ_MIN, encoding="utf-8") as fh:
+        base = json.load(fh)
+
+    frota = parque()
+    exp = exposicao(frota)
+
+    # separa a base por ativo, mantendo só o que existe no cadastro do parque
+    por_ativo = defaultdict(list)
+    orfaos = set()
+    for ss in base:
+        cod = str(ss.get("NUM_TRAFO") or "").strip()
+        if not cod.isdigit():
+            continue
+        if cod not in frota:
+            orfaos.add(cod)
+            continue
+        por_ativo[cod].append(ss)
+
+    triagem = Counter(classificar(ss) for ss in base)
+
+    eventos = []  # um por demanda de falha
+    for cod, linhas in por_ativo.items():
+        for dem in demandas.encadear(linhas):
+            classes = [classificar(s) for s in dem["ss"]]
+            if "falha" not in classes:
+                continue
+            abertura = min(
+                (demandas._dt(s.get("DATA_ABERTURA_SS", "")) for s in dem["ss"] if s.get("DATA_ABERTURA_SS")),
+                default=None,
+            )
+            if abertura is None:
+                continue
+            eventos.append(
+                {
+                    "ativo": cod,
+                    "familia": frota[cod]["familia"],
+                    "marca": frota[cod]["marca"],
+                    "ano": abertura.year,
+                    "data": abertura.date().isoformat(),
+                    "severidade": severidade(dem["ss"]),
+                    "ss": len(dem["ss"]),
+                    "origem": sorted({(s.get("ORIGEM_SS") or "").strip().upper() for s in dem["ss"] if s.get("ORIGEM_SS")}),
+                }
+            )
+
+    def taxa(filtro, expostos, anos):
+        n = sum(1 for e in eventos if filtro(e))
+        if not expostos or not anos:
+            return {"eventos": n, "taxa_100": None}
+        return {
+            "eventos": n,
+            "equipamento_ano": round(expostos * anos, 1),
+            "taxa_100": round(100.0 * n / (expostos * anos), 1),
+            "mtbf_anos": round((expostos * anos) / n, 1) if n else None,
+        }
+
+    cheios = {}
+    for fam, expostos in exp["familia"].items():
+        cheios[fam] = {
+            "geral": taxa(lambda e, f=fam: e["familia"] == f and e["ano"] in ANOS_CHEIOS, expostos, exp["anos_cheios"]),
+            "funcional": taxa(
+                lambda e, f=fam: e["familia"] == f and e["ano"] in ANOS_CHEIOS and e["severidade"] == "funcional",
+                expostos,
+                exp["anos_cheios"],
+            ),
+            "anomalia": taxa(
+                lambda e, f=fam: e["familia"] == f and e["ano"] in ANOS_CHEIOS and e["severidade"] == "anomalia",
+                expostos,
+                exp["anos_cheios"],
+            ),
+            "parque": expostos,
+        }
+
+    parcial = {
+        fam: taxa(
+            lambda e, f=fam: e["familia"] == f and e["ano"] == ANO_PARCIAL,
+            expostos,
+            exp["fracao_parcial"],
+        )
+        for fam, expostos in exp["familia"].items()
+    }
+
+    por_marca = {}
+    for chave, expostos in exp["marca"].items():
+        fam, marca = chave.split("|", 1)
+        if expostos < 20:  # amostra pequena não vira taxa publicável
+            continue
+        por_marca[chave] = taxa(
+            lambda e, f=fam, m=marca: e["familia"] == f and e["marca"] == m and e["ano"] in ANOS_CHEIOS,
+            expostos,
+            exp["anos_cheios"],
+        ) | {"parque": expostos}
+
+    # reincidência: ativo com mais de um evento dentro da janela cheia
+    por_ativo_evt = Counter(e["ativo"] for e in eventos if e["ano"] in ANOS_CHEIOS)
+    reincidentes = {a: n for a, n in por_ativo_evt.items() if n > 1}
+
+    # Incidência ≠ frequência. Frequência é evento/eq-ano (média do parque); incidência
+    # é quantos equipamentos DISTINTOS falharam ao menos uma vez. O parque não falha
+    # parelho: a cauda de reincidentes carrega a média e é ela que se ataca primeiro.
+    incidencia = {}
+    for fam, expostos in exp["familia"].items():
+        ativos = [a for a, n in por_ativo_evt.items() if frota[a]["familia"] == fam]
+        dist = Counter(por_ativo_evt[a] for a in ativos)
+        cauda = [a for a in ativos if por_ativo_evt[a] >= 3]
+        incidencia[fam] = {
+            "parque": expostos,
+            "ativos_com_ao_menos_um_evento": len(ativos),
+            "incidencia_pct_em_2_anos": round(100.0 * len(ativos) / expostos, 1) if expostos else None,
+            "distribuicao_eventos_por_ativo": dict(sorted(dist.items())),
+            "ativos_com_3_ou_mais": len(cauda),
+            "eventos_vindos_da_cauda": sum(por_ativo_evt[a] for a in cauda),
+            "pct_dos_eventos_na_cauda": round(
+                100.0 * sum(por_ativo_evt[a] for a in cauda) / sum(por_ativo_evt[a] for a in ativos), 1
+            ) if ativos else None,
+        }
+
+    # modo de falha declarado (camada 3)
+    declarados = Counter()
+    sem_declaracao = 0
+    for e in eventos:
+        if e["origem"]:
+            for o in e["origem"]:
+                declarados[o] += 1
+        else:
+            sem_declaracao += 1
+
+    pacote = {
+        "premissas": PREMISSAS,
+        "janela": {"cheios": list(ANOS_CHEIOS), "parcial": ANO_PARCIAL, "corte": FIM_DO_PARCIAL.isoformat()},
+        "triagem_ss": dict(triagem),
+        "parque": {"religador": exp["familia"].get("religador"), "regulador": exp["familia"].get("regulador"),
+                   "orfaos_fora_da_conta": len(orfaos)},
+        "eventos": len(eventos),
+        "eventos_na_janela_cheia": sum(1 for e in eventos if e["ano"] in ANOS_CHEIOS),
+        "taxa_anos_cheios": cheios,
+        "taxa_2026_anualizada": parcial,
+        "taxa_por_marca": por_marca,
+        "reincidencia": {
+            "ativos_com_mais_de_um_evento": len(reincidentes),
+            "eventos_desses_ativos": sum(reincidentes.values()),
+            "pior": sorted(reincidentes.items(), key=lambda kv: -kv[1])[:8],
+        },
+        "modo_de_falha_declarado": {
+            "eventos_com_origem": sum(1 for e in eventos if e["origem"]),
+            "eventos_sem_origem": sem_declaracao,
+            "cobertura_pct": round(100.0 * sum(1 for e in eventos if e["origem"]) / len(eventos), 1) if eventos else None,
+            "top": declarados.most_common(15),
+        },
+        "incidencia": incidencia,
+        "substituicao": substituicoes(),
+        "trocas_no_aic": trocas_no_aic(),
+    }
+
+    # O contraste que dá sentido à métrica: quantas chamadas atribuídas ao equipamento
+    # para cada troca efetivamente executada. Religador resolve muito em campo;
+    # regulador converte chamada em peça com muito mais frequência — e peça de
+    # regulador 34,5 kV custa R$ 57 mil a R$ 127 mil.
+    aic = pacote["trocas_no_aic"]
+    if aic:
+        conversao = {}
+        for fam, expostos in exp["familia"].items():
+            trocas = sum(
+                aic["por_ano_de_conclusao_fisica"].get(str(a), {}).get(fam, 0) for a in ANOS_CHEIOS
+            )
+            eventos_fam = cheios[fam]["geral"]["eventos"]
+            eq_ano = expostos * exp["anos_cheios"]
+            conversao[fam] = {
+                "chamadas_atribuidas_ao_equipamento": eventos_fam,
+                "trocas_confirmadas": trocas,
+                "taxa_chamada_100": cheios[fam]["geral"]["taxa_100"],
+                "taxa_substituicao_100": round(100.0 * trocas / eq_ano, 1) if eq_ano else None,
+                "chamadas_por_troca": round(eventos_fam / trocas, 1) if trocas else None,
+            }
+        pacote["conversao_chamada_troca"] = conversao
+    return pacote
+
+
+if __name__ == "__main__":
+    p = montar()
+    with open(SAIDA, "w", encoding="utf-8") as fh:
+        json.dump(p, fh, ensure_ascii=False, indent=1)
+    print(json.dumps({k: v for k, v in p.items() if k != "premissas"}, ensure_ascii=False, indent=1))
