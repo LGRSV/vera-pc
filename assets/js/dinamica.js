@@ -585,8 +585,6 @@ function desenhar() {
 
     ${mesAMes()}
 
-    ${taxaFalha()}
-
     ${D.economia ? `<section class="bloco"><h3>O que teria sido gasto nos cancelados em operação</h3>
       <p class="destaque-texto">${esc(D.economia.criterio)}</p>
       <div class="numeros">
