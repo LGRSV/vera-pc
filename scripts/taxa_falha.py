@@ -64,6 +64,13 @@ PARQUE = {"religador": 1297, "regulador": 197}
 RE_OBRA_INSTALACAO = re.compile(
     r"INSTALA[ÇC][ÃA]O\s+D[EO]\s*(\d{1,2})?\s*(?:CH\.?\s*RELIGADORA|RELIGADOR|REGULADOR)", re.I
 )
+# Remanejamento não é expansão (decisão do gestor, 21/08): equipamento que mudou de
+# ponto já estava no parque. A obra que instala E remaneja a mesma família desconta
+# os remanejados dos instalados — piso zero, nunca vira número negativo.
+RE_REMANEJO = {
+    "religador": re.compile(r"(?:REMANEJAMENTO|REALOCA[ÇC][ÃA]O)\s+D[EO]\s*(\d{1,2})?\s*RELIGADOR", re.I),
+    "regulador": re.compile(r"(?:REMANEJAMENTO|REALOCA[ÇC][ÃA]O)\s+D[EO]\s*(\d{1,2})?\s*REGULADOR", re.I),
+}
 
 
 def instalacoes_por_ano():
@@ -79,8 +86,12 @@ def instalacoes_por_ano():
             continue
         familia = "regulador" if re.search(r"REGULADOR", texto, re.I) else "religador"
         qtd = int(m.group(1)) if m.group(1) and m.group(1).isdigit() and int(m.group(1)) < 20 else 1
+        rem = RE_REMANEJO[familia].search(texto)
+        if rem:
+            remanejados = int(rem.group(1)) if rem.group(1) and rem.group(1).isdigit() else 1
+            qtd = max(0, qtd - remanejados)
         ano = (obra.get("DATA_CONCLUSAO_FISICA") or "")[:4]
-        if ano.isdigit():
+        if ano.isdigit() and qtd:
             por_ano[ano][familia] += qtd
     return {a: dict(c) for a, c in por_ano.items()}
 
@@ -149,7 +160,9 @@ PREMISSAS = [
 
     "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, "
     "informado pelo gestor) menos os equipamentos instalados depois. As instalações "
-    "vêm das obras do AIC. Usa-se a média entre o início e o fim do ano.",
+    "vêm das obras do AIC, descontando remanejamento — equipamento que mudou de "
+    "ponto já estava no parque, não é expansão. Usa-se a média entre o início e o "
+    "fim do ano.",
 
     "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração "
     "decorrida (61%), senão pareceria queda só porque o ano não acabou.",

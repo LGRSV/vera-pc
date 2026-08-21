@@ -8,7 +8,7 @@
   "Equipamento trocado por obra direta, sem nunca entrar na carteira do COEP, também falhou: entra pela obra de substituição do AIC concluída no ano, descontando a obra que cita ativo já contado pela leitura. O ano é o da conclusão física da obra — a troca direta costuma sair na semana da falha.",
   "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias depois da falha, e em 16% dos casos cai em outro ano.",
   "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
-  "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, informado pelo gestor) menos os equipamentos instalados depois. As instalações vêm das obras do AIC. Usa-se a média entre o início e o fim do ano.",
+  "O parque de cada ano é o parque de hoje (1.297 religadores e 197 reguladores, informado pelo gestor) menos os equipamentos instalados depois. As instalações vêm das obras do AIC, descontando remanejamento — equipamento que mudou de ponto já estava no parque, não é expansão. Usa-se a média entre o início e o fim do ano.",
   "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração decorrida (61%), senão pareceria queda só porque o ano não acabou.",
   "Regulador é banco de três células. O parque conta banco, não célula. Falha de uma célula é uma falha do banco.",
   "A carteira dos 129 é o que o COEP acompanha. Equipamento trocado por obra direta, sem passar pela carteira, entra pelas obras de substituição do AIC.",
@@ -382,10 +382,10 @@
  "parque_por_ano": {
   "religador": {
    "2024": {
-    "inicio": 1030,
+    "inicio": 1031,
     "fim": 1205,
     "medio": 1118,
-    "instalados_no_ano": 175
+    "instalados_no_ano": 174
    },
    "2025": {
     "inicio": 1205,
@@ -402,10 +402,10 @@
   },
   "regulador": {
    "2024": {
-    "inicio": 120,
+    "inicio": 124,
     "fim": 141,
-    "medio": 130,
-    "instalados_no_ano": 21
+    "medio": 132,
+    "instalados_no_ano": 17
    },
    "2025": {
     "inicio": 141,
