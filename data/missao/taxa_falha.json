@@ -5,10 +5,11 @@
   "Janela 2024–2025 para taxa fechada. 2022 (2 SS) e 2023 (58 SS) são extrato truncado, não parque saudável; 2026 é ano aberto e vai em separado, anualizado pela fração decorrida até 12/08.",
   "SS não é falha. Ajuste de proteção, comissionamento, obra nova, atualização cadastral, inspeção preventiva e troca programada de bateria saem do numerador — são 2.362 das 6.305 SS de RL/RT da base.",
   "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada demanda de falha conta UM evento.",
-  "O denominador é o parque cadastrado em GESTÃO DE EQUIPAMENTOS (1.292 religadores e 189 reguladores com código válido), não a carteira de indisponíveis — a carteira é o resultado que se quer medir, usá-la como base daria taxa perto de 100%.",
+  "O denominador é o parque informado pelo gestor em 21/08: 1.297 religadores e 197 reguladores. Não é a carteira de indisponíveis — a carteira é o resultado que se quer medir, usá-la como base daria taxa perto de 100%.",
+  "O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS alcança 1.292 religadores e 189 reguladores: 5 religadores e 8 reguladores do parque não têm estudo de ajuste cadastrado. A lacuna não muda a conta (o denominador é o parque do gestor), mas limita a estratificação por modelo, que só existe nesse cadastro.",
   "O parque é foto de hoje aplicada ao passado: equipamento instalado em 2025 entra na exposição de 2024. Isso infla o denominador dos anos antigos e portanto SUBESTIMA a taxa de 2024. É viés conhecido e de sinal conhecido.",
-  "Regulador é banco de três células. O cadastro conta banco (189 códigos, uma linha por código) e a SS quase sempre é do banco; falha de célula única (Araguaçu, fase B) é evento do banco, com o componente registrado na camada de modo de falha.",
-  "Ativo com SS que não existe no cadastro do parque (51 códigos) fica fora dos dois lados da divisão. Contar no numerador sem estar no denominador inflaria a taxa.",
+  "Regulador é banco de três células. O parque conta banco (197) e a SS quase sempre é do banco; falha de célula única (Araguaçu, fase B) é evento do banco, com o componente registrado na camada de modo de falha.",
+  "Ativo com SS que o cadastro de ajustes não tem entra no numerador com a família lida na descrição do ativo na própria SS — ele faz parte do parque do gestor, que é o denominador. Só fica de fora quem nem cadastro nem descrição identificam.",
   "ORIGEM_SS e DEFEITO_SS são de preenchimento opcional no SGM. A distribuição de modo de falha vale sobre as SS que declararam o par, e a cobertura é publicada junto do percentual — não se extrapola o silêncio.",
   "FABRICANTE_INSTALADO e FABRICANTE_RETIRADO não servem: 25 e 4 preenchimentos em 6.305 SS, vários deles com texto de e-mail colado. O que foi substituído sai de OBRAS_EQ_ESPECIAL (peça, código de material, data da substituição).",
   "A SS pendura no código do religador mesmo quando o fato é do poste, da cruzeta ou da vegetação — o equipamento é o marco do trecho. Só entra no numerador a SS cujo objeto do fato é o equipamento (ORIGEM_SS do equipamento, ou esquema que não nomeia componente de rede). Sem esse filtro a taxa do ativo vira taxa do alimentador.",
@@ -29,67 +30,77 @@
   "indefinida": 256
  },
  "parque": {
-  "religador": 1292,
-  "regulador": 189,
-  "orfaos_fora_da_conta": 51
+  "religador": 1297,
+  "regulador": 197,
+  "fonte": "informado pelo gestor em 21/08/2026",
+  "no_cadastro_de_ajustes": {
+   "religador": 1292,
+   "regulador": 189
+  },
+  "sem_estudo_de_ajuste_cadastrado": {
+   "religador": 5,
+   "regulador": 8
+  },
+  "ativos_com_ss_fora_do_cadastro": 50,
+  "ativos_sem_familia_identificavel": 1
  },
- "eventos": 1860,
- "eventos_na_janela_cheia": 1504,
+ "eventos": 1897,
+ "eventos_na_janela_cheia": 1539,
  "taxa_anos_cheios": {
   "religador": {
    "geral": {
-    "eventos": 1323,
-    "equipamento_ano": 2584,
-    "taxa_100": 51.2,
-    "mtbf_anos": 2.0
+    "eventos": 1342,
+    "equipamento_ano": 2594,
+    "taxa_100": 51.7,
+    "mtbf_anos": 1.9
    },
    "funcional": {
-    "eventos": 752,
-    "equipamento_ano": 2584,
-    "taxa_100": 29.1,
+    "eventos": 766,
+    "equipamento_ano": 2594,
+    "taxa_100": 29.5,
     "mtbf_anos": 3.4
    },
    "anomalia": {
-    "eventos": 571,
-    "equipamento_ano": 2584,
-    "taxa_100": 22.1,
+    "eventos": 576,
+    "equipamento_ano": 2594,
+    "taxa_100": 22.2,
     "mtbf_anos": 4.5
    },
-   "parque": 1292
+   "parque": 1297
   },
   "regulador": {
    "geral": {
-    "eventos": 181,
-    "equipamento_ano": 378,
-    "taxa_100": 47.9,
-    "mtbf_anos": 2.1
+    "eventos": 197,
+    "equipamento_ano": 394,
+    "taxa_100": 50.0,
+    "mtbf_anos": 2.0
    },
    "funcional": {
-    "eventos": 105,
-    "equipamento_ano": 378,
-    "taxa_100": 27.8,
-    "mtbf_anos": 3.6
+    "eventos": 112,
+    "equipamento_ano": 394,
+    "taxa_100": 28.4,
+    "mtbf_anos": 3.5
    },
    "anomalia": {
-    "eventos": 76,
-    "equipamento_ano": 378,
-    "taxa_100": 20.1,
-    "mtbf_anos": 5.0
+    "eventos": 85,
+    "equipamento_ano": 394,
+    "taxa_100": 21.6,
+    "mtbf_anos": 4.6
    },
-   "parque": 189
+   "parque": 197
   }
  },
  "taxa_2026_anualizada": {
   "religador": {
-   "eventos": 300,
-   "equipamento_ano": 789.4,
-   "taxa_100": 38.0,
+   "eventos": 302,
+   "equipamento_ano": 792.5,
+   "taxa_100": 38.1,
    "mtbf_anos": 2.6
   },
   "regulador": {
    "eventos": 56,
-   "equipamento_ano": 115.5,
-   "taxa_100": 48.5,
+   "equipamento_ano": 120.4,
+   "taxa_100": 46.5,
    "mtbf_anos": 2.1
   }
  },
@@ -138,8 +149,8 @@
   }
  },
  "reincidencia": {
-  "ativos_com_mais_de_um_evento": 370,
-  "eventos_desses_ativos": 1019,
+  "ativos_com_mais_de_um_evento": 379,
+  "eventos_desses_ativos": 1040,
   "pior": [
    [
     "7900722193",
@@ -176,29 +187,29 @@
   ]
  },
  "modo_de_falha_declarado": {
-  "eventos_com_origem": 1477,
-  "eventos_sem_origem": 383,
-  "cobertura_pct": 79.4,
+  "eventos_com_origem": 1508,
+  "eventos_sem_origem": 389,
+  "cobertura_pct": 79.5,
   "top": [
    [
     "RELIGADOR",
-    902
+    915
    ],
    [
     "RELÉ",
-    290
+    292
    ],
    [
     "REGULADOR DE TENSÃO",
-    117
+    128
    ],
    [
     "FORA DE SERVIÇO",
-    73
+    75
    ],
    [
     "COMUNICAÇÃO",
-    64
+    66
    ],
    [
     "OUTROS",
@@ -237,14 +248,14 @@
     12
    ],
    [
-    "CARCAÇA",
+    "DISP ELÉTRICO COMANDO",
     8
    ]
   ]
  },
  "ancoragem": {
-  "por_ocorrencia": 96,
-  "por_abertura": 1764,
+  "por_ocorrencia": 98,
+  "por_abertura": 1799,
   "cobertura_pct": 5.2
  },
  "defasagem_ocorrencia_abertura": {
@@ -277,44 +288,44 @@
   "leitura": "A defasagem nunca é negativa: a abertura sempre vem depois. O erro de usar abertura é portanto SISTEMÁTICO e direcional — empurra falha antiga para o ano corrente, inflando o ano recente e esvaziando os anteriores. Nesta amostra a abertura tira 8 eventos de 2024 e 13 de 2025 e joga 21 em 2026."
  },
  "impacto_da_ancora": {
-  "eventos_conferiveis": 96,
+  "eventos_conferiveis": 98,
   "mudaram_de_ano": 36,
   "atraso_mediano_dias": 32,
   "leitura": "Nos eventos em que dá para conferir as duas datas, mais de um terço estava no ano errado pela abertura. A série por abertura não serve para ler tendência; serve só para medir o próprio atraso de registro."
  },
  "incidencia": {
   "religador": {
-   "parque": 1292,
-   "ativos_com_ao_menos_um_evento": 750,
-   "incidencia_pct_em_2_anos": 58.0,
+   "parque": 1297,
+   "ativos_com_ao_menos_um_evento": 760,
+   "incidencia_pct_em_2_anos": 58.6,
    "distribuicao_eventos_por_ativo": {
-    "1": 426,
-    "2": 174,
-    "3": 88,
-    "4": 42,
+    "1": 430,
+    "2": 178,
+    "3": 89,
+    "4": 43,
     "5": 9,
     "6": 8,
     "7": 2,
     "10": 1
    },
-   "ativos_com_3_ou_mais": 150,
-   "eventos_vindos_da_cauda": 549,
-   "pct_dos_eventos_na_cauda": 41.5
+   "ativos_com_3_ou_mais": 152,
+   "eventos_vindos_da_cauda": 556,
+   "pct_dos_eventos_na_cauda": 41.4
   },
   "regulador": {
-   "parque": 189,
-   "ativos_com_ao_menos_um_evento": 105,
-   "incidencia_pct_em_2_anos": 55.6,
+   "parque": 197,
+   "ativos_com_ao_menos_um_evento": 118,
+   "incidencia_pct_em_2_anos": 59.9,
    "distribuicao_eventos_por_ativo": {
-    "1": 59,
-    "2": 23,
+    "1": 69,
+    "2": 26,
     "3": 17,
     "4": 5,
     "5": 1
    },
    "ativos_com_3_ou_mais": 23,
    "eventos_vindos_da_cauda": 76,
-   "pct_dos_eventos_na_cauda": 42.0
+   "pct_dos_eventos_na_cauda": 38.6
   }
  },
  "substituicao": {
@@ -489,18 +500,18 @@
  },
  "conversao_chamada_troca": {
   "religador": {
-   "chamadas_atribuidas_ao_equipamento": 1323,
+   "chamadas_atribuidas_ao_equipamento": 1342,
    "trocas_confirmadas": 80,
-   "taxa_chamada_100": 51.2,
+   "taxa_chamada_100": 51.7,
    "taxa_substituicao_100": 3.1,
-   "chamadas_por_troca": 16.5
+   "chamadas_por_troca": 16.8
   },
   "regulador": {
-   "chamadas_atribuidas_ao_equipamento": 181,
+   "chamadas_atribuidas_ao_equipamento": 197,
    "trocas_confirmadas": 25,
-   "taxa_chamada_100": 47.9,
-   "taxa_substituicao_100": 6.6,
-   "chamadas_por_troca": 7.2
+   "taxa_chamada_100": 50.0,
+   "taxa_substituicao_100": 6.3,
+   "chamadas_por_troca": 7.9
   }
  }
 }

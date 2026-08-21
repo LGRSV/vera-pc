@@ -11,8 +11,9 @@ dá 4,9 SS/ativo/ano, número que não significa nada. A lógica abaixo separa a
 
   C1  EVENTO      a SS vira evento de falha (régua de tipo) e as SS gêmeas colapsam
                   numa demanda só (demandas.encadear) — 1 demanda = 1 evento
-  C2  EXPOSIÇÃO   o denominador é equipamento-ano do parque cadastrado, não a carteira
-                  de indisponíveis (que já é o resultado, não a população)
+  C2  EXPOSIÇÃO   o denominador é equipamento-ano do parque informado pelo gestor
+                  (1.297 religadores, 197 reguladores), não a carteira de
+                  indisponíveis (que já é o resultado, não a população)
   C3  MODO        o par ORIGEM_SS × DEFEITO_SS diz QUAL fato; cobertura parcial, então
                   a distribuição vale sobre os declarados e isso é dito no número
   C4  CONSEQUÊNCIA  o que foi substituído vem do OBRAS_EQ_ESPECIAL (peça + código de
@@ -50,6 +51,13 @@ ANOS_CHEIOS = (2024, 2025)
 ANO_PARCIAL = 2026
 FIM_DO_PARCIAL = datetime.date(2026, 8, 12)  # data da foto da base
 
+# Parque informado pelo gestor em 21/08 — é a autoridade sobre a população exposta.
+# O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS chega a 1.292 religadores e 189
+# reguladores com código válido (mais o "RT SE CRISTALÂNDIA", sem código): faltam 5
+# religadores e 8 reguladores que operam sem estudo de ajuste cadastrado. A diferença
+# não é erro de contagem, é lacuna de cadastro — e vale como achado por si.
+PARQUE = {"religador": 1297, "regulador": 197}
+
 PREMISSAS = [
     "O evento se ancora na DATA DE OCORRÊNCIA, não na abertura da SS — regra do "
     "gestor em 21/08. Abertura é o carimbo do registro: vem depois da falha (mediana "
@@ -70,17 +78,22 @@ PREMISSAS = [
     "SS não é evento. O repasse do SGM cria SS nova com o mesmo carimbo de abertura; "
     "as SS gêmeas colapsam numa demanda (regra já validada em demandas.py) e cada "
     "demanda de falha conta UM evento.",
-    "O denominador é o parque cadastrado em GESTÃO DE EQUIPAMENTOS (1.292 religadores "
-    "e 189 reguladores com código válido), não a carteira de indisponíveis — a carteira "
-    "é o resultado que se quer medir, usá-la como base daria taxa perto de 100%.",
+    "O denominador é o parque informado pelo gestor em 21/08: 1.297 religadores e 197 "
+    "reguladores. Não é a carteira de indisponíveis — a carteira é o resultado que se "
+    "quer medir, usá-la como base daria taxa perto de 100%.",
+    "O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS alcança 1.292 religadores e 189 "
+    "reguladores: 5 religadores e 8 reguladores do parque não têm estudo de ajuste "
+    "cadastrado. A lacuna não muda a conta (o denominador é o parque do gestor), mas "
+    "limita a estratificação por modelo, que só existe nesse cadastro.",
     "O parque é foto de hoje aplicada ao passado: equipamento instalado em 2025 entra "
     "na exposição de 2024. Isso infla o denominador dos anos antigos e portanto "
     "SUBESTIMA a taxa de 2024. É viés conhecido e de sinal conhecido.",
-    "Regulador é banco de três células. O cadastro conta banco (189 códigos, uma linha "
-    "por código) e a SS quase sempre é do banco; falha de célula única (Araguaçu, fase "
+    "Regulador é banco de três células. O parque conta banco (197) e a SS quase sempre "
+    "é do banco; falha de célula única (Araguaçu, fase "
     "B) é evento do banco, com o componente registrado na camada de modo de falha.",
-    "Ativo com SS que não existe no cadastro do parque (51 códigos) fica fora dos dois "
-    "lados da divisão. Contar no numerador sem estar no denominador inflaria a taxa.",
+    "Ativo com SS que o cadastro de ajustes não tem entra no numerador com a família "
+    "lida na descrição do ativo na própria SS — ele faz parte do parque do gestor, que "
+    "é o denominador. Só fica de fora quem nem cadastro nem descrição identificam.",
     "ORIGEM_SS e DEFEITO_SS são de preenchimento opcional no SGM. A distribuição de "
     "modo de falha vale sobre as SS que declararam o par, e a cobertura é publicada "
     "junto do percentual — não se extrapola o silêncio.",
@@ -221,16 +234,39 @@ def parque():
     return frota
 
 
+RE_FAMILIA_RT = re.compile(r"REGULADOR", re.I)
+RE_FAMILIA_RL = re.compile(r"RELIGADOR", re.I)
+
+
+def familia_pela_ss(linhas):
+    """Família do ativo que o cadastro de ajustes não tem, lida na descrição da SS."""
+    texto = " ".join((l.get("DESCICAO_DO_ATIVO") or "") for l in linhas)
+    if RE_FAMILIA_RT.search(texto):
+        return "regulador"
+    if RE_FAMILIA_RL.search(texto):
+        return "religador"
+    return None
+
+
 def exposicao(frota):
-    """equipamento-ano por família e por marca, nos anos cheios e no parcial."""
+    """equipamento-ano por família e por marca, nos anos cheios e no parcial.
+
+    A família usa o parque do gestor (PARQUE). A marca só pode usar o cadastro de
+    ajustes, que é a única fonte que diz o modelo — por isso a soma das marcas fica
+    abaixo do parque, e a diferença é publicada como 'sem modelo cadastrado'.
+    """
     anos_cheios = len(ANOS_CHEIOS)
     fracao_parcial = (FIM_DO_PARCIAL - datetime.date(ANO_PARCIAL, 1, 1)).days / 365.0
-    por_familia = Counter(v["familia"] for v in frota.values())
+    cadastradas = Counter(v["familia"] for v in frota.values())
     por_marca = Counter((v["familia"], v["marca"]) for v in frota.values())
     return {
         "anos_cheios": anos_cheios,
         "fracao_parcial": round(fracao_parcial, 4),
-        "familia": {k: v for k, v in por_familia.items()},
+        "familia": dict(PARQUE),
+        "no_cadastro_de_ajustes": dict(cadastradas),
+        "sem_estudo_cadastrado": {
+            f: PARQUE[f] - cadastradas.get(f, 0) for f in PARQUE
+        },
         "marca": {f"{f}|{m}": n for (f, m), n in por_marca.items()},
     }
 
@@ -406,17 +442,28 @@ def montar():
     frota = parque()
     exp = exposicao(frota)
 
-    # separa a base por ativo, mantendo só o que existe no cadastro do parque
-    por_ativo = defaultdict(list)
-    orfaos = set()
+    # Separa a base por ativo. O denominador agora é o parque do gestor, que é o total
+    # real — logo o ativo com SS que o cadastro de ajustes não tem NÃO pode ser
+    # descartado: ele é parte do parque, só não tem estudo cadastrado. Entra com a
+    # família lida na descrição da SS e sem modelo, marcado como fora do cadastro.
+    bruto = defaultdict(list)
     for ss in base:
         cod = str(ss.get("NUM_TRAFO") or "").strip()
-        if not cod.isdigit():
+        if cod.isdigit():
+            bruto[cod].append(ss)
+
+    por_ativo, fora_do_cadastro, sem_familia = {}, set(), set()
+    for cod, linhas in bruto.items():
+        if cod in frota:
+            por_ativo[cod] = linhas
             continue
-        if cod not in frota:
-            orfaos.add(cod)
+        familia = familia_pela_ss(linhas)
+        if familia is None:
+            sem_familia.add(cod)  # nem cadastro nem descrição dizem o que é
             continue
-        por_ativo[cod].append(ss)
+        frota[cod] = {"familia": familia, "marca": "SEM CADASTRO"}
+        fora_do_cadastro.add(cod)
+        por_ativo[cod] = linhas
 
     triagem = Counter(classificar(ss) for ss in base)
     ocorrencias = datas_de_ocorrencia()
@@ -543,8 +590,15 @@ def montar():
         "premissas": PREMISSAS,
         "janela": {"cheios": list(ANOS_CHEIOS), "parcial": ANO_PARCIAL, "corte": FIM_DO_PARCIAL.isoformat()},
         "triagem_ss": dict(triagem),
-        "parque": {"religador": exp["familia"].get("religador"), "regulador": exp["familia"].get("regulador"),
-                   "orfaos_fora_da_conta": len(orfaos)},
+        "parque": {
+            "religador": PARQUE["religador"],
+            "regulador": PARQUE["regulador"],
+            "fonte": "informado pelo gestor em 21/08/2026",
+            "no_cadastro_de_ajustes": exp["no_cadastro_de_ajustes"],
+            "sem_estudo_de_ajuste_cadastrado": exp["sem_estudo_cadastrado"],
+            "ativos_com_ss_fora_do_cadastro": len(fora_do_cadastro),
+            "ativos_sem_familia_identificavel": len(sem_familia),
+        },
         "eventos": len(eventos),
         "eventos_na_janela_cheia": sum(1 for e in eventos if e["ano"] in ANOS_CHEIOS),
         "taxa_anos_cheios": cheios,
