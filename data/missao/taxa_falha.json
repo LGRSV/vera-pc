@@ -293,6 +293,230 @@
   "atraso_mediano_dias": 32,
   "leitura": "Nos eventos em que dá para conferir as duas datas, mais de um terço estava no ano errado pela abertura. A série por abertura não serve para ler tendência; serve só para medir o próprio atraso de registro."
  },
+ "serie_por_ano": {
+  "2024": {
+   "religador": {
+    "parque": 1297,
+    "equipamento_ano": 1297.0,
+    "eventos": 630,
+    "taxa_100": 48.6,
+    "funcional_100": 31.1,
+    "anomalia_100": 17.5,
+    "mtbf_anos": 2.1,
+    "ativos_distintos": 432,
+    "incidencia_pct": 33.3,
+    "trocas_confirmadas": 53,
+    "taxa_substituicao_100": 4.1,
+    "chamadas_por_troca": 11.9
+   },
+   "regulador": {
+    "parque": 197,
+    "equipamento_ano": 197.0,
+    "eventos": 71,
+    "taxa_100": 36.0,
+    "funcional_100": 23.9,
+    "anomalia_100": 12.2,
+    "mtbf_anos": 2.8,
+    "ativos_distintos": 58,
+    "incidencia_pct": 29.4,
+    "trocas_confirmadas": 11,
+    "taxa_substituicao_100": 5.6,
+    "chamadas_por_troca": 6.5
+   },
+   "_modo_declarado": {
+    "eventos_com_origem": 560,
+    "cobertura_pct": 79.9,
+    "top": [
+     [
+      "RELIGADOR",
+      324
+     ],
+     [
+      "RELÉ",
+      105
+     ],
+     [
+      "COMUNICAÇÃO",
+      66
+     ],
+     [
+      "REGULADOR DE TENSÃO",
+      41
+     ],
+     [
+      "FORA DE SERVIÇO",
+      31
+     ],
+     [
+      "OUTROS",
+      17
+     ],
+     [
+      "INSPEÇÃO VISUAL",
+      16
+     ],
+     [
+      "COMANDO MECÂNICO",
+      15
+     ]
+    ]
+   },
+   "_ancora": {
+    "por_ocorrencia": 4,
+    "por_abertura": 697,
+    "cobertura_pct": 0.6
+   },
+   "_fator_de_exposicao": 1.0
+  },
+  "2025": {
+   "religador": {
+    "parque": 1297,
+    "equipamento_ano": 1297.0,
+    "eventos": 712,
+    "taxa_100": 54.9,
+    "funcional_100": 28.0,
+    "anomalia_100": 26.9,
+    "mtbf_anos": 1.8,
+    "ativos_distintos": 494,
+    "incidencia_pct": 38.1,
+    "trocas_confirmadas": 27,
+    "taxa_substituicao_100": 2.1,
+    "chamadas_por_troca": 26.4
+   },
+   "regulador": {
+    "parque": 197,
+    "equipamento_ano": 197.0,
+    "eventos": 126,
+    "taxa_100": 64.0,
+    "funcional_100": 33.0,
+    "anomalia_100": 31.0,
+    "mtbf_anos": 1.6,
+    "ativos_distintos": 85,
+    "incidencia_pct": 43.1,
+    "trocas_confirmadas": 14,
+    "taxa_substituicao_100": 7.1,
+    "chamadas_por_troca": 9.0
+   },
+   "_modo_declarado": {
+    "eventos_com_origem": 649,
+    "cobertura_pct": 77.4,
+    "top": [
+     [
+      "RELIGADOR",
+      430
+     ],
+     [
+      "RELÉ",
+      119
+     ],
+     [
+      "REGULADOR DE TENSÃO",
+      63
+     ],
+     [
+      "FORA DE SERVIÇO",
+      20
+     ],
+     [
+      "OUTROS",
+      15
+     ],
+     [
+      "ARMÁRIO DE CONTROLE",
+      8
+     ],
+     [
+      "EQUIPAMENTO",
+      7
+     ],
+     [
+      "COMANDO MECÂNICO",
+      7
+     ]
+    ]
+   },
+   "_ancora": {
+    "por_ocorrencia": 56,
+    "por_abertura": 782,
+    "cobertura_pct": 6.7
+   },
+   "_fator_de_exposicao": 1.0
+  },
+  "2026": {
+   "religador": {
+    "parque": 1297,
+    "equipamento_ano": 792.5,
+    "eventos": 302,
+    "taxa_100": 38.1,
+    "funcional_100": 26.1,
+    "anomalia_100": 12.0,
+    "mtbf_anos": 2.6,
+    "ativos_distintos": 243,
+    "incidencia_pct": 18.7,
+    "trocas_confirmadas": 5,
+    "taxa_substituicao_100": 0.6,
+    "chamadas_por_troca": 60.4
+   },
+   "regulador": {
+    "parque": 197,
+    "equipamento_ano": 120.4,
+    "eventos": 56,
+    "taxa_100": 46.5,
+    "funcional_100": 34.1,
+    "anomalia_100": 12.5,
+    "mtbf_anos": 2.1,
+    "ativos_distintos": 41,
+    "incidencia_pct": 20.8,
+    "trocas_confirmadas": 4,
+    "taxa_substituicao_100": 3.3,
+    "chamadas_por_troca": 14.0
+   },
+   "_modo_declarado": {
+    "eventos_com_origem": 299,
+    "cobertura_pct": 83.5,
+    "top": [
+     [
+      "RELIGADOR",
+      161
+     ],
+     [
+      "RELÉ",
+      68
+     ],
+     [
+      "REGULADOR DE TENSÃO",
+      24
+     ],
+     [
+      "FORA DE SERVIÇO",
+      24
+     ],
+     [
+      "EQUIPAMENTO",
+      11
+     ],
+     [
+      "ARMÁRIO DE CONTROLE",
+      8
+     ],
+     [
+      "OUTROS",
+      4
+     ],
+     [
+      "INSPEÇÃO VISUAL",
+      4
+     ]
+    ]
+   },
+   "_ancora": {
+    "por_ocorrencia": 38,
+    "por_abertura": 320,
+    "cobertura_pct": 10.6
+   },
+   "_fator_de_exposicao": 0.611
+  }
+ },
  "incidencia": {
   "religador": {
    "parque": 1297,

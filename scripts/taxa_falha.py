@@ -552,6 +552,58 @@ def montar():
             exp["anos_cheios"],
         ) | {"parque": expostos}
 
+    # ── Série ano a ano ──────────────────────────────────────────────────────────
+    # 2024 e 2025 são anos cheios (fator 1,0); 2026 vale a fração decorrida até a foto,
+    # senão a taxa de um ano pela metade sairia pela metade e pareceria queda.
+    aic_ano = (trocas_no_aic() or {}).get("por_ano_de_conclusao_fisica", {})
+    serie = {}
+    for ano in list(ANOS_CHEIOS) + [ANO_PARCIAL]:
+        fator = exp["fracao_parcial"] if ano == ANO_PARCIAL else 1.0
+        do_ano = [e for e in eventos if e["ano"] == ano]
+        bloco = {}
+        for fam, expostos in exp["familia"].items():
+            eq_ano = expostos * fator
+            desta = [e for e in do_ano if e["familia"] == fam]
+            ativos = {e["ativo"] for e in desta}
+            trocas = aic_ano.get(str(ano), {}).get(fam, 0)
+            bloco[fam] = {
+                "parque": expostos,
+                "equipamento_ano": round(eq_ano, 1),
+                "eventos": len(desta),
+                "taxa_100": round(100.0 * len(desta) / eq_ano, 1) if eq_ano else None,
+                "funcional_100": round(
+                    100.0 * sum(1 for e in desta if e["severidade"] == "funcional") / eq_ano, 1
+                ) if eq_ano else None,
+                "anomalia_100": round(
+                    100.0 * sum(1 for e in desta if e["severidade"] == "anomalia") / eq_ano, 1
+                ) if eq_ano else None,
+                "mtbf_anos": round(eq_ano / len(desta), 1) if desta else None,
+                "ativos_distintos": len(ativos),
+                "incidencia_pct": round(100.0 * len(ativos) / expostos, 1) if expostos else None,
+                "trocas_confirmadas": trocas,
+                "taxa_substituicao_100": round(100.0 * trocas / eq_ano, 1) if eq_ano else None,
+                "chamadas_por_troca": round(len(desta) / trocas, 1) if trocas else None,
+            }
+        modo = Counter()
+        for e in do_ano:
+            for o in e["origem"]:
+                modo[o] += 1
+        bloco["_modo_declarado"] = {
+            "eventos_com_origem": sum(1 for e in do_ano if e["origem"]),
+            "cobertura_pct": round(100.0 * sum(1 for e in do_ano if e["origem"]) / len(do_ano), 1)
+            if do_ano else None,
+            "top": modo.most_common(8),
+        }
+        bloco["_ancora"] = {
+            "por_ocorrencia": sum(1 for e in do_ano if e["ancora"] == "ocorrencia"),
+            "por_abertura": sum(1 for e in do_ano if e["ancora"] == "abertura"),
+            "cobertura_pct": round(
+                100.0 * sum(1 for e in do_ano if e["ancora"] == "ocorrencia") / len(do_ano), 1
+            ) if do_ano else None,
+        }
+        bloco["_fator_de_exposicao"] = fator
+        serie[str(ano)] = bloco
+
     # reincidência: ativo com mais de um evento dentro da janela cheia
     por_ativo_evt = Counter(e["ativo"] for e in eventos if e["ano"] in ANOS_CHEIOS)
     reincidentes = {a: n for a, n in por_ativo_evt.items() if n > 1}
@@ -642,6 +694,7 @@ def montar():
                 "ler tendência; serve só para medir o próprio atraso de registro."
             ),
         },
+        "serie_por_ano": serie,
         "incidencia": incidencia,
         "substituicao": substituicoes(),
         "trocas_no_aic": trocas_no_aic(),
