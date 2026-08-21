@@ -27,6 +27,7 @@ Grava: data/missao/taxa_falha.json
 """
 
 import datetime
+import glob
 import json
 import os
 import re
@@ -208,6 +209,96 @@ def severidade(ss_da_demanda):
     return "funcional" if (tipos | origens) & FUNCIONAL else "anomalia"
 
 
+# ── Camada 1b: o componente exigido — a régua do gestor (21/08) ─────────────────
+# "Tem que ser falha mesmo, tipo precisar substituir tanque ou controle ou equipamento
+# completo. Ou no caso de regulador o controle ou algumas das células, furto também.
+# Trafo auxiliar, chave faca ou algo assim não deveriam contabilizar na taxa de falha
+# mas pode trazer separado."
+#
+# O que decide é a PEÇA, não a causa. Por isso o furto entra quando leva tanque,
+# controle, células ou o equipamento inteiro — e fica de fora quando leva o trafo
+# auxiliar, que é o caso mais comum de furto no AIC (5 das 12 obras).
+DIR_IA = os.path.join(RAIZ, "data", "analise_ia")
+
+PECA_GRANDE = {"Tanque/Parte Ativa", "Controle/Eletrônica", "Célula de Potência"}
+ACESSORIO = {
+    "Comunicação/Telecom", "Aterramento", "Bateria/Fonte Auxiliar",
+    "Parametrização/Proteção", "Transformador Auxiliar", "Cabo/Conector/Umbilical",
+    "Estrutura/Instalação Civil",
+}
+# Furto é decidido pela peça que levou, não pela categoria: cai em peça grande quando
+# o componente citado é célula, controle, tanque ou o banco inteiro.
+RE_PECA_GRANDE_TEXTO = re.compile(
+    r"TANQUE|PARTE ATIVA|C[ÉE]LULA|CONTROLE|COMPLET|BANCO REGULADOR|"
+    r"REGULADOR DE TENS[ÃA]O FURTAD|RELIGADOR FURTAD",
+    re.I,
+)
+RE_ACESSORIO_TEXTO = re.compile(
+    r"TRAFO AUXILIAR|TRANSFORMADOR AUXILIAR|CHAVE FACA|CHAVE SECCIONADORA|R[ÁA]DIO|"
+    r"ANTENA|BATERIA|ATERRAMENTO|UMBILICAL|CONECTOR|PARA-?RAIO",
+    re.I,
+)
+# Códigos de material do orçamento (catálogo em economia_cancelados.py)
+MATERIAL_GRANDE = {"690001", "690916", "690005", "692263", "690236", "690669",
+                   "690240", "690241", "651638", "616033"}  # 616033: relé de
+# sincronismo, que a convenção do Allan põe em Controle de regulador
+MATERIAL_ACESSORIO = {"90556"}  # chave seccionadora faca — R$ 736,43
+
+
+def componente_por_ss():
+    """{SS: ('grande'|'acessorio', categoria)} — das 92 descrições lidas na íntegra.
+
+    Única fonte que diz o componente com leitura do texto completo da SS. Cobre a
+    carteira do COEP, não as 6.305 — e o teste de aderência mostrou que ORIGEM_SS
+    não substitui: com ORIGEM_SS = RELIGADOR, 18 casos são peça grande e 13 não são.
+    """
+    mapa = {}
+    for caminho in sorted(glob.glob(os.path.join(DIR_IA, "result_*.json"))):
+        with open(caminho, encoding="utf-8") as fh:
+            for reg in json.load(fh):
+                cat = reg.get("categoria_primaria") or ""
+                comp = reg.get("componente_especifico") or ""
+                acao = reg.get("acao_requerida") or ""
+                if cat in PECA_GRANDE:
+                    veredito = "grande"
+                elif cat == "Vandalismo/Furto":
+                    veredito = "grande" if RE_PECA_GRANDE_TEXTO.search(comp + " " + acao) else "acessorio"
+                elif cat in ACESSORIO:
+                    veredito = "acessorio"
+                else:
+                    # Indefinido/Sem Diagnóstico, Vazamento, Descarga: decide o texto
+                    if RE_PECA_GRANDE_TEXTO.search(comp + " " + acao):
+                        veredito = "grande"
+                    elif RE_ACESSORIO_TEXTO.search(comp + " " + acao):
+                        veredito = "acessorio"
+                    else:
+                        veredito = "indefinido"
+                mapa[_norm_ss(reg.get("ss"))] = (veredito, cat)
+    return mapa
+
+
+def componente_por_ativo():
+    """{ativo: ('grande'|'acessorio', peça)} — do OBRAS_EQ_ESPECIAL e do material."""
+    import openpyxl
+
+    wb = openpyxl.load_workbook(XLSX_OBRAS, read_only=True, data_only=True)
+    linhas = list(wb["Planilha1"].iter_rows(values_only=True))
+    cab = [str(c).strip() if c else "" for c in linhas[1]]
+    idx = {nome: i for i, nome in enumerate(cab) if nome}
+    mapa = {}
+    for linha in linhas[2:]:
+        ativo = str(linha[idx.get("Ativo", 2)] or "").strip()
+        if not ativo.isdigit():
+            continue
+        peca = str(linha[idx["Defeito identificado"]] or "").strip()
+        codigo = str(linha[idx["Cod Material P/ Requisitar"]] or "").strip()
+        if codigo in MATERIAL_GRANDE or RE_PECA_GRANDE_TEXTO.search(peca):
+            mapa[ativo] = ("grande", peca or codigo)
+        elif codigo in MATERIAL_ACESSORIO or RE_ACESSORIO_TEXTO.search(peca):
+            mapa[ativo] = ("acessorio", peca or codigo)
+    return mapa
+
+
 # ── Camada 2: o parque ───────────────────────────────────────────────────────────
 def _celulas(ws, max_col=None):
     return list(ws.iter_rows(min_row=2, max_col=max_col, values_only=True))
@@ -280,6 +371,7 @@ RE_OBRA_SUBST = re.compile(
     re.I,
 )
 ARQ_AIC_RLRT = os.path.join(RAIZ, "data", "missao", "aic_rlrt.json")
+ARQ_OBRAS_EQP = os.path.join(RAIZ, "data", "raw", "obras_equipamento.json")
 RE_NAO_E_PECA = re.compile(r"REQUISITAR|APROVEITAR|VAMOS|VERIFICAR|AGUARD|^NA$|^N/?A$", re.I)
 
 
@@ -303,6 +395,38 @@ def trocas_no_aic():
     return {
         "obras_de_substituicao": dict(total),
         "por_ano_de_conclusao_fisica": {a: dict(c) for a, c in sorted(por_ano.items())},
+    }
+
+
+def peca_grande_em_campo():
+    """Peça grande já levada para a obra e ainda não concluída — a fila material.
+
+    OBRAS_COM_EQP usa a convenção do Allan, que é a régua do gestor letra por letra:
+    religador se divide em PARTE ATIVA e CONTROLE, regulador em CÉLULA e CONTROLE.
+    "Levado" é RMA menos DMA: saiu do almoxarifado e ficou na obra.
+
+    O extrato foi montado só com obra NÃO concluída, então este bloco e as obras
+    encerradas do AIC não se sobrepõem — um é fila, o outro é executado.
+    """
+    if not os.path.exists(ARQ_OBRAS_EQP):
+        return None
+    with open(ARQ_OBRAS_EQP, encoding="utf-8") as fh:
+        d = json.load(fh)
+    classes = d.get("por_classe") or []
+    por_familia = defaultdict(lambda: {"pecas": 0, "valor": 0.0, "detalhe": {}})
+    for linha in classes:
+        fam = "religador" if linha["familia"].lower().startswith("relig") else "regulador"
+        por_familia[fam]["pecas"] += linha["levado"]
+        por_familia[fam]["valor"] += linha["valor"]
+        por_familia[fam]["detalhe"][linha["classe"]] = linha["levado"]
+    return {
+        "fonte": d.get("fonte"),
+        "convencao": d.get("convencao"),
+        "so_obra_nao_concluida": True,
+        "obras": (d.get("totais") or {}).get("obras"),
+        "pecas_levadas": (d.get("totais") or {}).get("levado"),
+        "valor_levado": (d.get("totais") or {}).get("valor_levado"),
+        "por_familia": {k: dict(v) for k, v in por_familia.items()},
     }
 
 
@@ -347,6 +471,21 @@ def substituicoes():
 
 
 # ── Montagem ─────────────────────────────────────────────────────────────────────
+def _veredito_componente(ss_da_demanda, ativo, comp_ss, comp_ativo):
+    """grande | acessorio | indefinido — o que a demanda exigiu de peça.
+
+    Prioridade: leitura da descrição da SS (a mais confiável) > peça registrada no
+    OBRAS_EQ_ESPECIAL para o ativo. Sem nenhuma das duas, fica indefinido — e a maior
+    parte das 6.305 SS fica aqui, porque o extrato não traz o texto da SS.
+    """
+    for linha in ss_da_demanda:
+        achado = comp_ss.get(_norm_ss(linha.get("NUMERO_SS")))
+        if achado and achado[0] != "indefinido":
+            return achado[0]
+    achado = comp_ativo.get(ativo)
+    return achado[0] if achado else "indefinido"
+
+
 def _norm_ss(numero):
     """ETO-COEP 00092/2023 e ETO-COEP 92/2023 são a mesma SS."""
     texto = re.sub(r"\s+", " ", str(numero or "").strip().upper())
@@ -435,6 +574,62 @@ def defasagem_medida():
     }
 
 
+def _bloco_componente(eventos, exp):
+    """A régua do gestor: taxa de falha só do que exige peça grande.
+
+    Devolve o que é mensurável hoje (evidência de componente por SS lida ou por peça
+    registrada), o que fica separado por ser acessório, e o tamanho do vão — os
+    eventos sem nenhuma fonte que diga o componente.
+    """
+    por_classe = Counter(e["componente"] for e in eventos)
+    fora = os.path.join(DIR_IA, "result_01.json")
+    cobertura = round(100.0 * (por_classe["grande"] + por_classe["acessorio"]) / len(eventos), 1) if eventos else None
+
+    detalhe = {}
+    for fam, expostos in exp["familia"].items():
+        bloco = {}
+        for ano in list(ANOS_CHEIOS) + [ANO_PARCIAL]:
+            fator = exp["fracao_parcial"] if ano == ANO_PARCIAL else 1.0
+            do_ano = [e for e in eventos if e["ano"] == ano and e["familia"] == fam]
+            grandes = [e for e in do_ano if e["componente"] == "grande"]
+            acess = [e for e in do_ano if e["componente"] == "acessorio"]
+            eq_ano = expostos * fator
+            bloco[str(ano)] = {
+                "com_peca_grande": len(grandes),
+                "taxa_confirmada_100": round(100.0 * len(grandes) / eq_ano, 2) if eq_ano else None,
+                "acessorio_separado": len(acess),
+                "sem_evidencia_de_componente": len(do_ano) - len(grandes) - len(acess),
+                "eventos_no_ano": len(do_ano),
+            }
+        detalhe[fam] = bloco
+
+    # proporção observada onde HÁ leitura — o único fator defensável para dimensionar
+    lidos = [e for e in eventos if e["componente"] in ("grande", "acessorio")]
+    proporcao = round(
+        100.0 * sum(1 for e in lidos if e["componente"] == "grande") / len(lidos), 1
+    ) if lidos else None
+
+    return {
+        "regra": (
+            "Conta na taxa de falha: tanque/parte ativa, controle, equipamento completo "
+            "(religador); controle, células, banco completo (regulador). Furto conta "
+            "quando leva uma dessas peças. Fica separado: trafo auxiliar, chave faca, "
+            "rádio/antena, bateria, aterramento, cabo/conector, estrutura e "
+            "parametrização — trazidos, não somados."
+        ),
+        "classificacao_dos_eventos": dict(por_classe),
+        "cobertura_de_evidencia_pct": cobertura,
+        "proporcao_peca_grande_onde_ha_leitura_pct": proporcao,
+        "por_familia_e_ano": detalhe,
+        "limite": (
+            "O ORIGEM_SS não substitui a leitura: nas 92 SS lidas na íntegra, com "
+            "ORIGEM_SS = RELIGADOR, 18 exigiram peça grande e 13 não. Estender a régua "
+            "às 6.305 SS depende do texto da SS (campo DESCRIPTION) ou do DEFEITO_SS, "
+            "nenhum dos dois presente no extrato de RL/RT que está no repositório."
+        ),
+    }
+
+
 def montar():
     with open(ARQ_MIN, encoding="utf-8") as fh:
         base = json.load(fh)
@@ -467,6 +662,8 @@ def montar():
 
     triagem = Counter(classificar(ss) for ss in base)
     ocorrencias = datas_de_ocorrencia()
+    comp_ss = componente_por_ss()
+    comp_ativo = componente_por_ativo()
 
     eventos = []  # um por demanda de falha
     for cod, linhas in por_ativo.items():
@@ -499,6 +696,7 @@ def montar():
                     "ancora": "ocorrencia" if ocorreu else "abertura",
                     "atraso_do_registro": (abertura - ocorreu).days if (ocorreu and abertura) else None,
                     "severidade": severidade(dem["ss"]),
+                    "componente": _veredito_componente(dem["ss"], cod, comp_ss, comp_ativo),
                     "ss": len(dem["ss"]),
                     "origem": sorted({(s.get("ORIGEM_SS") or "").strip().upper() for s in dem["ss"] if s.get("ORIGEM_SS")}),
                 }
@@ -694,6 +892,8 @@ def montar():
                 "ler tendência; serve só para medir o próprio atraso de registro."
             ),
         },
+        "regua_do_componente": _bloco_componente(eventos, exp),
+        "peca_grande_em_campo": peca_grande_em_campo(),
         "serie_por_ano": serie,
         "incidencia": incidencia,
         "substituicao": substituicoes(),

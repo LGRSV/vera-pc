@@ -293,6 +293,91 @@
   "atraso_mediano_dias": 32,
   "leitura": "Nos eventos em que dá para conferir as duas datas, mais de um terço estava no ano errado pela abertura. A série por abertura não serve para ler tendência; serve só para medir o próprio atraso de registro."
  },
+ "regua_do_componente": {
+  "regra": "Conta na taxa de falha: tanque/parte ativa, controle, equipamento completo (religador); controle, células, banco completo (regulador). Furto conta quando leva uma dessas peças. Fica separado: trafo auxiliar, chave faca, rádio/antena, bateria, aterramento, cabo/conector, estrutura e parametrização — trazidos, não somados.",
+  "classificacao_dos_eventos": {
+   "indefinido": 1745,
+   "acessorio": 25,
+   "grande": 127
+  },
+  "cobertura_de_evidencia_pct": 8.0,
+  "proporcao_peca_grande_onde_ha_leitura_pct": 83.6,
+  "por_familia_e_ano": {
+   "religador": {
+    "2024": {
+     "com_peca_grande": 10,
+     "taxa_confirmada_100": 0.77,
+     "acessorio_separado": 0,
+     "sem_evidencia_de_componente": 620,
+     "eventos_no_ano": 630
+    },
+    "2025": {
+     "com_peca_grande": 50,
+     "taxa_confirmada_100": 3.86,
+     "acessorio_separado": 2,
+     "sem_evidencia_de_componente": 660,
+     "eventos_no_ano": 712
+    },
+    "2026": {
+     "com_peca_grande": 28,
+     "taxa_confirmada_100": 3.53,
+     "acessorio_separado": 15,
+     "sem_evidencia_de_componente": 259,
+     "eventos_no_ano": 302
+    }
+   },
+   "regulador": {
+    "2024": {
+     "com_peca_grande": 5,
+     "taxa_confirmada_100": 2.54,
+     "acessorio_separado": 0,
+     "sem_evidencia_de_componente": 66,
+     "eventos_no_ano": 71
+    },
+    "2025": {
+     "com_peca_grande": 26,
+     "taxa_confirmada_100": 13.2,
+     "acessorio_separado": 3,
+     "sem_evidencia_de_componente": 97,
+     "eventos_no_ano": 126
+    },
+    "2026": {
+     "com_peca_grande": 8,
+     "taxa_confirmada_100": 6.65,
+     "acessorio_separado": 5,
+     "sem_evidencia_de_componente": 43,
+     "eventos_no_ano": 56
+    }
+   }
+  },
+  "limite": "O ORIGEM_SS não substitui a leitura: nas 92 SS lidas na íntegra, com ORIGEM_SS = RELIGADOR, 18 exigiram peça grande e 13 não. Estender a régua às 6.305 SS depende do texto da SS (campo DESCRIPTION) ou do DEFEITO_SS, nenhum dos dois presente no extrato de RL/RT que está no repositório."
+ },
+ "peca_grande_em_campo": {
+  "fonte": "OBRAS_COM_EQP.xlsx · aba «Exportar Planilha» — 135 linhas, 69 obras · cruzado com o AIC de 07/08/2026",
+  "convencao": "Convenção do Allan: religador se divide em PARTE ATIVA e CONTROLE; regulador, em CÉLULA e CONTROLE. O relé de sincronismo 616033 entra em Controle de regulador — é o controle por fase da geração antiga, e nas 4 obras em que aparece está sempre junto de célula de regulador, nunca de religador.",
+  "so_obra_nao_concluida": true,
+  "obras": 69,
+  "pecas_levadas": 69,
+  "valor_levado": 3175778.63,
+  "por_familia": {
+   "religador": {
+    "pecas": 50,
+    "valor": 1497616.46,
+    "detalhe": {
+     "Parte Ativa": 26,
+     "Controle": 24
+    }
+   },
+   "regulador": {
+    "pecas": 19,
+    "valor": 1678162.17,
+    "detalhe": {
+     "Célula": 15,
+     "Controle": 4
+    }
+   }
+  }
+ },
  "serie_por_ano": {
   "2024": {
    "religador": {
