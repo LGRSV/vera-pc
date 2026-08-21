@@ -253,6 +253,57 @@ def main():
     no ritmo, com 2025 ainda à frente no volume fechado.</div>
   </section>
 
+
+  <section class="bloco"><h3>A linha que fecha — do parque ao caixa</h3>
+    <p class="destaque-texto">Sete elos, cada número nascendo do anterior. É a mesma história
+    contada de ponta a ponta, sem ponta solta.</p>
+    <div class="nota branda"><strong>1 · O parque.</strong> A ETO opera 1.307 religadores e 207
+    reguladores — 1.514 equipamentos especiais.</div>
+    <div class="nota branda"><strong>2 · O que quebra.</strong> Em 2026, até 12/08, falharam com
+    peça grande 31 religadores (2,4%) e 12 reguladores (5,8%). No triênio: 156 RL (11,9%) e 60 RT
+    (29,0%). O religador quebra pouco e parelho; o regulador quebra duas vezes e meia mais — e é
+    onde a peça custa de R$ 57 mil a R$ 127 mil.</div>
+    <div class="nota branda"><strong>3 · Para onde a quebra vai.</strong> Dos 43 de 2026, 7 foram
+    trocados na hora por obra direta (4 RL + 3 RT, corretivas emergenciais) e 36 entraram na
+    carteira do COEP (27 RL + 9 RT) para diagnóstico, compra e programação. A carteira é
+    exatamente o lugar onde a falha espera peça.</div>
+    <div class="nota branda"><strong>4 · O que a carteira devolve.</strong> A carteira não trata só
+    a safra do ano: janeiro abriu com 59 SS de anos anteriores. Em 2026 o posto resolveu 62
+    (39 RL + 23 RT) — dos 39 religadores, 14 eram falhas velhas de 2024/25 finalmente fechadas,
+    4 eram do próprio ano e 21 eram limpeza de carteira (cancelados em operação, repasses):
+    trabalho real que não é falha. Por isso «62 resolvidos» e «31 falharam» não se contradizem —
+    um mede produção do posto, o outro mede saúde do parque.</div>
+    <div class="nota branda"><strong>5 · O saldo.</strong> Entra 43, sai 62 — a fila encolhe. O
+    livro-caixa da dinâmica do posto registra: pico de 99 em abril, 55 no fim de julho. Pela
+    primeira vez o posto resolve mais do que quebra, no ano de maior produção da série (483
+    demandas encerradas em 61% do ano, ritmo de ~790).</div>
+    <div class="nota branda"><strong>6 · O que ainda trava.</strong> Da safra 2026, 21 dos 27 RL e
+    5 dos 9 RT da carteira seguem pendentes — esperando peça. A fila material confirma: 69 peças
+    grandes já levadas a campo em obras não concluídas (26 partes ativas + 24 controles de RL;
+    15 células + 4 controles de RT), R$ 3,18 milhões entre o almoxarifado e a energização. O plano
+    de compras de 17/07 (R$ 1,72 mi) só entrega religador em nov/2026 e regulador em jan/2027.</div>
+    <div class="nota branda"><strong>7 · O dinheiro fecha o ciclo.</strong> A mesma leitura que
+    conta as falhas evitou gasto: R$ 1,19 milhão que seria gasto nos 23 cancelados em operação,
+    com R$ 420 mil ainda lançados no orçamento, prontos para liberar — dinheiro que volta para a
+    fila do elo 6.</div>
+
+    <h4 class="sub-grafico">A prova de que o COEP agiu — caso a caso, nos 36 da safra 2026</h4>
+    <p class="destaque-texto">Conferido no texto das SS e OS de cada um dos 36 ativos que entraram
+    na carteira em 2026: o rastro documental da ação do posto.</p>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Rastro documental</th>
+    <th class="num">Casos</th><th class="num">Em 36</th></tr></thead><tbody>
+    <tr><td>SS aberta no ETO-COEP</td><td class="num"><b>34</b></td><td class="num">94%</td></tr>
+    <tr><td>Parecer COEP escrito no texto da SS</td><td class="num"><b>29</b></td><td class="num">81%</td></tr>
+    <tr><td>Repasse COEP → execução registrado no SGM</td><td class="num"><b>20</b></td><td class="num">56%</td></tr>
+    <tr><td>Ação de material documentada (compra, EMD, rota de entrega)</td><td class="num"><b>14</b></td><td class="num">39%</td></tr>
+    <tr><td>Troca já executada, com OS que confirma</td><td class="num"><b>10</b></td><td class="num">28%</td></tr>
+    </tbody></table></div>
+    <p class="destaque-texto" style="margin-top:6px"><i>As duas exceções, ditas com clareza: o
+    regulador 5848305116 e o religador 7957021094 (Peixe) foram resolvidos direto pela TELE/DMSL,
+    com troca de controle confirmada em OS, sem passar pelo posto — a rede também resolve sem o
+    COEP quando a peça está à mão, e a conta registra isso em vez de esconder.</i></p>
+  </section>
+
   <section class="bloco"><h3>Como foi feito — passo a passo</h3>{passo_a_passo}</section>
 
   <section class="bloco"><h3>As premissas</h3>
