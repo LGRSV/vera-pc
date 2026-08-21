@@ -16,13 +16,49 @@
    ]
   }
  ],
+ "reancoradas_pela_ocorrencia": [
+  {
+   "ativo": "7908206074",
+   "de": 2024,
+   "para": 2023,
+   "peca": "completo",
+   "ss": "ETO-COEP 00023/2024",
+   "ancora_do_leitor": "abertura"
+  },
+  {
+   "ativo": "5836786094",
+   "de": 2025,
+   "para": 2024,
+   "peca": "celula",
+   "ss": "ETO-RD-GU 01538/2024",
+   "ancora_do_leitor": "abertura"
+  },
+  {
+   "ativo": "5800440256",
+   "de": 2024,
+   "para": 2023,
+   "peca": "celula",
+   "ss": "ETO-TELE 00100/2024",
+   "ancora_do_leitor": "os"
+  },
+  {
+   "ativo": "5801866013",
+   "de": 2025,
+   "para": 2024,
+   "peca": "controle",
+   "ss": "ETO-RD-PS 00040/2025",
+   "ancora_do_leitor": "parecer"
+  }
+ ],
  "contagem": {
   "regulador|2026": 9,
-  "regulador|2025": 18,
+  "regulador|2025": 16,
   "religador|2025": 35,
-  "religador|2024": 10,
+  "religador|2024": 9,
   "religador|2026": 27,
-  "regulador|2024": 5
+  "regulador|2024": 5,
+  "religador|2023": 1,
+  "regulador|2023": 1
  },
  "complemento_obra_direta": {
   "religador|2025": 27,
@@ -37,24 +73,26 @@
   "religador|2026": 1
  },
  "total_equipamentos_que_falharam": {
-  "religador|2024": 63,
+  "religador|2024": 62,
   "religador|2025": 62,
   "religador|2026": 31,
   "regulador|2024": 16,
-  "regulador|2025": 32,
+  "regulador|2025": 30,
   "regulador|2026": 12
  },
  "ocorrencias": {
   "regulador|2026": 9,
-  "regulador|2025": 20,
+  "regulador|2025": 18,
   "religador|2025": 35,
-  "religador|2024": 10,
+  "religador|2024": 9,
   "religador|2026": 28,
-  "regulador|2024": 6
+  "regulador|2024": 7,
+  "religador|2023": 1,
+  "regulador|2023": 1
  },
  "por_peca": {
   "regulador|2026|celula": 5,
-  "regulador|2025|controle": 5,
+  "regulador|2025|controle": 4,
   "regulador|2026|controle": 2,
   "religador|2025|completo": 16,
   "religador|2024|controle": 3,
@@ -62,14 +100,16 @@
   "religador|2026|controle": 8,
   "religador|2026|completo": 6,
   "religador|2025|controle": 7,
-  "regulador|2024|controle": 1,
+  "regulador|2024|controle": 2,
   "regulador|2024|celula": 3,
   "religador|2024|tanque": 5,
   "religador|2025|tanque": 12,
   "regulador|2025|rele": 2,
-  "religador|2024|completo": 2,
-  "regulador|2025|celula": 8,
+  "religador|2023|completo": 1,
+  "religador|2024|completo": 1,
   "regulador|2026|furto": 2,
+  "regulador|2025|celula": 7,
+  "regulador|2023|celula": 1,
   "regulador|2025|furto": 5,
   "regulador|2024|rele": 1,
   "regulador|2024|completo": 1
@@ -91,11 +131,9 @@
    "5800438116",
    "5800440256",
    "5800961074",
-   "5801866013",
    "5803327001",
    "5820790038",
    "5827102054",
-   "5836786094",
    "5841308190",
    "5844630060",
    "5850308009",
@@ -145,7 +183,6 @@
   ],
   "religador|2024": [
    "7901110084",
-   "7908206074",
    "7908686014",
    "7908708116",
    "7923927122",
@@ -186,10 +223,16 @@
   ],
   "regulador|2024": [
    "5800291077",
-   "5800440256",
    "5801866013",
    "5820790038",
+   "5836786094",
    "5841308190"
+  ],
+  "religador|2023": [
+   "7908206074"
+  ],
+  "regulador|2023": [
+   "5800440256"
   ]
  },
  "detalhe": [
@@ -782,12 +825,12 @@
    "revisao_motivo": "DMSL 15/10/2025: equipamento queimado na parte ativa, placa, tanque e rele - substituicao pelo Noja RC10. data_ocorrencia 09/10/2025. Pareceres de 07/2026 mostram material entregue aos COCMs mas troca ainda nao executada - executada false correto."
   },
   {
-   "ano": 2024,
+   "ano": 2023,
    "peca": "completo",
    "precisa_troca": true,
    "ss": "ETO-COEP 00023/2024",
-   "data": "28/03/2024",
-   "base_da_data": "abertura",
+   "data": "12/12/2023",
+   "base_da_data": "ocorrencia (base 11/08)",
    "evidencia": "Favor, substituir RLG 7908206074 por completo devido tanque em curto e controle com defeito. ... Equipe COCM foi ao local para substituição do equipamento e foi identificado que o mesmo já encontra-se em operação.",
    "confianca": "media",
    "ativo": "7908206074",
@@ -916,9 +959,9 @@
    "revisao_motivo": "DMSL confirma defeito nos reles Toshiba TBR 1000 das fases A e B (rele/controle do regulador conta); data_ocorrencia 23/08/2025. As varias SS (TELE 00935/2025, COEP 00142/2026, RD-GR, RD-AR) sao repasses da mesma demanda = uma falha. Parecer DCMD 30/07/2026 confirma substituicao executada."
   },
   {
-   "ano": 2025,
-   "base_da_data": "abertura",
-   "data": "07/01/2025",
+   "ano": 2024,
+   "base_da_data": "ocorrencia (base 11/08)",
+   "data": "27/11/2024",
    "peca": "celula",
    "precisa_troca": true,
    "executada": true,
@@ -1201,13 +1244,13 @@
    "revisao_motivo": "Sustenta-se. Parecer DMSL: curto vindo da antena danificou rádio, módulo SIM, RELÉ e FONTE, exigindo 'substituição do controle por inteiro' — é troca de controle completo (o relé e a fonte são controle; antena e cabo umbilical são acessórios adicionais, não a base do apontamento). data_ocorrencia 08/05/2025 na ETO-COEP 00081/2026, coerente com o primeiro repasse em 28/05/2025 (ETO-TELE 00523/2025) — ano 2025 correto. Execução confirmada: DCMD 'serviço realizado' (obra 0712600316) e OS ETO-TELE 000592/2026 de 12/06/2026 recomissiona e entrega em operação. Cadeia toda é uma falha só."
   },
   {
-   "ano": 2024,
+   "ano": 2023,
    "peca": "celula",
    "precisa_troca": true,
    "executada": true,
    "ss": "ETO-TELE 00100/2024",
-   "base_da_data": "os",
-   "data": "06/02/2024",
+   "base_da_data": "ocorrencia (base 11/08)",
+   "data": "04/12/2023",
    "evidencia": "Foi feito comissionamento da fase C que fora substituído, parametrização do rele com os dados de comunicação, ensaios elétricos e medição da malha de aterramento.",
    "confianca": "alta",
    "ativo": "5800440256",
@@ -1711,13 +1754,13 @@
    "revisao_motivo": "Demanda aberta em 28/08/2024 (ENC-RD-PS 00833/2024): bucha danificada e vazamento de oleo fase B, anomalia da ocorrencia Int-2024...; texto posterior confirma 'REGULADOR SUBSTITUIDO, SEGUE PARA COMISSIONAMENTO'. Troca do equipamento completo executada, falha de 2024. Repasses (COEP 00108/2024, PROT 00398/2024) sao a mesma demanda."
   },
   {
-   "ano": 2025,
+   "ano": 2024,
    "peca": "controle",
    "precisa_troca": true,
    "executada": true,
    "ss": "ETO-RD-PS 00040/2025",
-   "base_da_data": "parecer",
-   "data": "26/02/2025",
+   "base_da_data": "ocorrencia (base 11/08)",
+   "data": "24/08/2024",
    "evidencia": "CONSTATOU-SE DEFEITO DO CONTROLE EXISTENTE, POR SE TRATAR DE ATENDIMENTO A GRANDES CLIENTES, FOI USADO UM CONTROLE DO NOSSO ESTOQUE, SENDO NECESSÁRIO A REPOSIÇÃO.",
    "confianca": "alta",
    "ativo": "5801866013",

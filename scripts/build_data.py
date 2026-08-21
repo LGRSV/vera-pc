@@ -46,7 +46,7 @@ DIR_ANALISE = os.path.join(RAIZ, "data", "analise_ia")
 DIR_SAIDA = os.path.join(RAIZ, "data")
 
 # Data de referência da análise. As previsões da planilha vêm só como dd/mm.
-DATA_REF = datetime.date(2026, 8, 12)
+DATA_REF = datetime.date(2026, 8, 18)
 
 TIPO_EQUIPAMENTO = {"79": "Religador", "58": "Regulador de Tensão"}
 
@@ -348,7 +348,7 @@ def validar(registros, categorizacao):
     ss_ruins = [
         s
         for s in ss_abertas
-        if not re.fullmatch(r"[A-Z]{2,3}-[A-Z]{2,4}(-[A-Z]{2})? \d{5}/\d{4}", s)
+        if not re.fullmatch(r"[A-Z]{2,3}-[A-Z]{2,4}(-[A-Z]{2,4})? \d{5}/\d{4}", s)
     ]
     if ss_ruins:
         problemas.append(f"SS fora do padrão: {ss_ruins}")
@@ -362,7 +362,11 @@ def validar(registros, categorizacao):
     if faltando:
         problemas.append(f"descrições sem categorização: {sorted(faltando)}")
 
-    sobrando = set(categorizacao) - com_descricao
+    # Categorização órfã não derruba o build: quando um ativo conclui, o gestor limpa a
+    # descrição na planilha e a leitura antiga fica sem par. Só é problema se o ativo
+    # ainda estiver aberto — aí é sinal de que a descrição sumiu por engano.
+    concluidos = {r["ativo"] for r in registros if concluida(r)}
+    sobrando = set(categorizacao) - com_descricao - concluidos
     if sobrando:
         problemas.append(f"categorização sem registro correspondente: {sorted(sobrando)}")
 

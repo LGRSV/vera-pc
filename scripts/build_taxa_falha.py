@@ -68,7 +68,7 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
         tot_oc += oc
         tot_eq += eq
         taxa = 100.0 * n / eq if eq else None
-        rot_ano = f'{ano}{" <i>(até 12/08)</i>" if ano == "2026" else ""}'
+        rot_ano = f'{ano}{" <i>(até 18/08)</i>" if ano == "2026" else ""}'
         linhas.append(
             f'<tr><td>{rot_ano}</td>'
             f'<td class="num">{medio or "—"}</td>'
@@ -82,7 +82,7 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
     n26 = 0
     if leitura:
         n26 = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|2026", 0)
-    ritmo26 = 100.0 * (n26 / 0.611) / parque if parque and n26 else None
+    ritmo26 = 100.0 * (n26 / 0.6274) / parque if parque and n26 else None
     rodape_total = (f'<tr><td><b>Total</b></td><td class="num">—</td>'
                     f'<td class="num"><b>{tot_oc}</b></td>'
                     f'<td class="num"><b>{tot_n}</b></td>'
@@ -92,7 +92,7 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
             f'{a}: {(leitura.get("contagem") or {}).get(f"{fam}|{a}", 0)} na carteira lida '
             f'+ {(leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{a}", 0)} por obra direta'
             for a in ANOS)
-        ritmo_txt = (f' 2026 vai até 12/08; mantido o ritmo, fecharia em torno de '
+        ritmo_txt = (f' 2026 vai até 18/08; mantido o ritmo, fecharia em torno de '
                      f'{_pct(ritmo26)}.' if ritmo26 else '')
         rodape = (f'<p class="destaque-texto" style="margin-top:6px"><i>De onde vêm: '
                   f'{comp}. O total divide os que falharam nos três anos pelo parque.'
@@ -160,7 +160,7 @@ def main():
     def soma(m, a):
         return sum((m.get(a) or {}).values())
 
-    proj26 = round(soma(dem, "2026") / 0.611)
+    proj26 = round(soma(dem, "2026") / 0.6274)
 
     aviso = "" if leitura else (
         '<div class="nota branda"><strong>Leitura em andamento</strong> '
@@ -176,7 +176,7 @@ def main():
     )
 
     contraponto = "".join(
-        f'<tr><td>{a}{" <i>(até 12/08)</i>" if a == "2026" else ""}</td>'
+        f'<tr><td>{a}{" <i>(até 18/08)</i>" if a == "2026" else ""}</td>'
         f'<td class="num"><b>{soma(dem, a) or "—"}</b> <i>({(dem.get(a) or {}).get("religador", 0)} RL · '
         f'{(dem.get(a) or {}).get("regulador", 0)} RT)</i></td>'
         f'<td class="num">{soma(campo, a) or "—"}</td>'
@@ -220,14 +220,14 @@ def main():
     o banco completo ou furto. O que a régua deixa de fora — trafo auxiliar, chave faca, rádio,
     antena, bateria, aterramento — não some: fica registrado em separado.</p>
     <div class="carimbo"><span>Base SS/OS · AIC · carteira do ETO-COEP</span>
-    <span>posição de 12/08/2026 · falhas por {esc(origem_falhas)}</span></div>
+    <span>posição de 18/08/2026 · falhas por {esc(origem_falhas)}</span></div>
   </header>
 
   <section class="bloco"><h3>A taxa, ano a ano</h3>
     <p class="destaque-texto">Conta simples, na regra do gestor: o total que falharam dividido
     pelo tamanho do parque. O parque é o atual — <b>1.307 religadores</b> (1.297 + 10 instalados
     em 2026) e <b>207 reguladores</b> (197 + 10) — e vale para os três anos: instala-se pouco por
-    ano, a variação não muda a taxa. 2026 vai até 12/08, sem anualizar.</p>
+    ano, a variação não muda a taxa. 2026 vai até 18/08, sem anualizar.</p>
     {aviso}
     {tabela_familia("religador", ppa, leitura, regua, aic)}
     {tabela_pecas("religador", leitura)}
@@ -247,7 +247,7 @@ def main():
     <th class="num">Obra encerrada no contábil</th></tr></thead><tbody>{contraponto}</tbody>
     </table></div>
     <div class="nota" style="margin-top:12px"><strong>2026 está no ritmo mais alto já registrado</strong>
-    São {soma(dem, "2026")} demandas de falha encerradas em 61% do ano. Mantido o ritmo, o ano fecha
+    São {soma(dem, "2026")} demandas de falha encerradas em 63% do ano. Mantido o ritmo, o ano fecha
     em torno de {proj26} — empata com 2025 ({soma(dem, "2025")}) e fica bem acima de 2024
     ({soma(dem, "2024")}). A impressão do gestor de que 2026 é o ano que mais resolve se confirma
     no ritmo, com 2025 ainda à frente no volume fechado.</div>
@@ -259,7 +259,7 @@ def main():
     contada de ponta a ponta, sem ponta solta.</p>
     <div class="nota branda"><strong>1 · O parque.</strong> A ETO opera 1.307 religadores e 207
     reguladores — 1.514 equipamentos especiais.</div>
-    <div class="nota branda"><strong>2 · O que quebra.</strong> Em 2026, até 12/08, falharam com
+    <div class="nota branda"><strong>2 · O que quebra.</strong> Em 2026, até 18/08, falharam com
     peça grande 31 religadores (2,4%) e 12 reguladores (5,8%). No triênio: 156 RL (11,9%) e 60 RT
     (29,0%). O religador quebra pouco e parelho; o regulador quebra duas vezes e meia mais — e é
     onde a peça custa de R$ 57 mil a R$ 127 mil.</div>
@@ -276,7 +276,7 @@ def main():
     <div class="nota branda"><strong>5 · O saldo.</strong> Entra 43, sai 62 — a fila encolhe. O
     livro-caixa da dinâmica do posto registra: pico de 99 em abril, 55 no fim de julho. Pela
     primeira vez o posto resolve mais do que quebra, no ano de maior produção da série (483
-    demandas encerradas em 61% do ano, ritmo de ~790).</div>
+    demandas encerradas em 63% do ano, ritmo de ~790).</div>
     <div class="nota branda"><strong>6 · O que ainda trava.</strong> Da safra 2026, 21 dos 27 RL e
     5 dos 9 RT da carteira seguem pendentes — esperando peça. A fila material confirma: 69 peças
     grandes já levadas a campo em obras não concluídas (26 partes ativas + 24 controles de RL;

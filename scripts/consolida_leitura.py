@@ -107,6 +107,32 @@ def consolidar_ocorrencias(falhas):
     return saida, colapsadas
 
 
+def reancorar(falhas):
+    """Corrige o ano pela data de ocorrência da base nova, onde ela manda.
+
+    Os agentes leram antes de o gestor mandar a base com DTA_OCORRENCIA em 100% das
+    linhas; onde não havia ocorrência, ancoraram no parecer, na OS ou na abertura.
+    Essas são corrigidas. Onde o agente JÁ ancorou em ocorrência, o veredito dele fica:
+    ele leu a cadeia inteira e escolheu a SS certa da demanda, coisa que a data isolada
+    de uma SS não sabe fazer.
+    """
+    import taxa_falha as tf
+    oc = tf.datas_de_ocorrencia()
+    mudadas = []
+    for f in falhas:
+        if f.get("base_da_data") == "ocorrencia":
+            continue
+        d = oc.get(tf._norm_ss(f.get("ss")))
+        if d and d.year != f["ano"]:
+            mudadas.append({"ativo": f["ativo"], "de": f["ano"], "para": d.year,
+                            "peca": f["peca"], "ss": f["ss"],
+                            "ancora_do_leitor": f.get("base_da_data")})
+            f["ano"] = d.year
+            f["data"] = d.strftime("%d/%m/%Y")
+            f["base_da_data"] = "ocorrencia (base 11/08)"
+    return mudadas
+
+
 def main():
     blocos = carregar()
     falhas, descartes, resumos = [], [], []
@@ -117,6 +143,7 @@ def main():
     # o leitor às vezes devolve o apontamento negativo confirmado (precisa_troca=false
     # mantido pela revisão) — está em detalhe mas não é falha; o filtro acima já tira.
 
+    reancoradas = reancorar(falhas)
     ocorrencias, colapsadas = consolidar_ocorrencias(falhas)
 
     # A fórmula do gestor: equipamentos distintos que falharam, por família e ano
@@ -151,6 +178,7 @@ def main():
         "confirmadas_pela_revisao": sum(b.get("confirmadas", 0) for b in blocos),
         "derrubadas_pela_revisao": sum(b.get("derrubadas", 0) for b in blocos),
         "episodios_colapsados": colapsadas,
+        "reancoradas_pela_ocorrencia": reancoradas,
         "contagem": {k: len(v) for k, v in equipamentos.items()},
         "complemento_obra_direta": complemento,
         "obras_descontadas_por_sobreposicao": descontadas,

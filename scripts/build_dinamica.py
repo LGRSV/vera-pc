@@ -223,7 +223,7 @@ def main():
         ppa = tx.get("parque_por_ano") or {}
         regua = (tx.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
         aic_t = (tx.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
-        FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.611}
+        FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.6274}
         familias = []
         for fam in ("religador", "regulador"):
             anos = {}

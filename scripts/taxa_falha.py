@@ -50,7 +50,7 @@ SAIDA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
 # está aberto — anualizar ano parcial junto dos cheios mistura duas coisas.
 ANOS_CHEIOS = (2024, 2025)
 ANO_PARCIAL = 2026
-FIM_DO_PARCIAL = datetime.date(2026, 8, 12)  # data da foto da base
+FIM_DO_PARCIAL = datetime.date(2026, 8, 18)  # data da foto da base
 
 # Parque informado pelo gestor em 21/08 — é a autoridade sobre a população exposta.
 # O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS chega a 1.292 religadores e 189
@@ -103,8 +103,9 @@ PREMISSAS = [
     "conclusão física da obra — a troca direta costuma sair na semana da falha.",
 
     "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto "
-    "do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias "
-    "depois da falha, e em 16% dos casos cai em outro ano.",
+    "do parecer. A data de abertura da SS é o último recurso: ela vem em média 39 dias "
+    "depois da falha, e em 9,8% dos casos cai em outro ano — medido nas 10.386 "
+    "SS da base nova, com data de ocorrência em 100% das linhas.",
 
     "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o "
     "sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
@@ -115,7 +116,7 @@ PREMISSAS = [
     "não muda a taxa. A reconstrução pelas obras do AIC foi abandonada porque "
     "superconta.",
 
-    "A taxa é a divisão direta: total que falharam ÷ parque. 2026 vai até 12/08 e a "
+    "A taxa é a divisão direta: total que falharam ÷ parque. 2026 vai até 18/08 e a "
     "taxa mostrada é a do ano até aqui, sem anualizar; o ritmo projetado vai em nota "
     "de rodapé.",
 
@@ -527,13 +528,38 @@ def _norm_ss(numero):
     return f"{m.group(1)} {int(m.group(2))}/{m.group(3)}" if m else texto
 
 
+ARQ_OCORRENCIA = os.path.join(RAIZ, "data", "missao", "ss_ocorrencia.json")
+
+
 def datas_de_ocorrencia():
     """{SS: datetime da ocorrência} — a data em que o equipamento falhou de fato.
 
     Regra do gestor (21/08): o evento se ancora na OCORRÊNCIA, não na abertura da SS.
     Abertura é o carimbo do registro, que vem depois — mediana de 21 dias e cauda de
     até 734 — e o SGM ainda reescreve a abertura ao reabrir/repassar.
+
+    Desde 21/08 a fonte principal é ss_ocorrencia.json (base Eqp do gestor, 11/08):
+    10.386 SS de RL/RT com DTA_OCORRENCIA em 100% das linhas. Antes disso a única
+    fonte era o extrato do COEP, com 211 SS — 5% de cobertura. O extrato do COEP
+    segue como complemento para o que a base nova não alcança.
     """
+    ocorrencias = {}
+    if os.path.exists(ARQ_OCORRENCIA):
+        with open(ARQ_OCORRENCIA, encoding="utf-8") as fh:
+            for reg in json.load(fh):
+                bruto = (reg.get("DTA_OCORRENCIA") or "").strip()
+                if not bruto:
+                    continue
+                try:
+                    ocorrencias[_norm_ss(reg.get("SS_ORIGINAL"))] = datetime.datetime.strptime(
+                        bruto[:19], "%Y-%m-%d %H:%M:%S")
+                except ValueError:
+                    continue
+    ocorrencias.update(_ocorrencias_do_extrato_coep())
+    return ocorrencias
+
+
+def _ocorrencias_do_extrato_coep():
     import openpyxl
 
     wb = openpyxl.load_workbook(XLSX_ENTRADA, read_only=True)
@@ -664,7 +690,7 @@ def resolvidos_por_ano():
         "obra_de_substituicao_concluida_em_campo": {a: dict(obras["concluida"].get(a, {})) for a in anos},
         "obra_de_substituicao_encerrada_no_contabil": {a: dict(obras["encerrada"].get(a, {})) for a in anos},
         "leitura": (
-            "2026 vai só até 12/08 e a obra leva meses para encerrar no contábil, então "
+            "2026 vai só até 18/08 e a obra leva meses para encerrar no contábil, então "
             "a linha de obra encerrada subconta 2026 por atraso de sistema, não por "
             "queda de produção. A linha de demandas encerradas é a mais comparável "
             "entre anos."

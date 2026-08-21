@@ -94,7 +94,7 @@ def aba_taxa(wb, taxa, leitura):
         "1.307 religadores (1.297 + 10 de 2026) e 207 reguladores (197 + 10) — para os três anos. "
         "Falha é peça grande: controle, tanque ou completo no religador; célula, relé, completo "
         "ou furto no regulador. Fonte: leitura das SS e OS revisada + troca por obra direta. "
-        "2026 até 12/08, sem anualizar.", 5)
+        "2026 até 18/08, sem anualizar.", 5)
 
     ppa = taxa.get("parque_por_ano") or {}
     for fam in ("religador", "regulador"):
@@ -115,7 +115,7 @@ def aba_taxa(wb, taxa, leitura):
             taxa_pct = round(100.0 * n / eq, 1) if eq else None
             comp.append(f"{ano}: {carteira} na carteira + {obra} por obra direta")
             linha = _lin(ws, linha, [
-                f"{ano}" + (" (até 12/08)" if ano == "2026" else ""),
+                f"{ano}" + (" (até 18/08)" if ano == "2026" else ""),
                 p.get("medio"), oc, n, f"{taxa_pct}%".replace(".", ",")], destaque_col=5)
         parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
         taxa_total = round(100.0 * tot_n / parque, 1) if parque else None
@@ -190,12 +190,12 @@ def aba_resolvidos(wb, taxa):
     for ano in ANOS:
         d = dem.get(ano) or {}
         linha = _lin(ws, linha, [
-            f"{ano}" + (" (até 12/08)" if ano == "2026" else ""),
+            f"{ano}" + (" (até 18/08)" if ano == "2026" else ""),
             f"{sum(d.values())}  ({d.get('religador', 0)} RL · {d.get('regulador', 0)} RT)",
             sum((campo.get(ano) or {}).values()),
             sum((contab.get(ano) or {}).values())])
     linha += 1
-    proj = round(sum((dem.get("2026") or {}).values()) / 0.611)
+    proj = round(sum((dem.get("2026") or {}).values()) / 0.6274)
     linha = _lin(ws, linha, [
         "2026 está no ritmo mais alto já registrado: mantido o ritmo, fecha em torno de "
         f"{proj} — empata com 2025 e fica bem acima de 2024."], quebra=True)
