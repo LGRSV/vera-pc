@@ -47,6 +47,7 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
     passaram pela carteira. Sem leitura, vale a prévia por evidência direta.
     """
     linhas = []
+    tot_n = tot_oc = tot_eq = 0
     for ano in ANOS:
         p = (ppa.get(fam) or {}).get(ano, {})
         medio = p.get("medio") or 0
@@ -54,40 +55,47 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
         if leitura:
             carteira = (leitura.get("contagem") or {}).get(f"{fam}|{ano}", 0)
             obra = (leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{ano}", 0)
-            oc = (leitura.get("ocorrencias") or {}).get(f"{fam}|{ano}", 0)
             n = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|{ano}",
                                                                           carteira + obra)
-            partes = (f'<td class="num">{carteira or "—"}</td>'
-                      f'<td class="num">{obra or "—"}</td>'
-                      f'<td class="num">{oc or "—"}</td>')
+            # cada troca por obra direta é uma ocorrência; as da carteira vêm da leitura
+            oc = ((leitura.get("ocorrencias") or {}).get(f"{fam}|{ano}", 0)) + obra
         else:
             evid = (regua.get(fam) or {}).get(ano, {}).get("com_peca_grande") or 0
             troca = (aic.get(ano) or {}).get(fam, 0)
             n = evid + troca
-            partes = (f'<td class="num">{troca or "—"}</td>'
-                      f'<td class="num">{evid or "—"}</td>')
+            oc = n
+        tot_n += n
+        tot_oc += oc
+        tot_eq += eq
         taxa = 100.0 * n / eq if eq else None
         rot_ano = f'{ano}{" <i>(até 12/08)</i>" if ano == "2026" else ""}'
         linhas.append(
             f'<tr><td>{rot_ano}</td>'
             f'<td class="num">{medio or "—"}</td>'
-            f'<td class="num">{("+" + str(p.get("instalados_no_ano"))) if p.get("instalados_no_ano") else "—"}</td>'
-            f"{partes}"
+            f'<td class="num">{oc or "—"}</td>'
             f'<td class="num"><b>{n or "—"}</b></td>'
             f'<td class="num"><b>{_pct(taxa)}</b></td></tr>'
         )
+    taxa_total = 100.0 * tot_n / tot_eq if tot_eq else None
+    rodape_total = (f'<tr><td><b>Total</b></td><td class="num">—</td>'
+                    f'<td class="num"><b>{tot_oc}</b></td>'
+                    f'<td class="num"><b>{tot_n}</b></td>'
+                    f'<td class="num"><b>{_pct(taxa_total)}</b></td></tr>')
     if leitura:
-        extra = ('<th class="num">Na carteira lida</th><th class="num">Troca por obra direta</th>'
-                 '<th class="num">Ocorrências</th>')
-        rot_n = "Equipamentos que falharam"
+        comp = " · ".join(
+            f'{a}: {(leitura.get("contagem") or {}).get(f"{fam}|{a}", 0)} na carteira lida '
+            f'+ {(leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{a}", 0)} por obra direta'
+            for a in ANOS)
+        rodape = (f'<p class="destaque-texto" style="margin-top:6px"><i>De onde vêm: '
+                  f'{comp}. Taxa do total: os que falharam nos três anos sobre a exposição '
+                  f'somada.</i></p>')
     else:
-        extra = '<th class="num">Troca executada</th><th class="num">Peça grande na fila</th>'
-        rot_n = "Falhas"
+        rodape = ""
     return (f'<h4 class="sub-grafico">{ROT[fam]}</h4>'
             f'<div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>'
-            f'<th class="num">Parque do ano</th><th class="num">Novos no ano</th>{extra}'
-            f'<th class="num">{rot_n}</th><th class="num">Taxa</th></tr></thead>'
-            f'<tbody>{"".join(linhas)}</tbody></table></div>')
+            f'<th class="num">Parque do ano</th><th class="num">Ocorrências</th>'
+            f'<th class="num">Total que falharam</th><th class="num">Taxa</th></tr></thead>'
+            f'<tbody>{"".join(linhas)}{rodape_total}</tbody></table></div>{rodape}')
 
 
 def tabela_pecas(fam, leitura):

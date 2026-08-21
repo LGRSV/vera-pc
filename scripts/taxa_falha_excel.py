@@ -87,7 +87,7 @@ def _larguras(ws, ls):
 
 def aba_taxa(wb, taxa, leitura):
     ws = wb.create_sheet("Taxa de falha")
-    _larguras(ws, [16, 14, 13, 16, 18, 14, 22, 10])
+    _larguras(ws, [20, 15, 14, 20, 11])
     linha = _titulo(
         ws, "Taxa de falha — religadores e reguladores da ETO",
         "Fórmula: equipamentos que falharam no ano ÷ parque do ano. Falha é o que exigiu peça "
@@ -98,23 +98,31 @@ def aba_taxa(wb, taxa, leitura):
     ppa = taxa.get("parque_por_ano") or {}
     for fam in ("religador", "regulador"):
         linha = _lin(ws, linha, [ROT[fam]], negrito=True)
-        linha = _cab(ws, linha, ["Ano", "Parque do ano", "Novos no ano", "Na carteira lida",
-                                 "Troca por obra direta", "Ocorrências",
-                                 "Equipamentos que falharam", "Taxa"])
+        linha = _cab(ws, linha, ["Ano", "Parque do ano", "Ocorrências",
+                                 "Total que falharam", "Taxa"])
+        comp = []
+        tot_n = tot_oc = tot_eq = 0
         for ano in ANOS:
             p = (ppa.get(fam) or {}).get(ano, {})
             k = f"{fam}|{ano}"
             carteira = (leitura.get("contagem") or {}).get(k, 0)
             obra = (leitura.get("complemento_obra_direta") or {}).get(k, 0)
             n = (leitura.get("total_equipamentos_que_falharam") or {}).get(k, carteira + obra)
+            oc = ((leitura.get("ocorrencias") or {}).get(k, 0)) + obra
             eq = (p.get("medio") or 0) * FATOR[ano]
+            tot_n += n; tot_oc += oc; tot_eq += eq
             taxa_pct = round(100.0 * n / eq, 1) if eq else None
+            comp.append(f"{ano}: {carteira} na carteira + {obra} por obra direta")
             linha = _lin(ws, linha, [
                 f"{ano}" + (" (até 12/08)" if ano == "2026" else ""),
-                p.get("medio"), f"+{p.get('instalados_no_ano')}",
-                carteira, obra, (leitura.get("ocorrencias") or {}).get(k, 0),
-                n, f"{taxa_pct}%".replace(".", ",")], destaque_col=8)
-        linha += 1
+                p.get("medio"), oc, n, f"{taxa_pct}%".replace(".", ",")], destaque_col=5)
+        taxa_total = round(100.0 * tot_n / tot_eq, 1) if tot_eq else None
+        linha = _lin(ws, linha, ["Total", "—", tot_oc, tot_n,
+                                 f"{taxa_total}%".replace(".", ",")], destaque_col=5)
+        c = ws.cell(row=linha, column=1, value="De onde vêm: " + " · ".join(comp) + ".")
+        c.font = Font(name="Calibri", size=10, italic=True, color="5A5347")
+        ws.merge_cells(start_row=linha, start_column=1, end_row=linha, end_column=5)
+        linha += 2
     return ws
 
 
