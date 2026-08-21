@@ -298,12 +298,12 @@
  "regua_do_componente": {
   "regra": "Conta na taxa de falha: tanque/parte ativa, controle, equipamento completo (religador); controle, células, banco completo (regulador). Furto conta quando leva uma dessas peças. Fica separado: trafo auxiliar, chave faca, rádio/antena, bateria, aterramento, cabo/conector, estrutura e parametrização — trazidos, não somados.",
   "classificacao_dos_eventos": {
-   "indefinido": 1745,
+   "indefinido": 1742,
    "acessorio": 25,
-   "grande": 127
+   "grande": 130
   },
-  "cobertura_de_evidencia_pct": 8.0,
-  "proporcao_peca_grande_onde_ha_leitura_pct": 83.6,
+  "cobertura_de_evidencia_pct": 8.2,
+  "proporcao_peca_grande_onde_ha_leitura_pct": 83.9,
   "por_familia_e_ano": {
    "religador": {
     "2024": {
@@ -314,17 +314,17 @@
      "eventos_no_ano": 584
     },
     "2025": {
-     "com_peca_grande": 52,
-     "taxa_confirmada_100": 3.98,
+     "com_peca_grande": 54,
+     "taxa_confirmada_100": 4.13,
      "acessorio_separado": 3,
-     "sem_evidencia_de_componente": 660,
+     "sem_evidencia_de_componente": 658,
      "eventos_no_ano": 715
     },
     "2026": {
-     "com_peca_grande": 26,
-     "taxa_confirmada_100": 3.17,
+     "com_peca_grande": 27,
+     "taxa_confirmada_100": 3.29,
      "acessorio_separado": 14,
-     "sem_evidencia_de_componente": 244,
+     "sem_evidencia_de_componente": 243,
      "eventos_no_ano": 284
     }
    },
