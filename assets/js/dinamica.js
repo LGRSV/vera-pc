@@ -432,6 +432,71 @@ function ponte() {
   </section>`;
 }
 
+function taxaFalha() {
+  const t = D.taxa_falha;
+  if (!t || !t.linhas?.length) return '';
+  const ANOS = ['2024', '2025', '2026'];
+  const ROT = { religador: 'Religadores', regulador: 'Reguladores' };
+  const res = t.resolvidos || {};
+  const dem = res.demandas_de_falha_encerradas || {};
+  const campo = res.obra_de_substituicao_concluida_em_campo || {};
+  const contab = res.obra_de_substituicao_encerrada_no_contabil || {};
+  const somaAno = (m, a) => Object.values(m[a] || {}).reduce((n, v) => n + v, 0);
+  const proj26 = Math.round(somaAno(dem, '2026') / 0.611);
+
+  const tabelaFam = (l) => `<h4 class="sub-grafico">${ROT[l.familia]}</h4>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>
+    <th class="num">Parque do ano</th><th class="num">Novos no ano</th>
+    <th class="num">Troca executada</th><th class="num">Peça grande na fila</th>
+    <th class="num">Falhas</th><th class="num">Taxa</th></tr></thead><tbody>
+    ${ANOS.map((a) => { const x = l.anos[a]; return `<tr><td>${a}${a === '2026' ? ' <i>(até 12/08)</i>' : ''}</td>
+      <td class="num">${x.parque ?? '—'}</td><td class="num">${x.novos ? `+${x.novos}` : '—'}</td>
+      <td class="num">${x.troca_executada || '—'}</td><td class="num">${x.peca_na_fila || '—'}</td>
+      <td class="num"><b>${x.falhas || '—'}</b></td>
+      <td class="num"><b>${x.taxa != null ? String(x.taxa).replace('.', ',') + '%' : '—'}</b></td></tr>`; }).join('')}
+    </tbody></table></div>`;
+
+  return `<section class="bloco"><h3>Taxa de falha do parque</h3>
+    <p class="destaque-texto">Falha aqui é só o que exigiu <b>peça grande</b>. No religador:
+    controle (a placa de alimentação CA e o relé de sincronismo são controle), tanque ou o
+    equipamento completo. No regulador: célula, relé, o banco completo ou furto. Trafo auxiliar,
+    chave faca, rádio, antena, bateria e aterramento ficam fora da taxa. O parque é o de cada
+    ano — o de hoje menos o que foi instalado depois — e 2026 vai até 12/08, ajustado pela
+    fração decorrida do ano.</p>
+    ${t.leitura_em_andamento ? `<div class="nota branda"><strong>Leitura em andamento</strong>
+    Agentes estão lendo o texto completo das 1.087 SS e OS dos 129 ativos da carteira, com um
+    time revisor conferindo cada falha apontada. A linha «Falhas» abaixo é a prévia pelo que já
+    está documentado — troca executada em obra encerrada mais peça grande registrada na fila.
+    Pode haver pequena sobreposição entre as duas parcelas; a leitura revisada substitui esta
+    prévia.</div>` : ''}
+    ${t.linhas.map(tabelaFam).join('')}
+
+    <h4 class="sub-grafico">O contraponto: o que o posto resolveu em cada ano</h4>
+    <p class="destaque-texto">Três medidas que contam coisas diferentes. <b>Demandas encerradas</b>
+    é a SS de falha que terminou (atendida ou cancelada) — a única comparável entre anos.
+    <b>Obra concluída em campo</b> é o serviço feito. <b>Obra encerrada no contábil</b> vem sempre
+    atrasada: as obras de 2026 ainda não fecharam no sistema, por isso o número é baixo — é
+    atraso de papel, não queda de produção.</p>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>
+    <th class="num">Demandas de falha encerradas</th><th class="num">Obra concluída em campo</th>
+    <th class="num">Obra encerrada no contábil</th></tr></thead><tbody>
+    ${ANOS.map((a) => `<tr><td>${a}${a === '2026' ? ' <i>(até 12/08)</i>' : ''}</td>
+      <td class="num"><b>${somaAno(dem, a) || '—'}</b> <i>(${(dem[a] || {}).religador || 0} RL · ${(dem[a] || {}).regulador || 0} RT)</i></td>
+      <td class="num">${somaAno(campo, a) || '—'}</td>
+      <td class="num">${somaAno(contab, a) || '—'}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="nota" style="margin-top:12px"><strong>2026 está no ritmo mais alto já registrado</strong>
+    São ${somaAno(dem, '2026')} demandas de falha encerradas em 61% do ano. Mantido o ritmo, o ano
+    fecha em torno de ${proj26} — empata com 2025 (${somaAno(dem, '2025')}) e fica bem acima de
+    2024 (${somaAno(dem, '2024')}). A impressão do gestor de que 2026 é o ano que mais resolveu
+    se confirma no ritmo, com 2025 ainda à frente no volume fechado.</div>
+
+    ${t.premissas?.length ? `<h4 class="sub-grafico">Como foi feito — as premissas</h4>
+    <div class="premissas-taxa">${t.premissas.map((p, i) => `<div class="nota branda">
+      <strong>${i + 1}.</strong> ${esc(p)}</div>`).join('')}</div>` : ''}
+  </section>`;
+}
+
 function escada() {
   const maior = Math.max(...D.por_etapa.map((e) => e.qtd));
   return `<div class="escada">${D.por_etapa.map((e) => `
@@ -519,6 +584,8 @@ function desenhar() {
     ${ponte()}
 
     ${mesAMes()}
+
+    ${taxaFalha()}
 
     ${D.economia ? `<section class="bloco"><h3>O que teria sido gasto nos cancelados em operação</h3>
       <p class="destaque-texto">${esc(D.economia.criterio)}</p>

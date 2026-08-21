@@ -212,6 +212,43 @@ def main():
                 1 for i in feito_foto if i["ativo"] in resolvidos_set),
         }
 
+    # Taxa de falha do parque — a visão pedida em 21/08: falha é o que exigiu peça
+    # grande, parque é o de cada ano, e o contraponto é quanto o posto resolveu.
+    # Enquanto a leitura das SS pelos agentes não fecha, a linha de falhas é a prévia
+    # por evidência direta (troca executada no AIC + peça grande documentada).
+    arq_tx = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
+    if os.path.exists(arq_tx):
+        with open(arq_tx, encoding="utf-8") as fh:
+            tx = json.load(fh)
+        ppa = tx.get("parque_por_ano") or {}
+        regua = (tx.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
+        aic_t = (tx.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
+        FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.611}
+        familias = []
+        for fam in ("religador", "regulador"):
+            anos = {}
+            for ano in ("2024", "2025", "2026"):
+                bloco_p = (ppa.get(fam) or {}).get(ano, {})
+                evid = (regua.get(fam) or {}).get(ano, {}).get("com_peca_grande") or 0
+                troca = (aic_t.get(ano) or {}).get(fam, 0)
+                soma = evid + troca
+                eq = (bloco_p.get("medio") or 0) * FATOR[ano]
+                anos[ano] = {
+                    "parque": bloco_p.get("medio"),
+                    "novos": bloco_p.get("instalados_no_ano"),
+                    "troca_executada": troca,
+                    "peca_na_fila": evid,
+                    "falhas": soma,
+                    "taxa": round(100.0 * soma / eq, 1) if eq else None,
+                }
+            familias.append({"familia": fam, "anos": anos})
+        d["taxa_falha"] = {
+            "linhas": familias,
+            "resolvidos": tx.get("resolvidos_por_ano") or {},
+            "premissas": tx.get("premissas") or [],
+            "leitura_em_andamento": True,
+        }
+
     dados = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     pagina = (
