@@ -29,7 +29,7 @@ SAIDA = os.path.join(RAIZ, "dist", "TAXA_DE_FALHA_RL_RT.xlsx")
 
 ANOS = ("2024", "2025", "2026")
 ROT = {"religador": "RELIGADORES", "regulador": "REGULADORES"}
-FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.611}
+FATOR = {"2024": 1.0, "2025": 1.0, "2026": 1.0}  # divisão direta, sem anualizar
 
 TINTA = "1A1A1A"
 FAIXA = "E8E4DC"
@@ -90,10 +90,11 @@ def aba_taxa(wb, taxa, leitura):
     _larguras(ws, [20, 15, 14, 20, 11])
     linha = _titulo(
         ws, "Taxa de falha — religadores e reguladores da ETO",
-        "Fórmula: equipamentos que falharam no ano ÷ parque do ano. Falha é o que exigiu peça "
-        "grande — religador: controle, tanque ou completo; regulador: célula, relé, completo ou "
-        "furto. Fonte: leitura das SS e OS pelos agentes, revisada, mais a troca por obra direta "
-        "do AIC. Posição de 12/08/2026; 2026 ajustado pela fração decorrida (61%).", 8)
+        "Conta simples, na regra do gestor: total que falharam ÷ tamanho do parque. Parque atual — "
+        "1.307 religadores (1.297 + 10 de 2026) e 207 reguladores (197 + 10) — para os três anos. "
+        "Falha é peça grande: controle, tanque ou completo no religador; célula, relé, completo "
+        "ou furto no regulador. Fonte: leitura das SS e OS revisada + troca por obra direta. "
+        "2026 até 12/08, sem anualizar.", 5)
 
     ppa = taxa.get("parque_por_ano") or {}
     for fam in ("religador", "regulador"):
@@ -116,7 +117,8 @@ def aba_taxa(wb, taxa, leitura):
             linha = _lin(ws, linha, [
                 f"{ano}" + (" (até 12/08)" if ano == "2026" else ""),
                 p.get("medio"), oc, n, f"{taxa_pct}%".replace(".", ",")], destaque_col=5)
-        taxa_total = round(100.0 * tot_n / tot_eq, 1) if tot_eq else None
+        parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
+        taxa_total = round(100.0 * tot_n / parque, 1) if parque else None
         linha = _lin(ws, linha, ["Total", "—", tot_oc, tot_n,
                                  f"{taxa_total}%".replace(".", ",")], destaque_col=5)
         c = ws.cell(row=linha, column=1, value="De onde vêm: " + " · ".join(comp) + ".")

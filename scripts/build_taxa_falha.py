@@ -21,7 +21,7 @@ DESTINO = os.path.join(RAIZ, "dist", "taxa-falha.html")
 
 ANOS = ("2024", "2025", "2026")
 ROT = {"religador": "Religadores", "regulador": "Reguladores"}
-FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.611}
+FATOR = {"2024": 1.0, "2025": 1.0, "2026": 1.0}  # divisão direta, sem anualizar
 
 
 def esc(t):
@@ -76,7 +76,13 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
             f'<td class="num"><b>{n or "—"}</b></td>'
             f'<td class="num"><b>{_pct(taxa)}</b></td></tr>'
         )
-    taxa_total = 100.0 * tot_n / tot_eq if tot_eq else None
+    # Total pela regra do gestor: o total que falharam dividido pelo tamanho do parque
+    parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
+    taxa_total = 100.0 * tot_n / parque if parque else None
+    n26 = 0
+    if leitura:
+        n26 = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|2026", 0)
+    ritmo26 = 100.0 * (n26 / 0.611) / parque if parque and n26 else None
     rodape_total = (f'<tr><td><b>Total</b></td><td class="num">—</td>'
                     f'<td class="num"><b>{tot_oc}</b></td>'
                     f'<td class="num"><b>{tot_n}</b></td>'
@@ -86,9 +92,11 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
             f'{a}: {(leitura.get("contagem") or {}).get(f"{fam}|{a}", 0)} na carteira lida '
             f'+ {(leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{a}", 0)} por obra direta'
             for a in ANOS)
+        ritmo_txt = (f' 2026 vai até 12/08; mantido o ritmo, fecharia em torno de '
+                     f'{_pct(ritmo26)}.' if ritmo26 else '')
         rodape = (f'<p class="destaque-texto" style="margin-top:6px"><i>De onde vêm: '
-                  f'{comp}. Taxa do total: os que falharam nos três anos sobre a exposição '
-                  f'somada.</i></p>')
+                  f'{comp}. O total divide os que falharam nos três anos pelo parque.'
+                  f'{ritmo_txt}</i></p>')
     else:
         rodape = ""
     return (f'<h4 class="sub-grafico">{ROT[fam]}</h4>'
@@ -216,9 +224,10 @@ def main():
   </header>
 
   <section class="bloco"><h3>A taxa, ano a ano</h3>
-    <p class="destaque-texto">O parque é o de cada ano — o de hoje (1.297 religadores e 197
-    reguladores) menos o que foi instalado depois, na média do ano. 2026 vai até 12/08 e a
-    conta usa a fração decorrida do ano (61%), senão o ano em curso pareceria melhor do que é.</p>
+    <p class="destaque-texto">Conta simples, na regra do gestor: o total que falharam dividido
+    pelo tamanho do parque. O parque é o atual — <b>1.307 religadores</b> (1.297 + 10 instalados
+    em 2026) e <b>207 reguladores</b> (197 + 10) — e vale para os três anos: instala-se pouco por
+    ano, a variação não muda a taxa. 2026 vai até 12/08, sem anualizar.</p>
     {aviso}
     {tabela_familia("religador", ppa, leitura, regua, aic)}
     {tabela_pecas("religador", leitura)}

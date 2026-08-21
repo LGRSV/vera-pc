@@ -8,8 +8,8 @@
   "Equipamento trocado por obra direta, sem nunca entrar na carteira do COEP, também falhou: entra pela obra de substituição do AIC concluída no ano, descontando a obra que cita ativo já contado pela leitura. O ano é o da conclusão física da obra — a troca direta costuma sair na semana da falha.",
   "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias depois da falha, e em 16% dos casos cai em outro ano.",
   "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
-  "O parque do gestor — 1.297 religadores e 197 reguladores — é o do início de 2026: as instalações do ano somam por cima (10 RT em 2026, número do gestor, chegando a 207). Os anos anteriores recuam tirando o instalado de cada ano. Onde o gestor informou, o número dele manda; onde não, vale a estimativa pelas obras do AIC — que superconta (dava 28 RT em 2026 contra 10 reais), então está marcada como estimativa —, descontado o remanejamento. Média entre início e fim do ano.",
-  "2026 vai até 12/08, que é a data da foto. A taxa do ano é ajustada pela fração decorrida (61%), senão pareceria queda só porque o ano não acabou.",
+  "O parque é o atual, informado pelo gestor: 1.307 religadores (1.297 + 10 instalados em 2026) e 207 reguladores (197 + 10). Vale para os três anos: instala-se pouco por ano — dificilmente mais de 20 por família — e a variação não muda a taxa. A reconstrução pelas obras do AIC foi abandonada porque superconta.",
+  "A taxa é a divisão direta: total que falharam ÷ parque. 2026 vai até 12/08 e a taxa mostrada é a do ano até aqui, sem anualizar; o ritmo projetado vai em nota de rodapé.",
   "Regulador é banco de três células. O parque conta banco, não célula. Falha de uma célula é uma falha do banco.",
   "A carteira dos 129 é o que o COEP acompanha. Equipamento trocado por obra direta, sem passar pela carteira, entra pelas obras de substituição do AIC.",
   "A base de SS/OS só é confiável de 2024 em diante: tem 2 SS em 2022 e 58 em 2023, contra 2.197 em 2024. É extrato truncado, não parque saudável.",
@@ -31,8 +31,8 @@
   "indefinida": 256
  },
  "parque": {
-  "religador": 1297,
-  "regulador": 197,
+  "religador": 1307,
+  "regulador": 207,
   "nota": "parque no início de 2026; as instalações do ano somam por cima",
   "fonte": "informado pelo gestor em 21/08/2026",
   "no_cadastro_de_ajustes": {
@@ -40,8 +40,8 @@
    "regulador": 189
   },
   "sem_estudo_de_ajuste_cadastrado": {
-   "religador": 5,
-   "regulador": 8
+   "religador": 15,
+   "regulador": 18
   },
   "ativos_com_ss_fora_do_cadastro": 50,
   "ativos_sem_familia_identificavel": 1
@@ -52,58 +52,58 @@
   "religador": {
    "geral": {
     "eventos": 1342,
-    "equipamento_ano": 2594,
-    "taxa_100": 51.7,
+    "equipamento_ano": 2614,
+    "taxa_100": 51.3,
     "mtbf_anos": 1.9
    },
    "funcional": {
     "eventos": 766,
-    "equipamento_ano": 2594,
-    "taxa_100": 29.5,
+    "equipamento_ano": 2614,
+    "taxa_100": 29.3,
     "mtbf_anos": 3.4
    },
    "anomalia": {
     "eventos": 576,
-    "equipamento_ano": 2594,
-    "taxa_100": 22.2,
+    "equipamento_ano": 2614,
+    "taxa_100": 22.0,
     "mtbf_anos": 4.5
    },
-   "parque": 1297
+   "parque": 1307
   },
   "regulador": {
    "geral": {
     "eventos": 197,
-    "equipamento_ano": 394,
-    "taxa_100": 50.0,
-    "mtbf_anos": 2.0
+    "equipamento_ano": 414,
+    "taxa_100": 47.6,
+    "mtbf_anos": 2.1
    },
    "funcional": {
     "eventos": 112,
-    "equipamento_ano": 394,
-    "taxa_100": 28.4,
-    "mtbf_anos": 3.5
+    "equipamento_ano": 414,
+    "taxa_100": 27.1,
+    "mtbf_anos": 3.7
    },
    "anomalia": {
     "eventos": 85,
-    "equipamento_ano": 394,
-    "taxa_100": 21.6,
-    "mtbf_anos": 4.6
+    "equipamento_ano": 414,
+    "taxa_100": 20.5,
+    "mtbf_anos": 4.9
    },
-   "parque": 197
+   "parque": 207
   }
  },
  "taxa_2026_anualizada": {
   "religador": {
    "eventos": 302,
-   "equipamento_ano": 792.5,
-   "taxa_100": 38.1,
+   "equipamento_ano": 798.6,
+   "taxa_100": 37.8,
    "mtbf_anos": 2.6
   },
   "regulador": {
    "eventos": 56,
-   "equipamento_ano": 120.4,
-   "taxa_100": 46.5,
-   "mtbf_anos": 2.1
+   "equipamento_ano": 126.5,
+   "taxa_100": 44.3,
+   "mtbf_anos": 2.3
   }
  },
  "taxa_por_marca": {
@@ -315,14 +315,14 @@
     },
     "2025": {
      "com_peca_grande": 50,
-     "taxa_confirmada_100": 3.86,
+     "taxa_confirmada_100": 3.83,
      "acessorio_separado": 2,
      "sem_evidencia_de_componente": 660,
      "eventos_no_ano": 712
     },
     "2026": {
      "com_peca_grande": 28,
-     "taxa_confirmada_100": 3.53,
+     "taxa_confirmada_100": 3.51,
      "acessorio_separado": 15,
      "sem_evidencia_de_componente": 259,
      "eventos_no_ano": 302
@@ -331,21 +331,21 @@
    "regulador": {
     "2024": {
      "com_peca_grande": 5,
-     "taxa_confirmada_100": 2.54,
+     "taxa_confirmada_100": 2.42,
      "acessorio_separado": 0,
      "sem_evidencia_de_componente": 66,
      "eventos_no_ano": 71
     },
     "2025": {
      "com_peca_grande": 26,
-     "taxa_confirmada_100": 13.2,
+     "taxa_confirmada_100": 12.56,
      "acessorio_separado": 3,
      "sem_evidencia_de_componente": 97,
      "eventos_no_ano": 126
     },
     "2026": {
      "com_peca_grande": 8,
-     "taxa_confirmada_100": 6.65,
+     "taxa_confirmada_100": 6.33,
      "acessorio_separado": 5,
      "sem_evidencia_de_componente": 43,
      "eventos_no_ano": 56
@@ -383,47 +383,29 @@
  "parque_por_ano": {
   "religador": {
    "2024": {
-    "inicio": 1066,
-    "fim": 1240,
-    "medio": 1153,
-    "instalados_no_ano": 174,
-    "fonte_dos_instalados": "aic"
+    "medio": 1307,
+    "fonte_dos_instalados": "gestor"
    },
    "2025": {
-    "inicio": 1240,
-    "fim": 1297,
-    "medio": 1268,
-    "instalados_no_ano": 57,
-    "fonte_dos_instalados": "aic"
+    "medio": 1307,
+    "fonte_dos_instalados": "gestor"
    },
    "2026": {
-    "inicio": 1297,
-    "fim": 1332,
-    "medio": 1314,
-    "instalados_no_ano": 35,
-    "fonte_dos_instalados": "aic"
+    "medio": 1307,
+    "fonte_dos_instalados": "gestor"
    }
   },
   "regulador": {
    "2024": {
-    "inicio": 152,
-    "fim": 169,
-    "medio": 160,
-    "instalados_no_ano": 17,
-    "fonte_dos_instalados": "aic"
+    "medio": 207,
+    "fonte_dos_instalados": "gestor"
    },
    "2025": {
-    "inicio": 169,
-    "fim": 197,
-    "medio": 183,
-    "instalados_no_ano": 28,
-    "fonte_dos_instalados": "aic"
+    "medio": 207,
+    "fonte_dos_instalados": "gestor"
    },
    "2026": {
-    "inicio": 197,
-    "fim": 207,
-    "medio": 202,
-    "instalados_no_ano": 10,
+    "medio": 207,
     "fonte_dos_instalados": "gestor"
    }
   }
@@ -476,31 +458,31 @@
  "serie_por_ano": {
   "2024": {
    "religador": {
-    "parque": 1297,
-    "equipamento_ano": 1297.0,
+    "parque": 1307,
+    "equipamento_ano": 1307.0,
     "eventos": 630,
-    "taxa_100": 48.6,
-    "funcional_100": 31.1,
-    "anomalia_100": 17.5,
+    "taxa_100": 48.2,
+    "funcional_100": 30.8,
+    "anomalia_100": 17.4,
     "mtbf_anos": 2.1,
     "ativos_distintos": 432,
-    "incidencia_pct": 33.3,
+    "incidencia_pct": 33.1,
     "trocas_confirmadas": 53,
     "taxa_substituicao_100": 4.1,
     "chamadas_por_troca": 11.9
    },
    "regulador": {
-    "parque": 197,
-    "equipamento_ano": 197.0,
+    "parque": 207,
+    "equipamento_ano": 207.0,
     "eventos": 71,
-    "taxa_100": 36.0,
-    "funcional_100": 23.9,
-    "anomalia_100": 12.2,
-    "mtbf_anos": 2.8,
+    "taxa_100": 34.3,
+    "funcional_100": 22.7,
+    "anomalia_100": 11.6,
+    "mtbf_anos": 2.9,
     "ativos_distintos": 58,
-    "incidencia_pct": 29.4,
+    "incidencia_pct": 28.0,
     "trocas_confirmadas": 11,
-    "taxa_substituicao_100": 5.6,
+    "taxa_substituicao_100": 5.3,
     "chamadas_por_troca": 6.5
    },
    "_modo_declarado": {
@@ -550,31 +532,31 @@
   },
   "2025": {
    "religador": {
-    "parque": 1297,
-    "equipamento_ano": 1297.0,
+    "parque": 1307,
+    "equipamento_ano": 1307.0,
     "eventos": 712,
-    "taxa_100": 54.9,
-    "funcional_100": 28.0,
-    "anomalia_100": 26.9,
+    "taxa_100": 54.5,
+    "funcional_100": 27.8,
+    "anomalia_100": 26.7,
     "mtbf_anos": 1.8,
     "ativos_distintos": 494,
-    "incidencia_pct": 38.1,
+    "incidencia_pct": 37.8,
     "trocas_confirmadas": 27,
     "taxa_substituicao_100": 2.1,
     "chamadas_por_troca": 26.4
    },
    "regulador": {
-    "parque": 197,
-    "equipamento_ano": 197.0,
+    "parque": 207,
+    "equipamento_ano": 207.0,
     "eventos": 126,
-    "taxa_100": 64.0,
-    "funcional_100": 33.0,
-    "anomalia_100": 31.0,
+    "taxa_100": 60.9,
+    "funcional_100": 31.4,
+    "anomalia_100": 29.5,
     "mtbf_anos": 1.6,
     "ativos_distintos": 85,
-    "incidencia_pct": 43.1,
+    "incidencia_pct": 41.1,
     "trocas_confirmadas": 14,
-    "taxa_substituicao_100": 7.1,
+    "taxa_substituicao_100": 6.8,
     "chamadas_por_troca": 9.0
    },
    "_modo_declarado": {
@@ -624,31 +606,31 @@
   },
   "2026": {
    "religador": {
-    "parque": 1297,
-    "equipamento_ano": 792.5,
+    "parque": 1307,
+    "equipamento_ano": 798.6,
     "eventos": 302,
-    "taxa_100": 38.1,
-    "funcional_100": 26.1,
-    "anomalia_100": 12.0,
+    "taxa_100": 37.8,
+    "funcional_100": 25.9,
+    "anomalia_100": 11.9,
     "mtbf_anos": 2.6,
     "ativos_distintos": 243,
-    "incidencia_pct": 18.7,
+    "incidencia_pct": 18.6,
     "trocas_confirmadas": 5,
     "taxa_substituicao_100": 0.6,
     "chamadas_por_troca": 60.4
    },
    "regulador": {
-    "parque": 197,
-    "equipamento_ano": 120.4,
+    "parque": 207,
+    "equipamento_ano": 126.5,
     "eventos": 56,
-    "taxa_100": 46.5,
-    "funcional_100": 34.1,
-    "anomalia_100": 12.5,
-    "mtbf_anos": 2.1,
+    "taxa_100": 44.3,
+    "funcional_100": 32.4,
+    "anomalia_100": 11.9,
+    "mtbf_anos": 2.3,
     "ativos_distintos": 41,
-    "incidencia_pct": 20.8,
+    "incidencia_pct": 19.8,
     "trocas_confirmadas": 4,
-    "taxa_substituicao_100": 3.3,
+    "taxa_substituicao_100": 3.2,
     "chamadas_por_troca": 14.0
    },
    "_modo_declarado": {
@@ -699,9 +681,9 @@
  },
  "incidencia": {
   "religador": {
-   "parque": 1297,
+   "parque": 1307,
    "ativos_com_ao_menos_um_evento": 760,
-   "incidencia_pct_em_2_anos": 58.6,
+   "incidencia_pct_em_2_anos": 58.1,
    "distribuicao_eventos_por_ativo": {
     "1": 430,
     "2": 178,
@@ -717,9 +699,9 @@
    "pct_dos_eventos_na_cauda": 41.4
   },
   "regulador": {
-   "parque": 197,
+   "parque": 207,
    "ativos_com_ao_menos_um_evento": 118,
-   "incidencia_pct_em_2_anos": 59.9,
+   "incidencia_pct_em_2_anos": 57.0,
    "distribuicao_eventos_por_ativo": {
     "1": 69,
     "2": 26,
@@ -906,15 +888,15 @@
   "religador": {
    "chamadas_atribuidas_ao_equipamento": 1342,
    "trocas_confirmadas": 80,
-   "taxa_chamada_100": 51.7,
+   "taxa_chamada_100": 51.3,
    "taxa_substituicao_100": 3.1,
    "chamadas_por_troca": 16.8
   },
   "regulador": {
    "chamadas_atribuidas_ao_equipamento": 197,
    "trocas_confirmadas": 25,
-   "taxa_chamada_100": 50.0,
-   "taxa_substituicao_100": 6.3,
+   "taxa_chamada_100": 47.6,
+   "taxa_substituicao_100": 6.0,
    "chamadas_por_troca": 7.9
   }
  }
