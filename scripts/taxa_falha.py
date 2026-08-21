@@ -119,6 +119,10 @@ PREMISSAS = [
     "Falha é o que exigiu peça grande. Religador: controle, tanque ou completo. "
     "Regulador: célula, relé, completo ou furto. Definição do gestor em 21/08.",
 
+    "Placa de alimentação CA e relé de sincronismo são outras palavras para controle "
+    "e contam como falha. Placa de comunicação, placa 3G, rádio e antena são telecom e "
+    "não contam. O que decide é a peça, não a palavra placa nem a palavra relé.",
+
     "Não conta como falha: trafo auxiliar, chave faca, rádio, antena, bateria, "
     "aterramento, cabo, conector, poste, poda, ajuste de proteção, comissionamento e "
     "obra de equipamento novo. Vai em aba separada.",
@@ -277,14 +281,21 @@ ACESSORIO = {
 }
 # Furto é decidido pela peça que levou, não pela categoria: cai em peça grande quando
 # o componente citado é célula, controle, tanque ou o banco inteiro.
+# Vocabulário confirmado pelo gestor em 21/08: "placa de alimentação CA" e "relé de
+# sincronismo" são outras palavras para CONTROLE. Não confundir com placa de
+# comunicação e rádio, que são telecom e ficam fora da taxa — o que decide é a peça
+# que o texto nomeia, não a palavra "placa" nem a palavra "relé" isoladas.
 RE_PECA_GRANDE_TEXTO = re.compile(
     r"TANQUE|PARTE ATIVA|C[ÉE]LULA|CONTROLE|COMPLET|BANCO REGULADOR|"
-    r"REGULADOR DE TENS[ÃA]O FURTAD|RELIGADOR FURTAD",
+    r"REGULADOR DE TENS[ÃA]O FURTAD|RELIGADOR FURTAD|"
+    r"PLACA DE ALIMENTA[ÇC][ÃA]O(\s+CA)?|REL[EÉÊ]\s*DE\s*SINCRONISMO|ARM[ÁA]RIO DE CONTROLE|"
+    r"RETROFIT",
     re.I,
 )
 RE_ACESSORIO_TEXTO = re.compile(
     r"TRAFO AUXILIAR|TRANSFORMADOR AUXILIAR|CHAVE FACA|CHAVE SECCIONADORA|R[ÁA]DIO|"
-    r"ANTENA|BATERIA|ATERRAMENTO|UMBILICAL|CONECTOR|PARA-?RAIO",
+    r"ANTENA|BATERIA|ATERRAMENTO|UMBILICAL|CONECTOR|PARA-?RAIO|"
+    r"PLACA DE COMUNICA[ÇC][ÃA]O|PLACA 3G",
     re.I,
 )
 # Códigos de material do orçamento (catálogo em economia_cancelados.py)

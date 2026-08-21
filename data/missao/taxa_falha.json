@@ -1,6 +1,7 @@
 {
  "premissas": [
   "Falha é o que exigiu peça grande. Religador: controle, tanque ou completo. Regulador: célula, relé, completo ou furto. Definição do gestor em 21/08.",
+  "Placa de alimentação CA e relé de sincronismo são outras palavras para controle e contam como falha. Placa de comunicação, placa 3G, rádio e antena são telecom e não contam. O que decide é a peça, não a palavra placa nem a palavra relé.",
   "Não conta como falha: trafo auxiliar, chave faca, rádio, antena, bateria, aterramento, cabo, conector, poste, poda, ajuste de proteção, comissionamento e obra de equipamento novo. Vai em aba separada.",
   "Agentes leram o texto completo das SS e das OS dos 129 ativos da carteira — 1.087 SS. Outro time revisou cada falha apontada e derrubou o que não se sustentava no texto.",
   "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto do parecer. A data de abertura da SS é o último recurso: ela vem em média 65 dias depois da falha, e em 16% dos casos cai em outro ano.",
