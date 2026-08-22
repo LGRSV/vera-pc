@@ -94,6 +94,7 @@ def indexar():
     for x in base:
         x["_id"] = norm(x["SS_ORIGINAL"])
         x["_abriu"] = dia(x.get("DTA_ABERTURA"))
+        x["_ocorreu"] = dia(x.get("DTA_OCORRENCIA"))
         x["_concluiu"] = dia(x.get("DTA_CONCLUSAO"))
         antes = idx.get(x["_id"])
         if antes is None or (x["_abriu"] and antes["_abriu"] and x["_abriu"] > antes["_abriu"]):
@@ -248,8 +249,11 @@ def montar():
             if fim["STATUS"] in ("SS ATENDIDA", "SS CANCELADA") and fim["_concluiu"] \
                     and INICIO <= fim["_concluiu"] <= FIM:
                 inicio = raiz(x)
+                # o ano da demanda é o da OCORRÊNCIA, régua do gestor: a abertura da SS
+                # vem depois do fato, e o número da SS às vezes carrega outro ano ainda
+                marco = inicio["_ocorreu"] or inicio["_abriu"]
                 cand = {"x": x, "raiz": inicio, "ponta": fim,
-                        "ano": inicio["_abriu"].year if inicio["_abriu"] else None}
+                        "ano": marco.year if marco else None, "marco": marco}
                 if escolhida is None or (cand["ano"] or 9999) < (escolhida["ano"] or 9999):
                     escolhida = cand
         if not escolhida:
@@ -283,12 +287,14 @@ def montar():
             "ano_da_demanda": escolhida["ano"],
             "ss_que_abriu_a_demanda": escolhida["raiz"]["SS_ORIGINAL"],
             "posto_que_abriu": escolhida["raiz"]["POSTO_SGM"],
+            "ocorrencia_da_demanda": (escolhida["marco"].strftime("%d/%m/%Y")
+                                      if escolhida["marco"] else ""),
             "ss_no_coep": escolhida["x"]["SS_ORIGINAL"],
             "ss_que_fechou": fim["SS_ORIGINAL"], "posto_que_fechou": fim["POSTO_SGM"],
             "como_terminou": fim["STATUS"],
             "data_do_fechamento": fim["_concluiu"].strftime("%d/%m/%Y"),
-            "dias_da_demanda": ((fim["_concluiu"] - escolhida["raiz"]["_abriu"]).days
-                                if escolhida["raiz"]["_abriu"] else None),
+            "dias_da_demanda": ((fim["_concluiu"] - escolhida["marco"]).days
+                                if escolhida["marco"] else None),
             "conta_como_resolvido_pelo_coep": entra, "porque_nao": porque, "prova": prova,
             "esta_na_carteira": bool(c), "parecer_coep": c.get("parecer_coep", ""),
             "localidade": c.get("localidade", ""),
@@ -364,9 +370,11 @@ PREMISSAS = [
     "e saiu não fica registrado nela. Foi por isso que a primeira contagem, feita pela carteira, "
     "achou só 29 e perdeu justamente o que o gestor lembrava: demanda velha, de 2024 e 2025, "
     "fechada agora.",
-    "A demanda é a cadeia inteira de SS, do primeiro posto ao último — o ano dela é o ano em que "
-    "a PRIMEIRA SS foi aberta, não o da SS do COEP. É isso que mostra que o posto fechou caso de "
-    "2024 e 2025.",
+    "A demanda é a cadeia inteira de SS, do primeiro posto ao último — e o ano dela é o da DATA "
+    "DE OCORRÊNCIA da primeira SS, não o da SS do COEP nem o número da SS. É isso que mostra que "
+    "o posto fechou caso de 2024 e 2025.",
+    "O número da SS não serve para datar: ETO-COEP 00149/2025 foi aberta em 29/06/2026, com "
+    "ocorrência em 11/07/2025. Numerar não é abrir, e abrir não é o fato acontecer.",
     "Não conta quem reincidiu: se o equipamento abriu SS nova depois do fechamento, a demanda "
     "não estava resolvida. Isso derruba 33 dos 90 candidatos.",
     "Não conta o resolvido no primeiro ataque do DMSL — a demanda morreu na mão da DMSL, o posto "
@@ -424,17 +432,17 @@ def planilha(pacote):
 
     # VISÃO 2 — quem o COEP resolveu em 2026
     ws = wb.create_sheet(f"2 · Resolvidos pelo COEP ({c['resolvidos_pelo_coep']})")
-    cabecalho(ws, ["Ativo", "Tipo", "Ano em que a demanda nasceu", "Conta", "Prova",
-                   "Por que não conta", "SS que abriu a demanda", "Posto que abriu",
+    cabecalho(ws, ["Ativo", "Tipo", "Ano em que a demanda nasceu", "Ocorrência", "Conta",
+                   "Prova", "Por que não conta", "SS que abriu a demanda", "Posto que abriu",
                    "SS no COEP", "SS que fechou", "Posto que fechou", "Como terminou",
                    "Fechou em", "Dias da demanda", "Está na carteira", "Parecer COEP",
                    "Localidade"],
-              [14, 12, 12, 9, 44, 44, 22, 14, 22, 22, 14, 15, 12, 12, 12, 24, 20])
+              [14, 12, 12, 12, 9, 44, 44, 22, 14, 22, 22, 14, 15, 12, 12, 12, 24, 20])
     ordem = sorted(pacote["resolvidos_do_coep"],
                    key=lambda r: (not r["conta_como_resolvido_pelo_coep"],
                                   r["ano_da_demanda"] or 9999, r["ativo"]))
     for r in ordem:
-        ws.append([r["ativo"], r["tipo"], r["ano_da_demanda"],
+        ws.append([r["ativo"], r["tipo"], r["ano_da_demanda"], r["ocorrencia_da_demanda"],
                    sn(r["conta_como_resolvido_pelo_coep"]), r["prova"], r["porque_nao"],
                    r["ss_que_abriu_a_demanda"], r["posto_que_abriu"], r["ss_no_coep"],
                    r["ss_que_fechou"], r["posto_que_fechou"], r["como_terminou"],
