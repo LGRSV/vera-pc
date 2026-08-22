@@ -64,8 +64,9 @@ comissionamento e obra de equipamento novo.
 - **Visão ETO do site (gestor, 22/08)**: os ativos 58/79 com SS de **indisponibilidade
   para operação pendente na base de SS/OS** — a carteira não é a fonte («só tem 93,
   então são as 93»; 18 delas fora da carteira). O balde sai do **posto da SS pendente**:
-  PROT = ajuste; TELE/SE com passagem pelo COEP = comissionamento, sem passagem = DMSL
-  novos; RD = execução; COEP = aquisição, salvo «Em logística» da carteira.
+  PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento,
+  sem criticidade definida (fora da aba ou «Sem classificação») = 1º ataque do DMSL;
+  RD = execução; COEP = aquisição, salvo «Em logística» da carteira.
 - **Primeiro ataque do DMSL não conta**: a demanda morreu na mão da DMSL.
 - **A carteira consolidada não serve de fonte para «resolvido»**: ela é a foto do que
   ainda está pendente; o que fechou e saiu não fica registrado nela.

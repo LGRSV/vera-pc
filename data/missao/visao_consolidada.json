@@ -5,7 +5,7 @@
   "total": 93,
   "posicao": "base de SS/OS de 20/08",
   "fora_da_carteira": 18,
-  "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de indisponibilidade para operação pendente na base — o balde sai do posto onde a SS está (PROT = ajuste; TELE/SE com passagem pelo COEP = comissionamento, sem passagem = DMSL; RD = execução; COEP = aquisição, salvo «Em logística» da carteira). 18 não estão na carteira.",
+  "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de indisponibilidade para operação pendente na base — o balde sai do posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento, sem criticidade definida = 1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em logística» da carteira). 18 não estão na carteira.",
   "baldes": {
    "ajuste_de_protecao": {
     "qtd": 11,
@@ -112,7 +112,7 @@
     ]
    },
    "comissionamento": {
-    "qtd": 11,
+    "qtd": 9,
     "ativos": [
      {
       "ativo": "5800371025",
@@ -142,15 +142,6 @@
       "etapa_da_planilha": "Aguardando comissionamento"
      },
      {
-      "ativo": "5851752014",
-      "tipo": "RT",
-      "localidade": "PIUM",
-      "criticidade": "Emergencial",
-      "ss_pendente": "ETO-TELE 01121/2026",
-      "na_carteira": false,
-      "etapa_da_planilha": "(fora da carteira)"
-     },
-     {
       "ativo": "5865120195",
       "tipo": "RT",
       "localidade": "CENTENARIO",
@@ -176,15 +167,6 @@
       "ss_pendente": "ETO-SE-PA 00107/2026",
       "na_carteira": true,
       "etapa_da_planilha": "Aguardando comissionamento"
-     },
-     {
-      "ativo": "7902702257",
-      "tipo": "RL",
-      "localidade": "SAO FELIX DO TOCANTINS",
-      "criticidade": "Emergencial",
-      "ss_pendente": "ETO-TELE 01105/2026",
-      "na_carteira": false,
-      "etapa_da_planilha": "(fora da carteira)"
      },
      {
       "ativo": "7929376022",
@@ -249,7 +231,7 @@
       "ativo": "7931219078",
       "tipo": "RL",
       "localidade": "ITACAJA",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-RD-PO 00183/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -305,7 +287,7 @@
       "ativo": "5825703064",
       "tipo": "RT",
       "localidade": "BRASILANDIA DO TOCANTINS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-COEP 00153/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)",
@@ -754,7 +736,7 @@
     ]
    },
    "dmsl_novos": {
-    "qtd": 18,
+    "qtd": 20,
     "ativos": [
      {
       "ativo": "5839141113",
@@ -766,11 +748,29 @@
       "etapa_da_planilha": "Primeiro ataque do DMSL"
      },
      {
+      "ativo": "5851752014",
+      "tipo": "RT",
+      "localidade": "PIUM",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01121/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
       "ativo": "5854766001",
       "tipo": "RT",
       "localidade": "PORTO NACIONAL",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01097/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7902702257",
+      "tipo": "RL",
+      "localidade": "SAO FELIX DO TOCANTINS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01105/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
      },
@@ -778,7 +778,7 @@
       "ativo": "7905320122",
       "tipo": "RL",
       "localidade": "PALMAS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01110/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -796,7 +796,7 @@
       "ativo": "7908693026",
       "tipo": "RL",
       "localidade": "PONTE ALTA DO TOCANTINS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01055/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -805,7 +805,7 @@
       "ativo": "7908709122",
       "tipo": "RL",
       "localidade": "PALMAS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01100/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -823,7 +823,7 @@
       "ativo": "7925126060",
       "tipo": "RL",
       "localidade": "NOVA OLINDA",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01111/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -832,7 +832,7 @@
       "ativo": "7925727002",
       "tipo": "RL",
       "localidade": "TOCANTINOPOLIS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01052/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -841,7 +841,7 @@
       "ativo": "7926242029",
       "tipo": "RL",
       "localidade": "PALMEIROPOLIS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01059/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -850,7 +850,7 @@
       "ativo": "7938048113",
       "tipo": "RL",
       "localidade": "COUTO MAGALHAES",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01098/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -859,7 +859,7 @@
       "ativo": "7940201060",
       "tipo": "RL",
       "localidade": "NOVA OLINDA",
-      "criticidade": "Alta",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01120/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -868,7 +868,7 @@
       "ativo": "7944353028",
       "tipo": "RL",
       "localidade": "NATIVIDADE",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01051/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -877,7 +877,7 @@
       "ativo": "7946713015",
       "tipo": "RL",
       "localidade": "PEDRO AFONSO",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01099/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -895,7 +895,7 @@
       "ativo": "7949656024",
       "tipo": "RL",
       "localidade": "ITAPORA DO TOCANTINS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELEAR 00008/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -904,7 +904,7 @@
       "ativo": "7950296049",
       "tipo": "RL",
       "localidade": "AURORA DO TOCANTINS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01058/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"
@@ -913,7 +913,7 @@
       "ativo": "7961515047",
       "tipo": "RL",
       "localidade": "FIGUEIROPOLIS",
-      "criticidade": "Emergencial",
+      "criticidade": "",
       "ss_pendente": "ETO-TELE 01048/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)"

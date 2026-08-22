@@ -8,8 +8,10 @@ OPERAÇÃO pendente na base — «só tem 93, então são as 93».
 O balde de cada um sai do POSTO onde a SS pendente está, que é a régua da
 esteira do gestor:
   - ETO-PROT                          → em fase de ajuste de proteção
-  - TELE/SE, com passagem pelo COEP   → aguardando comissionamento
-  - TELE/SE, sem passagem pelo COEP   → 1º ataque / com o DMSL (novos)
+  - TELE/SE, com criticidade definida na aba de mapeamento por criticidade
+                                      → aguardando comissionamento
+  - TELE/SE, sem criticidade definida (fora da aba ou «Sem classificação»)
+                                      → 1º ataque do DMSL (gestor, 22/08)
   - equipe RD (ETO-RD-*)              → DCMD em execução, com os COCMs
   - ETO-COEP                          → DCMD em aquisição — salvo quem a
     carteira marca «Em logística» (material comprado, esperando chegar)
@@ -63,8 +65,10 @@ def montar():
                  if r["NUM_TRAFO"].startswith(("58", "79"))
                  and r["TIPOSS"] == "INDISPONIBILIDADE PARA OPERAÇÃO"
                  and r["SITUACAO_SS"] == "SS PENDENTE"]
-    passou_pelo_coep = {r["NUM_TRAFO"] for r in ssos
-                        if r["NUMERO_SS"].startswith("ETO-COEP")}
+
+    def tem_criticidade(cod):
+        crit = (joa.get(cod, {}).get("criticidade") or "").strip().lower()
+        return crit not in ("", "sem classificação")
 
     def balde_de(r):
         posto = r["NUMERO_SS"].split()[0]
@@ -72,7 +76,7 @@ def montar():
         if posto.startswith("ETO-PROT"):
             return "ajuste_de_protecao"
         if posto.startswith(("ETO-TELE", "ETO-SE", "ETO-SCADA")) or "DMSL" in posto:
-            if r["NUM_TRAFO"] in passou_pelo_coep and "DMSL" not in posto:
+            if tem_criticidade(r["NUM_TRAFO"]) and "DMSL" not in posto:
                 return "comissionamento"
             return "dmsl_novos"
         if _dept(posto) == "DCMD":
@@ -91,7 +95,7 @@ def montar():
             "ativo": cod,
             "tipo": x.get("tipo") or ("RT" if cod.startswith("58") else "RL"),
             "localidade": x.get("localidade") or r["LOCALIDADE"].strip(),
-            "criticidade": x.get("criticidade") or (r["CRITICIDADE_SS"] or "").strip().capitalize(),
+            "criticidade": (x.get("criticidade") or "").strip(),
             "ss_pendente": r["NUMERO_SS"],
             "na_carteira": na_carteira,
             "etapa_da_planilha": x.get("etapa") if na_carteira else "(fora da carteira)",
@@ -133,9 +137,10 @@ def montar():
             "fora_da_carteira": fora_da_carteira,
             "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de "
                     "indisponibilidade para operação pendente na base — o balde sai do "
-                    "posto onde a SS está (PROT = ajuste; TELE/SE com passagem pelo COEP = "
-                    "comissionamento, sem passagem = DMSL; RD = execução; COEP = aquisição, "
-                    f"salvo «Em logística» da carteira). {fora_da_carteira} não estão na carteira.",
+                    "posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida "
+                    "na aba de mapeamento = comissionamento, sem criticidade definida = "
+                    "1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em "
+                    f"logística» da carteira). {fora_da_carteira} não estão na carteira.",
             "baldes": {b: {"qtd": len(v), "ativos": v} for b, v in baldes.items()},
         },
         "concluidos_dcmd_2026": {

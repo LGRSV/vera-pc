@@ -441,7 +441,7 @@ function visaoConsolidada() {
       ${linha('DCMD · em execução', b.dcmd_execucao.qtd, 'com os COCM’s')}
       ${linha('DCMD · em logística', b.dcmd_logistica.qtd, 'no COEP, esperando o material')}
       ${linha('DCMD · em processo de aquisição', b.dcmd_aquisicao.qtd, 'o restante pendente no COEP')}
-      ${linha('1º ataque do DMSL', b.dmsl_novos.qtd, 'novos, sem passagem pelo COEP')}
+      ${linha('1º ataque do DMSL', b.dmsl_novos.qtd, 'novos — TELE sem criticidade na aba de mapeamento')}
     </div>
     <div class="numeros" style="margin-top:14px">
       ${num({ rotulo: 'DCMD concluiu em 2026', valor: v.concluidos_dcmd_2026.qtd, nota: `campo executou e a demanda fechou — ${v.concluidos_dcmd_2026.fechadas_no_proprio_campo} no próprio campo, o resto energizado na TELE/PROT`, tom: 'bom' })}
