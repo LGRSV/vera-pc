@@ -186,7 +186,9 @@ def montar():
         ativos.append({
             "ativo": cod, "tipo": itens[0]["tipo"], "ss_no_coep_em_2026": len(itens),
             "ss": " | ".join(i["ss"] for i in itens),
-            "primeira_chegada": min(i["chegou"] for i in itens),
+            # ordenar dd/mm/aaaa como texto compara o dia primeiro — ordena por data
+            "primeira_chegada": min((i["chegou"] for i in itens),
+                                    key=lambda t: (t[6:], t[3:5], t[:2])),
             "dias_no_posto": max(i["dias_no_posto"] for i in itens),
             "chegou_em_2026": any(i["chegou_em_2026"] for i in itens),
             "ja_estava_de_antes": any(not i["chegou_em_2026"] for i in itens),
