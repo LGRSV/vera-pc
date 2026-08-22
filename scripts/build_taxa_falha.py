@@ -18,6 +18,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQ_TAXA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
 ARQ_LEITURA = os.path.join(RAIZ, "data", "missao", "leitura_ss_os.json")
 ARQ_COEP = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
+ARQ_EVENTOS = os.path.join(RAIZ, "data", "missao", "taxa_falha_eventos.json")
 DESTINO = os.path.join(RAIZ, "dist", "taxa-falha.html")
 
 ANOS = ("2024", "2025", "2026")
@@ -225,6 +226,26 @@ def bases_para_baixar(coep, taxa, leitura):
         parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
         tt.append([fam, "Triênio", parque, "", soma,
                    f"{100.0 * soma / parque:.1f}".replace(".", ",") if parque else ""])
+    eventos = _ler(ARQ_EVENTOS) or []
+    casos = [["Ativo", "Família", "Ano", "Data da falha", "Âncora da data",
+              "Conta como equipamento do ano", "Severidade", "SS da demanda", "Quantas SS",
+              "Tipos de SS", "Origem", "Localidade", "Marca", "Atraso do registro (dias)"]]
+    for e in eventos:
+        if e.get("ano") not in (2024, 2025, 2026):
+            continue
+        d = e.get("data") or ""
+        casos.append([e.get("ativo"), e.get("familia"), e.get("ano"),
+                      f"{d[8:10]}/{d[5:7]}/{d[:4]}" if len(d) >= 10 else d,
+                      e.get("ancora"), "sim" if e.get("primeira_do_ano") else "não",
+                      e.get("severidade"), " | ".join(e.get("numeros_ss") or []),
+                      e.get("ss"), " | ".join(e.get("tiposs") or []),
+                      " | ".join(e.get("origem") or []), e.get("localidade"),
+                      e.get("marca"), e.get("atraso_do_registro")])
+    saida["taxa-total-casos"] = {
+        "titulo": "Os casos da taxa total, um a um",
+        "conta": "uma demanda de falha por linha; «conta como equipamento» marca a primeira "
+                 "do ativo no ano",
+        "linhas": len(casos) - 1, "csv": _csv(casos)}
     saida["taxa-total-sem-expurgo"] = {
         "titulo": "A taxa total, sem a régua da peça grande",
         "conta": "todo equipamento com falha no ano, qualquer peça, ÷ parque",

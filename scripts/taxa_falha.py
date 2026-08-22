@@ -44,6 +44,7 @@ XLSX_GESTAO = os.path.join(RAIZ, "data", "raw", "GESTAO_DE_EQUIPAMENTOS.xlsx")
 XLSX_OBRAS = os.path.join(RAIZ, "data", "raw", "OBRAS_EQ_ESPECIAL.xlsx")
 XLSX_ENTRADA = os.path.join(RAIZ, "data", "raw", "BASE_SS_OS_EQ_ESPECIAIS_ENTRADA.xlsx")
 SAIDA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
+SAIDA_EVENTOS = os.path.join(RAIZ, "data", "missao", "taxa_falha_eventos.json")
 
 # A base de SS/OS só tem lastro a partir de 2024: 2 SS em 2022 e 58 em 2023 contra
 # 2.197 em 2024. Não é queda de falha, é extrato truncado. 2026 entra à parte porque
@@ -822,6 +823,11 @@ def montar():
                     "severidade": severidade(dem["ss"]),
                     "componente": _veredito_componente(dem["ss"], cod, comp_ss, comp_ativo),
                     "ss": len(dem["ss"]),
+                    "numeros_ss": [(s.get("NUMERO_SS") or "").strip() for s in dem["ss"]],
+                    "tiposs": sorted({(s.get("TIPOSS") or "").strip().upper()
+                                      for s in dem["ss"] if s.get("TIPOSS")}),
+                    "localidade": next(((s.get("LOCALIDADE") or "").strip()
+                                        for s in dem["ss"] if s.get("LOCALIDADE")), ""),
                     "origem": sorted({(s.get("ORIGEM_SS") or "").strip().upper() for s in dem["ss"] if s.get("ORIGEM_SS")}),
                 }
             )
@@ -1048,11 +1054,22 @@ def montar():
                 "chamadas_por_troca": round(eventos_fam / trocas, 1) if trocas else None,
             }
         pacote["conversao_chamada_troca"] = conversao
-    return pacote
+    return pacote, eventos
 
 
 if __name__ == "__main__":
-    p = montar()
+    p, eventos = montar()
     with open(SAIDA, "w", encoding="utf-8") as fh:
         json.dump(p, fh, ensure_ascii=False, indent=1)
+    # o rol de casos da taxa total: um registro por demanda de falha, com a marca de
+    # «primeira do ativo no ano» — é ela que vira equipamento contado na taxa
+    ordem = sorted(eventos, key=lambda e: (e["ativo"], e["ano"], e["data"]))
+    vistos = set()
+    for e in ordem:
+        chave = (e["ativo"], e["ano"])
+        e["primeira_do_ano"] = chave not in vistos
+        vistos.add(chave)
+    with open(SAIDA_EVENTOS, "w", encoding="utf-8") as fh:
+        json.dump(ordem, fh, ensure_ascii=False)
+    print(f"casos gravados: {SAIDA_EVENTOS} ({len(ordem)})")
     print(json.dumps({k: v for k, v in p.items() if k != "premissas"}, ensure_ascii=False, indent=1))
