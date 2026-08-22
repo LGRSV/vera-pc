@@ -116,10 +116,11 @@
    "rl": 8,
    "rt": 3,
    "com_orcamento": 9,
-   "sem_orcamento": 2,
+   "sem_orcamento": 0,
+   "sem_valor": 2,
    "orcado": 655171.96,
-   "estimado": 225824.19,
-   "custo": 880996.15
+   "estimado": 0.0,
+   "custo": 655171.96
   },
   {
    "balde": "comissionamento",
@@ -129,10 +130,11 @@
    "rl": 5,
    "rt": 4,
    "com_orcamento": 6,
-   "sem_orcamento": 3,
+   "sem_orcamento": 0,
+   "sem_valor": 3,
    "orcado": 391394.49,
-   "estimado": 284367.4,
-   "custo": 675761.89
+   "estimado": 0.0,
+   "custo": 391394.49
   },
   {
    "balde": "dcmd_execucao",
@@ -143,6 +145,7 @@
    "rt": 2,
    "com_orcamento": 3,
    "sem_orcamento": 1,
+   "sem_valor": 0,
    "orcado": 542619.38,
    "estimado": 58543.21,
    "custo": 601162.59
@@ -156,6 +159,7 @@
    "rt": 3,
    "com_orcamento": 3,
    "sem_orcamento": 0,
+   "sem_valor": 0,
    "orcado": 521959.46,
    "estimado": 0,
    "custo": 521959.46
@@ -169,6 +173,7 @@
    "rt": 7,
    "com_orcamento": 33,
    "sem_orcamento": 13,
+   "sem_valor": 0,
    "orcado": 2937107.21,
    "estimado": 1087275.04,
    "custo": 4024382.25
@@ -182,6 +187,7 @@
    "rt": 3,
    "com_orcamento": 0,
    "sem_orcamento": 20,
+   "sem_valor": 0,
    "orcado": 0,
    "estimado": 1497077.51,
    "custo": 1497077.51
@@ -189,10 +195,23 @@
  ],
  "cobertura": {
   "com_orcamento": 54,
-  "sem_orcamento": 39,
+  "sem_orcamento": 34,
+  "sem_valor": 5,
   "orcado": 5048252.5,
-  "estimado": 3153087.35,
-  "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; onde não há orçamento, entra o valor médio por manutenção"
+  "estimado": 2642895.76,
+  "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; onde não há orçamento e o serviço ainda vai acontecer, entra o valor médio por manutenção. Em ajuste de proteção e comissionamento não se estima nada: o equipamento já foi trocado e o dinheiro já saiu"
+ },
+ "ja_gasto": {
+  "qtd": 20,
+  "rl": 13,
+  "rt": 7,
+  "com_orcamento": 15,
+  "sem_orcamento": 0,
+  "sem_valor": 5,
+  "orcado": 1046566.45,
+  "estimado": 0.0,
+  "custo": 1046566.45,
+  "regra": "ajuste de proteção + comissionamento — equipamento já trocado; o valor é o que estava orçado para eles, e o desembolso real está dentro do realizado do ano"
  },
  "estimativa_dmsl": {
   "qtd": 20,
@@ -200,6 +219,7 @@
   "rt": 3,
   "com_orcamento": 0,
   "sem_orcamento": 20,
+  "sem_valor": 0,
   "orcado": 0,
   "estimado": 1497077.51,
   "custo": 1497077.51,
@@ -213,6 +233,7 @@
   "rt": 15,
   "com_orcamento": 39,
   "sem_orcamento": 34,
+  "sem_valor": 0,
   "orcado": 4001686.05,
   "estimado": 2642895.76,
   "custo": 6644581.81,

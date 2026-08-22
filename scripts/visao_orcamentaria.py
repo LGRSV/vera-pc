@@ -89,25 +89,35 @@ def montar():
             "medio_por_obra": round(realizado / len(concl), 2) if concl else 0.0,
         }
 
-    # ---- cada balde da visão ETO em dinheiro: orçado onde existe, médio onde falta
-    def custo(itens):
+    # ---- cada balde da visão ETO em dinheiro: orçado onde existe, médio onde falta.
+    # Régua do gestor (22/08): em ajuste de proteção e comissionamento o equipamento JÁ
+    # FOI TROCADO — o dinheiro saiu. Ali não se estima nada: vale o que estava orçado
+    # para eles, e quem não tem valor na planilha fica sem valor mesmo. Aplicar o médio
+    # seria inventar gasto futuro para dinheiro que já aconteceu.
+    def custo(itens, aplica_medio=True):
         rl = sum(1 for i in itens if i["tipo"] == "RL")
         com = [i for i in itens if i["ativo"] in orcado]
         sem = [i for i in itens if i["ativo"] not in orcado]
         s_orcado = round(sum(orcado[i["ativo"]] for i in com), 2)
-        s_medio = round(sum(medio[i["tipo"]] for i in sem), 2)
+        s_medio = round(sum(medio[i["tipo"]] for i in sem), 2) if aplica_medio else 0.0
         return {"qtd": len(itens), "rl": rl, "rt": len(itens) - rl,
-                "com_orcamento": len(com), "sem_orcamento": len(sem),
+                "com_orcamento": len(com),
+                "sem_orcamento": len(sem) if aplica_medio else 0,
+                "sem_valor": 0 if aplica_medio else len(sem),
                 "orcado": s_orcado, "estimado": s_medio,
                 "custo": round(s_orcado + s_medio, 2)}
 
     baldes = []
     for b, nome in BALDE_NOME.items():
-        d = custo(vc["visao_eto"]["baldes"][b]["ativos"])
-        baldes.append({"balde": b, "nome": nome, "ainda_custa": b in AINDA_CUSTA, **d})
+        ainda = b in AINDA_CUSTA
+        d = custo(vc["visao_eto"]["baldes"][b]["ativos"], aplica_medio=ainda)
+        baldes.append({"balde": b, "nome": nome, "ainda_custa": ainda, **d})
 
     fila = [i for b in AINDA_CUSTA for i in vc["visao_eto"]["baldes"][b]["ativos"]]
     f = custo(fila)
+    ja_gasto = [i for b in BALDE_NOME if b not in AINDA_CUSTA
+                for i in vc["visao_eto"]["baldes"][b]["ativos"]]
+    g = custo(ja_gasto, aplica_medio=False)
     dmsl = vc["visao_eto"]["baldes"]["dmsl_novos"]["ativos"]
     d = custo(dmsl)
     f_rl, f_rt, f_custo = f["rl"], f["rt"], f["custo"]
@@ -124,11 +134,17 @@ def montar():
         "cobertura": {
             "com_orcamento": sum(b["com_orcamento"] for b in baldes),
             "sem_orcamento": sum(b["sem_orcamento"] for b in baldes),
+            "sem_valor": sum(b["sem_valor"] for b in baldes),
             "orcado": round(sum(b["orcado"] for b in baldes), 2),
             "estimado": round(sum(b["estimado"] for b in baldes), 2),
-            "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; "
-                     "onde não há orçamento, entra o valor médio por manutenção",
+            "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; onde "
+                     "não há orçamento e o serviço ainda vai acontecer, entra o valor "
+                     "médio por manutenção. Em ajuste de proteção e comissionamento não "
+                     "se estima nada: o equipamento já foi trocado e o dinheiro já saiu",
         },
+        "ja_gasto": {**g, "regra": "ajuste de proteção + comissionamento — equipamento já "
+                     "trocado; o valor é o que estava orçado para eles, e o desembolso "
+                     "real está dentro do realizado do ano"},
         "estimativa_dmsl": {
             **d, "pct_do_saldo": pct(d_custo, saldo),
             "pct_do_orcamento": pct(d_custo, orc["total_orcado"]),
@@ -165,9 +181,10 @@ if __name__ == "__main__":
     print(f"cobertura: {c['com_orcamento']} orçados (R$ {c['orcado']:,.2f}) + "
           f"{c['sem_orcamento']} pelo médio (R$ {c['estimado']:,.2f})")
     for b in p["por_balde"]:
-        print(f"  {b['nome']:<34} {b['qtd']:>3} ({b['com_orcamento']} orç + "
-              f"{b['sem_orcamento']} méd)  R$ {b['custo']:>14,.2f}"
-              f"{'' if b['ainda_custa'] else '   (já gasto)'}")
+        det = (f"{b['com_orcamento']} orç + {b['sem_orcamento']} méd" if b["ainda_custa"]
+               else f"{b['com_orcamento']} orç, {b['sem_valor']} sem valor")
+        print(f"  {b['nome']:<34} {b['qtd']:>3} ({det})  R$ {b['custo']:>14,.2f}"
+              f"{'' if b['ainda_custa'] else '   (já gasto — sem estimativa)'}")
     e = p["estimativa_dmsl"]
     print(f"1º ataque para o DCMD: R$ {e['custo']:,.2f} — {e['pct_do_saldo']}% do saldo")
     f = p["fila_que_ainda_custa"]

@@ -511,19 +511,22 @@ function visaoOrcamentaria() {
     <b>${String(e.pct_do_saldo).replace('.', ',')}% do saldo</b> de ${mil(orc.saldo)} que resta no ano, quase tudo
     que os dois projetos já realizaram de janeiro até agora.</div>
     <h4 class="sub-grafico">Cada balde da carteira em dinheiro</h4>
-    <p class="destaque-texto">Vale o <b>valor orçado do próprio ativo</b> na planilha de indisponibilidade; só onde
-    não há orçamento entra o valor médio por manutenção. Dos ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão
-    ETO, <b>${cob.com_orcamento} já estão orçados</b> (${mil(cob.orcado)}) e <b>${cob.sem_orcamento} ainda não</b>
-    (${mil(cob.estimado)} pelo médio). Ajuste de proteção e comissionamento aparecem em cinza: neles o equipamento já
-    foi trocado e o dinheiro já saiu — o que ainda vai custar é o resto.</p>
+    <p class="destaque-texto">Vale o <b>valor orçado do próprio ativo</b> na planilha de indisponibilidade; o valor
+    médio por manutenção entra só onde não há orçamento <b>e o serviço ainda vai acontecer</b>. Nas duas primeiras
+    linhas o equipamento <b>já foi trocado</b> — ali não se estima nada, o dinheiro já saiu e está dentro do
+    realizado do ano. Dos ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão ETO,
+    <b>${cob.com_orcamento} estão orçados</b>, <b>${cob.sem_orcamento} entram pelo médio</b> por ainda não terem
+    orçamento, e <b>${cob.sem_valor}</b> ficam sem valor por já terem sido resolvidos sem registro na planilha.</p>
     <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Etapa</th>
-    <th class="num">Ativos</th><th class="num">Já orçado</th><th class="num">Pelo médio</th>
+    <th class="num">Ativos</th><th class="num">Orçado</th><th class="num">Pelo médio</th>
     <th class="num">Total</th></tr></thead><tbody>
     ${o.por_balde.map((b) => `<tr${b.ainda_custa ? '' : ' style="opacity:.55"'}>
-      <td>${esc(b.nome)}${b.ainda_custa ? '' : ' <i class="linha-nota">já gasto</i>'}</td>
+      <td>${esc(b.nome)}${b.ainda_custa ? '' : ' <i class="linha-nota">já trocado — dinheiro já saiu</i>'}</td>
       <td class="num">${b.qtd}</td>
       <td class="num">${b.orcado ? `${moedaBR(b.orcado)}<i class="linha-nota">${b.com_orcamento} ${b.com_orcamento === 1 ? 'ativo' : 'ativos'}</i>` : '—'}</td>
-      <td class="num">${b.estimado ? `${moedaBR(b.estimado)}<i class="linha-nota">${b.sem_orcamento} sem orçamento</i>` : '—'}</td>
+      <td class="num">${b.ainda_custa
+        ? (b.estimado ? `${moedaBR(b.estimado)}<i class="linha-nota">${b.sem_orcamento} sem orçamento</i>` : '—')
+        : `<span style="opacity:.6">não se estima</span><i class="linha-nota">${b.sem_valor} sem valor na planilha</i>`}</td>
       <td class="num"><b>${moedaBR(b.custo)}</b></td></tr>`).join('')}
     </tbody><tfoot><tr><td>Ainda vai custar — ${fila.qtd} ativos</td>
     <td class="num"><b>${fila.qtd}</b></td>
@@ -539,9 +542,10 @@ function visaoOrcamentaria() {
     <div style="display:flex;align-items:flex-end;gap:6px;margin:10px 2px 4px">${barras}</div>
     <details class="detalhe-plano"><summary>De onde saem esses números</summary>
       <p class="destaque-texto"><b>Orçado ou estimado</b> — ${esc(cob.regra)}. Onde o ativo tem valor na planilha,
-      é esse valor que entra, não o médio; o médio só cobre os ${cob.sem_orcamento} sem orçamento
-      (${e.qtd} deles são o 1º ataque inteiro, ${cob.sem_orcamento - e.qtd} são ativos da carteira ou de fora dela
-      que ainda não foram orçados).</p>
+      é esse valor que entra, não o médio; o médio só cobre os ${cob.sem_orcamento} que ainda vão custar e não têm
+      orçamento (${e.qtd} deles são o 1º ataque inteiro, ${cob.sem_orcamento - e.qtd} são ativos em execução ou
+      aquisição ainda não orçados). Os ${cob.sem_valor} de ajuste e comissionamento sem valor na planilha ficam
+      sem número: o serviço já foi feito, estimar ali seria contar duas vezes o mesmo dinheiro.</p>
       <p class="destaque-texto" style="margin-top:8px"><b>O preço</b> — valor médio por manutenção do gestor:
       religador ${moedaBR(vm.RL)} e regulador ${moedaBR(vm.RT)}. Para comparar, o médio por obra concluída
       dos mesmos projetos no AIC dá ${mil(ref.RL.medio_por_obra)} (RL, ${ref.RL.obras_concluidas_2026} obras) e
