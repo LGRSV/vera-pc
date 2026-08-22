@@ -497,10 +497,10 @@ function visaoOrcamentaria() {
     </div>`).join('');
   return `<section class="bloco visao-consolidada">
     <div class="marcador"><h2>Orçamento 2026 — os dois projetos</h2>
-      <span>SIGCO 8495 religador + 8481 regulador · realizado do export de 21/08</span></div>
+      <span>SIGCO 8495 religador + 8481 regulador · realizado do Power BI, ${esc(cx.janela)}</span></div>
     <div class="numeros">
       ${num({ rotulo: 'Orçamento do ano', valor: mil(orc.total_orcado), nota: `${mil(orc.por_projeto[0].orcado)} no religador + ${mil(orc.por_projeto[1].orcado)} no regulador`, tom: 'neutro' })}
-      ${num({ rotulo: 'Realizado', valor: mil(orc.total_realizado), nota: `${String(orc.pct_realizado).replace('.', ',')}% do orçamento — faltando quatro meses de ano`, tom: 'bom' })}
+      ${num({ rotulo: 'Realizado', valor: mil(orc.total_realizado), nota: `${String(orc.pct_realizado).replace('.', ',')}% do orçamento — os dois projetos somados, até agosto`, tom: 'bom' })}
       ${num({ rotulo: 'Saldo', valor: mil(orc.saldo), nota: 'o que ainda dá para gastar em 2026', tom: 'atento' })}
       ${num({ rotulo: 'Médio por manutenção', valor: `${mil(vm.RL)} · ${mil(vm.RT)}`, nota: 'religador · regulador — a régua de preço do gestor', tom: 'neutro' })}
     </div>
@@ -548,17 +548,23 @@ function visaoOrcamentaria() {
       ${mil(ref.RT.medio_por_obra)} (RT, ${ref.RT.obras_concluidas_2026} obras) — menor porque nem toda obra do
       projeto troca o equipamento inteiro; no regulador, muitas trocam uma célula e não o banco de três.</p>
       <p class="destaque-texto" style="margin-top:8px">${esc(o.nota)}</p>
-      <div class="tabela-rol" style="margin-top:10px"><table class="matriz livro"><thead>
-      <tr><th>Projeto</th><th class="num">Orçado</th><th class="num">Realizado</th><th class="num">Saldo</th></tr></thead><tbody>
+      <p class="destaque-texto" style="margin-top:8px"><b>O orçamento do ano</b>, por projeto — a coluna Orçado
+      do quadro Orçamento 2026:</p>
+      <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead>
+      <tr><th>Projeto</th><th class="num">Orçado em 2026</th></tr></thead><tbody>
       ${orc.por_projeto.map((p) => `<tr><td>${esc(p.projeto)} · ${esc(p.nome)}</td>
-        <td class="num">${moedaBR(p.orcado)}</td><td class="num">${moedaBR(p.realizado)}</td>
-        <td class="num">${moedaBR(p.orcado - p.realizado)}</td></tr>`).join('')}
-      </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(orc.total_orcado)}</b></td>
-      <td class="num"><b>${moedaBR(orc.total_realizado)}</b></td>
-      <td class="num"><b>${moedaBR(orc.saldo)}</b></td></tr></tfoot></table></div>
-      <div class="tabela-rol" style="margin-top:10px"><table class="matriz livro"><thead>
-      <tr><th>Mês</th><th class="num">Lançado no Power BI (R$)</th></tr></thead><tbody>
+        <td class="num">${moedaBR(p.orcado)}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(orc.total_orcado)}</b></td></tr></tfoot></table></div>
+      <p class="destaque-texto" style="margin-top:12px"><b>O realizado</b>, mês a mês — os dois projetos somados
+      no Power BI. É este o realizado do ano; a coluna Realizado do quadro do export de 21/08 trazia
+      R$ 1.365.345, apuração mais atrasada, e não entra na conta.</p>
+      <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead>
+      <tr><th>Mês</th><th class="num">Realizado — 8495 + 8481 (R$)</th></tr></thead><tbody>
       ${cx.por_mes.map((m) => `<tr><td>${esc(m.rotulo)}/2026</td><td class="num">${moedaBR(m.valor)}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(cx.total)}</b></td></tr></tfoot></table></div>
+      <div class="tabela-rol" style="margin-top:10px"><table class="matriz livro"><thead>
+      <tr><th>Natureza</th><th class="num">Realizado (R$)</th></tr></thead><tbody>
+      ${cx.por_natureza.map((n) => `<tr><td>${esc(n.natureza)}</td><td class="num">${moedaBR(n.valor)}</td></tr>`).join('')}
       </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(cx.total)}</b></td></tr></tfoot></table></div>
     </details>
   </section>`;

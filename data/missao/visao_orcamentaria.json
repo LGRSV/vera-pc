@@ -1,30 +1,28 @@
 {
  "gerado_em": "2026-08-22",
  "orcamento": {
-  "fonte": "quadro Orçamento 2026 do gestor — realizado apurado no export de 21/08/2026 (realizado contábil)",
+  "fonte": "quadro Orçamento 2026 do gestor — a coluna Orçado. O realizado vem do Power BI, não daqui.",
   "por_projeto": [
    {
     "projeto": "8495",
     "nome": "Religadores",
     "sigla": "RL",
-    "orcado": 4497155.32,
-    "realizado": 958743.0
+    "orcado": 4497155.32
    },
    {
     "projeto": "8481",
     "nome": "Reguladores",
     "sigla": "RT",
-    "orcado": 1565168.52,
-    "realizado": 406602.0
+    "orcado": 1565168.52
    }
   ],
   "total_orcado": 6062323.84,
-  "total_realizado": 1365345.0,
-  "pct_realizado": 22.52,
-  "saldo": 4696978.84
+  "total_realizado": 1573958.37,
+  "pct_realizado": 25.96,
+  "saldo": 4488365.47
  },
  "caixa": {
-  "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) juntos, print do gestor em 22/08/2026",
+  "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) SOMADOS, print do gestor em 22/08/2026",
   "janela": "janeiro a agosto/2026 (agosto parcial)",
   "total": 1573958.37,
   "por_mes": [
@@ -205,7 +203,7 @@
   "orcado": 0,
   "estimado": 1497077.51,
   "custo": 1497077.51,
-  "pct_do_saldo": 31.9,
+  "pct_do_saldo": 33.4,
   "pct_do_orcamento": 24.7,
   "como": "17 religadores × R$ 58,543.21 + 3 reguladores × R$ 167,280.98: nenhum dos 20 tem orçamento próprio na planilha — são novos, e é por isso que aqui tudo é pelo médio"
  },
@@ -218,8 +216,8 @@
   "orcado": 4001686.05,
   "estimado": 2642895.76,
   "custo": 6644581.81,
-  "pct_do_saldo": 141.5,
+  "pct_do_saldo": 148.0,
   "regra": "execução + logística + aquisição + 1º ataque; ajuste de proteção e comissionamento ficam fora — nesses o equipamento já foi trocado e o dinheiro já saiu"
  },
- "nota": "o realizado tem duas apurações do próprio gestor e as duas ficam à vista: R$ 1,37 mi no quadro Orçamento 2026 (contábil, export de 21/08) e R$ 1,57 mi no Power BI por natureza (lançamentos de jan–ago). O médio por obra do AIC não serve de preço: nem toda obra do projeto troca o equipamento inteiro."
+ "nota": "o realizado do ano é o total do Power BI — 8481 e 8495 somados, jan–ago —, régua do gestor (22/08). A coluna Realizado do quadro Orçamento 2026 (export de 21/08) trazia R$ 1.365.345, uma apuração mais atrasada, e não é usada aqui. O orçado por projeto vem do mesmo quadro e continua valendo. O médio por obra do AIC não serve de preço: nem toda obra do projeto troca o equipamento inteiro."
 }

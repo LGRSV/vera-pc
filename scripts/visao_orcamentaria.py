@@ -15,12 +15,11 @@ valor médio por manutenção. Dos 93, 54 têm orçamento próprio; 39 não — 
 a estimativa deles é inteiramente pelo médio.
 
 Fontes (todas do gestor, em data/raw/realizado_capex_2026.json):
-  - quadro Orçamento 2026 — orçado e realizado contábil por projeto, export 21/08;
-  - Power BI do Capex — o mesmo dinheiro por mês e por natureza, jan–ago;
+  - quadro Orçamento 2026 — a coluna ORÇADO por projeto;
+  - Power BI do Capex — o REALIZADO do ano, 8481 e 8495 somados, por mês e por
+    natureza. É esta a medida do realizado (régua do gestor, 22/08): a coluna
+    Realizado do quadro do export de 21/08 trazia R$ 1.365.345 e não vale;
   - o valor médio por manutenção.
-As duas apurações de realizado não batem (R$ 1,57 mi no Power BI × R$ 1,37 mi no
-contábil) e ficam as duas à vista: uma é lançamento, a outra é o que já entrou na
-contabilidade do projeto.
 
 Grava data/missao/visao_orcamentaria.json.
 Rodar: python3 scripts/visao_orcamentaria.py
@@ -67,7 +66,10 @@ def montar():
                   for x in json.load(fh)["lista"] if (x.get("valor") or 0) > 0}
 
     medio = caixa["valor_medio_por_manutencao"]
-    orc = caixa["orcamento_2026"]
+    orc = dict(caixa["orcamento_2026"])
+    # o realizado do ano é o total do Power BI, não a coluna do quadro
+    orc["total_realizado"] = caixa["total"]
+    orc["pct_realizado"] = round(100 * caixa["total"] / orc["total_orcado"], 2)
     saldo = round(orc["total_orcado"] - orc["total_realizado"], 2)
 
     # ---- referência: o médio por obra concluída do projeto no AIC (fica de nota)
@@ -140,11 +142,12 @@ def montar():
                      "comissionamento ficam fora — nesses o equipamento já foi trocado e "
                      "o dinheiro já saiu",
         },
-        "nota": ("o realizado tem duas apurações do próprio gestor e as duas ficam à "
-                 "vista: R$ 1,37 mi no quadro Orçamento 2026 (contábil, export de 21/08) "
-                 "e R$ 1,57 mi no Power BI por natureza (lançamentos de jan–ago). O "
-                 "médio por obra do AIC não serve de preço: nem toda obra do projeto "
-                 "troca o equipamento inteiro."),
+        "nota": ("o realizado do ano é o total do Power BI — 8481 e 8495 somados, "
+                 "jan–ago —, régua do gestor (22/08). A coluna Realizado do quadro "
+                 "Orçamento 2026 (export de 21/08) trazia R$ 1.365.345, uma apuração "
+                 "mais atrasada, e não é usada aqui. O orçado por projeto vem do mesmo "
+                 "quadro e continua valendo. O médio por obra do AIC não serve de preço: "
+                 "nem toda obra do projeto troca o equipamento inteiro."),
     }
     with open(SAIDA, "w", encoding="utf-8") as fh:
         json.dump(pacote, fh, ensure_ascii=False, indent=1)

@@ -1,7 +1,8 @@
 {
- "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) juntos, print do gestor em 22/08/2026",
+ "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) SOMADOS, print do gestor em 22/08/2026",
  "janela": "janeiro a agosto/2026 (agosto parcial)",
  "total": 1573958.37,
+ "regua": "régua do gestor (22/08): o realizado do ano é este total, a soma do 8481 com o 8495 no Power BI. O quadro Orçamento 2026 do export de 21/08 trazia R$ 1.365.345 na coluna Realizado — é outra apuração, mais atrasada, e NÃO é a medida do realizado.",
  "por_mes": [
   {"mes": "2026-01", "rotulo": "jan", "valor": 33374.11},
   {"mes": "2026-02", "rotulo": "fev", "valor": 378377.86},
@@ -19,16 +20,12 @@
   {"natureza": "Transporte", "valor": 335.40}
  ],
  "orcamento_2026": {
-  "fonte": "quadro Orçamento 2026 do gestor — realizado apurado no export de 21/08/2026 (realizado contábil)",
+  "fonte": "quadro Orçamento 2026 do gestor — a coluna Orçado. O realizado vem do Power BI, não daqui.",
   "por_projeto": [
-   {"projeto": "8495", "nome": "Religadores", "sigla": "RL",
-    "orcado": 4497155.32, "realizado": 958743.00},
-   {"projeto": "8481", "nome": "Reguladores", "sigla": "RT",
-    "orcado": 1565168.52, "realizado": 406602.00}
+   {"projeto": "8495", "nome": "Religadores", "sigla": "RL", "orcado": 4497155.32},
+   {"projeto": "8481", "nome": "Reguladores", "sigla": "RT", "orcado": 1565168.52}
   ],
-  "total_orcado": 6062323.84,
-  "total_realizado": 1365345.00,
-  "pct_realizado": 22.52
+  "total_orcado": 6062323.84
  },
  "valor_medio_por_manutencao": {
   "fonte": "régua do gestor (22/08): o valor médio por manutenção que vale é este, não o médio por obra do AIC",

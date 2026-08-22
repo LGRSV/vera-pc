@@ -105,9 +105,10 @@ comissionamento e obra de equipamento novo.
   idêntico), enviado com outro nome.
 - **Orçamento** (tudo em `data/raw/realizado_capex_2026.json`, contas em
   `scripts/visao_orcamentaria.py`): orçado 2026 = **R$ 6.062.323,84** (8495 R$ 4,50 mi
-  + 8481 R$ 1,57 mi); realizado contábil do export de 21/08 = **R$ 1.365.345 (22,52%)**;
-  saldo R$ 4,70 mi. O Power BI por natureza/mês dá **R$ 1.573.958,37** — é outra
-  apuração (lançamento × contábil), as duas ficam à vista, sem reconciliar.
+  + 8481 R$ 1,57 mi). **O realizado é o total do Power BI — R$ 1.573.958,37 (25,96%)**,
+  o 8481 somado ao 8495, jan–ago; saldo R$ 4.488.365,47. A coluna Realizado do quadro
+  Orçamento 2026 (export de 21/08) traz R$ 1.365.345 — apuração mais atrasada, **não
+  usar** (régua do gestor, 22/08). Do quadro vale só a coluna Orçado.
 - **O preço é o valor médio por manutenção do gestor**: **RL R$ 58.543,21** e
   **RT R$ 167.280,98** (22/08). O médio por obra do AIC (RL R$ 39 mil, RT R$ 47,7 mil)
   **não serve de preço** — nem toda obra do projeto troca o equipamento inteiro; no RT,
