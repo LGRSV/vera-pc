@@ -511,28 +511,43 @@ function visaoOrcamentaria() {
     <b>${String(e.pct_do_saldo).replace('.', ',')}% do saldo</b> de ${mil(orc.saldo)} que resta no ano, quase tudo
     que os dois projetos já realizaram de janeiro até agora.</div>
     <h4 class="sub-grafico">Cada balde da carteira em dinheiro</h4>
-    <p class="destaque-texto">Vale o <b>valor orçado do próprio ativo</b> na planilha de indisponibilidade; o valor
-    médio por manutenção entra só onde não há orçamento <b>e o serviço ainda vai acontecer</b>. Nas duas primeiras
-    linhas o equipamento <b>já foi trocado</b> — ali não se estima nada, o dinheiro já saiu e está dentro do
-    realizado do ano. Dos ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão ETO,
-    <b>${cob.com_orcamento} estão orçados</b>, <b>${cob.sem_orcamento} entram pelo médio</b> por ainda não terem
-    orçamento, e <b>${cob.sem_valor}</b> ficam sem valor por já terem sido resolvidos sem registro na planilha.</p>
+    <p class="destaque-texto">Vale primeiro a <b>obra do ativo no AIC</b> — dinheiro de verdade: o realizado, em
+    quem já foi trocado, e o orçado da obra aberta neste ano, em quem ainda espera. Sem obra, vale o valor orçado
+    do ativo na planilha; e só então o valor médio por manutenção, apenas em quem ainda vai custar. Dos
+    ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão ETO, <b>${cob.n_obra} saem da obra no AIC</b>
+    (${mil(cob.por_obra)}), <b>${cob.n_planilha} da planilha</b> (${mil(cob.por_planilha)}),
+    <b>${cob.sem_orcamento} do médio</b> (${mil(cob.estimado)}) e <b>${cob.sem_valor}</b> ficam sem valor —
+    já trocados, sem obra nem orçamento registrados.</p>
     <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Etapa</th>
-    <th class="num">Ativos</th><th class="num">Orçado</th><th class="num">Pelo médio</th>
+    <th class="num">Ativos</th><th class="num">Valor conhecido</th><th class="num">Pelo médio</th>
     <th class="num">Total</th></tr></thead><tbody>
     ${o.por_balde.map((b) => `<tr${b.ainda_custa ? '' : ' style="opacity:.55"'}>
       <td>${esc(b.nome)}${b.ainda_custa ? '' : ' <i class="linha-nota">já trocado — dinheiro já saiu</i>'}</td>
       <td class="num">${b.qtd}</td>
-      <td class="num">${b.orcado ? `${moedaBR(b.orcado)}<i class="linha-nota">${b.com_orcamento} ${b.com_orcamento === 1 ? 'ativo' : 'ativos'}</i>` : '—'}</td>
+      <td class="num">${b.conhecido ? `${moedaBR(b.conhecido)}<i class="linha-nota">${[b.n_obra ? `${b.n_obra} pela obra` : '', b.n_planilha ? `${b.n_planilha} pela planilha` : ''].filter(Boolean).join(' · ')}</i>` : '—'}</td>
       <td class="num">${b.ainda_custa
-        ? (b.estimado ? `${moedaBR(b.estimado)}<i class="linha-nota">${b.sem_orcamento} sem orçamento</i>` : '—')
-        : `<span style="opacity:.6">não se estima</span><i class="linha-nota">${b.sem_valor} sem valor na planilha</i>`}</td>
+        ? (b.estimado ? `${moedaBR(b.estimado)}<i class="linha-nota">${b.n_medio} sem orçamento</i>` : '—')
+        : `<span style="opacity:.6">não se estima</span><i class="linha-nota">${b.sem_valor} sem valor</i>`}</td>
       <td class="num"><b>${moedaBR(b.custo)}</b></td></tr>`).join('')}
     </tbody><tfoot><tr><td>Ainda vai custar — ${fila.qtd} ativos</td>
     <td class="num"><b>${fila.qtd}</b></td>
-    <td class="num"><b>${moedaBR(fila.orcado)}</b><i class="linha-nota">${fila.com_orcamento} ativos</i></td>
-    <td class="num"><b>${moedaBR(fila.estimado)}</b><i class="linha-nota">${fila.sem_orcamento} sem orçamento</i></td>
+    <td class="num"><b>${moedaBR(fila.conhecido)}</b><i class="linha-nota">${fila.n_obra} pela obra · ${fila.n_planilha} pela planilha</i></td>
+    <td class="num"><b>${moedaBR(fila.estimado)}</b><i class="linha-nota">${fila.n_medio} sem orçamento</i></td>
     <td class="num"><b>${moedaBR(fila.custo)}</b></td></tr></tfoot></table></div>
+    ${(() => {
+      const comObra = Object.entries(o.fontes_por_ativo || {}).filter(([, v]) => v.fonte === 'obra');
+      if (!comObra.length) return '';
+      return `<details class="detalhe-plano"><summary>Os ${comObra.length} que já têm valor de obra no AIC</summary>
+        <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead><tr>
+        <th>Ativo</th><th>Obra</th><th>Aberta em</th><th class="num">Valor</th><th>Medida</th>
+        <th>Como o vínculo apareceu</th></tr></thead><tbody>
+        ${comObra.sort((a, b) => b[1].abertura.localeCompare(a[1].abertura)).map(([a, v]) => `<tr>
+          <td><b class="mono">${esc(a)}</b></td><td class="mono">${esc(v.obra)}</td>
+          <td>${esc(v.abertura.split('-').reverse().join('/'))}</td>
+          <td class="num">${moedaBR(v.valor)}</td><td>${esc(v.medida)}</td>
+          <td>${esc(v.via)}</td></tr>`).join('')}
+        </tbody></table></div></details>`;
+    })()}
     <div class="nota" style="margin-top:14px"><strong>A fila não cabe no saldo.</strong>
     Resolver os <b>${fila.qtd}</b> que ainda esperam equipamento custaria <b>${mil(fila.custo)}</b> —
     <b>${String(fila.pct_do_saldo).replace('.', ',')}%</b> do saldo de ${mil(orc.saldo)}. Mesmo sem gastar mais nada
@@ -541,11 +556,13 @@ function visaoOrcamentaria() {
     <h4 class="sub-grafico">O gasto mês a mês</h4>
     <div style="display:flex;align-items:flex-end;gap:6px;margin:10px 2px 4px">${barras}</div>
     <details class="detalhe-plano"><summary>De onde saem esses números</summary>
-      <p class="destaque-texto"><b>Orçado ou estimado</b> — ${esc(cob.regra)}. Onde o ativo tem valor na planilha,
-      é esse valor que entra, não o médio; o médio só cobre os ${cob.sem_orcamento} que ainda vão custar e não têm
-      orçamento (${e.qtd} deles são o 1º ataque inteiro, ${cob.sem_orcamento - e.qtd} são ativos em execução ou
-      aquisição ainda não orçados). Os ${cob.sem_valor} de ajuste e comissionamento sem valor na planilha ficam
-      sem número: o serviço já foi feito, estimar ali seria contar duas vezes o mesmo dinheiro.</p>
+      <p class="destaque-texto"><b>De onde vem o valor de cada ativo</b> — ${esc(cob.regra)}. A obra chega ao ativo
+      por três caminhos, todos anotados na tabela acima: o vínculo por EMD do cruzamento obra×ativo, o número de
+      obra da própria SS e o número citado no texto do parecer. Obra de anos anteriores não entra em quem ainda
+      espera: ela pagou outra falha, e o dinheiro dela não diz o que falta gastar agora. O médio só cobre os
+      ${cob.sem_orcamento} que ainda vão custar sem obra nem orçamento (${e.qtd} deles são o 1º ataque inteiro), e
+      os ${cob.sem_valor} já trocados sem registro ficam sem número: estimar ali seria contar duas vezes o mesmo
+      dinheiro.</p>
       <p class="destaque-texto" style="margin-top:8px"><b>O preço</b> — valor médio por manutenção do gestor:
       religador ${moedaBR(vm.RL)} e regulador ${moedaBR(vm.RT)}. Para comparar, o médio por obra concluída
       dos mesmos projetos no AIC dá ${mil(ref.RL.medio_por_obra)} (RL, ${ref.RL.obras_concluidas_2026} obras) e

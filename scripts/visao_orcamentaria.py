@@ -27,11 +27,18 @@ Rodar: python3 scripts/visao_orcamentaria.py
 
 import json
 import os
+import re
+from collections import defaultdict
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(RAIZ, "data", "missao", "visao_orcamentaria.json")
 
 PROJETOS = (("8495", "religador", "RL"), ("8481", "regulador", "RT"))
+PROJETO_DO_TIPO = {"RL": "8495", "RT": "8481"}
+# A obra que vale é a da demanda de agora. Obra concluída em 2023/2024 num ativo que
+# hoje está em aquisição é de um evento anterior — o dinheiro dela já foi gasto noutra
+# falha e não diz nada sobre o que falta pagar.
+ANO_DA_CARTEIRA = "2026"
 BALDE_NOME = {
     "ajuste_de_protecao": "Em fase de ajuste de proteção",
     "comissionamento": "Aguardando comissionamento",
@@ -52,6 +59,62 @@ def _num(v):
         return 0.0
 
 
+def _oid(x):
+    if isinstance(x, dict):
+        x = x.get("obra") or x.get("num_obra") or ""
+    x = str(x).split(".")[0].strip()
+    return x.zfill(10) if x.isdigit() and int(x) > 0 else ""
+
+
+def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo):
+    """Toda obra do AIC que a cadeia liga ao ativo, por três vias: o vínculo por EMD
+    do m4, o NUM_OBRA das SS do próprio ativo e o número de obra citado no texto da
+    SS pendente. Guarda por onde veio, para dar para conferir."""
+    vinc = defaultdict(dict)
+    for a, d in m4.items():
+        for o in [_oid(d.get("obra_principal"))] + [_oid(x) for x in (d.get("outras_obras") or [])]:
+            if o:
+                vinc[a].setdefault(o, "EMD/obra do ativo")
+    for r in ssos:
+        o = _oid(r["NUM_OBRA"])
+        if o:
+            vinc[r["NUM_TRAFO"]].setdefault(o, f"obra na {r['NUMERO_SS']}")
+    for ss_num, txt in descricoes.items():
+        a = ss_do_ativo.get(ss_num)
+        if not a:
+            continue
+        for m in re.findall(r"\b(\d{9,10})\b", txt or ""):
+            o = _oid(m)
+            if o and o in aic:
+                vinc[a].setdefault(o, f"obra citada no texto da {ss_num}")
+    return vinc
+
+
+def valor_pela_obra(ativo, tipo, ja_trocado, vinc, aic):
+    """O valor real da obra do ativo, quando o AIC tem uma que sirva.
+
+    Em quem já foi trocado vale o REALIZADO — é o dinheiro que saiu. Em quem ainda
+    espera, vale o ORÇADO da obra aberta neste ano, que é o compromisso firme; obra
+    de anos anteriores fica de fora porque pagou outra falha."""
+    cand = []
+    for o, via in (vinc.get(ativo) or {}).items():
+        r = aic.get(o)
+        if not r or str(r.get("NUM_PROJETO_SIGCO", "")).strip() != PROJETO_DO_TIPO.get(tipo):
+            continue
+        abertura = str(r.get("DTH_ABERTURA", ""))[:10]
+        orcado, realizado = _num(r.get("VAL_TOTAL_ORCADO")), _num(r.get("TOTAL_REALIZADO"))
+        if ja_trocado and realizado > 0:
+            cand.append((abertura, realizado, "realizado", o, via, orcado))
+        elif abertura[:4] >= ANO_DA_CARTEIRA and (realizado > 0 or orcado > 0):
+            cand.append((abertura, realizado if realizado > 0 else orcado,
+                         "realizado" if realizado > 0 else "orçado", o, via, orcado))
+    if not cand:
+        return None
+    abertura, valor, medida, obra, via, orcado = max(cand)
+    return {"valor": round(valor, 2), "medida": medida, "obra": obra, "via": via,
+            "abertura": abertura, "orcado_da_obra": round(orcado, 2)}
+
+
 def montar():
     with open(os.path.join(RAIZ, "data", "raw", "realizado_capex_2026.json"),
               encoding="utf-8") as fh:
@@ -64,6 +127,20 @@ def montar():
     with open(os.path.join(RAIZ, "data", "raw", "dinamica_joa.json"), encoding="utf-8") as fh:
         orcado = {x["ativo"]: x.get("valor") or 0.0
                   for x in json.load(fh)["lista"] if (x.get("valor") or 0) > 0}
+    with open(os.path.join(RAIZ, "data", "missao", "ssos_min.json"), encoding="utf-8") as fh:
+        ssos = json.load(fh)
+    with open(os.path.join(RAIZ, "data", "missao", "descricao_ss_pendentes.json"),
+              encoding="utf-8") as fh:
+        descricoes = json.load(fh)
+    with open(os.path.join(RAIZ, "data", "missao", "m4_aic129.json"), encoding="utf-8") as fh:
+        m4 = json.load(fh)["ativos"]
+
+    todos = {i["ativo"]: {**i, "_ja_trocado": b not in AINDA_CUSTA}
+             for b in BALDE_NOME for i in vc["visao_eto"]["baldes"][b]["ativos"]}
+    ss_do_ativo = {i["ss_pendente"]: a for a, i in todos.items()}
+    vinc = obras_por_ativo(aic, [r for r in ssos if r["NUM_TRAFO"] in todos],
+                           descricoes, {a: d for a, d in m4.items() if a in todos},
+                           ss_do_ativo)
 
     medio = caixa["valor_medio_por_manutencao"]
     orc = dict(caixa["orcamento_2026"])
@@ -94,30 +171,54 @@ def montar():
     # FOI TROCADO — o dinheiro saiu. Ali não se estima nada: vale o que estava orçado
     # para eles, e quem não tem valor na planilha fica sem valor mesmo. Aplicar o médio
     # seria inventar gasto futuro para dinheiro que já aconteceu.
-    def custo(itens, aplica_medio=True):
+    # A hierarquia do valor de cada ativo, da fonte mais forte para a mais fraca:
+    #   1. a OBRA do ativo no AIC — dinheiro de verdade, realizado ou orçado;
+    #   2. o valor orçado do ativo na planilha de indisponibilidade;
+    #   3. o valor médio por manutenção — e só em quem ainda vai custar.
+    fontes = {}
+    for a, i in todos.items():
+        ja = i["_ja_trocado"]
+        obra = valor_pela_obra(a, i["tipo"], ja, vinc, aic)
+        if obra:
+            fontes[a] = {"valor": obra["valor"], "fonte": "obra", **obra}
+        elif a in orcado:
+            fontes[a] = {"valor": round(orcado[a], 2), "fonte": "planilha"}
+        elif not ja:
+            fontes[a] = {"valor": round(medio[i["tipo"]], 2), "fonte": "medio"}
+        else:
+            fontes[a] = {"valor": 0.0, "fonte": "sem_valor"}
+
+    def custo(itens):
         rl = sum(1 for i in itens if i["tipo"] == "RL")
-        com = [i for i in itens if i["ativo"] in orcado]
-        sem = [i for i in itens if i["ativo"] not in orcado]
-        s_orcado = round(sum(orcado[i["ativo"]] for i in com), 2)
-        s_medio = round(sum(medio[i["tipo"]] for i in sem), 2) if aplica_medio else 0.0
+        conta = {f: 0 for f in ("obra", "planilha", "medio", "sem_valor")}
+        soma = dict(conta)
+        for i in itens:
+            fo = fontes[i["ativo"]]
+            conta[fo["fonte"]] += 1
+            soma[fo["fonte"]] += fo["valor"]
         return {"qtd": len(itens), "rl": rl, "rt": len(itens) - rl,
-                "com_orcamento": len(com),
-                "sem_orcamento": len(sem) if aplica_medio else 0,
-                "sem_valor": 0 if aplica_medio else len(sem),
-                "orcado": s_orcado, "estimado": s_medio,
-                "custo": round(s_orcado + s_medio, 2)}
+                "n_obra": conta["obra"], "n_planilha": conta["planilha"],
+                "n_medio": conta["medio"], "sem_valor": conta["sem_valor"],
+                "por_obra": round(soma["obra"], 2),
+                "por_planilha": round(soma["planilha"], 2),
+                "estimado": round(soma["medio"], 2),
+                # o que se sabe de verdade — obra ou planilha — separado do que é estimado
+                "conhecido": round(soma["obra"] + soma["planilha"], 2),
+                "com_orcamento": conta["obra"] + conta["planilha"],
+                "sem_orcamento": conta["medio"],
+                "orcado": round(soma["obra"] + soma["planilha"], 2),
+                "custo": round(soma["obra"] + soma["planilha"] + soma["medio"], 2)}
 
     baldes = []
     for b, nome in BALDE_NOME.items():
-        ainda = b in AINDA_CUSTA
-        d = custo(vc["visao_eto"]["baldes"][b]["ativos"], aplica_medio=ainda)
-        baldes.append({"balde": b, "nome": nome, "ainda_custa": ainda, **d})
+        d = custo(vc["visao_eto"]["baldes"][b]["ativos"])
+        baldes.append({"balde": b, "nome": nome, "ainda_custa": b in AINDA_CUSTA, **d})
 
     fila = [i for b in AINDA_CUSTA for i in vc["visao_eto"]["baldes"][b]["ativos"]]
     f = custo(fila)
     ja_gasto = [i for b in BALDE_NOME if b not in AINDA_CUSTA
                 for i in vc["visao_eto"]["baldes"][b]["ativos"]]
-    g = custo(ja_gasto, aplica_medio=False)
+    g = custo(ja_gasto)
     dmsl = vc["visao_eto"]["baldes"]["dmsl_novos"]["ativos"]
     d = custo(dmsl)
     f_rl, f_rt, f_custo = f["rl"], f["rt"], f["custo"]
@@ -132,16 +233,23 @@ def montar():
         "referencia_aic": referencia,
         "por_balde": baldes,
         "cobertura": {
+            "n_obra": sum(b["n_obra"] for b in baldes),
+            "n_planilha": sum(b["n_planilha"] for b in baldes),
             "com_orcamento": sum(b["com_orcamento"] for b in baldes),
             "sem_orcamento": sum(b["sem_orcamento"] for b in baldes),
             "sem_valor": sum(b["sem_valor"] for b in baldes),
+            "por_obra": round(sum(b["por_obra"] for b in baldes), 2),
+            "por_planilha": round(sum(b["por_planilha"] for b in baldes), 2),
             "orcado": round(sum(b["orcado"] for b in baldes), 2),
             "estimado": round(sum(b["estimado"] for b in baldes), 2),
-            "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; onde "
-                     "não há orçamento e o serviço ainda vai acontecer, entra o valor "
-                     "médio por manutenção. Em ajuste de proteção e comissionamento não "
-                     "se estima nada: o equipamento já foi trocado e o dinheiro já saiu",
+            "regra": "vale primeiro a OBRA do ativo no AIC — realizado em quem já foi "
+                     "trocado, orçado da obra aberta neste ano em quem ainda espera; "
+                     "depois o valor orçado do ativo na planilha de indisponibilidade; "
+                     "e só então o valor médio por manutenção, apenas em quem ainda vai "
+                     "custar. Em ajuste de proteção e comissionamento não se estima nada: "
+                     "o equipamento já foi trocado e o dinheiro já saiu",
         },
+        "fontes_por_ativo": {a: v for a, v in sorted(fontes.items())},
         "ja_gasto": {**g, "regra": "ajuste de proteção + comissionamento — equipamento já "
                      "trocado; o valor é o que estava orçado para eles, e o desembolso "
                      "real está dentro do realizado do ano"},
@@ -178,13 +286,14 @@ if __name__ == "__main__":
     print(f"médio por manutenção: RL R$ {p['valor_medio']['RL']:,.2f} · "
           f"RT R$ {p['valor_medio']['RT']:,.2f}")
     c = p["cobertura"]
-    print(f"cobertura: {c['com_orcamento']} orçados (R$ {c['orcado']:,.2f}) + "
-          f"{c['sem_orcamento']} pelo médio (R$ {c['estimado']:,.2f})")
+    print(f"cobertura: {c['n_obra']} pela obra no AIC (R$ {c['por_obra']:,.2f}) · "
+          f"{c['n_planilha']} pela planilha (R$ {c['por_planilha']:,.2f}) · "
+          f"{c['sem_orcamento']} pelo médio (R$ {c['estimado']:,.2f}) · "
+          f"{c['sem_valor']} sem valor")
     for b in p["por_balde"]:
-        det = (f"{b['com_orcamento']} orç + {b['sem_orcamento']} méd" if b["ainda_custa"]
-               else f"{b['com_orcamento']} orç, {b['sem_valor']} sem valor")
-        print(f"  {b['nome']:<34} {b['qtd']:>3} ({det})  R$ {b['custo']:>14,.2f}"
-              f"{'' if b['ainda_custa'] else '   (já gasto — sem estimativa)'}")
+        print(f"  {b['nome']:<34} {b['qtd']:>3} ({b['n_obra']} obra, {b['n_planilha']} plan, "
+              f"{b['n_medio']} méd, {b['sem_valor']} s/v)  R$ {b['custo']:>14,.2f}"
+              f"{'' if b['ainda_custa'] else '   (já gasto)'}")
     e = p["estimativa_dmsl"]
     print(f"1º ataque para o DCMD: R$ {e['custo']:,.2f} — {e['pct_do_saldo']}% do saldo")
     f = p["fila_que_ainda_custa"]

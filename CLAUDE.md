@@ -109,6 +109,11 @@ comissionamento e obra de equipamento novo.
   o 8481 somado ao 8495, jan–ago; saldo R$ 4.488.365,47. A coluna Realizado do quadro
   Orçamento 2026 (export de 21/08) traz R$ 1.365.345 — apuração mais atrasada, **não
   usar** (régua do gestor, 22/08). Do quadro vale só a coluna Orçado.
+- **Valor de cada ativo, na ordem**: 1) a **obra do ativo no AIC** no projeto certo —
+  realizado em quem já foi trocado, orçado da obra **aberta no ano** em quem ainda
+  espera (obra velha pagou outra falha, não entra); 2) o valor orçado do ativo na
+  planilha de indisponibilidade; 3) o médio, só em quem ainda vai custar. A obra chega
+  ao ativo por três vias: EMD (`m4_aic129`), `NUM_OBRA` da SS e número citado no texto.
 - **O preço é o valor médio por manutenção do gestor**: **RL R$ 58.543,21** e
   **RT R$ 167.280,98** (22/08). O médio por obra do AIC (RL R$ 39 mil, RT R$ 47,7 mil)
   **não serve de preço** — nem toda obra do projeto troca o equipamento inteiro; no RT,

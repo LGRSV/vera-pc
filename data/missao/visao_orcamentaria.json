@@ -115,12 +115,18 @@
    "qtd": 11,
    "rl": 8,
    "rt": 3,
+   "n_obra": 5,
+   "n_planilha": 4,
+   "n_medio": 0,
+   "sem_valor": 2,
+   "por_obra": 232661.0,
+   "por_planilha": 352591.88,
+   "estimado": 0,
+   "conhecido": 585252.88,
    "com_orcamento": 9,
    "sem_orcamento": 0,
-   "sem_valor": 2,
-   "orcado": 655171.96,
-   "estimado": 0.0,
-   "custo": 655171.96
+   "orcado": 585252.88,
+   "custo": 585252.88
   },
   {
    "balde": "comissionamento",
@@ -129,12 +135,18 @@
    "qtd": 9,
    "rl": 5,
    "rt": 4,
-   "com_orcamento": 6,
+   "n_obra": 5,
+   "n_planilha": 2,
+   "n_medio": 0,
+   "sem_valor": 2,
+   "por_obra": 239586.0,
+   "por_planilha": 104455.54,
+   "estimado": 0,
+   "conhecido": 344041.54,
+   "com_orcamento": 7,
    "sem_orcamento": 0,
-   "sem_valor": 3,
-   "orcado": 391394.49,
-   "estimado": 0.0,
-   "custo": 391394.49
+   "orcado": 344041.54,
+   "custo": 344041.54
   },
   {
    "balde": "dcmd_execucao",
@@ -143,12 +155,18 @@
    "qtd": 4,
    "rl": 2,
    "rt": 2,
+   "n_obra": 2,
+   "n_planilha": 1,
+   "n_medio": 1,
+   "sem_valor": 0,
+   "por_obra": 448359.0,
+   "por_planilha": 15000.0,
+   "estimado": 58543.21,
+   "conhecido": 463359.0,
    "com_orcamento": 3,
    "sem_orcamento": 1,
-   "sem_valor": 0,
-   "orcado": 542619.38,
-   "estimado": 58543.21,
-   "custo": 601162.59
+   "orcado": 463359.0,
+   "custo": 521902.21
   },
   {
    "balde": "dcmd_logistica",
@@ -157,12 +175,18 @@
    "qtd": 3,
    "rl": 0,
    "rt": 3,
+   "n_obra": 1,
+   "n_planilha": 2,
+   "n_medio": 0,
+   "sem_valor": 0,
+   "por_obra": 75818.0,
+   "por_planilha": 268479.73,
+   "estimado": 0,
+   "conhecido": 344297.73,
    "com_orcamento": 3,
    "sem_orcamento": 0,
-   "sem_valor": 0,
-   "orcado": 521959.46,
-   "estimado": 0,
-   "custo": 521959.46
+   "orcado": 344297.73,
+   "custo": 344297.73
   },
   {
    "balde": "dcmd_aquisicao",
@@ -171,12 +195,18 @@
    "qtd": 46,
    "rl": 39,
    "rt": 7,
-   "com_orcamento": 33,
-   "sem_orcamento": 13,
+   "n_obra": 3,
+   "n_planilha": 31,
+   "n_medio": 12,
    "sem_valor": 0,
-   "orcado": 2937107.21,
-   "estimado": 1087275.04,
-   "custo": 4024382.25
+   "por_obra": 489679.0,
+   "por_planilha": 2386651.77,
+   "estimado": 1028731.83,
+   "conhecido": 2876330.77,
+   "com_orcamento": 34,
+   "sem_orcamento": 12,
+   "orcado": 2876330.77,
+   "custo": 3905062.6
   },
   {
    "balde": "dmsl_novos",
@@ -185,43 +215,519 @@
    "qtd": 20,
    "rl": 17,
    "rt": 3,
+   "n_obra": 0,
+   "n_planilha": 0,
+   "n_medio": 20,
+   "sem_valor": 0,
+   "por_obra": 0,
+   "por_planilha": 0,
+   "estimado": 1497077.51,
+   "conhecido": 0,
    "com_orcamento": 0,
    "sem_orcamento": 20,
-   "sem_valor": 0,
    "orcado": 0,
-   "estimado": 1497077.51,
    "custo": 1497077.51
   }
  ],
  "cobertura": {
-  "com_orcamento": 54,
-  "sem_orcamento": 34,
-  "sem_valor": 5,
-  "orcado": 5048252.5,
-  "estimado": 2642895.76,
-  "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; onde não há orçamento e o serviço ainda vai acontecer, entra o valor médio por manutenção. Em ajuste de proteção e comissionamento não se estima nada: o equipamento já foi trocado e o dinheiro já saiu"
+  "n_obra": 16,
+  "n_planilha": 40,
+  "com_orcamento": 56,
+  "sem_orcamento": 33,
+  "sem_valor": 4,
+  "por_obra": 1486103.0,
+  "por_planilha": 3127178.92,
+  "orcado": 4613281.92,
+  "estimado": 2584352.55,
+  "regra": "vale primeiro a OBRA do ativo no AIC — realizado em quem já foi trocado, orçado da obra aberta neste ano em quem ainda espera; depois o valor orçado do ativo na planilha de indisponibilidade; e só então o valor médio por manutenção, apenas em quem ainda vai custar. Em ajuste de proteção e comissionamento não se estima nada: o equipamento já foi trocado e o dinheiro já saiu"
+ },
+ "fontes_por_ativo": {
+  "5800371025": {
+   "valor": 38813.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0712600318",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-29",
+   "orcado_da_obra": 34575.0
+  },
+  "5800440256": {
+   "valor": 167280.98,
+   "fonte": "medio"
+  },
+  "5800961074": {
+   "valor": 253479.73,
+   "fonte": "planilha"
+  },
+  "5801866013": {
+   "valor": 79018.76,
+   "fonte": "planilha"
+  },
+  "5803327001": {
+   "valor": 15000.0,
+   "fonte": "planilha"
+  },
+  "5825703064": {
+   "valor": 167280.98,
+   "fonte": "medio"
+  },
+  "5827102054": {
+   "valor": 0.0,
+   "fonte": "sem_valor"
+  },
+  "5836786094": {
+   "valor": 75818.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0412600550",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-07-22",
+   "orcado_da_obra": 75818.0
+  },
+  "5839141113": {
+   "valor": 167280.98,
+   "fonte": "medio"
+  },
+  "5840227063": {
+   "valor": 167280.98,
+   "fonte": "medio"
+  },
+  "5844630060": {
+   "valor": 61098.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0612600626",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-25",
+   "orcado_da_obra": 62083.0
+  },
+  "5846328094": {
+   "valor": 0.0,
+   "fonte": "sem_valor"
+  },
+  "5851752014": {
+   "valor": 167280.98,
+   "fonte": "medio"
+  },
+  "5853360007": {
+   "valor": 15000.0,
+   "fonte": "planilha"
+  },
+  "5854566043": {
+   "valor": 207212.3,
+   "fonte": "planilha"
+  },
+  "5854766001": {
+   "valor": 167280.98,
+   "fonte": "medio"
+  },
+  "5855411017": {
+   "valor": 29445.39,
+   "fonte": "planilha"
+  },
+  "5856070091": {
+   "valor": 397619.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0512600177",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-07-07",
+   "orcado_da_obra": 397619.0
+  },
+  "5856156091": {
+   "valor": 460999.9,
+   "fonte": "planilha"
+  },
+  "5858783119": {
+   "valor": 411495.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0662600361",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-25",
+   "orcado_da_obra": 411495.0
+  },
+  "5862236091": {
+   "valor": 207212.3,
+   "fonte": "planilha"
+  },
+  "5865120195": {
+   "valor": 15000.0,
+   "fonte": "planilha"
+  },
+  "7900117013": {
+   "valor": 56476.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0212600422",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-24",
+   "orcado_da_obra": 33561.0
+  },
+  "7900230155": {
+   "valor": 0.0,
+   "fonte": "sem_valor"
+  },
+  "7900453110": {
+   "valor": 33661.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0312600264",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-27",
+   "orcado_da_obra": 33661.0
+  },
+  "7900525015": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7900535058": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7900573047": {
+   "valor": 19045.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0412600391",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-03",
+   "orcado_da_obra": 19045.0
+  },
+  "7900594026": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7901110084": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7902702257": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7903112004": {
+   "valor": 51304.06,
+   "fonte": "planilha"
+  },
+  "7903569004": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7905320122": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7908196047": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7908249152": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7908300096": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7908686014": {
+   "valor": 44406.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0212600425",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-27",
+   "orcado_da_obra": 33467.0
+  },
+  "7908693026": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7908705049": {
+   "valor": 50740.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0512600135",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-29",
+   "orcado_da_obra": 50740.0
+  },
+  "7908708116": {
+   "valor": 0.0,
+   "fonte": "sem_valor"
+  },
+  "7908709122": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7910027196": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7913662076": {
+   "valor": 33539.09,
+   "fonte": "planilha"
+  },
+  "7919270014": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7920024127": {
+   "valor": 90191.97,
+   "fonte": "planilha"
+  },
+  "7921202014": {
+   "valor": 35000.0,
+   "fonte": "planilha"
+  },
+  "7923110021": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7923673004": {
+   "valor": 35000.0,
+   "fonte": "planilha"
+  },
+  "7923927122": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7925087021": {
+   "valor": 51155.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0412600392",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-03",
+   "orcado_da_obra": 51155.0
+  },
+  "7925126060": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7925727002": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7925733015": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7925744087": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7925871077": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7926089013": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7926242029": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7926442035": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7927169001": {
+   "valor": 61579.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0112600425",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-29",
+   "orcado_da_obra": 18873.0
+  },
+  "7927396052": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7927413001": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7927446001": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7927646026": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7927713200": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7928241200": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7928564039": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7929376022": {
+   "valor": 35525.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0612600565",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-05-29",
+   "orcado_da_obra": 35525.0
+  },
+  "7930359149": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7930428001": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7931219078": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7931608059": {
+   "valor": 47414.74,
+   "fonte": "planilha"
+  },
+  "7933585074": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7933726256": {
+   "valor": 63722.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0312600351",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-07-03",
+   "orcado_da_obra": 34384.0
+  },
+  "7937102148": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7938048113": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7938137007": {
+   "valor": 44523.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0212600423",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-24",
+   "orcado_da_obra": 44523.0
+  },
+  "7940201060": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7942485096": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7942572059": {
+   "valor": 15000.0,
+   "fonte": "planilha"
+  },
+  "7943790134": {
+   "valor": 40428.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0662600266",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-28",
+   "orcado_da_obra": 35773.0
+  },
+  "7944353028": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7944559149": {
+   "valor": 51304.06,
+   "fonte": "planilha"
+  },
+  "7946713015": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7947203070": {
+   "valor": 89455.54,
+   "fonte": "planilha"
+  },
+  "7949648145": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7949656024": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7950296049": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7953211079": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7953610256": {
+   "valor": 51360.82,
+   "fonte": "planilha"
+  },
+  "7955946007": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7955986084": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  },
+  "7961515047": {
+   "valor": 58543.21,
+   "fonte": "medio"
+  }
  },
  "ja_gasto": {
   "qtd": 20,
   "rl": 13,
   "rt": 7,
-  "com_orcamento": 15,
+  "n_obra": 10,
+  "n_planilha": 6,
+  "n_medio": 0,
+  "sem_valor": 4,
+  "por_obra": 472247.0,
+  "por_planilha": 457047.42,
+  "estimado": 0,
+  "conhecido": 929294.42,
+  "com_orcamento": 16,
   "sem_orcamento": 0,
-  "sem_valor": 5,
-  "orcado": 1046566.45,
-  "estimado": 0.0,
-  "custo": 1046566.45,
+  "orcado": 929294.42,
+  "custo": 929294.42,
   "regra": "ajuste de proteção + comissionamento — equipamento já trocado; o valor é o que estava orçado para eles, e o desembolso real está dentro do realizado do ano"
  },
  "estimativa_dmsl": {
   "qtd": 20,
   "rl": 17,
   "rt": 3,
+  "n_obra": 0,
+  "n_planilha": 0,
+  "n_medio": 20,
+  "sem_valor": 0,
+  "por_obra": 0,
+  "por_planilha": 0,
+  "estimado": 1497077.51,
+  "conhecido": 0,
   "com_orcamento": 0,
   "sem_orcamento": 20,
-  "sem_valor": 0,
   "orcado": 0,
-  "estimado": 1497077.51,
   "custo": 1497077.51,
   "pct_do_saldo": 33.4,
   "pct_do_orcamento": 24.7,
@@ -231,13 +737,19 @@
   "qtd": 73,
   "rl": 58,
   "rt": 15,
-  "com_orcamento": 39,
-  "sem_orcamento": 34,
+  "n_obra": 6,
+  "n_planilha": 34,
+  "n_medio": 33,
   "sem_valor": 0,
-  "orcado": 4001686.05,
-  "estimado": 2642895.76,
-  "custo": 6644581.81,
-  "pct_do_saldo": 148.0,
+  "por_obra": 1013856.0,
+  "por_planilha": 2670131.5,
+  "estimado": 2584352.55,
+  "conhecido": 3683987.5,
+  "com_orcamento": 40,
+  "sem_orcamento": 33,
+  "orcado": 3683987.5,
+  "custo": 6268340.05,
+  "pct_do_saldo": 139.7,
   "regra": "execução + logística + aquisição + 1º ataque; ajuste de proteção e comissionamento ficam fora — nesses o equipamento já foi trocado e o dinheiro já saiu"
  },
  "nota": "o realizado do ano é o total do Power BI — 8481 e 8495 somados, jan–ago —, régua do gestor (22/08). A coluna Realizado do quadro Orçamento 2026 (export de 21/08) trazia R$ 1.365.345, uma apuração mais atrasada, e não é usada aqui. O orçado por projeto vem do mesmo quadro e continua valendo. O médio por obra do AIC não serve de preço: nem toda obra do projeto troca o equipamento inteiro."
