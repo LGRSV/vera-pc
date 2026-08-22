@@ -2047,14 +2047,18 @@ function abrirColecao(id) {
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
     distância entre as curvas: enquanto a azul sobe e a verde fica no chão, a fila está
     crescendo; quando a verde encosta na azul, o posto passou a dar conta do que entra.</p>
-    ${linhaAcumulada(usaCp ? [...ccv] : c, usaCp ? [...SERIE_CP,
+    ${linhaAcumulada(usaCp ? [...ccv] : c, usaCp ? [
+      { chave: 'estiveram', nome: 'Estiveram no posto', cor: 'var(--serie-1)', estoque: true,
+        dica_acum: 'todo mundo que já passou até ali — começa com o acervo de ' + (cp.herdados || 0) },
+      { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
+        dica_acum: 'somando mês a mês' },
       { chave: 'no_posto', nome: 'No posto', cor: 'var(--serie-2)', estoque: true,
         dica_acum: 'a fila no fim de cada mês — não é soma' }] : undefined)}
-    ${usaCp ? `<div class="nota branda"><strong>Por que 101 − 71 não dá a fila.</strong> A curva
-    azul só conta quem chegou em 2026 — o ano abriu com <b>${cp.herdados || 0}</b> já na mesa. E
-    «resolvido» é a demanda fechando em qualquer posto. A conta que fecha: <b>143 passaram = 71
-    resolvidos + 50 esperando no posto + 22 repassados e pendentes em outra mesa</b> (4 dos
-    resolvidos têm outra nota antiga ainda aberta — por isso a fila termina em 54).</div>` : ''}
+    ${usaCp ? `<div class="nota branda"><strong>A conta do gestor, fechada.</strong> 71 resolvidos
+    + 54 na fila = 125; somando os <b>18</b> repassados que seguem pendentes em outra mesa, dá
+    <b>143 — a linha azul</b>, que começa do acervo de ${cp.herdados || 0} e conta todo mundo que
+    já esteve no posto (71 + 54 + 22 − 4 = 143, com 4 resolvidos carregando nota antiga ainda
+    aberta).</div>` : ''}
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o

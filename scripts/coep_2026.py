@@ -394,10 +394,20 @@ def montar():
                           "_sai": _d(i["saiu"]) if i["saiu"] else None} for i in no_posto]
     fins = {m: (datetime.date(2026, m + 1, 1) - datetime.timedelta(days=1)) if m < 8
             else datetime.date(2026, 8, 18) for m in range(1, 9)}
+    # «estiveram» é o total que já passou pelo posto até o fim do mês — começa com o
+    # acervo herdado, porque quem estava na mesa em janeiro também esteve no posto
+    primeira_presenca = {}
+    for i in no_posto_ss_cache:
+        if i["_cheg"] and (i["ativo"] not in primeira_presenca
+                           or i["_cheg"] < primeira_presenca[i["ativo"]]):
+            primeira_presenca[i["ativo"]] = i["_cheg"]
+    def _estiveram(dia):
+        return sum(1 for d0 in primeira_presenca.values() if d0 <= dia)
     curva_mensal = [{"mes": f"2026-{m:02d}", "rotulo": f"{MES_PT[m - 1]}/2026",
                      "chegaram": cheg.get(f"2026-{m:02d}", 0),
                      "resolvidos": fech.get(f"2026-{m:02d}", 0),
-                     "no_posto": _fila_em(fins[m])}
+                     "no_posto": _fila_em(fins[m]),
+                     "estiveram": _estiveram(fins[m])}
                     for m in range(1, 9)]
 
     pacote = {
