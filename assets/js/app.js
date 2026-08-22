@@ -485,6 +485,7 @@ function visaoOrcamentaria() {
   if (!o) return '';
   const cx = o.caixa, orc = o.orcamento, vm = o.valor_medio;
   const e = o.estimativa_dmsl, fila = o.fila_que_ainda_custa, ref = o.referencia_aic;
+  const cob = o.cobertura;
   const mil = (v) => v >= 995000 ? `R$ ${(v / 1e6).toFixed(2).replace('.', ',')} mi`
     : `R$ ${(v / 1e3).toFixed(1).replace('.', ',')} mil`;
   const pico = Math.max(...cx.por_mes.map((m) => m.valor));
@@ -504,24 +505,31 @@ function visaoOrcamentaria() {
       ${num({ rotulo: 'Médio por manutenção', valor: `${mil(vm.RL)} · ${mil(vm.RT)}`, nota: 'religador · regulador — a régua de preço do gestor', tom: 'neutro' })}
     </div>
     <div class="nota branda" style="margin-top:16px"><strong>E se o 1º ataque inteiro entrasse para o DCMD?</strong>
-    São <b>${e.qtd}</b> equipamentos na mão do DMSL — ${e.rl} religadores e ${e.rt} reguladores. Pelo valor médio
-    por manutenção, ficaria em <b>${mil(e.custo)}</b>: ${e.rl} × ${mil(vm.RL)} mais ${e.rt} × ${mil(vm.RT)}.
-    É <b>${String(e.pct_do_saldo).replace('.', ',')}% do saldo</b> de ${mil(orc.saldo)} que resta no ano — quase
-    tudo que os dois projetos já realizaram de janeiro até agora.</div>
+    São <b>${e.qtd}</b> equipamentos na mão do DMSL — ${e.rl} religadores e ${e.rt} reguladores. <b>Nenhum deles tem
+    orçamento próprio na planilha</b>: são novos, ainda não orçados, e é por isso que aqui a conta é toda pelo valor
+    médio por manutenção. Ficaria em <b>${mil(e.custo)}</b>: ${e.rl} × ${mil(vm.RL)} mais ${e.rt} × ${mil(vm.RT)} —
+    <b>${String(e.pct_do_saldo).replace('.', ',')}% do saldo</b> de ${mil(orc.saldo)} que resta no ano, quase tudo
+    que os dois projetos já realizaram de janeiro até agora.</div>
     <h4 class="sub-grafico">Cada balde da carteira em dinheiro</h4>
-    <p class="destaque-texto">Os ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão ETO pelo mesmo preço médio.
-    Ajuste de proteção e comissionamento aparecem em cinza: neles o equipamento já foi trocado e o dinheiro
-    já saiu — o que ainda vai custar é o resto.</p>
+    <p class="destaque-texto">Vale o <b>valor orçado do próprio ativo</b> na planilha de indisponibilidade; só onde
+    não há orçamento entra o valor médio por manutenção. Dos ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão
+    ETO, <b>${cob.com_orcamento} já estão orçados</b> (${mil(cob.orcado)}) e <b>${cob.sem_orcamento} ainda não</b>
+    (${mil(cob.estimado)} pelo médio). Ajuste de proteção e comissionamento aparecem em cinza: neles o equipamento já
+    foi trocado e o dinheiro já saiu — o que ainda vai custar é o resto.</p>
     <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Etapa</th>
-    <th class="num">Ativos</th><th class="num">RL</th><th class="num">RT</th>
-    <th class="num">Custo pelo médio</th></tr></thead><tbody>
+    <th class="num">Ativos</th><th class="num">Já orçado</th><th class="num">Pelo médio</th>
+    <th class="num">Total</th></tr></thead><tbody>
     ${o.por_balde.map((b) => `<tr${b.ainda_custa ? '' : ' style="opacity:.55"'}>
       <td>${esc(b.nome)}${b.ainda_custa ? '' : ' <i class="linha-nota">já gasto</i>'}</td>
-      <td class="num">${b.qtd}</td><td class="num">${b.rl || '—'}</td><td class="num">${b.rt || '—'}</td>
-      <td class="num">${moedaBR(b.custo)}</td></tr>`).join('')}
+      <td class="num">${b.qtd}</td>
+      <td class="num">${b.orcado ? `${moedaBR(b.orcado)}<i class="linha-nota">${b.com_orcamento} ${b.com_orcamento === 1 ? 'ativo' : 'ativos'}</i>` : '—'}</td>
+      <td class="num">${b.estimado ? `${moedaBR(b.estimado)}<i class="linha-nota">${b.sem_orcamento} sem orçamento</i>` : '—'}</td>
+      <td class="num"><b>${moedaBR(b.custo)}</b></td></tr>`).join('')}
     </tbody><tfoot><tr><td>Ainda vai custar — ${fila.qtd} ativos</td>
-    <td class="num"><b>${fila.qtd}</b></td><td class="num"><b>${fila.rl}</b></td>
-    <td class="num"><b>${fila.rt}</b></td><td class="num"><b>${moedaBR(fila.custo)}</b></td></tr></tfoot></table></div>
+    <td class="num"><b>${fila.qtd}</b></td>
+    <td class="num"><b>${moedaBR(fila.orcado)}</b><i class="linha-nota">${fila.com_orcamento} ativos</i></td>
+    <td class="num"><b>${moedaBR(fila.estimado)}</b><i class="linha-nota">${fila.sem_orcamento} sem orçamento</i></td>
+    <td class="num"><b>${moedaBR(fila.custo)}</b></td></tr></tfoot></table></div>
     <div class="nota" style="margin-top:14px"><strong>A fila não cabe no saldo.</strong>
     Resolver os <b>${fila.qtd}</b> que ainda esperam equipamento custaria <b>${mil(fila.custo)}</b> —
     <b>${String(fila.pct_do_saldo).replace('.', ',')}%</b> do saldo de ${mil(orc.saldo)}. Mesmo sem gastar mais nada
@@ -530,7 +538,11 @@ function visaoOrcamentaria() {
     <h4 class="sub-grafico">O gasto mês a mês</h4>
     <div style="display:flex;align-items:flex-end;gap:6px;margin:10px 2px 4px">${barras}</div>
     <details class="detalhe-plano"><summary>De onde saem esses números</summary>
-      <p class="destaque-texto"><b>O preço</b> — valor médio por manutenção do gestor:
+      <p class="destaque-texto"><b>Orçado ou estimado</b> — ${esc(cob.regra)}. Onde o ativo tem valor na planilha,
+      é esse valor que entra, não o médio; o médio só cobre os ${cob.sem_orcamento} sem orçamento
+      (${e.qtd} deles são o 1º ataque inteiro, ${cob.sem_orcamento - e.qtd} são ativos da carteira ou de fora dela
+      que ainda não foram orçados).</p>
+      <p class="destaque-texto" style="margin-top:8px"><b>O preço</b> — valor médio por manutenção do gestor:
       religador ${moedaBR(vm.RL)} e regulador ${moedaBR(vm.RT)}. Para comparar, o médio por obra concluída
       dos mesmos projetos no AIC dá ${mil(ref.RL.medio_por_obra)} (RL, ${ref.RL.obras_concluidas_2026} obras) e
       ${mil(ref.RT.medio_por_obra)} (RT, ${ref.RT.obras_concluidas_2026} obras) — menor porque nem toda obra do

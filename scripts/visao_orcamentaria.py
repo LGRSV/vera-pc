@@ -7,8 +7,12 @@ RL R$ 58.543,21 e RT R$ 167.280,98 —, não o médio por obra que o AIC devolve
 (esse fica só como referência, e é menor porque nem toda obra do projeto troca o
 equipamento inteiro: no regulador, muitas trocam uma célula, não o banco de três).
 
-Com esse preço, cada balde da visão ETO vira dinheiro. O pedido principal: se
-todo o 1º ataque do DMSL entrasse para o DCMD, quanto ficaria.
+Cada balde da visão ETO vira dinheiro assim (pergunta do gestor, 22/08: «não é
+pelo custo médio, todos já estão orçados?» — nem todos): vale o VALOR ORÇADO do
+ativo na planilha de indisponibilidade onde ele existe, e só onde falta entra o
+valor médio por manutenção. Dos 93, 54 têm orçamento próprio; 39 não — e os 20 do
+1º ataque do DMSL são justamente os que não têm nenhum, por serem novos. Por isso
+a estimativa deles é inteiramente pelo médio.
 
 Fontes (todas do gestor, em data/raw/realizado_capex_2026.json):
   - quadro Orçamento 2026 — orçado e realizado contábil por projeto, export 21/08;
@@ -58,6 +62,9 @@ def montar():
     with open(os.path.join(RAIZ, "data", "missao", "visao_consolidada.json"),
               encoding="utf-8") as fh:
         vc = json.load(fh)
+    with open(os.path.join(RAIZ, "data", "raw", "dinamica_joa.json"), encoding="utf-8") as fh:
+        orcado = {x["ativo"]: x.get("valor") or 0.0
+                  for x in json.load(fh)["lista"] if (x.get("valor") or 0) > 0}
 
     medio = caixa["valor_medio_por_manutencao"]
     orc = caixa["orcamento_2026"]
@@ -80,23 +87,29 @@ def montar():
             "medio_por_obra": round(realizado / len(concl), 2) if concl else 0.0,
         }
 
-    # ---- cada balde da visão ETO em dinheiro, pelo médio do gestor
+    # ---- cada balde da visão ETO em dinheiro: orçado onde existe, médio onde falta
     def custo(itens):
         rl = sum(1 for i in itens if i["tipo"] == "RL")
-        rt = len(itens) - rl
-        return rl, rt, round(rl * medio["RL"] + rt * medio["RT"], 2)
+        com = [i for i in itens if i["ativo"] in orcado]
+        sem = [i for i in itens if i["ativo"] not in orcado]
+        s_orcado = round(sum(orcado[i["ativo"]] for i in com), 2)
+        s_medio = round(sum(medio[i["tipo"]] for i in sem), 2)
+        return {"qtd": len(itens), "rl": rl, "rt": len(itens) - rl,
+                "com_orcamento": len(com), "sem_orcamento": len(sem),
+                "orcado": s_orcado, "estimado": s_medio,
+                "custo": round(s_orcado + s_medio, 2)}
 
     baldes = []
     for b, nome in BALDE_NOME.items():
-        itens = vc["visao_eto"]["baldes"][b]["ativos"]
-        rl, rt, v = custo(itens)
-        baldes.append({"balde": b, "nome": nome, "qtd": len(itens), "rl": rl, "rt": rt,
-                       "custo": v, "ainda_custa": b in AINDA_CUSTA})
+        d = custo(vc["visao_eto"]["baldes"][b]["ativos"])
+        baldes.append({"balde": b, "nome": nome, "ainda_custa": b in AINDA_CUSTA, **d})
 
     fila = [i for b in AINDA_CUSTA for i in vc["visao_eto"]["baldes"][b]["ativos"]]
-    f_rl, f_rt, f_custo = custo(fila)
+    f = custo(fila)
     dmsl = vc["visao_eto"]["baldes"]["dmsl_novos"]["ativos"]
-    d_rl, d_rt, d_custo = custo(dmsl)
+    d = custo(dmsl)
+    f_rl, f_rt, f_custo = f["rl"], f["rt"], f["custo"]
+    d_rl, d_rt, d_custo = d["rl"], d["rt"], d["custo"]
 
     pct = lambda v, base: round(100 * v / base, 1) if base else 0.0
     pacote = {
@@ -106,16 +119,23 @@ def montar():
         "valor_medio": medio,
         "referencia_aic": referencia,
         "por_balde": baldes,
+        "cobertura": {
+            "com_orcamento": sum(b["com_orcamento"] for b in baldes),
+            "sem_orcamento": sum(b["sem_orcamento"] for b in baldes),
+            "orcado": round(sum(b["orcado"] for b in baldes), 2),
+            "estimado": round(sum(b["estimado"] for b in baldes), 2),
+            "regra": "vale o valor orçado do ativo na planilha de indisponibilidade; "
+                     "onde não há orçamento, entra o valor médio por manutenção",
+        },
         "estimativa_dmsl": {
-            "qtd": len(dmsl), "rl": d_rl, "rt": d_rt, "custo": d_custo,
-            "pct_do_saldo": pct(d_custo, saldo),
+            **d, "pct_do_saldo": pct(d_custo, saldo),
             "pct_do_orcamento": pct(d_custo, orc["total_orcado"]),
             "como": (f"{d_rl} religadores × R$ {medio['RL']:,.2f} + {d_rt} reguladores × "
-                     f"R$ {medio['RT']:,.2f}, pelo valor médio por manutenção do gestor"),
+                     f"R$ {medio['RT']:,.2f}: nenhum dos {d['qtd']} tem orçamento próprio "
+                     "na planilha — são novos, e é por isso que aqui tudo é pelo médio"),
         },
         "fila_que_ainda_custa": {
-            "qtd": len(fila), "rl": f_rl, "rt": f_rt, "custo": f_custo,
-            "pct_do_saldo": pct(f_custo, saldo),
+            **f, "pct_do_saldo": pct(f_custo, saldo),
             "regra": "execução + logística + aquisição + 1º ataque; ajuste de proteção e "
                      "comissionamento ficam fora — nesses o equipamento já foi trocado e "
                      "o dinheiro já saiu",
@@ -138,9 +158,13 @@ if __name__ == "__main__":
           f"{o['total_realizado']:,.2f} ({o['pct_realizado']}%) · saldo R$ {o['saldo']:,.2f}")
     print(f"médio por manutenção: RL R$ {p['valor_medio']['RL']:,.2f} · "
           f"RT R$ {p['valor_medio']['RT']:,.2f}")
+    c = p["cobertura"]
+    print(f"cobertura: {c['com_orcamento']} orçados (R$ {c['orcado']:,.2f}) + "
+          f"{c['sem_orcamento']} pelo médio (R$ {c['estimado']:,.2f})")
     for b in p["por_balde"]:
-        print(f"  {b['nome']:<34} {b['qtd']:>3} ({b['rl']} RL + {b['rt']} RT)  "
-              f"R$ {b['custo']:>14,.2f}{'' if b['ainda_custa'] else '   (já gasto)'}")
+        print(f"  {b['nome']:<34} {b['qtd']:>3} ({b['com_orcamento']} orç + "
+              f"{b['sem_orcamento']} méd)  R$ {b['custo']:>14,.2f}"
+              f"{'' if b['ainda_custa'] else '   (já gasto)'}")
     e = p["estimativa_dmsl"]
     print(f"1º ataque para o DCMD: R$ {e['custo']:,.2f} — {e['pct_do_saldo']}% do saldo")
     f = p["fila_que_ainda_custa"]
