@@ -41,8 +41,8 @@ const dataBr = (iso) => { const [a, m, d] = String(iso).split('-'); return d ? `
 /* Barras agrupadas — três séries por mês. As cores saem de --serie-1/2/3, que
    passaram pelo validador de paleta nos dois temas. Cada barra leva o valor
    escrito em cima, então a identidade nunca depende só da cor. */
-function barrasTresColunas(curva) {
-  const SERIES = [
+function barrasTresColunas(curva, series) {
+  const SERIES = series || [
     { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)',
       dica: 'a carteira herdada, pela abertura da SS — janeiro carrega o acervo' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
@@ -191,14 +191,15 @@ function livroCaixa(mm) {
 /* A mesma coisa somando: onde cada série chegou até o fim de cada mês. Linha em
    vez de barra porque o que importa aqui é a distância entre as curvas — o
    tamanho da fila contra o que já saiu — e barra empilhada esconde isso. */
-function linhaAcumulada(curva) {
-  const SERIES = [
+function linhaAcumulada(curva, series, legenda) {
+  const SERIES = series || [
     { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)' },
   ];
-  let soma = { entrantes: 0, resolvidos: 0 };
+  const soma = {};
+  SERIES.forEach((s) => { soma[s.chave] = 0; });
   const ac = curva.map((m) => {
-    soma = { entrantes: soma.entrantes + m.entrantes, resolvidos: soma.resolvidos + m.resolvidos };
+    SERIES.forEach((s) => { soma[s.chave] += m[s.chave]; });
     return { ...soma, mes: m.mes, rotulo: m.rotulo };
   });
   const bruto = Math.max(...ac.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
@@ -216,7 +217,7 @@ function linhaAcumulada(curva) {
   return `<figure class="grafico-barras grafico-linha">
     <div class="legenda-series">
       ${SERIES.map((s) => `<span class="serie"><i style="background:${s.cor}"></i>
-        <b>${esc(s.nome)}</b> <em>somando mês a mês</em></span>`).join('')}
+        <b>${esc(s.nome)}</b> <em>${esc(legenda || 'somando mês a mês')}</em></span>`).join('')}
     </div>
     <div class="tela-grafico">
     <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
@@ -242,8 +243,8 @@ function linhaAcumulada(curva) {
       }).join('')}
     </svg>
     </div>
-    <figcaption>O número no fim de cada linha é onde ela chegou no fim de julho. Passe o
-    mouse num ponto para ver o acumulado daquele mês.</figcaption>
+    <figcaption>O número no fim de cada linha é onde ela chegou no último mês do gráfico.
+    Passe o mouse num ponto para ver o acumulado daquele mês.</figcaption>
   </figure>`;
 }
 
@@ -435,6 +436,13 @@ function ponte() {
 // O posto em 2026 — quem passou pela mesa e o que o posto devolveu. A conta sai da
 // cadeia da demanda, não da carteira: a carteira é a foto do que ainda está pendente
 // e não guarda o que fechou e saiu, que é justamente o trabalho velho fechado agora.
+const SERIE_COEP = [
+  { chave: 'chegaram', nome: 'Chegaram ao posto', cor: 'var(--serie-1)',
+    dica: 'equipamento que apareceu no COEP naquele mês, pela primeira vez em 2026' },
+  { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
+    dica: 'pelo mês em que a demanda fechou' },
+];
+
 function coepBloco() {
   const c = D.coep_2026;
   if (!c || !c.resolvidos) return '';
@@ -470,6 +478,14 @@ function coepBloco() {
       <td class="num">${Math.round(100 * v / c.resolvidos)}%</td></tr>`).join('')}
     <tr class="total"><td><b>Total</b></td><td class="num"><b>${c.resolvidos}</b></td>
       <td class="num">100%</td></tr></tbody></table></div>
+    ${c.curva ? `<h4 class="sub-grafico">Mês a mês de 2026</h4>
+    <p class="destaque-texto">A linha azul é quem chegou ao posto no mês; a verde é quem o posto
+    resolveu. O posto abriu o ano com <b>${c.herdados}</b> já na mesa, vindos de anos
+    anteriores — esses não aparecem na curva de chegada, porque não chegaram em 2026.
+    Agosto vai só até o dia 18.</p>
+    ${barrasTresColunas(c.curva, SERIE_COEP)}
+    ${linhaAcumulada(c.curva, SERIE_COEP, 'somando mês a mês')}` : ''}
+
     <div class="nota"><strong>${antigos} dos ${c.resolvidos} são dívida velha.</strong> Nasceram
     antes de 2026 e só foram fechados agora. É por isso que «${c.resolvidos} resolvidos» e
     «43 falharam» não se contradizem: um mede a produção do posto, o outro mede a saúde do

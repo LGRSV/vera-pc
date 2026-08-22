@@ -283,7 +283,30 @@ def main():
         parecer = Counter(a["parecer_coep"] or "(fora da carteira)" for a in pend)
         postos = Counter(r["posto_que_fechou"] for r in (cp.get("resolvidos_do_coep") or [])
                          if r["conta_como_resolvido_pelo_coep"])
+        MES_PT = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago",
+                  "set", "out", "nov", "dez"]
+        def _mes(br):                      # dd/mm/aaaa -> aaaa-mm
+            return f"{br[6:10]}-{br[3:5]}"
+        primeira = {}
+        for i in cp.get("ss") or []:
+            if not i.get("chegou_em_2026"):
+                continue
+            m = _mes(i["chegou"])
+            if i["ativo"] not in primeira or m < primeira[i["ativo"]]:
+                primeira[i["ativo"]] = m
+        chegaram = Counter(primeira.values())
+        fechados = Counter(_mes(r["data_do_fechamento"])
+                           for r in (cp.get("resolvidos_do_coep") or [])
+                           if r["conta_como_resolvido_pelo_coep"])
+        curva_coep = [{"mes": f"2026-{m:02d}",
+                       "rotulo": f"{MES_PT[m - 1]}/2026",
+                       "chegaram": chegaram.get(f"2026-{m:02d}", 0),
+                       "resolvidos": fechados.get(f"2026-{m:02d}", 0)}
+                      for m in range(1, 9)]
         d["coep_2026"] = {
+            "curva": curva_coep,
+            "herdados": len({i["ativo"] for i in (cp.get("ss") or [])
+                             if not i.get("chegou_em_2026")}),
             "passaram": cc.get("equipamentos_que_passaram", 0),
             "por_tipo": cc.get("por_tipo") or {},
             "ss_no_posto": cc.get("ss_no_posto", 0),
