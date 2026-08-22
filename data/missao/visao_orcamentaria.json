@@ -115,18 +115,18 @@
    "qtd": 11,
    "rl": 8,
    "rt": 3,
-   "n_obra": 5,
-   "n_planilha": 4,
+   "n_obra": 8,
+   "n_planilha": 2,
    "n_medio": 0,
-   "sem_valor": 2,
-   "por_obra": 232661.0,
-   "por_planilha": 352591.88,
+   "sem_valor": 1,
+   "por_obra": 392148.0,
+   "por_planilha": 66360.82,
    "estimado": 0,
-   "conhecido": 585252.88,
-   "com_orcamento": 9,
+   "conhecido": 458508.82,
+   "com_orcamento": 10,
    "sem_orcamento": 0,
-   "orcado": 585252.88,
-   "custo": 585252.88
+   "orcado": 458508.82,
+   "custo": 458508.82
   },
   {
    "balde": "comissionamento",
@@ -135,15 +135,15 @@
    "qtd": 9,
    "rl": 5,
    "rt": 4,
-   "n_obra": 5,
+   "n_obra": 6,
    "n_planilha": 2,
    "n_medio": 0,
-   "sem_valor": 2,
+   "sem_valor": 1,
    "por_obra": 239586.0,
    "por_planilha": 104455.54,
    "estimado": 0,
    "conhecido": 344041.54,
-   "com_orcamento": 7,
+   "com_orcamento": 8,
    "sem_orcamento": 0,
    "orcado": 344041.54,
    "custo": 344041.54
@@ -195,18 +195,18 @@
    "qtd": 46,
    "rl": 39,
    "rt": 7,
-   "n_obra": 3,
-   "n_planilha": 31,
+   "n_obra": 4,
+   "n_planilha": 30,
    "n_medio": 12,
    "sem_valor": 0,
-   "por_obra": 489679.0,
-   "por_planilha": 2386651.77,
+   "por_obra": 516396.0,
+   "por_planilha": 2357206.38,
    "estimado": 1028731.83,
-   "conhecido": 2876330.77,
+   "conhecido": 2873602.38,
    "com_orcamento": 34,
    "sem_orcamento": 12,
-   "orcado": 2876330.77,
-   "custo": 3905062.6
+   "orcado": 2873602.38,
+   "custo": 3902334.21
   },
   {
    "balde": "dmsl_novos",
@@ -230,26 +230,28 @@
   }
  ],
  "cobertura": {
-  "n_obra": 16,
-  "n_planilha": 40,
-  "com_orcamento": 56,
+  "n_obra": 21,
+  "n_planilha": 37,
+  "com_orcamento": 58,
   "sem_orcamento": 33,
-  "sem_valor": 4,
-  "por_obra": 1486103.0,
-  "por_planilha": 3127178.92,
-  "orcado": 4613281.92,
+  "sem_valor": 2,
+  "por_obra": 1672307.0,
+  "por_planilha": 2811502.47,
+  "orcado": 4483809.47,
   "estimado": 2584352.55,
   "regra": "vale primeiro a OBRA do ativo no AIC — realizado em quem já foi trocado, orçado da obra aberta neste ano em quem ainda espera; depois o valor orçado do ativo na planilha de indisponibilidade; e só então o valor médio por manutenção, apenas em quem ainda vai custar. Em ajuste de proteção e comissionamento não se estima nada: o equipamento já foi trocado e o dinheiro já saiu"
  },
  "fontes_por_ativo": {
   "5800371025": {
-   "valor": 38813.0,
+   "valor": 19406.5,
    "fonte": "obra",
    "medida": "realizado",
    "obra": "0712600318",
    "via": "EMD/obra do ativo",
    "abertura": "2026-04-29",
-   "orcado_da_obra": 34575.0
+   "orcado_da_obra": 34575.0,
+   "valor_cheio_da_obra": 38813.0,
+   "rateio": "obra dividida com 1 outro ativo (7900230155)"
   },
   "5800440256": {
    "valor": 167280.98,
@@ -260,8 +262,14 @@
    "fonte": "planilha"
   },
   "5801866013": {
-   "valor": 79018.76,
-   "fonte": "planilha"
+   "valor": 27676.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0212600539",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-26",
+   "orcado_da_obra": 58978.0,
+   "ressalva": "obra fora dos projetos de equipamento especial (SIGCO 8389), aceita pelo texto de substituição"
   },
   "5803327001": {
    "valor": 15000.0,
@@ -272,8 +280,14 @@
    "fonte": "medio"
   },
   "5827102054": {
-   "valor": 0.0,
-   "fonte": "sem_valor"
+   "valor": 26717.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0212600537",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-26",
+   "orcado_da_obra": 26717.0,
+   "ressalva": "obra fora dos projetos de equipamento especial (SIGCO 8389), aceita pelo texto de substituição"
   },
   "5836786094": {
    "valor": 75818.0,
@@ -314,16 +328,28 @@
    "fonte": "planilha"
   },
   "5854566043": {
-   "valor": 207212.3,
-   "fonte": "planilha"
+   "valor": 105094.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0312600352",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-07-03",
+   "orcado_da_obra": 131876.0,
+   "ressalva": "obra no projeto 8495, o do outro tipo — SIGCO trocado"
   },
   "5854766001": {
    "valor": 167280.98,
    "fonte": "medio"
   },
   "5855411017": {
-   "valor": 29445.39,
-   "fonte": "planilha"
+   "valor": 26717.0,
+   "fonte": "obra",
+   "medida": "orçado",
+   "obra": "0212600536",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-06-26",
+   "orcado_da_obra": 26717.0,
+   "ressalva": "obra fora dos projetos de equipamento especial (SIGCO 8389), aceita pelo texto de substituição"
   },
   "5856070091": {
    "valor": 397619.0,
@@ -365,8 +391,16 @@
    "orcado_da_obra": 33561.0
   },
   "7900230155": {
-   "valor": 0.0,
-   "fonte": "sem_valor"
+   "valor": 19406.5,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0712600318",
+   "via": "EMD/obra do ativo",
+   "abertura": "2026-04-29",
+   "orcado_da_obra": 34575.0,
+   "ressalva": "obra no projeto 8481, o do outro tipo — SIGCO trocado",
+   "valor_cheio_da_obra": 38813.0,
+   "rateio": "obra dividida com 1 outro ativo (5800371025)"
   },
   "7900453110": {
    "valor": 33661.0,
@@ -695,22 +729,101 @@
    "fonte": "medio"
   }
  },
+ "sem_obra": [
+  {
+   "ativo": "5846328094",
+   "balde": "comissionamento",
+   "valor_usado": 0.0,
+   "fonte": "sem_valor",
+   "obras_descartadas": [
+    {
+     "obra": "0402200401",
+     "porque": "obra de rede ou instalação nova, de 2022 (SIGCO 8923) — não é a manutenção deste ativo",
+     "descricao": "CONSTRUÇÃO DE 2704M DE RDR MT 34,5KV TRIFÁSICA E INST. DE 01  BANCO DE REGULADOR DE TENSÃO"
+    }
+   ],
+   "porque": "obra de rede ou instalação nova, de 2022 (SIGCO 8923) — não é a manutenção deste ativo"
+  },
+  {
+   "ativo": "5865120195",
+   "balde": "comissionamento",
+   "valor_usado": 15000.0,
+   "fonte": "planilha",
+   "obras_descartadas": [
+    {
+     "obra": "0702400720",
+     "porque": "obra de rede ou instalação nova, de 2025 (SIGCO 69032) — não é a manutenção deste ativo",
+     "descricao": "INSTALAÇÃO DE 01 REGULADOR DE TENSÃO EM RDR 34,5KV - PLPT 69032 INSTALAÇÃO DE EQUIPAMENTOS"
+    }
+   ],
+   "porque": "obra de rede ou instalação nova, de 2025 (SIGCO 69032) — não é a manutenção deste ativo"
+  },
+  {
+   "ativo": "7900594026",
+   "balde": "comissionamento",
+   "valor_usado": 89455.54,
+   "fonte": "planilha",
+   "obras_descartadas": [
+    {
+     "obra": "0312600354",
+     "porque": "obra sem valor lançado no AIC (SIGCO em branco)",
+     "descricao": "MANUTENÇÃO CORRET SUBSTITUIÇÃO DE RELIGADOR MANUTENÇÃO CORRETIVA"
+    }
+   ],
+   "porque": "obra sem valor lançado no AIC (SIGCO em branco)"
+  },
+  {
+   "ativo": "7908708116",
+   "balde": "ajuste_de_protecao",
+   "valor_usado": 0.0,
+   "fonte": "sem_valor",
+   "obras_descartadas": [
+    {
+     "obra": "0512600217",
+     "porque": "obra não está no extrato do AIC de 07/08 — foi criada depois"
+    }
+   ],
+   "porque": "obra não está no extrato do AIC de 07/08 — foi criada depois"
+  },
+  {
+   "ativo": "7942572059",
+   "balde": "ajuste_de_protecao",
+   "valor_usado": 15000.0,
+   "fonte": "planilha",
+   "obras_descartadas": [],
+   "porque": "nenhuma obra ligada a este ativo em nenhuma das bases"
+  },
+  {
+   "ativo": "7953610256",
+   "balde": "ajuste_de_protecao",
+   "valor_usado": 51360.82,
+   "fonte": "planilha",
+   "obras_descartadas": [
+    {
+     "obra": "0302400011",
+     "porque": "obra de rede ou instalação nova, de 2024 (SIGCO 27637) — não é a manutenção deste ativo",
+     "descricao": "DESLOCAMENTO DE 01 POSTE E INSTALAÇÃO DE 01 RELIGADOR DE LINHA  EM RDR MT 34,5KV. INSTALAÇ"
+    }
+   ],
+   "porque": "obra de rede ou instalação nova, de 2024 (SIGCO 27637) — não é a manutenção deste ativo"
+  }
+ ],
  "ja_gasto": {
   "qtd": 20,
   "rl": 13,
   "rt": 7,
-  "n_obra": 10,
-  "n_planilha": 6,
+  "n_obra": 14,
+  "n_planilha": 4,
   "n_medio": 0,
-  "sem_valor": 4,
-  "por_obra": 472247.0,
-  "por_planilha": 457047.42,
+  "sem_valor": 2,
+  "por_obra": 631734.0,
+  "por_planilha": 170816.36,
   "estimado": 0,
-  "conhecido": 929294.42,
-  "com_orcamento": 16,
+  "conhecido": 802550.36,
+  "com_orcamento": 18,
   "sem_orcamento": 0,
-  "orcado": 929294.42,
-  "custo": 929294.42,
+  "orcado": 802550.36,
+  "custo": 802550.36,
   "regra": "ajuste de proteção + comissionamento — equipamento já trocado; o valor é o que estava orçado para eles, e o desembolso real está dentro do realizado do ano"
  },
  "estimativa_dmsl": {
@@ -737,19 +850,19 @@
   "qtd": 73,
   "rl": 58,
   "rt": 15,
-  "n_obra": 6,
-  "n_planilha": 34,
+  "n_obra": 7,
+  "n_planilha": 33,
   "n_medio": 33,
   "sem_valor": 0,
-  "por_obra": 1013856.0,
-  "por_planilha": 2670131.5,
+  "por_obra": 1040573.0,
+  "por_planilha": 2640686.11,
   "estimado": 2584352.55,
-  "conhecido": 3683987.5,
+  "conhecido": 3681259.11,
   "com_orcamento": 40,
   "sem_orcamento": 33,
-  "orcado": 3683987.5,
-  "custo": 6268340.05,
-  "pct_do_saldo": 139.7,
+  "orcado": 3681259.11,
+  "custo": 6265611.66,
+  "pct_do_saldo": 139.6,
   "regra": "execução + logística + aquisição + 1º ataque; ajuste de proteção e comissionamento ficam fora — nesses o equipamento já foi trocado e o dinheiro já saiu"
  },
  "nota": "o realizado do ano é o total do Power BI — 8481 e 8495 somados, jan–ago —, régua do gestor (22/08). A coluna Realizado do quadro Orçamento 2026 (export de 21/08) trazia R$ 1.365.345, uma apuração mais atrasada, e não é usada aqui. O orçado por projeto vem do mesmo quadro e continua valendo. O médio por obra do AIC não serve de preço: nem toda obra do projeto troca o equipamento inteiro."

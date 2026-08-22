@@ -537,17 +537,29 @@ function visaoOrcamentaria() {
     ${(() => {
       const comObra = Object.entries(o.fontes_por_ativo || {}).filter(([, v]) => v.fonte === 'obra');
       if (!comObra.length) return '';
-      return `<details class="detalhe-plano"><summary>Os ${comObra.length} que já têm valor de obra no AIC</summary>
+      return `<details class="detalhe-plano"><summary>Os ${comObra.length} com valor de obra no AIC — e como cada obra foi achada</summary>
         <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead><tr>
         <th>Ativo</th><th>Obra</th><th>Aberta em</th><th class="num">Valor</th><th>Medida</th>
         <th>Como o vínculo apareceu</th></tr></thead><tbody>
         ${comObra.sort((a, b) => b[1].abertura.localeCompare(a[1].abertura)).map(([a, v]) => `<tr>
           <td><b class="mono">${esc(a)}</b></td><td class="mono">${esc(v.obra)}</td>
           <td>${esc(v.abertura.split('-').reverse().join('/'))}</td>
-          <td class="num">${moedaBR(v.valor)}</td><td>${esc(v.medida)}</td>
-          <td>${esc(v.via)}</td></tr>`).join('')}
+          <td class="num">${moedaBR(v.valor)}${v.rateio ? `<i class="linha-nota">${esc(v.rateio)}</i>` : ''}</td>
+          <td>${esc(v.medida)}</td>
+          <td>${esc(v.via)}${v.ressalva ? `<i class="linha-nota">${esc(v.ressalva)}</i>` : ''}</td></tr>`).join('')}
         </tbody></table></div></details>`;
     })()}
+    ${(o.sem_obra || []).length ? `<details class="detalhe-plano"><summary>Os ${o.sem_obra.length} já trocados que não têm obra no AIC — e por quê</summary>
+      <p class="destaque-texto">A busca varreu seis vias: o vínculo por EMD, a planilha de EMD, o número de obra da
+      SS, o número citado no texto do parecer, a cadeia SS→OS→obra e o código do ativo escrito na descrição da obra,
+      dentro do AIC inteiro. Nestes seis a obra da troca não apareceu — cada linha diz o que impediu.</p>
+      <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead><tr>
+      <th>Ativo</th><th>Etapa</th><th>O que impediu</th><th class="num">Valor usado</th></tr></thead><tbody>
+      ${o.sem_obra.map((s) => `<tr><td><b class="mono">${esc(s.ativo)}</b></td>
+        <td>${esc((s.balde || '').replace(/_/g, ' '))}</td>
+        <td>${esc(s.porque)}${(s.obras_descartadas || []).length ? `<i class="linha-nota">obra examinada: ${esc(s.obras_descartadas.map((c) => c.obra).join(', '))}</i>` : ''}</td>
+        <td class="num">${s.valor_usado ? `${moedaBR(s.valor_usado)}<i class="linha-nota">pela planilha</i>` : '<span style="opacity:.6">sem valor</span>'}</td></tr>`).join('')}
+      </tbody></table></div></details>` : ''}
     <div class="nota" style="margin-top:14px"><strong>A fila não cabe no saldo.</strong>
     Resolver os <b>${fila.qtd}</b> que ainda esperam equipamento custaria <b>${mil(fila.custo)}</b> —
     <b>${String(fila.pct_do_saldo).replace('.', ',')}%</b> do saldo de ${mil(orc.saldo)}. Mesmo sem gastar mais nada

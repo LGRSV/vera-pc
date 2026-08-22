@@ -35,6 +35,19 @@ SAIDA = os.path.join(RAIZ, "data", "missao", "visao_orcamentaria.json")
 
 PROJETOS = (("8495", "religador", "RL"), ("8481", "regulador", "RT"))
 PROJETO_DO_TIPO = {"RL": "8495", "RT": "8481"}
+# Os dois projetos de equipamento especial. Aceitar os dois, e não só o do tipo, é
+# reconhecer o que a análise do SIGCO já mostrou: obra de regulador lançada no 8495 e
+# religador no 8481 acontecem. O projeto que não bate vai marcado, não descartado.
+PROJETOS_ESPECIAIS = {"8495", "8481"}
+# A obra de substituição também aparece fora dos dois projetos — quase sempre no 8389,
+# o balde de manutenção corretiva. Nesses, só o texto decide: tem de dizer que trocou
+# o equipamento (ou a célula, ou o controle) e ser do ano corrente.
+RE_SUBSTITUICAO = re.compile(
+    r"(SUBST|TROCA|RETROFIT).{0,40}(RELIGADOR|REGULADOR|C[ÉE]LULA|CONTROLE|RL\b|RT\b)",
+    re.IGNORECASE)
+# E o que nunca é manutenção do ativo: obra de rede, de expansão, de deslocamento.
+RE_EXPANSAO = re.compile(r"(CONSTRU[ÇC][ÃA]O|DESLOCAMENTO|IMPLANTA[ÇC][ÃA]O|"
+                         r"INSTALA[ÇC][ÃA]O DE \d+|RDR|RD MT|EXPANS)", re.IGNORECASE)
 # A obra que vale é a da demanda de agora. Obra concluída em 2023/2024 num ativo que
 # hoje está em aquisição é de um evento anterior — o dinheiro dela já foi gasto noutra
 # falha e não diz nada sobre o que falta pagar.
@@ -66,19 +79,32 @@ def _oid(x):
     return x.zfill(10) if x.isdigit() and int(x) > 0 else ""
 
 
-def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo):
-    """Toda obra do AIC que a cadeia liga ao ativo, por três vias: o vínculo por EMD
-    do m4, o NUM_OBRA das SS do próprio ativo e o número de obra citado no texto da
-    SS pendente. Guarda por onde veio, para dar para conferir."""
+def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo, emd, cadeia, alvos):
+    """Toda obra do AIC que alguma base liga ao ativo. Seis vias, e cada vínculo
+    guarda por onde veio para dar para conferir na mão:
+
+      1. o vínculo por EMD do cruzamento obra×ativo (m4);
+      2. a planilha de EMD (OBRAS_EQ_ESPECIAL);
+      3. o NUM_OBRA das SS do próprio ativo;
+      4. o número de obra citado no texto do parecer;
+      5. a cadeia SS→OS→obra já montada;
+      6. o código do ativo escrito na descrição da obra, no próprio AIC — a busca
+         ao contrário, que é a que mais rende quando a obra não cita SS nenhuma.
+    """
     vinc = defaultdict(dict)
+
+    def liga(ativo, obra, via):
+        if ativo in alvos and obra:
+            vinc[ativo].setdefault(obra, via)
+
     for a, d in m4.items():
         for o in [_oid(d.get("obra_principal"))] + [_oid(x) for x in (d.get("outras_obras") or [])]:
-            if o:
-                vinc[a].setdefault(o, "EMD/obra do ativo")
+            liga(a, o, "EMD/obra do ativo")
+    for l in (emd.get("linhas") or []):
+        liga(str(l.get("ativo") or ""), _oid(l.get("obra") or l.get("num_obra")),
+             "planilha de EMD")
     for r in ssos:
-        o = _oid(r["NUM_OBRA"])
-        if o:
-            vinc[r["NUM_TRAFO"]].setdefault(o, f"obra na {r['NUMERO_SS']}")
+        liga(r["NUM_TRAFO"], _oid(r["NUM_OBRA"]), f"obra na {r['NUMERO_SS']}")
     for ss_num, txt in descricoes.items():
         a = ss_do_ativo.get(ss_num)
         if not a:
@@ -86,7 +112,17 @@ def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo):
         for m in re.findall(r"\b(\d{9,10})\b", txt or ""):
             o = _oid(m)
             if o and o in aic:
-                vinc[a].setdefault(o, f"obra citada no texto da {ss_num}")
+                liga(a, o, f"obra citada no texto da {ss_num}")
+    for ob in (cadeia.get("obras") or []):
+        for a in (ob.get("ativos") or []):
+            liga(a, _oid(ob.get("obra")), "cadeia SS→OS→obra")
+    achar_cod = re.compile(r"\b(79\d{8}|58\d{8})\b")
+    for o, r in aic.items():
+        txt = f"{r.get('DESCRICAO_OBRA', '')} {r.get('DESCRICAO', '')}"
+        if "79" not in txt and "58" not in txt:
+            continue
+        for cod in achar_cod.findall(txt):
+            liga(cod, o, "código do ativo na descrição da obra")
     return vinc
 
 
@@ -99,20 +135,41 @@ def valor_pela_obra(ativo, tipo, ja_trocado, vinc, aic):
     cand = []
     for o, via in (vinc.get(ativo) or {}).items():
         r = aic.get(o)
-        if not r or str(r.get("NUM_PROJETO_SIGCO", "")).strip() != PROJETO_DO_TIPO.get(tipo):
+        if not r:
             continue
+        projeto = str(r.get("NUM_PROJETO_SIGCO", "")).strip()
+        texto = f"{r.get('DESCRICAO_OBRA', '')} {r.get('DESCRICAO', '')}"
         abertura = str(r.get("DTH_ABERTURA", ""))[:10]
+        if projeto in PROJETOS_ESPECIAIS:
+            # dentro do projeto de equipamento especial o texto não precisa passar por
+            # filtro: «RDR» ali é o alimentador onde o equipamento está, não obra de rede
+            ressalva = ("" if projeto == PROJETO_DO_TIPO.get(tipo)
+                        else f"obra no projeto {projeto}, o do outro tipo — SIGCO trocado")
+        elif RE_EXPANSAO.search(texto):
+            # fora dos dois projetos, obra de rede, expansão ou deslocamento não é a
+            # manutenção deste ativo — mesmo quando cita o código dele
+            continue
+        elif RE_SUBSTITUICAO.search(texto) and abertura[:4] >= ANO_DA_CARTEIRA:
+            ressalva = (f"obra fora dos projetos de equipamento especial (SIGCO {projeto or '—'}), "
+                        "aceita pelo texto de substituição")
+        else:
+            continue
         orcado, realizado = _num(r.get("VAL_TOTAL_ORCADO")), _num(r.get("TOTAL_REALIZADO"))
         if ja_trocado and realizado > 0:
-            cand.append((abertura, realizado, "realizado", o, via, orcado))
+            cand.append((abertura, realizado, "realizado", o, via, orcado, ressalva))
         elif abertura[:4] >= ANO_DA_CARTEIRA and (realizado > 0 or orcado > 0):
+            # obra aberta neste ano sem realizado lançado ainda: vale o orçado dela,
+            # que é dinheiro comprometido — melhor que o previsto da planilha
             cand.append((abertura, realizado if realizado > 0 else orcado,
-                         "realizado" if realizado > 0 else "orçado", o, via, orcado))
+                         "realizado" if realizado > 0 else "orçado", o, via, orcado, ressalva))
     if not cand:
         return None
-    abertura, valor, medida, obra, via, orcado = max(cand)
-    return {"valor": round(valor, 2), "medida": medida, "obra": obra, "via": via,
-            "abertura": abertura, "orcado_da_obra": round(orcado, 2)}
+    abertura, valor, medida, obra, via, orcado, ressalva = max(cand)
+    saida = {"valor": round(valor, 2), "medida": medida, "obra": obra, "via": via,
+             "abertura": abertura, "orcado_da_obra": round(orcado, 2)}
+    if ressalva:
+        saida["ressalva"] = ressalva
+    return saida
 
 
 def montar():
@@ -134,13 +191,17 @@ def montar():
         descricoes = json.load(fh)
     with open(os.path.join(RAIZ, "data", "missao", "m4_aic129.json"), encoding="utf-8") as fh:
         m4 = json.load(fh)["ativos"]
+    with open(os.path.join(RAIZ, "data", "raw", "emd_no_aic.json"), encoding="utf-8") as fh:
+        emd = json.load(fh)
+    with open(os.path.join(RAIZ, "data", "missao", "cadeia_obra.json"), encoding="utf-8") as fh:
+        cadeia = json.load(fh)
 
     todos = {i["ativo"]: {**i, "_ja_trocado": b not in AINDA_CUSTA}
              for b in BALDE_NOME for i in vc["visao_eto"]["baldes"][b]["ativos"]}
     ss_do_ativo = {i["ss_pendente"]: a for a, i in todos.items()}
     vinc = obras_por_ativo(aic, [r for r in ssos if r["NUM_TRAFO"] in todos],
                            descricoes, {a: d for a, d in m4.items() if a in todos},
-                           ss_do_ativo)
+                           ss_do_ativo, emd, cadeia, todos)
 
     medio = caixa["valor_medio_por_manutencao"]
     orc = dict(caixa["orcamento_2026"])
@@ -187,6 +248,57 @@ def montar():
             fontes[a] = {"valor": round(medio[i["tipo"]], 2), "fonte": "medio"}
         else:
             fontes[a] = {"valor": 0.0, "fonte": "sem_valor"}
+
+    # Quem já foi trocado e mesmo assim não recebeu valor de obra: o gestor pediu para
+    # procurar em todas as bases, então cada ausência vem com o motivo apurado, para
+    # dar para ir atrás no SGM ou no AIC.
+    sem_obra = []
+    for a, i in todos.items():
+        if not i["_ja_trocado"] or fontes[a]["fonte"] == "obra":
+            continue
+        candidatas = []
+        for o in (vinc.get(a) or {}):
+            r = aic.get(o)
+            if not r:
+                candidatas.append({"obra": o, "porque": "obra não está no extrato do AIC "
+                                   "de 07/08 — foi criada depois"})
+                continue
+            texto = f"{r.get('DESCRICAO_OBRA', '')} {r.get('DESCRICAO', '')}".strip()
+            proj = str(r.get("NUM_PROJETO_SIGCO", "")).strip()
+            if not (_num(r.get("VAL_TOTAL_ORCADO")) or _num(r.get("TOTAL_REALIZADO"))):
+                porque = f"obra sem valor lançado no AIC (SIGCO {proj or 'em branco'})"
+            elif RE_EXPANSAO.search(texto):
+                porque = (f"obra de rede ou instalação nova, de {str(r.get('DTH_ABERTURA',''))[:4]} "
+                          f"(SIGCO {proj or '—'}) — não é a manutenção deste ativo")
+            else:
+                porque = (f"obra de {str(r.get('DTH_ABERTURA', ''))[:4]}, SIGCO {proj or '—'}, "
+                          "sem texto de substituição")
+            candidatas.append({"obra": o, "porque": porque, "descricao": texto[:90]})
+        sem_obra.append({"ativo": a, "balde": [b for b in BALDE_NOME
+                                               if a in {x["ativo"] for x in vc["visao_eto"]["baldes"][b]["ativos"]}][0],
+                         "valor_usado": fontes[a]["valor"], "fonte": fontes[a]["fonte"],
+                         "obras_descartadas": candidatas,
+                         "porque": ("nenhuma obra ligada a este ativo em nenhuma das bases"
+                                    if not candidatas else candidatas[0]["porque"])})
+    sem_obra.sort(key=lambda x: x["ativo"])
+
+    # Uma obra pode atender mais de um ativo — acontece de a mesma troca cobrir dois
+    # equipamentos do mesmo trecho. Contar o valor cheio nos dois infla a conta, então
+    # o valor da obra é rateado entre eles e a divisão vai anotada.
+    donos = defaultdict(list)
+    for a, d in fontes.items():
+        if d["fonte"] == "obra":
+            donos[d["obra"]].append(a)
+    for obra_id, ativos_da_obra in donos.items():
+        if len(ativos_da_obra) < 2:
+            continue
+        for a in ativos_da_obra:
+            d = fontes[a]
+            d["valor_cheio_da_obra"] = d["valor"]
+            d["valor"] = round(d["valor"] / len(ativos_da_obra), 2)
+            d["rateio"] = (f"obra dividida com {len(ativos_da_obra) - 1} outro ativo"
+                           + ("s" if len(ativos_da_obra) > 2 else "")
+                           + f" ({', '.join(x for x in ativos_da_obra if x != a)})")
 
     def custo(itens):
         rl = sum(1 for i in itens if i["tipo"] == "RL")
@@ -250,6 +362,7 @@ def montar():
                      "o equipamento já foi trocado e o dinheiro já saiu",
         },
         "fontes_por_ativo": {a: v for a, v in sorted(fontes.items())},
+        "sem_obra": sem_obra,
         "ja_gasto": {**g, "regra": "ajuste de proteção + comissionamento — equipamento já "
                      "trocado; o valor é o que estava orçado para eles, e o desembolso "
                      "real está dentro do realizado do ano"},
