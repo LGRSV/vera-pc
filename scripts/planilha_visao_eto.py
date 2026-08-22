@@ -10,12 +10,58 @@ Rodar: python3 scripts/planilha_visao_eto.py
 
 import json
 import os
+import re
+import sys
 
 import openpyxl
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, "scripts"))
+import cadeia_obra as co  # noqa: E402 — o remontador de registros da base crua
+import extrai_ssos_min as em  # noqa: E402 — o normalizador de 64 campos
+
 SAIDA = os.path.join(RAIZ, "dist", "VISAO_ETO.xlsx")
+CACHE_DESC = os.path.join(RAIZ, "data", "missao", "descricao_ss_pendentes.json")
+COL_DESCRIPTION_SS = 27  # a descrição cumulativa da SS na base crua
+RE_ILEGAL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def descricoes_das_ss(numeros):
+    """A DESCRIPTION_SS de cada SS pedida, lida da base crua — com cache em
+    data/missao para a planilha sair igual mesmo sem a base (gitignored) por perto."""
+    numeros = set(numeros)
+    base = next((p for p in co.PARTES if os.path.exists(p)), None)
+    if base is None:
+        if os.path.exists(CACHE_DESC):
+            with open(CACHE_DESC, encoding="utf-8") as fh:
+                return json.load(fh)
+        return {}
+    achadas = {}
+
+    def registra(bruto):
+        campos = em._normaliza(bruto.split("@"))
+        num = campos[0].strip()
+        if num in numeros:
+            achadas[num] = RE_ILEGAL.sub("", campos[COL_DESCRIPTION_SS].strip())
+
+    buffer = None
+    with open(base, encoding="latin-1") as fh:
+        for i, linha in enumerate(fh):
+            linha = linha.rstrip("\r\n")
+            if i == 0 and linha.startswith("NUMERO_SS@"):
+                continue
+            if co.RE_INICIO.match(linha):
+                if buffer is not None:
+                    registra(buffer)
+                buffer = linha
+            elif buffer is not None:
+                buffer += "\n" + linha
+        if buffer is not None:
+            registra(buffer)
+    with open(CACHE_DESC, "w", encoding="utf-8") as fh:
+        json.dump(achadas, fh, ensure_ascii=False, indent=1)
+    return achadas
 
 BALDE_NOME = {
     "ajuste_de_protecao": "Em fase de ajuste de proteção",
@@ -74,12 +120,16 @@ def montar():
     fundo = PatternFill("solid", fgColor="1F3864")
     borda = Border(*[Side(style="thin", color="BFBFBF")] * 4)
 
+    todos = [i for b in BALDE_NOME for i in v["baldes"][b]["ativos"]]
+    descricao = descricoes_das_ss(i["ss_pendente"] for i in todos)
+
     ws = wb.active
     ws.title = f"Visão ETO ({v['total']})"
     colunas = ["Balde", "Ativo", "Tipo", "Localidade", "SS pendente", "Posto da SS",
                "Criticidade (aba de mapeamento)", "Etapa na aba", "Está na aba",
-               "No plano de compras"]
-    larguras = [30, 14, 8, 24, 22, 14, 16, 24, 10, 12]
+               "No plano de compras",
+               "Descrição da SS (cumulativa — vale o parecer mais recente)"]
+    larguras = [30, 14, 8, 24, 22, 14, 16, 24, 10, 12, 90]
     ws.append(colunas)
     for c, larg in enumerate(larguras, 1):
         cel = ws.cell(row=1, column=c)
@@ -91,16 +141,21 @@ def montar():
     sn = lambda b: "sim" if b else "não"
     for balde in BALDE_NOME:
         for i in v["baldes"][balde]["ativos"]:
+            desc = descricao.get(i["ss_pendente"], "")
+            if len(desc) > 32000:
+                desc = desc[:32000] + " (…cortado)"
             ws.append([
                 BALDE_NOME[balde], i["ativo"], i["tipo"], i["localidade"],
                 i["ss_pendente"], i["ss_pendente"].split()[0],
                 i["criticidade"] or "—", i["etapa_da_planilha"], sn(i["na_carteira"]),
                 (sn(i["no_plano_de_compras"]) if "no_plano_de_compras" in i else "—"),
+                desc or "—",
             ])
     for linha in ws.iter_rows(min_row=2):
         for cel in linha:
             cel.border = borda
             cel.alignment = Alignment(vertical="top")
+        linha[-1].alignment = Alignment(vertical="top", wrap_text=True)
 
     ws2 = wb.create_sheet("Como foi feito")
     ws2.column_dimensions["A"].width = 110
