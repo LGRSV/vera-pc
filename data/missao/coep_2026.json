@@ -8,7 +8,8 @@
    "chegaram": 7,
    "resolvidos": 4,
    "no_posto": 49,
-   "estiveram": 56
+   "estiveram": 56,
+   "conta_gestor": 53
   },
   {
    "mes": "2026-02",
@@ -16,7 +17,8 @@
    "chegaram": 5,
    "resolvidos": 0,
    "no_posto": 53,
-   "estiveram": 61
+   "estiveram": 61,
+   "conta_gestor": 57
   },
   {
    "mes": "2026-03",
@@ -24,7 +26,8 @@
    "chegaram": 11,
    "resolvidos": 3,
    "no_posto": 53,
-   "estiveram": 72
+   "estiveram": 72,
+   "conta_gestor": 60
   },
   {
    "mes": "2026-04",
@@ -32,7 +35,8 @@
    "chegaram": 13,
    "resolvidos": 2,
    "no_posto": 54,
-   "estiveram": 84
+   "estiveram": 84,
+   "conta_gestor": 63
   },
   {
    "mes": "2026-05",
@@ -40,7 +44,8 @@
    "chegaram": 7,
    "resolvidos": 11,
    "no_posto": 49,
-   "estiveram": 90
+   "estiveram": 90,
+   "conta_gestor": 69
   },
   {
    "mes": "2026-06",
@@ -48,7 +53,8 @@
    "chegaram": 35,
    "resolvidos": 31,
    "no_posto": 42,
-   "estiveram": 121
+   "estiveram": 121,
+   "conta_gestor": 93
   },
   {
    "mes": "2026-07",
@@ -56,7 +62,8 @@
    "chegaram": 21,
    "resolvidos": 13,
    "no_posto": 51,
-   "estiveram": 142
+   "estiveram": 142,
+   "conta_gestor": 115
   },
   {
    "mes": "2026-08",
@@ -64,7 +71,8 @@
    "chegaram": 2,
    "resolvidos": 7,
    "no_posto": 54,
-   "estiveram": 143
+   "estiveram": 143,
+   "conta_gestor": 125
   }
  ],
  "herdados": 50,

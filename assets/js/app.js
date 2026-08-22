@@ -2050,12 +2050,13 @@ function abrirColecao(id) {
     ${linhaAcumulada(usaCp ? [...ccv] : c, usaCp ? [
       { chave: 'estiveram', nome: 'Estiveram no posto', cor: 'var(--serie-1)', estoque: true,
         dica_acum: 'todo mundo que já passou até ali — começa com o acervo de ' + (cp.herdados || 0) },
+      { chave: 'conta_gestor', nome: 'Resolvidos + na fila', cor: 'var(--tinta-3)',
+        estoque: true, dica_acum: 'a conta do gestor — fecha em 71 + 54 = 125' },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' },
       { chave: 'no_posto', nome: 'No posto', cor: 'var(--serie-2)', estoque: true,
         dica_acum: 'a fila no fim de cada mês — não é soma' }] : undefined)}
-    ${usaCp ? `<div class="nota branda"><strong>A conta do gestor, fechada.</strong> 71 resolvidos
-    + 54 na fila = 125; somando os <b>18</b> repassados que seguem pendentes em outra mesa, dá
+    ${usaCp ? `<div class="nota branda"><strong>A conta do gestor, fechada.</strong> 71 resolvidos + 54 na fila = 125; somando os <b>18</b> repassados que seguem pendentes em outra mesa, dá
     <b>143 — a linha azul</b>, que começa do acervo de ${cp.herdados || 0} e conta todo mundo que
     já esteve no posto (71 + 54 + 22 − 4 = 143, com 4 resolvidos carregando nota antiga ainda
     aberta).</div>` : ''}

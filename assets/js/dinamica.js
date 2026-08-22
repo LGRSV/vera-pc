@@ -285,6 +285,8 @@ function mesAMes() {
     ${linhaAcumulada(cc, [
       { chave: 'estiveram', nome: 'Estiveram no posto', cor: 'var(--serie-1)', estoque: true,
         dica_acum: 'todo mundo que já passou até ali — começa com o acervo de ' + (cp.herdados || 0) },
+      { chave: 'conta_gestor', nome: 'Resolvidos + na fila', cor: 'var(--tinta-3)',
+        estoque: true, dica_acum: 'a conta do gestor — fecha em 71 + 54 = 125' },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' },
       { chave: 'no_posto', nome: 'No posto', cor: 'var(--serie-2)', estoque: true,

@@ -403,12 +403,20 @@ def montar():
             primeira_presenca[i["ativo"]] = i["_cheg"]
     def _estiveram(dia):
         return sum(1 for d0 in primeira_presenca.values() if d0 <= dia)
-    curva_mensal = [{"mes": f"2026-{m:02d}", "rotulo": f"{MES_PT[m - 1]}/2026",
-                     "chegaram": cheg.get(f"2026-{m:02d}", 0),
-                     "resolvidos": fech.get(f"2026-{m:02d}", 0),
-                     "no_posto": _fila_em(fins[m]),
-                     "estiveram": _estiveram(fins[m])}
-                    for m in range(1, 9)]
+    curva_mensal = []
+    res_acum = 0
+    for m in range(1, 9):
+        res_acum += fech.get(f"2026-{m:02d}", 0)
+        fila_m = _fila_em(fins[m])
+        curva_mensal.append({
+            "mes": f"2026-{m:02d}", "rotulo": f"{MES_PT[m - 1]}/2026",
+            "chegaram": cheg.get(f"2026-{m:02d}", 0),
+            "resolvidos": fech.get(f"2026-{m:02d}", 0),
+            "no_posto": fila_m,
+            "estiveram": _estiveram(fins[m]),
+            # a conta do gestor: resolvidos até aqui + fila de agora — fecha em 125
+            "conta_gestor": res_acum + fila_m,
+        })
 
     pacote = {
         "gerado_em": "2026-08-22", "posicao": "18/08/2026",
