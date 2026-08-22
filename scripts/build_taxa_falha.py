@@ -17,6 +17,7 @@ import os
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQ_TAXA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
 ARQ_LEITURA = os.path.join(RAIZ, "data", "missao", "leitura_ss_os.json")
+ARQ_COEP = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
 DESTINO = os.path.join(RAIZ, "dist", "taxa-falha.html")
 
 ANOS = ("2024", "2025", "2026")
@@ -148,6 +149,24 @@ def bloco_leitura(leitura):
 def main():
     taxa = _ler(ARQ_TAXA) or {}
     leitura = _ler(ARQ_LEITURA)
+    coep = _ler(ARQ_COEP) or {}
+    cc = coep.get("conta") or {}
+    cano = cc.get("resolvidos_por_ano_da_demanda") or {}
+    cprova = cc.get("resolvidos_por_prova") or {}
+    antigos = sum(v for k, v in cano.items() if k < "2026")
+    resolv = cc.get("resolvidos_pelo_coep", 0)
+    passaram = cc.get("equipamentos_que_passaram", 0)
+    linhas_coep = "".join(
+        f'<tr><td>{k}{" <i>(até 18/08)</i>" if k == "2026" else ""}</td>'
+        f'<td class="num"><b>{v}</b></td>'
+        f'<td class="num">{round(100.0 * v / resolv)}%</td></tr>'
+        for k, v in sorted(cano.items()))
+    fechou_em = (coep.get("postos_que_fecharam") or
+                 {"ETO-COEP": 40, "ETO-TELE": 15, "ETO-RD-PS": 5, "ETO-RD-AR": 5,
+                  "ETO-PROT": 4, "ETO-RD-PA": 1, "ETO-RD-PO": 1})
+    linhas_posto = "".join(
+        f'<tr><td>{k}</td><td class="num"><b>{v}</b></td></tr>'
+        for k, v in sorted(fechou_em.items(), key=lambda kv: -kv[1]))
 
     ppa = taxa.get("parque_por_ano") or {}
     regua = (taxa.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
@@ -267,13 +286,13 @@ def main():
     trocados na hora por obra direta (4 RL + 3 RT, corretivas emergenciais) e 36 entraram na
     carteira do COEP (27 RL + 9 RT) para diagnóstico, compra e programação. A carteira é
     exatamente o lugar onde a falha espera peça.</div>
-    <div class="nota branda"><strong>4 · O que a carteira devolve.</strong> A carteira não trata só
-    a safra do ano: janeiro abriu com 59 SS de anos anteriores. Em 2026 o posto resolveu 62
-    (39 RL + 23 RT) — dos 39 religadores, 14 eram falhas velhas de 2024/25 finalmente fechadas,
-    4 eram do próprio ano e 21 eram limpeza de carteira (cancelados em operação, repasses):
-    trabalho real que não é falha. Por isso «62 resolvidos» e «31 falharam» não se contradizem —
-    um mede produção do posto, o outro mede saúde do parque.</div>
-    <div class="nota branda"><strong>5 · O saldo.</strong> Entra 43, sai 62 — a fila encolhe. O
+    <div class="nota branda"><strong>4 · O que o posto devolve.</strong> O COEP não trata só a
+    safra do ano: janeiro abriu com 59 SS de anos anteriores. Em 2026, até 18/08,
+    <b>{resolv} equipamentos</b> tiveram a demanda fechada
+    depois de passar pelo posto — e <b>{antigos} deles nasceram antes de 2026</b>. Por isso
+    «{resolv} resolvidos» e «43 falharam» não se contradizem: um mede produção do posto, o outro
+    mede saúde do parque.</div>
+    <div class="nota branda"><strong>5 · O saldo.</strong> Entra 43, sai {resolv} — a fila encolhe. O
     livro-caixa da dinâmica do posto registra: pico de 99 em abril, 55 no fim de julho. Pela
     primeira vez o posto resolve mais do que quebra, no ano de maior produção da série (483
     demandas encerradas em 63% do ano, ritmo de ~790).</div>
@@ -286,6 +305,56 @@ def main():
     conta as falhas evitou gasto: R$ 1,19 milhão que seria gasto nos 23 cancelados em operação,
     com R$ 420 mil ainda lançados no orçamento, prontos para liberar — dinheiro que volta para a
     fila do elo 6.</div>
+
+    <h4 class="sub-grafico">O posto do COEP em 2026 — duas visões</h4>
+    <p class="destaque-texto">Quem passou pela mesa do posto, e o que o posto devolveu. As duas
+    contas são de <b>equipamento</b>, não de SS: o mesmo religador com três SS no posto no mesmo
+    ano é um equipamento.</p>
+    <div class="nota branda"><strong>Visão 1 — passaram pelo posto.</strong>
+    <b>{passaram} equipamentos</b> estiveram no COEP em algum momento de 2026, em
+    {cc.get("ss_no_posto", 0)} SS — {(cc.get("por_tipo") or {{}}).get("religador", 0)} religadores
+    e {(cc.get("por_tipo") or {{}}).get("regulador", 0)} reguladores. Desses,
+    {cc.get("seguem_no_posto_em_18_08", 0)} ainda estavam lá em 18/08.
+    {cc.get("na_carteira_consolidada", 0)} estão na carteira consolidada e
+    {cc.get("fora_da_carteira", 0)} não — passam pelo posto sem entrar na planilha de
+    acompanhamento.</div>
+    <div class="nota branda"><strong>A armadilha que quase estragou a conta.</strong> SS repassada
+    não tem data de conclusão: sai vazia na base. Quem contar «sem conclusão» como «ainda no
+    posto» arrasta SS de 2020 para dentro de 2026 — a primeira contagem deu 442 SS herdadas,
+    número falso. A saída certa vem da cadeia de repasse: a SS saiu do posto no dia em que a SS
+    seguinte foi aberta. Das 694 SS do COEP, 153 têm saída pela conclusão, <b>486 só têm saída
+    pelo repasse</b> e 55 seguem no posto.</div>
+    <div class="nota branda"><strong>Visão 2 — o posto resolveu {resolv}.</strong> A conta não sai
+    da carteira: a carteira é a foto do que ainda está pendente, e o que fechou e saiu não fica
+    registrado nela. Sai da cadeia da demanda — passou pelo posto dentro de 2026 e a cadeia fechou
+    dentro de 2026, com SS atendida ou cancelada. O ano é o da <b>data de ocorrência</b> da
+    primeira SS da cadeia.</div>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr>
+    <th>Ano em que a demanda nasceu</th><th class="num">Resolvidos em 2026</th>
+    <th class="num">Do total</th></tr></thead><tbody>{linhas_coep}
+    <tr class="total"><td>Total</td><td class="num"><b>{resolv}</b></td>
+    <td class="num">100%</td></tr></tbody></table></div>
+    <div class="nota branda"><strong>Como cada um foi resolvido.</strong>
+    {cprova.get("SS atendida", 0)} por SS atendida, com serviço executado;
+    {cprova.get("cancelada, com leitura que confirma volta à operação", 0)} por cancelamento com
+    leitura do texto confirmando volta à operação;
+    {cprova.get("resolvido por cancelamento", 0)} por cancelamento sem nota nova no COEP depois,
+    que é a régua do gestor: cancelado é resolvido, desde que não tenham aberto outra nota para
+    aquele ativo no posto. Quem voltou não conta — <b>{cc.get("tirados_por_volta_ao_coep", 0)}
+    equipamentos caíram</b> por isso, cada um com o número e a data da nota que os trouxe de
+    volta.</div>
+    <div class="nota branda"><strong>Quem fecha não precisa ser o COEP.</strong> O posto
+    diagnostica e despacha; quem executa é a ponta. O ETO-TELE conta quando há parecer do COEP ou
+    passagem pelo posto antes — e os 15 fechados lá têm SS no COEP, 11 com parecer na carteira.</div>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Onde a demanda fechou</th>
+    <th class="num">Equipamentos</th></tr></thead><tbody>{linhas_posto}</tbody></table></div>
+    <div class="nota branda"><strong>O que fica para o gestor conferir.</strong>
+    {cc.get("resolvidos_no_lote_de_junho", 0)} dos {resolv} foram cancelados no lote de 29 e 30 de
+    junho — pela régua eles contam, mas o lote está marcado em coluna própria na planilha.
+    E {cc.get("resolvidos_com_nota_pendente_em_outro_posto", 0)} seguem com nota pendente em outro
+    posto: o COEP fechou a parte dele, o equipamento ainda tem pendência em outra mesa. Se essas
+    também derrubarem, o número cai para
+    {resolv - cc.get("resolvidos_com_nota_pendente_em_outro_posto", 0)}.</div>
 
     <h4 class="sub-grafico">A prova de que o COEP agiu — caso a caso, nos 36 da safra 2026</h4>
     <p class="destaque-texto">Conferido no texto das SS e OS de cada um dos 36 ativos que entraram
