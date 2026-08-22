@@ -1,0 +1,117 @@
+{
+ "gerado_em": "2026-08-22",
+ "fonte": "BASE_SS_OS_20082026.txt — SS cujo NUM_TRAFO é o trafo auxiliar (51/57 + os 8 dígitos finais do pai) de um ativo da visão ETO",
+ "qtd": 8,
+ "ativos_com_ss_no_auxiliar": [
+  "7902702257",
+  "7925871077",
+  "7927646026",
+  "7931219078",
+  "7938137007",
+  "7955946007"
+ ],
+ "com_obra": [
+  "7925871077",
+  "7927646026",
+  "7938137007",
+  "7955946007"
+ ],
+ "ss": [
+  {
+   "trafo_auxiliar": "5702702257",
+   "ativo": "7902702257",
+   "ss": "ETO-RD-PO 00288/2023",
+   "os": "",
+   "obra": "",
+   "situacao": "SS REPASSADA",
+   "tipo_ss": "AVISO DE ANOMALIA",
+   "abertura": "15/02/2024 13:58:06",
+   "localidade": "SAO FELIX DO TOCANTINS",
+   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador"
+  },
+  {
+   "trafo_auxiliar": "5702702257",
+   "ativo": "7902702257",
+   "ss": "ETO-RD-PO 00188/2024",
+   "os": "ETO-RD-PO  001663/2024",
+   "obra": "",
+   "situacao": "SS ATENDIDA",
+   "tipo_ss": "AVISO DE ANOMALIA",
+   "abertura": "25/04/2024 10:48:59",
+   "localidade": "SAO FELIX DO TOCANTINS",
+   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador"
+  },
+  {
+   "trafo_auxiliar": "5702702257",
+   "ativo": "7902702257",
+   "ss": "DG-RD-PO 00123/2024",
+   "os": "",
+   "obra": "",
+   "situacao": "SS REPASSADA",
+   "tipo_ss": "AVISO DE ANOMALIA",
+   "abertura": "25/04/2024 10:48:59",
+   "localidade": "SAO FELIX DO TOCANTINS",
+   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador"
+  },
+  {
+   "trafo_auxiliar": "5725871077",
+   "ativo": "7925871077",
+   "ss": "ETO-RD-AR 02010/2024",
+   "os": "ENC-MLAR02  000265/2024",
+   "obra": "612401276",
+   "situacao": "SS ATENDIDA",
+   "tipo_ss": "FORMS SUBST DE TRANSFORMADOR",
+   "abertura": "22/11/2024 15:47:11",
+   "localidade": "GOIATINS",
+   "texto": "trafo 5725871077 queimado aceso livrelocalidade - Goiatins trafo atende o religador 7925871077"
+  },
+  {
+   "trafo_auxiliar": "5727646026",
+   "ativo": "7927646026",
+   "ss": "DG-RD-PO 00530/2024",
+   "os": "DG-MLPO02  000066/2024",
+   "obra": "312400566",
+   "situacao": "SS ATENDIDA",
+   "tipo_ss": "FORMS SUBST DE TRANSFORMADOR",
+   "abertura": "22/09/2024 03:12:01",
+   "localidade": "PONTE ALTA DO TOCANTINS",
+   "texto": "Segue nota para envia equipe manutenção substituir Trafo 5727646026,  15kva e para-raio queimado serviço auxiliar do RL-7927646026 na LD Ponte Alta / Mateiros, Tensão 34,5kv, Acesso livre."
+  },
+  {
+   "trafo_auxiliar": "5131219078",
+   "ativo": "7931219078",
+   "ss": "ETO-RD-GR 00675/2025",
+   "os": "",
+   "obra": "",
+   "situacao": "SS CANCELADA",
+   "tipo_ss": "AVISO DE ANOMALIA",
+   "abertura": "09/07/2025 12:53:09",
+   "localidade": "ITACAJA",
+   "texto": "Boa tarde!Segue SS de trafo auxiliar do religador 7931219078 com vazamento de oleo, favor substituir o mesmo."
+  },
+  {
+   "trafo_auxiliar": "5138137007",
+   "ativo": "7938137007",
+   "ss": "ENC-RD-PS 01397/2025",
+   "os": "ENC-LMPS04  000246/2025",
+   "obra": "212600009",
+   "situacao": "SS ATENDIDA",
+   "tipo_ss": "AVISO DE ANOMALIA",
+   "abertura": "15/12/2025 11:26:11",
+   "localidade": "MIRACEMA DO TOCANTINS",
+   "texto": "TRAFO AUXILIAR DO RL 7938137007TRAFO 5138137007 QUEIMADOTR DE 15 KVA REDE 13.8 KV VAZANDO OLEO OBS: ACESSO CAMIONETETEM UMA FAZENDA CERCADA QUE TEM ACESSO UC:"
+  },
+  {
+   "trafo_auxiliar": "5155946007",
+   "ativo": "7955946007",
+   "ss": "ENC-RD-PS 01112/2025",
+   "os": "ENC-LMPS04  000208/2025",
+   "obra": "212500969",
+   "situacao": "SS ATENDIDA",
+   "tipo_ss": "INDISPONIBILIDADE PARA OPERAÇÃO",
+   "abertura": "17/10/2025 13:26:06",
+   "localidade": "MIRACEMA DO TOCANTINS",
+   "texto": "ss opara trocar trafo 5155946007 que atende o RL 7955946007potencia:15kva 34500acesso: livre"
+  }
+ ]
+}

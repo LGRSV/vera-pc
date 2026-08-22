@@ -115,18 +115,18 @@
    "qtd": 11,
    "rl": 8,
    "rt": 3,
-   "n_obra": 8,
-   "n_planilha": 2,
+   "n_obra": 9,
+   "n_planilha": 1,
    "n_medio": 0,
    "sem_valor": 1,
-   "por_obra": 392148.0,
-   "por_planilha": 66360.82,
+   "por_obra": 449701.0,
+   "por_planilha": 15000.0,
    "estimado": 0,
-   "conhecido": 458508.82,
+   "conhecido": 464701.0,
    "com_orcamento": 10,
    "sem_orcamento": 0,
-   "orcado": 458508.82,
-   "custo": 458508.82
+   "orcado": 464701.0,
+   "custo": 464701.0
   },
   {
    "balde": "comissionamento",
@@ -230,14 +230,14 @@
   }
  ],
  "cobertura": {
-  "n_obra": 21,
-  "n_planilha": 37,
+  "n_obra": 22,
+  "n_planilha": 36,
   "com_orcamento": 58,
   "sem_orcamento": 33,
   "sem_valor": 2,
-  "por_obra": 1672307.0,
-  "por_planilha": 2811502.47,
-  "orcado": 4483809.47,
+  "por_obra": 1729860.0,
+  "por_planilha": 2760141.65,
+  "orcado": 4490001.65,
   "estimado": 2584352.55,
   "regra": "vale primeiro a OBRA do ativo no AIC — realizado em quem já foi trocado, orçado da obra aberta neste ano em quem ainda espera; depois o valor orçado do ativo na planilha de indisponibilidade; e só então o valor médio por manutenção, apenas em quem ainda vai custar. Em ajuste de proteção e comissionamento não se estima nada: o equipamento já foi trocado e o dinheiro já saiu"
  },
@@ -713,8 +713,14 @@
    "fonte": "medio"
   },
   "7953610256": {
-   "valor": 51360.82,
-   "fonte": "planilha"
+   "valor": 57553.0,
+   "fonte": "obra",
+   "medida": "realizado",
+   "obra": "0312600366",
+   "via": "obra de substituição da mesma localidade, ainda sem dono",
+   "abertura": "2026-07-31",
+   "orcado_da_obra": 48279.0,
+   "ressalva": "vínculo INFERIDO por localidade, projeto e data — conferir no SGM antes de usar como oficial"
   },
   "7955946007": {
    "valor": 58543.21,
@@ -792,38 +798,24 @@
    "fonte": "planilha",
    "obras_descartadas": [],
    "porque": "nenhuma obra ligada a este ativo em nenhuma das bases"
-  },
-  {
-   "ativo": "7953610256",
-   "balde": "ajuste_de_protecao",
-   "valor_usado": 51360.82,
-   "fonte": "planilha",
-   "obras_descartadas": [
-    {
-     "obra": "0302400011",
-     "porque": "obra de rede ou instalação nova, de 2024 (SIGCO 27637) — não é a manutenção deste ativo",
-     "descricao": "DESLOCAMENTO DE 01 POSTE E INSTALAÇÃO DE 01 RELIGADOR DE LINHA  EM RDR MT 34,5KV. INSTALAÇ"
-    }
-   ],
-   "porque": "obra de rede ou instalação nova, de 2024 (SIGCO 27637) — não é a manutenção deste ativo"
   }
  ],
  "ja_gasto": {
   "qtd": 20,
   "rl": 13,
   "rt": 7,
-  "n_obra": 14,
-  "n_planilha": 4,
+  "n_obra": 15,
+  "n_planilha": 3,
   "n_medio": 0,
   "sem_valor": 2,
-  "por_obra": 631734.0,
-  "por_planilha": 170816.36,
+  "por_obra": 689287.0,
+  "por_planilha": 119455.54,
   "estimado": 0,
-  "conhecido": 802550.36,
+  "conhecido": 808742.54,
   "com_orcamento": 18,
   "sem_orcamento": 0,
-  "orcado": 802550.36,
-  "custo": 802550.36,
+  "orcado": 808742.54,
+  "custo": 808742.54,
   "regra": "ajuste de proteção + comissionamento — equipamento já trocado; o valor é o que estava orçado para eles, e o desembolso real está dentro do realizado do ano"
  },
  "estimativa_dmsl": {

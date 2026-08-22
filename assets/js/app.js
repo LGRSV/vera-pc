@@ -550,9 +550,11 @@ function visaoOrcamentaria() {
         </tbody></table></div></details>`;
     })()}
     ${(o.sem_obra || []).length ? `<details class="detalhe-plano"><summary>Os ${o.sem_obra.length} já trocados que não têm obra no AIC — e por quê</summary>
-      <p class="destaque-texto">A busca varreu seis vias: o vínculo por EMD, a planilha de EMD, o número de obra da
-      SS, o número citado no texto do parecer, a cadeia SS→OS→obra e o código do ativo escrito na descrição da obra,
-      dentro do AIC inteiro. Nestes seis a obra da troca não apareceu — cada linha diz o que impediu.</p>
+      <p class="destaque-texto">A busca varreu oito vias: o vínculo por EMD, a planilha de EMD, o número de obra da
+      SS, o número citado no texto do parecer, a cadeia SS→OS→obra, o código do ativo escrito na descrição da obra
+      dentro do AIC inteiro, a <b>SS do trafo auxiliar</b> (código 51/57 com os oito dígitos finais do pai, que o
+      recorte de RL/RT não enxergava) e, por último, a obra de substituição da mesma praça ainda sem dono — essa
+      marcada como inferida. Nestes a obra da troca não apareceu; cada linha diz o que impediu.</p>
       <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead><tr>
       <th>Ativo</th><th>Etapa</th><th>O que impediu</th><th class="num">Valor usado</th></tr></thead><tbody>
       ${o.sem_obra.map((s) => `<tr><td><b class="mono">${esc(s.ativo)}</b></td>

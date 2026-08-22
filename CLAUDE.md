@@ -112,8 +112,15 @@ comissionamento e obra de equipamento novo.
 - **Valor de cada ativo, na ordem**: 1) a **obra do ativo no AIC** no projeto certo —
   realizado em quem já foi trocado, orçado da obra **aberta no ano** em quem ainda
   espera (obra velha pagou outra falha, não entra); 2) o valor orçado do ativo na
-  planilha de indisponibilidade; 3) o médio, só em quem ainda vai custar. A obra chega
-  ao ativo por três vias: EMD (`m4_aic129`), `NUM_OBRA` da SS e número citado no texto.
+  planilha de indisponibilidade; 3) o médio, só em quem ainda vai custar.
+- **A obra chega ao ativo por oito vias** (`visao_orcamentaria.py`): EMD (`m4_aic129`),
+  planilha de EMD, `NUM_OBRA` da SS, número citado no texto do parecer, cadeia
+  SS→OS→obra, **código do ativo na descrição da obra** (busca reversa no AIC — a que
+  mais rende), **SS do trafo auxiliar** (`ss_trafo_auxiliar_93.py`; 51/57 + 8 finais —
+  o recorte RL/RT não enxerga) e, por último, obra de substituição da mesma praça sem
+  dono, marcada como **inferida**. Cruzar por OS não rende: o AIC quase não preenche
+  `NUM_OS`. **SIGCO trocado não descarta obra** (RT no 8495, RL no 8481, troca no 8389);
+  obra que cita outro código no texto, sim. Obra compartilhada tem valor **rateado**.
 - **O preço é o valor médio por manutenção do gestor**: **RL R$ 58.543,21** e
   **RT R$ 167.280,98** (22/08). O médio por obra do AIC (RL R$ 39 mil, RT R$ 47,7 mil)
   **não serve de preço** — nem toda obra do projeto troca o equipamento inteiro; no RT,

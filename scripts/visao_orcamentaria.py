@@ -79,7 +79,46 @@ def _oid(x):
     return x.zfill(10) if x.isdigit() and int(x) > 0 else ""
 
 
-def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo, emd, cadeia, alvos):
+def obra_orfa_da_localidade(ativo, item, aic, donos, alvos):
+    """Último recurso, e só para quem a cadeia diz que JÁ FOI TROCADO sem obra achada:
+    a obra de substituição do projeto certo, na mesma localidade, aberta neste ano e
+    que ainda não é de ninguém. Se houver mais de uma candidata, não atribui — duas
+    candidatas é ambiguidade, não descoberta. Vai marcada como inferida."""
+    loc = (item.get("localidade") or "").strip().upper()
+    if not loc:
+        return None
+    cand = []
+    for o, r in aic.items():
+        if o in donos:
+            continue
+        if str(r.get("NUM_PROJETO_SIGCO", "")).strip() != PROJETO_DO_TIPO.get(item["tipo"]):
+            continue
+        if str(r.get("NOMELOC", "")).strip().upper() != loc:
+            continue
+        if str(r.get("DTH_ABERTURA", ""))[:4] != ANO_DA_CARTEIRA:
+            continue
+        texto = f"{r.get('DESCRICAO_OBRA', '')} {r.get('DESCRICAO', '')}"
+        if not RE_SUBSTITUICAO.search(texto):
+            continue
+        # se a obra escreve o código de um equipamento e não é o nosso (nem o trafo
+        # auxiliar dele), a obra é de outro ativo — inferir aqui seria roubar a obra
+        citados = set(re.findall(r"\b(?:79|58|51|57)\d{8}\b", texto))
+        if citados and not citados & {ativo, "51" + ativo[2:], "57" + ativo[2:]}:
+            continue
+        orcado, realizado = _num(r.get("VAL_TOTAL_ORCADO")), _num(r.get("TOTAL_REALIZADO"))
+        if not (orcado or realizado):
+            continue
+        cand.append({"valor": round(realizado or orcado, 2),
+                     "medida": "realizado" if realizado else "orçado", "obra": o,
+                     "via": "obra de substituição da mesma localidade, ainda sem dono",
+                     "abertura": str(r.get("DTH_ABERTURA", ""))[:10],
+                     "orcado_da_obra": round(orcado, 2),
+                     "ressalva": "vínculo INFERIDO por localidade, projeto e data — "
+                                 "conferir no SGM antes de usar como oficial"})
+    return cand[0] if len(cand) == 1 else None
+
+
+def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo, emd, cadeia, alvos, aux):
     """Toda obra do AIC que alguma base liga ao ativo. Seis vias, e cada vínculo
     guarda por onde veio para dar para conferir na mão:
 
@@ -116,6 +155,9 @@ def obras_por_ativo(aic, ssos, descricoes, m4, ss_do_ativo, emd, cadeia, alvos):
     for ob in (cadeia.get("obras") or []):
         for a in (ob.get("ativos") or []):
             liga(a, _oid(ob.get("obra")), "cadeia SS→OS→obra")
+    for s in (aux.get("ss") or []):
+        liga(s["ativo"], _oid(s.get("obra")),
+             f"obra na SS do trafo auxiliar {s['trafo_auxiliar']} ({s['ss']})")
     achar_cod = re.compile(r"\b(79\d{8}|58\d{8})\b")
     for o, r in aic.items():
         txt = f"{r.get('DESCRICAO_OBRA', '')} {r.get('DESCRICAO', '')}"
@@ -195,13 +237,16 @@ def montar():
         emd = json.load(fh)
     with open(os.path.join(RAIZ, "data", "missao", "cadeia_obra.json"), encoding="utf-8") as fh:
         cadeia = json.load(fh)
+    arq_aux = os.path.join(RAIZ, "data", "missao", "ss_trafo_auxiliar_93.json")
+    with open(arq_aux, encoding="utf-8") as fh:
+        aux = json.load(fh)
 
     todos = {i["ativo"]: {**i, "_ja_trocado": b not in AINDA_CUSTA}
              for b in BALDE_NOME for i in vc["visao_eto"]["baldes"][b]["ativos"]}
     ss_do_ativo = {i["ss_pendente"]: a for a, i in todos.items()}
     vinc = obras_por_ativo(aic, [r for r in ssos if r["NUM_TRAFO"] in todos],
                            descricoes, {a: d for a, d in m4.items() if a in todos},
-                           ss_do_ativo, emd, cadeia, todos)
+                           ss_do_ativo, emd, cadeia, todos, aux)
 
     medio = caixa["valor_medio_por_manutencao"]
     orc = dict(caixa["orcamento_2026"])
@@ -242,7 +287,16 @@ def montar():
         obra = valor_pela_obra(a, i["tipo"], ja, vinc, aic)
         if obra:
             fontes[a] = {"valor": obra["valor"], "fonte": "obra", **obra}
-        elif a in orcado:
+            continue
+        # a cadeia diz que trocou e nenhuma via achou a obra: procura a órfã da praça
+        if ja:
+            ja_donos = {d["obra"] for d in fontes.values() if d.get("fonte") == "obra"}
+            ja_donos |= {o for v in vinc.values() for o in v}
+            inferida = obra_orfa_da_localidade(a, i, aic, ja_donos, todos)
+            if inferida:
+                fontes[a] = {"valor": inferida["valor"], "fonte": "obra", **inferida}
+                continue
+        if a in orcado:
             fontes[a] = {"valor": round(orcado[a], 2), "fonte": "planilha"}
         elif not ja:
             fontes[a] = {"valor": round(medio[i["tipo"]], 2), "fonte": "medio"}
