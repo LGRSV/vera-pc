@@ -288,10 +288,11 @@ function mesAMes() {
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' }])}
     <div class="nota branda"><strong>A conta, fechada.</strong> A laranja termina em
-    <b>71 resolvidos + 54 na fila = 125</b>. Fora do gráfico ficam <b>18</b> que o posto
-    despachou e seguem pendentes em outra mesa — com eles, chega-se aos 143 que passaram pelo
-    posto no ano (contando o acervo de ${cp.herdados || 0} que já estava na mesa em janeiro).
-    O livro-caixa herdado fecha em 52 porque é outro recorte: só a foto de entrada.</div>
+    <b>71 resolvidos + 54 na fila = 125</b>. Fora do gráfico ficam <b>22</b> que o posto
+    despachou e seguem em outra mesa — 18 com a demanda pendente e 4 em rodada nova depois de
+    voltarem ao posto. Com eles chegam os 143 que passaram no ano, contando o acervo de
+    ${cp.herdados || 0} que já estava na mesa em janeiro. O livro-caixa herdado fecha em 52
+    porque é outro recorte: só a foto de entrada.</div>
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o

@@ -336,6 +336,34 @@ def montar():
             "localidade": c.get("localidade") or cidade.get(cod, ""),
         })
 
+    # Quem o posto despachou e segue em outra mesa: passou pelo COEP em 2026, não
+    # está resolvido nem na fila — a demanda vive na ponta da cadeia, em outro posto.
+    res_set = {r["ativo"] for r in resolvidos_do_coep if r["conta_como_resolvido_pelo_coep"]}
+    seg_set = {a["ativo"] for a in ativos if a["segue_no_posto"]}
+    pendentes_fora = []
+    for a in ativos:
+        cod = a["ativo"]
+        if cod in res_set or cod in seg_set:
+            continue
+        fim = None
+        for n in a["ss"].split(" | "):
+            q = idx.get(norm(n))
+            q = ponta(q) if q else None
+            if q is not None and (fim is None or (q["_abriu"] and fim["_abriu"]
+                                                  and q["_abriu"] > fim["_abriu"])):
+                fim = q
+        pendentes_fora.append({
+            "ativo": cod, "tipo": a["tipo"], "localidade": a["localidade"],
+            "ss_no_coep": a["ss"],
+            "onde_esta": fim["POSTO_SGM"] if fim else "",
+            "ss_atual": fim["SS_ORIGINAL"] if fim else "",
+            "status_atual": fim["STATUS"] if fim else "",
+            "la_desde": fim["_abriu"].strftime("%d/%m/%Y") if fim and fim["_abriu"] else "",
+            "dias_la": (FIM - fim["_abriu"]).days if fim and fim["_abriu"] else None,
+            "parecer_coep": a["parecer_coep"],
+        })
+    pendentes_fora.sort(key=lambda x: -(x["dias_la"] or 0))
+
     contam = [r for r in resolvidos_do_coep if r["conta_como_resolvido_pelo_coep"]]
     por_ano = Counter(r["ano_da_demanda"] for r in contam)
     por_prova = Counter(r["prova"].split(" —")[0] for r in contam)
@@ -428,6 +456,7 @@ def montar():
         "premissas": PREMISSAS,
         "conta": conta,
         "ativos": ativos,
+        "pendentes_em_outra_mesa": pendentes_fora,
         "resolvidos_do_coep": resolvidos_do_coep,
         "ss": no_posto,
         "resolvidos_sem_passagem": resolvidos_fora,
@@ -563,6 +592,17 @@ def planilha(pacote):
         if not r["conta_como_resolvido_pelo_coep"]:
             for cel in ws[n]:
                 cel.fill = cinza
+
+    fora = pacote.get("pendentes_em_outra_mesa") or []
+    ws = wb.create_sheet(f"Pendentes em outra mesa ({len(fora)})")
+    cabecalho(ws, ["Ativo", "Tipo", "Localidade", "SS no COEP em 2026", "Onde está agora",
+                   "SS atual", "Situação", "Lá desde", "Dias lá", "Parecer COEP"],
+              [14, 12, 20, 36, 14, 22, 14, 12, 9, 26])
+    for r in fora:
+        ws.append([r["ativo"], r["tipo"], r["localidade"], r["ss_no_coep"], r["onde_esta"],
+                   r["ss_atual"], r["status_atual"], r["la_desde"], r["dias_la"],
+                   r["parecer_coep"]])
+    fechar(ws)
 
     # o método, para as duas
     ws = wb.create_sheet("Como foi feito")
