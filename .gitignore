@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 .DS_Store
 dist/
+
+# cache do extrato do AIC (94 MB, refeito pelo scripts/cadeia_obra.py)
+data/missao/aic_full.json
