@@ -413,6 +413,13 @@ PREMISSAS = [
     "o posto fechou caso de 2024 e 2025.",
     "O número da SS não serve para datar: ETO-COEP 00149/2025 foi aberta em 29/06/2026, com "
     "ocorrência em 11/07/2025. Numerar não é abrir, e abrir não é o fato acontecer.",
+    "O posto que fecha não precisa ser o COEP (gestor, 22/08). Fechamento no ETO-RD-PS, no "
+    "ETO-PROT, no ETO-RD-AR e nos demais conta igual: o COEP diagnosticou e despachou, quem "
+    "executou foi a ponta. O ETO-TELE também conta, desde que haja parecer do COEP ou que o "
+    "equipamento tenha estado no posto antes — e os 15 fechados lá têm SS no COEP, 11 deles "
+    "com parecer registrado na carteira.",
+    "Onde os 71 fecharam: 40 no ETO-COEP, 15 no ETO-TELE, 5 no ETO-RD-PS, 5 no ETO-RD-AR, "
+    "4 no ETO-PROT, 1 no ETO-RD-PA e 1 no ETO-RD-PO.",
     "Régua do gestor para o cancelamento (22/08): cancelado é resolvido, DESDE QUE não tenham "
     "aberto outra nota para esse ativo no posto do COEP depois. Se abriram, a demanda voltou "
     "para a mesa do posto e continua pendente — não conta. Isso derruba 19 dos 90 candidatos.",
