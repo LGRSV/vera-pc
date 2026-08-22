@@ -54,6 +54,39 @@ def dia(texto):
         return None
 
 
+def _ler(nome, chave):
+    caminho = os.path.join(RAIZ, "data", "missao", nome)
+    if not os.path.exists(caminho):
+        return {}
+    with open(caminho, encoding="utf-8") as fh:
+        return json.load(fh).get(chave) or {}
+
+
+def leitura_das_canceladas():
+    """SS e ativos em que a leitura do texto confirmou volta à operação.
+
+    O SGM não exporta o motivo do cancelamento — foi lido no texto, em duas frentes:
+    as 131 canceladas dos 129 da carteira e a varredura das 585 de todos os postos.
+    """
+    ss, ativos = set(), set()
+    caminho = os.path.join(RAIZ, "data", "missao", "m5_canceladas.json")
+    if os.path.exists(caminho):
+        with open(caminho, encoding="utf-8") as fh:
+            for linha in json.load(fh)["ss"]:
+                if linha.get("categoria") == "cancelada_em_operacao":
+                    ss.add(norm(linha["numero_ss"]))
+    caminho = os.path.join(RAIZ, "data", "missao", "m6_canceladas_global.json")
+    if os.path.exists(caminho):
+        with open(caminho, encoding="utf-8") as fh:
+            m6 = json.load(fh)
+        for linha in m6.get("ss", []):
+            n = linha.get("numero_ss") or linha.get("ss")
+            if n:
+                ss.add(norm(n))
+        ativos |= {k for k, v in (m6.get("ativos") or {}).items() if v.get("em_operacao")}
+    return ss, ativos
+
+
 def indexar():
     with open(ARQ_SS, encoding="utf-8") as fh:
         base = json.load(fh)
@@ -93,6 +126,7 @@ def carteira():
 
 def montar():
     idx, seguinte = indexar()
+    antecessor = {v: k for k, v in seguinte.items()}
     cart, resolvidos = carteira()
 
     def saida(x):
@@ -104,6 +138,7 @@ def montar():
         return None, "ainda no posto", ""
 
     no_posto, por_ativo = [], defaultdict(list)
+    por_ativo_ss = defaultdict(list)   # os registros crus das SS do COEP, por equipamento
     for x in idx.values():
         if x["POSTO_SGM"] != POSTO or not x["_abriu"]:
             continue
@@ -126,6 +161,7 @@ def montar():
         }
         no_posto.append(item)
         por_ativo[x["EQUIPAMENTO"]].append(item)
+        por_ativo_ss[x["EQUIPAMENTO"]].append(x)
 
     ativos = []
     for cod, itens in sorted(por_ativo.items()):
@@ -178,39 +214,99 @@ def montar():
             "motivo": motivo,
         })
 
-    # Visão 2: quem o COEP resolveu em 2026. Resolvido no primeiro ataque do DMSL não
-    # conta — a demanda morreu na mão da DMSL, o posto não trabalhou nela.
-    resolvidos_do_coep = []
-    dentro = {a["ativo"]: a for a in ativos}
-    for cod in sorted(resolvidos):
-        c = cart[cod]
-        a = dentro.get(cod)
-        primeiro_ataque = "primeiro ataque" in (c["parecer_coep"] or "").lower()
-        if primeiro_ataque:
+    # Visão 2: quem o COEP resolveu em 2026 — pela cadeia da demanda, não pela carteira.
+    # A carteira é a foto do que ainda está pendente; ela não guarda o que fechou e saiu.
+    # Por isso ela perde justamente o que o gestor lembra de ter resolvido: demanda velha,
+    # de 2024 e 2025, fechada agora.
+    ss_confirmadas, ativos_em_operacao = leitura_das_canceladas()
+    ss_do_ativo = defaultdict(list)
+    for y in idx.values():
+        ss_do_ativo[y["EQUIPAMENTO"]].append(y)
+
+    def raiz(x):
+        cur, visto = x, set()
+        while cur["_id"] in antecessor and antecessor[cur["_id"]] in idx \
+                and antecessor[cur["_id"]] not in visto:
+            visto.add(cur["_id"])
+            cur = idx[antecessor[cur["_id"]]]
+        return cur
+
+    def ponta(x):
+        cur, visto = x, set()
+        while cur["_id"] in seguinte and seguinte[cur["_id"]] in idx \
+                and seguinte[cur["_id"]] not in visto:
+            visto.add(cur["_id"])
+            cur = idx[seguinte[cur["_id"]]]
+        return cur
+
+    LOTE = {datetime.date(2026, 6, 29), datetime.date(2026, 6, 30)}
+    resolvidos_do_coep, candidatos = [], 0
+    for cod, itens in sorted(por_ativo_ss.items()):
+        escolhida = None
+        for x in itens:
+            fim = ponta(x)
+            if fim["STATUS"] in ("SS ATENDIDA", "SS CANCELADA") and fim["_concluiu"] \
+                    and INICIO <= fim["_concluiu"] <= FIM:
+                inicio = raiz(x)
+                cand = {"x": x, "raiz": inicio, "ponta": fim,
+                        "ano": inicio["_abriu"].year if inicio["_abriu"] else None}
+                if escolhida is None or (cand["ano"] or 9999) < (escolhida["ano"] or 9999):
+                    escolhida = cand
+        if not escolhida:
+            continue
+        candidatos += 1
+        fim = escolhida["ponta"]
+        c = cart.get(cod, {})
+        primeiro_ataque = "primeiro ataque" in (c.get("parecer_coep") or "").lower()
+        reincidiu = any(y["_abriu"] and y["_abriu"] > fim["_concluiu"] for y in ss_do_ativo[cod])
+        confirmada = (fim["_id"] in ss_confirmadas or cod in ativos_em_operacao)
+        no_lote = fim["STATUS"] == "SS CANCELADA" and fim["_concluiu"].date() in LOTE
+        if reincidiu:
+            entra, porque = False, "abriu SS nova no equipamento depois do fechamento — reincidiu"
+        elif primeiro_ataque:
             entra, porque = False, "resolvido no primeiro ataque do DMSL — não é trabalho do posto"
-        elif a is None:
-            entra, porque = False, "não teve SS no COEP dentro de 2026 — quem resolveu foi outro posto"
         else:
-            entra, porque = True, "passou pelo posto em 2026 e a carteira registra concluída"
+            entra, porque = True, ""
+        if entra:
+            if fim["STATUS"] == "SS ATENDIDA":
+                prova = "firme — SS atendida, serviço executado"
+            elif confirmada:
+                prova = "firme — cancelada com leitura que confirma volta à operação"
+            elif no_lote:
+                prova = "a conferir — cancelada no lote de 29-30/06, sem motivo exportado"
+            else:
+                prova = "a conferir — cancelada sem motivo exportado pelo SGM"
+        else:
+            prova = ""
         resolvidos_do_coep.append({
-            "ativo": cod, "tipo": c["tipo"], "localidade": c["localidade"],
-            "parecer_coep": c["parecer_coep"], "criticidade": c["criticidade"],
-            "passou_pelo_coep_em_2026": bool(a),
-            "ss_no_coep_em_2026": (a or {}).get("ss", ""),
-            "dias_no_posto": (a or {}).get("dias_no_posto", ""),
-            "primeiro_ataque_dmsl": primeiro_ataque,
-            "conta_como_resolvido_pelo_coep": entra, "porque": porque,
+            "ativo": cod, "tipo": escolhida["x"]["TIPO_ATIVO"].lower(),
+            "ano_da_demanda": escolhida["ano"],
+            "ss_que_abriu_a_demanda": escolhida["raiz"]["SS_ORIGINAL"],
+            "posto_que_abriu": escolhida["raiz"]["POSTO_SGM"],
+            "ss_no_coep": escolhida["x"]["SS_ORIGINAL"],
+            "ss_que_fechou": fim["SS_ORIGINAL"], "posto_que_fechou": fim["POSTO_SGM"],
+            "como_terminou": fim["STATUS"],
+            "data_do_fechamento": fim["_concluiu"].strftime("%d/%m/%Y"),
+            "dias_da_demanda": ((fim["_concluiu"] - escolhida["raiz"]["_abriu"]).days
+                                if escolhida["raiz"]["_abriu"] else None),
+            "conta_como_resolvido_pelo_coep": entra, "porque_nao": porque, "prova": prova,
+            "esta_na_carteira": bool(c), "parecer_coep": c.get("parecer_coep", ""),
+            "localidade": c.get("localidade", ""),
         })
+
+    contam = [r for r in resolvidos_do_coep if r["conta_como_resolvido_pelo_coep"]]
+    por_ano = Counter(r["ano_da_demanda"] for r in contam)
+    por_prova = Counter(r["prova"].split(" —")[0] for r in contam)
 
     conta = {
         "equipamentos_que_passaram": len(ativos),
-        "resolvidos_pelo_coep": sum(1 for r in resolvidos_do_coep
-                                    if r["conta_como_resolvido_pelo_coep"]),
+        "candidatos_a_resolvido": candidatos,
+        "resolvidos_pelo_coep": len(contam),
+        "resolvidos_por_ano_da_demanda": {str(k): v for k, v in sorted(por_ano.items())},
+        "resolvidos_por_prova": dict(por_prova),
+        "tirados_por_reincidencia": sum(1 for r in resolvidos_do_coep if "reincidiu" in r["porque_nao"]),
         "tirados_por_primeiro_ataque_dmsl": sum(1 for r in resolvidos_do_coep
-                                                if r["primeiro_ataque_dmsl"]),
-        "tirados_por_nao_passar_pelo_coep": sum(
-            1 for r in resolvidos_do_coep
-            if not r["conta_como_resolvido_pelo_coep"] and not r["primeiro_ataque_dmsl"]),
+                                                if "primeiro ataque" in r["porque_nao"]),
         "por_tipo": dict(Counter(a["tipo"] for a in ativos)),
         "ss_no_posto": len(no_posto),
         "chegaram_em_2026": sum(1 for a in ativos if a["chegou_em_2026"]),
@@ -262,13 +358,26 @@ PREMISSAS = [
     "posto em ano anterior e o fechamento veio depois, ou quem resolveu foi outro posto.",
     "Só religador e regulador. A base de ocorrência traz 8.835 SS de religador e 1.551 de "
     "regulador, com data de ocorrência em 100% das linhas.",
-    "VISÃO 2 — resolvido pelo COEP em 2026: o ativo está marcado CONCLUÍDA na carteira "
-    "consolidada E teve SS no COEP dentro de 2026.",
-    "Resolvido no primeiro ataque do DMSL NÃO conta. A demanda morreu na mão da DMSL; o posto "
-    "não trabalhou nela. São 15 dos 52 concluídos da carteira — 14 nunca tiveram SS no COEP e "
-    "1 chegou a passar pelo posto.",
-    "Concluído da carteira que nunca teve SS no COEP dentro de 2026 também não conta como "
-    "resolvido pelo posto — quem resolveu foi outro.",
+    "VISÃO 2 — resolvido pelo COEP em 2026: a demanda passou pelo posto dentro de 2026 e a "
+    "cadeia dela fechou dentro de 2026, com SS atendida ou cancelada.",
+    "A conta NÃO sai da carteira. A carteira é a foto do que ainda está pendente; o que fechou "
+    "e saiu não fica registrado nela. Foi por isso que a primeira contagem, feita pela carteira, "
+    "achou só 29 e perdeu justamente o que o gestor lembrava: demanda velha, de 2024 e 2025, "
+    "fechada agora.",
+    "A demanda é a cadeia inteira de SS, do primeiro posto ao último — o ano dela é o ano em que "
+    "a PRIMEIRA SS foi aberta, não o da SS do COEP. É isso que mostra que o posto fechou caso de "
+    "2024 e 2025.",
+    "Não conta quem reincidiu: se o equipamento abriu SS nova depois do fechamento, a demanda "
+    "não estava resolvida. Isso derruba 33 dos 90 candidatos.",
+    "Não conta o resolvido no primeiro ataque do DMSL — a demanda morreu na mão da DMSL, o posto "
+    "não trabalhou nela.",
+    "A prova não é igual para todos, e a planilha diz qual é a de cada um. SS atendida é prova "
+    "firme: houve serviço executado. SS cancelada não é — o SGM NÃO exporta o motivo do "
+    "cancelamento. Cancelada só vira prova firme quando a leitura do texto confirmou volta à "
+    "operação.",
+    "Atenção ao lote de 29 e 30 de junho: 19 SS do COEP foram canceladas nesses dois dias. Pode "
+    "ser fechamento de semestre, pode ser limpeza de carteira. Estão marcadas «a conferir» — "
+    "quem decide é o gestor.",
 ]
 
 
@@ -315,18 +424,22 @@ def planilha(pacote):
 
     # VISÃO 2 — quem o COEP resolveu em 2026
     ws = wb.create_sheet(f"2 · Resolvidos pelo COEP ({c['resolvidos_pelo_coep']})")
-    cabecalho(ws, ["Ativo", "Tipo", "Localidade", "Conta como resolvido pelo COEP",
-                   "Por quê", "Passou pelo COEP em 2026", "Primeiro ataque DMSL",
-                   "SS no COEP em 2026", "Dias no posto", "Parecer COEP", "Criticidade"],
-              [14, 12, 20, 16, 54, 14, 14, 36, 12, 26, 12])
+    cabecalho(ws, ["Ativo", "Tipo", "Ano em que a demanda nasceu", "Conta", "Prova",
+                   "Por que não conta", "SS que abriu a demanda", "Posto que abriu",
+                   "SS no COEP", "SS que fechou", "Posto que fechou", "Como terminou",
+                   "Fechou em", "Dias da demanda", "Está na carteira", "Parecer COEP",
+                   "Localidade"],
+              [14, 12, 12, 9, 44, 44, 22, 14, 22, 22, 14, 15, 12, 12, 12, 24, 20])
     ordem = sorted(pacote["resolvidos_do_coep"],
-                   key=lambda r: (not r["conta_como_resolvido_pelo_coep"], r["ativo"]))
+                   key=lambda r: (not r["conta_como_resolvido_pelo_coep"],
+                                  r["ano_da_demanda"] or 9999, r["ativo"]))
     for r in ordem:
-        ws.append([r["ativo"], r["tipo"], r["localidade"],
-                   sn(r["conta_como_resolvido_pelo_coep"]), r["porque"],
-                   sn(r["passou_pelo_coep_em_2026"]), sn(r["primeiro_ataque_dmsl"]),
-                   r["ss_no_coep_em_2026"], r["dias_no_posto"], r["parecer_coep"],
-                   r["criticidade"]])
+        ws.append([r["ativo"], r["tipo"], r["ano_da_demanda"],
+                   sn(r["conta_como_resolvido_pelo_coep"]), r["prova"], r["porque_nao"],
+                   r["ss_que_abriu_a_demanda"], r["posto_que_abriu"], r["ss_no_coep"],
+                   r["ss_que_fechou"], r["posto_que_fechou"], r["como_terminou"],
+                   r["data_do_fechamento"], r["dias_da_demanda"],
+                   sn(r["esta_na_carteira"]), r["parecer_coep"], r["localidade"]])
     fechar(ws)
     for n, r in enumerate(ordem, 2):
         if not r["conta_como_resolvido_pelo_coep"]:
@@ -350,10 +463,12 @@ def main():
     print(f"VISÃO 1 — passaram pelo COEP em 2026: {c['equipamentos_que_passaram']} equipamentos "
           f"({c['por_tipo']['religador']} RL + {c['por_tipo']['regulador']} RT) em "
           f"{c['ss_no_posto']} SS; {c['seguem_no_posto_em_18_08']} ainda no posto em 18/08")
-    print(f"VISÃO 2 — resolvidos PELO COEP em 2026: {c['resolvidos_pelo_coep']}")
-    print(f"  de {c['resolvidos_na_carteira_total']} concluídos na carteira")
-    print(f"  tirados por primeiro ataque do DMSL...: {c['tirados_por_primeiro_ataque_dmsl']}")
-    print(f"  tirados por não passar pelo COEP.....: {c['tirados_por_nao_passar_pelo_coep']}")
+    print(f"VISÃO 2 — resolvidos PELO COEP em 2026: {c['resolvidos_pelo_coep']} "
+          f"(de {c['candidatos_a_resolvido']} candidatos)")
+    print(f"  por ano em que a demanda nasceu.: {c['resolvidos_por_ano_da_demanda']}")
+    print(f"  por prova.......................: {c['resolvidos_por_prova']}")
+    print(f"  tirados por reincidência........: {c['tirados_por_reincidencia']}")
+    print(f"  tirados por primeiro ataque DMSL: {c['tirados_por_primeiro_ataque_dmsl']}")
     print(f"gravado: {SAIDA_JSON}")
     planilha(pacote)
     print(f"gravado: {SAIDA_XLSX}")
