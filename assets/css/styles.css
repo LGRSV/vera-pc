@@ -773,3 +773,11 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 #json-classif { font-family: var(--mono); font-size: 12px; margin-top: 12px; }
 .acoes-classif { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
 .acoes-classif .pastilha { text-decoration: none; }
+
+/* visão consolidada — o resumo mínimo que abre o site */
+.visao-consolidada { margin: 18px 0 8px; }
+.grade-visao { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 4px 26px; }
+.grade-visao .item-linha .sob { color: var(--tinta-3); font-style: italic; font-size: .85em; }
+.detalhe-plano { margin-top: 12px; border: 1px solid var(--filete); border-radius: 3px; padding: 8px 13px; background: var(--papel-2); }
+.detalhe-plano summary { cursor: pointer; font-family: var(--cond); letter-spacing: .02em; }
+.detalhe-plano[open] summary { margin-bottom: 8px; }

@@ -283,12 +283,12 @@ function mesAMes() {
     laranja põe <b>a fila de hoje</b> em cima dos resolvidos — a distância entre as duas é a
     fila. Quando a verde sobe e a laranja anda de lado, o posto está comendo a fila.</p>
     ${linhaAcumulada(cc, [
-      { chave: 'conta_gestor', nome: 'Resolvidos + na fila', cor: 'var(--serie-2)',
-        estoque: true, dica_acum: 'resolvidos até o mês + a fila daquele mês — fecha em 71 + 54 = 125' },
+      { chave: 'conta_gestor', nome: 'Entraram (conta do posto)', cor: 'var(--serie-2)',
+        estoque: true, dica_acum: 'resolvidos + pendentes — fecha em 125; os que saíram para outra mesa não estão aqui' },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' }])}
-    <div class="nota branda"><strong>A conta, fechada.</strong> A laranja termina em
-    <b>71 resolvidos + 54 na fila = 125</b>. Fora do gráfico ficam <b>22</b> que o posto
+    <div class="nota branda"><strong>A conta, fechada.</strong> A laranja é o que <b>entrou para a conta do posto</b>: fecha em <b>125</b>. Tirando os
+    <b>71 resolvidos</b> da verde, sobram <b>54 pendentes</b>. Fora do gráfico ficam <b>22</b> que o posto
     despachou — e são a <b>esteira depois do COEP</b>, não fila esquecida: 8 em ajuste de
     proteção na PROT e 10 em comissionamento na TELE/SE, onde a parte do COEP já está
     concluída, mais 4 em execução com os COCMs. Com eles chegam os 143 que passaram no ano,

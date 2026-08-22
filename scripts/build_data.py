@@ -423,6 +423,10 @@ def main():
     if entrada:
         meta["entrada"] = entrada
         mensal = montar_entrada_mensal(entrada)
+        arq_vc = os.path.join(RAIZ, "data", "missao", "visao_consolidada.json")
+        if os.path.exists(arq_vc):
+            with open(arq_vc, encoding="utf-8") as fh:
+                meta["visao_consolidada"] = json.load(fh)
         arq_cp = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
         if os.path.exists(arq_cp):
             with open(arq_cp, encoding="utf-8") as fh:

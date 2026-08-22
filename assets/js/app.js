@@ -310,6 +310,7 @@ function render() {
   const partes = [];
 
   if (!t && !temFaceta) {
+    partes.push(visaoConsolidada());
     partes.push(`<div class="marcador"><h2>Coleções</h2></div>`);
     partes.push(COLECOES.map((c, i) => `
       <button class="linha comando fila" data-colecao="${c.id}" data-idx="${i}">
@@ -422,6 +423,45 @@ document.addEventListener('keydown', (ev) => {
     if (el) { ev.preventDefault(); el.click(); }
   }
 });
+
+/* A visão consolidada que abre o site — o resumo mínimo do gestor (22/08). */
+function visaoConsolidada() {
+  const v = estado.meta?.visao_consolidada;
+  if (!v) return '';
+  const e = v.visao_eto, b = e.baldes, pd = v.pendentes_dcmd, tx = v.taxa_2026;
+  const pct = (n, p) => (100 * n / p).toFixed(1).replace('.', ',') + '%';
+  const linha = (nome, qtd, sub) => `<div class="item-linha"><span>${nome}${sub ? ` <i class="sob">${sub}</i>` : ''}</span><b>${qtd}</b></div>`;
+  const aq = b.dcmd_aquisicao.ativos.filter((x) => x.no_plano_de_compras);
+  return `<section class="bloco visao-consolidada">
+    <div class="marcador"><h2>Visão ETO — carteira consolidada</h2>
+      <span>${e.total} indisponíveis vivos · posição 18/08</span></div>
+    <div class="grade-visao">
+      ${linha('Em fase de ajuste de proteção', b.ajuste_de_protecao.qtd)}
+      ${linha('Aguardando comissionamento', b.comissionamento.qtd)}
+      ${linha('DCMD · em execução', b.dcmd_execucao.qtd, 'com os COCM’s')}
+      ${linha('DCMD · em logística', b.dcmd_logistica.qtd, 'no COEP, esperando o material')}
+      ${linha('DCMD · em processo de aquisição', b.dcmd_aquisicao.qtd, 'o restante pendente no COEP')}
+      ${linha('1º ataque do DMSL', b.dmsl_novos.qtd, 'novos')}
+    </div>
+    <div class="numeros" style="margin-top:14px">
+      ${num({ rotulo: 'DCMD concluiu em 2026', valor: v.concluidos_dcmd_2026.qtd, nota: `campo executou e a demanda fechou — ${v.concluidos_dcmd_2026.fechadas_no_proprio_campo} no próprio campo, o resto energizado na TELE/PROT`, tom: 'bom' })}
+      ${num({ rotulo: 'Conta do posto', valor: `${v.alerta_acumulado.entraram} − ${v.alerta_acumulado.resolvidos}`, nota: `entraram para a conta ${v.alerta_acumulado.entraram}, resolvidos ${v.alerta_acumulado.resolvidos} = ${v.alerta_acumulado.pendentes} pendentes`, tom: 'atento' })}
+      ${num({ rotulo: 'Taxa de falha 2026 · RL', valor: pct(tx.religador.falharam, tx.religador.parque), nota: `${tx.religador.falharam} de ${tx.religador.parque} — peça grande`, tom: 'critico' })}
+      ${num({ rotulo: 'Taxa de falha 2026 · RT', valor: pct(tx.regulador.falharam, tx.regulador.parque), nota: `${tx.regulador.falharam} de ${tx.regulador.parque} — peça grande`, tom: 'critico' })}
+    </div>
+    ${(estado.meta?.coep_2026?.curva || []).length ? barrasTresColunas(estado.meta.coep_2026.curva, [
+      { chave: 'chegaram', nome: 'Entrantes no mês', cor: 'var(--serie-1)',
+        dica: 'equipamento que apareceu no posto naquele mês' },
+      { chave: 'resolvidos', nome: 'Resolvidos no mês', cor: 'var(--serie-3)',
+        dica: 'pelo mês em que a demanda fechou' },
+    ]) : ''}
+    <details class="detalhe-plano"><summary>Dos ${pd.aquisicao} em aquisição, quantos estão no plano de compras?</summary>
+      <div class="item-linha"><span>No plano de compras de 17/07</span><b>${pd.aquisicao_no_plano}</b></div>
+      <div class="item-linha"><span>Ainda fora do plano</span><b>${pd.aquisicao_fora_do_plano}</b></div>
+      <p class="destaque-texto" style="margin-top:8px">${aq.map((x) => `<b class="mono">${esc(x.ativo)}</b> ${esc(x.localidade)}`).join(' · ')}</p>
+    </details>
+  </section>`;
+}
 
 /* ---------------- navegação de vistas ---------------- */
 
@@ -2048,8 +2088,8 @@ function abrirColecao(id) {
     laranja põe <b>a fila de hoje</b> em cima dos resolvidos — a distância entre as duas é a
     fila. Quando a verde sobe e a laranja anda de lado, o posto está comendo a fila.</p>
     ${linhaAcumulada(usaCp ? [...ccv] : c, usaCp ? [
-      { chave: 'conta_gestor', nome: 'Resolvidos + na fila', cor: 'var(--serie-2)',
-        estoque: true, dica_acum: 'resolvidos até o mês + a fila daquele mês — fecha em 71 + 54 = 125' },
+      { chave: 'conta_gestor', nome: 'Entraram (conta do posto)', cor: 'var(--serie-2)',
+        estoque: true, dica_acum: 'resolvidos + pendentes — fecha em 125; os que saíram para outra mesa não estão aqui' },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' }] : undefined)}
     ${usaCp ? `<div class="nota branda"><strong>A conta do gestor, fechada.</strong> 71 resolvidos + 54 na fila = 125; somando os <b>18</b> repassados que seguem pendentes em outra mesa, dá
