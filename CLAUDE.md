@@ -77,6 +77,8 @@ comissionamento e obra de equipamento novo.
 - **Texto de terceiro**: laudo de outro ativo colado na descrição da SS. Conferir o
   código antes de acreditar.
 - **O SGM não exporta o motivo do cancelamento.** Lacuna conhecida.
+- **O nome do arquivo não diz o horizonte do dado**: `EQP_SS_OCORRENCIA_11082026` tem registros
+  até **19/08/2026**. Conferir a data máxima antes de fixar o corte.
 - **`NUM_OBRA` vem numérico com 9 dígitos** na base de SS/OS; o AIC guarda 10 com
   zero à esquerda. Sem `.zfill(10)` nenhuma obra casa.
 - **Trafo auxiliar**: código com prefixo **51** (padrão) ou **57**, com os **8 dígitos
