@@ -62,6 +62,21 @@ def _ler(nome, chave):
         return json.load(fh).get(chave) or {}
 
 
+def localidades():
+    """Cidade de cada equipamento — a carteira só cobre os 129; o resto vem da base."""
+    caminho = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
+    saida = {}
+    if not os.path.exists(caminho):
+        return saida
+    with open(caminho, encoding="utf-8") as fh:
+        for linha in json.load(fh):
+            cod = (linha.get("NUM_TRAFO") or "").strip()
+            nome = (linha.get("LOCALIDADE") or "").strip()
+            if cod and nome:
+                saida.setdefault(cod, nome)
+    return saida
+
+
 def leitura_das_canceladas():
     """SS e ativos em que a leitura do texto confirmou volta à operação.
 
@@ -164,6 +179,7 @@ def montar():
         por_ativo[x["EQUIPAMENTO"]].append(item)
         por_ativo_ss[x["EQUIPAMENTO"]].append(x)
 
+    cidade = localidades()
     ativos = []
     for cod, itens in sorted(por_ativo.items()):
         c = cart.get(cod)
@@ -180,7 +196,7 @@ def montar():
             "resolvido_na_carteira": cod in resolvidos,
             "parecer_coep": (c or {}).get("parecer_coep", ""),
             "criticidade": (c or {}).get("criticidade", ""),
-            "localidade": (c or {}).get("localidade", ""),
+            "localidade": (c or {}).get("localidade") or cidade.get(cod, ""),
             "ss_da_carteira": (c or {}).get("ss_da_carteira", ""),
         })
 
@@ -220,6 +236,7 @@ def montar():
     # Por isso ela perde justamente o que o gestor lembra de ter resolvido: demanda velha,
     # de 2024 e 2025, fechada agora.
     ss_confirmadas, ativos_em_operacao = leitura_das_canceladas()
+    cidade = localidades()
     ss_do_ativo = defaultdict(list)
     for y in idx.values():
         ss_do_ativo[y["EQUIPAMENTO"]].append(y)
@@ -297,7 +314,7 @@ def montar():
                                 if escolhida["marco"] else None),
             "conta_como_resolvido_pelo_coep": entra, "porque_nao": porque, "prova": prova,
             "esta_na_carteira": bool(c), "parecer_coep": c.get("parecer_coep", ""),
-            "localidade": c.get("localidade", ""),
+            "localidade": c.get("localidade") or cidade.get(cod, ""),
         })
 
     contam = [r for r in resolvidos_do_coep if r["conta_como_resolvido_pelo_coep"]]
