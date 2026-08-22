@@ -106,6 +106,7 @@ def montar():
             continue
         quando, como = saida(b)
         resto = cadeia(b)
+        depois = resto[1] if len(resto) > 1 else None
         fim = resto[-1]
         fechou = (fim["_concluiu"] if fim["STATUS"] in ("SS ATENDIDA", "SS CANCELADA")
                   and fim["_concluiu"] else None)
@@ -121,6 +122,8 @@ def montar():
             "ainda_com_a_equipe": quando is None,
             "fim_da_demanda": fechou.strftime("%d/%m/%Y") if fechou else "",
             "dias_ate_o_fim": (fechou - b["_abriu"]).days if fechou else None,
+            "repassou_para": depois["POSTO_SGM"] if depois else "",
+            "ss_do_destino": depois["SS_ORIGINAL"] if depois else "",
             "postos_depois_da_equipe": len(resto) - 1,
             "resolveu_ali_mesmo": len(resto) == 1,
             "voltou_ao_coep": any(y["POSTO_SGM"] == POSTO for y in resto[1:]),
@@ -145,8 +148,37 @@ def montar():
             "ainda_com_a_equipe": sum(1 for c in grupo if c["ainda_com_a_equipe"]),
         }
 
+    # o recorte que o gestor pediu: 2026, e o tempo até a equipe passar adiante
+    de26 = [c for c in casos if c["ano_da_entrega"] == 2026]
+    repassaram = [c for c in de26 if c["repassou_para"]]
+    destinos = defaultdict(list)
+    for c in repassaram:
+        destinos[c["repassou_para"]].append(c["dias_no_dcmd"])
+    faixas = [("no mesmo dia", 0, 0), ("1 a 7 dias", 1, 7), ("8 a 30 dias", 8, 30),
+              ("31 a 90 dias", 31, 90), ("mais de 90 dias", 91, 10 ** 6)]
+    ano_2026 = {
+        "entregas": len(de26),
+        "repassaram_adiante": len(repassaram),
+        "fecharam_na_equipe": sum(1 for c in de26 if c["resolveu_ali_mesmo"]),
+        "ainda_com_a_equipe": sum(1 for c in de26 if c["ainda_com_a_equipe"]),
+        "tempo_ate_repassar": percentis([c["dias_no_dcmd"] for c in repassaram]),
+        "faixas": [{"faixa": nome,
+                    "qtd": sum(1 for c in repassaram if lo <= c["dias_no_dcmd"] <= hi)}
+                   for nome, lo, hi in faixas],
+        "para_onde": [{"destino": k, "qtd": len(v), **percentis(v)}
+                      for k, v in sorted(destinos.items(), key=lambda kv: -len(kv[1]))],
+        "por_equipe": [{"equipe": e, "qtd": len(g),
+                        **percentis([c["dias_no_dcmd"] for c in g])}
+                       for e, g in sorted(
+                           {e: [c for c in repassaram if c["equipe"] == e]
+                            for e in {c["equipe"] for c in repassaram}}.items(),
+                           key=lambda kv: -len(kv[1]))],
+        "casos": de26,
+    }
+
     pacote = {
         "gerado_em": "2026-08-22", "posicao": "18/08/2026",
+        "ano_2026": ano_2026,
         "fonte": "EQP_SS_OCORRENCIA_11082026 — cadeia de repasse pelo campo SS_APOS_REPASSE",
         "premissas": PREMISSAS,
         "geral": bloco(casos),
@@ -214,8 +246,59 @@ def planilha(pacote):
             "Ainda com a equipe", "Até o fim — mediana", "Até o fim — p90"]
     LARG = [15, 12, 14, 8, 8, 9, 12, 11, 11, 11, 13, 12]
 
+    a = pacote["ano_2026"]
+    t = a["tempo_ate_repassar"]
+
     ws = wb.active
-    ws.title = "Por equipe"
+    ws.title = "2026 · Para onde foi"
+    cabecalho(ws, ["Para onde a equipe passou", "Quantas", "Dias até passar — mediana",
+                   "p75", "p90", "Máximo"], [22, 10, 15, 8, 8, 9])
+    for x in a["para_onde"]:
+        ws.append([x["destino"], x["qtd"], x.get("mediana"), x.get("p75"), x.get("p90"),
+                   x.get("maximo")])
+    ws.append([])
+    ws.append(["TODAS que passaram adiante", a["repassaram_adiante"], t.get("mediana"),
+               t.get("p75"), t.get("p90"), t.get("maximo")])
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+    ws.append([])
+    ws.append(["Em quanto tempo passaram", "Quantas"])
+    for c in ws[ws.max_row]:
+        c.font, c.fill = tit, fundo
+    for x in a["faixas"]:
+        ws.append([x["faixa"], x["qtd"]])
+    ws.append([])
+    ws.append(["O resto das entregas de 2026", "Quantas"])
+    for c in ws[ws.max_row]:
+        c.font, c.fill = tit, fundo
+    ws.append(["Fecharam na própria equipe, sem passar adiante", a["fecharam_na_equipe"]])
+    ws.append(["Ainda com a equipe em 18/08", a["ainda_com_a_equipe"]])
+    ws.append(["Total entregue em 2026", a["entregas"]])
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+    fechar(ws)
+
+    ws = wb.create_sheet("2026 · Por equipe")
+    cabecalho(ws, ["Equipe", "Passou adiante", "Dias até passar — mediana", "p75", "p90",
+                   "Máximo"], [16, 12, 15, 8, 8, 9])
+    for x in a["por_equipe"]:
+        ws.append([x["equipe"], x["qtd"], x.get("mediana"), x.get("p75"), x.get("p90"),
+                   x.get("maximo")])
+    fechar(ws)
+
+    ws = wb.create_sheet("2026 · Cada entrega")
+    cabecalho(ws, ["Ativo", "Tipo", "Equipe que recebeu", "Entregue em", "Passou em",
+                   "Dias até passar", "Passou para", "SS da equipe", "SS do destino",
+                   "Fechou na equipe", "Ainda com a equipe", "Situação final"],
+              [14, 12, 15, 13, 13, 12, 15, 22, 22, 11, 11, 15])
+    sn2 = lambda v: "sim" if v else "não"
+    for c in sorted(pacote["ano_2026"]["casos"], key=lambda x: -x["dias_no_dcmd"]):
+        ws.append([c["ativo"], c["tipo"], c["equipe"], c["entregue_em"],
+                   c["saiu_da_equipe"] if c["repassou_para"] else "",
+                   c["dias_no_dcmd"], c["repassou_para"] or "—", c["ss_da_equipe"],
+                   c["ss_do_destino"], sn2(c["resolveu_ali_mesmo"]),
+                   sn2(c["ainda_com_a_equipe"]), c["status_final"]])
+    fechar(ws)
+
+    ws = wb.create_sheet("Série · Por equipe")
     cabecalho(ws, COLS, LARG)
     ws.append(linhas_bloco("TODAS", pacote["geral"]))
     for equipe, b in pacote["por_equipe"].items():
@@ -224,24 +307,25 @@ def planilha(pacote):
     for cel in ws[2]:
         cel.font = Font(bold=True)
 
-    ws = wb.create_sheet("Por ano da entrega")
+    ws = wb.create_sheet("Série · Por ano")
     cabecalho(ws, ["Ano"] + COLS[1:], LARG)
     for ano, b in pacote["por_ano"].items():
         ws.append(linhas_bloco(ano, b))
     fechar(ws)
 
-    ws = wb.create_sheet("Cada entrega")
+    ws = wb.create_sheet("Série · Cada entrega")
     cabecalho(ws, ["Ativo", "Tipo", "Equipe", "SS do COEP", "SS da equipe", "Entregue em",
                    "Saiu da equipe", "Como se apurou a saída", "Dias no DCMD",
-                   "Ainda com a equipe", "Resolveu ali mesmo", "Postos depois da equipe",
-                   "Voltou ao COEP", "Fim da demanda", "Dias até o fim", "Posto que fechou",
-                   "Situação final"],
-              [14, 12, 14, 22, 22, 13, 13, 30, 11, 11, 11, 12, 11, 13, 11, 14, 15])
+                   "Repassou para", "SS do destino", "Ainda com a equipe",
+                   "Resolveu ali mesmo", "Postos depois da equipe", "Voltou ao COEP",
+                   "Fim da demanda", "Dias até o fim", "Posto que fechou", "Situação final"],
+              [14, 12, 14, 22, 22, 13, 13, 30, 11, 14, 22, 11, 11, 12, 11, 13, 11, 14, 15])
     sn = lambda v: "sim" if v else "não"
     for c in sorted(pacote["casos"], key=lambda x: -x["dias_no_dcmd"]):
         ws.append([c["ativo"], c["tipo"], c["equipe"], c["ss_do_coep"], c["ss_da_equipe"],
                    c["entregue_em"], c["saiu_da_equipe"], c["como_apurou_a_saida"],
-                   c["dias_no_dcmd"], sn(c["ainda_com_a_equipe"]), sn(c["resolveu_ali_mesmo"]),
+                   c["dias_no_dcmd"], c["repassou_para"], c["ss_do_destino"],
+                   sn(c["ainda_com_a_equipe"]), sn(c["resolveu_ali_mesmo"]),
                    c["postos_depois_da_equipe"], sn(c["voltou_ao_coep"]), c["fim_da_demanda"],
                    c["dias_ate_o_fim"], c["posto_que_fechou"], c["status_final"]])
     fechar(ws)
@@ -276,6 +360,19 @@ def main():
               f" | p90 {b['no_dcmd']['p90']:>4}d | resolveu ali "
               f"{round(100 * b['resolveu_ali_mesmo'] / b['entregas']):>3}%"
               f" | voltou {b['voltou_ao_coep']:>3}")
+    a = pacote["ano_2026"]
+    t = a["tempo_ate_repassar"]
+    print(f"\n=== 2026, o recorte pedido ===")
+    print(f"entregues às equipes RD............ {a['entregas']}")
+    print(f"  passaram adiante................. {a['repassaram_adiante']}")
+    print(f"  fecharam na própria equipe....... {a['fecharam_na_equipe']}")
+    print(f"  ainda com a equipe em 18/08...... {a['ainda_com_a_equipe']}")
+    print(f"dias até passar adiante............ mediana {t['mediana']}d | p75 {t['p75']}d "
+          f"| p90 {t['p90']}d | máx {t['maximo']}d")
+    print("para onde passaram:")
+    for x in a["para_onde"]:
+        print(f"  {x['qtd']:>3}  {x['destino']:<12} mediana {x['mediana']:>4}d | "
+              f"máx {x['maximo']:>4}d")
     print(f"\ngravado: {SAIDA_JSON}")
     planilha(pacote)
     print(f"gravado: {SAIDA_XLSX}")
