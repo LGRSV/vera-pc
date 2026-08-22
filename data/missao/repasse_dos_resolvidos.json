@@ -8,7 +8,8 @@
   "Entrega é a abertura da SS no posto que recebeu. O SGM não move a SS: fecha a do COEP como repassada e abre uma nova no destino, gravando o número em SS_APOS_REPASSE.",
   "Saída é a conclusão dessa SS, se houver; senão a abertura da SS seguinte. A conclusão vem VAZIA em SS repassada — sem montar a cadeia, o tempo de posto não existe na base.",
   "Três desfechos, contados em separado porque contam coisas diferentes: passou adiante para um terceiro posto que não é o COEP; devolveu ao COEP; ou a cadeia fechou no posto que recebeu.",
-  "Quem ainda estava no posto em 18/08/2026 conta até essa data."
+  "Quem ainda estava no posto em 18/08/2026 conta até essa data.",
+  "O cancelamento vai em aba própria. Nesses saltos a nota que o posto recebeu morreu cancelada E a demanda terminou cancelada — as duas pontas batem, nos dez casos, sem exceção. Não é serviço executado; é demanda encerrada sem troca de peça."
  ],
  "resumo": {
   "saltos": 39,
@@ -18,6 +19,7 @@
   "por_desfecho": {
    "fechou no posto que recebeu": {
     "qtd": 18,
+    "canceladas": 4,
     "n": 18,
     "mediana": 8,
     "p75": 12,
@@ -26,6 +28,7 @@
    },
    "passou adiante para outro posto": {
     "qtd": 12,
+    "canceladas": 2,
     "n": 12,
     "mediana": 0,
     "p75": 27,
@@ -34,12 +37,31 @@
    },
    "devolveu ao COEP": {
     "qtd": 9,
+    "canceladas": 4,
     "n": 9,
     "mediana": 37,
     "p75": 67,
     "maximo": 151,
     "media": 42.8
    }
+  },
+  "canceladas": {
+   "saltos": 10,
+   "equipamentos": 9,
+   "n": 10,
+   "mediana": 8,
+   "p75": 63,
+   "maximo": 151,
+   "media": 40.8
+  },
+  "sem_cancelamento": {
+   "saltos": 29,
+   "equipamentos": 23,
+   "n": 29,
+   "mediana": 8,
+   "p75": 21,
+   "maximo": 67,
+   "media": 14.3
   },
   "geral": {
    "n": 39,
@@ -174,7 +196,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "06/05/2026"
   },
   {
    "ativo": "5800438116",
@@ -190,7 +216,11 @@
    "foi_para": "ETO-RD-DP",
    "ss_do_terceiro": "ETO-RD-DP 00404/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "13/08/2026"
   },
   {
    "ativo": "5800859011",
@@ -206,7 +236,11 @@
    "foi_para": "ETO-TELE",
    "ss_do_terceiro": "ETO-TELE 01037/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "13/08/2026"
   },
   {
    "ativo": "5801866013",
@@ -222,7 +256,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "14/07/2026"
   },
   {
    "ativo": "5827102054",
@@ -238,7 +276,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "28/07/2026"
   },
   {
    "ativo": "5836764032",
@@ -254,7 +296,11 @@
    "foi_para": "ETO-TELE",
    "ss_do_terceiro": "ETO-TELE 00807/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "20/05/2026"
   },
   {
    "ativo": "5844630060",
@@ -270,7 +316,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "24/07/2026"
   },
   {
    "ativo": "5850308009",
@@ -286,7 +336,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00127/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "cancelada, com leitura que confirma volta à operação",
+   "data_do_fechamento": "13/07/2026"
   },
   {
    "ativo": "5851753086",
@@ -302,7 +356,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "resolvido por cancelamento — nenhuma nota nova no COEP depois",
+   "data_do_fechamento": "25/06/2026"
   },
   {
    "ativo": "5852775092",
@@ -318,7 +376,11 @@
    "foi_para": "ETO-TELE",
    "ss_do_terceiro": "ETO-TELE 00252/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "resolvido por cancelamento — nenhuma nota nova no COEP depois",
+   "data_do_fechamento": "30/06/2026"
   },
   {
    "ativo": "5854681071",
@@ -334,7 +396,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00025/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "resolvido por cancelamento — nenhuma nota nova no COEP depois",
+   "data_do_fechamento": "29/06/2026"
   },
   {
    "ativo": "5862464001",
@@ -350,7 +416,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "19/05/2026"
   },
   {
    "ativo": "5863887001",
@@ -366,7 +436,11 @@
    "foi_para": "ETO-PROT",
    "ss_do_terceiro": "ETO-PROT 00006/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "resolvido por cancelamento — nenhuma nota nova no COEP depois",
+   "data_do_fechamento": "11/03/2026"
   },
   {
    "ativo": "7900018004",
@@ -382,7 +456,11 @@
    "foi_para": "ETO-TELE",
    "ss_do_terceiro": "ETO-TELE 00872/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "23/06/2026"
   },
   {
    "ativo": "7900505026",
@@ -398,7 +476,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "cancelada, com leitura que confirma volta à operação",
+   "data_do_fechamento": "14/07/2026"
   },
   {
    "ativo": "7900930040",
@@ -414,7 +496,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00079/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "cancelada, com leitura que confirma volta à operação",
+   "data_do_fechamento": "30/04/2026"
   },
   {
    "ativo": "7900930040",
@@ -430,7 +516,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "cancelada, com leitura que confirma volta à operação",
+   "data_do_fechamento": "30/04/2026"
   },
   {
    "ativo": "7901151022",
@@ -446,7 +536,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "12/08/2026"
   },
   {
    "ativo": "7908708116",
@@ -462,7 +556,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "08/07/2026"
   },
   {
    "ativo": "7922995039",
@@ -478,7 +576,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "17/08/2026"
   },
   {
    "ativo": "7925737080",
@@ -494,7 +596,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "13/05/2026"
   },
   {
    "ativo": "7931219078",
@@ -510,7 +616,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "cancelada, com leitura que confirma volta à operação",
+   "data_do_fechamento": "08/07/2026"
   },
   {
    "ativo": "7931383086",
@@ -526,7 +636,11 @@
    "foi_para": "ETO-PROT",
    "ss_do_terceiro": "ETO-PROT 00074/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "08/04/2026"
   },
   {
    "ativo": "7931610122",
@@ -542,7 +656,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00083/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "04/08/2026"
   },
   {
    "ativo": "7931610122",
@@ -558,7 +676,11 @@
    "foi_para": "ETO-PROT",
    "ss_do_terceiro": "ETO-PROT 00150/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "04/08/2026"
   },
   {
    "ativo": "7933766059",
@@ -574,7 +696,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00082/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "03/08/2026"
   },
   {
    "ativo": "7933766059",
@@ -590,7 +716,11 @@
    "foi_para": "ETO-PROT",
    "ss_do_terceiro": "ETO-PROT 00149/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "03/08/2026"
   },
   {
    "ativo": "7936038076",
@@ -606,7 +736,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "08/07/2026"
   },
   {
    "ativo": "7955520116",
@@ -622,7 +756,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "08/07/2026"
   },
   {
    "ativo": "7957126085",
@@ -638,7 +776,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00145/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS CANCELADA"
+   "status_de_quem_recebeu": "SS CANCELADA",
+   "cancelada": true,
+   "como_a_demanda_terminou": "SS CANCELADA",
+   "prova_do_resolvido": "resolvido por cancelamento — nenhuma nota nova no COEP depois",
+   "data_do_fechamento": "20/07/2026"
   },
   {
    "ativo": "7957163122",
@@ -654,7 +796,11 @@
    "foi_para": "ETO-TELE",
    "ss_do_terceiro": "ETO-TELE 00362/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "22/06/2026"
   },
   {
    "ativo": "7957620015",
@@ -670,7 +816,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00081/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "12/06/2026"
   },
   {
    "ativo": "7957620015",
@@ -686,7 +836,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "12/06/2026"
   },
   {
    "ativo": "7962635060",
@@ -702,7 +856,11 @@
    "foi_para": "ETO-TELE",
    "ss_do_terceiro": "ETO-TELE 00853/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "29/06/2026"
   },
   {
    "ativo": "7962635060",
@@ -718,7 +876,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "29/06/2026"
   },
   {
    "ativo": "7965032004",
@@ -734,7 +896,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00018/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "10/03/2026"
   },
   {
    "ativo": "7965032004",
@@ -750,7 +916,11 @@
    "foi_para": "ETO-RD-AR",
    "ss_do_terceiro": "ETO-RD-AR 00444/2026",
    "desfecho": "passou adiante para outro posto",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "10/03/2026"
   },
   {
    "ativo": "7965164065",
@@ -766,7 +936,11 @@
    "foi_para": "ETO-COEP",
    "ss_do_terceiro": "ETO-COEP 00004/2026",
    "desfecho": "devolveu ao COEP",
-   "status_de_quem_recebeu": "SS REPASSADA"
+   "status_de_quem_recebeu": "SS REPASSADA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "21/01/2026"
   },
   {
    "ativo": "7965164065",
@@ -782,7 +956,11 @@
    "foi_para": "",
    "ss_do_terceiro": "",
    "desfecho": "fechou no posto que recebeu",
-   "status_de_quem_recebeu": "SS ATENDIDA"
+   "status_de_quem_recebeu": "SS ATENDIDA",
+   "cancelada": false,
+   "como_a_demanda_terminou": "SS ATENDIDA",
+   "prova_do_resolvido": "SS atendida — serviço executado",
+   "data_do_fechamento": "21/01/2026"
   }
  ]
 }

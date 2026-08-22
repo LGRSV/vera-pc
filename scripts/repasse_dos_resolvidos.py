@@ -134,8 +134,16 @@ def montar():
                 "foi_para": destino, "ss_do_terceiro": prox["SS_ORIGINAL"] if prox else "",
                 "desfecho": desfecho,
                 "status_de_quem_recebeu": b["STATUS"],
+                # o cancelamento aparece nas duas pontas ao mesmo tempo: a nota que o
+                # posto recebeu morreu cancelada E a demanda terminou cancelada
+                "cancelada": b["STATUS"] == "SS CANCELADA",
+                "como_a_demanda_terminou": r["como_terminou"],
+                "prova_do_resolvido": r["prova"],
+                "data_do_fechamento": r["data_do_fechamento"],
             })
 
+    canceladas = [s for s in saltos if s["cancelada"]]
+    limpos = [s for s in saltos if not s["cancelada"]]
     por_desfecho = defaultdict(list)
     for s in saltos:
         por_desfecho[s["desfecho"]].append(s)
@@ -152,8 +160,15 @@ def montar():
             "resolvidos_no_universo": len(resolvidos),
             "sem_repasse_em_2026": len(resolvidos) - len(set(s["ativo"] for s in saltos)),
             "por_desfecho": {k: {"qtd": len(v),
+                                 "canceladas": sum(1 for s in v if s["cancelada"]),
                                  **percentis([s["dias_no_posto"] for s in v])}
                              for k, v in por_desfecho.items()},
+            "canceladas": {"saltos": len(canceladas),
+                           "equipamentos": len(set(s["ativo"] for s in canceladas)),
+                           **percentis([s["dias_no_posto"] for s in canceladas])},
+            "sem_cancelamento": {"saltos": len(limpos),
+                                 "equipamentos": len(set(s["ativo"] for s in limpos)),
+                                 **percentis([s["dias_no_posto"] for s in limpos])},
             "geral": percentis([s["dias_no_posto"] for s in saltos]),
         },
         "quem_recebeu": [{"posto": k, "qtd": v,
@@ -181,6 +196,9 @@ PREMISSAS = [
     "um terceiro posto que não é o COEP; devolveu ao COEP; ou a cadeia fechou no posto que "
     "recebeu.",
     "Quem ainda estava no posto em 18/08/2026 conta até essa data.",
+    "O cancelamento vai em aba própria. Nesses saltos a nota que o posto recebeu morreu "
+    "cancelada E a demanda terminou cancelada — as duas pontas batem, nos dez casos, sem "
+    "exceção. Não é serviço executado; é demanda encerrada sem troca de peça.",
 ]
 
 
@@ -214,18 +232,27 @@ def planilha(pacote):
 
     ws = wb.active
     ws.title = "A conta"
-    cabecalho(ws, ["O que aconteceu depois da entrega", "Saltos",
+    cabecalho(ws, ["O que aconteceu depois da entrega", "Saltos", "Dos quais cancelados",
                    "Dias no posto — mediana", "p75", "Máximo", "Média"],
-              [36, 10, 15, 8, 9, 9])
+              [36, 10, 12, 15, 8, 9, 9])
     for nome in ORDEM:
         b = r["por_desfecho"].get(nome)
         if b:
-            ws.append([nome, b["qtd"], b.get("mediana"), b.get("p75"), b.get("maximo"),
-                       b.get("media")])
+            ws.append([nome, b["qtd"], b.get("canceladas"), b.get("mediana"), b.get("p75"),
+                       b.get("maximo"), b.get("media")])
     g = r["geral"]
-    ws.append(["TODOS os saltos", r["saltos"], g.get("mediana"), g.get("p75"),
-               g.get("maximo"), g.get("media")])
+    ws.append(["TODOS os saltos", r["saltos"], r["canceladas"]["saltos"], g.get("mediana"),
+               g.get("p75"), g.get("maximo"), g.get("media")])
     ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+    ws.append([])
+    ws.append(["Separando o cancelamento", "Saltos", "Equipamentos",
+               "Dias no posto — mediana", "p75", "Máximo", "Média"])
+    for c in ws[ws.max_row]:
+        c.font, c.fill = tit, fundo
+    for rot, b in (("Terminaram em cancelamento — vão na aba própria", r["canceladas"]),
+                   ("Terminaram com serviço executado", r["sem_cancelamento"])):
+        ws.append([rot, b["saltos"], b["equipamentos"], b.get("mediana"), b.get("p75"),
+                   b.get("maximo"), b.get("media")])
     ws.append([])
     ws.append(["Cobertura", ""])
     for c in ws[ws.max_row]:
@@ -248,17 +275,34 @@ def planilha(pacote):
         ws.append([x["posto"], x["qtd"]])
     fechar(ws)
 
-    ws = wb.create_sheet("Cada salto")
-    cabecalho(ws, ["Ativo", "Tipo", "Cidade", "Ano da demanda", "SS do COEP",
-                   "Posto que recebeu", "SS de quem recebeu", "Entregue em", "Saiu em",
-                   "Dias no posto", "O que aconteceu depois", "Foi para",
-                   "SS do terceiro posto"],
-              [14, 12, 20, 11, 22, 16, 22, 12, 12, 11, 26, 14, 22])
-    for s in sorted(pacote["saltos"], key=lambda x: (x["desfecho"], -x["dias_no_posto"])):
-        ws.append([s["ativo"], s["tipo"], s["cidade"], s["ano_da_demanda"], s["ss_do_coep"],
-                   s["posto_que_recebeu"], s["ss_de_quem_recebeu"], s["entregue_em"],
-                   s["saiu_em"], s["dias_no_posto"], s["desfecho"], s["foi_para"] or "—",
-                   s["ss_do_terceiro"]])
+    COLS_SALTO = ["Ativo", "Tipo", "Cidade", "Ano da demanda", "SS do COEP",
+                  "Posto que recebeu", "SS de quem recebeu", "Entregue em", "Saiu em",
+                  "Dias no posto", "O que aconteceu depois", "Foi para",
+                  "SS do terceiro posto"]
+    LARG_SALTO = [14, 12, 20, 11, 22, 16, 22, 12, 12, 11, 26, 14, 22]
+
+    def linha_salto(s):
+        return [s["ativo"], s["tipo"], s["cidade"], s["ano_da_demanda"], s["ss_do_coep"],
+                s["posto_que_recebeu"], s["ss_de_quem_recebeu"], s["entregue_em"],
+                s["saiu_em"], s["dias_no_posto"], s["desfecho"], s["foi_para"] or "—",
+                s["ss_do_terceiro"]]
+
+    limpos = [s for s in pacote["saltos"] if not s["cancelada"]]
+    canc = [s for s in pacote["saltos"] if s["cancelada"]]
+
+    ws = wb.create_sheet(f"Cada salto ({len(limpos)})")
+    cabecalho(ws, COLS_SALTO, LARG_SALTO)
+    for s in sorted(limpos, key=lambda x: (x["desfecho"], -x["dias_no_posto"])):
+        ws.append(linha_salto(s))
+    fechar(ws)
+
+    ws = wb.create_sheet(f"Canceladas ({len(canc)})")
+    cabecalho(ws, COLS_SALTO + ["Como a demanda terminou", "Fechou em",
+                                "Prova do resolvido"],
+              LARG_SALTO + [16, 12, 48])
+    for s in sorted(canc, key=lambda x: -x["dias_no_posto"]):
+        ws.append(linha_salto(s) + [s["como_a_demanda_terminou"], s["data_do_fechamento"],
+                                    s["prova_do_resolvido"]])
     fechar(ws)
 
     ws = wb.create_sheet("Como foi feito")
@@ -289,6 +333,13 @@ def main():
     for x in pacote["quem_recebeu"]:
         print(f"  {x['qtd']:>3}  {x['posto']:<12} mediana {x['mediana']:>4}d | "
               f"máx {x['maximo']:>4}d")
+    print(f"\ncom cancelamento: {r['canceladas']['saltos']} saltos em "
+          f"{r['canceladas']['equipamentos']} equipamentos "
+          f"(mediana {r['canceladas'].get('mediana')}d, máx {r['canceladas'].get('maximo')}d)")
+    print(f"sem cancelamento: {r['sem_cancelamento']['saltos']} saltos em "
+          f"{r['sem_cancelamento']['equipamentos']} equipamentos "
+          f"(mediana {r['sem_cancelamento'].get('mediana')}d, "
+          f"máx {r['sem_cancelamento'].get('maximo')}d)")
     print(f"\ngravado: {SAIDA_JSON}")
     planilha(pacote)
     print(f"gravado: {SAIDA_XLSX}")
