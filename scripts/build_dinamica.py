@@ -364,6 +364,18 @@ def main():
             "parecer_dos_pendentes": [{"parecer": k, "qtd": v} for k, v in parecer.most_common()],
             "mais_antigo": max((a["dias_no_posto"] for a in pend), default=0),
         }
+        # A esteira depois do COEP (os despachados que seguem pendentes em outra mesa)
+        # e a sobreposição: resolvido cuja reincidência já voltou à fila conta nos dois
+        # lados — é o que fecha resolvidos + fila + esteira contra os que passaram.
+        fora_mesa = cp.get("pendentes_em_outra_mesa") or []
+        est = Counter("ajuste" if p["etapa_da_esteira"].startswith("ajuste")
+                      else "comissionamento" if p["etapa_da_esteira"].startswith("comissionamento")
+                      else "execucao" for p in fora_mesa)
+        res_ok = {r["ativo"] for r in (cp.get("resolvidos_do_coep") or [])
+                  if r["conta_como_resolvido_pelo_coep"]}
+        d["coep_2026"]["fora"] = len(fora_mesa)
+        d["coep_2026"]["esteira"] = dict(est)
+        d["coep_2026"]["sobrepostos"] = len(res_ok & {a["ativo"] for a in pend})
         # A ponte com o livro-caixa: são universos diferentes. O livro conta os 117 da
         # foto de entrada, mês a mês pela abertura da SS; esta conta varre a base inteira
         # pela cadeia da demanda. O cruzamento ativo a ativo é o que fecha os dois lados.
@@ -375,7 +387,7 @@ def main():
             idx_cand = {r["ativo"]: r for r in (cp.get("resolvidos_do_coep") or [])}
             so_livro = livro - meus
             voltou = sum(1 for a in so_livro
-                         if (idx_cand.get(a) or {}).get("porque_nao", "").startswith("voltou"))
+                         if "voltou para o COEP" in (idx_cand.get(a) or {}).get("porque_nao", ""))
             d["coep_2026"]["ponte_com_o_livro"] = {
                 "livro": len(livro), "conta": len(meus), "nos_dois": len(livro & meus),
                 "so_no_livro": len(so_livro),

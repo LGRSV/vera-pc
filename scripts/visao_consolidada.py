@@ -3,8 +3,8 @@ A visão consolidada do site — o resumo mínimo que abre a página.
 
 A pedido do gestor (22/08): primeiro a carteira consolidada, minimalista, na
 visão ETO — os ativos indisponíveis ainda vivos —, repartida nas etapas dele;
-depois o que o DCMD concluiu no ano, o alerta do acumulado (entraram 125,
-resolvidos 71, pendentes 54), a abertura dos pendentes do DCMD com o cruzamento
+depois o que o DCMD concluiu no ano, o alerta do acumulado (entraram = resolvidos
++ pendentes, lido da conta do COEP), a abertura dos pendentes do DCMD com o cruzamento
 contra o plano de compras, e a taxa de falha de 2026.
 
 Fontes: a aba de mapeamento por criticidade da Relação de Indisponíveis
@@ -66,6 +66,7 @@ VOLTA_PARA_A_VISAO = {
     "7930359149": ("dcmd_aquisicao", "ETO-COEP 00138/2026 pendente 13/07"),
     "7903569004": ("dcmd_aquisicao", "cancelada, mas ETO-COEP 00152/2026 aberta depois — voltou, régua do gestor"),
     "5800440256": ("dcmd_aquisicao", "cancelada, mas ETO-COEP 00169/2026 aberta depois — voltou"),
+    "7967181127": ("dcmd_execucao", "parecer: «linha viva substituiu as chaves» — gestor (22/08) manda contar como em execução"),
 }
 
 
@@ -144,8 +145,9 @@ def montar():
         "visao_eto": {
             "total": len(vivos),
             "nota": "a planilha conferida ativo a ativo contra a cadeia de SS no SGM "
-                    "(revisor, 22/08): 8 voltaram por terem indisponibilidade pendente, 3 "
-                    "saíram por já estarem operando ou atendidos, 8 trocaram de etapa",
+                    f"(revisor, 22/08): {len(VOLTA_PARA_A_VISAO)} voltaram por decisão do gestor ou "
+                    f"indisponibilidade pendente, {len(SAI_DA_VISAO)} saíram por já estarem operando "
+                    f"ou atendidos, {len(MUDA_DE_BALDE)} trocaram de etapa",
             "revisao": {"voltaram": len(VOLTA_PARA_A_VISAO), "sairam": len(SAI_DA_VISAO),
                         "trocaram": len(MUDA_DE_BALDE)},
             "baldes": {b: {"qtd": len(v), "ativos": v} for b, v in baldes.items()},
@@ -161,8 +163,13 @@ def montar():
                         "como": r["como_terminou"]} for r in
                        sorted(dcmd, key=lambda x: x["data_do_fechamento"])],
         },
-        "alerta_acumulado": {"entraram": 125, "resolvidos": 71, "pendentes": 54,
-                             "curva": cp.get("curva_mensal") or []},
+        # A identidade do alerta sai da conta do COEP, não de número fixo:
+        # entraram = resolvidos no ano + ainda pendentes no posto.
+        "alerta_acumulado": {
+            "entraram": cp["conta"]["resolvidos_pelo_coep"] + cp["conta"]["seguem_no_posto_em_18_08"],
+            "resolvidos": cp["conta"]["resolvidos_pelo_coep"],
+            "pendentes": cp["conta"]["seguem_no_posto_em_18_08"],
+            "curva": cp.get("curva_mensal") or []},
         "pendentes_dcmd": {
             "execucao": len(baldes["dcmd_execucao"]),
             "logistica": len(baldes["dcmd_logistica"]),

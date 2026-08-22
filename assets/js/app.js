@@ -2089,13 +2089,15 @@ function abrirColecao(id) {
     fila. Quando a verde sobe e a laranja anda de lado, o posto está comendo a fila.</p>
     ${linhaAcumulada(usaCp ? [...ccv] : c, usaCp ? [
       { chave: 'conta_gestor', nome: 'Entraram (conta do posto)', cor: 'var(--serie-2)',
-        estoque: true, dica_acum: 'resolvidos + pendentes — fecha em 125; os que saíram para outra mesa não estão aqui' },
+        estoque: true, dica_acum: `resolvidos + pendentes — fecha em ${(cp.resolvidos || 0) + (cp.pendentes || 0)}; os que saíram para outra mesa não estão aqui` },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' }] : undefined)}
-    ${usaCp ? `<div class="nota branda"><strong>A conta do gestor, fechada.</strong> 71 resolvidos + 54 na fila = 125; somando os <b>18</b> repassados que seguem pendentes em outra mesa, dá
-    <b>143 — a linha azul</b>, que começa do acervo de ${cp.herdados || 0} e conta todo mundo que
-    já esteve no posto (71 + 54 + 22 − 4 = 143, com 4 resolvidos carregando nota antiga ainda
-    aberta).</div>` : ''}
+    ${usaCp ? `<div class="nota branda"><strong>A conta do gestor, fechada.</strong> ${cp.resolvidos || 0} resolvidos + ${cp.pendentes || 0} na fila =
+    ${(cp.resolvidos || 0) + (cp.pendentes || 0)}; somando os <b>${cp.fora || 0}</b> repassados que seguem pendentes em outra mesa e
+    descontando ${cp.sobrepostos || 0} que aparecem duas vezes — resolvidos cuja <b>reincidência</b> já voltou à fila — dá
+    <b>${cp.passaram || 0} — a linha azul</b>, que começa do acervo de ${cp.herdados || 0} e conta todo mundo que
+    já esteve no posto (${cp.resolvidos || 0} + ${cp.pendentes || 0} + ${cp.fora || 0} − ${cp.sobrepostos || 0} =
+    ${(cp.resolvidos || 0) + (cp.pendentes || 0) + (cp.fora || 0) - (cp.sobrepostos || 0)}).</div>` : ''}
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o

@@ -284,16 +284,18 @@ function mesAMes() {
     fila. Quando a verde sobe e a laranja anda de lado, o posto está comendo a fila.</p>
     ${linhaAcumulada(cc, [
       { chave: 'conta_gestor', nome: 'Entraram (conta do posto)', cor: 'var(--serie-2)',
-        estoque: true, dica_acum: 'resolvidos + pendentes — fecha em 125; os que saíram para outra mesa não estão aqui' },
+        estoque: true, dica_acum: `resolvidos + pendentes — fecha em ${(cp.resolvidos || 0) + (cp.pendentes || 0)}; os que saíram para outra mesa não estão aqui` },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
         dica_acum: 'somando mês a mês' }])}
-    <div class="nota branda"><strong>A conta, fechada.</strong> A laranja é o que <b>entrou para a conta do posto</b>: fecha em <b>125</b>. Tirando os
-    <b>71 resolvidos</b> da verde, sobram <b>54 pendentes</b>. Fora do gráfico ficam <b>22</b> que o posto
-    despachou — e são a <b>esteira depois do COEP</b>, não fila esquecida: 8 em ajuste de
-    proteção na PROT e 10 em comissionamento na TELE/SE, onde a parte do COEP já está
-    concluída, mais 4 em execução com os COCMs. Com eles chegam os 143 que passaram no ano,
-    contando o acervo de ${cp.herdados || 0} que já estava na mesa em janeiro. O livro-caixa herdado fecha em 52
-    porque é outro recorte: só a foto de entrada.</div>
+    <div class="nota branda"><strong>A conta, fechada.</strong> A laranja é o que <b>entrou para a conta do posto</b>: fecha em
+    <b>${(cp.resolvidos || 0) + (cp.pendentes || 0)}</b>. Tirando os <b>${cp.resolvidos || 0} resolvidos</b> da verde, sobram
+    <b>${cp.pendentes || 0} pendentes</b>. Fora do gráfico ficam <b>${cp.fora || 0}</b> que o posto
+    despachou — e são a <b>esteira depois do COEP</b>, não fila esquecida: ${cp.esteira?.ajuste || 0} em ajuste de
+    proteção na PROT e ${cp.esteira?.comissionamento || 0} em comissionamento na TELE/SE, onde a parte do COEP já está
+    concluída, mais ${cp.esteira?.execucao || 0} em execução com os COCMs. Com eles — e descontando
+    ${cp.sobrepostos || 0} que aparecem duas vezes, resolvidos cuja <b>reincidência</b> já voltou à fila — chegam os
+    ${cp.passaram || 0} que passaram no ano, contando o acervo de ${cp.herdados || 0} que já estava na mesa em janeiro.
+    O livro-caixa herdado fecha em 52 porque é outro recorte: só a foto de entrada.</div>
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o

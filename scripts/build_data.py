@@ -432,12 +432,19 @@ def main():
             with open(arq_cp, encoding="utf-8") as fh:
                 cp = json.load(fh)
             cc = cp.get("conta") or {}
+            fora_mesa = cp.get("pendentes_em_outra_mesa") or []
+            res_ok = {r["ativo"] for r in (cp.get("resolvidos_do_coep") or [])
+                      if r["conta_como_resolvido_pelo_coep"]}
+            fila = {a["ativo"] for a in (cp.get("ativos") or []) if a["segue_no_posto"]}
             meta["coep_2026"] = {
                 "curva": cp.get("curva_mensal") or [],
                 "herdados": cp.get("herdados", 0),
                 "passaram": cc.get("equipamentos_que_passaram", 0),
                 "resolvidos": cc.get("resolvidos_pelo_coep", 0),
                 "pendentes": cc.get("seguem_no_posto_em_18_08", 0),
+                "fora": len(fora_mesa),
+                # resolvido cuja reincidência já voltou à fila — conta nos dois lados
+                "sobrepostos": len(res_ok & fila),
             }
         if mensal:
             meta["entrada_mensal"] = mensal

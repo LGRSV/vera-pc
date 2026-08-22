@@ -2,10 +2,10 @@
  "gerado_em": "2026-08-22",
  "fonte": "aba de mapeamento por criticidade da ATUALIZADA 16 + cadeia de repasse + plano de compras de 17/07 + leitura da taxa de falha",
  "visao_eto": {
-  "total": 98,
-  "nota": "a planilha conferida ativo a ativo contra a cadeia de SS no SGM (revisor, 22/08): 8 voltaram por terem indisponibilidade pendente, 3 saíram por já estarem operando ou atendidos, 8 trocaram de etapa",
+  "total": 99,
+  "nota": "a planilha conferida ativo a ativo contra a cadeia de SS no SGM (revisor, 22/08): 9 voltaram por decisão do gestor ou indisponibilidade pendente, 3 saíram por já estarem operando ou atendidos, 8 trocaram de etapa",
   "revisao": {
-   "voltaram": 8,
+   "voltaram": 9,
    "sairam": 3,
    "trocaram": 8
   },
@@ -192,7 +192,7 @@
     ]
    },
    "dcmd_execucao": {
-    "qtd": 5,
+    "qtd": 6,
     "ativos": [
      {
       "ativo": "5844630060",
@@ -230,6 +230,14 @@
       "criticidade": "Sem classificação",
       "etapa_da_planilha": "Em análise",
       "revisao": "indisponibilidade atendida em 13/07; o vivo é ETO-RD-GR 00666/2026 com equipe RD"
+     },
+     {
+      "ativo": "7967181127",
+      "tipo": "RL",
+      "localidade": "PALMEIRAS DO TOCANTINS",
+      "criticidade": "Média",
+      "etapa_da_planilha": "Cancelada em operação",
+      "revisao": "parecer: «linha viva substituiu as chaves» — gestor (22/08) manda contar como em execução"
      }
     ]
    },
@@ -791,10 +799,18 @@
   }
  },
  "concluidos_dcmd_2026": {
-  "qtd": 17,
+  "qtd": 18,
   "regra": "equipe de campo na cadeia + demanda fechada com SS atendida; cancelamento não é entrega",
-  "fechadas_no_proprio_campo": 6,
+  "fechadas_no_proprio_campo": 7,
   "ativos": [
+   {
+    "ativo": "7967181127",
+    "tipo": "religador",
+    "localidade": "PALMEIRAS DO TOCANTINS",
+    "fechou_em": "01/07/2026",
+    "posto": "ETO-RD-AG",
+    "como": "SS ATENDIDA"
+   },
    {
     "ativo": "7933766059",
     "tipo": "religador",
@@ -934,8 +950,8 @@
   ]
  },
  "alerta_acumulado": {
-  "entraram": 125,
-  "resolvidos": 71,
+  "entraram": 136,
+  "resolvidos": 82,
   "pendentes": 54,
   "curva": [
    {
@@ -951,28 +967,28 @@
     "mes": "2026-02",
     "rotulo": "fev/2026",
     "chegaram": 5,
-    "resolvidos": 0,
+    "resolvidos": 1,
     "no_posto": 53,
     "estiveram": 61,
-    "conta_gestor": 57
+    "conta_gestor": 58
    },
    {
     "mes": "2026-03",
     "rotulo": "mar/2026",
     "chegaram": 11,
-    "resolvidos": 3,
+    "resolvidos": 7,
     "no_posto": 53,
     "estiveram": 72,
-    "conta_gestor": 60
+    "conta_gestor": 65
    },
    {
     "mes": "2026-04",
     "rotulo": "abr/2026",
     "chegaram": 13,
-    "resolvidos": 2,
+    "resolvidos": 3,
     "no_posto": 54,
     "estiveram": 84,
-    "conta_gestor": 63
+    "conta_gestor": 69
    },
    {
     "mes": "2026-05",
@@ -981,25 +997,25 @@
     "resolvidos": 11,
     "no_posto": 49,
     "estiveram": 90,
-    "conta_gestor": 69
+    "conta_gestor": 75
    },
    {
     "mes": "2026-06",
     "rotulo": "jun/2026",
     "chegaram": 35,
-    "resolvidos": 31,
+    "resolvidos": 32,
     "no_posto": 42,
     "estiveram": 121,
-    "conta_gestor": 93
+    "conta_gestor": 100
    },
    {
     "mes": "2026-07",
     "rotulo": "jul/2026",
     "chegaram": 21,
-    "resolvidos": 13,
+    "resolvidos": 17,
     "no_posto": 51,
     "estiveram": 142,
-    "conta_gestor": 115
+    "conta_gestor": 126
    },
    {
     "mes": "2026-08",
@@ -1008,12 +1024,12 @@
     "resolvidos": 7,
     "no_posto": 54,
     "estiveram": 143,
-    "conta_gestor": 125
+    "conta_gestor": 136
    }
   ]
  },
  "pendentes_dcmd": {
-  "execucao": 5,
+  "execucao": 6,
   "logistica": 3,
   "aquisicao": 46,
   "aquisicao_no_plano": 11,

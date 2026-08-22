@@ -52,7 +52,9 @@ comissionamento e obra de equipamento novo.
 - **Régua do cancelamento (gestor, 22/08)**: cancelado é resolvido, **desde que não
   tenham aberto outra nota para aquele ativo no posto do COEP depois**. Se abriram, a
   demanda voltou para a mesa e segue pendente — não conta. Nota nova em **outro**
-  posto não derruba: é outra frente de trabalho.
+  posto não derruba: é outra frente de trabalho. **A nota nova só derruba o
+  cancelamento**: SS **atendida** teve serviço executado — nota nova depois dela é
+  **reincidência**, demanda nova, e a resolvida fica de pé.
 - **Quem fecha não precisa ser o COEP.** ETO-RD-PS, ETO-PROT, ETO-RD-AR e demais
   contam igual — o posto diagnostica e despacha, a ponta executa. O **ETO-TELE**
   conta desde que haja parecer do COEP ou passagem pelo posto antes.

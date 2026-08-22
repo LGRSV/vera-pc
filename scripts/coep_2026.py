@@ -295,16 +295,22 @@ def montar():
                          and y["STATUS"] == "SS PENDENTE"]
         confirmada = (fim["_id"] in ss_confirmadas or cod in ativos_em_operacao)
         no_lote = fim["STATUS"] == "SS CANCELADA" and fim["_concluiu"].date() in LOTE
-        if nota_de_volta:
+        # Régua refinada pelo gestor (22/08): a nota nova só derruba o CANCELAMENTO —
+        # cancelou e reabriu, a demanda voltou. SS ATENDIDA teve serviço executado;
+        # nota nova depois dela é REINCIDÊNCIA, demanda nova, e a resolvida fica.
+        if nota_de_volta and fim["STATUS"] == "SS CANCELADA":
             entra = False
-            porque = (f"voltou para o COEP: {nota_de_volta['SS_ORIGINAL']} aberta em "
-                      f"{nota_de_volta['_abriu'].strftime('%d/%m/%Y')}, depois do fechamento")
+            porque = (f"cancelada e voltou para o COEP: {nota_de_volta['SS_ORIGINAL']} aberta em "
+                      f"{nota_de_volta['_abriu'].strftime('%d/%m/%Y')}, depois do cancelamento")
         elif primeiro_ataque:
             entra, porque = False, "resolvido no primeiro ataque do DMSL — não é trabalho do posto"
         else:
             entra, porque = True, ""
         if entra:
-            if fim["STATUS"] == "SS ATENDIDA":
+            if fim["STATUS"] == "SS ATENDIDA" and nota_de_volta:
+                prova = ("SS atendida — serviço executado; a nota aberta depois é "
+                         "reincidência, demanda nova")
+            elif fim["STATUS"] == "SS ATENDIDA":
                 prova = "SS atendida — serviço executado"
             elif confirmada:
                 prova = "cancelada, com leitura que confirma volta à operação"
@@ -388,7 +394,7 @@ def montar():
         "resolvidos_por_ano_da_demanda": {str(k): v for k, v in sorted(por_ano.items())},
         "resolvidos_por_prova": dict(por_prova),
         "tirados_por_volta_ao_coep": sum(1 for r in resolvidos_do_coep
-                                         if r["porque_nao"].startswith("voltou")),
+                                         if "voltou para o COEP" in r["porque_nao"]),
         "resolvidos_com_nota_pendente_em_outro_posto": sum(
             1 for r in contam if r["tem_nota_pendente_hoje"]),
         "resolvidos_no_lote_de_junho": sum(1 for r in contam if r["cancelada_no_lote_de_junho"]),
@@ -514,21 +520,23 @@ PREMISSAS = [
     "O posto que fecha não precisa ser o COEP (gestor, 22/08). Fechamento no ETO-RD-PS, no "
     "ETO-PROT, no ETO-RD-AR e nos demais conta igual: o COEP diagnosticou e despachou, quem "
     "executou foi a ponta. O ETO-TELE também conta, desde que haja parecer do COEP ou que o "
-    "equipamento tenha estado no posto antes — e os 15 fechados lá têm SS no COEP, 11 deles "
+    "equipamento tenha estado no posto antes — e os 25 fechados lá têm SS no COEP, 21 deles "
     "com parecer registrado na carteira.",
-    "Onde os 71 fecharam: 40 no ETO-COEP, 15 no ETO-TELE, 5 no ETO-RD-PS, 5 no ETO-RD-AR, "
-    "4 no ETO-PROT, 1 no ETO-RD-PA e 1 no ETO-RD-PO.",
+    "Onde os 82 fecharam: 40 no ETO-COEP, 25 no ETO-TELE, 5 no ETO-RD-PS, 5 no ETO-RD-AR, "
+    "4 no ETO-PROT e um em cada um de ETO-RD-PA, ETO-RD-PO e ETO-RD-AG.",
     "Régua do gestor para o cancelamento (22/08): cancelado é resolvido, DESDE QUE não tenham "
     "aberto outra nota para esse ativo no posto do COEP depois. Se abriram, a demanda voltou "
-    "para a mesa do posto e continua pendente — não conta. Isso derruba 19 dos 90 candidatos.",
+    "para a mesa e não conta. Já a SS ATENDIDA teve serviço executado: nota nova depois dela é "
+    "reincidência — demanda nova — e a resolvida fica de pé.",
     "O que derruba é nota nova NO COEP. Nota aberta em outro posto depois do fechamento é outra "
     "frente de trabalho, não a demanda voltando — vai anotada na planilha, em coluna própria, "
-    "mas não tira o equipamento da conta. Seis dos resolvidos têm nota pendente em outro posto.",
+    "mas não tira o equipamento da conta. Quinze dos resolvidos têm nota pendente em outro posto.",
     "Não conta o resolvido no primeiro ataque do DMSL — a demanda morreu na mão da DMSL, o posto "
     "não trabalhou nela.",
-    "A planilha diz como cada um foi resolvido: 26 por SS atendida, com serviço executado; 9 "
-    "por cancelamento com leitura do texto confirmando volta à operação; 36 por cancelamento "
-    "sem nota nova no COEP depois, que é a régua do gestor.",
+    "A planilha diz como cada um foi resolvido: 37 por SS atendida, com serviço executado — 11 "
+    "delas com nota nova no COEP depois, que é reincidência e não derruba; 9 por cancelamento "
+    "com leitura do texto confirmando volta à operação; 36 por cancelamento sem nota nova no "
+    "COEP depois, que é a régua do gestor.",
     "O SGM não exporta o motivo do cancelamento — é a lacuna que obrigou a régua acima. Onde a "
     "leitura do texto confirmou volta à operação, isso vai escrito na coluna da prova.",
     "Vinte dos resolvidos foram cancelados no lote de 29 e 30 de junho. Vai marcado em coluna "
