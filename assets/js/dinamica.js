@@ -432,6 +432,85 @@ function ponte() {
   </section>`;
 }
 
+// O posto em 2026 — quem passou pela mesa e o que o posto devolveu. A conta sai da
+// cadeia da demanda, não da carteira: a carteira é a foto do que ainda está pendente
+// e não guarda o que fechou e saiu, que é justamente o trabalho velho fechado agora.
+function coepBloco() {
+  const c = D.coep_2026;
+  if (!c || !c.resolvidos) return '';
+  const anos = Object.entries(c.por_ano || {}).sort((a, b) => a[0].localeCompare(b[0]));
+  const antigos = anos.filter(([a]) => a < '2026').reduce((n, [, v]) => n + v, 0);
+  const prova = Object.entries(c.por_prova || {}).sort((a, b) => b[1] - a[1]);
+  const espera = (c.espera_dos_pendentes || []).filter((f) => f.qtd);
+  const travando = (c.parecer_dos_pendentes || [])[0];
+  const pt = c.ponte_com_o_livro;
+  return `<section class="bloco"><h3>O posto do COEP em 2026 — o que entrou e o que saiu</h3>
+    <p class="destaque-texto">As duas contas são de <b>equipamento</b>, não de SS: o mesmo
+    religador com três SS no posto no mesmo ano é um equipamento. Quem passou pelo posto é quem
+    esteve lá em algum momento do ano, não só quem chegou nele.</p>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr>
+    <th>O que está sendo contado</th><th class="num">Equipamentos</th></tr></thead><tbody>
+    <tr><td>Passaram pela mesa do posto</td><td class="num"><b>${c.passaram}</b></td></tr>
+    <tr><td class="recuo">dos quais na carteira consolidada</td><td class="num">${c.na_carteira}</td></tr>
+    <tr><td class="recuo">dos quais fora dela</td><td class="num">${c.fora_da_carteira}</td></tr>
+    <tr><td>O posto resolveu</td><td class="num"><b>${c.resolvidos}</b></td></tr>
+    <tr><td>Seguem no posto em 18/08</td><td class="num"><b>${c.pendentes}</b></td></tr>
+    </tbody></table></div>
+    <div class="nota branda"><strong>Resolvido é a demanda que fechou.</strong> Passou pelo posto
+    dentro de 2026 e a cadeia dela terminou dentro de 2026, com SS atendida ou cancelada. Régua do
+    gestor para o cancelamento: cancelado é resolvido, desde que não tenham aberto outra nota para
+    aquele ativo no posto do COEP depois — quem voltou não conta, e foram
+    <b>${c.tirados_por_volta}</b> assim. Quem fecha não precisa ser o COEP: o posto diagnostica e
+    despacha, a ponta executa.</div>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr>
+    <th>Ano em que a demanda nasceu</th><th class="num">Resolvidos em 2026</th>
+    <th class="num">Do total</th></tr></thead><tbody>
+    ${anos.map(([a, v]) => `<tr><td>${a}${a === '2026' ? ' <i>(até 18/08)</i>' : ''}</td>
+      <td class="num"><b>${v}</b></td>
+      <td class="num">${Math.round(100 * v / c.resolvidos)}%</td></tr>`).join('')}
+    <tr class="total"><td><b>Total</b></td><td class="num"><b>${c.resolvidos}</b></td>
+      <td class="num">100%</td></tr></tbody></table></div>
+    <div class="nota"><strong>${antigos} dos ${c.resolvidos} são dívida velha.</strong> Nasceram
+    antes de 2026 e só foram fechados agora. É por isso que «${c.resolvidos} resolvidos» e
+    «43 falharam» não se contradizem: um mede a produção do posto, o outro mede a saúde do
+    parque.</div>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Como foi resolvido</th>
+    <th class="num">Equipamentos</th></tr></thead><tbody>
+    ${prova.map(([k, v]) => `<tr><td>${esc(k)}</td><td class="num"><b>${v}</b></td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="nota branda"><strong>O que fica para conferir.</strong>
+    ${c.no_lote_de_junho} dos ${c.resolvidos} foram cancelados no lote de 29 e 30 de junho — pela
+    régua contam, mas o lote está marcado na base. E ${c.com_pendencia_fora} seguem com nota
+    pendente em outro posto: o COEP fechou a parte dele, o equipamento ainda tem pendência em
+    outra mesa.</div>
+    <h4 class="sub-grafico">Os ${c.pendentes} que seguem no posto</h4>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Há quanto tempo esperam</th>
+    <th class="num">Equipamentos</th></tr></thead><tbody>
+    ${espera.map((f) => `<tr><td>${esc(f.faixa)}</td>
+      <td class="num"><b>${f.qtd}</b></td></tr>`).join('')}
+    </tbody></table></div>
+    ${travando ? `<div class="nota"><strong>Não é fila de diagnóstico, é fila de peça.</strong>
+    ${travando.qtd} dos ${c.pendentes} estão com o parecer «${esc(travando.parecer)}». O mais
+    antigo espera há ${c.mais_antigo} dias.</div>` : ''}
+    ${pt ? `<h4 class="sub-grafico">Por que aqui dá ${pt.conta} e no livro-caixa dá ${pt.livro}</h4>
+    <p class="destaque-texto">São universos diferentes, e os dois estão certos. O livro conta os
+    ${D.mes_a_mes?.total ?? ''} da foto de entrada, mês a mês pela abertura da SS. Esta conta varre
+    a base inteira pela cadeia da demanda. Ativo a ativo, fecha assim:</p>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Cruzamento</th>
+    <th class="num">Equipamentos</th></tr></thead><tbody>
+    <tr><td>Nos dois — o livro e esta conta concordam</td><td class="num"><b>${pt.nos_dois}</b></td></tr>
+    <tr><td>Só no livro: a demanda não fechou na base de SS dentro de 2026</td>
+      <td class="num">${pt.so_no_livro_sem_fechamento}</td></tr>
+    <tr><td>Só no livro: fechou, mas o ativo voltou para o COEP depois</td>
+      <td class="num">${pt.so_no_livro_voltou}</td></tr>
+    <tr><td>Só nesta conta: nunca esteve na foto de entrada</td>
+      <td class="num">${pt.so_na_conta_fora_da_foto}</td></tr>
+    <tr><td>Só nesta conta: está na foto, mas o livro não o deu por resolvido</td>
+      <td class="num">${pt.so_na_conta_na_foto}</td></tr>
+    </tbody></table></div>` : ''}
+  </section>`;
+}
+
 function taxaFalha() {
   const t = D.taxa_falha;
   if (!t || !t.linhas?.length) return '';
@@ -442,18 +521,21 @@ function taxaFalha() {
   const campo = res.obra_de_substituicao_concluida_em_campo || {};
   const contab = res.obra_de_substituicao_encerrada_no_contabil || {};
   const somaAno = (m, a) => Object.values(m[a] || {}).reduce((n, v) => n + v, 0);
-  const proj26 = Math.round(somaAno(dem, '2026') / 0.611);
+  const proj26 = Math.round(somaAno(dem, '2026') / 0.6274);
 
+  const pct = (v) => (v != null ? String(v).replace('.', ',') + '%' : '—');
   const tabelaFam = (l) => `<h4 class="sub-grafico">${ROT[l.familia]}</h4>
     <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>
-    <th class="num">Parque do ano</th><th class="num">Novos no ano</th>
-    <th class="num">Troca executada</th><th class="num">Peça grande na fila</th>
-    <th class="num">Falhas</th><th class="num">Taxa</th></tr></thead><tbody>
-    ${ANOS.map((a) => { const x = l.anos[a]; return `<tr><td>${a}${a === '2026' ? ' <i>(até 12/08)</i>' : ''}</td>
-      <td class="num">${x.parque ?? '—'}</td><td class="num">${x.novos ? `+${x.novos}` : '—'}</td>
-      <td class="num">${x.troca_executada || '—'}</td><td class="num">${x.peca_na_fila || '—'}</td>
+    <th class="num">Parque</th><th class="num">Ocorrências</th>
+    <th class="num">Total que falharam</th><th class="num">Taxa</th></tr></thead><tbody>
+    ${ANOS.map((a) => { const x = l.anos[a]; return `<tr><td>${a}${a === '2026' ? ' <i>(até 18/08)</i>' : ''}</td>
+      <td class="num">${x.parque ?? '—'}</td><td class="num">${x.ocorrencias || '—'}</td>
       <td class="num"><b>${x.falhas || '—'}</b></td>
-      <td class="num"><b>${x.taxa != null ? String(x.taxa).replace('.', ',') + '%' : '—'}</b></td></tr>`; }).join('')}
+      <td class="num"><b>${pct(x.taxa)}</b></td></tr>`; }).join('')}
+    ${l.anos.trienio ? `<tr class="total"><td><b>Triênio</b></td>
+      <td class="num">${l.anos.trienio.parque}</td><td class="num">—</td>
+      <td class="num"><b>${l.anos.trienio.falhas}</b></td>
+      <td class="num"><b>${pct(l.anos.trienio.taxa)}</b></td></tr>` : ''}
     </tbody></table></div>`;
 
   return `<section class="bloco"><h3>Taxa de falha do parque</h3>
@@ -461,8 +543,8 @@ function taxaFalha() {
     controle (a placa de alimentação CA e o relé de sincronismo são controle), tanque ou o
     equipamento completo. No regulador: célula, relé, o banco completo ou furto. Trafo auxiliar,
     chave faca, rádio, antena, bateria e aterramento ficam fora da taxa. O parque é o de cada
-    ano — o de hoje menos o que foi instalado depois — e 2026 vai até 12/08, ajustado pela
-    fração decorrida do ano.</p>
+    ano, informado pelo gestor: 1.307 religadores e 207 reguladores. 2026 vai até 18/08,
+    sem anualizar.</p>
     ${t.leitura_em_andamento ? `<div class="nota branda"><strong>Leitura em andamento</strong>
     Agentes estão lendo o texto completo das 1.087 SS e OS dos 129 ativos da carteira, com um
     time revisor conferindo cada falha apontada. A linha «Falhas» abaixo é a prévia pelo que já
@@ -471,7 +553,7 @@ function taxaFalha() {
     prévia.</div>` : ''}
     ${t.linhas.map(tabelaFam).join('')}
 
-    <h4 class="sub-grafico">O contraponto: o que o posto resolveu em cada ano</h4>
+    <h4 class="sub-grafico">O contraponto: as três medidas da ETO inteira</h4>
     <p class="destaque-texto">Três medidas que contam coisas diferentes. <b>Demandas encerradas</b>
     é a SS de falha que terminou (atendida ou cancelada) — a única comparável entre anos.
     <b>Obra concluída em campo</b> é o serviço feito. <b>Obra encerrada no contábil</b> vem sempre
@@ -480,13 +562,13 @@ function taxaFalha() {
     <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>
     <th class="num">Demandas de falha encerradas</th><th class="num">Obra concluída em campo</th>
     <th class="num">Obra encerrada no contábil</th></tr></thead><tbody>
-    ${ANOS.map((a) => `<tr><td>${a}${a === '2026' ? ' <i>(até 12/08)</i>' : ''}</td>
+    ${ANOS.map((a) => `<tr><td>${a}${a === '2026' ? ' <i>(até 18/08)</i>' : ''}</td>
       <td class="num"><b>${somaAno(dem, a) || '—'}</b> <i>(${(dem[a] || {}).religador || 0} RL · ${(dem[a] || {}).regulador || 0} RT)</i></td>
       <td class="num">${somaAno(campo, a) || '—'}</td>
       <td class="num">${somaAno(contab, a) || '—'}</td></tr>`).join('')}
     </tbody></table></div>
     <div class="nota" style="margin-top:12px"><strong>2026 está no ritmo mais alto já registrado</strong>
-    São ${somaAno(dem, '2026')} demandas de falha encerradas em 61% do ano. Mantido o ritmo, o ano
+    São ${somaAno(dem, '2026')} demandas de falha encerradas em 63% do ano. Mantido o ritmo, o ano
     fecha em torno de ${proj26} — empata com 2025 (${somaAno(dem, '2025')}) e fica bem acima de
     2024 (${somaAno(dem, '2024')}). A impressão do gestor de que 2026 é o ano que mais resolveu
     se confirma no ritmo, com 2025 ainda à frente no volume fechado.</div>
@@ -584,6 +666,8 @@ function desenhar() {
     ${ponte()}
 
     ${mesAMes()}
+
+    ${coepBloco()}
 
     ${D.economia ? `<section class="bloco"><h3>O que teria sido gasto nos cancelados em operação</h3>
       <p class="destaque-texto">${esc(D.economia.criterio)}</p>

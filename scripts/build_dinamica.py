@@ -217,37 +217,111 @@ def main():
     # Enquanto a leitura das SS pelos agentes não fecha, a linha de falhas é a prévia
     # por evidência direta (troca executada no AIC + peça grande documentada).
     arq_tx = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
+    arq_lt = os.path.join(RAIZ, "data", "missao", "leitura_ss_os.json")
     if os.path.exists(arq_tx):
         with open(arq_tx, encoding="utf-8") as fh:
             tx = json.load(fh)
+        leitura = {}
+        if os.path.exists(arq_lt):
+            with open(arq_lt, encoding="utf-8") as fh:
+                leitura = json.load(fh)
         ppa = tx.get("parque_por_ano") or {}
         regua = (tx.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
         aic_t = (tx.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
-        FATOR = {"2024": 1.0, "2025": 1.0, "2026": 0.6274}
         familias = []
         for fam in ("religador", "regulador"):
-            anos = {}
+            anos, soma_fam = {}, 0
             for ano in ("2024", "2025", "2026"):
                 bloco_p = (ppa.get(fam) or {}).get(ano, {})
-                evid = (regua.get(fam) or {}).get(ano, {}).get("com_peca_grande") or 0
-                troca = (aic_t.get(ano) or {}).get(fam, 0)
-                soma = evid + troca
-                eq = (bloco_p.get("medio") or 0) * FATOR[ano]
+                parque = bloco_p.get("medio") or 0
+                if leitura:
+                    # a conta que o gestor fixou: equipamentos que falharam ÷ parque
+                    n = (leitura.get("total_equipamentos_que_falharam") or {}).get(
+                        f"{fam}|{ano}", 0)
+                    obra = (leitura.get("complemento_obra_direta") or {}).get(
+                        f"{fam}|{ano}", 0)
+                    oc = (leitura.get("ocorrencias") or {}).get(f"{fam}|{ano}", 0) + obra
+                else:
+                    evid = (regua.get(fam) or {}).get(ano, {}).get("com_peca_grande") or 0
+                    n = evid + (aic_t.get(ano) or {}).get(fam, 0)
+                    oc = n
+                soma_fam += n
                 anos[ano] = {
-                    "parque": bloco_p.get("medio"),
-                    "novos": bloco_p.get("instalados_no_ano"),
-                    "troca_executada": troca,
-                    "peca_na_fila": evid,
-                    "falhas": soma,
-                    "taxa": round(100.0 * soma / eq, 1) if eq else None,
+                    "parque": parque, "novos": bloco_p.get("instalados_no_ano"),
+                    "ocorrencias": oc, "falhas": n,
+                    "taxa": round(100.0 * n / parque, 1) if parque and n else None,
                 }
+            anos["trienio"] = {
+                "parque": ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0,
+                "falhas": soma_fam,
+                "taxa": round(100.0 * soma_fam / (((ppa.get(fam) or {}).get("2026") or {})
+                                                  .get("medio") or 1), 1),
+            }
             familias.append({"familia": fam, "anos": anos})
         d["taxa_falha"] = {
             "linhas": familias,
             "resolvidos": tx.get("resolvidos_por_ano") or {},
             "premissas": tx.get("premissas") or [],
-            "leitura_em_andamento": True,
+            "leitura_em_andamento": not leitura,
         }
+
+    # O posto em 2026: quem passou pela mesa e o que o posto devolveu, pela cadeia da
+    # demanda. É a conta que substitui o «62 da carteira» — a carteira é a foto do que
+    # ainda está pendente e não guarda o que fechou e saiu.
+    arq_coep = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
+    if os.path.exists(arq_coep):
+        with open(arq_coep, encoding="utf-8") as fh:
+            cp = json.load(fh)
+        cc = cp.get("conta") or {}
+        ativos_cp = cp.get("ativos") or []
+        pend = [a for a in ativos_cp if a["segue_no_posto"]]
+        faixas = [("até 30 dias", 0, 30), ("31 a 90 dias", 31, 90), ("91 a 180 dias", 91, 180),
+                  ("181 a 365 dias", 181, 365), ("mais de um ano", 366, 10 ** 6)]
+        espera = [{"faixa": nome,
+                   "qtd": sum(1 for a in pend if lo <= a["dias_no_posto"] <= hi)}
+                  for nome, lo, hi in faixas]
+        parecer = Counter(a["parecer_coep"] or "(fora da carteira)" for a in pend)
+        postos = Counter(r["posto_que_fechou"] for r in (cp.get("resolvidos_do_coep") or [])
+                         if r["conta_como_resolvido_pelo_coep"])
+        d["coep_2026"] = {
+            "passaram": cc.get("equipamentos_que_passaram", 0),
+            "por_tipo": cc.get("por_tipo") or {},
+            "ss_no_posto": cc.get("ss_no_posto", 0),
+            "pendentes": cc.get("seguem_no_posto_em_18_08", 0),
+            "na_carteira": cc.get("na_carteira_consolidada", 0),
+            "fora_da_carteira": cc.get("fora_da_carteira", 0),
+            "resolvidos": cc.get("resolvidos_pelo_coep", 0),
+            "por_ano": cc.get("resolvidos_por_ano_da_demanda") or {},
+            "por_prova": cc.get("resolvidos_por_prova") or {},
+            "tirados_por_volta": cc.get("tirados_por_volta_ao_coep", 0),
+            "no_lote_de_junho": cc.get("resolvidos_no_lote_de_junho", 0),
+            "com_pendencia_fora": cc.get("resolvidos_com_nota_pendente_em_outro_posto", 0),
+            "postos_que_fecharam": [{"posto": k, "qtd": v} for k, v in postos.most_common()],
+            "espera_dos_pendentes": espera,
+            "parecer_dos_pendentes": [{"parecer": k, "qtd": v} for k, v in parecer.most_common()],
+            "mais_antigo": max((a["dias_no_posto"] for a in pend), default=0),
+        }
+        # A ponte com o livro-caixa: são universos diferentes. O livro conta os 117 da
+        # foto de entrada, mês a mês pela abertura da SS; esta conta varre a base inteira
+        # pela cadeia da demanda. O cruzamento ativo a ativo é o que fecha os dois lados.
+        if lista_entrada:
+            foto = {x["ativo"] for x in lista_entrada}
+            livro = {x["ativo"] for x in lista_entrada if x["resolvido"]}
+            meus = {r["ativo"] for r in (cp.get("resolvidos_do_coep") or [])
+                    if r["conta_como_resolvido_pelo_coep"]}
+            idx_cand = {r["ativo"]: r for r in (cp.get("resolvidos_do_coep") or [])}
+            so_livro = livro - meus
+            voltou = sum(1 for a in so_livro
+                         if (idx_cand.get(a) or {}).get("porque_nao", "").startswith("voltou"))
+            d["coep_2026"]["ponte_com_o_livro"] = {
+                "livro": len(livro), "conta": len(meus), "nos_dois": len(livro & meus),
+                "so_no_livro": len(so_livro),
+                "so_no_livro_sem_fechamento": len(so_livro) - voltou,
+                "so_no_livro_voltou": voltou,
+                "so_na_conta": len(meus - livro),
+                "so_na_conta_fora_da_foto": len(meus - livro - foto),
+                "so_na_conta_na_foto": len((meus - livro) & foto),
+            }
 
     dados = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
