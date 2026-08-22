@@ -1103,16 +1103,16 @@ function livroCaixa(mm) {
         <td class="num"><b>${s.final}</b></td>
         <td class="num ${d > 0 ? 'sobe' : d < 0 ? 'desce' : ''}">${d > 0 ? '+' : ''}${d || '—'}</td></tr>`;
     }).join('')}
-  </tbody><tfoot><tr><td>Total até julho</td><td class="num">—</td>
+  </tbody><tfoot><tr><td>Total até 18/08</td><td class="num">—</td>
     <td class="num"><b>${totE}</b></td><td class="num"><b>${totS}</b></td>
     <td class="num"><b>${fim.final}</b></td>
     <td class="num">${fim.final - mm.abertura > 0 ? '+' : ''}${fim.final - mm.abertura}</td></tr></tfoot></table></div>
   <div class="nota" style="margin-top:14px"><strong>A conta fecha na carteira</strong>
   ${mm.abertura} do acervo + ${totE} abertas em 2026 = ${mm.abertura + totE} ativos da foto;
-  ${totS} tratados na janela; sobram ${fim.final} no fim de julho${mm.apos_janela?.resolvidos
+  ${totS} tratados na janela; sobram ${fim.final} em 18/08${mm.apos_janela?.resolvidos
     ? ` — e mais ${mm.apos_janela.resolvidos} já ${mm.apos_janela.resolvidos > 1 ? 'foram tratados' : 'foi tratado'} em agosto${(mm.apos_janela.lista || []).length ? ` (${mm.apos_janela.lista.map((x) => esc(x.localidade)).join(' e ')})` : ''}, fora da janela, deixando ${fim.final - mm.apos_janela.resolvidos} no fluxo hoje`
     : ' — exatamente os que a carteira mostra ainda no fluxo'}.
-  ${mm.ss_resolvidas > totS + (mm.apos_janela?.resolvidos || 0) ? `Na conta por SS são ${mm.ss_resolvidas} resolvidas — ${(mm.resolvidos_duplicados || []).map((a) => `<b class="mono">${esc(a)}</b>`).join(' e ')} tinham duas SS cada na foto e contam uma vez no livro. Contando por SS e com agosto dentro, julho fecharia em ${mm.abertura + totE - mm.ss_resolvidas}.` : ''}
+  ${mm.ss_resolvidas > totS + (mm.apos_janela?.resolvidos || 0) ? `Na conta por SS são ${mm.ss_resolvidas} resolvidas — ${(mm.resolvidos_duplicados || []).map((a) => `<b class="mono">${esc(a)}</b>`).join(' e ')} tinham duas SS cada na foto e contam uma vez no livro. Contando por SS, a janela fecharia em ${mm.abertura + totE - mm.ss_resolvidas}.` : ''}
   Os ${mm.fora_do_livro} ativos que passaram pelo COEP em 2026 por fora da foto não entram neste
   livro: sem SS na foto de entrada, não há data de tratativa rastreada para dar baixa. Eles
   seguem na coluna de entrantes e na lista própria.</div>`;
@@ -1172,7 +1172,8 @@ function linhaAcumulada(curva) {
       }).join('')}
     </svg>
     </div>
-    <figcaption>O número no fim de cada linha é onde ela chegou no fim de julho. Passe o
+    <figcaption>O número no fim de cada linha é onde ela chegou em 18/08 — agosto é mês
+    parcial. Passe o
     mouse num ponto para ver o acumulado daquele mês.</figcaption>
   </figure>`;
 }
@@ -2026,7 +2027,8 @@ function abrirColecao(id) {
         <p class="destaque-texto">Duas séries, uma entrada e uma saída. <b>Entrantes</b> é a foto dos
         ${mm.total}, cada ativo contado uma vez no mês em que a SS entrou, com janeiro carregando o
         acervo. <b>Resolvidos</b> é pelo mês em que a tratativa aconteceu — término da SS ou
-        repasse. Janela: ${esc(mm.janela || 'janeiro a julho')} — agosto está em curso e fica fora.</p>
+        repasse. Janela: ${esc(mm.janela || 'janeiro a agosto')} — agosto entra até o dia 18, que
+        é a posição do relatório, e por isso é mês parcial.</p>
         ${barrasTresColunas(c)}
     <h4 class="sub-grafico">O mesmo, somando</h4>
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
@@ -2044,7 +2046,7 @@ function abrirColecao(id) {
         ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
           <td class="num">${x.entrantes || '—'}</td>
           <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
-        </tbody><tfoot><tr><td>Total até julho</td>
+        </tbody><tfoot><tr><td>Total até 18/08</td>
         <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
         </tr></tfoot></table></div>
         ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
@@ -2098,7 +2100,7 @@ function abrirColecao(id) {
             <td class="num">${(g.length - canc - rep) || '—'}</td>
             <td class="num">${conta(g, (t) => t.parecer_coep) || '—'}</td></tr>`;
         }).join(''); })()}
-        </tbody><tfoot><tr><td>Total até julho</td><td class="num"><b>${tj.length}</b></td><td class="num">—</td>
+        </tbody><tfoot><tr><td>Total até 18/08</td><td class="num"><b>${tj.length}</b></td><td class="num">—</td>
         <td class="num"><b>${conta(tj, (t) => t.via === 'cancelamento da SS de entrada')}</b></td>
         <td class="num"><b>${conta(tj, (t) => t.via === 'repasse para a etapa seguinte')}</b></td>
         <td class="num"><b>${conta(tj, (t) => !['cancelamento da SS de entrada', 'repasse para a etapa seguinte'].includes(t.via))}</b></td>

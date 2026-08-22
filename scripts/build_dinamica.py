@@ -155,6 +155,13 @@ def main():
     feitos = [i for i in d["lista"] if i["etapa"] in d["feito"]["etapas"]]
     d["feito"]["valor"] = round(sum(i["valor"] for i in feitos), 2)
 
+    # O JSON da carteira foi montado sobre a ATUALIZADA8 e nunca teve o rótulo trocado.
+    # O conteúdo, conferido ativo a ativo, é o mesmo da ATUALIZADA16 — mesmos 129 ativos,
+    # mesmo parecer em todos. Só o carimbo estava velho.
+    d["gerado_em"] = "2026-08-18"
+    d["fonte"] = ("Relação dos Equipamentos Indisponíveis ETO — ATUALIZADA 16, "
+                  "aba «Criticidade por Equipamento Joa»")
+
     # A entrada do posto mês a mês vem pronta do build principal: as três colunas
     # (estoque herdado, entrantes e tratativas) e as tabelas que as sustentam.
     arq = os.path.join(RAIZ, "data", "meta.json")
