@@ -279,24 +279,35 @@ def montar():
         fim = escolhida["ponta"]
         c = cart.get(cod, {})
         primeiro_ataque = "primeiro ataque" in (c.get("parecer_coep") or "").lower()
-        reincidiu = any(y["_abriu"] and y["_abriu"] > fim["_concluiu"] for y in ss_do_ativo[cod])
+        # Régua do gestor (22/08): o que derruba o cancelamento é nota nova PARA ESSE ATIVO
+        # NO POSTO DO COEP. Nota aberta em outro posto é outra frente de trabalho, não a
+        # demanda voltando para a mesa do COEP.
+        voltou = [y for y in ss_do_ativo[cod]
+                  if y["_abriu"] and y["_abriu"] > fim["_concluiu"] and y["POSTO_SGM"] == POSTO]
+        nota_de_volta = min(voltou, key=lambda y: y["_abriu"]) if voltou else None
+        # informativo: nota nova em qualquer posto, e nota que segue pendente hoje
+        fora_do_coep = [y for y in ss_do_ativo[cod]
+                        if y["_abriu"] and y["_abriu"] > fim["_concluiu"] and y["POSTO_SGM"] != POSTO]
+        pendente_hoje = [y for y in ss_do_ativo[cod]
+                         if y["_abriu"] and y["_abriu"] > fim["_concluiu"]
+                         and y["STATUS"] == "SS PENDENTE"]
         confirmada = (fim["_id"] in ss_confirmadas or cod in ativos_em_operacao)
         no_lote = fim["STATUS"] == "SS CANCELADA" and fim["_concluiu"].date() in LOTE
-        if reincidiu:
-            entra, porque = False, "abriu SS nova no equipamento depois do fechamento — reincidiu"
+        if nota_de_volta:
+            entra = False
+            porque = (f"voltou para o COEP: {nota_de_volta['SS_ORIGINAL']} aberta em "
+                      f"{nota_de_volta['_abriu'].strftime('%d/%m/%Y')}, depois do fechamento")
         elif primeiro_ataque:
             entra, porque = False, "resolvido no primeiro ataque do DMSL — não é trabalho do posto"
         else:
             entra, porque = True, ""
         if entra:
             if fim["STATUS"] == "SS ATENDIDA":
-                prova = "firme — SS atendida, serviço executado"
+                prova = "SS atendida — serviço executado"
             elif confirmada:
-                prova = "firme — cancelada com leitura que confirma volta à operação"
-            elif no_lote:
-                prova = "a conferir — cancelada no lote de 29-30/06, sem motivo exportado"
+                prova = "cancelada, com leitura que confirma volta à operação"
             else:
-                prova = "a conferir — cancelada sem motivo exportado pelo SGM"
+                prova = "resolvido por cancelamento — nenhuma nota nova no COEP depois"
         else:
             prova = ""
         resolvidos_do_coep.append({
@@ -313,6 +324,12 @@ def montar():
             "dias_da_demanda": ((fim["_concluiu"] - escolhida["marco"]).days
                                 if escolhida["marco"] else None),
             "conta_como_resolvido_pelo_coep": entra, "porque_nao": porque, "prova": prova,
+            "nota_nova_no_coep": nota_de_volta["SS_ORIGINAL"] if nota_de_volta else "",
+            "nota_nova_em_outro_posto": ", ".join(
+                f"{y['SS_ORIGINAL']} ({y['POSTO_SGM']})" for y in sorted(
+                    fora_do_coep, key=lambda z: z["_abriu"])[:3]),
+            "tem_nota_pendente_hoje": bool(pendente_hoje),
+            "cancelada_no_lote_de_junho": no_lote,
             "esta_na_carteira": bool(c), "parecer_coep": c.get("parecer_coep", ""),
             "localidade": c.get("localidade") or cidade.get(cod, ""),
         })
@@ -327,7 +344,11 @@ def montar():
         "resolvidos_pelo_coep": len(contam),
         "resolvidos_por_ano_da_demanda": {str(k): v for k, v in sorted(por_ano.items())},
         "resolvidos_por_prova": dict(por_prova),
-        "tirados_por_reincidencia": sum(1 for r in resolvidos_do_coep if "reincidiu" in r["porque_nao"]),
+        "tirados_por_volta_ao_coep": sum(1 for r in resolvidos_do_coep
+                                         if r["porque_nao"].startswith("voltou")),
+        "resolvidos_com_nota_pendente_em_outro_posto": sum(
+            1 for r in contam if r["tem_nota_pendente_hoje"]),
+        "resolvidos_no_lote_de_junho": sum(1 for r in contam if r["cancelada_no_lote_de_junho"]),
         "tirados_por_primeiro_ataque_dmsl": sum(1 for r in resolvidos_do_coep
                                                 if "primeiro ataque" in r["porque_nao"]),
         "por_tipo": dict(Counter(a["tipo"] for a in ativos)),
@@ -392,17 +413,21 @@ PREMISSAS = [
     "o posto fechou caso de 2024 e 2025.",
     "O número da SS não serve para datar: ETO-COEP 00149/2025 foi aberta em 29/06/2026, com "
     "ocorrência em 11/07/2025. Numerar não é abrir, e abrir não é o fato acontecer.",
-    "Não conta quem reincidiu: se o equipamento abriu SS nova depois do fechamento, a demanda "
-    "não estava resolvida. Isso derruba 33 dos 90 candidatos.",
+    "Régua do gestor para o cancelamento (22/08): cancelado é resolvido, DESDE QUE não tenham "
+    "aberto outra nota para esse ativo no posto do COEP depois. Se abriram, a demanda voltou "
+    "para a mesa do posto e continua pendente — não conta. Isso derruba 19 dos 90 candidatos.",
+    "O que derruba é nota nova NO COEP. Nota aberta em outro posto depois do fechamento é outra "
+    "frente de trabalho, não a demanda voltando — vai anotada na planilha, em coluna própria, "
+    "mas não tira o equipamento da conta. Seis dos resolvidos têm nota pendente em outro posto.",
     "Não conta o resolvido no primeiro ataque do DMSL — a demanda morreu na mão da DMSL, o posto "
     "não trabalhou nela.",
-    "A prova não é igual para todos, e a planilha diz qual é a de cada um. SS atendida é prova "
-    "firme: houve serviço executado. SS cancelada não é — o SGM NÃO exporta o motivo do "
-    "cancelamento. Cancelada só vira prova firme quando a leitura do texto confirmou volta à "
-    "operação.",
-    "Atenção ao lote de 29 e 30 de junho: 19 SS do COEP foram canceladas nesses dois dias. Pode "
-    "ser fechamento de semestre, pode ser limpeza de carteira. Estão marcadas «a conferir» — "
-    "quem decide é o gestor.",
+    "A planilha diz como cada um foi resolvido: 26 por SS atendida, com serviço executado; 9 "
+    "por cancelamento com leitura do texto confirmando volta à operação; 36 por cancelamento "
+    "sem nota nova no COEP depois, que é a régua do gestor.",
+    "O SGM não exporta o motivo do cancelamento — é a lacuna que obrigou a régua acima. Onde a "
+    "leitura do texto confirmou volta à operação, isso vai escrito na coluna da prova.",
+    "Vinte dos resolvidos foram cancelados no lote de 29 e 30 de junho. Vai marcado em coluna "
+    "própria: pela régua do gestor eles contam, mas quem quiser conferir o lote sabe quais são.",
 ]
 
 
@@ -450,17 +475,22 @@ def planilha(pacote):
     # VISÃO 2 — quem o COEP resolveu em 2026
     ws = wb.create_sheet(f"2 · Resolvidos pelo COEP ({c['resolvidos_pelo_coep']})")
     cabecalho(ws, ["Ativo", "Tipo", "Ano em que a demanda nasceu", "Ocorrência", "Conta",
-                   "Prova", "Por que não conta", "SS que abriu a demanda", "Posto que abriu",
-                   "SS no COEP", "SS que fechou", "Posto que fechou", "Como terminou",
-                   "Fechou em", "Dias da demanda", "Está na carteira", "Parecer COEP",
-                   "Localidade"],
-              [14, 12, 12, 12, 9, 44, 44, 22, 14, 22, 22, 14, 15, 12, 12, 12, 24, 20])
+                   "Prova", "Por que não conta", "Nota nova no COEP",
+                   "Nota nova em outro posto", "Tem nota pendente hoje",
+                   "Cancelada no lote de 29-30/06", "SS que abriu a demanda",
+                   "Posto que abriu", "SS no COEP", "SS que fechou", "Posto que fechou",
+                   "Como terminou", "Fechou em", "Dias da demanda", "Está na carteira",
+                   "Parecer COEP", "Localidade"],
+              [14, 12, 12, 12, 9, 46, 46, 20, 34, 12, 13, 22, 14, 22, 22, 14, 15, 12, 12,
+               12, 24, 20])
     ordem = sorted(pacote["resolvidos_do_coep"],
                    key=lambda r: (not r["conta_como_resolvido_pelo_coep"],
                                   r["ano_da_demanda"] or 9999, r["ativo"]))
     for r in ordem:
         ws.append([r["ativo"], r["tipo"], r["ano_da_demanda"], r["ocorrencia_da_demanda"],
                    sn(r["conta_como_resolvido_pelo_coep"]), r["prova"], r["porque_nao"],
+                   r["nota_nova_no_coep"], r["nota_nova_em_outro_posto"],
+                   sn(r["tem_nota_pendente_hoje"]), sn(r["cancelada_no_lote_de_junho"]),
                    r["ss_que_abriu_a_demanda"], r["posto_que_abriu"], r["ss_no_coep"],
                    r["ss_que_fechou"], r["posto_que_fechou"], r["como_terminou"],
                    r["data_do_fechamento"], r["dias_da_demanda"],
@@ -492,7 +522,10 @@ def main():
           f"(de {c['candidatos_a_resolvido']} candidatos)")
     print(f"  por ano em que a demanda nasceu.: {c['resolvidos_por_ano_da_demanda']}")
     print(f"  por prova.......................: {c['resolvidos_por_prova']}")
-    print(f"  tirados por reincidência........: {c['tirados_por_reincidencia']}")
+    print(f"  tirados por voltar ao COEP......: {c['tirados_por_volta_ao_coep']}")
+    print(f"  com nota pendente em outro posto: "
+          f"{c['resolvidos_com_nota_pendente_em_outro_posto']}")
+    print(f"  cancelados no lote de 29-30/06..: {c['resolvidos_no_lote_de_junho']}")
     print(f"  tirados por primeiro ataque DMSL: {c['tirados_por_primeiro_ataque_dmsl']}")
     print(f"gravado: {SAIDA_JSON}")
     planilha(pacote)
