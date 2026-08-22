@@ -1,15 +1,26 @@
 """
 A visão consolidada do site — o resumo mínimo que abre a página.
 
-A pedido do gestor (22/08): primeiro a carteira consolidada, minimalista, na
-visão ETO — os ativos indisponíveis ainda vivos —, repartida nas etapas dele;
-depois o que o DCMD concluiu no ano, o alerta do acumulado (entraram = resolvidos
-+ pendentes, lido da conta do COEP), a abertura dos pendentes do DCMD com o cruzamento
-contra o plano de compras, e a taxa de falha de 2026.
+Régua do gestor (22/08, revista no mesmo dia): a visão ETO sai DA BASE DE
+SS/OS, não da carteira. São os ativos 58/79 com SS de INDISPONIBILIDADE PARA
+OPERAÇÃO pendente na base — «só tem 93, então são as 93».
 
-Fontes: a aba de mapeamento por criticidade da Relação de Indisponíveis
-(ATUALIZADA 16, via dinamica_joa), a cadeia de repasse (coep_2026), o plano de
-compras de 17/07 e a leitura da taxa de falha.
+O balde de cada um sai do POSTO onde a SS pendente está, que é a régua da
+esteira do gestor:
+  - ETO-PROT                          → em fase de ajuste de proteção
+  - TELE/SE, com passagem pelo COEP   → aguardando comissionamento
+  - TELE/SE, sem passagem pelo COEP   → 1º ataque / com o DMSL (novos)
+  - equipe RD (ETO-RD-*)              → DCMD em execução, com os COCMs
+  - ETO-COEP                          → DCMD em aquisição — salvo quem a
+    carteira marca «Em logística» (material comprado, esperando chegar)
+
+A carteira (ATUALIZADA 16) vira anotação: a etapa que ela dizia e quem ela
+nem lista. Os dicionários de revisão manual da régua antiga foram embora —
+a base decide quem entra, o posto decide o balde.
+
+Fontes: recorte da base de SS/OS de 20/08 (ssos_min), a aba de mapeamento
+por criticidade (via dinamica_joa), a cadeia de repasse (coep_2026), o plano
+de compras de 17/07 e a leitura da taxa de falha.
 
 Grava data/missao/visao_consolidada.json.
 Rodar: python3 scripts/visao_consolidada.py
@@ -19,55 +30,11 @@ import csv
 import json
 import os
 import re
-from collections import Counter
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(RAIZ, "data", "missao", "visao_consolidada.json")
 
-# A régua do gestor para a visão ETO: sai quem já não está indisponível.
-FORA_DA_VISAO = {"Concluído", "Cancelada em operação", "Desmobilizado"}
-# E o mapa das etapas da planilha para os baldes mínimos dele.
-BALDE = {
-    "Em ajustes": "ajuste_de_protecao",
-    "Aguardando comissionamento": "comissionamento",
-    "Entregue ao COCM": "dcmd_execucao",
-    "Em logística": "dcmd_logistica",
-    "Em compra": "dcmd_aquisicao",
-    "Em análise": "dcmd_aquisicao",
-    "Travado": "dcmd_aquisicao",
-    "Primeiro ataque do DMSL": "dmsl_novos",
-    "Com o DMSL": "dmsl_novos",
-}
-
-
-# Revisão da leitura (revisor Opus, 22/08): a planilha dá a etapa, mas a cadeia de
-# SS no SGM às vezes conta outra história. Cada linha aqui tem a evidência lida.
-MUDA_DE_BALDE = {
-    "5853360007": ("dcmd_execucao", "sem compra: travado por acesso, SS pendente com equipe RD desde 10/2025"),
-    "7908708116": ("ajuste_de_protecao", "SS viva é ETO-PROT 00165/2026 pendente — esteira de ajuste"),
-    "5827102054": ("ajuste_de_protecao", "SS viva é ETO-PROT 00164/2026 pendente; sem SS de comissionamento"),
-    "7942572059": ("ajuste_de_protecao", "SS viva é ETO-PROT 00155/2026 pendente; check da planilha diz «Em operação» — conferir"),
-    "7948412064": ("dcmd_execucao", "indisponibilidade atendida em 13/07; o vivo é ETO-RD-GR 00666/2026 com equipe RD"),
-    "5865120195": ("comissionamento", "saiu do PROT em 17/08; pendente agora é ETO-SE-PCM 00091/2026 — SE é comissionamento"),
-    "7900230155": ("comissionamento", "saiu do PROT em 17/08; pendente é ETO-SE-PCM 00090/2026"),
-    "7933726256": ("comissionamento", "saiu do PROT em 17/08; pendente é ETO-SE-PCM 00092/2026"),
-}
-SAI_DA_VISAO = {
-    "7900532053": "parecer: operando no SCADA; cancelada encerrada 13/07 sem nota nova no COEP — resolvido pela régua",
-    "7934697002": "única indisponibilidade ATENDIDA em 20/07; nada vivo",
-    "7953570026": "única indisponibilidade ATENDIDA em 19/06; nada vivo",
-}
-VOLTA_PARA_A_VISAO = {
-    "7929376022": ("comissionamento", "ETO-TELE 01107/2026 pendente 13/08; «problema no envio do controle»"),
-    "7908686014": ("ajuste_de_protecao", "ETO-PROT 00159/2026 pendente 28/07"),
-    "5854566043": ("ajuste_de_protecao", "ETO-PROT 00158/2026 pendente 28/07"),
-    "7953610256": ("ajuste_de_protecao", "ETO-PROT 00157/2026 pendente 28/07"),
-    "7903112004": ("dcmd_aquisicao", "ETO-COEP 00184/2025 pendente desde 09/2025"),
-    "7930359149": ("dcmd_aquisicao", "ETO-COEP 00138/2026 pendente 13/07"),
-    "7903569004": ("dcmd_aquisicao", "cancelada, mas ETO-COEP 00152/2026 aberta depois — voltou, régua do gestor"),
-    "5800440256": ("dcmd_aquisicao", "cancelada, mas ETO-COEP 00169/2026 aberta depois — voltou"),
-    "7967181127": ("dcmd_execucao", "parecer: «linha viva substituiu as chaves» — gestor (22/08) manda contar como em execução"),
-}
+POSICAO = "base de SS/OS de 20/08"
 
 
 def _dept(posto):
@@ -80,6 +47,8 @@ def _dept(posto):
 
 
 def montar():
+    with open(os.path.join(RAIZ, "data", "missao", "ssos_min.json"), encoding="utf-8") as fh:
+        ssos = json.load(fh)
     with open(os.path.join(RAIZ, "data", "raw", "dinamica_joa.json"), encoding="utf-8") as fh:
         joa = {x["ativo"]: x for x in json.load(fh)["lista"]}
     with open(os.path.join(RAIZ, "data", "missao", "coep_2026.json"), encoding="utf-8") as fh:
@@ -89,32 +58,47 @@ def montar():
     with open(os.path.join(RAIZ, "data", "raw", "plano_compras.csv"), encoding="utf-8") as fh:
         plano = {m.group(1) for l in fh for m in [re.match(r"(\d{10});", l)] if m}
 
-    # ---- a visão ETO: vivos da carteira, por balde — com a revisão da cadeia
-    vivos = {c: x for c, x in joa.items() if x["etapa"] not in FORA_DA_VISAO}
-    for cod in SAI_DA_VISAO:
-        vivos.pop(cod, None)
-    for cod in VOLTA_PARA_A_VISAO:
-        if cod in joa:
-            vivos[cod] = joa[cod]
+    # ---- a visão ETO: o filtro do gestor, ao pé da letra
+    pendentes = [r for r in ssos
+                 if r["NUM_TRAFO"].startswith(("58", "79"))
+                 and r["TIPOSS"] == "INDISPONIBILIDADE PARA OPERAÇÃO"
+                 and r["SITUACAO_SS"] == "SS PENDENTE"]
+    passou_pelo_coep = {r["NUM_TRAFO"] for r in ssos
+                        if r["NUMERO_SS"].startswith("ETO-COEP")}
+
+    def balde_de(r):
+        posto = r["NUMERO_SS"].split()[0]
+        etapa = joa.get(r["NUM_TRAFO"], {}).get("etapa", "")
+        if posto.startswith("ETO-PROT"):
+            return "ajuste_de_protecao"
+        if posto.startswith(("ETO-TELE", "ETO-SE", "ETO-SCADA")) or "DMSL" in posto:
+            if r["NUM_TRAFO"] in passou_pelo_coep and "DMSL" not in posto:
+                return "comissionamento"
+            return "dmsl_novos"
+        if _dept(posto) == "DCMD":
+            return "dcmd_execucao"
+        if posto.startswith("ETO-COEP"):
+            return "dcmd_logistica" if etapa == "Em logística" else "dcmd_aquisicao"
+        raise SystemExit(f"posto sem balde na régua da esteira: {posto} ({r['NUM_TRAFO']})")
+
     baldes = {b: [] for b in ("ajuste_de_protecao", "comissionamento", "dcmd_execucao",
                               "dcmd_logistica", "dcmd_aquisicao", "dmsl_novos")}
-    sem_balde = []
-    for cod, x in sorted(vivos.items()):
-        motivo = ""
-        if cod in VOLTA_PARA_A_VISAO:
-            b, motivo = VOLTA_PARA_A_VISAO[cod]
-        elif cod in MUDA_DE_BALDE:
-            b, motivo = MUDA_DE_BALDE[cod]
-        else:
-            b = BALDE.get(x["etapa"])
-        item = {"ativo": cod, "tipo": x["tipo"], "localidade": x["localidade"],
-                "criticidade": x.get("criticidade", ""), "etapa_da_planilha": x["etapa"]}
-        if motivo:
-            item["revisao"] = motivo
-        (baldes[b] if b else sem_balde).append(item)
-    if sem_balde:
-        raise SystemExit(f"etapa sem balde no mapa do gestor: "
-                         f"{sorted({x['etapa_da_planilha'] for x in sem_balde})}")
+    for r in sorted(pendentes, key=lambda x: x["NUM_TRAFO"]):
+        cod = r["NUM_TRAFO"]
+        na_carteira = cod in joa
+        x = joa.get(cod, {})
+        item = {
+            "ativo": cod,
+            "tipo": x.get("tipo") or ("RT" if cod.startswith("58") else "RL"),
+            "localidade": x.get("localidade") or r["LOCALIDADE"].strip(),
+            "criticidade": x.get("criticidade") or (r["CRITICIDADE_SS"] or "").strip().capitalize(),
+            "ss_pendente": r["NUMERO_SS"],
+            "na_carteira": na_carteira,
+            "etapa_da_planilha": x.get("etapa") if na_carteira else "(fora da carteira)",
+        }
+        baldes[balde_de(r)].append(item)
+    total = sum(len(v) for v in baldes.values())
+    fora_da_carteira = sum(1 for v in baldes.values() for i in v if not i["na_carteira"])
 
     # ---- aquisição × plano de compras
     aq = baldes["dcmd_aquisicao"]
@@ -140,16 +124,18 @@ def montar():
 
     pacote = {
         "gerado_em": "2026-08-22",
-        "fonte": "aba de mapeamento por criticidade da ATUALIZADA 16 + cadeia de repasse + "
+        "fonte": f"SS de indisponibilidade pendentes na {POSICAO} + mapeamento por "
+                 "criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + "
                  "plano de compras de 17/07 + leitura da taxa de falha",
         "visao_eto": {
-            "total": len(vivos),
-            "nota": "a planilha conferida ativo a ativo contra a cadeia de SS no SGM "
-                    f"(revisor, 22/08): {len(VOLTA_PARA_A_VISAO)} voltaram por decisão do gestor ou "
-                    f"indisponibilidade pendente, {len(SAI_DA_VISAO)} saíram por já estarem operando "
-                    f"ou atendidos, {len(MUDA_DE_BALDE)} trocaram de etapa",
-            "revisao": {"voltaram": len(VOLTA_PARA_A_VISAO), "sairam": len(SAI_DA_VISAO),
-                        "trocaram": len(MUDA_DE_BALDE)},
+            "total": total,
+            "posicao": POSICAO,
+            "fora_da_carteira": fora_da_carteira,
+            "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de "
+                    "indisponibilidade para operação pendente na base — o balde sai do "
+                    "posto onde a SS está (PROT = ajuste; TELE/SE com passagem pelo COEP = "
+                    "comissionamento, sem passagem = DMSL; RD = execução; COEP = aquisição, "
+                    f"salvo «Em logística» da carteira). {fora_da_carteira} não estão na carteira.",
             "baldes": {b: {"qtd": len(v), "ativos": v} for b, v in baldes.items()},
         },
         "concluidos_dcmd_2026": {
@@ -194,7 +180,7 @@ def montar():
 if __name__ == "__main__":
     p = montar()
     v = p["visao_eto"]
-    print(f"visão ETO: {v['total']} ativos")
+    print(f"visão ETO: {v['total']} ativos ({v['fora_da_carteira']} fora da carteira)")
     for b, d in v["baldes"].items():
         print(f"  {b:<20} {d['qtd']}")
     pd = p["pendentes_dcmd"]
