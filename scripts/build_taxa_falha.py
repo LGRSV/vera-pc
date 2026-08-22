@@ -25,6 +25,198 @@ ROT = {"religador": "Religadores", "regulador": "Reguladores"}
 FATOR = {"2024": 1.0, "2025": 1.0, "2026": 1.0}  # divisão direta, sem anualizar
 
 
+ESTILO_BASES = """
+.bases-baixar { display: grid; gap: 8px; margin: 10px 0 4px; }
+.base-linha { display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 10px 13px; border: 1px solid var(--filete); background: var(--papel-2);
+  border-radius: 3px; }
+.base-linha > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.base-linha b { font-family: var(--cond); font-size: 1.02rem; letter-spacing: .01em; }
+.base-conta { font-size: .82rem; color: var(--tinta-3); }
+.base-baixar { flex: none; font-family: var(--cond); font-size: .92rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--papel); background: var(--sinal);
+  padding: 7px 15px; border-radius: 3px; transition: opacity .15s; }
+.base-baixar:hover { opacity: .85; }
+.base-baixar[disabled] { opacity: .5; cursor: default; }
+.base-baixar.pronto { background: var(--baixa); }
+.base-aviso { font-size: .85rem; color: var(--tinta-3); margin: 4px 0 0; font-style: italic; }
+@media (max-width: 560px) { .base-linha { flex-direction: column; align-items: stretch; }
+  .base-baixar { width: 100%; } }
+"""
+
+SCRIPT_BASES = """
+<script>
+(function () {
+  "use strict";
+  const BASES = __BASES__;
+  const caixa = document.getElementById("bases-baixar");
+  const indisponivel = document.getElementById("base-indisponivel");
+  const aviso = document.getElementById("base-aviso");
+  const BOM = "\uFEFF";   // sem isto o Excel do Windows come os acentos
+
+  function dizer(texto) {
+    if (!aviso) return;
+    aviso.textContent = texto || "";
+    aviso.hidden = !texto;
+  }
+
+  async function salvar(api, nome, csv, extensao) {
+    return api.save({ filename: nome + "." + extensao, data: BOM + csv });
+  }
+
+  async function iniciar() {
+    let api = null;
+    try { api = await (window.claude && window.claude.use ? window.claude.use("downloads") : null); }
+    catch (e) { api = null; }
+    if (!api) return;                       // fica só o aviso de indisponível
+    if (indisponivel) indisponivel.hidden = true;
+    if (caixa) caixa.hidden = false;
+
+    caixa.addEventListener("click", async function (ev) {
+      const botao = ev.target.closest(".base-baixar");
+      if (!botao || botao.disabled) return;
+      const chave = botao.dataset.base;
+      const base = BASES[chave];
+      if (!base) return;
+      const rotulo = botao.textContent;
+      botao.disabled = true;
+      botao.textContent = "Salvando…";
+      dizer("");
+      try {
+        try {
+          await salvar(api, chave, base.csv, "csv");
+        } catch (erro) {
+          // csv está no conjunto estendido; onde não estiver ligado, vai como txt
+          if (erro && erro.code === "extension_not_enabled") {
+            await salvar(api, chave, base.csv, "txt");
+            dizer("Salvo como .txt — esta janela não libera .csv. Renomeie para .csv e o "
+                  + "Excel abre igual.");
+          } else { throw erro; }
+        }
+        botao.textContent = "Salvo";
+        botao.classList.add("pronto");
+        setTimeout(function () {
+          botao.textContent = rotulo;
+          botao.classList.remove("pronto");
+          botao.disabled = false;
+        }, 2600);
+        return;
+      } catch (erro) {
+        const codigo = erro && erro.code;
+        if (codigo === "declined") dizer("");
+        else if (codigo === "rate_limited") dizer("Tem outro download esperando resposta. "
+          + "Responda aquele e tente de novo.");
+        else if (codigo === "too_large") dizer("Arquivo grande demais para salvar por aqui.");
+        else dizer("Não deu para salvar agora. Tente de novo em instantes.");
+      }
+      botao.textContent = rotulo;
+      botao.disabled = false;
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciar);
+  } else { iniciar(); }
+})();
+</script>
+"""
+
+
+def _csv(linhas):
+    """CSV com ponto e vírgula, do jeito que o Excel brasileiro abre sem pedir nada."""
+    def cel(v):
+        t = "" if v is None else str(v)
+        return '"' + t.replace('"', '""') + '"' if any(c in t for c in ';"\n\r') else t
+    return "\r\n".join(";".join(cel(c) for c in linha) for linha in linhas)
+
+
+def bases_para_baixar(coep, taxa, leitura):
+    """As bases da página em CSV, prontas para o gestor abrir no Excel e mostrar."""
+    sn = lambda v: "sim" if v else "não"
+    ativos = coep.get("ativos") or []
+    resolv = coep.get("resolvidos_do_coep") or []
+    ss = coep.get("ss") or []
+
+    passaram = [["Ativo", "Tipo", "Localidade", "SS no COEP em 2026", "Quantas SS",
+                 "Primeira chegada", "Dias no posto", "Ainda no posto em 18/08",
+                 "Está na carteira", "Parecer COEP", "Criticidade"]]
+    passaram += [[a["ativo"], a["tipo"], a["localidade"], a["ss"], a["ss_no_coep_em_2026"],
+                  a["primeira_chegada"], a["dias_no_posto"], sn(a["segue_no_posto"]),
+                  sn(a["na_carteira"]), a["parecer_coep"], a["criticidade"]]
+                 for a in ativos]
+
+    pend = [passaram[0]] + [linha for a, linha in zip(ativos, passaram[1:])
+                            if a["segue_no_posto"]]
+
+    resolvidos = [["Ativo", "Tipo", "Ano da demanda", "Ocorrência", "Conta", "Prova",
+                   "Por que não conta", "Nota nova no COEP", "Nota nova em outro posto",
+                   "Tem nota pendente hoje", "Cancelada no lote de 29-30/06",
+                   "SS que abriu a demanda", "Posto que abriu", "SS no COEP",
+                   "SS que fechou", "Posto que fechou", "Como terminou", "Fechou em",
+                   "Dias da demanda", "Está na carteira", "Parecer COEP", "Localidade"]]
+    resolvidos += [[r["ativo"], r["tipo"], r["ano_da_demanda"], r["ocorrencia_da_demanda"],
+                    sn(r["conta_como_resolvido_pelo_coep"]), r["prova"], r["porque_nao"],
+                    r["nota_nova_no_coep"], r["nota_nova_em_outro_posto"],
+                    sn(r["tem_nota_pendente_hoje"]), sn(r["cancelada_no_lote_de_junho"]),
+                    r["ss_que_abriu_a_demanda"], r["posto_que_abriu"], r["ss_no_coep"],
+                    r["ss_que_fechou"], r["posto_que_fechou"], r["como_terminou"],
+                    r["data_do_fechamento"], r["dias_da_demanda"], sn(r["esta_na_carteira"]),
+                    r["parecer_coep"], r["localidade"]]
+                   for r in sorted(resolv, key=lambda x: (not x["conta_como_resolvido_pelo_coep"],
+                                                          x["ano_da_demanda"] or 9999, x["ativo"]))]
+
+    ss_csv = [["SS", "Ativo", "Tipo", "Status", "Chegou", "Saiu", "Como se apurou a saída",
+               "Foi para", "Dias no posto", "Pendência"]]
+    ss_csv += [[i["ss"], i["ativo"], i["tipo"], i["status"], i["chegou"], i["saiu"],
+                i["como_apurou_a_saida"], i["foi_para"], i["dias_no_posto"], i["pendencia"]]
+               for i in sorted(ss, key=lambda x: -x["dias_no_posto"])]
+
+    # a mesma conta da tabela da página: equipamentos que falharam ÷ parque do ano
+    ppa = taxa.get("parque_por_ano") or {}
+    tx = [["Família", "Ano", "Parque", "Ocorrências", "Equipamentos que falharam", "Taxa (%)"]]
+    for fam in ("religador", "regulador"):
+        soma = 0
+        for ano in ANOS:
+            parque = ((ppa.get(fam) or {}).get(ano) or {}).get("medio") or 0
+            n = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|{ano}", 0) \
+                if leitura else 0
+            obra = (leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{ano}", 0) \
+                if leitura else 0
+            oc = ((leitura.get("ocorrencias") or {}).get(f"{fam}|{ano}", 0) + obra) \
+                if leitura else 0
+            soma += n
+            taxa_ano = f"{100.0 * n / parque:.1f}".replace(".", ",") if parque and n else ""
+            tx.append([fam, ano, parque, oc or "", n or "", taxa_ano])
+        parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
+        tx.append([fam, "Triênio", parque, "", soma,
+                   f"{100.0 * soma / parque:.1f}".replace(".", ",") if parque else ""])
+
+    saida = {
+        "coep-2026-passaram-pelo-posto": {
+            "titulo": "Passaram pelo posto do COEP em 2026",
+            "conta": "um equipamento por linha, com as SS que teve no posto",
+            "linhas": len(passaram) - 1, "csv": _csv(passaram)},
+        "coep-2026-pendentes-no-posto": {
+            "titulo": "Pendentes no posto em 18/08/2026",
+            "conta": "os que seguem no COEP, com o tempo parado e o parecer",
+            "linhas": len(pend) - 1, "csv": _csv(pend)},
+        "coep-2026-resolvidos": {
+            "titulo": "Resolvidos pelo COEP em 2026",
+            "conta": "todos os candidatos, com o veredito e o motivo de cada corte",
+            "linhas": len(resolvidos) - 1, "csv": _csv(resolvidos)},
+        "coep-2026-ss-no-posto": {
+            "titulo": "As SS que estiveram no posto em 2026",
+            "conta": "uma SS por linha, com chegada, saída e para onde foi",
+            "linhas": len(ss_csv) - 1, "csv": _csv(ss_csv)},
+    }
+    if len(tx) > 1:
+        saida["taxa-de-falha-2024-2026"] = {
+            "titulo": "A taxa de falha, ano a ano",
+            "conta": "parque, quantos falharam e a taxa, por família e ano",
+            "linhas": len(tx) - 1, "csv": _csv(tx)}
+    return saida
+
+
 def esc(t):
     return html.escape(str(t if t is not None else ""))
 
@@ -226,6 +418,15 @@ def main():
         for i, p in enumerate(passos, start=1)
     )
 
+    bases = bases_para_baixar(coep, taxa, leitura)
+    cartoes_base = "".join(
+        f'<div class="base-linha"><div><b>{esc(v["titulo"])}</b>'
+        f'<span class="base-conta">{esc(v["conta"])} · {v["linhas"]} linhas</span></div>'
+        f'<button class="base-baixar" data-base="{esc(k)}">Baixar CSV</button></div>'
+        for k, v in bases.items())
+    bases_json = json.dumps({k: {"csv": v["csv"], "titulo": v["titulo"]}
+                             for k, v in bases.items()}, ensure_ascii=False)
+
     def css(*p):
         with open(os.path.join(RAIZ, *p), encoding="utf-8") as fh:
             return fh.read()
@@ -305,6 +506,16 @@ def main():
     conta as falhas evitou gasto: R$ 1,19 milhão que seria gasto nos 23 cancelados em operação,
     com R$ 420 mil ainda lançados no orçamento, prontos para liberar — dinheiro que volta para a
     fila do elo 6.</div>
+
+    <h4 class="sub-grafico">Baixar as bases</h4>
+    <p class="destaque-texto">Os números desta página, em CSV — abre direto no Excel, com
+    acento e com ponto e vírgula separando as colunas. O navegador pede confirmação antes de
+    salvar.</p>
+    <div class="bases-baixar" id="bases-baixar" hidden>{cartoes_base}
+      <p class="base-aviso" id="base-aviso" hidden></p>
+    </div>
+    <p class="base-aviso" id="base-indisponivel">Baixar arquivo não está disponível nesta
+    janela. Abra a página no claude.ai para salvar as bases.</p>
 
     <h4 class="sub-grafico">O posto do COEP em 2026 — duas visões</h4>
     <p class="destaque-texto">Quem passou pela mesa do posto, e o que o posto devolveu. As duas
@@ -387,7 +598,9 @@ def main():
         f"<style>\n{css('assets', 'css', 'fontes.css')}\n</style>\n"
         f"<style>\n{css('assets', 'css', 'styles.css')}\n</style>\n"
         f"<style>\n{css('assets', 'css', 'dinamica.css')}\n</style>\n"
+        f"<style>{ESTILO_BASES}</style>\n"
         f"{corpo}\n"
+        + SCRIPT_BASES.replace("__BASES__", bases_json)
     )
     with open(DESTINO, "w", encoding="utf-8") as fh:
         fh.write(pagina)
