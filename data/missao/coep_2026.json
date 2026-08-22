@@ -1,6 +1,57 @@
 {
  "gerado_em": "2026-08-22",
  "posicao": "18/08/2026",
+ "curva_mensal": [
+  {
+   "mes": "2026-01",
+   "rotulo": "jan/2026",
+   "chegaram": 7,
+   "resolvidos": 4
+  },
+  {
+   "mes": "2026-02",
+   "rotulo": "fev/2026",
+   "chegaram": 5,
+   "resolvidos": 0
+  },
+  {
+   "mes": "2026-03",
+   "rotulo": "mar/2026",
+   "chegaram": 11,
+   "resolvidos": 3
+  },
+  {
+   "mes": "2026-04",
+   "rotulo": "abr/2026",
+   "chegaram": 13,
+   "resolvidos": 2
+  },
+  {
+   "mes": "2026-05",
+   "rotulo": "mai/2026",
+   "chegaram": 7,
+   "resolvidos": 11
+  },
+  {
+   "mes": "2026-06",
+   "rotulo": "jun/2026",
+   "chegaram": 35,
+   "resolvidos": 31
+  },
+  {
+   "mes": "2026-07",
+   "rotulo": "jul/2026",
+   "chegaram": 21,
+   "resolvidos": 13
+  },
+  {
+   "mes": "2026-08",
+   "rotulo": "ago/2026",
+   "chegaram": 2,
+   "resolvidos": 7
+  }
+ ],
+ "herdados": 50,
  "fonte": "EQP_SS_OCORRENCIA_11082026 (10.386 SS de religador e regulador) e a carteira consolidada do gestor (Relação dos Equipamentos Indisponíveis ETO, ATUALIZADA 16 — 129 ativos)",
  "premissas": [
   "Passou pelo COEP em 2026 é a SS que esteve no posto em algum momento do ano — não só a que chegou em 2026. SS que chegou em 2025 e só saiu em março de 2026 passou pelo posto.",

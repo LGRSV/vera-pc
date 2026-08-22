@@ -968,8 +968,8 @@ function num({ rotulo, valor, nota, tom = '' }) {
    passaram pelo validador de paleta nos dois temas: azul-tinta, o laranja do
    sinal e o verde. Cada barra leva o valor escrito em cima, então a identidade
    nunca depende só da cor. */
-function barrasTresColunas(curva) {
-  const SERIES = [
+function barrasTresColunas(curva, series) {
+  const SERIES = series || [
     { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)',
       dica: 'a carteira herdada, pela abertura da SS — janeiro carrega o acervo' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
@@ -1121,14 +1121,15 @@ function livroCaixa(mm) {
 /* A mesma coisa somando: onde cada série chegou até o fim de cada mês. Linha em
    vez de barra porque o que importa aqui é a distância entre as curvas — o
    tamanho da fila contra o que já saiu — e barra empilhada esconde isso. */
-function linhaAcumulada(curva) {
-  const SERIES = [
+function linhaAcumulada(curva, series) {
+  const SERIES = series || [
     { chave: 'entrantes', nome: 'Entrantes', cor: 'var(--serie-1)' },
     { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)' },
   ];
-  let soma = { entrantes: 0, resolvidos: 0 };
+  const soma = {};
+  SERIES.forEach((s) => { soma[s.chave] = 0; });
   const ac = curva.map((m) => {
-    soma = { entrantes: soma.entrantes + m.entrantes, resolvidos: soma.resolvidos + m.resolvidos };
+    SERIES.forEach((s) => { soma[s.chave] += m[s.chave] || 0; });
     return { ...soma, mes: m.mes, rotulo: m.rotulo };
   });
   const bruto = Math.max(...ac.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
@@ -2023,18 +2024,27 @@ function abrirColecao(id) {
           const tj = tratadas.filter((x) => x.mes_resolucao <= '2026-07');
           const meses = [...new Set(tj.map((x) => x.mes_resolucao))].sort();
           const conta = (lista, f) => lista.filter(f).length;
+          const cp = m.coep_2026 || {};
+          const ccv = cp.curva || [];
+          const SERIE_CP = [
+            { chave: 'chegaram', nome: 'Chegaram ao posto', cor: 'var(--serie-1)',
+              dica: 'equipamento que apareceu no COEP naquele mês, pela primeira vez em 2026' },
+            { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
+              dica: 'pelo mês em que a demanda fechou' },
+          ];
+          const usaCp = ccv.length > 0;
           return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
-        <p class="destaque-texto">Duas séries, uma entrada e uma saída. <b>Entrantes</b> é a foto dos
-        ${mm.total}, cada ativo contado uma vez no mês em que a SS entrou, com janeiro carregando o
-        acervo. <b>Resolvidos</b> é pelo mês em que a tratativa aconteceu — término da SS ou
-        repasse. Janela: ${esc(mm.janela || 'janeiro a agosto')} — agosto entra até o dia 18, que
-        é a posição do relatório, e por isso é mês parcial.</p>
-        ${barrasTresColunas(c)}
-    <h4 class="sub-grafico">O mesmo, somando</h4>
+        <p class="destaque-texto">${usaCp ? `A linha azul é quem <b>chegou ao posto</b> no mês —
+        equipamento apontado pela cadeia de repasse, pela primeira vez em 2026. A verde é quem o
+        posto <b>resolveu</b>, pelo mês em que a demanda fechou. O ano abriu com
+        <b>${cp.herdados || 0}</b> já na mesa, de anos anteriores. Agosto é mês parcial, até
+        18/08.` : `Duas séries, uma entrada e uma saída, na janela ${esc(mm.janela || '')}.`}</p>
+        ${barrasTresColunas(usaCp ? ccv : c, usaCp ? SERIE_CP : undefined)}
+    <h4 class="sub-grafico">Visão COEP</h4>
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
-    distância entre as curvas: enquanto a laranja sobe e a verde fica no chão, a fila está
-    crescendo; quando a verde encosta na laranja, o posto passou a dar conta do que entra.</p>
-    ${linhaAcumulada(c)}
+    distância entre as curvas: enquanto a azul sobe e a verde fica no chão, a fila está
+    crescendo; quando a verde encosta na azul, o posto passou a dar conta do que entra.</p>
+    ${linhaAcumulada(usaCp ? ccv : c, usaCp ? SERIE_CP : undefined)}
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o
@@ -2042,13 +2052,17 @@ function abrirColecao(id) {
     ${mm.saldo[0].final}, e fevereiro já começa com ${mm.saldo[0].final}.</p>
     ${livroCaixa(mm)}` : ''}
         <div class="tabela-rol" style="margin-top:18px"><table class="matriz livro"><thead><tr><th>Mês</th>
-        <th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
-        ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
-          <td class="num">${x.entrantes || '—'}</td>
+        <th class="num">${usaCp ? 'Chegaram ao posto' : 'Entrantes'}</th><th class="num">Resolvidos</th></tr></thead><tbody>
+        ${(usaCp ? ccv : c).map((x) => `<tr><td>${esc(x.rotulo)}</td>
+          <td class="num">${(usaCp ? x.chegaram : x.entrantes) || '—'}</td>
           <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
         </tbody><tfoot><tr><td>Total até 18/08</td>
-        <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
+        <td class="num"><b>${usaCp ? ccv.reduce((n, x) => n + x.chegaram, 0) : tot('entrantes')}</b></td>
+        <td class="num"><b>${usaCp ? ccv.reduce((n, x) => n + x.resolvidos, 0) : tot('resolvidos')}</b></td>
         </tr></tfoot></table></div>
+        ${usaCp ? `<div class="nota branda"><strong>O livro-caixa abaixo é outro recorte.</strong>
+        Ele acompanha só a carteira herdada da foto de entrada — ${mm.total} SS. Os gráficos acima
+        contam a base inteira pela cadeia da demanda.</div>` : ''}
         ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
         Concluído conta de qualquer tipo; pendente, só se for indisponibilidade. Da foto de entrada
         fica fora ${mm.fora_do_recorte.qtd === 1 ? 'um ativo' : `${mm.fora_do_recorte.qtd} ativos`} de outro

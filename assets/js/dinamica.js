@@ -265,18 +265,21 @@ function mesAMes() {
   const conta = (lista, f) => lista.filter(f).length;
   const pct = (v, base) => `${(100 * v / (base || 1)).toFixed(1).replace('.', ',')}%`;
 
+  const cp = D.coep_2026 || {};
+  const cc = cp.curva || [];
+  const totCp = (k) => cc.reduce((n, x) => n + x[k], 0);
   return `<section class="bloco"><h3>Entrada e saída do posto em 2026</h3>
-    <p class="destaque-texto">Duas séries, uma entrada e uma saída. <b>Entrantes</b> é a carteira
-    que o posto herdou — os ${mm.total} da foto, cada um contado uma vez no mês em que a SS
-    entrou, com janeiro carregando o acervo. <b>Resolvidos</b> é pelo mês em que a tratativa
-    aconteceu — término da SS ou repasse. Janela: ${esc(mm.janela || '')} — agosto entra até o
-    dia 18, que é a posição do relatório, e por isso é mês parcial.</p>
-    ${barrasTresColunas(c)}
+    <p class="destaque-texto">A linha azul é quem <b>chegou ao posto</b> no mês — equipamento
+    apontado pela cadeia de repasse, pela primeira vez em 2026. A verde é quem o posto
+    <b>resolveu</b>, pelo mês em que a demanda fechou. O ano abriu com <b>${cp.herdados || 0}</b>
+    já na mesa, vindos de anos anteriores — esses não aparecem na curva de chegada. Agosto é mês
+    parcial: vai até 18/08 na base de ocorrência.</p>
+    ${barrasTresColunas(cc, SERIE_COEP)}
     <h4 class="sub-grafico">Visão COEP</h4>
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
-    distância entre as curvas: enquanto a laranja sobe e a verde fica no chão, a fila está
-    crescendo; quando a verde encosta na laranja, o posto passou a dar conta do que entra.</p>
-    ${linhaAcumulada(c)}
+    distância entre as curvas: enquanto a azul sobe e a verde fica no chão, a fila está
+    crescendo; quando a verde encosta na azul, o posto passou a dar conta do que entra.</p>
+    ${linhaAcumulada(cc, SERIE_COEP, 'somando mês a mês')}
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o
@@ -284,13 +287,17 @@ function mesAMes() {
     ${mm.saldo[0].final}, e fevereiro já começa com ${mm.saldo[0].final}.</p>
     ${livroCaixa(mm)}` : ''}
     <div class="tabela-rol" style="margin-top:18px"><table class="matriz livro"><thead><tr><th>Mês</th>
-    <th class="num">Entrantes</th><th class="num">Resolvidos</th></tr></thead><tbody>
-    ${c.map((x) => `<tr><td>${esc(x.rotulo)}${x.mes === '2026-01' ? ' <i>(com o acervo)</i>' : ''}</td>
-      <td class="num">${x.entrantes || '—'}</td>
+    <th class="num">Chegaram ao posto</th><th class="num">Resolvidos</th></tr></thead><tbody>
+    ${cc.map((x) => `<tr><td>${esc(x.rotulo)}</td>
+      <td class="num">${x.chegaram || '—'}</td>
       <td class="num">${x.resolvidos || '—'}</td></tr>`).join('')}
     </tbody><tfoot><tr><td>Total até 18/08</td>
-    <td class="num"><b>${tot('entrantes')}</b></td><td class="num"><b>${tot('resolvidos')}</b></td>
+    <td class="num"><b>${totCp('chegaram')}</b></td><td class="num"><b>${totCp('resolvidos')}</b></td>
     </tr></tfoot></table></div>
+    <div class="nota branda"><strong>O livro-caixa abaixo é outro recorte.</strong> Ele acompanha
+    só a carteira herdada da foto de entrada — ${mm.total} SS, ${mm.ss_resolvidas || 0} resolvidas
+    na régua da tratativa. Os gráficos acima contam a base inteira pela cadeia da demanda; a
+    ponte entre as duas contas, ativo a ativo, está no bloco do posto, mais abaixo.</div>
     ${mm.fora_do_recorte?.qtd ? `<div class="nota branda" style="margin-top:12px"><strong>O que ficou fora do recorte</strong>
     Concluído conta de qualquer tipo; pendente, só se for indisponibilidade. Da foto de entrada
     fica fora ${mm.fora_do_recorte.qtd === 1 ? 'um ativo' : `${mm.fora_do_recorte.qtd} ativos`} de outro
@@ -479,14 +486,6 @@ function coepBloco() {
       <td class="num">${Math.round(100 * v / c.resolvidos)}%</td></tr>`).join('')}
     <tr class="total"><td><b>Total</b></td><td class="num"><b>${c.resolvidos}</b></td>
       <td class="num">100%</td></tr></tbody></table></div>
-    ${c.curva ? `<h4 class="sub-grafico">Mês a mês de 2026</h4>
-    <p class="destaque-texto">A linha azul é quem chegou ao posto no mês; a verde é quem o posto
-    resolveu. O posto abriu o ano com <b>${c.herdados}</b> já na mesa, vindos de anos
-    anteriores — esses não aparecem na curva de chegada, porque não chegaram em 2026.
-    Agosto vai só até o dia 18.</p>
-    ${barrasTresColunas(c.curva, SERIE_COEP)}
-    ${linhaAcumulada(c.curva, SERIE_COEP, 'somando mês a mês')}` : ''}
-
     <div class="nota"><strong>${antigos} dos ${c.resolvidos} são dívida velha.</strong> Nasceram
     antes de 2026 e só foram fechados agora. É por isso que «${c.resolvidos} resolvidos» e
     «43 falharam» não se contradizem: um mede a produção do posto, o outro mede a saúde do
@@ -615,7 +614,9 @@ function escada() {
     nesses ativos — e mais ${rs(D.realizado_aic.expansao_fora)} numa obra de expansão ligada ao
     ${D.realizado_aic.expansao_ativo}, que é obra de cliente e fica fora da conta de manutenção.
     Somando o executado nos ativos de comissionamento e ajustes, o campo já pagou
-    ${rs(Object.values(D.realizado_aic.por_etapa).reduce((a, b) => a + b, 0))}.</div>` : ''}`;
+    ${rs(Object.values(D.realizado_aic.por_etapa).reduce((a, b) => a + b, 0))}. O painel de Capex
+    do gestor marca <b>R$ 1.573.958,37</b> realizados até agosto — mesma ordem de grandeza:
+    manutenção mais a expansão dão R$ 1,51 mi no AIC, e o resto é defasagem de lançamento.</div>` : ''}`;
 }
 
 function matriz() {

@@ -423,6 +423,18 @@ def main():
     if entrada:
         meta["entrada"] = entrada
         mensal = montar_entrada_mensal(entrada)
+        arq_cp = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
+        if os.path.exists(arq_cp):
+            with open(arq_cp, encoding="utf-8") as fh:
+                cp = json.load(fh)
+            cc = cp.get("conta") or {}
+            meta["coep_2026"] = {
+                "curva": cp.get("curva_mensal") or [],
+                "herdados": cp.get("herdados", 0),
+                "passaram": cc.get("equipamentos_que_passaram", 0),
+                "resolvidos": cc.get("resolvidos_pelo_coep", 0),
+                "pendentes": cc.get("seguem_no_posto_em_18_08", 0),
+            }
         if mensal:
             meta["entrada_mensal"] = mensal
     meta["acompanhamento"] = montar_acompanhamento(registros, entrada)

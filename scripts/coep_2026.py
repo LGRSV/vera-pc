@@ -366,8 +366,28 @@ def montar():
         "resolvidos_sem_passagem_pelo_coep_em_2026": len(resolvidos_fora),
     }
 
+    MES_PT = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+    def _mes_br(br):
+        return f"{br[6:10]}-{br[3:5]}"
+    primeira = {}
+    for i in no_posto:
+        if not i["chegou_em_2026"]:
+            continue
+        m = _mes_br(i["chegou"])
+        if i["ativo"] not in primeira or m < primeira[i["ativo"]]:
+            primeira[i["ativo"]] = m
+    cheg = Counter(primeira.values())
+    fech = Counter(_mes_br(r["data_do_fechamento"]) for r in resolvidos_do_coep
+                   if r["conta_como_resolvido_pelo_coep"])
+    curva_mensal = [{"mes": f"2026-{m:02d}", "rotulo": f"{MES_PT[m - 1]}/2026",
+                     "chegaram": cheg.get(f"2026-{m:02d}", 0),
+                     "resolvidos": fech.get(f"2026-{m:02d}", 0)}
+                    for m in range(1, 9)]
+
     pacote = {
         "gerado_em": "2026-08-22", "posicao": "18/08/2026",
+        "curva_mensal": curva_mensal,
+        "herdados": sum(1 for a in ativos if a["ja_estava_de_antes"]),
         "fonte": "EQP_SS_OCORRENCIA_11082026 (10.386 SS de religador e regulador) e a carteira "
                  "consolidada do gestor (Relação dos Equipamentos Indisponíveis ETO, "
                  "ATUALIZADA 16 — 129 ativos)",
