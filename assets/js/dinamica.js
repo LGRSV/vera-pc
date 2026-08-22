@@ -279,24 +279,19 @@ function mesAMes() {
     parcial: vai até 18/08 na base de ocorrência.</p>
     ${barrasTresColunas(cc, SERIE_COEP)}
     <h4 class="sub-grafico">Visão COEP</h4>
-    <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
-    distância entre as curvas: enquanto a azul sobe e a verde fica no chão, a fila está
-    crescendo; quando a verde encosta na azul, o posto passou a dar conta do que entra.</p>
+    <p class="destaque-texto">A verde é o que o posto <b>já resolveu</b>, somando mês a mês. A
+    laranja põe <b>a fila de hoje</b> em cima dos resolvidos — a distância entre as duas é a
+    fila. Quando a verde sobe e a laranja anda de lado, o posto está comendo a fila.</p>
     ${linhaAcumulada(cc, [
-      { chave: 'estiveram', nome: 'Estiveram no posto', cor: 'var(--serie-1)', estoque: true,
-        dica_acum: 'todo mundo que já passou até ali — começa com o acervo de ' + (cp.herdados || 0) },
-      { chave: 'conta_gestor', nome: 'Resolvidos + na fila', cor: 'var(--tinta-3)',
-        estoque: true, dica_acum: 'a conta do gestor — fecha em 71 + 54 = 125' },
+      { chave: 'conta_gestor', nome: 'Resolvidos + na fila', cor: 'var(--serie-2)',
+        estoque: true, dica_acum: 'resolvidos até o mês + a fila daquele mês — fecha em 71 + 54 = 125' },
       { chave: 'resolvidos', nome: 'Resolvidos', cor: 'var(--serie-3)',
-        dica_acum: 'somando mês a mês' },
-      { chave: 'no_posto', nome: 'No posto', cor: 'var(--serie-2)', estoque: true,
-        dica_acum: 'a fila no fim de cada mês — não é soma' }])}
-    <div class="nota branda"><strong>A conta do gestor, fechada.</strong> 71 resolvidos + 54 na
-    fila = 125; somando os <b>18</b> que saíram por repasse e seguem pendentes em outra mesa,
-    dá <b>143 — exatamente a linha azul</b>, que agora começa do acervo de ${cp.herdados || 0} e
-    conta todo mundo que já esteve no posto. Na miudeza: 22 repassados pendentes fora, dos quais
-    4 também aparecem nos resolvidos por carregarem nota antiga ainda aberta (71 + 54 + 22 − 4 =
-    143). O livro-caixa herdado fecha em 52 porque é outro recorte: só a foto de entrada.</div>
+        dica_acum: 'somando mês a mês' }])}
+    <div class="nota branda"><strong>A conta, fechada.</strong> A laranja termina em
+    <b>71 resolvidos + 54 na fila = 125</b>. Fora do gráfico ficam <b>18</b> que o posto
+    despachou e seguem pendentes em outra mesa — com eles, chega-se aos 143 que passaram pelo
+    posto no ano (contando o acervo de ${cp.herdados || 0} que já estava na mesa em janeiro).
+    O livro-caixa herdado fecha em 52 porque é outro recorte: só a foto de entrada.</div>
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o
