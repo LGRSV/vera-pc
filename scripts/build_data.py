@@ -427,6 +427,10 @@ def main():
         if os.path.exists(arq_vc):
             with open(arq_vc, encoding="utf-8") as fh:
                 meta["visao_consolidada"] = json.load(fh)
+        arq_vo = os.path.join(RAIZ, "data", "missao", "visao_orcamentaria.json")
+        if os.path.exists(arq_vo):
+            with open(arq_vo, encoding="utf-8") as fh:
+                meta["visao_orcamentaria"] = json.load(fh)
         arq_cp = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
         if os.path.exists(arq_cp):
             with open(arq_cp, encoding="utf-8") as fh:

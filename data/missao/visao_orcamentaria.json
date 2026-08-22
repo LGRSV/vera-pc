@@ -1,0 +1,97 @@
+{
+ "gerado_em": "2026-08-22",
+ "caixa": {
+  "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) juntos, print do gestor em 22/08/2026",
+  "janela": "janeiro a agosto/2026 (agosto parcial)",
+  "total": 1573958.37,
+  "por_mes": [
+   {
+    "mes": "2026-01",
+    "rotulo": "jan",
+    "valor": 33374.11
+   },
+   {
+    "mes": "2026-02",
+    "rotulo": "fev",
+    "valor": 378377.86
+   },
+   {
+    "mes": "2026-03",
+    "rotulo": "mar",
+    "valor": 122099.42
+   },
+   {
+    "mes": "2026-04",
+    "rotulo": "abr",
+    "valor": 42060.77
+   },
+   {
+    "mes": "2026-05",
+    "rotulo": "mai",
+    "valor": 68862.18
+   },
+   {
+    "mes": "2026-06",
+    "rotulo": "jun",
+    "valor": 261566.24
+   },
+   {
+    "mes": "2026-07",
+    "rotulo": "jul",
+    "valor": 438069.49
+   },
+   {
+    "mes": "2026-08",
+    "rotulo": "ago",
+    "valor": 229548.3
+   }
+  ],
+  "por_natureza": [
+   {
+    "natureza": "Material",
+    "valor": 1393154.51
+   },
+   {
+    "natureza": "Serviço",
+    "valor": 172952.46
+   },
+   {
+    "natureza": "Estadias e refeições",
+    "valor": 7516.0
+   },
+   {
+    "natureza": "Transporte",
+    "valor": 335.4
+   }
+  ]
+ },
+ "por_tipo": {
+  "RL": {
+   "projeto": "8495",
+   "nome": "religador",
+   "obras_concluidas_2026": 28,
+   "realizado_acumulado": 1093168.0,
+   "medio_por_obra": 39041.71,
+   "previsto_medio_planilha": 57865.69,
+   "previstos_com_valor": 45
+  },
+  "RT": {
+   "projeto": "8481",
+   "nome": "regulador",
+   "obras_concluidas_2026": 13,
+   "realizado_acumulado": 620068.0,
+   "medio_por_obra": 47697.54,
+   "previsto_medio_planilha": 162787.46,
+   "previstos_com_valor": 19
+  }
+ },
+ "estimativa_dmsl": {
+  "qtd": 20,
+  "rl": 17,
+  "rt": 3,
+  "piso_pelo_realizado": 806801.69,
+  "teto_pelo_previsto": 1472079.11,
+  "como": "piso: 17 RL × médio realizado por obra do 8495 + 3 RT × médio do 8481; teto: os mesmos 20 pelo previsto médio da planilha de indisponibilidade (que orça a solução completa — no RT, o banco de três células, não uma célula só)"
+ },
+ "nota": "o caixa é o Power BI (lançamentos de jan–ago/2026, os dois projetos juntos); o AIC soma o acumulado das obras concluídas em 2026, que carrega lançamentos de 2025 — por isso as somas não batem. O projeto SIGCO é balde orçamentário: carrega alguma obra de outro objeto."
+}

@@ -311,6 +311,7 @@ function render() {
 
   if (!t && !temFaceta) {
     partes.push(visaoConsolidada());
+    partes.push(visaoOrcamentaria());
     partes.push(`<div class="marcador"><h2>Coleções</h2></div>`);
     partes.push(COLECOES.map((c, i) => `
       <button class="linha comando fila" data-colecao="${c.id}" data-idx="${i}">
@@ -475,6 +476,50 @@ function visaoConsolidada() {
       <b class="mono">python3 scripts/atualiza_visao_eto.py</b>: extrai o recorte, refaz esta visão, a
       planilha VISAO_ETO.xlsx e o painel — falta só republicar o artifact. O horizonte do dado é a maior
       data de abertura, nunca o nome do arquivo.</p>
+    </details>
+  </section>`;
+}
+
+function visaoOrcamentaria() {
+  const o = estado.meta?.visao_orcamentaria;
+  if (!o) return '';
+  const cx = o.caixa, rl = o.por_tipo.RL, rt = o.por_tipo.RT, e = o.estimativa_dmsl;
+  const mil = (v) => v >= 995000 ? `R$ ${(v / 1e6).toFixed(2).replace('.', ',')} mi`
+    : `R$ ${(v / 1e3).toFixed(1).replace('.', ',')} mil`;
+  const pico = Math.max(...cx.por_mes.map((m) => m.valor));
+  const barras = cx.por_mes.map((m) => `
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0">
+      <i class="linha-nota" style="white-space:nowrap">${mil(m.valor).replace('R$ ', '')}</i>
+      <div style="width:60%;max-width:34px;height:${Math.max(3, Math.round(74 * m.valor / pico))}px;background:var(--serie-1);border-radius:2px 2px 0 0"></div>
+      <i class="linha-nota">${esc(m.rotulo)}</i>
+    </div>`).join('');
+  return `<section class="bloco visao-consolidada">
+    <div class="marcador"><h2>Orçamento 2026 — os dois projetos</h2>
+      <span>SIGCO 8495 religador + 8481 regulador · ${esc(cx.janela)}</span></div>
+    <div class="numeros">
+      ${num({ rotulo: 'Realizado no ano', valor: mil(cx.total), nota: `Power BI dos dois projetos — material é ${mil(cx.por_natureza[0].valor)} (${Math.round(100 * cx.por_natureza[0].valor / cx.total)}%)`, tom: 'atento' })}
+      ${num({ rotulo: 'Obras concluídas 2026', valor: rl.obras_concluidas_2026 + rt.obras_concluidas_2026, nota: `${rl.obras_concluidas_2026} no projeto do RL + ${rt.obras_concluidas_2026} no do RT, pelo AIC`, tom: 'bom' })}
+      ${num({ rotulo: 'Médio por obra · RL', valor: mil(rl.medio_por_obra), nota: `${mil(rl.realizado_acumulado)} em ${rl.obras_concluidas_2026} obras concluídas`, tom: 'neutro' })}
+      ${num({ rotulo: 'Médio por obra · RT', valor: mil(rt.medio_por_obra), nota: `${mil(rt.realizado_acumulado)} em ${rt.obras_concluidas_2026} obras concluídas`, tom: 'neutro' })}
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:6px;margin:16px 2px 4px">${barras}</div>
+    <div class="nota atenta" style="margin-top:14px"><strong>E se o 1º ataque inteiro entrasse para o DCMD?</strong>
+    São <b>${e.qtd}</b> equipamentos novos na mão do DMSL — ${e.rl} religadores e ${e.rt} reguladores. Pelo custo
+    médio <b>realizado</b> por obra (RL ${mil(rl.medio_por_obra)} · RT ${mil(rt.medio_por_obra)}), custariam
+    <b>${mil(e.piso_pelo_realizado)}</b>. Pelo <b>previsto</b> médio da sua planilha de indisponibilidade
+    (RL ${mil(rl.previsto_medio_planilha)} · RT ${mil(rt.previsto_medio_planilha)}, que orça a solução completa —
+    no RT o banco de três células), <b>${mil(e.teto_pelo_previsto)}</b>. A faixa honesta é essa:
+    <b>${mil(e.piso_pelo_realizado)} a ${mil(e.teto_pelo_previsto)}</b> — da ordem de um ano inteiro de realizado.</div>
+    <details class="detalhe-plano"><summary>De onde saem esses números</summary>
+      <p class="destaque-texto">${esc(o.nota)}</p>
+      <p class="destaque-texto" style="margin-top:8px">O piso usa o realizado médio por obra concluída do
+      próprio projeto em 2026; nem toda obra troca o equipamento inteiro (no RT, muitas trocam uma célula),
+      por isso ele é piso. O teto usa o previsto médio por ativo da planilha de indisponibilidade
+      (${rl.previstos_com_valor} RL e ${rt.previstos_com_valor} RT com valor), que orça a solução completa.</p>
+      <div class="tabela-rol" style="margin-top:10px"><table class="matriz livro"><thead>
+      <tr><th>Mês</th><th class="num">Realizado (R$)</th></tr></thead><tbody>
+      ${cx.por_mes.map((m) => `<tr><td>${esc(m.rotulo)}/2026</td><td class="num">${moedaBR(m.valor)}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(cx.total)}</b></td></tr></tfoot></table></div>
     </details>
   </section>`;
 }

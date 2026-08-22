@@ -103,6 +103,12 @@ comissionamento e obra de equipamento novo.
 - **O AIC é um só**: `AIC_OBRAS_07082026.xlsx`, aba única «Export», 93 colunas,
   124.084 obras. `OBRAS_status_extracao_07082026.xlsx` é o mesmo arquivo (SHA-256
   idêntico), enviado com outro nome.
+- **Orçamento**: o realizado oficial do ano é o Power BI do gestor (transcrito em
+  `data/raw/realizado_capex_2026.json`, jan–ago = R$ 1.573.958,37). O
+  `TOTAL_REALIZADO` do AIC é acumulado da obra (carrega lançamentos de 2025) — as
+  somas não batem de propósito. Valor médio por tipo (`scripts/visao_orcamentaria.py`):
+  piso = realizado ÷ obras concluídas do projeto no ano; teto = previsto médio da
+  planilha de indisponibilidade (no RT o previsto orça o banco de 3 células).
 - **Base de SS/OS crua**: texto com separador `@`, encoding latin-1, descrição quebrando
   linha — remontar registros. A mais nova é `data/raw/BASE_SS_OS_20082026.txt` (gitignored,
   36 MB; aberturas até 20/08). O recorte RL/RT sai por `scripts/extrai_ssos_min.py`.

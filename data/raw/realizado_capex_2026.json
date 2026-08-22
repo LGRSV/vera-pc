@@ -1,0 +1,21 @@
+{
+ "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) juntos, print do gestor em 22/08/2026",
+ "janela": "janeiro a agosto/2026 (agosto parcial)",
+ "total": 1573958.37,
+ "por_mes": [
+  {"mes": "2026-01", "rotulo": "jan", "valor": 33374.11},
+  {"mes": "2026-02", "rotulo": "fev", "valor": 378377.86},
+  {"mes": "2026-03", "rotulo": "mar", "valor": 122099.42},
+  {"mes": "2026-04", "rotulo": "abr", "valor": 42060.77},
+  {"mes": "2026-05", "rotulo": "mai", "valor": 68862.18},
+  {"mes": "2026-06", "rotulo": "jun", "valor": 261566.24},
+  {"mes": "2026-07", "rotulo": "jul", "valor": 438069.49},
+  {"mes": "2026-08", "rotulo": "ago", "valor": 229548.30}
+ ],
+ "por_natureza": [
+  {"natureza": "Material", "valor": 1393154.51},
+  {"natureza": "Serviço", "valor": 172952.46},
+  {"natureza": "Estadias e refeições", "valor": 7516.00},
+  {"natureza": "Transporte", "valor": 335.40}
+ ]
+}
