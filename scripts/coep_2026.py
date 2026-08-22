@@ -178,8 +178,39 @@ def montar():
             "motivo": motivo,
         })
 
+    # Visão 2: quem o COEP resolveu em 2026. Resolvido no primeiro ataque do DMSL não
+    # conta — a demanda morreu na mão da DMSL, o posto não trabalhou nela.
+    resolvidos_do_coep = []
+    dentro = {a["ativo"]: a for a in ativos}
+    for cod in sorted(resolvidos):
+        c = cart[cod]
+        a = dentro.get(cod)
+        primeiro_ataque = "primeiro ataque" in (c["parecer_coep"] or "").lower()
+        if primeiro_ataque:
+            entra, porque = False, "resolvido no primeiro ataque do DMSL — não é trabalho do posto"
+        elif a is None:
+            entra, porque = False, "não teve SS no COEP dentro de 2026 — quem resolveu foi outro posto"
+        else:
+            entra, porque = True, "passou pelo posto em 2026 e a carteira registra concluída"
+        resolvidos_do_coep.append({
+            "ativo": cod, "tipo": c["tipo"], "localidade": c["localidade"],
+            "parecer_coep": c["parecer_coep"], "criticidade": c["criticidade"],
+            "passou_pelo_coep_em_2026": bool(a),
+            "ss_no_coep_em_2026": (a or {}).get("ss", ""),
+            "dias_no_posto": (a or {}).get("dias_no_posto", ""),
+            "primeiro_ataque_dmsl": primeiro_ataque,
+            "conta_como_resolvido_pelo_coep": entra, "porque": porque,
+        })
+
     conta = {
         "equipamentos_que_passaram": len(ativos),
+        "resolvidos_pelo_coep": sum(1 for r in resolvidos_do_coep
+                                    if r["conta_como_resolvido_pelo_coep"]),
+        "tirados_por_primeiro_ataque_dmsl": sum(1 for r in resolvidos_do_coep
+                                                if r["primeiro_ataque_dmsl"]),
+        "tirados_por_nao_passar_pelo_coep": sum(
+            1 for r in resolvidos_do_coep
+            if not r["conta_como_resolvido_pelo_coep"] and not r["primeiro_ataque_dmsl"]),
         "por_tipo": dict(Counter(a["tipo"] for a in ativos)),
         "ss_no_posto": len(no_posto),
         "chegaram_em_2026": sum(1 for a in ativos if a["chegou_em_2026"]),
@@ -201,6 +232,7 @@ def montar():
         "premissas": PREMISSAS,
         "conta": conta,
         "ativos": ativos,
+        "resolvidos_do_coep": resolvidos_do_coep,
         "ss": no_posto,
         "resolvidos_sem_passagem": resolvidos_fora,
     }
@@ -230,6 +262,13 @@ PREMISSAS = [
     "posto em ano anterior e o fechamento veio depois, ou quem resolveu foi outro posto.",
     "Só religador e regulador. A base de ocorrência traz 8.835 SS de religador e 1.551 de "
     "regulador, com data de ocorrência em 100% das linhas.",
+    "VISÃO 2 — resolvido pelo COEP em 2026: o ativo está marcado CONCLUÍDA na carteira "
+    "consolidada E teve SS no COEP dentro de 2026.",
+    "Resolvido no primeiro ataque do DMSL NÃO conta. A demanda morreu na mão da DMSL; o posto "
+    "não trabalhou nela. São 15 dos 52 concluídos da carteira — 14 nunca tiveram SS no COEP e "
+    "1 chegou a passar pelo posto.",
+    "Concluído da carteira que nunca teve SS no COEP dentro de 2026 também não conta como "
+    "resolvido pelo posto — quem resolveu foi outro.",
 ]
 
 
@@ -241,7 +280,7 @@ def planilha(pacote):
     tit = Font(bold=True, color="FFFFFF", size=10)
     fundo = PatternFill("solid", fgColor="1F3864")
     borda = Border(*[Side(style="thin", color="BFBFBF")] * 4)
-    forte = Font(bold=True)
+    cinza = PatternFill("solid", fgColor="EFEFEF")
 
     def cabecalho(ws, colunas, larguras):
         ws.append(colunas)
@@ -261,82 +300,40 @@ def planilha(pacote):
     sn = lambda v: "sim" if v else "não"
     c = pacote["conta"]
 
+    # VISÃO 1 — quem passou pelo posto em 2026
     ws = wb.active
-    ws.title = "A conta"
-    cabecalho(ws, ["O que está sendo contado", "Equipamentos", "Observação"], [46, 14, 78])
-    for rot, val, obs in [
-        ("Passaram pelo posto do COEP em 2026", c["equipamentos_que_passaram"],
-         f"{c['ss_no_posto']} SS no posto — {c['por_tipo'].get('religador',0)} religadores e "
-         f"{c['por_tipo'].get('regulador',0)} reguladores"),
-        ("   dos quais chegaram em 2026", c["chegaram_em_2026"], "SS aberta no COEP dentro do ano"),
-        ("   dos quais já estavam de antes", c["ja_estavam_de_antes"],
-         "chegaram em ano anterior e ainda estavam no posto em 2026"),
-        ("   saíram do posto dentro de 2026", c["sairam_do_posto_em_2026"],
-         "por conclusão da SS ou por repasse para outro posto"),
-        ("   seguem no posto em 18/08/2026", c["seguem_no_posto_em_18_08"],
-         "sem conclusão e sem SS seguinte"),
-        ("Estão na carteira consolidada", c["na_carteira_consolidada"],
-         "dos 129 ativos da carteira ATUALIZADA 16"),
-        ("Não estão na carteira", c["fora_da_carteira"],
-         "passaram pelo posto mas nunca entraram na planilha de acompanhamento"),
-        ("Passaram pelo COEP E estão resolvidos na carteira", c["resolvidos_na_carteira"],
-         f"de {c['resolvidos_na_carteira_total']} resolvidos na carteira inteira"),
-        ("Resolvidos na carteira sem passar pelo COEP em 2026",
-         c["resolvidos_sem_passagem_pelo_coep_em_2026"],
-         "passaram em ano anterior, ou foram resolvidos por outro posto"),
-    ]:
-        ws.append([rot, val, obs])
-    ws.cell(row=2, column=1).font = forte
-    ws.cell(row=2, column=2).font = forte
+    ws.title = f"1 · Passaram pelo COEP ({c['equipamentos_que_passaram']})"
+    cabecalho(ws, ["Ativo", "Tipo", "Localidade", "SS no COEP em 2026", "Quantas SS",
+                   "Primeira chegada", "Dias no posto", "Ainda no posto em 18/08",
+                   "Está na carteira", "Parecer COEP", "Criticidade"],
+              [14, 12, 20, 40, 10, 14, 12, 14, 12, 26, 12])
+    for a in sorted(pacote["ativos"], key=lambda x: -x["dias_no_posto"]):
+        ws.append([a["ativo"], a["tipo"], a["localidade"], a["ss"], a["ss_no_coep_em_2026"],
+                   a["primeira_chegada"], a["dias_no_posto"], sn(a["segue_no_posto"]),
+                   sn(a["na_carteira"]), a["parecer_coep"], a["criticidade"]])
     fechar(ws)
 
-    ws = wb.create_sheet("Passaram pelo COEP em 2026")
-    cabecalho(ws, ["Ativo", "Tipo", "SS no COEP em 2026", "Quantas SS", "Primeira chegada",
-                   "Dias no posto", "Chegou em 2026", "Já estava de antes", "Saiu em 2026",
-                   "Segue no posto", "Está na carteira", "Resolvido na carteira",
-                   "Parecer COEP", "Criticidade", "Localidade"],
-              [14, 12, 40, 10, 14, 12, 11, 12, 11, 11, 12, 13, 24, 12, 20])
-    for a in pacote["ativos"]:
-        ws.append([a["ativo"], a["tipo"], a["ss"], a["ss_no_coep_em_2026"], a["primeira_chegada"],
-                   a["dias_no_posto"], sn(a["chegou_em_2026"]), sn(a["ja_estava_de_antes"]),
-                   sn(a["saiu_em_2026"]), sn(a["segue_no_posto"]), sn(a["na_carteira"]),
-                   sn(a["resolvido_na_carteira"]), a["parecer_coep"], a["criticidade"],
-                   a["localidade"]])
+    # VISÃO 2 — quem o COEP resolveu em 2026
+    ws = wb.create_sheet(f"2 · Resolvidos pelo COEP ({c['resolvidos_pelo_coep']})")
+    cabecalho(ws, ["Ativo", "Tipo", "Localidade", "Conta como resolvido pelo COEP",
+                   "Por quê", "Passou pelo COEP em 2026", "Primeiro ataque DMSL",
+                   "SS no COEP em 2026", "Dias no posto", "Parecer COEP", "Criticidade"],
+              [14, 12, 20, 16, 54, 14, 14, 36, 12, 26, 12])
+    ordem = sorted(pacote["resolvidos_do_coep"],
+                   key=lambda r: (not r["conta_como_resolvido_pelo_coep"], r["ativo"]))
+    for r in ordem:
+        ws.append([r["ativo"], r["tipo"], r["localidade"],
+                   sn(r["conta_como_resolvido_pelo_coep"]), r["porque"],
+                   sn(r["passou_pelo_coep_em_2026"]), sn(r["primeiro_ataque_dmsl"]),
+                   r["ss_no_coep_em_2026"], r["dias_no_posto"], r["parecer_coep"],
+                   r["criticidade"]])
     fechar(ws)
+    for n, r in enumerate(ordem, 2):
+        if not r["conta_como_resolvido_pelo_coep"]:
+            for cel in ws[n]:
+                cel.fill = cinza
 
-    ws = wb.create_sheet("COEP 2026 x carteira resolvida")
-    cabecalho(ws, ["Ativo", "Tipo", "SS no COEP em 2026", "Primeira chegada", "Dias no posto",
-                   "Saiu em 2026", "Segue no posto", "SS na carteira", "Parecer COEP",
-                   "Criticidade", "Localidade"],
-              [14, 12, 40, 14, 12, 11, 12, 14, 26, 12, 20])
-    for a in pacote["ativos"]:
-        if not a["resolvido_na_carteira"]:
-            continue
-        ws.append([a["ativo"], a["tipo"], a["ss"], a["primeira_chegada"], a["dias_no_posto"],
-                   sn(a["saiu_em_2026"]), sn(a["segue_no_posto"]), a["ss_da_carteira"],
-                   a["parecer_coep"], a["criticidade"], a["localidade"]])
-    fechar(ws)
-
-    ws = wb.create_sheet("Resolvidos sem passar em 2026")
-    cabecalho(ws, ["Ativo", "Tipo", "Localidade", "Parecer COEP", "Passou pelo COEP em",
-                   "Última SS conhecida", "Posto dessa SS", "Abertura dessa SS",
-                   "Por que não aparece"],
-              [14, 12, 20, 26, 18, 22, 16, 15, 62])
-    for r in pacote["resolvidos_sem_passagem"]:
-        ws.append([r["ativo"], r["tipo"], r["localidade"], r["parecer_coep"],
-                   r["passou_pelo_coep_em"], r["ultima_ss_conhecida"], r["posto_da_ultima_ss"],
-                   r["abertura_da_ultima_ss"], r["motivo"]])
-    fechar(ws)
-
-    ws = wb.create_sheet("SS no COEP em 2026")
-    cabecalho(ws, ["SS", "Ativo", "Tipo", "Status", "Chegou", "Saiu",
-                   "Como se apurou a saída", "Foi para", "Dias no posto", "Pendência"],
-              [22, 14, 12, 16, 12, 12, 30, 14, 12, 26])
-    for i in sorted(pacote["ss"], key=lambda x: -x["dias_no_posto"]):
-        ws.append([i["ss"], i["ativo"], i["tipo"], i["status"], i["chegou"], i["saiu"],
-                   i["como_apurou_a_saida"], i["foi_para"], i["dias_no_posto"], i["pendencia"]])
-    fechar(ws)
-
+    # o método, para as duas
     ws = wb.create_sheet("Como foi feito")
     cabecalho(ws, ["Passo", "O que foi feito"], [8, 130])
     for n, texto in enumerate(pacote["premissas"], 1):
@@ -350,18 +347,13 @@ def planilha(pacote):
 def main():
     pacote = montar()
     c = pacote["conta"]
-    print(f"passaram pelo COEP em 2026........ {c['equipamentos_que_passaram']} equipamentos "
-          f"({c['por_tipo']}) em {c['ss_no_posto']} SS")
-    print(f"  chegaram em 2026................ {c['chegaram_em_2026']}")
-    print(f"  já estavam de antes............. {c['ja_estavam_de_antes']}")
-    print(f"  saíram do posto em 2026......... {c['sairam_do_posto_em_2026']}")
-    print(f"  seguem no posto em 18/08........ {c['seguem_no_posto_em_18_08']}")
-    print(f"na carteira consolidada........... {c['na_carteira_consolidada']} "
-          f"(fora: {c['fora_da_carteira']})")
-    print(f"resolvidos na carteira e que passaram: {c['resolvidos_na_carteira']} "
-          f"de {c['resolvidos_na_carteira_total']}")
-    print(f"resolvidos sem passar pelo COEP em 2026: "
-          f"{c['resolvidos_sem_passagem_pelo_coep_em_2026']}")
+    print(f"VISÃO 1 — passaram pelo COEP em 2026: {c['equipamentos_que_passaram']} equipamentos "
+          f"({c['por_tipo']['religador']} RL + {c['por_tipo']['regulador']} RT) em "
+          f"{c['ss_no_posto']} SS; {c['seguem_no_posto_em_18_08']} ainda no posto em 18/08")
+    print(f"VISÃO 2 — resolvidos PELO COEP em 2026: {c['resolvidos_pelo_coep']}")
+    print(f"  de {c['resolvidos_na_carteira_total']} concluídos na carteira")
+    print(f"  tirados por primeiro ataque do DMSL...: {c['tirados_por_primeiro_ataque_dmsl']}")
+    print(f"  tirados por não passar pelo COEP.....: {c['tirados_por_nao_passar_pelo_coep']}")
     print(f"gravado: {SAIDA_JSON}")
     planilha(pacote)
     print(f"gravado: {SAIDA_XLSX}")
