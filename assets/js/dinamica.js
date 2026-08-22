@@ -199,7 +199,10 @@ function linhaAcumulada(curva, series, legenda) {
   const soma = {};
   SERIES.forEach((s) => { soma[s.chave] = 0; });
   const ac = curva.map((m) => {
-    SERIES.forEach((s) => { soma[s.chave] += m[s.chave]; });
+    SERIES.forEach((s) => {
+      // série de estoque (a fila) já vem no nível do mês — não se acumula
+      soma[s.chave] = s.estoque ? (m[s.chave] || 0) : soma[s.chave] + (m[s.chave] || 0);
+    });
     return { ...soma, mes: m.mes, rotulo: m.rotulo };
   });
   const bruto = Math.max(...ac.flatMap((m) => SERIES.map((s) => m[s.chave])), 1);
@@ -217,7 +220,7 @@ function linhaAcumulada(curva, series, legenda) {
   return `<figure class="grafico-barras grafico-linha">
     <div class="legenda-series">
       ${SERIES.map((s) => `<span class="serie"><i style="background:${s.cor}"></i>
-        <b>${esc(s.nome)}</b> <em>${esc(legenda || 'somando mês a mês')}</em></span>`).join('')}
+        <b>${esc(s.nome)}</b> <em>${esc(s.dica_acum || legenda || 'somando mês a mês')}</em></span>`).join('')}
     </div>
     <div class="tela-grafico">
     <svg viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMinYMid meet"
@@ -279,7 +282,17 @@ function mesAMes() {
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
     distância entre as curvas: enquanto a azul sobe e a verde fica no chão, a fila está
     crescendo; quando a verde encosta na azul, o posto passou a dar conta do que entra.</p>
-    ${linhaAcumulada(cc, SERIE_COEP, 'somando mês a mês')}
+    ${linhaAcumulada(cc, [...SERIE_COEP,
+      { chave: 'no_posto', nome: 'No posto', cor: 'var(--serie-2)', estoque: true,
+        dica_acum: 'a fila no fim de cada mês — não é soma' }], 'somando mês a mês')}
+    <div class="nota branda"><strong>Por que 101 − 71 não dá a fila.</strong> A curva azul só
+    conta quem <b>chegou em 2026</b> — o ano abriu com <b>${cp.herdados || 0}</b> já na mesa,
+    que não estão nela. E «resolvido» é a demanda fechando em qualquer posto — parte fechou
+    depois de sair daqui. A conta que fecha, equipamento a equipamento: <b>143 passaram =
+    71 resolvidos + 50 esperando no posto + 22 repassados e pendentes em outra mesa</b>
+    (4 dos resolvidos têm outra nota antiga ainda aberta no posto — por isso a linha laranja
+    termina em 54). O livro-caixa herdado fecha em 52 porque é outro recorte: só a foto de
+    entrada.</div>
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de
     ${mm.abertura} SS de anos anteriores, cada mês soma o que abriu no próprio mês e desconta o

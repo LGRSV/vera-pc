@@ -379,9 +379,25 @@ def montar():
     cheg = Counter(primeira.values())
     fech = Counter(_mes_br(r["data_do_fechamento"]) for r in resolvidos_do_coep
                    if r["conta_como_resolvido_pelo_coep"])
+    def _fila_em(dia):
+        """Equipamentos com SS no posto naquele dia — a fila de verdade."""
+        no_posto = set()
+        for i in no_posto_ss_cache:
+            cheg = i["_cheg"]
+            sai = i["_sai"]
+            if cheg and cheg <= dia and (sai is None or sai > dia):
+                no_posto.add(i["ativo"])
+        return len(no_posto)
+    def _d(br):
+        return datetime.date(int(br[6:10]), int(br[3:5]), int(br[:2])) if br else None
+    no_posto_ss_cache = [{"ativo": i["ativo"], "_cheg": _d(i["chegou"]),
+                          "_sai": _d(i["saiu"]) if i["saiu"] else None} for i in no_posto]
+    fins = {m: (datetime.date(2026, m + 1, 1) - datetime.timedelta(days=1)) if m < 8
+            else datetime.date(2026, 8, 18) for m in range(1, 9)}
     curva_mensal = [{"mes": f"2026-{m:02d}", "rotulo": f"{MES_PT[m - 1]}/2026",
                      "chegaram": cheg.get(f"2026-{m:02d}", 0),
-                     "resolvidos": fech.get(f"2026-{m:02d}", 0)}
+                     "resolvidos": fech.get(f"2026-{m:02d}", 0),
+                     "no_posto": _fila_em(fins[m])}
                     for m in range(1, 9)]
 
     pacote = {
