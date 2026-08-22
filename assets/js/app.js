@@ -444,8 +444,6 @@ function visaoConsolidada() {
       ${linha('1º ataque do DMSL', b.dmsl_novos.qtd, 'novos — TELE sem criticidade na aba de mapeamento')}
     </div>
     <div class="numeros" style="margin-top:14px">
-      ${num({ rotulo: 'DCMD concluiu em 2026', valor: v.concluidos_dcmd_2026.qtd, nota: `campo executou e a demanda fechou — ${v.concluidos_dcmd_2026.fechadas_no_proprio_campo} no próprio campo, o resto energizado na TELE/PROT`, tom: 'bom' })}
-      ${num({ rotulo: 'Conta do posto', valor: `${v.alerta_acumulado.entraram} − ${v.alerta_acumulado.resolvidos}`, nota: `entraram para a conta ${v.alerta_acumulado.entraram}, resolvidos ${v.alerta_acumulado.resolvidos} = ${v.alerta_acumulado.pendentes} pendentes`, tom: 'atento' })}
       ${num({ rotulo: 'Taxa de falha 2026 · RL', valor: pct(tx.religador.falharam, tx.religador.parque), nota: `${tx.religador.falharam} de ${tx.religador.parque} — peça grande`, tom: 'critico' })}
       ${num({ rotulo: 'Taxa de falha 2026 · RT', valor: pct(tx.regulador.falharam, tx.regulador.parque), nota: `${tx.regulador.falharam} de ${tx.regulador.parque} — peça grande`, tom: 'critico' })}
     </div>
