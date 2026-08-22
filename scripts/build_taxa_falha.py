@@ -13,6 +13,7 @@ Rodar: python3 scripts/build_taxa_falha.py
 import html
 import json
 import os
+import re
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARQ_TAXA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
@@ -176,6 +177,8 @@ def bases_para_baixar(coep, taxa, leitura):
     # a mesma conta da tabela da página: equipamentos que falharam ÷ parque do ano
     ppa = taxa.get("parque_por_ano") or {}
     serie = taxa.get("serie_por_ano") or {}
+    resolvedor = quem_resolveu()
+    depto_tot = _depto_total(resolvedor)
     tx = [["Família", "Ano", "Parque", "Ocorrências", "Equipamentos que falharam", "Taxa (%)"]]
     for fam in ("religador", "regulador"):
         soma = 0
@@ -258,6 +261,56 @@ def bases_para_baixar(coep, taxa, leitura):
     return saida
 
 
+RE_NORM_SS = re.compile(r"([A-Z][A-Z0-9-]*)\s+0*(\d+)/(\d{4})")
+
+
+def _norm(numero):
+    m = RE_NORM_SS.match((numero or "").strip().upper())
+    return f"{m.group(1)} {int(m.group(2))}/{m.group(3)}" if m else (numero or "").strip().upper()
+
+
+def _dept(equipe):
+    """A régua do gestor: RD/ENC/DOLP executam pelo DCMD; TELE e SE são DMSL."""
+    e = (equipe or "").upper()
+    if "-RD-" in e or e.startswith(("ENC", "DOLP", "DLP", "DBM", "DG-")):
+        return "DCMD"
+    if "TELE" in e or "-SE-" in e or "SCADA" in e or "DMSL" in e:
+        return "DMSL"
+    return None
+
+
+def quem_resolveu():
+    """Mapa SS → departamento que atendeu a demanda daquela SS.
+
+    A cadeia da demanda vem do mesmo encadeador da taxa (SS gêmeas); quem resolveu
+    é a equipe da última SS ATENDIDA da cadeia. Demanda sem atendida (cancelada ou
+    pendente) fica sem departamento — e fora das duas colunas.
+    """
+    import sys
+    sys.path.insert(0, os.path.join(RAIZ, "scripts"))
+    import demandas
+    caminho = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
+    if not os.path.exists(caminho):
+        return {}
+    with open(caminho, encoding="utf-8") as fh:
+        base = json.load(fh)
+    por_ativo = {}
+    for linha in base:
+        cod = (linha.get("NUM_TRAFO") or "").strip()
+        por_ativo.setdefault(cod, []).append(linha)
+    mapa = {}
+    for cod, linhas in por_ativo.items():
+        for dem in demandas.encadear(linhas):
+            atendidas = [l for l in dem["ss"] if (l.get("SITUACAO_SS") or "") == "SS ATENDIDA"]
+            atendidas.sort(key=lambda l: demandas._dt(l.get("DATA_TERMINO_SS", ""))
+                           or demandas._dt(l.get("DATA_ABERTURA_SS", ""))
+                           or __import__("datetime").datetime.min)
+            dept = _dept(atendidas[-1].get("COD_EQUIPE")) if atendidas else None
+            for l in dem["ss"]:
+                mapa[_norm(l.get("NUMERO_SS"))] = dept
+    return mapa
+
+
 def esc(t):
     return html.escape(str(t if t is not None else ""))
 
@@ -273,15 +326,24 @@ def _pct(v):
     return f"{v:.1f}".replace(".", ",") + "%" if v is not None else "—"
 
 
-def tabela_familia(fam, ppa, leitura, regua, aic):
+def tabela_familia(fam, ppa, leitura, regua, aic, resolvedor):
     """Tabela da família: parque do ano, quem falhou e a taxa.
 
     Com a leitura pronta, o numerador é EQUIPAMENTO que falhou no ano (fórmula do
     gestor): os achados na carteira lida mais as trocas por obra direta que nunca
     passaram pela carteira. Sem leitura, vale a prévia por evidência direta.
     """
+    # quem resolveu cada equipamento da leitura: a cadeia da SS diz a equipe
+    depto_ano = {}
+    for f in (leitura.get("detalhe") or []):
+        chave = (f.get("familia"), f.get("ano"))
+        d = resolvedor.get(_norm(f.get("ss")))
+        atual = depto_ano.setdefault((chave, f.get("ativo")), None)
+        if d and not atual:
+            depto_ano[(chave, f.get("ativo"))] = d
     linhas = []
-    tot_n = tot_oc = tot_eq = 0
+    tot_n = tot_eq = 0
+    tot_d = {"DMSL": 0, "DCMD": 0}
     for ano in ANOS:
         p = (ppa.get(fam) or {}).get(ano, {})
         medio = p.get("medio") or 0
@@ -291,22 +353,27 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
             obra = (leitura.get("complemento_obra_direta") or {}).get(f"{fam}|{ano}", 0)
             n = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|{ano}",
                                                                           carteira + obra)
-            # cada troca por obra direta é uma ocorrência; as da carteira vêm da leitura
-            oc = ((leitura.get("ocorrencias") or {}).get(f"{fam}|{ano}", 0)) + obra
+            dmsl = sum(1 for (ch, _a), d in depto_ano.items()
+                       if ch == (fam, int(ano)) and d == "DMSL")
+            # troca por obra direta é execução de campo: conta no DCMD
+            dcmd = obra + sum(1 for (ch, _a), d in depto_ano.items()
+                              if ch == (fam, int(ano)) and d == "DCMD")
         else:
             evid = (regua.get(fam) or {}).get(ano, {}).get("com_peca_grande") or 0
             troca = (aic.get(ano) or {}).get(fam, 0)
             n = evid + troca
-            oc = n
+            dmsl, dcmd = 0, troca
         tot_n += n
-        tot_oc += oc
         tot_eq += eq
+        tot_d["DMSL"] += dmsl
+        tot_d["DCMD"] += dcmd
         taxa = 100.0 * n / eq if eq else None
         rot_ano = f'{ano}{" <i>(até 18/08)</i>" if ano == "2026" else ""}'
         linhas.append(
             f'<tr><td>{rot_ano}</td>'
             f'<td class="num">{medio or "—"}</td>'
-            f'<td class="num">{oc or "—"}</td>'
+            f'<td class="num">{dmsl or "—"}</td>'
+            f'<td class="num">{dcmd or "—"}</td>'
             f'<td class="num"><b>{n or "—"}</b></td>'
             f'<td class="num"><b>{_pct(taxa)}</b></td></tr>'
         )
@@ -318,7 +385,8 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
         n26 = (leitura.get("total_equipamentos_que_falharam") or {}).get(f"{fam}|2026", 0)
     ritmo26 = 100.0 * (n26 / 0.6274) / parque if parque and n26 else None
     rodape_total = (f'<tr><td><b>Total</b></td><td class="num">—</td>'
-                    f'<td class="num"><b>{tot_oc}</b></td>'
+                    f'<td class="num"><b>{tot_d["DMSL"]}</b></td>'
+                    f'<td class="num"><b>{tot_d["DCMD"]}</b></td>'
                     f'<td class="num"><b>{tot_n}</b></td>'
                     f'<td class="num"><b>{_pct(taxa_total)}</b></td></tr>')
     if leitura:
@@ -335,33 +403,56 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
         rodape = ""
     return (f'<h4 class="sub-grafico">{ROT[fam]}</h4>'
             f'<div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>'
-            f'<th class="num">Parque do ano</th><th class="num">Ocorrências</th>'
+            f'<th class="num">Parque</th><th class="num">Resolvidas pelo DMSL</th>'
+            f'<th class="num">Resolvidas pelo DCMD</th>'
             f'<th class="num">Total que falharam</th><th class="num">Taxa</th></tr></thead>'
             f'<tbody>{"".join(linhas)}{rodape_total}</tbody></table></div>{rodape}')
 
 
-def tabela_total(fam, serie, ppa):
+def _depto_total(resolvedor):
+    """Equipamentos da taxa total por departamento que resolveu — {fam|ano: {DMSL, DCMD}}."""
+    eventos = _ler(ARQ_EVENTOS) or []
+    saida = {}
+    for e in eventos:
+        if not e.get("primeira_do_ano") or e.get("ano") not in (2024, 2025, 2026):
+            continue
+        d = next((resolvedor.get(_norm(n)) for n in (e.get("numeros_ss") or [])
+                  if resolvedor.get(_norm(n))), None)
+        if d:
+            chave = f'{e.get("familia")}|{e.get("ano")}'
+            saida.setdefault(chave, {"DMSL": 0, "DCMD": 0})[d] += 1
+    return saida
+
+
+def tabela_total(fam, serie, ppa, depto):
     """A visão sem expurgo: todo equipamento com falha no ano, qualquer peça."""
     linhas, soma = [], 0
+    tot_d = {"DMSL": 0, "DCMD": 0}
     for ano in ANOS:
         b = ((serie.get(ano) or {}).get(fam)) or {}
         parque = ((ppa.get(fam) or {}).get(ano) or {}).get("medio") or b.get("parque") or 0
         n = b.get("ativos_distintos") or 0
-        oc = b.get("eventos") or 0
+        dd = depto.get(f"{fam}|{ano}", {})
         soma += n
+        tot_d["DMSL"] += dd.get("DMSL", 0)
+        tot_d["DCMD"] += dd.get("DCMD", 0)
         taxa = 100.0 * n / parque if parque else None
         rot = f'{ano}{" <i>(até 20/08)</i>" if ano == "2026" else ""}'
         linhas.append(f'<tr><td>{rot}</td><td class="num">{parque or "—"}</td>'
-                      f'<td class="num">{oc or "—"}</td><td class="num"><b>{n or "—"}</b></td>'
+                      f'<td class="num">{dd.get("DMSL") or "—"}</td>'
+                      f'<td class="num">{dd.get("DCMD") or "—"}</td>'
+                      f'<td class="num"><b>{n or "—"}</b></td>'
                       f'<td class="num"><b>{_pct(taxa)}</b></td></tr>')
     parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
     total = (f'<tr class="total"><td><b>Triênio</b></td><td class="num">{parque}</td>'
-             f'<td class="num">—</td><td class="num"><b>{soma}</b></td>'
+             f'<td class="num"><b>{tot_d["DMSL"]}</b></td>'
+             f'<td class="num"><b>{tot_d["DCMD"]}</b></td><td class="num"><b>{soma}</b></td>'
              f'<td class="num"><b>{_pct(100.0 * soma / parque if parque else None)}</b></td></tr>')
     rot_fam = "Religadores" if fam == "religador" else "Reguladores"
     return (f'<h4 class="sub-grafico">{rot_fam}</h4>'
             f'<div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>'
-            f'<th class="num">Parque</th><th class="num">Ocorrências</th>'
+            f'<th class="num">Parque</th><th class="num">Resolvidas pelo DMSL</th>'
+            f'<th class="num">Resolvidas pelo DCMD</th>'
             f'<th class="num">Total que falharam</th><th class="num">Taxa</th></tr></thead>'
             f'<tbody>{"".join(linhas)}{total}</tbody></table></div>')
 
@@ -429,6 +520,8 @@ def main():
 
     ppa = taxa.get("parque_por_ano") or {}
     serie = taxa.get("serie_por_ano") or {}
+    resolvedor = quem_resolveu()
+    depto_tot = _depto_total(resolvedor)
     regua = (taxa.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
     aic = (taxa.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
     res = taxa.get("resolvidos_por_ano") or {}
@@ -517,9 +610,9 @@ def main():
     em 2026) e <b>207 reguladores</b> (197 + 10) — e vale para os três anos: instala-se pouco por
     ano, a variação não muda a taxa. 2026 vai até 18/08, sem anualizar.</p>
     {aviso}
-    {tabela_familia("religador", ppa, leitura, regua, aic)}
+    {tabela_familia("religador", ppa, leitura, regua, aic, resolvedor)}
     {tabela_pecas("religador", leitura)}
-    {tabela_familia("regulador", ppa, leitura, regua, aic)}
+    {tabela_familia("regulador", ppa, leitura, regua, aic, resolvedor)}
     {tabela_pecas("regulador", leitura)}
     {bloco_leitura(leitura)}
   </section>
@@ -583,8 +676,12 @@ def main():
     fora o que é da rede pendurado no código dele (poste, cruzeta, chave da rede, para-raios,
     aterramento) e o serviço programado (ajuste, comissionamento, cadastro) — isso não é falha do
     ativo em nenhuma das duas contas.</p>
-    {tabela_total("religador", serie, ppa)}
-    {tabela_total("regulador", serie, ppa)}
+    {tabela_total("religador", serie, ppa, depto_tot)}
+    {tabela_total("regulador", serie, ppa, depto_tot)}
+    <div class="nota branda"><strong>As duas colunas não somam o total, e não é erro.</strong>
+    Resolvida pelo DMSL ou pelo DCMD é a demanda cuja cadeia fechou com SS atendida naquela
+    equipe — TELE e SE são DMSL; RD, ENC e DOLP são DCMD. O que falta para o total é o resto da
+    vida real: demanda atendida por outra mesa (Proteção, CADTOC), cancelada ou ainda pendente.</div>
     <div class="nota branda"><strong>Como ler as duas contas juntas.</strong> A taxa da peça
     grande mede o que dói no orçamento: controle, tanque, célula, o equipamento inteiro. A taxa
     total mede quanto o parque chama manutenção por qualquer motivo próprio. A distância entre as

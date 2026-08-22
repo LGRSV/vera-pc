@@ -155,6 +155,59 @@ def main():
     feitos = [i for i in d["lista"] if i["etapa"] in d["feito"]["etapas"]]
     d["feito"]["valor"] = round(sum(i["valor"] for i in feitos), 2)
 
+    # O que a obra JÁ PAGOU, pelo AIC — o valor previsto da planilha é orçamento; o
+    # realizado é a obra concluída no extrato. Vínculo obra×ativo vem do M4; fica de
+    # fora a obra de expansão 0202600193 (deslocamento por obra de cliente, régua do
+    # gestor), anotada à parte.
+    arq_m4 = os.path.join(RAIZ, "data", "missao", "m4_aic129.json")
+    arq_aic = os.path.join(RAIZ, "data", "missao", "aic_full.json")
+    if os.path.exists(arq_m4) and os.path.exists(arq_aic):
+        with open(arq_m4, encoding="utf-8") as fh:
+            m4 = json.load(fh)["ativos"]
+        with open(arq_aic, encoding="utf-8") as fh:
+            aic_full = json.load(fh)
+        NAO_ENTRA = {"0202600193"}
+        def _num(v):
+            try:
+                return float(str(v).replace(",", "."))
+            except (TypeError, ValueError):
+                return 0.0
+        def _oid(x):
+            if isinstance(x, dict):
+                x = x.get("obra") or x.get("num_obra") or ""
+            x = str(x).split(".")[0].strip()
+            return x.zfill(10) if x.isdigit() else ""
+        def _realizado(cod):
+            a = m4.get(cod) or {}
+            ids = {_oid(a.get("obra_principal"))} | {_oid(o) for o in (a.get("outras_obras") or [])}
+            v = 0.0
+            for o in ids:
+                if not o or o in NAO_ENTRA:
+                    continue
+                r = aic_full.get(o) or {}
+                if r.get("DATA_CONCLUSAO_FISICA") or r.get("DTH_ENCERRAMENTO"):
+                    v += _num(r.get("TOTAL_REALIZADO"))
+            return v
+        # só nas etapas em que o serviço foi dado como feito: em «Em compra» um ativo
+        # pode carregar obra velha concluída, e esse dinheiro não é a demanda atual
+        FEITO_AIC = {"Concluído", "Aguardando comissionamento", "Em ajustes"}
+        etapa_por_ativo = {i["ativo"]: i["etapa"] for i in d["lista"]}
+        soma_etapa = {}
+        for cod, etapa in etapa_por_ativo.items():
+            if etapa not in FEITO_AIC:
+                continue
+            v = _realizado(cod)
+            if v:
+                soma_etapa[etapa] = soma_etapa.get(etapa, 0.0) + v
+        for e in d["por_etapa"]:
+            if soma_etapa.get(e["etapa"]):
+                e["realizado_aic"] = round(soma_etapa[e["etapa"]], 2)
+        d["realizado_aic"] = {
+            "por_etapa": {k: round(v, 2) for k, v in soma_etapa.items()},
+            "expansao_fora": 507117.0,
+            "expansao_ativo": "5854566043",
+        }
+
     # O JSON da carteira foi montado sobre a ATUALIZADA8 e nunca teve o rótulo trocado.
     # O conteúdo, conferido ativo a ativo, é o mesmo da ATUALIZADA16 — mesmos 129 ativos,
     # mesmo parecer em todos. Só o carimbo estava velho.

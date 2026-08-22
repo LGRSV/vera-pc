@@ -272,7 +272,7 @@ function mesAMes() {
     aconteceu — término da SS ou repasse. Janela: ${esc(mm.janela || '')} — agosto entra até o
     dia 18, que é a posição do relatório, e por isso é mês parcial.</p>
     ${barrasTresColunas(c)}
-    <h4 class="sub-grafico">O mesmo, somando</h4>
+    <h4 class="sub-grafico">Visão COEP</h4>
     <p class="destaque-texto">Onde cada série chegou até o fim de cada mês. Aqui o que conta é a
     distância entre as curvas: enquanto a laranja sobe e a verde fica no chão, a fila está
     crescendo; quando a verde encosta na laranja, o posto passou a dar conta do que entra.</p>
@@ -603,10 +603,19 @@ function escada() {
       <span class="nome">${esc(e.etapa)}</span>
       <span class="barra"><i style="width:${(100 * e.qtd / maior).toFixed(1)}%"></i></span>
       <span class="lado"><b>${e.qtd}</b>${e.valor ? esc(rs(e.valor))
-        : e.valor_evitado ? `<i class="evitado">${esc(rs(e.valor_evitado))} evitados</i>` : '—'}</span>
+        : e.valor_evitado ? `<i class="evitado">${esc(rs(e.valor_evitado))} evitados</i>` : '—'}${
+        e.realizado_aic ? `<i class="evitado">${esc(rs(e.realizado_aic))} realizados no AIC</i>` : ''}</span>
     </button>`).join('')}</div>
     <p class="destaque-texto" style="margin-top:10px">Clique numa etapa para filtrar a lista.
-    O valor é o previsto na planilha de gestão — ${D.com_valor} dos ${D.total} têm valor lá.</p>`;
+    O valor preto é o previsto na planilha de gestão — ${D.com_valor} dos ${D.total} têm valor
+    lá. O verde é outra régua: o que a obra <b>já pagou</b>, pela conclusão no AIC.</p>
+    ${D.realizado_aic ? `<div class="nota branda"><strong>Previsto não é realizado.</strong>
+    No «Concluído» a planilha prevê ${rs(D.por_etapa.find((e) => e.etapa === 'Concluído')?.valor || 0)},
+    mas o AIC já registra ${rs(D.realizado_aic.por_etapa['Concluído'] || 0)} de obra concluída
+    nesses ativos — e mais ${rs(D.realizado_aic.expansao_fora)} numa obra de expansão ligada ao
+    ${D.realizado_aic.expansao_ativo}, que é obra de cliente e fica fora da conta de manutenção.
+    Somando o executado nos ativos de comissionamento e ajustes, o campo já pagou
+    ${rs(Object.values(D.realizado_aic.por_etapa).reduce((a, b) => a + b, 0))}.</div>` : ''}`;
 }
 
 function matriz() {
