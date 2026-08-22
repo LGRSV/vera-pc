@@ -460,6 +460,24 @@ function visaoConsolidada() {
       <div class="item-linha"><span>Ainda fora do plano</span><b>${pd.aquisicao_fora_do_plano}</b></div>
       <p class="destaque-texto" style="margin-top:8px">${aq.map((x) => `<b class="mono">${esc(x.ativo)}</b> ${esc(x.localidade)}`).join(' · ')}</p>
     </details>
+    <details class="detalhe-plano"><summary>Como esta visão é montada — a régua, para quem for refazer</summary>
+      <p class="destaque-texto"><b>Quem entra</b> — na base de SS/OS, três cortes: código do equipamento começando
+      com <b>79</b> (religador) ou <b>58</b> (regulador); tipo da SS = <b>INDISPONIBILIDADE PARA OPERAÇÃO</b>;
+      situação = <b>SS PENDENTE</b>. Repassada não conta: quando repassa, o SGM abre outra SS no posto seguinte
+      e a viva é a nova. Atendida e cancelada são cadeia fechada. A carteira não decide quem entra —
+      «só tem ${e.total}, então são as ${e.total}» (gestor, 22/08).</p>
+      <p class="destaque-texto" style="margin-top:8px"><b>O balde</b> — sai do posto onde a SS pendente está
+      (o prefixo do número da SS): <b>ETO-PROT</b> → ajuste de proteção · <b>ETO-TELE/SE</b> com criticidade
+      definida na aba de mapeamento → comissionamento; sem criticidade definida (fora da aba ou
+      «Sem classificação») → 1º ataque do DMSL · <b>ETO-RD-*</b> → execução com os COCM's ·
+      <b>ETO-COEP</b> → aquisição, salvo quem a aba marca «Em logística». A aba de mapeamento entra
+      só como anotação (criticidade e etapa); aquisição cruza com o plano de compras de 17/07.</p>
+      <p class="destaque-texto" style="margin-top:8px"><b>Para refazer com base nova</b> — largar a
+      <b class="mono">BASE_SS_OS_ddmmaaaa.txt</b> em <b class="mono">data/raw</b> e rodar
+      <b class="mono">python3 scripts/atualiza_visao_eto.py</b>: extrai o recorte, refaz esta visão, a
+      planilha VISAO_ETO.xlsx e o painel — falta só republicar o artifact. O horizonte do dado é a maior
+      data de abertura, nunca o nome do arquivo.</p>
+    </details>
   </section>`;
 }
 

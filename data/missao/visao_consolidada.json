@@ -1,9 +1,9 @@
 {
  "gerado_em": "2026-08-22",
- "fonte": "SS de indisponibilidade pendentes na base de SS/OS de 20/08 + mapeamento por criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + plano de compras de 17/07 + leitura da taxa de falha",
+ "fonte": "SS de indisponibilidade pendentes na base de SS/OS com aberturas até 20/08/2026 + mapeamento por criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + plano de compras de 17/07 + leitura da taxa de falha",
  "visao_eto": {
   "total": 93,
-  "posicao": "base de SS/OS de 20/08",
+  "posicao": "base de SS/OS com aberturas até 20/08/2026",
   "fora_da_carteira": 18,
   "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de indisponibilidade para operação pendente na base — o balde sai do posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento, sem criticidade definida = 1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em logística» da carteira). 18 não estão na carteira.",
   "baldes": {

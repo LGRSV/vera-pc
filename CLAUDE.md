@@ -106,6 +106,13 @@ comissionamento e obra de equipamento novo.
 - **Base de SS/OS crua**: texto com separador `@`, encoding latin-1, descrição quebrando
   linha — remontar registros. A mais nova é `data/raw/BASE_SS_OS_20082026.txt` (gitignored,
   36 MB; aberturas até 20/08). O recorte RL/RT sai por `scripts/extrai_ssos_min.py`.
+- **Base nova de SS/OS → visão ETO**: largar `BASE_SS_OS_ddmmaaaa.txt` em `data/raw`
+  (o `cadeia_obra.PARTES` escolhe a mais nova pela data do nome) e rodar
+  `python3 scripts/atualiza_visao_eto.py` — extrai o recorte, refaz a visão ETO pela
+  régua do gestor, a `dist/VISAO_ETO.xlsx` e o painel; falta só republicar o artifact
+  do painel. A régua está escrita na home do painel («Como esta visão é montada») e na
+  aba «Como foi feito» da planilha. A corrente NÃO refaz conta do posto, concluídos
+  DCMD nem taxa de falha (essas são de `coep_2026.py`/`taxa_falha.py`).
 - **O começo de registro não é o formato do posto**: o código varia (ETO-COEP, DOLP-RD-PA,
   ETO-CADTOC, ETO-TEC01, DMSLETO sem hífen). O que identifica é o `@` colado no ano
   (`\d{5}/\d{4}@`). Regex estreito engoliu 192 registros numa primeira versão.

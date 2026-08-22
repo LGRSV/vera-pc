@@ -32,9 +32,26 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 
 UPLOADS = "/root/.claude/uploads/c3d5c486-5de5-52ac-a54a-1691b373e364"
+
+
+def _base_mais_nova():
+    """A BASE_SS_OS*.txt mais nova em data/raw — pela data ddmmaaaa do nome e,
+    empatando, pela hora do arquivo. Largar a base nova lá basta para todos os
+    scripts passarem a usá-la. O nome não diz o horizonte do dado: conferir a
+    data máxima de abertura depois de extrair."""
+    import glob
+    achadas = glob.glob(os.path.join(RAIZ, "data", "raw", "BASE_SS_OS*.txt"))
+
+    def chave(p):
+        m = re.search(r"(\d{2})(\d{2})(\d{4})", os.path.basename(p))
+        data = (m.group(3), m.group(2), m.group(1)) if m else ("0000", "00", "00")
+        return (data, os.path.getmtime(p))
+    return max(achadas, key=chave) if achadas else None
+
+
 # A base mais nova manda; as partes de 11/08 ficam de reserva para reproduzir o passado.
-_BASE_NOVA = os.path.join(RAIZ, "data", "raw", "BASE_SS_OS_20082026.txt")
-PARTES = ([_BASE_NOVA] if os.path.exists(_BASE_NOVA) else
+_BASE_NOVA = _base_mais_nova()
+PARTES = ([_BASE_NOVA] if _BASE_NOVA else
           [os.path.join(UPLOADS, "470fbe86-BASE_SS_OS_parte1.txt"),
            os.path.join(UPLOADS, "43942150-BASE_SS_OS_parte2.txt")])
 AIC_XLSX = os.path.join(UPLOADS, "fa750c58-AIC_OBRAS_07082026.xlsx")

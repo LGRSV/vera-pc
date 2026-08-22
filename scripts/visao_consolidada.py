@@ -36,7 +36,13 @@ import re
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(RAIZ, "data", "missao", "visao_consolidada.json")
 
-POSICAO = "base de SS/OS de 20/08"
+
+def _posicao(ssos):
+    """O horizonte do recorte — a maior data de abertura, nunca o nome do arquivo."""
+    datas = sorted((d[6:10], d[3:5], d[:2]) for r in ssos
+                   for d in [r["DATA_ABERTURA_SS"]] if len(d) >= 10)
+    a, m, d = datas[-1]
+    return f"base de SS/OS com aberturas até {d}/{m}/{a}"
 
 
 def _dept(posto):
@@ -59,6 +65,8 @@ def montar():
         leitura = json.load(fh)
     with open(os.path.join(RAIZ, "data", "raw", "plano_compras.csv"), encoding="utf-8") as fh:
         plano = {m.group(1) for l in fh for m in [re.match(r"(\d{10});", l)] if m}
+
+    posicao = _posicao(ssos)
 
     # ---- a visão ETO: o filtro do gestor, ao pé da letra
     pendentes = [r for r in ssos
@@ -128,12 +136,12 @@ def montar():
 
     pacote = {
         "gerado_em": "2026-08-22",
-        "fonte": f"SS de indisponibilidade pendentes na {POSICAO} + mapeamento por "
+        "fonte": f"SS de indisponibilidade pendentes na {posicao} + mapeamento por "
                  "criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + "
                  "plano de compras de 17/07 + leitura da taxa de falha",
         "visao_eto": {
             "total": total,
-            "posicao": POSICAO,
+            "posicao": posicao,
             "fora_da_carteira": fora_da_carteira,
             "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de "
                     "indisponibilidade para operação pendente na base — o balde sai do "

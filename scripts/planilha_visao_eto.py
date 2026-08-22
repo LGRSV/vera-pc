@@ -72,12 +72,13 @@ BALDE_NOME = {
     "dmsl_novos": "1º ataque do DMSL",
 }
 
-COMO_FOI_FEITO = [
-    "O FILTRO — na base de SS/OS (a de 20/08/2026), três cortes, nesta ordem:",
+def como_foi_feito(v):
+    return [
+    f"O FILTRO — na base de SS/OS ({v['posicao']}), três cortes, nesta ordem:",
     "1. Código do equipamento (NUM_TRAFO) começando com 79 (religador) ou 58 (regulador).",
     "2. Tipo da SS (TIPOSS) = INDISPONIBILIDADE PARA OPERAÇÃO.",
     "3. Situação (SITUACAO_SS) = SS PENDENTE.",
-    "Resultado: 93 SS pendentes, uma por ativo — 93 equipamentos.",
+    f"Resultado: {v['total']} SS pendentes, uma por ativo — {v['total']} equipamentos.",
     "",
     "Por que REPASSADA não conta: quando a SS é repassada, o SGM abre outra SS no posto "
     "seguinte — a viva é a nova, e é ela que aparece como pendente. Atendida e cancelada "
@@ -98,14 +99,18 @@ COMO_FOI_FEITO = [
     "",
     "A aba de mapeamento por criticidade (Relação de Indisponíveis, ATUALIZADA 16) entra "
     "como ANOTAÇÃO: dá a criticidade, a etapa que ela dizia e mostra quem ela nem lista — "
-    "18 dos 93 estão fora dela.",
+    f"{v['fora_da_carteira']} dos {v['total']} estão fora dela.",
     "",
-    "Os de aquisição foram cruzados com o plano de compras de 17/07 pelo código do ativo: "
-    "11 dos 46 estão no plano.",
+    "Os de aquisição foram cruzados com o plano de compras de 17/07 pelo código do ativo.",
     "",
     "A régua de quem entra é a BASE, não a carteira (gestor, 22/08): «só tem 93, então são "
     "as 93». Quem está na carteira sem SS de indisponibilidade pendente fica de fora — e "
     "quem tem SS pendente fica dentro mesmo sem estar na carteira.",
+    "",
+    "PARA REFAZER COM BASE NOVA: largar a BASE_SS_OS_ddmmaaaa.txt em data/raw e rodar "
+    "python3 scripts/atualiza_visao_eto.py — extrai o recorte, refaz a visão, esta "
+    "planilha e o painel. A mesma régua está no site, na home, em «Como esta visão é "
+    "montada».",
 ]
 
 
@@ -159,7 +164,7 @@ def montar():
 
     ws2 = wb.create_sheet("Como foi feito")
     ws2.column_dimensions["A"].width = 110
-    for txt in COMO_FOI_FEITO:
+    for txt in como_foi_feito(v):
         ws2.append([txt])
         ws2.cell(row=ws2.max_row, column=1).alignment = Alignment(wrap_text=True,
                                                                   vertical="top")
