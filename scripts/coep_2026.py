@@ -340,6 +340,18 @@ def montar():
     # está resolvido nem na fila — a demanda vive na ponta da cadeia, em outro posto.
     res_set = {r["ativo"] for r in resolvidos_do_coep if r["conta_como_resolvido_pelo_coep"]}
     seg_set = {a["ativo"] for a in ativos if a["segue_no_posto"]}
+    def _esteira(posto):
+        """A régua do gestor (22/08) para quem saiu do COEP: PROT é ajuste de
+        proteção e TELE/SE é comissionamento — nesses, a parte do COEP já está
+        concluída; RD é execução com os COCMs."""
+        if "PROT" in posto:
+            return "ajuste de proteção — parte do COEP concluída"
+        if "TELE" in posto or "-SE-" in posto:
+            return "comissionamento — parte do COEP concluída"
+        if "-RD-" in posto:
+            return "execução com os COCMs"
+        return ""
+
     pendentes_fora = []
     for a in ativos:
         cod = a["ativo"]
@@ -358,6 +370,7 @@ def montar():
             "onde_esta": fim["POSTO_SGM"] if fim else "",
             "ss_atual": fim["SS_ORIGINAL"] if fim else "",
             "status_atual": fim["STATUS"] if fim else "",
+            "etapa_da_esteira": _esteira(fim["POSTO_SGM"]) if fim else "",
             "la_desde": fim["_abriu"].strftime("%d/%m/%Y") if fim and fim["_abriu"] else "",
             "dias_la": (FIM - fim["_abriu"]).days if fim and fim["_abriu"] else None,
             "parecer_coep": a["parecer_coep"],
@@ -596,12 +609,13 @@ def planilha(pacote):
     fora = pacote.get("pendentes_em_outra_mesa") or []
     ws = wb.create_sheet(f"Pendentes em outra mesa ({len(fora)})")
     cabecalho(ws, ["Ativo", "Tipo", "Localidade", "SS no COEP em 2026", "Onde está agora",
-                   "SS atual", "Situação", "Lá desde", "Dias lá", "Parecer COEP"],
-              [14, 12, 20, 36, 14, 22, 14, 12, 9, 26])
-    for r in fora:
+                   "Etapa da esteira", "SS atual", "Situação", "Lá desde", "Dias lá",
+                   "Parecer COEP"],
+              [14, 12, 20, 34, 14, 30, 22, 14, 12, 9, 26])
+    for r in sorted(fora, key=lambda x: (x["etapa_da_esteira"], -(x["dias_la"] or 0))):
         ws.append([r["ativo"], r["tipo"], r["localidade"], r["ss_no_coep"], r["onde_esta"],
-                   r["ss_atual"], r["status_atual"], r["la_desde"], r["dias_la"],
-                   r["parecer_coep"]])
+                   r["etapa_da_esteira"], r["ss_atual"], r["status_atual"], r["la_desde"],
+                   r["dias_la"], r["parecer_coep"]])
     fechar(ws)
 
     # o método, para as duas

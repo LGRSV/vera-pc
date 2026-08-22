@@ -2719,6 +2719,7 @@
    "onde_esta": "ETO-TELE",
    "ss_atual": "ETO-TELE 00324/2026",
    "status_atual": "SS ATENDIDA",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "26/02/2026",
    "dias_la": 173,
    "parecer_coep": "Cancelada em operação"
@@ -2731,6 +2732,7 @@
    "onde_esta": "ETO-TELE",
    "ss_atual": "ETO-TELE 00854/2026",
    "status_atual": "SS ATENDIDA",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "15/05/2026",
    "dias_la": 95,
    "parecer_coep": "Cancelada em operação"
@@ -2743,6 +2745,7 @@
    "onde_esta": "ETO-RD-PA",
    "ss_atual": "ETO-RD-PA 00352/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "execução com os COCMs",
    "la_desde": "22/05/2026",
    "dias_la": 88,
    "parecer_coep": ""
@@ -2755,6 +2758,7 @@
    "onde_esta": "ETO-TELE",
    "ss_atual": "ETO-TELE 00964/2026",
    "status_atual": "SS ATENDIDA",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "29/06/2026",
    "dias_la": 50,
    "parecer_coep": "Cancelada em operação"
@@ -2767,6 +2771,7 @@
    "onde_esta": "ETO-RD-DP",
    "ss_atual": "ETO-RD-DP 00409/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "execução com os COCMs",
    "la_desde": "06/07/2026",
    "dias_la": 43,
    "parecer_coep": "Equipamento entregue ao COCM"
@@ -2779,6 +2784,7 @@
    "onde_esta": "ETO-RD-AG",
    "ss_atual": "ETO-RD-AG 00670/2026",
    "status_atual": "SS ATENDIDA",
+   "etapa_da_esteira": "execução com os COCMs",
    "la_desde": "06/07/2026",
    "dias_la": 43,
    "parecer_coep": "Linha viva substiui as chaves pode ser que esteja dentro de operação"
@@ -2791,6 +2797,7 @@
    "onde_esta": "ETO-TELE",
    "ss_atual": "ETO-TELE 00986/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "08/07/2026",
    "dias_la": 41,
    "parecer_coep": "Aguardando comissionamento"
@@ -2803,6 +2810,7 @@
    "onde_esta": "ETO-SE-PA",
    "ss_atual": "ETO-SE-PA 00107/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "16/07/2026",
    "dias_la": 33,
    "parecer_coep": "Aguardando comissionamento"
@@ -2815,6 +2823,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00153/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "20/07/2026",
    "dias_la": 29,
    "parecer_coep": "Em fase de ajustes"
@@ -2827,6 +2836,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00152/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "20/07/2026",
    "dias_la": 29,
    "parecer_coep": "Em fase de ajustes"
@@ -2839,6 +2849,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00154/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "21/07/2026",
    "dias_la": 28,
    "parecer_coep": "Em fase de ajustes"
@@ -2851,6 +2862,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00156/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "21/07/2026",
    "dias_la": 28,
    "parecer_coep": "Em fase de ajustes"
@@ -2863,6 +2875,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00155/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "21/07/2026",
    "dias_la": 28,
    "parecer_coep": "Aguardando comissionamento"
@@ -2875,6 +2888,7 @@
    "onde_esta": "ETO-RD-DP",
    "ss_atual": "ETO-RD-DP 00479/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "execução com os COCMs",
    "la_desde": "27/07/2026",
    "dias_la": 22,
    "parecer_coep": "Equipamento entregue ao COCM"
@@ -2887,6 +2901,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00158/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "28/07/2026",
    "dias_la": 21,
    "parecer_coep": "Concluído DCMD24/07"
@@ -2899,6 +2914,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00159/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "28/07/2026",
    "dias_la": 21,
    "parecer_coep": "Concluído DCMD"
@@ -2911,6 +2927,7 @@
    "onde_esta": "ETO-PROT",
    "ss_atual": "ETO-PROT 00157/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "ajuste de proteção — parte do COEP concluída",
    "la_desde": "28/07/2026",
    "dias_la": 21,
    "parecer_coep": "Concluído DCMD"
@@ -2923,6 +2940,7 @@
    "onde_esta": "ETO-TELE",
    "ss_atual": "ETO-TELE 01040/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "30/07/2026",
    "dias_la": 19,
    "parecer_coep": "Aguardando comissionamento"
@@ -2935,6 +2953,7 @@
    "onde_esta": "ETO-TELE",
    "ss_atual": "ETO-TELE 01107/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "13/08/2026",
    "dias_la": 5,
    "parecer_coep": "Concuído DCMD"
@@ -2947,6 +2966,7 @@
    "onde_esta": "ETO-SE-PCM",
    "ss_atual": "ETO-SE-PCM 00091/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "17/08/2026",
    "dias_la": 1,
    "parecer_coep": "Em fase de ajustes"
@@ -2959,6 +2979,7 @@
    "onde_esta": "ETO-SE-PCM",
    "ss_atual": "ETO-SE-PCM 00090/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "17/08/2026",
    "dias_la": 1,
    "parecer_coep": "Em fase de ajustes"
@@ -2971,6 +2992,7 @@
    "onde_esta": "ETO-SE-PCM",
    "ss_atual": "ETO-SE-PCM 00092/2026",
    "status_atual": "SS PENDENTE",
+   "etapa_da_esteira": "comissionamento — parte do COEP concluída",
    "la_desde": "17/08/2026",
    "dias_la": 1,
    "parecer_coep": "Em fase de ajustes"

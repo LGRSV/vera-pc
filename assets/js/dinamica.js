@@ -289,9 +289,10 @@ function mesAMes() {
         dica_acum: 'somando mês a mês' }])}
     <div class="nota branda"><strong>A conta, fechada.</strong> A laranja termina em
     <b>71 resolvidos + 54 na fila = 125</b>. Fora do gráfico ficam <b>22</b> que o posto
-    despachou e seguem em outra mesa — 18 com a demanda pendente e 4 em rodada nova depois de
-    voltarem ao posto. Com eles chegam os 143 que passaram no ano, contando o acervo de
-    ${cp.herdados || 0} que já estava na mesa em janeiro. O livro-caixa herdado fecha em 52
+    despachou — e são a <b>esteira depois do COEP</b>, não fila esquecida: 8 em ajuste de
+    proteção na PROT e 10 em comissionamento na TELE/SE, onde a parte do COEP já está
+    concluída, mais 4 em execução com os COCMs. Com eles chegam os 143 que passaram no ano,
+    contando o acervo de ${cp.herdados || 0} que já estava na mesa em janeiro. O livro-caixa herdado fecha em 52
     porque é outro recorte: só a foto de entrada.</div>
     ${mm.saldo?.length ? `<h4 class="sub-grafico">A carteira em movimento</h4>
     <p class="destaque-texto">O livro-caixa da carteira herdada: começa com o acervo de

@@ -56,6 +56,9 @@ comissionamento e obra de equipamento novo.
 - **Quem fecha não precisa ser o COEP.** ETO-RD-PS, ETO-PROT, ETO-RD-AR e demais
   contam igual — o posto diagnostica e despacha, a ponta executa. O **ETO-TELE**
   conta desde que haja parecer do COEP ou passagem pelo posto antes.
+- **A esteira depois do COEP** (gestor, 22/08): quem sai do posto para a **PROT** está em
+  ajuste de proteção e quem vai para **TELE/SE** está em comissionamento — nesses, a parte do
+  COEP já está concluída. Quem está com equipe **RD** está em execução com os COCMs.
 - **Primeiro ataque do DMSL não conta**: a demanda morreu na mão da DMSL.
 - **A carteira consolidada não serve de fonte para «resolvido»**: ela é a foto do que
   ainda está pendente; o que fechou e saiu não fica registrado nela.
