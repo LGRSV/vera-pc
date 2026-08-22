@@ -483,7 +483,8 @@ function visaoConsolidada() {
 function visaoOrcamentaria() {
   const o = estado.meta?.visao_orcamentaria;
   if (!o) return '';
-  const cx = o.caixa, rl = o.por_tipo.RL, rt = o.por_tipo.RT, e = o.estimativa_dmsl;
+  const cx = o.caixa, orc = o.orcamento, vm = o.valor_medio;
+  const e = o.estimativa_dmsl, fila = o.fila_que_ainda_custa, ref = o.referencia_aic;
   const mil = (v) => v >= 995000 ? `R$ ${(v / 1e6).toFixed(2).replace('.', ',')} mi`
     : `R$ ${(v / 1e3).toFixed(1).replace('.', ',')} mil`;
   const pico = Math.max(...cx.por_mes.map((m) => m.valor));
@@ -495,29 +496,56 @@ function visaoOrcamentaria() {
     </div>`).join('');
   return `<section class="bloco visao-consolidada">
     <div class="marcador"><h2>Orçamento 2026 — os dois projetos</h2>
-      <span>SIGCO 8495 religador + 8481 regulador · ${esc(cx.janela)}</span></div>
+      <span>SIGCO 8495 religador + 8481 regulador · realizado do export de 21/08</span></div>
     <div class="numeros">
-      ${num({ rotulo: 'Realizado no ano', valor: mil(cx.total), nota: `Power BI dos dois projetos — material é ${mil(cx.por_natureza[0].valor)} (${Math.round(100 * cx.por_natureza[0].valor / cx.total)}%)`, tom: 'atento' })}
-      ${num({ rotulo: 'Obras concluídas 2026', valor: rl.obras_concluidas_2026 + rt.obras_concluidas_2026, nota: `${rl.obras_concluidas_2026} no projeto do RL + ${rt.obras_concluidas_2026} no do RT, pelo AIC`, tom: 'bom' })}
-      ${num({ rotulo: 'Médio por obra · RL', valor: mil(rl.medio_por_obra), nota: `${mil(rl.realizado_acumulado)} em ${rl.obras_concluidas_2026} obras concluídas`, tom: 'neutro' })}
-      ${num({ rotulo: 'Médio por obra · RT', valor: mil(rt.medio_por_obra), nota: `${mil(rt.realizado_acumulado)} em ${rt.obras_concluidas_2026} obras concluídas`, tom: 'neutro' })}
+      ${num({ rotulo: 'Orçamento do ano', valor: mil(orc.total_orcado), nota: `${mil(orc.por_projeto[0].orcado)} no religador + ${mil(orc.por_projeto[1].orcado)} no regulador`, tom: 'neutro' })}
+      ${num({ rotulo: 'Realizado', valor: mil(orc.total_realizado), nota: `${String(orc.pct_realizado).replace('.', ',')}% do orçamento — faltando quatro meses de ano`, tom: 'bom' })}
+      ${num({ rotulo: 'Saldo', valor: mil(orc.saldo), nota: 'o que ainda dá para gastar em 2026', tom: 'atento' })}
+      ${num({ rotulo: 'Médio por manutenção', valor: `${mil(vm.RL)} · ${mil(vm.RT)}`, nota: 'religador · regulador — a régua de preço do gestor', tom: 'neutro' })}
     </div>
-    <div style="display:flex;align-items:flex-end;gap:6px;margin:16px 2px 4px">${barras}</div>
-    <div class="nota atenta" style="margin-top:14px"><strong>E se o 1º ataque inteiro entrasse para o DCMD?</strong>
-    São <b>${e.qtd}</b> equipamentos novos na mão do DMSL — ${e.rl} religadores e ${e.rt} reguladores. Pelo custo
-    médio <b>realizado</b> por obra (RL ${mil(rl.medio_por_obra)} · RT ${mil(rt.medio_por_obra)}), custariam
-    <b>${mil(e.piso_pelo_realizado)}</b>. Pelo <b>previsto</b> médio da sua planilha de indisponibilidade
-    (RL ${mil(rl.previsto_medio_planilha)} · RT ${mil(rt.previsto_medio_planilha)}, que orça a solução completa —
-    no RT o banco de três células), <b>${mil(e.teto_pelo_previsto)}</b>. A faixa honesta é essa:
-    <b>${mil(e.piso_pelo_realizado)} a ${mil(e.teto_pelo_previsto)}</b> — da ordem de um ano inteiro de realizado.</div>
+    <div class="nota branda" style="margin-top:16px"><strong>E se o 1º ataque inteiro entrasse para o DCMD?</strong>
+    São <b>${e.qtd}</b> equipamentos na mão do DMSL — ${e.rl} religadores e ${e.rt} reguladores. Pelo valor médio
+    por manutenção, ficaria em <b>${mil(e.custo)}</b>: ${e.rl} × ${mil(vm.RL)} mais ${e.rt} × ${mil(vm.RT)}.
+    É <b>${String(e.pct_do_saldo).replace('.', ',')}% do saldo</b> de ${mil(orc.saldo)} que resta no ano — quase
+    tudo que os dois projetos já realizaram de janeiro até agora.</div>
+    <h4 class="sub-grafico">Cada balde da carteira em dinheiro</h4>
+    <p class="destaque-texto">Os ${o.por_balde.reduce((n, b) => n + b.qtd, 0)} da visão ETO pelo mesmo preço médio.
+    Ajuste de proteção e comissionamento aparecem em cinza: neles o equipamento já foi trocado e o dinheiro
+    já saiu — o que ainda vai custar é o resto.</p>
+    <div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Etapa</th>
+    <th class="num">Ativos</th><th class="num">RL</th><th class="num">RT</th>
+    <th class="num">Custo pelo médio</th></tr></thead><tbody>
+    ${o.por_balde.map((b) => `<tr${b.ainda_custa ? '' : ' style="opacity:.55"'}>
+      <td>${esc(b.nome)}${b.ainda_custa ? '' : ' <i class="linha-nota">já gasto</i>'}</td>
+      <td class="num">${b.qtd}</td><td class="num">${b.rl || '—'}</td><td class="num">${b.rt || '—'}</td>
+      <td class="num">${moedaBR(b.custo)}</td></tr>`).join('')}
+    </tbody><tfoot><tr><td>Ainda vai custar — ${fila.qtd} ativos</td>
+    <td class="num"><b>${fila.qtd}</b></td><td class="num"><b>${fila.rl}</b></td>
+    <td class="num"><b>${fila.rt}</b></td><td class="num"><b>${moedaBR(fila.custo)}</b></td></tr></tfoot></table></div>
+    <div class="nota" style="margin-top:14px"><strong>A fila não cabe no saldo.</strong>
+    Resolver os <b>${fila.qtd}</b> que ainda esperam equipamento custaria <b>${mil(fila.custo)}</b> —
+    <b>${String(fila.pct_do_saldo).replace('.', ',')}%</b> do saldo de ${mil(orc.saldo)}. Mesmo sem gastar mais nada
+    em falha nova até dezembro, falta dinheiro para a carteira de hoje: a conta fecha em
+    ${mil(fila.custo - orc.saldo)} a mais que o disponível.</div>
+    <h4 class="sub-grafico">O gasto mês a mês</h4>
+    <div style="display:flex;align-items:flex-end;gap:6px;margin:10px 2px 4px">${barras}</div>
     <details class="detalhe-plano"><summary>De onde saem esses números</summary>
-      <p class="destaque-texto">${esc(o.nota)}</p>
-      <p class="destaque-texto" style="margin-top:8px">O piso usa o realizado médio por obra concluída do
-      próprio projeto em 2026; nem toda obra troca o equipamento inteiro (no RT, muitas trocam uma célula),
-      por isso ele é piso. O teto usa o previsto médio por ativo da planilha de indisponibilidade
-      (${rl.previstos_com_valor} RL e ${rt.previstos_com_valor} RT com valor), que orça a solução completa.</p>
+      <p class="destaque-texto"><b>O preço</b> — valor médio por manutenção do gestor:
+      religador ${moedaBR(vm.RL)} e regulador ${moedaBR(vm.RT)}. Para comparar, o médio por obra concluída
+      dos mesmos projetos no AIC dá ${mil(ref.RL.medio_por_obra)} (RL, ${ref.RL.obras_concluidas_2026} obras) e
+      ${mil(ref.RT.medio_por_obra)} (RT, ${ref.RT.obras_concluidas_2026} obras) — menor porque nem toda obra do
+      projeto troca o equipamento inteiro; no regulador, muitas trocam uma célula e não o banco de três.</p>
+      <p class="destaque-texto" style="margin-top:8px">${esc(o.nota)}</p>
       <div class="tabela-rol" style="margin-top:10px"><table class="matriz livro"><thead>
-      <tr><th>Mês</th><th class="num">Realizado (R$)</th></tr></thead><tbody>
+      <tr><th>Projeto</th><th class="num">Orçado</th><th class="num">Realizado</th><th class="num">Saldo</th></tr></thead><tbody>
+      ${orc.por_projeto.map((p) => `<tr><td>${esc(p.projeto)} · ${esc(p.nome)}</td>
+        <td class="num">${moedaBR(p.orcado)}</td><td class="num">${moedaBR(p.realizado)}</td>
+        <td class="num">${moedaBR(p.orcado - p.realizado)}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(orc.total_orcado)}</b></td>
+      <td class="num"><b>${moedaBR(orc.total_realizado)}</b></td>
+      <td class="num"><b>${moedaBR(orc.saldo)}</b></td></tr></tfoot></table></div>
+      <div class="tabela-rol" style="margin-top:10px"><table class="matriz livro"><thead>
+      <tr><th>Mês</th><th class="num">Lançado no Power BI (R$)</th></tr></thead><tbody>
       ${cx.por_mes.map((m) => `<tr><td>${esc(m.rotulo)}/2026</td><td class="num">${moedaBR(m.valor)}</td></tr>`).join('')}
       </tbody><tfoot><tr><td>Total</td><td class="num"><b>${moedaBR(cx.total)}</b></td></tr></tfoot></table></div>
     </details>

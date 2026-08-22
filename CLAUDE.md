@@ -103,12 +103,15 @@ comissionamento e obra de equipamento novo.
 - **O AIC é um só**: `AIC_OBRAS_07082026.xlsx`, aba única «Export», 93 colunas,
   124.084 obras. `OBRAS_status_extracao_07082026.xlsx` é o mesmo arquivo (SHA-256
   idêntico), enviado com outro nome.
-- **Orçamento**: o realizado oficial do ano é o Power BI do gestor (transcrito em
-  `data/raw/realizado_capex_2026.json`, jan–ago = R$ 1.573.958,37). O
-  `TOTAL_REALIZADO` do AIC é acumulado da obra (carrega lançamentos de 2025) — as
-  somas não batem de propósito. Valor médio por tipo (`scripts/visao_orcamentaria.py`):
-  piso = realizado ÷ obras concluídas do projeto no ano; teto = previsto médio da
-  planilha de indisponibilidade (no RT o previsto orça o banco de 3 células).
+- **Orçamento** (tudo em `data/raw/realizado_capex_2026.json`, contas em
+  `scripts/visao_orcamentaria.py`): orçado 2026 = **R$ 6.062.323,84** (8495 R$ 4,50 mi
+  + 8481 R$ 1,57 mi); realizado contábil do export de 21/08 = **R$ 1.365.345 (22,52%)**;
+  saldo R$ 4,70 mi. O Power BI por natureza/mês dá **R$ 1.573.958,37** — é outra
+  apuração (lançamento × contábil), as duas ficam à vista, sem reconciliar.
+- **O preço é o valor médio por manutenção do gestor**: **RL R$ 58.543,21** e
+  **RT R$ 167.280,98** (22/08). O médio por obra do AIC (RL R$ 39 mil, RT R$ 47,7 mil)
+  **não serve de preço** — nem toda obra do projeto troca o equipamento inteiro; no RT,
+  muitas trocam uma célula e não o banco de três. Fica só como referência.
 - **Base de SS/OS crua**: texto com separador `@`, encoding latin-1, descrição quebrando
   linha — remontar registros. A mais nova é `data/raw/BASE_SS_OS_20082026.txt` (gitignored,
   36 MB; aberturas até 20/08). O recorte RL/RT sai por `scripts/extrai_ssos_min.py`.

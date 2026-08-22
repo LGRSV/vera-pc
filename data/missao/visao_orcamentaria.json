@@ -1,5 +1,28 @@
 {
  "gerado_em": "2026-08-22",
+ "orcamento": {
+  "fonte": "quadro Orçamento 2026 do gestor — realizado apurado no export de 21/08/2026 (realizado contábil)",
+  "por_projeto": [
+   {
+    "projeto": "8495",
+    "nome": "Religadores",
+    "sigla": "RL",
+    "orcado": 4497155.32,
+    "realizado": 958743.0
+   },
+   {
+    "projeto": "8481",
+    "nome": "Reguladores",
+    "sigla": "RT",
+    "orcado": 1565168.52,
+    "realizado": 406602.0
+   }
+  ],
+  "total_orcado": 6062323.84,
+  "total_realizado": 1365345.0,
+  "pct_realizado": 22.52,
+  "saldo": 4696978.84
+ },
  "caixa": {
   "fonte": "Power BI do realizado Capex — projetos SIGCO 8495 (religador) e 8481 (regulador) juntos, print do gestor em 22/08/2026",
   "janela": "janeiro a agosto/2026 (agosto parcial)",
@@ -65,33 +88,99 @@
    }
   ]
  },
- "por_tipo": {
+ "valor_medio": {
+  "fonte": "régua do gestor (22/08): o valor médio por manutenção que vale é este, não o médio por obra do AIC",
+  "RL": 58543.21,
+  "RT": 167280.98
+ },
+ "referencia_aic": {
   "RL": {
    "projeto": "8495",
    "nome": "religador",
    "obras_concluidas_2026": 28,
    "realizado_acumulado": 1093168.0,
-   "medio_por_obra": 39041.71,
-   "previsto_medio_planilha": 57865.69,
-   "previstos_com_valor": 45
+   "medio_por_obra": 39041.71
   },
   "RT": {
    "projeto": "8481",
    "nome": "regulador",
    "obras_concluidas_2026": 13,
    "realizado_acumulado": 620068.0,
-   "medio_por_obra": 47697.54,
-   "previsto_medio_planilha": 162787.46,
-   "previstos_com_valor": 19
+   "medio_por_obra": 47697.54
   }
  },
+ "por_balde": [
+  {
+   "balde": "ajuste_de_protecao",
+   "nome": "Em fase de ajuste de proteção",
+   "qtd": 11,
+   "rl": 8,
+   "rt": 3,
+   "custo": 970188.62,
+   "ainda_custa": false
+  },
+  {
+   "balde": "comissionamento",
+   "nome": "Aguardando comissionamento",
+   "qtd": 9,
+   "rl": 5,
+   "rt": 4,
+   "custo": 961839.97,
+   "ainda_custa": false
+  },
+  {
+   "balde": "dcmd_execucao",
+   "nome": "DCMD · em execução",
+   "qtd": 4,
+   "rl": 2,
+   "rt": 2,
+   "custo": 451648.38,
+   "ainda_custa": true
+  },
+  {
+   "balde": "dcmd_logistica",
+   "nome": "DCMD · em logística",
+   "qtd": 3,
+   "rl": 0,
+   "rt": 3,
+   "custo": 501842.94,
+   "ainda_custa": true
+  },
+  {
+   "balde": "dcmd_aquisicao",
+   "nome": "DCMD · em processo de aquisição",
+   "qtd": 46,
+   "rl": 39,
+   "rt": 7,
+   "custo": 3454152.05,
+   "ainda_custa": true
+  },
+  {
+   "balde": "dmsl_novos",
+   "nome": "1º ataque do DMSL",
+   "qtd": 20,
+   "rl": 17,
+   "rt": 3,
+   "custo": 1497077.51,
+   "ainda_custa": true
+  }
+ ],
  "estimativa_dmsl": {
   "qtd": 20,
   "rl": 17,
   "rt": 3,
-  "piso_pelo_realizado": 806801.69,
-  "teto_pelo_previsto": 1472079.11,
-  "como": "piso: 17 RL × médio realizado por obra do 8495 + 3 RT × médio do 8481; teto: os mesmos 20 pelo previsto médio da planilha de indisponibilidade (que orça a solução completa — no RT, o banco de três células, não uma célula só)"
+  "custo": 1497077.51,
+  "pct_do_saldo": 31.9,
+  "pct_do_orcamento": 24.7,
+  "como": "17 religadores × R$ 58,543.21 + 3 reguladores × R$ 167,280.98, pelo valor médio por manutenção do gestor"
  },
- "nota": "o caixa é o Power BI (lançamentos de jan–ago/2026, os dois projetos juntos); o AIC soma o acumulado das obras concluídas em 2026, que carrega lançamentos de 2025 — por isso as somas não batem. O projeto SIGCO é balde orçamentário: carrega alguma obra de outro objeto."
+ "fila_que_ainda_custa": {
+  "qtd": 73,
+  "rl": 58,
+  "rt": 15,
+  "custo": 5904720.88,
+  "pct_do_saldo": 125.7,
+  "regra": "execução + logística + aquisição + 1º ataque; ajuste de proteção e comissionamento ficam fora — nesses o equipamento já foi trocado e o dinheiro já saiu"
+ },
+ "nota": "o realizado tem duas apurações do próprio gestor e as duas ficam à vista: R$ 1,37 mi no quadro Orçamento 2026 (contábil, export de 21/08) e R$ 1,57 mi no Power BI por natureza (lançamentos de jan–ago). O médio por obra do AIC não serve de preço: nem toda obra do projeto troca o equipamento inteiro."
 }
