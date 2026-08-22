@@ -92,9 +92,14 @@ comissionamento e obra de equipamento novo.
 - **O AIC é um só**: `AIC_OBRAS_07082026.xlsx`, aba única «Export», 93 colunas,
   124.084 obras. `OBRAS_status_extracao_07082026.xlsx` é o mesmo arquivo (SHA-256
   idêntico), enviado com outro nome.
-- **Base de SS/OS crua**: dois arquivos de texto, separador `@`, encoding latin-1. A
-  descrição quebra linha, então um registro ocupa várias linhas — remontar pelo padrão
-  do número da SS.
+- **Base de SS/OS crua**: texto com separador `@`, encoding latin-1, descrição quebrando
+  linha — remontar registros. A mais nova é `data/raw/BASE_SS_OS_20082026.txt` (gitignored,
+  36 MB; aberturas até 20/08). O recorte RL/RT sai por `scripts/extrai_ssos_min.py`.
+- **O começo de registro não é o formato do posto**: o código varia (ETO-COEP, DOLP-RD-PA,
+  ETO-CADTOC, ETO-TEC01, DMSLETO sem hífen). O que identifica é o `@` colado no ano
+  (`\d{5}/\d{4}@`). Regex estreito engoliu 192 registros numa primeira versão.
+- **O número no nome da carteira não versiona**: a «ATUALIZADA_3» de 22/08 é byte a byte a
+  ATUALIZADA 16 (MD5 igual). Conferir hash antes de reprocessar.
 - **`dist/` está no `.gitignore`** — planilhas vão por SendUserFile, não por commit.
 - **LibreOffice não roda neste ambiente** — o Excel grava valores, não fórmulas.
 - Playwright: `NODE_PATH=/opt/node22/lib/node_modules /opt/node22/bin/node`,

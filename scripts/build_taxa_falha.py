@@ -131,6 +131,7 @@ def _csv(linhas):
 
 
 def bases_para_baixar(coep, taxa, leitura):
+    ppa = taxa.get("parque_por_ano") or {}
     """As bases da página em CSV, prontas para o gestor abrir no Excel e mostrar."""
     sn = lambda v: "sim" if v else "não"
     ativos = coep.get("ativos") or []
@@ -173,6 +174,7 @@ def bases_para_baixar(coep, taxa, leitura):
 
     # a mesma conta da tabela da página: equipamentos que falharam ÷ parque do ano
     ppa = taxa.get("parque_por_ano") or {}
+    serie = taxa.get("serie_por_ano") or {}
     tx = [["Família", "Ano", "Parque", "Ocorrências", "Equipamentos que falharam", "Taxa (%)"]]
     for fam in ("religador", "regulador"):
         soma = 0
@@ -209,6 +211,24 @@ def bases_para_baixar(coep, taxa, leitura):
             "conta": "uma SS por linha, com chegada, saída e para onde foi",
             "linhas": len(ss_csv) - 1, "csv": _csv(ss_csv)},
     }
+    serie_csv = taxa.get("serie_por_ano") or {}
+    tt = [["Família", "Ano", "Parque", "Ocorrências", "Equipamentos que falharam", "Taxa (%)"]]
+    for fam in ("religador", "regulador"):
+        soma = 0
+        for ano in ANOS:
+            b = ((serie_csv.get(ano) or {}).get(fam)) or {}
+            parque = ((ppa.get(fam) or {}).get(ano) or {}).get("medio") or 0
+            n = b.get("ativos_distintos") or 0
+            soma += n
+            tt.append([fam, ano, parque, b.get("eventos") or "", n or "",
+                       f"{100.0 * n / parque:.1f}".replace(".", ",") if parque and n else ""])
+        parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
+        tt.append([fam, "Triênio", parque, "", soma,
+                   f"{100.0 * soma / parque:.1f}".replace(".", ",") if parque else ""])
+    saida["taxa-total-sem-expurgo"] = {
+        "titulo": "A taxa total, sem a régua da peça grande",
+        "conta": "todo equipamento com falha no ano, qualquer peça, ÷ parque",
+        "linhas": len(tt) - 1, "csv": _csv(tt)}
     if len(tx) > 1:
         saida["taxa-de-falha-2024-2026"] = {
             "titulo": "A taxa de falha, ano a ano",
@@ -299,6 +319,32 @@ def tabela_familia(fam, ppa, leitura, regua, aic):
             f'<tbody>{"".join(linhas)}{rodape_total}</tbody></table></div>{rodape}')
 
 
+def tabela_total(fam, serie, ppa):
+    """A visão sem expurgo: todo equipamento com falha no ano, qualquer peça."""
+    linhas, soma = [], 0
+    for ano in ANOS:
+        b = ((serie.get(ano) or {}).get(fam)) or {}
+        parque = ((ppa.get(fam) or {}).get(ano) or {}).get("medio") or b.get("parque") or 0
+        n = b.get("ativos_distintos") or 0
+        oc = b.get("eventos") or 0
+        soma += n
+        taxa = 100.0 * n / parque if parque else None
+        rot = f'{ano}{" <i>(até 20/08)</i>" if ano == "2026" else ""}'
+        linhas.append(f'<tr><td>{rot}</td><td class="num">{parque or "—"}</td>'
+                      f'<td class="num">{oc or "—"}</td><td class="num"><b>{n or "—"}</b></td>'
+                      f'<td class="num"><b>{_pct(taxa)}</b></td></tr>')
+    parque = ((ppa.get(fam) or {}).get("2026") or {}).get("medio") or 0
+    total = (f'<tr class="total"><td><b>Triênio</b></td><td class="num">{parque}</td>'
+             f'<td class="num">—</td><td class="num"><b>{soma}</b></td>'
+             f'<td class="num"><b>{_pct(100.0 * soma / parque if parque else None)}</b></td></tr>')
+    rot_fam = "Religadores" if fam == "religador" else "Reguladores"
+    return (f'<h4 class="sub-grafico">{rot_fam}</h4>'
+            f'<div class="tabela-rol"><table class="matriz livro"><thead><tr><th>Ano</th>'
+            f'<th class="num">Parque</th><th class="num">Ocorrências</th>'
+            f'<th class="num">Total que falharam</th><th class="num">Taxa</th></tr></thead>'
+            f'<tbody>{"".join(linhas)}{total}</tbody></table></div>')
+
+
 def tabela_pecas(fam, leitura):
     """De que a família falhou, pela leitura — controle, tanque, célula, furto."""
     if not leitura:
@@ -361,6 +407,7 @@ def main():
         for k, v in sorted(fechou_em.items(), key=lambda kv: -kv[1]))
 
     ppa = taxa.get("parque_por_ano") or {}
+    serie = taxa.get("serie_por_ano") or {}
     regua = (taxa.get("regua_do_componente") or {}).get("por_familia_e_ano") or {}
     aic = (taxa.get("trocas_no_aic") or {}).get("por_ano_de_conclusao_fisica") or {}
     res = taxa.get("resolvidos_por_ano") or {}
@@ -440,7 +487,7 @@ def main():
     o banco completo ou furto. O que a régua deixa de fora — trafo auxiliar, chave faca, rádio,
     antena, bateria, aterramento — não some: fica registrado em separado.</p>
     <div class="carimbo"><span>Base SS/OS · AIC · carteira do ETO-COEP</span>
-    <span>posição de 18/08/2026 · falhas por {esc(origem_falhas)}</span></div>
+    <span>posição de 20/08/2026 · leitura de falhas e repasse pela base de 11/08</span></div>
   </header>
 
   <section class="bloco"><h3>A taxa, ano a ano</h3>
@@ -506,6 +553,22 @@ def main():
     conta as falhas evitou gasto: R$ 1,19 milhão que seria gasto nos 23 cancelados em operação,
     com R$ 420 mil ainda lançados no orçamento, prontos para liberar — dinheiro que volta para a
     fila do elo 6.</div>
+
+    <h4 class="sub-grafico" id="taxa-total">A taxa total — sem a régua da peça grande</h4>
+    <p class="destaque-texto">A visão pedida em 22/08: a mesma conta, <b>sem os expurgos</b>.
+    Aqui entra todo equipamento com falha registrada no ano, qualquer que seja a peça — trafo
+    auxiliar, bateria, telecom, peça miúda ou peça grande —, contado uma vez por ano e dividido
+    pelo mesmo parque. A régua que sobra é uma só: o defeito é <b>do equipamento</b>. Continua de
+    fora o que é da rede pendurado no código dele (poste, cruzeta, chave da rede, para-raios,
+    aterramento) e o serviço programado (ajuste, comissionamento, cadastro) — isso não é falha do
+    ativo em nenhuma das duas contas.</p>
+    {tabela_total("religador", serie, ppa)}
+    {tabela_total("regulador", serie, ppa)}
+    <div class="nota branda"><strong>Como ler as duas contas juntas.</strong> A taxa da peça
+    grande mede o que dói no orçamento: controle, tanque, célula, o equipamento inteiro. A taxa
+    total mede quanto o parque chama manutenção por qualquer motivo próprio. A distância entre as
+    duas é a peça miúda — muita chamada, pouco custo. As duas usam a mesma base de SS/OS
+    (extração de 20/08) e o mesmo parque.</div>
 
     <h4 class="sub-grafico">Baixar as bases</h4>
     <p class="destaque-texto">Os números desta página, em CSV — abre direto no Excel, com

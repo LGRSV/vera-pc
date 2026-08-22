@@ -50,7 +50,7 @@ SAIDA = os.path.join(RAIZ, "data", "missao", "taxa_falha.json")
 # está aberto — anualizar ano parcial junto dos cheios mistura duas coisas.
 ANOS_CHEIOS = (2024, 2025)
 ANO_PARCIAL = 2026
-FIM_DO_PARCIAL = datetime.date(2026, 8, 18)  # data da foto da base
+FIM_DO_PARCIAL = datetime.date(2026, 8, 20)  # última abertura na base de SS/OS
 
 # Parque informado pelo gestor em 21/08 — é a autoridade sobre a população exposta.
 # O cadastro de ajustes de GESTÃO DE EQUIPAMENTOS chega a 1.292 religadores e 189
@@ -116,7 +116,7 @@ PREMISSAS = [
     "não muda a taxa. A reconstrução pelas obras do AIC foi abandonada porque "
     "superconta.",
 
-    "A taxa é a divisão direta: total que falharam ÷ parque. 2026 vai até 18/08 e a "
+    "A taxa é a divisão direta: total que falharam ÷ parque. 2026 vai até 20/08 e a "
     "taxa mostrada é a do ano até aqui, sem anualizar; o ritmo projetado vai em nota "
     "de rodapé.",
 
@@ -690,7 +690,7 @@ def resolvidos_por_ano():
         "obra_de_substituicao_concluida_em_campo": {a: dict(obras["concluida"].get(a, {})) for a in anos},
         "obra_de_substituicao_encerrada_no_contabil": {a: dict(obras["encerrada"].get(a, {})) for a in anos},
         "leitura": (
-            "2026 vai só até 18/08 e a obra leva meses para encerrar no contábil, então "
+            "2026 vai só até 20/08 e a obra leva meses para encerrar no contábil, então "
             "a linha de obra encerrada subconta 2026 por atraso de sistema, não por "
             "queda de produção. A linha de demandas encerradas é a mais comparável "
             "entre anos."

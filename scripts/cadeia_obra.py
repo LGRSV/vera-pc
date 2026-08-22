@@ -32,14 +32,20 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 
 UPLOADS = "/root/.claude/uploads/c3d5c486-5de5-52ac-a54a-1691b373e364"
-PARTES = [os.path.join(UPLOADS, "470fbe86-BASE_SS_OS_parte1.txt"),
-          os.path.join(UPLOADS, "43942150-BASE_SS_OS_parte2.txt")]
+# A base mais nova manda; as partes de 11/08 ficam de reserva para reproduzir o passado.
+_BASE_NOVA = os.path.join(RAIZ, "data", "raw", "BASE_SS_OS_20082026.txt")
+PARTES = ([_BASE_NOVA] if os.path.exists(_BASE_NOVA) else
+          [os.path.join(UPLOADS, "470fbe86-BASE_SS_OS_parte1.txt"),
+           os.path.join(UPLOADS, "43942150-BASE_SS_OS_parte2.txt")])
 AIC_XLSX = os.path.join(UPLOADS, "fa750c58-AIC_OBRAS_07082026.xlsx")
 CACHE_AIC = os.path.join(RAIZ, "data", "missao", "aic_full.json")
 SAIDA_JSON = os.path.join(RAIZ, "data", "missao", "cadeia_obra.json")
 SAIDA_XLSX = os.path.join(RAIZ, "dist", "CADEIA_SS_OS_OBRA.xlsx")
 
-RE_INICIO = re.compile(r"^[A-Z]{2,3}-[A-Z]{2,4}(?:-[A-Z]{2,4})?\s+\d{5}/\d{4}@")
+# O código do posto não tem forma fixa: ETO-COEP, DOLP-RD-PA, ETO-CADTOC, ETO-SCADA,
+# ETO-TEC01 e até DMSLETO, sem hífen. O que identifica o começo de registro é o
+# «@» colado no ano — separador de campo, que texto livre não produz.
+RE_INICIO = re.compile(r"^[A-Z][A-Z0-9-]{1,14}\s+\d{5}/\d{4}@")
 RE_RL = re.compile(r"RELIGADOR|RELIG\b", re.I)
 RE_RT = re.compile(r"REGULADOR|REG\.?\s*DE\s*TENS", re.I)
 
@@ -280,7 +286,8 @@ def main():
         alvo["sigco_certo"] = CERTO[alvo["familia"]]
         alvo["no_projeto_certo"] = sig == CERTO[alvo["familia"]]
         veredito[obj] += 1
-        if obj in ("equipamento", "trafo auxiliar") and not alvo["no_projeto_certo"]:
+        if alvo["aic"] is not None and obj in ("equipamento", "trafo auxiliar") \
+                and not alvo["no_projeto_certo"]:
             fora_do_par.append(alvo)
 
     print(f"registros remontados............ {total}")
@@ -416,16 +423,17 @@ PASSOS = [
     "Base usada: BASE_SS_OS (extração de 11/08/2026, dois arquivos de texto separados por «@») "
     "e o extrato do AIC de 07/08/2026, aba única «Export». O AIC é um só arquivo.",
     "A descrição da SS tem quebra de linha dentro dela, então um registro ocupa várias linhas do "
-    "arquivo. Os registros foram remontados pelo padrão do número da SS (ETO-XXX 00000/0000). "
-    "Deu 39.776 registros.",
+    "arquivo. Os registros foram remontados pelo padrão do número da SS — o código do posto não "
+    "tem forma fixa (ETO-COEP, DOLP-RD-PA, ETO-CADTOC, DMSLETO), o que identifica o começo é o "
+    "«@» colado no ano.",
     "Ficaram os de religador e regulador — pelo código do ativo no cadastro, pela ORIGEM_SS ou pela "
-    "descrição do ativo. Deu 7.076 registros.",
-    "Dentro deles, os que declaram número de obra no campo NUM_OBRA: 259 registros. Os outros 6.817 "
-    "não declaram obra nenhuma — serviço de equipe, sem obra aberta.",
+    "descrição do ativo. As contagens desta extração estão na aba «Obras no AIC» e no rodapé.",
+    "Dentro deles, só os que declaram número de obra no campo NUM_OBRA entram na cadeia; o resto é "
+    "serviço de equipe, sem obra aberta.",
     "O NUM_OBRA vem numérico na base, com 9 dígitos; o AIC guarda 10, com zero à esquerda. Por isso "
     "o número foi completado com zero antes de cruzar. Sem isso, nenhuma obra casa.",
-    "As 259 linhas apontam para 232 obras distintas (há obra declarada por mais de uma SS). "
-    "As 232 foram encontradas no AIC — nenhuma órfã.",
+    "Obra declarada por SS aberta DEPOIS do extrato do AIC (07/08) pode não estar no extrato: "
+    "fica como órfã, sem julgamento de SIGCO — o número dela só existe no SGM por enquanto.",
     "Cada obra foi classificada pelo que ela fez, lendo primeiro o texto da obra no AIC e depois o "
     "texto da SS e da OS: equipamento (peça grande do religador ou do regulador), trafo auxiliar, "
     "rede (poste, cabo, chave, cruzeta, poda, para-raio) ou indefinido.",
@@ -435,7 +443,8 @@ PASSOS = [
     "Projeto certo, pela régua do gestor: 8495 para religador, 8481 para regulador. Trafo auxiliar "
     "acompanha o projeto do equipamento pai — o código dele tem prefixo 51 (padrão) ou 57 e os 8 "
     "dígitos finais iguais aos do pai.",
-    "Resultado: 14 obras de equipamento ou de trafo auxiliar estão fora do projeto certo.",
+    "Resultado: as obras de equipamento ou de trafo auxiliar fora do projeto certo estão na aba "
+    "própria, uma a uma, com o texto da SS ao lado.",
 ]
 
 if __name__ == "__main__":

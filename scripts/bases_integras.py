@@ -20,6 +20,10 @@ import os
 import re
 import sys
 
+# O Excel recusa caracteres de controle, e a descrição da base traz uns poucos
+# (quebra vertical, restos de formulário). Saem antes de ir para a célula.
+RE_ILEGAL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 import cadeia_obra as co  # noqa: E402
@@ -93,7 +97,7 @@ def montar():
     linhas_ss = []
     for campos in registros_inteiros():
         if re.sub(r"\s+", " ", campos[0].strip()) in quero:
-            linhas_ss.append([c.strip()[:LIMITE_CELULA] for c in campos])
+            linhas_ss.append([RE_ILEGAL.sub(" ", c.strip())[:LIMITE_CELULA] for c in campos])
 
     import openpyxl
     wb_aic = openpyxl.load_workbook(co.AIC_XLSX, read_only=True, data_only=True)
@@ -106,7 +110,8 @@ def montar():
         if len(linha) <= pos_obra or linha[pos_obra] is None:
             continue
         if str(linha[pos_obra]).split(".")[0].strip().zfill(10) in obras_quero:
-            linhas_aic.append(["" if v is None else str(v)[:LIMITE_CELULA] for v in linha])
+            linhas_aic.append(["" if v is None else RE_ILEGAL.sub(" ", str(v))[:LIMITE_CELULA]
+                               for v in linha])
     wb_aic.close()
     return hdr_ss, linhas_ss, hdr_aic, linhas_aic
 
@@ -149,20 +154,19 @@ def planilha(hdr_ss, linhas_ss, hdr_aic, linhas_aic):
 
     sha_aic = sha256(co.AIC_XLSX)
     sha_status = sha256(ARQ_STATUS) if os.path.exists(ARQ_STATUS) else "(arquivo ausente)"
-    ws.append(["1 · Base de SS/OS", "BASE_SS_OS_11082026.zip → BASE_SS_OS_parte1.txt",
-               "texto, separador @", len(linhas_ss), len(hdr_ss),
-               sha256(co.PARTES[0]),
-               "Extração de 11/08/2026, codificação latin-1. O arquivo tem 167.253 linhas "
-               "físicas porque a descrição da SS quebra linha; remontados dão 39.776 registros. "
-               "Aqui vêm só os que declaram obra e são de religador ou regulador."])
-    ws.append(["1 · Base de SS/OS (parte 2)", "BASE_SS_OS_11082026.zip → BASE_SS_OS_parte2.txt",
-               "texto, separador @", "", len(hdr_ss), sha256(co.PARTES[1]),
-               "Mesma extração, segunda metade — 185.494 linhas físicas. As duas partes foram "
-               "lidas juntas."])
+    nomes = " + ".join(os.path.basename(c) for c in co.PARTES)
+    for n, caminho in enumerate(co.PARTES, 1):
+        ws.append([f"1 · Base de SS/OS ({os.path.basename(caminho)})", nomes,
+                   "texto, separador @", len(linhas_ss) if n == 1 else "", len(hdr_ss),
+                   sha256(caminho),
+                   "Extração com aberturas até 20/08/2026, codificação latin-1. A descrição "
+                   "quebra linha, então um registro ocupa várias linhas; aqui vêm só os que "
+                   "declaram obra e são de religador ou regulador."])
     ws.append(["2 · Base de Obras (AIC)", "AIC_OBRAS_07082026.xlsx", "Export",
                len(linhas_aic), len(hdr_aic), sha_aic,
                "Extrato de 07/08/2026 com 124.084 obras. Aba única «Export» — não há aba de "
-               "infotrafo. Aqui vêm as 232 obras declaradas pelas SS da cadeia."])
+               "infotrafo. Aqui vêm as obras da cadeia presentes no extrato; obra declarada "
+               "por SS aberta depois de 07/08 fica órfã até o próximo extrato."])
     ws.append(["3 · Base de OS status", "OBRAS_status_extracao_07082026.xlsx", "Export",
                len(linhas_aic), len(hdr_aic), sha_status,
                "É O MESMO ARQUIVO da linha 2 — o SHA-256 bate byte a byte com o AIC_OBRAS. "

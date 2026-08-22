@@ -46,7 +46,7 @@ DIR_ANALISE = os.path.join(RAIZ, "data", "analise_ia")
 DIR_SAIDA = os.path.join(RAIZ, "data")
 
 # Data de referência da análise. As previsões da planilha vêm só como dd/mm.
-DATA_REF = datetime.date(2026, 8, 18)
+DATA_REF = datetime.date(2026, 8, 20)
 
 TIPO_EQUIPAMENTO = {"79": "Religador", "58": "Regulador de Tensão"}
 

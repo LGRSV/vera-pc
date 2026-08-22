@@ -390,7 +390,7 @@ def montar(entrada):
     tratativas = _datas_de_tratativa(lista, entrada, base)
     entrantes = {x["mes"]: x["novos"] for x in serie_coep}
     saidas = Counter(t["mes_resolucao"] for t in tratativas if t["mes_resolucao"])
-    # Janela de exibição: janeiro a agosto, até 18/08, que é a posição do relatório.
+    # Janela de exibição: janeiro a agosto, até 20/08, que é a posição da base de SS/OS.
     # Agosto é mês parcial e vai dito assim no rótulo — antes ele ficava de fora para
     # não virar um toco no fim da curva, mas isso desencontrava esta curva da do posto,
     # que já mostra agosto. Melhor mostrar e avisar do que esconder.
@@ -448,7 +448,7 @@ def montar(entrada):
 
     return {
         "recorte": "todos os tipos de SS",
-        "janela": "janeiro a agosto de 2026, com agosto até o dia 18",
+        "janela": "janeiro a agosto de 2026, com agosto até o dia 20",
         "apos_janela": apos_janela,
         "ss_resolvidas": ss_resolvidas,
         "resolvidos_duplicados": duplicados,
