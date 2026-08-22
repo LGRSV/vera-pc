@@ -85,6 +85,8 @@ def montar():
         cp = json.load(fh)
     resolvidos = {r["ativo"]: r for r in cp["resolvidos_do_coep"]
                   if r["conta_como_resolvido_pelo_coep"]}
+    canceladas_no_universo = {a for a, r in resolvidos.items()
+                              if r["como_terminou"] == "SS CANCELADA"}
     cidade = {a["ativo"]: a["localidade"] for a in cp["ativos"]}
 
     def cadeia(numero):
@@ -159,6 +161,14 @@ def montar():
             "equipamentos": len(set(s["ativo"] for s in saltos)),
             "resolvidos_no_universo": len(resolvidos),
             "sem_repasse_em_2026": len(resolvidos) - len(set(s["ativo"] for s in saltos)),
+            "onde_fecharam_os_sem_repasse": dict(Counter(
+                r["posto_que_fechou"] for a, r in resolvidos.items()
+                if a not in {s["ativo"] for s in saltos}).most_common()),
+            "canceladas_no_universo": len(canceladas_no_universo),
+            "canceladas_com_salto": len(canceladas_no_universo
+                                        & {s["ativo"] for s in saltos}),
+            "canceladas_sem_salto": len(canceladas_no_universo
+                                        - {s["ativo"] for s in saltos}),
             "por_desfecho": {k: {"qtd": len(v),
                                  "canceladas": sum(1 for s in v if s["cancelada"]),
                                  **percentis([s["dias_no_posto"] for s in v])}
@@ -199,6 +209,13 @@ PREMISSAS = [
     "O cancelamento vai em aba própria. Nesses saltos a nota que o posto recebeu morreu "
     "cancelada E a demanda terminou cancelada — as duas pontas batem, nos dez casos, sem "
     "exceção. Não é serviço executado; é demanda encerrada sem troca de peça.",
+    "CUIDADO ao ler a aba «Canceladas com repasse»: ela conta SALTOS dentro deste recorte, não "
+    "o total de canceladas. Das 71 resolvidas, 45 terminaram canceladas — mas 36 delas nunca "
+    "saíram da mesa do COEP e por isso não têm salto nenhum. Só 9 equipamentos cancelados "
+    "tiveram repasse, e esses 9 aparecem em 10 saltos.",
+    "A conta fecha assim: 32 equipamentos tiveram pelo menos um repasse do COEP em 2026 (7 "
+    "deles duas vezes, o que dá os 39 saltos) e 39 não tiveram nenhum. 32 + 39 = 71. O fato de "
+    "«39 saltos» e «39 sem repasse» darem o mesmo número é coincidência, conferida.",
 ]
 
 
@@ -258,8 +275,22 @@ def planilha(pacote):
     for c in ws[ws.max_row]:
         c.font, c.fill = tit, fundo
     ws.append(["Equipamentos com pelo menos um salto", r["equipamentos"]])
-    ws.append(["Resolvidos sem nenhum repasse do COEP em 2026", r["sem_repasse_em_2026"]])
+    ws.append(["Resolvidos sem nenhum repasse do COEP em 2026 — fecharam sem sair da mesa",
+               r["sem_repasse_em_2026"]])
     ws.append(["Total de resolvidos no universo", r["resolvidos_no_universo"]])
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+    ws.append([])
+    ws.append(["O cancelamento nas 71 resolvidas", ""])
+    for c in ws[ws.max_row]:
+        c.font, c.fill = tit, fundo
+    ws.append(["Demandas que terminaram canceladas", r["canceladas_no_universo"]])
+    ws.append(["  dessas, com repasse do COEP — vão na aba Canceladas",
+               r["canceladas_com_salto"]])
+    ws.append(["  dessas, sem repasse nenhum — fecharam no próprio COEP",
+               r["canceladas_sem_salto"]])
+    ws.append(["A aba «Canceladas» conta SALTOS, não equipamentos: "
+               f"{r['canceladas_com_salto']} equipamentos em "
+               f"{r['por_desfecho'] and sum(b.get('canceladas', 0) for b in r['por_desfecho'].values())} saltos", ""])
     fechar(ws)
 
     ws = wb.create_sheet("Quem recebeu")
@@ -296,7 +327,7 @@ def planilha(pacote):
         ws.append(linha_salto(s))
     fechar(ws)
 
-    ws = wb.create_sheet(f"Canceladas ({len(canc)})")
+    ws = wb.create_sheet(f"Canceladas com repasse ({len(canc)})")
     cabecalho(ws, COLS_SALTO + ["Como a demanda terminou", "Fechou em",
                                 "Prova do resolvido"],
               LARG_SALTO + [16, 12, 48])

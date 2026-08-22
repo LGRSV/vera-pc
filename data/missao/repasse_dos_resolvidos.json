@@ -9,13 +9,23 @@
   "Saída é a conclusão dessa SS, se houver; senão a abertura da SS seguinte. A conclusão vem VAZIA em SS repassada — sem montar a cadeia, o tempo de posto não existe na base.",
   "Três desfechos, contados em separado porque contam coisas diferentes: passou adiante para um terceiro posto que não é o COEP; devolveu ao COEP; ou a cadeia fechou no posto que recebeu.",
   "Quem ainda estava no posto em 18/08/2026 conta até essa data.",
-  "O cancelamento vai em aba própria. Nesses saltos a nota que o posto recebeu morreu cancelada E a demanda terminou cancelada — as duas pontas batem, nos dez casos, sem exceção. Não é serviço executado; é demanda encerrada sem troca de peça."
+  "O cancelamento vai em aba própria. Nesses saltos a nota que o posto recebeu morreu cancelada E a demanda terminou cancelada — as duas pontas batem, nos dez casos, sem exceção. Não é serviço executado; é demanda encerrada sem troca de peça.",
+  "CUIDADO ao ler a aba «Canceladas com repasse»: ela conta SALTOS dentro deste recorte, não o total de canceladas. Das 71 resolvidas, 45 terminaram canceladas — mas 36 delas nunca saíram da mesa do COEP e por isso não têm salto nenhum. Só 9 equipamentos cancelados tiveram repasse, e esses 9 aparecem em 10 saltos.",
+  "A conta fecha assim: 32 equipamentos tiveram pelo menos um repasse do COEP em 2026 (7 deles duas vezes, o que dá os 39 saltos) e 39 não tiveram nenhum. 32 + 39 = 71. O fato de «39 saltos» e «39 sem repasse» darem o mesmo número é coincidência, conferida."
  ],
  "resumo": {
   "saltos": 39,
   "equipamentos": 32,
   "resolvidos_no_universo": 71,
   "sem_repasse_em_2026": 39,
+  "onde_fecharam_os_sem_repasse": {
+   "ETO-COEP": 36,
+   "ETO-RD-PS": 2,
+   "ETO-RD-PA": 1
+  },
+  "canceladas_no_universo": 45,
+  "canceladas_com_salto": 9,
+  "canceladas_sem_salto": 36,
   "por_desfecho": {
    "fechou no posto que recebeu": {
     "qtd": 18,
