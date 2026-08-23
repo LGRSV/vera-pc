@@ -1,5 +1,8 @@
 {
- "gerado_em": "2026-08-22",
+ "gerado_em": "2026-08-23",
+ "regua": "o padrão 51/57 + 8 dígitos finais do pai levanta o candidato; a coordenada confirma — até 50 m do pai e mesmo alimentador. Sem isso, é coincidência de numeração.",
+ "confirmados": 8,
+ "descartados": 0,
  "fonte": "BASE_SS_OS_20082026.txt — SS cujo NUM_TRAFO é o trafo auxiliar (51/57 + os 8 dígitos finais do pai) de um ativo da visão ETO",
  "qtd": 8,
  "ativos_com_ss_no_auxiliar": [
@@ -27,7 +30,14 @@
    "tipo_ss": "AVISO DE ANOMALIA",
    "abertura": "15/02/2024 13:58:06",
    "localidade": "SAO FELIX DO TOCANTINS",
-   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador"
+   "coord_x": "977737",
+   "coord_y": "8873862",
+   "alimentador": "LD03046026",
+   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador",
+   "distancia_do_pai_m": 4.0,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "4.0 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5702702257",
@@ -39,7 +49,14 @@
    "tipo_ss": "AVISO DE ANOMALIA",
    "abertura": "25/04/2024 10:48:59",
    "localidade": "SAO FELIX DO TOCANTINS",
-   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador"
+   "coord_x": "977737",
+   "coord_y": "8873862",
+   "alimentador": "LD03046026",
+   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador",
+   "distancia_do_pai_m": 4.0,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "4.0 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5702702257",
@@ -51,7 +68,14 @@
    "tipo_ss": "AVISO DE ANOMALIA",
    "abertura": "25/04/2024 10:48:59",
    "localidade": "SAO FELIX DO TOCANTINS",
-   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador"
+   "coord_x": "977737",
+   "coord_y": "8873862",
+   "alimentador": "LD03046026",
+   "texto": "ELETRICISTA Jadson Moura MartinsLD [46026] UHE ISAMU IKEDA I - 1UI15702702257\tChave que alimenta o o religador com vazamento 7902702257\tChave com vazamento aque alimenta o trafo do religador",
+   "distancia_do_pai_m": 4.0,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "4.0 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5725871077",
@@ -63,7 +87,14 @@
    "tipo_ss": "FORMS SUBST DE TRANSFORMADOR",
    "abertura": "22/11/2024 15:47:11",
    "localidade": "GOIATINS",
-   "texto": "trafo 5725871077 queimado aceso livrelocalidade - Goiatins trafo atende o religador 7925871077"
+   "coord_x": "905713",
+   "coord_y": "9145475",
+   "alimentador": "LD03105019",
+   "texto": "trafo 5725871077 queimado aceso livrelocalidade - Goiatins trafo atende o religador 7925871077",
+   "distancia_do_pai_m": 3.0,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "3.0 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5727646026",
@@ -75,7 +106,14 @@
    "tipo_ss": "FORMS SUBST DE TRANSFORMADOR",
    "abertura": "22/09/2024 03:12:01",
    "localidade": "PONTE ALTA DO TOCANTINS",
-   "texto": "Segue nota para envia equipe manutenção substituir Trafo 5727646026,  15kva e para-raio queimado serviço auxiliar do RL-7927646026 na LD Ponte Alta / Mateiros, Tensão 34,5kv, Acesso livre."
+   "coord_x": "918776",
+   "coord_y": "8841816",
+   "alimentador": "LD03046026",
+   "texto": "Segue nota para envia equipe manutenção substituir Trafo 5727646026,  15kva e para-raio queimado serviço auxiliar do RL-7927646026 na LD Ponte Alta / Mateiros, Tensão 34,5kv, Acesso livre.",
+   "distancia_do_pai_m": 3.0,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "3.0 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5131219078",
@@ -87,7 +125,14 @@
    "tipo_ss": "AVISO DE ANOMALIA",
    "abertura": "09/07/2025 12:53:09",
    "localidade": "ITACAJA",
-   "texto": "Boa tarde!Segue SS de trafo auxiliar do religador 7931219078 com vazamento de oleo, favor substituir o mesmo."
+   "coord_x": "857970",
+   "coord_y": "9047056",
+   "alimentador": "LD01065015",
+   "texto": "Boa tarde!Segue SS de trafo auxiliar do religador 7931219078 com vazamento de oleo, favor substituir o mesmo.",
+   "distancia_do_pai_m": 2.8,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "2.8 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5138137007",
@@ -99,7 +144,14 @@
    "tipo_ss": "AVISO DE ANOMALIA",
    "abertura": "15/12/2025 11:26:11",
    "localidade": "MIRACEMA DO TOCANTINS",
-   "texto": "TRAFO AUXILIAR DO RL 7938137007TRAFO 5138137007 QUEIMADOTR DE 15 KVA REDE 13.8 KV VAZANDO OLEO OBS: ACESSO CAMIONETETEM UMA FAZENDA CERCADA QUE TEM ACESSO UC:"
+   "coord_x": "765775",
+   "coord_y": "8894218",
+   "alimentador": "AL02017017",
+   "texto": "TRAFO AUXILIAR DO RL 7938137007TRAFO 5138137007 QUEIMADOTR DE 15 KVA REDE 13.8 KV VAZANDO OLEO OBS: ACESSO CAMIONETETEM UMA FAZENDA CERCADA QUE TEM ACESSO UC:",
+   "distancia_do_pai_m": 2.2,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "2.2 m do pai, mesmo alimentador — é o trafo do equipamento"
   },
   {
    "trafo_auxiliar": "5155946007",
@@ -111,7 +163,14 @@
    "tipo_ss": "INDISPONIBILIDADE PARA OPERAÇÃO",
    "abertura": "17/10/2025 13:26:06",
    "localidade": "MIRACEMA DO TOCANTINS",
-   "texto": "ss opara trocar trafo 5155946007 que atende o RL 7955946007potencia:15kva 34500acesso: livre"
+   "coord_x": "787602",
+   "coord_y": "8929207",
+   "alimentador": "LD05050008",
+   "texto": "ss opara trocar trafo 5155946007 que atende o RL 7955946007potencia:15kva 34500acesso: livre",
+   "distancia_do_pai_m": 0.0,
+   "mesmo_alimentador": true,
+   "confirmado": true,
+   "confirmacao": "0.0 m do pai, mesmo alimentador — é o trafo do equipamento"
   }
  ]
 }

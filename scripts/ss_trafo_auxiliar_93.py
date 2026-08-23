@@ -14,6 +14,7 @@ Rodar: python3 scripts/ss_trafo_auxiliar_93.py
 """
 
 import json
+import math
 import os
 import sys
 
@@ -34,16 +35,26 @@ def montar():
     aux = {p + a[2:]: a for a in alvos for p in PREFIXOS}
 
     achados = []
+    coord_do_pai = {}
 
     def trata(bruto):
         c = em._normaliza(bruto.split("@"))
         cod = c[13].strip()
+        if cod in alvos:                      # guarda a coordenada do equipamento pai
+            try:
+                x, y = float(c[14].strip()), float(c[15].strip())
+                if x and y:
+                    coord_do_pai.setdefault(cod, (x, y, c[12].strip()))
+            except ValueError:
+                pass
         if cod not in aux:
             return
         achados.append({"trafo_auxiliar": cod, "ativo": aux[cod], "ss": c[0].strip(),
                         "os": c[1].strip(), "obra": c[2].strip(), "situacao": c[18].strip(),
                         "tipo_ss": c[26].strip(), "abertura": c[19].strip(),
-                        "localidade": c[23].strip(), "texto": c[27].strip()[:400]})
+                        "localidade": c[23].strip(), "coord_x": c[14].strip(),
+                        "coord_y": c[15].strip(), "alimentador": c[12].strip(),
+                        "texto": c[27].strip()[:400]})
 
     base = next((p for p in co.PARTES if os.path.exists(p)), None)
     if base is None:
@@ -63,8 +74,38 @@ def montar():
         if buffer is not None:
             trata(buffer)
 
+    # O padrão do código não basta: os 3 últimos dígitos são a localidade e o miolo
+    # coincide por acaso em praça grande. O que confirma é a COORDENADA — trafo
+    # auxiliar de verdade fica na mesma estrutura do pai, a poucos metros — e o
+    # alimentador. Quem não confirmar sai marcado, não silenciosamente descartado.
+    LIMITE_METROS = 50.0
+    for a in achados:
+        pai = coord_do_pai.get(a["ativo"])
+        try:
+            x, y = float(a["coord_x"]), float(a["coord_y"])
+        except ValueError:
+            x = y = 0.0
+        if not pai or not (x and y):
+            a["confirmacao"] = "sem coordenada para conferir"
+            a["confirmado"] = None
+            continue
+        dist = math.hypot(pai[0] - x, pai[1] - y)
+        mesmo_alim = bool(pai[2]) and pai[2] == a["alimentador"]
+        a["distancia_do_pai_m"] = round(dist, 1)
+        a["mesmo_alimentador"] = mesmo_alim
+        a["confirmado"] = dist <= LIMITE_METROS and mesmo_alim
+        a["confirmacao"] = (f"{dist:.1f} m do pai, "
+                            f"{'mesmo' if mesmo_alim else 'OUTRO'} alimentador — "
+                            + ("é o trafo do equipamento" if a["confirmado"]
+                               else "NÃO é trafo auxiliar, é coincidência de numeração"))
+
     pacote = {
-        "gerado_em": "2026-08-22",
+        "gerado_em": "2026-08-23",
+        "regua": "o padrão 51/57 + 8 dígitos finais do pai levanta o candidato; a "
+                 f"coordenada confirma — até {LIMITE_METROS:.0f} m do pai e mesmo "
+                 "alimentador. Sem isso, é coincidência de numeração.",
+        "confirmados": sum(1 for a in achados if a.get("confirmado")),
+        "descartados": sum(1 for a in achados if a.get("confirmado") is False),
         "fonte": f"{os.path.basename(base)} — SS cujo NUM_TRAFO é o trafo auxiliar "
                  "(51/57 + os 8 dígitos finais do pai) de um ativo da visão ETO",
         "qtd": len(achados),
