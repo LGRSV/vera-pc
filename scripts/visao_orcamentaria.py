@@ -373,6 +373,29 @@ def montar():
                                     if not candidatas else candidatas[0]["porque"])})
     sem_obra.sort(key=lambda x: x["ativo"])
 
+    # A investigação por agentes (23/08) leu a cadeia inteira de cada um destes e as
+    # obras candidatas do AIC. Onde ela achou a obra, o número entra aqui — mas sem
+    # valor, porque nos dois casos a cifra não está lançada: uma obra está em projeto
+    # e a outra é posterior ao extrato do AIC.
+    investigacao = {}
+    arq_inv = os.path.join(RAIZ, "data", "missao", "investigacao_obras.json")
+    if os.path.exists(arq_inv):
+        with open(arq_inv, encoding="utf-8") as fh:
+            inv = json.load(fh)
+        investigacao = {c["ativo"]: c for c in inv["casos"]}
+        for s in sem_obra:
+            c = investigacao.get(s["ativo"])
+            if not c:
+                continue
+            s["investigacao"] = {
+                "classe": c["classe_do_servico"], "veredito": c["veredito"],
+                "obra": c["obra"], "confianca": c["confianca"],
+                "executado_em": c.get("data_da_execucao", ""),
+                "deveria_ter_obra": c.get("deveria_ter_obra_de_manutencao"),
+                "refutado_pelo_cetico": (c.get("verificacao") or {}).get("refutado"),
+                "resumo": c["o_que_foi_feito"][:400],
+            }
+
     # Uma obra pode atender mais de um ativo — acontece de a mesma troca cobrir dois
     # equipamentos do mesmo trecho. Contar o valor cheio nos dois infla a conta, então
     # o valor da obra é rateado entre eles e a divisão vai anotada.
@@ -454,6 +477,7 @@ def montar():
         },
         "fontes_por_ativo": {a: v for a, v in sorted(fontes.items())},
         "sem_obra": sem_obra,
+        "investigacao": investigacao,
         "ja_gasto": {**g, "regra": "ajuste de proteção + comissionamento — equipamento já "
                      "trocado; o valor é o que estava orçado para eles, e o desembolso "
                      "real está dentro do realizado do ano"},

@@ -558,17 +558,25 @@ function visaoOrcamentaria() {
       <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead><tr>
       <th>Ativo</th><th>O que o parecer diz que foi feito</th><th>Por que não há obra</th>
       <th class="num">Valor usado</th></tr></thead><tbody>
-      ${o.sem_obra.map((s) => { const L = s.leitura_do_parecer || {}; return `<tr>
+      ${o.sem_obra.map((s) => { const L = s.leitura_do_parecer || {}, I = s.investigacao || {}; return `<tr>
         <td><b class="mono">${esc(s.ativo)}</b><i class="linha-nota">${esc(s.localidade || '')} · ${esc((s.balde || '').replace(/_/g, ' '))}</i></td>
-        <td>${esc(L.classe || '—')}${L.obra_citada ? `<i class="linha-nota">obra ${esc(L.obra_citada)}</i>` : ''}</td>
-        <td>${esc(L.conclusao || s.porque)}${L.trecho_do_parecer ? `<i class="linha-nota">«${esc(L.trecho_do_parecer.slice(0, 150))}»</i>` : ''}</td>
+        <td>${esc(L.classe || '—')}${I.executado_em ? `<i class="linha-nota">executado em ${esc(I.executado_em)}</i>` : ''}</td>
+        <td>${esc(L.conclusao || s.porque)}
+          ${I.obra ? `<i class="linha-nota">obra <b class="mono">${esc(I.obra)}</b> — achada pela investigação${I.refutado_pelo_cetico === false ? ', não refutada pelo cético' : ''}</i>` : ''}
+          ${L.trecho_do_parecer ? `<i class="linha-nota">«${esc(L.trecho_do_parecer.slice(0, 150))}»</i>` : ''}</td>
         <td class="num">${s.valor_usado ? `${moedaBR(s.valor_usado)}<i class="linha-nota">pela planilha</i>` : '<span style="opacity:.6">sem valor</span>'}</td></tr>`; }).join('')}
       </tbody></table></div>
       <p class="destaque-texto" style="margin-top:10px">${(() => {
         const at = o.sem_obra.filter((s) => (s.leitura_do_parecer || {}).classe === 'melhoria de aterramento').length;
         return at ? `<b>${at} dos ${o.sem_obra.length} são melhoria de aterramento</b> — e aí a ausência de obra é a resposta
         certa, não um buraco: aterramento é serviço de rede, feito pelos COCM's ou pela equipe de linha, e o próprio
-        parecer do COEP manda tirar do fluxo de aquisição («melhoria de aterramento não passa pelo COEP»).` : ''; })()}</p>
+        parecer do COEP manda tirar do fluxo de aquisição («melhoria de aterramento não passa pelo COEP»).` : ''; })()}
+      ${(() => {
+        const comObra = o.sem_obra.filter((s) => (s.investigacao || {}).obra);
+        return comObra.length ? ` Nos outros <b>${comObra.length}</b> a investigação achou a obra —
+        ${comObra.map((s) => `<b class="mono">${esc(s.investigacao.obra)}</b> no ${esc(s.ativo)}`).join(' e ')} —, mas
+        nenhuma tem cifra lançada: uma está em projeto, sem orçado nem realizado, e a outra nasceu depois do extrato do
+        AIC. Elas entram como <b>custo não lançado</b>, nunca como R$ 0.` : ''; })()}</p>
       </details>` : ''}
     <div class="nota" style="margin-top:14px"><strong>A fila não cabe no saldo.</strong>
     Resolver os <b>${fila.qtd}</b> que ainda esperam equipamento custaria <b>${mil(fila.custo)}</b> —
