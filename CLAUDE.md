@@ -103,9 +103,15 @@ comissionamento e obra de equipamento novo.
   zero à esquerda. Sem `.zfill(10)` nenhuma obra casa.
 - **Trafo auxiliar**: código com prefixo **51** (padrão) ou **57**, com os **8 dígitos
   finais iguais aos do equipamento pai**. Validado por código, pelo texto das obras,
-  pelo texto das SS e pelas coordenadas.
+  pelo texto das SS e pelas coordenadas. **A base de repasses não traz 51/57** — a
+  consulta dela só aceita 78/79/58. Na base de SS/OS há 16.151 códigos 51/57 de 10
+  dígitos (a maioria trafo de distribuição), dos quais **64 SS são trafo auxiliar de um
+  RL/RT conhecido, em 49 pais** (2024: 21 · 2025: 25 · 2026: 18); 42 citam obra, 41
+  estão no AIC e somam **R$ 350.035 realizados**.
 - **Projeto SIGCO certo**: 8495 para religador, 8481 para regulador. Trafo auxiliar
-  acompanha o projeto do equipamento pai.
+  acompanha o projeto do equipamento pai — **na teoria**: na prática as obras de trafo
+  auxiliar caem no **61993** (18 das 41), no 8812 e no 8385. Quem filtra pelo projeto do
+  equipamento não enxerga essas obras.
 
 ## Arquivos e ambiente
 
