@@ -431,6 +431,14 @@ def main():
         if os.path.exists(arq_vo):
             with open(arq_vo, encoding="utf-8") as fh:
                 meta["visao_orcamentaria"] = json.load(fh)
+        arq_ta = os.path.join(RAIZ, "data", "missao", "trafo_auxiliar_2026.json")
+        if os.path.exists(arq_ta):
+            with open(arq_ta, encoding="utf-8") as fh:
+                ta = json.load(fh)
+            meta["trafo_auxiliar_2026"] = {k: ta[k] for k in
+                                           ("ano", "regua", "ss_no_ano", "confirmados",
+                                            "religadores", "obras", "obras_no_aic",
+                                            "realizado", "orcado")}
         arq_cp = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
         if os.path.exists(arq_cp):
             with open(arq_cp, encoding="utf-8") as fh:

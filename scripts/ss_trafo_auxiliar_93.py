@@ -93,9 +93,12 @@ def montar():
         mesmo_alim = bool(pai[2]) and pai[2] == a["alimentador"]
         a["distancia_do_pai_m"] = round(dist, 1)
         a["mesmo_alimentador"] = mesmo_alim
-        a["confirmado"] = dist <= LIMITE_METROS and mesmo_alim
+        # quem manda é a coordenada: mesma estrutura é prova de que o trafo é daquele
+        # equipamento. O alimentador é reforço, não requisito — ele muda com
+        # remanejamento e derrubava caso com coordenada idêntica ao pai.
+        a["confirmado"] = dist <= LIMITE_METROS
         a["confirmacao"] = (f"{dist:.1f} m do pai, "
-                            f"{'mesmo' if mesmo_alim else 'OUTRO'} alimentador — "
+                            f"{'mesmo' if mesmo_alim else 'outro'} alimentador — "
                             + ("é o trafo do equipamento" if a["confirmado"]
                                else "NÃO é trafo auxiliar, é coincidência de numeração"))
 

@@ -585,6 +585,31 @@ function visaoOrcamentaria() {
     <b>${String(fila.pct_do_saldo).replace('.', ',')}%</b> do saldo de ${mil(orc.saldo)}. Mesmo sem gastar mais nada
     em falha nova até dezembro, falta dinheiro para a carteira de hoje: a conta fecha em
     ${mil(fila.custo - orc.saldo)} a mais que o disponível.</div>
+    ${(() => {
+      const ta = estado.meta?.trafo_auxiliar_2026;
+      if (!ta || !ta.obras?.length) return '';
+      const noAic = ta.obras.filter((o) => o.no_aic);
+      return `<h4 class="sub-grafico">O trafo auxiliar, que ninguém vê</h4>
+      <p class="destaque-texto">A obra do equipamento às vezes não está pendurada nele, e sim no <b>trafo auxiliar</b> —
+      código 51 ou 57 com os oito dígitos finais do religador. Como o recorte de RL/RT guarda só 79, 78 e 58, essas
+      obras nunca entravam em conta nenhuma. Em ${esc(ta.ano)} são <b>${ta.confirmados} SS</b> em
+      <b>${ta.religadores.length} religadores</b>, com <b>${mil(ta.realizado)} já realizados</b> em ${noAic.length}
+      obras. Fica <b>fora da taxa de falha</b> — trafo auxiliar não é peça grande —, mas é dinheiro gasto no parque.</p>
+      <div class="tabela-rol"><table class="matriz livro"><thead><tr>
+      <th>Religador</th><th>Obra</th><th>Localidade</th><th>Projeto</th><th class="num">Realizado</th></tr></thead><tbody>
+      ${ta.obras.map((o) => `<tr${o.no_aic ? '' : ' style="opacity:.55"'}>
+        <td><b class="mono">${esc(o.ativo)}</b><i class="linha-nota">trafo ${esc(o.trafo_auxiliar)}</i></td>
+        <td class="mono">${esc(o.obra)}</td><td>${esc(o.localidade)}</td>
+        <td>${esc(o.projeto_sigco || '—')}</td>
+        <td class="num">${o.no_aic ? moedaBR(o.realizado) : '<span style="opacity:.7">fora do extrato do AIC</span>'}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td colspan="4">Total em ${esc(ta.ano)}</td>
+      <td class="num"><b>${moedaBR(ta.realizado)}</b></td></tr></tfoot></table></div>
+      <div class="nota branda" style="margin-top:12px"><strong>Por que essas obras somem.</strong>
+      O projeto SIGCO delas quase nunca é o do equipamento: a maioria cai no <b>61993</b>, o balde do trafo auxiliar,
+      e o resto no 8385 — quem filtra por 8495 e 8481 não enxerga nenhuma. E o vínculo pelo código sozinho engana:
+      os três últimos dígitos são a localidade, então em praça grande o número coincide por acaso. Cada linha aqui foi
+      confirmada pela <b>coordenada</b> — o trafo tem de estar na mesma estrutura do religador, a poucos metros.</div>`;
+    })()}
     <h4 class="sub-grafico">O gasto mês a mês</h4>
     <div style="display:flex;align-items:flex-end;gap:6px;margin:10px 2px 4px">${barras}</div>
     <details class="detalhe-plano"><summary>De onde saem esses números</summary>
