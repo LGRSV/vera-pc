@@ -746,7 +746,12 @@
     {
      "obra": "0402200401",
      "porque": "obra de rede ou instalação nova, de 2022 (SIGCO 8923) — não é a manutenção deste ativo",
-     "descricao": "CONSTRUÇÃO DE 2704M DE RDR MT 34,5KV TRIFÁSICA E INST. DE 01  BANCO DE REGULADOR DE TENSÃO"
+     "descricao": "CONSTRUÇÃO DE 2704M DE RDR MT 34,5KV TRIFÁSICA E INST. DE 01  BANCO DE REGULADOR DE TENSÃO",
+     "ano": "2022",
+     "orcado": 451093.0,
+     "realizado": 451895.0,
+     "valor": 451895.0,
+     "medida": "realizado"
     }
    ],
    "leitura_do_parecer": {
@@ -754,6 +759,7 @@
     "conclusao": "serviço de rede, não manutenção do equipamento — obra de manutenção não deveria existir mesmo",
     "trecho_do_parecer": "COCM SUL - 07/07/2026 - FOI REALIZADO MELHORIA DE ATERRAMENTO E FEITO A MANUTENÇÕES E TODAS AS CHAVES E SUBSTITUIDO OS CONECTORES.PARECER COEP: MELHORI"
    },
+   "obra_de_instalacao": null,
    "porque": "obra de rede ou instalação nova, de 2022 (SIGCO 8923) — não é a manutenção deste ativo",
    "investigacao": {
     "classe": "melhoria_de_aterramento",
@@ -775,8 +781,14 @@
    "obras_descartadas": [
     {
      "obra": "0702400720",
-     "porque": "obra de rede ou instalação nova, de 2025 (SIGCO 69032) — não é a manutenção deste ativo",
-     "descricao": "INSTALAÇÃO DE 01 REGULADOR DE TENSÃO EM RDR 34,5KV - PLPT 69032 INSTALAÇÃO DE EQUIPAMENTOS"
+     "porque": "obra que INSTALOU o equipamento, de 2025 — o valor existe, mas é de outro ano e é expansão: não entra na conta de 2026",
+     "descricao": "INSTALAÇÃO DE 01 REGULADOR DE TENSÃO EM RDR 34,5KV - PLPT 69032 INSTALAÇÃO DE EQUIPAMENTOS",
+     "ano": "2025",
+     "orcado": 461683.0,
+     "realizado": 422338.0,
+     "valor": 422338.0,
+     "medida": "realizado",
+     "obra_de_instalacao": true
     }
    ],
    "leitura_do_parecer": {
@@ -784,7 +796,15 @@
     "conclusao": "serviço de rede, não manutenção do equipamento — obra de manutenção não deveria existir mesmo",
     "trecho_do_parecer": "PARECER DMSL:PENDÊNCIA: Realizar melhoria no aterramento por ser tratar de um terreno muito arenoso, e há pendências por parte do time da proteção"
    },
-   "porque": "obra de rede ou instalação nova, de 2025 (SIGCO 69032) — não é a manutenção deste ativo",
+   "obra_de_instalacao": {
+    "obra": "0702400720",
+    "ano": "2025",
+    "valor": 422338.0,
+    "medida": "realizado",
+    "descricao": "INSTALAÇÃO DE 01 REGULADOR DE TENSÃO EM RDR 34,5KV - PLPT 69032 INSTALAÇÃO DE EQUIPAMENTOS",
+    "conta_em_2026": false
+   },
+   "porque": "obra que INSTALOU o equipamento, de 2025 — o valor existe, mas é de outro ano e é expansão: não entra na conta de 2026",
    "investigacao": {
     "classe": "melhoria_de_aterramento",
     "veredito": "sem_obra_justificado",
@@ -806,7 +826,12 @@
     {
      "obra": "0312600354",
      "porque": "obra sem valor lançado no AIC (SIGCO em branco)",
-     "descricao": "MANUTENÇÃO CORRET SUBSTITUIÇÃO DE RELIGADOR MANUTENÇÃO CORRETIVA"
+     "descricao": "MANUTENÇÃO CORRET SUBSTITUIÇÃO DE RELIGADOR MANUTENÇÃO CORRETIVA",
+     "ano": "",
+     "orcado": 0.0,
+     "realizado": 0.0,
+     "valor": 0.0,
+     "medida": "sem valor"
     }
    ],
    "leitura_do_parecer": {
@@ -815,6 +840,7 @@
     "conclusao": "a obra está identificada; o que falta é valor lançado nela no AIC",
     "trecho_do_parecer": "ISPONIBILIZADOS NO APP DA PROTEÇÃO15/07/2026 EQUIPAMENTO SUBSTITUIDO NA OS ETO-RD-PO 1860 OBRA 031260035414/07/2026 PARECER COCM/ COEP: DE ACORDO COM O EDSON CURCINO FOI FEITA S SUBSTITUIÇÃO DO E"
    },
+   "obra_de_instalacao": null,
    "porque": "obra sem valor lançado no AIC (SIGCO em branco)",
    "investigacao": {
     "classe": "substituicao_de_equipamento",
@@ -844,6 +870,7 @@
     "obra_citada": "0512600217",
     "conclusao": "a obra existe na SS mas o extrato do AIC é de 07/08/2026 e não a alcança — sai no próximo"
    },
+   "obra_de_instalacao": null,
    "porque": "obra não está no extrato do AIC de 07/08 — foi criada depois",
    "investigacao": {
     "classe": "substituicao_de_peca_grande",
@@ -868,6 +895,7 @@
     "conclusao": "serviço de rede, não manutenção do equipamento — obra de manutenção não deveria existir mesmo",
     "trecho_do_parecer": "PARECER COEP: EQUIPAMENTO COM MELHORIA DE ATERRAMENTO É COM A ETO-RD-PA , NÃO PASSA PELO FLUXO DE AQUISIÇÃO DO COEP, FAVOR REALIZAR MELHORIA DE"
    },
+   "obra_de_instalacao": null,
    "porque": "nenhuma obra ligada a este ativo em nenhuma das bases",
    "investigacao": {
     "classe": "melhoria_de_aterramento",

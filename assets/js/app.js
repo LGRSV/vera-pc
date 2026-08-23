@@ -564,7 +564,9 @@ function visaoOrcamentaria() {
         <td>${esc(L.conclusao || s.porque)}
           ${I.obra ? `<i class="linha-nota">obra <b class="mono">${esc(I.obra)}</b> — achada pela investigação${I.refutado_pelo_cetico === false ? ', não refutada pelo cético' : ''}</i>` : ''}
           ${L.trecho_do_parecer ? `<i class="linha-nota">«${esc(L.trecho_do_parecer.slice(0, 150))}»</i>` : ''}</td>
-        <td class="num">${s.valor_usado ? `${moedaBR(s.valor_usado)}<i class="linha-nota">pela planilha</i>` : '<span style="opacity:.6">sem valor</span>'}</td></tr>`; }).join('')}
+        <td class="num">${s.obra_de_instalacao
+          ? `${moedaBR(s.obra_de_instalacao.valor)}<i class="linha-nota">obra ${esc(s.obra_de_instalacao.obra)} que instalou o equipamento, de ${esc(s.obra_de_instalacao.ano)} — fora da conta de 2026</i>`
+          : (s.valor_usado ? `${moedaBR(s.valor_usado)}<i class="linha-nota">pela planilha</i>` : '<span style="opacity:.6">sem valor</span>')}</td></tr>`; }).join('')}
       </tbody></table></div>
       <p class="destaque-texto" style="margin-top:10px">${(() => {
         const at = o.sem_obra.filter((s) => (s.leitura_do_parecer || {}).classe === 'melhoria de aterramento').length;

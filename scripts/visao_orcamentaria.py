@@ -327,15 +327,28 @@ def montar():
                 continue
             texto = f"{r.get('DESCRICAO_OBRA', '')} {r.get('DESCRICAO', '')}".strip()
             proj = str(r.get("NUM_PROJETO_SIGCO", "")).strip()
-            if not (_num(r.get("VAL_TOTAL_ORCADO")) or _num(r.get("TOTAL_REALIZADO"))):
+            ano_obra = str(r.get("DTH_ABERTURA", ""))[:4]
+            orc_o, real_o = _num(r.get("VAL_TOTAL_ORCADO")), _num(r.get("TOTAL_REALIZADO"))
+            instalacao = bool(re.search(r"INSTALA[ÇC][ÃA]O DE \d+\s*(RELIGADOR|REGULADOR)",
+                                        texto, re.IGNORECASE))
+            if not (orc_o or real_o):
                 porque = f"obra sem valor lançado no AIC (SIGCO {proj or 'em branco'})"
+            elif instalacao:
+                porque = (f"obra que INSTALOU o equipamento, de {ano_obra} — o valor existe, "
+                          f"mas é de outro ano e é expansão: não entra na conta de "
+                          f"{ANO_DA_CARTEIRA}")
             elif RE_EXPANSAO.search(texto):
-                porque = (f"obra de rede ou instalação nova, de {str(r.get('DTH_ABERTURA',''))[:4]} "
+                porque = (f"obra de rede ou instalação nova, de {ano_obra} "
                           f"(SIGCO {proj or '—'}) — não é a manutenção deste ativo")
             else:
-                porque = (f"obra de {str(r.get('DTH_ABERTURA', ''))[:4]}, SIGCO {proj or '—'}, "
-                          "sem texto de substituição")
-            candidatas.append({"obra": o, "porque": porque, "descricao": texto[:90]})
+                porque = (f"obra de {ano_obra}, SIGCO {proj or '—'}, sem texto de substituição")
+            cand = {"obra": o, "porque": porque, "descricao": texto[:90],
+                    "ano": ano_obra, "orcado": orc_o, "realizado": real_o,
+                    "valor": round(real_o or orc_o, 2),
+                    "medida": "realizado" if real_o else ("orçado" if orc_o else "sem valor")}
+            if instalacao:
+                cand["obra_de_instalacao"] = True
+            candidatas.append(cand)
         # o que o parecer da SS pendente diz que foi feito — é o que decide se a obra
         # de manutenção deveria existir
         texto = descricoes.get(i["ss_pendente"], "") or ""
@@ -369,6 +382,14 @@ def montar():
                          "localidade": i.get("localidade", ""),
                          "valor_usado": fontes[a]["valor"], "fonte": fontes[a]["fonte"],
                          "obras_descartadas": candidatas, "leitura_do_parecer": leitura,
+                         # a obra que instalou o equipamento: o valor fica à vista como
+                         # referência, mas fora da conta do ano (régua do gestor, 23/08)
+                         "obra_de_instalacao": next(({"obra": c["obra"], "ano": c["ano"],
+                                                      "valor": c["valor"], "medida": c["medida"],
+                                                      "descricao": c["descricao"],
+                                                      "conta_em_2026": False}
+                                                     for c in candidatas
+                                                     if c.get("obra_de_instalacao")), None),
                          "porque": ("nenhuma obra ligada a este ativo em nenhuma das bases"
                                     if not candidatas else candidatas[0]["porque"])})
     sem_obra.sort(key=lambda x: x["ativo"])
