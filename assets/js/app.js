@@ -556,12 +556,20 @@ function visaoOrcamentaria() {
       recorte de RL/RT não enxergava) e, por último, a obra de substituição da mesma praça ainda sem dono — essa
       marcada como inferida. Nestes a obra da troca não apareceu; cada linha diz o que impediu.</p>
       <div class="tabela-rol" style="margin-top:6px"><table class="matriz livro"><thead><tr>
-      <th>Ativo</th><th>Etapa</th><th>O que impediu</th><th class="num">Valor usado</th></tr></thead><tbody>
-      ${o.sem_obra.map((s) => `<tr><td><b class="mono">${esc(s.ativo)}</b></td>
-        <td>${esc((s.balde || '').replace(/_/g, ' '))}</td>
-        <td>${esc(s.porque)}${(s.obras_descartadas || []).length ? `<i class="linha-nota">obra examinada: ${esc(s.obras_descartadas.map((c) => c.obra).join(', '))}</i>` : ''}</td>
-        <td class="num">${s.valor_usado ? `${moedaBR(s.valor_usado)}<i class="linha-nota">pela planilha</i>` : '<span style="opacity:.6">sem valor</span>'}</td></tr>`).join('')}
-      </tbody></table></div></details>` : ''}
+      <th>Ativo</th><th>O que o parecer diz que foi feito</th><th>Por que não há obra</th>
+      <th class="num">Valor usado</th></tr></thead><tbody>
+      ${o.sem_obra.map((s) => { const L = s.leitura_do_parecer || {}; return `<tr>
+        <td><b class="mono">${esc(s.ativo)}</b><i class="linha-nota">${esc(s.localidade || '')} · ${esc((s.balde || '').replace(/_/g, ' '))}</i></td>
+        <td>${esc(L.classe || '—')}${L.obra_citada ? `<i class="linha-nota">obra ${esc(L.obra_citada)}</i>` : ''}</td>
+        <td>${esc(L.conclusao || s.porque)}${L.trecho_do_parecer ? `<i class="linha-nota">«${esc(L.trecho_do_parecer.slice(0, 150))}»</i>` : ''}</td>
+        <td class="num">${s.valor_usado ? `${moedaBR(s.valor_usado)}<i class="linha-nota">pela planilha</i>` : '<span style="opacity:.6">sem valor</span>'}</td></tr>`; }).join('')}
+      </tbody></table></div>
+      <p class="destaque-texto" style="margin-top:10px">${(() => {
+        const at = o.sem_obra.filter((s) => (s.leitura_do_parecer || {}).classe === 'melhoria de aterramento').length;
+        return at ? `<b>${at} dos ${o.sem_obra.length} são melhoria de aterramento</b> — e aí a ausência de obra é a resposta
+        certa, não um buraco: aterramento é serviço de rede, feito pelos COCM's ou pela equipe de linha, e o próprio
+        parecer do COEP manda tirar do fluxo de aquisição («melhoria de aterramento não passa pelo COEP»).` : ''; })()}</p>
+      </details>` : ''}
     <div class="nota" style="margin-top:14px"><strong>A fila não cabe no saldo.</strong>
     Resolver os <b>${fila.qtd}</b> que ainda esperam equipamento custaria <b>${mil(fila.custo)}</b> —
     <b>${String(fila.pct_do_saldo).replace('.', ',')}%</b> do saldo de ${mil(orc.saldo)}. Mesmo sem gastar mais nada

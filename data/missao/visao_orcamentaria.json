@@ -739,6 +739,7 @@
   {
    "ativo": "5846328094",
    "balde": "comissionamento",
+   "localidade": "PEIXE",
    "valor_usado": 0.0,
    "fonte": "sem_valor",
    "obras_descartadas": [
@@ -748,11 +749,17 @@
      "descricao": "CONSTRUÇÃO DE 2704M DE RDR MT 34,5KV TRIFÁSICA E INST. DE 01  BANCO DE REGULADOR DE TENSÃO"
     }
    ],
+   "leitura_do_parecer": {
+    "classe": "melhoria de aterramento",
+    "conclusao": "serviço de rede, não manutenção do equipamento — obra de manutenção não deveria existir mesmo",
+    "trecho_do_parecer": "COCM SUL - 07/07/2026 - FOI REALIZADO MELHORIA DE ATERRAMENTO E FEITO A MANUTENÇÕES E TODAS AS CHAVES E SUBSTITUIDO OS CONECTORES.PARECER COEP: MELHORI"
+   },
    "porque": "obra de rede ou instalação nova, de 2022 (SIGCO 8923) — não é a manutenção deste ativo"
   },
   {
    "ativo": "5865120195",
    "balde": "comissionamento",
+   "localidade": "CENTENARIO",
    "valor_usado": 15000.0,
    "fonte": "planilha",
    "obras_descartadas": [
@@ -762,11 +769,17 @@
      "descricao": "INSTALAÇÃO DE 01 REGULADOR DE TENSÃO EM RDR 34,5KV - PLPT 69032 INSTALAÇÃO DE EQUIPAMENTOS"
     }
    ],
+   "leitura_do_parecer": {
+    "classe": "melhoria de aterramento",
+    "conclusao": "serviço de rede, não manutenção do equipamento — obra de manutenção não deveria existir mesmo",
+    "trecho_do_parecer": "PARECER DMSL:PENDÊNCIA: Realizar melhoria no aterramento por ser tratar de um terreno muito arenoso, e há pendências por parte do time da proteção"
+   },
    "porque": "obra de rede ou instalação nova, de 2025 (SIGCO 69032) — não é a manutenção deste ativo"
   },
   {
    "ativo": "7900594026",
    "balde": "comissionamento",
+   "localidade": "PONTE ALTA TOCANTINS",
    "valor_usado": 89455.54,
    "fonte": "planilha",
    "obras_descartadas": [
@@ -776,11 +789,18 @@
      "descricao": "MANUTENÇÃO CORRET SUBSTITUIÇÃO DE RELIGADOR MANUTENÇÃO CORRETIVA"
     }
    ],
+   "leitura_do_parecer": {
+    "classe": "obra citada no próprio parecer",
+    "obra_citada": "0312600354",
+    "conclusao": "a obra está identificada; o que falta é valor lançado nela no AIC",
+    "trecho_do_parecer": "ISPONIBILIZADOS NO APP DA PROTEÇÃO15/07/2026 EQUIPAMENTO SUBSTITUIDO NA OS ETO-RD-PO 1860 OBRA 031260035414/07/2026 PARECER COCM/ COEP: DE ACORDO COM O EDSON CURCINO FOI FEITA S SUBSTITUIÇÃO DO E"
+   },
    "porque": "obra sem valor lançado no AIC (SIGCO em branco)"
   },
   {
    "ativo": "7908708116",
    "balde": "ajuste_de_protecao",
+   "localidade": "CHAPADA DA NATIVIDADE",
    "valor_usado": 0.0,
    "fonte": "sem_valor",
    "obras_descartadas": [
@@ -789,14 +809,25 @@
      "porque": "obra não está no extrato do AIC de 07/08 — foi criada depois"
     }
    ],
+   "leitura_do_parecer": {
+    "classe": "obra posterior ao extrato do AIC",
+    "obra_citada": "0512600217",
+    "conclusao": "a obra existe na SS mas o extrato do AIC é de 07/08/2026 e não a alcança — sai no próximo"
+   },
    "porque": "obra não está no extrato do AIC de 07/08 — foi criada depois"
   },
   {
    "ativo": "7942572059",
    "balde": "ajuste_de_protecao",
+   "localidade": "TAQUARALTO",
    "valor_usado": 15000.0,
    "fonte": "planilha",
    "obras_descartadas": [],
+   "leitura_do_parecer": {
+    "classe": "melhoria de aterramento",
+    "conclusao": "serviço de rede, não manutenção do equipamento — obra de manutenção não deveria existir mesmo",
+    "trecho_do_parecer": "PARECER COEP: EQUIPAMENTO COM MELHORIA DE ATERRAMENTO É COM A ETO-RD-PA , NÃO PASSA PELO FLUXO DE AQUISIÇÃO DO COEP, FAVOR REALIZAR MELHORIA DE"
+   },
    "porque": "nenhuma obra ligada a este ativo em nenhuma das bases"
   }
  ],

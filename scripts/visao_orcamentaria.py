@@ -52,6 +52,14 @@ RE_EXPANSAO = re.compile(r"(CONSTRU[ÇC][ÃA]O|DESLOCAMENTO|IMPLANTA[ÇC][ÃA]O|
 # hoje está em aquisição é de um evento anterior — o dinheiro dela já foi gasto noutra
 # falha e não diz nada sobre o que falta pagar.
 ANO_DA_CARTEIRA = "2026"
+# O extrato do AIC é uma foto: obra aberta depois dele não tem como aparecer.
+EXTRATO_DO_AIC = "07/08/2026"
+# O que o parecer diz que foi feito. Aterramento é serviço de rede, do COCM ou da
+# equipe de linha — não gera obra de manutenção do equipamento, e é o próprio COEP que
+# manda tirar do fluxo de aquisição («melhoria de aterramento não passa pelo COEP»).
+RE_ATERRAMENTO = re.compile(r"MELHORIA (DE|NO) ATERRAMENTO|MALHA DE ATERRAMENTO|"
+                            r"ATERRAMENTO QUE SE ENCONTRA ALTA", re.IGNORECASE)
+RE_OBRA_NO_TEXTO = re.compile(r"OBRA[:\s]*(\d{9,10})", re.IGNORECASE)
 BALDE_NOME = {
     "ajuste_de_protecao": "Em fase de ajuste de proteção",
     "comissionamento": "Aguardando comissionamento",
@@ -328,10 +336,39 @@ def montar():
                 porque = (f"obra de {str(r.get('DTH_ABERTURA', ''))[:4]}, SIGCO {proj or '—'}, "
                           "sem texto de substituição")
             candidatas.append({"obra": o, "porque": porque, "descricao": texto[:90]})
+        # o que o parecer da SS pendente diz que foi feito — é o que decide se a obra
+        # de manutenção deveria existir
+        texto = descricoes.get(i["ss_pendente"], "") or ""
+        obra_no_texto = RE_OBRA_NO_TEXTO.search(texto)
+        if RE_ATERRAMENTO.search(texto):
+            leitura = {"classe": "melhoria de aterramento",
+                       "conclusao": "serviço de rede, não manutenção do equipamento — "
+                                    "obra de manutenção não deveria existir mesmo"}
+        elif obra_no_texto:
+            leitura = {"classe": "obra citada no próprio parecer",
+                       "obra_citada": obra_no_texto.group(1).zfill(10),
+                       "conclusao": "a obra está identificada; o que falta é valor "
+                                    "lançado nela no AIC"}
+        elif candidatas and all("não está no extrato" in c["porque"] for c in candidatas):
+            leitura = {"classe": "obra posterior ao extrato do AIC",
+                       "obra_citada": candidatas[0]["obra"],
+                       "conclusao": f"a obra existe na SS mas o extrato do AIC é de "
+                                    f"{EXTRATO_DO_AIC} e não a alcança — sai no próximo"}
+        else:
+            leitura = {"classe": "substituição sem obra localizada",
+                       "conclusao": "cobrar no SGM qual obra pagou o serviço"}
+        trecho = ""
+        for m in (RE_ATERRAMENTO.search(texto), obra_no_texto):
+            if m:
+                trecho = texto[max(0, m.start() - 90):m.end() + 90].strip()
+                break
+        if trecho:
+            leitura["trecho_do_parecer"] = trecho
         sem_obra.append({"ativo": a, "balde": [b for b in BALDE_NOME
                                                if a in {x["ativo"] for x in vc["visao_eto"]["baldes"][b]["ativos"]}][0],
+                         "localidade": i.get("localidade", ""),
                          "valor_usado": fontes[a]["valor"], "fonte": fontes[a]["fonte"],
-                         "obras_descartadas": candidatas,
+                         "obras_descartadas": candidatas, "leitura_do_parecer": leitura,
                          "porque": ("nenhuma obra ligada a este ativo em nenhuma das bases"
                                     if not candidatas else candidatas[0]["porque"])})
     sem_obra.sort(key=lambda x: x["ativo"])
