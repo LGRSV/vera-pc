@@ -92,6 +92,13 @@ comissionamento e obra de equipamento novo.
 - **O SGM não exporta o motivo do cancelamento.** Lacuna conhecida.
 - **O nome do arquivo não diz o horizonte do dado**: `EQP_SS_OCORRENCIA_11082026` tem registros
   até **19/08/2026**. Conferir a data máxima antes de fixar o corte.
+- **Códigos operativos, pela consulta SQL da base de repasses** (aba «SQL»): **79** e **78**
+  religador (78 = monofásico), **58** regulador, **59 capacitor** e **BR reator**. A consulta
+  monta os cinco e depois joga fora os dois últimos — `AND COD_ELE NOT IN ('59','BR')`. Para
+  ter capacitor, é só tirar esse filtro: a base de SS/OS tem **242 SS de capacitor em 102
+  ativos** (66 de indisponibilidade), e **nenhuma** de reator. A consulta também exclui o
+  posto **ETO-CADTOC** (`DEPARTCODE <> 'ETO-CADTOC'`, 1.020 SS na base de SS/OS) e exige
+  código com **10 dígitos**; a janela começa em 01/08/2020.
 - **`NUM_OBRA` vem numérico com 9 dígitos** na base de SS/OS; o AIC guarda 10 com
   zero à esquerda. Sem `.zfill(10)` nenhuma obra casa.
 - **Trafo auxiliar**: código com prefixo **51** (padrão) ou **57**, com os **8 dígitos
