@@ -22,7 +22,11 @@ sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 import cadeia_obra as co  # noqa: E402  — o remontador de registros mora lá
 
 SAIDA = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
-RE_RLRT = re.compile(r"(79|58)\d{8}$")
+# 79 religador, 58 regulador — e 78, que é RELIGADOR MONOFÁSICO. O 78 não é erro de
+# digitação: a SS ETO-CADTOC 00140/2024 manda «RELIGADOR MONOFASICO ALTERAR A SUA
+# CODIFICAÇÃO DE 79 PARA 78», e a base de ocorrência classifica os seis códigos 78
+# como RELIGADOR. Ficavam fora do recorte e por isso invisíveis em todas as contas.
+RE_RLRT = re.compile(r"(79|78|58)\d{8}$")
 
 CAMPOS = {
     "NUMERO_SS": 0, "NUMERO_OS": 1, "NUM_OBRA": 2, "ORIGEM_SS": 3, "ESQUEMA": 7,

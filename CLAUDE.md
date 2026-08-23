@@ -1,7 +1,9 @@
 # vera-pc — réguas de análise do ETO-COEP
 
 Gestor do posto **ETO-COEP** da Energisa Tocantins. Religadores (RL, código começa
-com 79) e reguladores de tensão (RT, código começa com 58). Tema visual do site:
+com 79 — e **78 no monofásico**, recodificado por decisão de cadastro: «RELIGADOR
+MONOFASICO ALTERAR A SUA CODIFICAÇÃO DE 79 PARA 78», ETO-CADTOC 00140/2024; são 6
+ativos, 10 SS) e reguladores de tensão (RT, código começa com 58). Tema visual do site:
 **Prontuário Industrial**. Escrever sempre em português do Brasil, linguagem simples
 e direta, sem decoração.
 
