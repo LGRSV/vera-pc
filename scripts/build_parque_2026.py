@@ -45,111 +45,6 @@ def eixo_bonito(maximo, alvo=4):
     return passo, topo
 
 
-def linha(serie, rotulos, cor, unidade="", casas=0, zero=True, id_=""):
-    """Uma série ao longo do tempo. Quando zero=False o eixo é truncado e a figura
-    diz isso — em linha é legítimo, desde que fique escrito."""
-    L, R, T, B = 54, 20, 24, 30
-    W, H = 720, 236
-    pw, ph = W - L - R, H - T - B
-    vmax, vmin = max(serie), min(serie)
-    if zero:
-        passo, topo = eixo_bonito(vmax)
-        base = 0
-    else:
-        import math
-        folga = max((vmax - vmin) * 0.35, 1)
-        passo, _ = eixo_bonito(vmax - (vmin - folga))
-        # a base tem de cair num múltiplo do passo, senão o eixo sai com marcas
-        # tortas (176 · 182 · 186 · 192) e o leitor desconfia do gráfico inteiro
-        base = math.floor((vmin - folga) / passo) * passo
-        topo = math.ceil(vmax / passo) * passo
-        if topo <= base:
-            topo = base + passo
-    esc_y = lambda v: T + ph - (v - base) / (topo - base) * ph
-    esc_x = lambda i: L + (pw / (len(serie) - 1)) * i if len(serie) > 1 else L + pw / 2
-
-    linhas_grade, marcas_y = [], []
-    v = base
-    while v <= topo + 1e-9:
-        y = esc_y(v)
-        linhas_grade.append(f'<line x1="{L}" y1="{y:.1f}" x2="{L+pw}" y2="{y:.1f}" class="grade"/>')
-        marcas_y.append(f'<text x="{L-8}" y="{y+4:.1f}" class="rot-y">{br(v, casas)}</text>')
-        v += passo
-    pontos = " ".join(f"{esc_x(i):.1f},{esc_y(v):.1f}" for i, v in enumerate(serie))
-    marcadores = "".join(
-        f'<circle cx="{esc_x(i):.1f}" cy="{esc_y(v):.1f}" r="4.5" fill="{cor}" '
-        f'stroke="var(--fundo)" stroke-width="2"><title>{esc(rotulos[i])}: '
-        f'{br(v, casas)}{esc(unidade)}</title></circle>' for i, v in enumerate(serie))
-    # rótulo direto só no primeiro, no último e no pico — e nunca em cima do eixo:
-    # o da ponta esquerda ancora à direita, o da ponta direita à esquerda, e valor
-    # zero não ganha rótulo (colide com a linha de base e não informa nada)
-    idx_pico = serie.index(max(serie))
-    destaque = {0, len(serie) - 1, idx_pico}
-    pedacos = []
-    for i, v in enumerate(serie):
-        if i not in destaque or v == 0:
-            continue
-        if i == 0:
-            ancora, dx = "start", 9
-        elif i == len(serie) - 1:
-            ancora, dx = "end", -9
-        else:
-            ancora, dx = "middle", 0
-        pedacos.append(
-            f'<text x="{esc_x(i)+dx:.1f}" y="{esc_y(v)-10:.1f}" class="rot-valor" '
-            f'style="text-anchor:{ancora}">{br(v, casas)}{esc(unidade)}</text>')
-    rotulos_diretos = "".join(pedacos)
-    eixo_x = "".join(
-        f'<text x="{esc_x(i):.1f}" y="{H-10}" class="rot-x">{esc(r)}</text>'
-        for i, r in enumerate(rotulos))
-    return (f'<svg viewBox="0 0 {W} {H}" class="fig" role="img">'
-            + "".join(linhas_grade) + "".join(marcas_y)
-            + f'<polyline points="{pontos}" fill="none" stroke="{cor}" stroke-width="2" '
-              'stroke-linejoin="round" stroke-linecap="round"/>'
-            + marcadores + rotulos_diretos + eixo_x + "</svg>")
-
-
-def barras(series, rotulos, unidade=""):
-    """Barras agrupadas — mesma unidade, eixo do zero, 2px de respiro entre elas."""
-    L, R, T, B = 44, 16, 22, 30
-    W, H = 720, 250
-    pw, ph = W - L - R, H - T - B
-    vmax = max(max(s["dados"]) for s in series) or 1
-    passo, topo = eixo_bonito(vmax)
-    esc_y = lambda v: T + ph - v / topo * ph
-    n, g = len(series), len(rotulos)
-    larg_grupo = pw / g
-    larg = min(16, (larg_grupo - 10) / n)
-    grade, marcas = [], []
-    v = 0
-    while v <= topo + 1e-9:
-        y = esc_y(v)
-        grade.append(f'<line x1="{L}" y1="{y:.1f}" x2="{L+pw}" y2="{y:.1f}" class="grade"/>')
-        marcas.append(f'<text x="{L-8}" y="{y+4:.1f}" class="rot-y">{br(v)}</text>')
-        v += passo
-    corpo = []
-    for gi, rot in enumerate(rotulos):
-        x0 = L + larg_grupo * gi + (larg_grupo - (larg + 2) * n) / 2
-        for si, s in enumerate(series):
-            val = s["dados"][gi]
-            x = x0 + si * (larg + 2)
-            y = esc_y(val)
-            alt = max(T + ph - y, 0)
-            if val > 0:
-                corpo.append(
-                    f'<rect x="{x:.1f}" y="{y:.1f}" width="{larg:.1f}" height="{alt:.1f}" '
-                    f'rx="4" fill="{s["cor"]}"><title>{esc(rot)} · {esc(s["nome"])}: '
-                    f'{br(val)}{esc(unidade)}</title></rect>')
-                corpo.append(f'<text x="{x+larg/2:.1f}" y="{y-5:.1f}" class="rot-barra">{br(val)}</text>')
-    eixo_x = "".join(
-        f'<text x="{L + larg_grupo*(i+0.5):.1f}" y="{H-10}" class="rot-x">{esc(r)}</text>'
-        for i, r in enumerate(rotulos))
-    return (f'<svg viewBox="0 0 {W} {H}" class="fig" role="img">'
-            + "".join(grade) + "".join(marcas) + "".join(corpo)
-            + f'<line x1="{L}" y1="{T+ph}" x2="{L+pw}" y2="{T+ph}" class="base"/>'
-            + eixo_x + "</svg>")
-
-
 def legenda(series):
     return ('<div class="legenda">' + "".join(
         f'<span><i style="background:{s["cor"]}"></i>{esc(s["nome"])}'
@@ -157,62 +52,222 @@ def legenda(series):
         for s in series) + "</div>")
 
 
-def tabela(linhas_dados, tipo):
+def tabela(linhas_dados, tipo, cum_meses):
     cab = ("<tr><th>Mês</th><th class='num'>Parque</th><th class='num'>Expansão</th>"
            "<th class='num'>Entrantes fora de operação</th><th class='num'>Realizado (DCMD)</th>"
-           "<th class='num'>Falhas · peça grande</th><th class='num'>Taxa do mês</th></tr>")
+           "<th class='num'>Falhas · peça grande</th><th class='num'>Taxa do mês</th>"
+           "<th class='num'>Entraram (acum.)</th><th class='num'>Resolvidos (acum.)</th>"
+           "<th class='num'>Fila</th></tr>")
     corpo = "".join(
         f"<tr><td>{esc(x['rotulo'])}</td><td class='num'>{br(x['parque'])}</td>"
         f"<td class='num'>{('+' + str(x['expansao'])) if x['expansao'] else '—'}</td>"
         f"<td class='num'>{x['entrantes'] or '—'}</td>"
         f"<td class='num'>{x['realizado'] or '—'}</td>"
         f"<td class='num'>{x['falhas'] or '—'}</td>"
-        f"<td class='num'>{br(x['taxa_mes_pct'], 2)}%</td></tr>" for x in linhas_dados)
+        f"<td class='num'>{br(x['taxa_mes_pct'], 2)}%</td>"
+        f"<td class='num'>{br(c['entraram_acumulado'])}</td>"
+        f"<td class='num'>{br(c['resolvidos_acumulado'])}</td>"
+        f"<td class='num'>{br(c['fila'])}</td></tr>"
+        for x, c in zip(linhas_dados, cum_meses))
     return (f'<details class="tabela"><summary>Os números de {esc(NOME[tipo].lower())}, '
             f'mês a mês</summary><div class="rolagem"><table>{cab}{corpo}</table></div></details>')
 
 
-def bloco(tipo, dados, totais):
+
+def composto(dados, rotulos):
+    """As quatro curvas numa figura só.
+
+    Elas não cabem num eixo comum — o parque está na casa do milhar, a taxa em
+    décimos de por cento — e forçar duas escalas no mesmo par de eixos é a mentira
+    visual clássica. Então a figura é uma só, com três faixas empilhadas que
+    dividem o MESMO eixo do tempo: o parque em cima, as contagens no meio, a taxa
+    embaixo. Lê-se de uma vez, na vertical, sem escala falsa.
+    """
+    L, R = 56, 20
+    W = 720
+    H1, H2, H3 = 74, 210, 92          # alturas das faixas
+    G = 26                              # respiro entre faixas
+    H = H1 + H2 + H3 + G * 2 + 40
+    pw = W - L - R
+    x = lambda i: L + (pw / (len(rotulos) - 1)) * i
+    partes = []
+
+    def faixa_rotulo(y, texto):
+        partes.append(f'<text x="{L}" y="{y}" class="faixa-nome">{esc(texto)}</text>')
+
+    # ---- faixa 1: parque (linha, escala truncada e dita no rótulo)
+    import math
+    serie = [d["parque"] for d in dados]
+    vmin, vmax = min(serie), max(serie)
+    passo, _ = eixo_bonito(max(vmax - vmin, 1), alvo=2)
+    base = math.floor((vmin - max((vmax - vmin) * 0.5, 1)) / passo) * passo
+    topo = math.ceil((vmax + (vmax - vmin) * 0.25) / passo) * passo
+    if topo <= base:
+        topo = base + passo
+    t0 = 16
+    ey = lambda v: t0 + H1 - (v - base) / (topo - base) * H1
+    faixa_rotulo(t0 - 5, f"Parque · {br(vmin)} a {br(vmax)}")
+    for v in (base, topo):
+        partes.append(f'<line x1="{L}" y1="{ey(v):.1f}" x2="{L+pw}" y2="{ey(v):.1f}" class="grade"/>')
+        partes.append(f'<text x="{L-8}" y="{ey(v)+4:.1f}" class="rot-y">{br(v)}</text>')
+    pts = " ".join(f"{x(i):.1f},{ey(v):.1f}" for i, v in enumerate(serie))
+    partes.append(f'<polyline points="{pts}" fill="none" stroke="var(--serie-4)" stroke-width="2" '
+                  'stroke-linejoin="round"/>')
+    for i, v in enumerate(serie):
+        partes.append(f'<circle cx="{x(i):.1f}" cy="{ey(v):.1f}" r="4" fill="var(--serie-4)" '
+                      f'stroke="var(--fundo)" stroke-width="2"><title>{esc(rotulos[i])}: '
+                      f'{br(v)} equipamentos</title></circle>')
+    for i in (0, len(serie) - 1):
+        anc, dx = ("start", 9) if i == 0 else ("end", -9)
+        partes.append(f'<text x="{x(i)+dx:.1f}" y="{ey(serie[i])-9:.1f}" class="rot-valor" '
+                      f'style="text-anchor:{anc}">{br(serie[i])}</text>')
+
+    # ---- faixa 2: as três contagens, barras agrupadas do zero
+    t1 = t0 + H1 + G
+    series = [
+        ("Entrantes fora de operação", "var(--serie-1)", [d["entrantes"] for d in dados]),
+        ("Falhas · peça grande", "var(--serie-2)", [d["falhas"] for d in dados]),
+        ("Realizado · concluído DCMD", "var(--serie-3)", [d["realizado"] for d in dados]),
+    ]
+    vmax2 = max(max(s[2]) for s in series) or 1
+    passo2, topo2 = eixo_bonito(vmax2)
+    ey2 = lambda v: t1 + H2 - v / topo2 * H2
+    faixa_rotulo(t1 - 5, "Equipamentos no mês")
+    v = 0
+    while v <= topo2 + 1e-9:
+        partes.append(f'<line x1="{L}" y1="{ey2(v):.1f}" x2="{L+pw}" y2="{ey2(v):.1f}" class="grade"/>')
+        partes.append(f'<text x="{L-8}" y="{ey2(v)+4:.1f}" class="rot-y">{br(v)}</text>')
+        v += passo2
+    larg_grupo = pw / len(rotulos)
+    larg = min(15, (larg_grupo - 12) / 3)
+    for gi in range(len(rotulos)):
+        x0 = L + larg_grupo * gi + (larg_grupo - (larg + 2) * 3) / 2
+        for si, (nome, cor, vals) in enumerate(series):
+            val = vals[gi]
+            if not val:
+                continue
+            bx, by = x0 + si * (larg + 2), ey2(val)
+            partes.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{larg:.1f}" '
+                          f'height="{t1+H2-by:.1f}" rx="4" fill="{cor}">'
+                          f'<title>{esc(rotulos[gi])} · {esc(nome)}: {br(val)}</title></rect>')
+            partes.append(f'<text x="{bx+larg/2:.1f}" y="{by-5:.1f}" class="rot-barra">{br(val)}</text>')
+    partes.append(f'<line x1="{L}" y1="{t1+H2}" x2="{L+pw}" y2="{t1+H2}" class="base"/>')
+
+    # ---- faixa 3: taxa mensal
+    t2 = t1 + H2 + G
+    taxa = [d["taxa_mes_pct"] for d in dados]
+    passo3, topo3 = eixo_bonito(max(taxa) or 1, alvo=2)
+    ey3 = lambda v: t2 + H3 - v / topo3 * H3
+    faixa_rotulo(t2 - 5, "Taxa de falha do mês · % do parque")
+    v = 0
+    while v <= topo3 + 1e-9:
+        partes.append(f'<line x1="{L}" y1="{ey3(v):.1f}" x2="{L+pw}" y2="{ey3(v):.1f}" class="grade"/>')
+        partes.append(f'<text x="{L-8}" y="{ey3(v)+4:.1f}" class="rot-y">{br(v, 2)}</text>')
+        v += passo3
+    pts3 = " ".join(f"{x(i):.1f},{ey3(v):.1f}" for i, v in enumerate(taxa))
+    partes.append(f'<polyline points="{pts3}" fill="none" stroke="var(--serie-2)" stroke-width="2" '
+                  'stroke-linejoin="round" stroke-dasharray="1 0"/>')
+    for i, v in enumerate(taxa):
+        partes.append(f'<circle cx="{x(i):.1f}" cy="{ey3(v):.1f}" r="4" fill="var(--serie-2)" '
+                      f'stroke="var(--fundo)" stroke-width="2"><title>{esc(rotulos[i])}: '
+                      f'{br(v, 2)}% do parque</title></circle>')
+    ipico = taxa.index(max(taxa))
+    partes.append(f'<text x="{x(ipico):.1f}" y="{ey3(taxa[ipico])-9:.1f}" class="rot-valor" '
+                  f'style="text-anchor:middle">{br(taxa[ipico], 2)}%</text>')
+
+    # ---- eixo do tempo, único para as três faixas
+    for i, r in enumerate(rotulos):
+        partes.append(f'<text x="{x(i):.1f}" y="{H-12}" class="rot-x">{esc(r)}</text>')
+    return f'<svg viewBox="0 0 {W} {H}" class="fig" role="img">' + "".join(partes) + "</svg>"
+
+
+def acumulada(meses, acervo):
+    """A conta do gestor no tempo: o que entrou (já com o acervo herdado) contra o
+    que foi resolvido. A distância entre as duas linhas é a fila daquele mês."""
+    L, R, T, B = 56, 20, 26, 30
+    W, H = 720, 250
+    pw, ph = W - L - R, H - T - B
+    ent = [m["entraram_acumulado"] for m in meses]
+    res = [m["resolvidos_acumulado"] for m in meses]
+    passo, topo = eixo_bonito(max(ent))
+    x = lambda i: L + (pw / (len(meses) - 1)) * i
+    y = lambda v: T + ph - v / topo * ph
+    partes = []
+    v = 0
+    while v <= topo + 1e-9:
+        partes.append(f'<line x1="{L}" y1="{y(v):.1f}" x2="{L+pw}" y2="{y(v):.1f}" class="grade"/>')
+        partes.append(f'<text x="{L-8}" y="{y(v)+4:.1f}" class="rot-y">{br(v)}</text>')
+        v += passo
+    # a fila, pintada entre as duas linhas
+    area = ([f"{x(i):.1f},{y(v):.1f}" for i, v in enumerate(ent)]
+            + [f"{x(i):.1f},{y(v):.1f}" for i, v in reversed(list(enumerate(res)))])
+    partes.append(f'<polygon points="{" ".join(area)}" class="fila"/>')
+    for serie, cor in ((ent, "var(--serie-2)"), (res, "var(--serie-3)")):
+        pts = " ".join(f"{x(i):.1f},{y(v):.1f}" for i, v in enumerate(serie))
+        partes.append(f'<polyline points="{pts}" fill="none" stroke="{cor}" stroke-width="2" '
+                      'stroke-linejoin="round"/>')
+    for i, m in enumerate(meses):
+        partes.append(f'<circle cx="{x(i):.1f}" cy="{y(ent[i]):.1f}" r="4" fill="var(--serie-2)" '
+                      f'stroke="var(--fundo)" stroke-width="2"><title>{esc(m["rotulo"])}: '
+                      f'{br(ent[i])} entraram (acervo + {br(ent[i]-acervo)} no ano) · '
+                      f'fila {br(m["fila"])}</title></circle>')
+        partes.append(f'<circle cx="{x(i):.1f}" cy="{y(res[i]):.1f}" r="4" fill="var(--serie-3)" '
+                      f'stroke="var(--fundo)" stroke-width="2"><title>{esc(m["rotulo"])}: '
+                      f'{br(res[i])} resolvidos até aqui</title></circle>')
+    for serie, i, dy in ((ent, 0, -10), (ent, len(ent)-1, -10), (res, len(res)-1, 16)):
+        anc, dx = ("start", 9) if i == 0 else ("end", -9)
+        partes.append(f'<text x="{x(i)+dx:.1f}" y="{y(serie[i])+dy:.1f}" class="rot-valor" '
+                      f'style="text-anchor:{anc}">{br(serie[i])}</text>')
+    for i, m in enumerate(meses):
+        partes.append(f'<text x="{x(i):.1f}" y="{H-10}" class="rot-x">{esc(m["rotulo"])}</text>')
+    return f'<svg viewBox="0 0 {W} {H}" class="fig" role="img">' + "".join(partes) + "</svg>"
+
+
+def bloco(tipo, dados, totais, cum):
     rot = [x["rotulo"] for x in dados]
-    parque = [x["parque"] for x in dados]
     fluxo = [
         {"nome": "Entrantes fora de operação", "cor": "var(--serie-1)",
-         "dados": [x["entrantes"] for x in dados],
          "dica": "pela data da ocorrência"},
         {"nome": "Falhas — peça grande", "cor": "var(--serie-2)",
-         "dados": [x["falhas"] for x in dados], "dica": "o que entra na taxa"},
+         "dica": "o que entra na taxa"},
         {"nome": "Realizado — concluído DCMD", "cor": "var(--serie-3)",
-         "dados": [x["realizado"] for x in dados], "dica": "pelo mês do fechamento"},
+         "dica": "pelo mês do fechamento"},
+        {"nome": "Parque", "cor": "var(--serie-4)", "dica": "faixa de cima"},
     ]
-    taxa = [x["taxa_mes_pct"] for x in dados]
     exp = totais["expansao_no_ano"]
+    m = cum["meses"]
+    pico_fila = max(m, key=lambda x: x["fila"])
     return f"""
     <section class="bloco">
       <div class="marcador"><h2>{esc(NOME[tipo])}</h2>
         <span>{br(dados[0]['parque'])} em janeiro · {br(dados[-1]['parque'])} em agosto</span></div>
 
-      <h3>O parque, crescendo com a expansão</h3>
-      <p class="texto">Começa em <b>{br(dados[0]['parque'])}</b> e fecha agosto em
-      <b>{br(dados[-1]['parque'])}</b> — <b>+{exp}</b> equipamentos no ano.
-      O eixo não começa em zero: o crescimento é de {br(100*exp/dados[0]['parque'], 1)}% e
-      desapareceria numa escala cheia.</p>
-      {linha(parque, rot, "var(--serie-1)", zero=False)}
-
-      <h3>Quem sai de operação, quem falha de verdade e quem volta</h3>
-      <p class="texto">Três contagens de equipamento, na mesma escala. A azul é todo mundo que
-      <b>saiu de operação</b> no mês. A laranja é a parte que foi <b>falha de peça grande</b> — a
-      que entra na taxa. A verde é o que o <b>DCMD concluiu</b>. A distância entre a azul e a
-      laranja é o que se resolve sem troca de peça grande: religa, ajusta, comunica.</p>
+      <h3>As quatro curvas do ano</h3>
+      <p class="texto">Uma figura, três faixas, o mesmo eixo do tempo. Em cima o <b>parque</b>,
+      que cresce de {br(dados[0]['parque'])} para {br(dados[-1]['parque'])} com a expansão
+      (+{exp} no ano). No meio, três contagens de equipamento na mesma escala: quem
+      <b>saiu de operação</b>, quanto disso foi <b>falha de peça grande</b> e quanto o
+      <b>DCMD concluiu</b>. Embaixo, a <b>taxa do mês</b> — as falhas divididas pelo parque
+      daquele mês. As faixas são separadas de propósito: parque na casa do milhar e taxa em
+      décimos de por cento não cabem num eixo comum sem distorcer alguma delas.</p>
       {legenda(fluxo)}
-      {barras(fluxo, rot)}
+      {composto(dados, rot)}
 
-      <h3>A taxa de falha, mês a mês</h3>
-      <p class="texto">Falhas de peça grande do mês dividido pelo parque daquele mês — por isso
-      o denominador cresce junto. No ano fechado a conta é outra: o ativo que falha duas vezes
-      conta uma vez só, então a soma dos meses passa do total anual.</p>
-      {linha(taxa, rot, "var(--serie-2)", unidade="%", casas=2)}
+      <h3>A conta acumulada, com o que veio de antes</h3>
+      <p class="texto">O ano não começa do zero: <b>{br(cum['acervo_em_janeiro'])}</b> equipamentos
+      já estavam fora de operação em 1º de janeiro, vindos de 2024 e 2025. A linha laranja soma
+      esse acervo com quem entrou depois; a verde é o que foi resolvido. A área entre elas é a
+      <b>fila</b> — pico de {br(pico_fila['fila'])} em {esc(pico_fila['rotulo'])}, fechando agosto
+      em <b>{br(m[-1]['fila'])}</b>. A conta fecha:
+      {br(cum['acervo_em_janeiro'])} + {br(cum['entraram_no_ano'])} − {br(cum['resolvidos_no_ano'])}
+      = {br(m[-1]['fila'])}, que é exatamente o número de cadeias abertas hoje.</p>
+      {legenda([
+        {"nome": "Entraram — acervo + o ano", "cor": "var(--serie-2)", "dica": "acumulado"},
+        {"nome": "Resolvidos", "cor": "var(--serie-3)", "dica": "acumulado"},
+      ])}
+      {acumulada(m, cum['acervo_em_janeiro'])}
 
-      {tabela(dados, tipo)}
+      {tabela(dados, tipo, m)}
     </section>"""
 
 
@@ -220,7 +275,8 @@ def montar():
     with open(os.path.join(RAIZ, "data", "missao", "parque_2026.json"),
               encoding="utf-8") as fh:
         p = json.load(fh)
-    corpo = "".join(bloco(t, p["series"][t], p["totais"][t]) for t in ("RL", "RT"))
+    corpo = "".join(bloco(t, p["series"][t], p["totais"][t], p["cumulativo"][t])
+                    for t in ("RL", "RT"))
     # sem <!doctype>, <html>, <head> ou <body>: o publish do artifact embrulha o
     # arquivo nesse esqueleto, e repetir as tags aqui quebraria a página
     html = f"""<title>Parque e falhas 2026</title>
@@ -231,7 +287,7 @@ def montar():
 :root {{
   --papel:#f2efe6; --papel-2:#e9e5d8; --fundo:#fcfcfb;
   --tinta:#211d15; --tinta-2:#57513f; --tinta-3:#8d8672;
-  --filete:#c8c2af; --serie-1:#2f56b0; --serie-2:#bc4b0e; --serie-3:#2e7f52;
+  --filete:#c8c2af; --serie-1:#2f56b0; --serie-2:#bc4b0e; --serie-3:#2e7f52; --serie-4:#6a4c93;
   --leitura: Spectral, Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }}
@@ -239,13 +295,13 @@ def montar():
   :root:not([data-theme="light"]) {{
     --papel:#191713; --papel-2:#221f1a; --fundo:#1a1a19;
     --tinta:#e8e3d4; --tinta-2:#b3ac97; --tinta-3:#7c7563;
-    --filete:#403a2e; --serie-1:#6b8fe0; --serie-2:#e0703a; --serie-3:#35a58c;
+    --filete:#403a2e; --serie-1:#6b8fe0; --serie-2:#e0703a; --serie-3:#35a58c; --serie-4:#9a7bcc;
   }}
 }}
 :root[data-theme="dark"] {{
   --papel:#191713; --papel-2:#221f1a; --fundo:#1a1a19;
   --tinta:#e8e3d4; --tinta-2:#b3ac97; --tinta-3:#7c7563;
-  --filete:#403a2e; --serie-1:#6b8fe0; --serie-2:#e0703a; --serie-3:#35a58c;
+  --filete:#403a2e; --serie-1:#6b8fe0; --serie-2:#e0703a; --serie-3:#35a58c; --serie-4:#9a7bcc;
 }}
 * {{ box-sizing: border-box; }}
 body {{ margin:0; background:var(--papel); color:var(--tinta); font-family:var(--leitura);
@@ -276,6 +332,9 @@ h3 {{ font-size:12px; font-family:var(--mono); font-weight:700; letter-spacing:.
 .rot-valor {{ font-family:var(--mono); font-size:11px; fill:var(--tinta); text-anchor:middle;
   font-weight:600; }}
 .rot-barra {{ font-family:var(--mono); font-size:9.5px; fill:var(--tinta-2); text-anchor:middle; }}
+.faixa-nome {{ font-family:var(--mono); font-size:9.5px; fill:var(--tinta-3); letter-spacing:.07em;
+  text-transform:uppercase; }}
+.fila {{ fill:var(--serie-2); opacity:.10; }}
 .legenda {{ display:flex; flex-wrap:wrap; gap:6px 20px; margin:2px 0 10px; }}
 .legenda span {{ display:flex; align-items:center; gap:7px; font-family:var(--mono);
   font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--tinta-2); }}

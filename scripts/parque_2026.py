@@ -23,9 +23,10 @@ import json
 import os
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 SAIDA = os.path.join(RAIZ, "data", "missao", "parque_2026.json")
 
 MESES = [f"2026-{m:02d}" for m in range(1, 9)]
@@ -134,11 +135,74 @@ def falhas():
             {t: [comp[(t, m)] for m in MESES] for t in ("RL", "RT")})
 
 
+def cumulativo():
+    """A carteira de indisponibilidade por tipo, com o acervo dos anos anteriores.
+
+    É a conta do gestor aplicada ao equipamento: o que já estava fora de operação em
+    1º de janeiro, mais o que entrou mês a mês, menos o que fechou — e a distância
+    entre as duas curvas é a fila daquele mês. A demanda é a CADEIA de SS encadeada
+    (repasse não é demanda nova); só entram cadeias com SS de indisponibilidade.
+
+    Cancelamento não tem data de conclusão no SGM, então a cadeia cancelada é datada
+    pela abertura da última SS dela — aproximação, e vai dita na página.
+    """
+    import demandas as dm
+    with open(os.path.join(RAIZ, "data", "missao", "ssos_min.json"), encoding="utf-8") as fh:
+        ssos = json.load(fh)
+    por_ativo = defaultdict(list)
+    for r in ssos:
+        por_ativo[r["NUM_TRAFO"]].append(r)
+
+    demandas = {"RL": [], "RT": []}
+    for cod, linhas in por_ativo.items():
+        t = "RT" if cod.startswith("58") else "RL"
+        for d in dm.encadear(linhas):
+            if not any(l.get("TIPOSS") == "INDISPONIBILIDADE PARA OPERAÇÃO" for l in d["ss"]):
+                continue
+            r = dm.resumir_demanda(d)
+            fim = r["termino"]
+            if r["situacao"] == "cancelada" and not fim:
+                bruto = max((l.get("DATA_ABERTURA_SS", "") for l in d["ss"]),
+                            key=lambda s: (s[6:10], s[3:5], s[:2]), default="")
+                fim = f"{bruto[6:10]}-{bruto[3:5]}-{bruto[:2]}" if len(bruto) >= 10 else ""
+            demandas[t].append({"ativo": cod, "abertura": r["abertura"], "fim": fim,
+                                "situacao": r["situacao"]})
+
+    saida = {}
+    for t in ("RL", "RT"):
+        L = demandas[t]
+        # acervo: cadeia aberta antes de 2026 e ainda viva na virada do ano
+        acervo = sum(1 for x in L if x["abertura"] < "2026-01-01"
+                     and (x["situacao"] == "aberta" or (x["fim"] or "9999") >= "2026-01-01"))
+        ent, fec = Counter(), Counter()
+        for x in L:
+            if x["abertura"][:7] in MESES:
+                ent[x["abertura"][:7]] += 1
+            if x["situacao"] in ("concluída", "cancelada") and x["fim"][:7] in MESES:
+                fec[x["fim"][:7]] += 1
+        linhas_mes, entrou, resolveu = [], acervo, 0
+        for i, m in enumerate(MESES):
+            entrou += ent[m]
+            resolveu += fec[m]
+            linhas_mes.append({"mes": m, "rotulo": ROTULOS[i],
+                               "entraram_no_mes": ent[m], "resolvidos_no_mes": fec[m],
+                               "entraram_acumulado": entrou, "resolvidos_acumulado": resolveu,
+                               "fila": entrou - resolveu})
+        saida[t] = {"acervo_em_janeiro": acervo,
+                    "entraram_no_ano": sum(ent.values()),
+                    "resolvidos_no_ano": sum(fec.values()),
+                    "fila_em_agosto": linhas_mes[-1]["fila"],
+                    "abertas_hoje": sum(1 for x in L if x["situacao"] == "aberta"),
+                    "meses": linhas_mes}
+    return saida
+
+
 def montar():
     pq = parque()
     ent = entrantes()
     real = realizado()
     lidas, comp = falhas()
+    cum = cumulativo()
 
     series = {}
     for t in ("RL", "RT"):
@@ -176,6 +240,7 @@ def montar():
         "base_janeiro": BASE_JANEIRO,
         "expansao": EXPANSAO,
         "series": series,
+        "cumulativo": cum,
         "totais": {t: {
             "parque_final": series[t][-1]["parque"],
             "expansao_no_ano": sum(EXPANSAO[t]),
@@ -202,4 +267,9 @@ if __name__ == "__main__":
         print(f"  parque final {tt['parque_final']} (+{tt['expansao_no_ano']} no ano) · "
               f"entrantes {tt['entrantes']} · realizado {tt['realizado']} · "
               f"falhas somadas {tt['falhas_somadas']}")
+    for t in ("RL", "RT"):
+        c = p["cumulativo"][t]
+        print(f"\n{t} cumulativo: acervo {c['acervo_em_janeiro']} + entraram "
+              f"{c['entraram_no_ano']} − resolvidos {c['resolvidos_no_ano']} = "
+              f"{c['fila_em_agosto']} (abertas hoje: {c['abertas_hoje']})")
     print(f"\ngravado: {SAIDA}")
