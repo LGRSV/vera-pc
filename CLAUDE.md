@@ -32,7 +32,10 @@ comissionamento e obra de equipamento novo.
 - **Conta EQUIPAMENTO, não ocorrência**: ativo que falhou duas vezes no mesmo ano
   conta uma vez naquele ano — e conta de novo se falhar em outro ano.
 - **Parque**: 1.307 religadores (1.297 + 10 instalados em 2026) e 207 reguladores
-  (197 + 10). Vale para os três anos. A reconstrução do parque pelo AIC foi
+  (197 + 10). Vale para os três anos. **Para a série mensal de 2026 o gestor deu outra
+  base (24/08)**: janeiro com **1.281 RL** e **180 RT**, mais a expansão realizada
+  somada no próprio mês (RL 2·0·2·2·3·1·3 · RT 0·3·3·1·1·1·1, jan–jul) — fecha agosto
+  em 1.294 e 190. É essa que vale no `parque_2026.py`. A reconstrução do parque pelo AIC foi
   **abandonada** — superconta (dava 174 RL em 2024 contra realidade de <20/ano).
 - **Regulador é banco de três células.** O parque conta banco, não célula; falha de
   uma célula é uma falha do banco.
@@ -173,6 +176,7 @@ comissionamento e obra de equipamento novo.
 | Painel de equipamentos especiais | https://claude.ai/code/artifact/d65c0278-32e4-47aa-815b-43abc992a630 |
 | Dinâmica do posto | https://claude.ai/code/artifact/b4ef898c-efd8-4681-b996-2808001354ec |
 | Taxa de falha | https://claude.ai/code/artifact/978e5138-959a-4290-b454-c83774129095 |
+| Parque e falhas 2026 | https://claude.ai/code/artifact/1e03c93b-1b45-417b-8bd5-9f6fc7aa8709 |
 
 Antes de republicar, **ler a versão que está no ar** (`action: "read"`) e conferir o
 que muda — o publish é recusado se a versão viva não foi vista.
