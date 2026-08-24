@@ -21,6 +21,11 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(RAIZ, "dist", "PARQUE_2026.xlsx")
 NOME = {"RL": "Religador", "RT": "Regulador"}
 
+
+def br(v, casas=0):
+    """Número no jeito daqui: ponto no milhar, vírgula no decimal."""
+    return f"{v:,.{casas}f}".replace(",", "·").replace(".", ",").replace("·", ".")
+
 COLUNAS = [
     ("Mês", 10), ("Parque", 11), ("Expansão do mês", 15),
     ("Entrantes fora de operação", 24), ("Resolvidos no mês", 17),
@@ -68,6 +73,27 @@ def escrever(ws, tipo, serie, cum):
                   f"{cum['meses'][-1]['fila']}, o número de cadeias abertas hoje.")
     ws.cell(row=ultima + 3, column=1).alignment = Alignment(wrap_text=False)
 
+    # a leitura das duas figuras, a mesma da página — para a planilha se explicar
+    # sozinha em quem não abre o painel
+    pico_ent = max(serie, key=lambda d: d["entrantes"])
+    pico_taxa = max(serie, key=lambda d: d["taxa_mes_pct"])
+    leitura = [
+        f"Mês a mês — o parque sobe de {br(serie[0]['parque'])} para "
+        f"{br(serie[-1]['parque'])} com a expansão. Quem saiu de operação contra quem foi "
+        f"resolvido: pico de entrada em {pico_ent['rotulo']} ({pico_ent['entrantes']}). A "
+        f"taxa de falha do mês é só peça grande sobre o parque daquele mês, com máxima de "
+        f"{br(pico_taxa['taxa_mes_pct'], 2)}% em {pico_taxa['rotulo']}.",
+        f"Acumulado — o ano não começa do zero: {acervo} equipamentos já estavam fora de "
+        f"operação em 1º de janeiro. «Entrantes com o acervo» é a fila inteira; "
+        f"«indisponibilidade acumulada» é só o que entrou em 2026, e a distância entre as "
+        f"duas é exatamente o acervo. Resolvidos são {cum['resolvidos_no_ano']} cadeias "
+        f"fechadas por qualquer posto, das quais "
+        f"{cum['meses'][-1]['resolvidos_coep_acumulado']} pelo COEP.",
+    ]
+    for i, texto in enumerate(leitura):
+        ws.cell(row=ultima + 4 + i, column=1, value=texto)
+        ws.cell(row=ultima + 4 + i, column=1).alignment = Alignment(wrap_text=False)
+
     def grafico(titulo, colunas, ancora, altura=8, largura=17, pct=False):
         ch = LineChart()
         ch.title = titulo
@@ -86,10 +112,13 @@ def escrever(ws, tipo, serie, cum):
             s.marker.size = 6
         ws.add_chart(ch, ancora)
 
-    grafico(f"{NOME[tipo]} · parque, mês a mês", [2], f"A{ultima + 5}")
-    grafico(f"{NOME[tipo]} · entrantes fora de operação e resolvidos", [4, 5], f"J{ultima + 5}")
-    grafico(f"{NOME[tipo]} · taxa de falha do mês (% do parque)", [7], f"A{ultima + 21}", pct=True)
-    grafico(f"{NOME[tipo]} · acumulado no ano", [8, 9, 10, 11], f"J{ultima + 21}")
+    topo = ultima + 7
+    grafico(f"{NOME[tipo]} · parque, mês a mês", [2], f"A{topo}")
+    grafico(f"{NOME[tipo]} · entrantes fora de operação e resolvidos", [4, 5], f"J{topo}")
+    grafico(f"{NOME[tipo]} · taxa de falha do mês (% do parque)", [7], f"A{topo + 16}", pct=True)
+    grafico(f"{NOME[tipo]} · falhas do mês · peça grande", [6], f"J{topo + 16}")
+    grafico(f"{NOME[tipo]} · acumulado no ano", [8, 9, 10, 11], f"A{topo + 32}")
+    grafico(f"{NOME[tipo]} · fila no fim do mês", [12], f"J{topo + 32}")
 
 
 COMO = [
