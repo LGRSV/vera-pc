@@ -197,12 +197,36 @@ def cumulativo():
     return saida
 
 
+def resolvidos_pelo_coep():
+    """Os resolvidos PELO POSTO, por tipo e mês — a conta dos 82 (era 71), que o
+    gestor pediu subdividida entre religador e regulador."""
+    with open(os.path.join(RAIZ, "data", "missao", "coep_2026.json"), encoding="utf-8") as fh:
+        cp = json.load(fh)
+    por = defaultdict(int)
+    for r in cp["resolvidos_do_coep"]:
+        if not r["conta_como_resolvido_pelo_coep"]:
+            continue
+        t = "RT" if r["tipo"].lower().startswith("regul") else "RL"
+        m = _mes(r["data_do_fechamento"])
+        if m in MESES:
+            por[(t, m)] += 1
+    return {t: [por[(t, m)] for m in MESES] for t in ("RL", "RT")}
+
+
 def montar():
     pq = parque()
     ent = entrantes()
     real = realizado()
     lidas, comp = falhas()
     cum = cumulativo()
+    coep = resolvidos_pelo_coep()
+    for t in ("RL", "RT"):
+        acumulado = 0
+        for i, linha_mes in enumerate(cum[t]["meses"]):
+            acumulado += coep[t][i]
+            linha_mes["resolvidos_coep_no_mes"] = coep[t][i]
+            linha_mes["resolvidos_coep_acumulado"] = acumulado
+        cum[t]["resolvidos_coep_no_ano"] = acumulado
 
     series = {}
     for t in ("RL", "RT"):

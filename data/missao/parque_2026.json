@@ -279,7 +279,9 @@
      "resolvidos_no_mes": 23,
      "entraram_acumulado": 158,
      "resolvidos_acumulado": 23,
-     "fila": 135
+     "fila": 135,
+     "resolvidos_coep_no_mes": 4,
+     "resolvidos_coep_acumulado": 4
     },
     {
      "mes": "2026-02",
@@ -288,7 +290,9 @@
      "resolvidos_no_mes": 29,
      "entraram_acumulado": 184,
      "resolvidos_acumulado": 52,
-     "fila": 132
+     "fila": 132,
+     "resolvidos_coep_no_mes": 1,
+     "resolvidos_coep_acumulado": 5
     },
     {
      "mes": "2026-03",
@@ -297,7 +301,9 @@
      "resolvidos_no_mes": 37,
      "entraram_acumulado": 237,
      "resolvidos_acumulado": 89,
-     "fila": 148
+     "fila": 148,
+     "resolvidos_coep_no_mes": 3,
+     "resolvidos_coep_acumulado": 8
     },
     {
      "mes": "2026-04",
@@ -306,7 +312,9 @@
      "resolvidos_no_mes": 42,
      "entraram_acumulado": 286,
      "resolvidos_acumulado": 131,
-     "fila": 155
+     "fila": 155,
+     "resolvidos_coep_no_mes": 3,
+     "resolvidos_coep_acumulado": 11
     },
     {
      "mes": "2026-05",
@@ -315,7 +323,9 @@
      "resolvidos_no_mes": 25,
      "entraram_acumulado": 299,
      "resolvidos_acumulado": 156,
-     "fila": 143
+     "fila": 143,
+     "resolvidos_coep_no_mes": 7,
+     "resolvidos_coep_acumulado": 18
     },
     {
      "mes": "2026-06",
@@ -324,7 +334,9 @@
      "resolvidos_no_mes": 20,
      "entraram_acumulado": 327,
      "resolvidos_acumulado": 176,
-     "fila": 151
+     "fila": 151,
+     "resolvidos_coep_no_mes": 20,
+     "resolvidos_coep_acumulado": 38
     },
     {
      "mes": "2026-07",
@@ -333,7 +345,9 @@
      "resolvidos_no_mes": 14,
      "entraram_acumulado": 343,
      "resolvidos_acumulado": 190,
-     "fila": 153
+     "fila": 153,
+     "resolvidos_coep_no_mes": 12,
+     "resolvidos_coep_acumulado": 50
     },
     {
      "mes": "2026-08",
@@ -342,9 +356,12 @@
      "resolvidos_no_mes": 11,
      "entraram_acumulado": 359,
      "resolvidos_acumulado": 201,
-     "fila": 158
+     "fila": 158,
+     "resolvidos_coep_no_mes": 5,
+     "resolvidos_coep_acumulado": 55
     }
-   ]
+   ],
+   "resolvidos_coep_no_ano": 55
   },
   "RT": {
    "acervo_em_janeiro": 32,
@@ -360,7 +377,9 @@
      "resolvidos_no_mes": 3,
      "entraram_acumulado": 36,
      "resolvidos_acumulado": 3,
-     "fila": 33
+     "fila": 33,
+     "resolvidos_coep_no_mes": 0,
+     "resolvidos_coep_acumulado": 0
     },
     {
      "mes": "2026-02",
@@ -369,7 +388,9 @@
      "resolvidos_no_mes": 1,
      "entraram_acumulado": 39,
      "resolvidos_acumulado": 4,
-     "fila": 35
+     "fila": 35,
+     "resolvidos_coep_no_mes": 0,
+     "resolvidos_coep_acumulado": 0
     },
     {
      "mes": "2026-03",
@@ -378,7 +399,9 @@
      "resolvidos_no_mes": 6,
      "entraram_acumulado": 46,
      "resolvidos_acumulado": 10,
-     "fila": 36
+     "fila": 36,
+     "resolvidos_coep_no_mes": 4,
+     "resolvidos_coep_acumulado": 4
     },
     {
      "mes": "2026-04",
@@ -387,7 +410,9 @@
      "resolvidos_no_mes": 3,
      "entraram_acumulado": 51,
      "resolvidos_acumulado": 13,
-     "fila": 38
+     "fila": 38,
+     "resolvidos_coep_no_mes": 0,
+     "resolvidos_coep_acumulado": 4
     },
     {
      "mes": "2026-05",
@@ -396,7 +421,9 @@
      "resolvidos_no_mes": 4,
      "entraram_acumulado": 60,
      "resolvidos_acumulado": 17,
-     "fila": 43
+     "fila": 43,
+     "resolvidos_coep_no_mes": 4,
+     "resolvidos_coep_acumulado": 8
     },
     {
      "mes": "2026-06",
@@ -405,7 +432,9 @@
      "resolvidos_no_mes": 7,
      "entraram_acumulado": 67,
      "resolvidos_acumulado": 24,
-     "fila": 43
+     "fila": 43,
+     "resolvidos_coep_no_mes": 12,
+     "resolvidos_coep_acumulado": 20
     },
     {
      "mes": "2026-07",
@@ -414,7 +443,9 @@
      "resolvidos_no_mes": 5,
      "entraram_acumulado": 78,
      "resolvidos_acumulado": 29,
-     "fila": 49
+     "fila": 49,
+     "resolvidos_coep_no_mes": 5,
+     "resolvidos_coep_acumulado": 25
     },
     {
      "mes": "2026-08",
@@ -423,9 +454,12 @@
      "resolvidos_no_mes": 2,
      "entraram_acumulado": 80,
      "resolvidos_acumulado": 31,
-     "fila": 49
+     "fila": 49,
+     "resolvidos_coep_no_mes": 2,
+     "resolvidos_coep_acumulado": 27
     }
-   ]
+   ],
+   "resolvidos_coep_no_ano": 27
   }
  },
  "totais": {
