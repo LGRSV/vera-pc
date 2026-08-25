@@ -14,6 +14,7 @@ import os
 
 import openpyxl
 from openpyxl.chart import LineChart, Reference
+from openpyxl.chart.data_source import AxDataSource, StrRef
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
@@ -61,7 +62,7 @@ def escrever(ws, tipo, serie, cum):
             cel.border = borda
             cel.alignment = Alignment(horizontal="center")
     for r in range(2, ultima + 1):
-        ws.cell(row=r, column=7).number_format = "0,00%"
+        ws.cell(row=r, column=7).number_format = "0.00%"
 
     # a linha do acervo, que é o ponto de partida do acumulado
     ws.cell(row=ultima + 2, column=1, value="Acervo em 1º de janeiro").font = Font(bold=True)
@@ -102,10 +103,17 @@ def escrever(ws, tipo, serie, cum):
         for col in colunas:
             ref = Reference(ws, min_col=col, min_row=1, max_row=ultima)
             ch.add_data(ref, titles_from_data=True)
-        ch.set_categories(Reference(ws, min_col=1, min_row=2, max_row=ultima))
+        # o openpyxl grava toda categoria como numRef; com rótulo de texto o Excel
+        # mostra 1…8 no lugar de jan…ago. StrRef resolve.
+        rot = f"'{ws.title}'!$A$2:$A${ultima}"
+        for s in ch.series:
+            s.cat = AxDataSource(strRef=StrRef(f=rot))
+        # sem o delete explícito o Excel esconde os eixos em parte das versões
+        ch.x_axis.delete = ch.y_axis.delete = False
+        ch.x_axis.axPos, ch.y_axis.axPos = "b", "l"
         ch.y_axis.majorGridlines = None if pct else ch.y_axis.majorGridlines
         if pct:
-            ch.y_axis.numFmt = "0,00%"
+            ch.y_axis.numFmt = "0.00%"
         for s in ch.series:
             s.smooth = False
             s.marker.symbol = "circle"
