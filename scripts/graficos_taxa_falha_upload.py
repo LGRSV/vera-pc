@@ -12,6 +12,7 @@ própria aba de gráficos e a divergência fica escrita numa terceira.
 Rodar: python3 scripts/graficos_taxa_falha_upload.py <planilha.xlsx> [saida.xlsx]
 """
 
+import json
 import os
 import sys
 from collections import Counter
@@ -20,6 +21,7 @@ import openpyxl
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.chart.data_source import AxDataSource, StrRef
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.utils import get_column_letter
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PADRAO = os.path.join(RAIZ, "dist", "TAXA_DE_FALHA_COM_GRAFICOS.xlsx")
@@ -278,6 +280,11 @@ def aba_divergencias(wb, taxa, quadros, rol):
         "(61%), mas a taxa gravada é a divisão direta: religador 31 ÷ 1.197 = 2,59% e "
         "regulador 7 ÷ 202 = 3,47%. Não há anualização no número.",
         "",
+        "O parque também não é o mesmo dos dois lados: esta planilha usa 1.197 "
+        "religadores e 202 reguladores em 2026; a aba «Acumulado 2026» usa a base de "
+        "janeiro do gestor mais a expansão realizada, que fecha agosto em 1.294 e 190. "
+        "Com 1.294 no lugar de 1.197, a taxa do religador cai de 2,59% para 2,40%.",
+        "",
         "Nada aqui foi corrigido — os gráficos saem do que está escrito em cada nível, e "
         "as abas originais ficaram como vieram.",
     ]
@@ -289,8 +296,113 @@ def aba_divergencias(wb, taxa, quadros, rol):
     return ws
 
 
+ACUMULADO = [
+    ("Parque", "parque"), ("Entrantes — com o acervo herdado", "com_acervo"),
+    ("Indisponibilidade acumulada — só 2026", "so_2026"),
+    ("Resolvidos — todas as cadeias", "resolvidos"),
+    ("Resolvidos pelo COEP", "coep"),
+]
+TIPOS = {"RL": "Religador", "RT": "Regulador"}
+
+
+def serie_acumulada(p, tipo):
+    """As mesmas colunas da figura da página, mês a mês."""
+    dados, cum = p["series"][tipo], p["cumulativo"][tipo]
+    acervo = cum["acervo_em_janeiro"]
+    linhas = []
+    for d, m in zip(dados, cum["meses"]):
+        linhas.append((d["rotulo"], {
+            "parque": d["parque"],
+            "com_acervo": m["entraram_acumulado"],
+            "so_2026": m["entraram_acumulado"] - acervo,
+            "resolvidos": m["resolvidos_acumulado"],
+            "coep": m["resolvidos_coep_acumulado"],
+        }))
+    return linhas, acervo, cum
+
+
+def aba_acumulado(wb):
+    """A figura do acumulado da página, agora como gráfico nativo do Excel.
+
+    São dois gráficos e não um: parque na casa do milhar e contagem nas centenas
+    não convivem num eixo só. Na página as duas faixas dividem o mesmo eixo do
+    tempo; aqui ficam lado a lado, que é o que o Excel sabe fazer sem distorcer.
+    """
+    with open(os.path.join(RAIZ, "data", "missao", "parque_2026.json"),
+              encoding="utf-8") as fh:
+        p = json.load(fh)
+
+    ws = wb.create_sheet("Acumulado 2026", 1)
+    ws.column_dimensions["A"].width = 34
+    for c in "BCDEFGHI":
+        ws.column_dimensions[c].width = 11
+    ws.append(["ACUMULADO DE 2026 — A FIGURA DA PÁGINA, MÊS A MÊS"])
+    ws.cell(row=1, column=1).font = Font(bold=True, size=12)
+    ws.append(["Parque, entrantes com o acervo herdado, indisponibilidade só do ano, "
+               "resolvidos por qualquer posto e resolvidos pelo COEP."])
+
+    for tipo, nome in TIPOS.items():
+        linhas, acervo, cum = serie_acumulada(p, tipo)
+        meses = [r[0] for r in linhas]
+        faixa = quadro(ws, f"{nome} — 2026", meses,
+                       [(rot, [v[chave] for _, v in linhas]) for rot, chave in ACUMULADO])
+        primeira, ultima = faixa
+        col_parque, col_series = primeira, list(range(primeira + 1, ultima + 1))
+
+        # o parque tem escala própria: começar do zero achata a curva inteira
+        vals = [v["parque"] for _, v in linhas]
+        piso = (min(vals) // 10) * 10
+        teto = -(-max(vals) // 10) * 10
+
+        linha_meses = primeira - 1
+        grafico_linha(ws, f"{nome} · parque, mês a mês", [col_parque], meses,
+                      linha_meses, "H3" if tipo == "RL" else "H21",
+                      piso=piso, teto=teto)
+        grafico_linha(ws, f"{nome} · acumulado no ano", col_series, meses,
+                      linha_meses, "R3" if tipo == "RL" else "R21")
+
+        ws.append([])
+        ws.append([f"Acervo em 1º de janeiro: {acervo}. A conta do ano fecha: "
+                   f"{acervo} + {cum['entraram_no_ano']} − {cum['resolvidos_no_ano']} = "
+                   f"{cum['meses'][-1]['fila']}, as cadeias abertas hoje. A distância "
+                   f"entre «com o acervo» e «só 2026» é exatamente o acervo."])
+    return ws
+
+
+def grafico_linha(ws, titulo, linhas_dados, meses, linha_meses, ancora,
+                  piso=None, teto=None):
+    """Uma linha por série da faixa; as categorias são os meses, na horizontal.
+
+    A linha dos meses vem por parâmetro, não deduzida da primeira linha de dados —
+    deduzir só acerta no gráfico que começa logo abaixo do cabeçalho, e no outro
+    aponta para a série de cima.
+    """
+    ch = LineChart()
+    ch.title = titulo
+    ch.height, ch.width, ch.style = 8, 17, 2
+    for linha in linhas_dados:
+        ch.add_data(Reference(ws, min_col=1, min_row=linha,
+                              max_col=len(meses) + 1, max_row=linha),
+                    titles_from_data=True, from_rows=True)
+    ref = (f"'{ws.title}'!$B${linha_meses}:"
+           f"${get_column_letter(len(meses) + 1)}${linha_meses}")
+    for s in ch.series:
+        s.cat = AxDataSource(strRef=StrRef(f=ref))
+        s.smooth = False
+        s.marker.symbol, s.marker.size = "circle", 6
+    ch.x_axis.delete = ch.y_axis.delete = False
+    ch.x_axis.axPos, ch.y_axis.axPos = "b", "l"
+    if piso is not None:
+        ch.y_axis.scaling.min, ch.y_axis.scaling.max = piso, teto
+    if len(linhas_dados) == 1:
+        ch.legend = None
+    ws.add_chart(ch, ancora)
+    return ch
+
+
 def montar(entrada, saida):
     wb, taxa, quadros, rol, derrubados = ler(entrada)
+    aba_acumulado(wb)
     aba_quadros(wb, taxa, quadros)
     aba_rol(wb, rol, derrubados)
     aba_divergencias(wb, taxa, quadros, rol)
