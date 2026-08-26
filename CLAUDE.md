@@ -77,6 +77,10 @@ comissionamento e obra de equipamento novo.
   7908705049 (Artech sem suporte de instalação), 5836786094 (célula de 200 kVA para
   equipamento de 400) e 5800961074 (peças realocadas para os Muito Alta).
 - **Primeiro ataque do DMSL não conta**: a demanda morreu na mão da DMSL.
+- **Realizado do DCMD no ano (gestor, 26/08)**: SS **atendida** com equipe de campo na
+  cadeia **+ cancelada que ficou de pé** (sem nota nova no COEP depois; nota pendente em
+  outro posto não derruba). 2026: 18 + 45 = **63**. Atendida fechada só na TELE/PROT sem
+  campo na cadeia é execução do DMSL/DEOP, fica fora (19 casos).
 - **A carteira consolidada não serve de fonte para «resolvido»**: ela é a foto do que
   ainda está pendente; o que fechou e saiu não fica registrado nela.
 

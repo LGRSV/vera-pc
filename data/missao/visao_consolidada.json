@@ -958,9 +958,13 @@
   }
  },
  "concluidos_dcmd_2026": {
-  "qtd": 18,
-  "regra": "equipe de campo na cadeia + demanda fechada com SS atendida; cancelamento não é entrega",
-  "fechadas_no_proprio_campo": 7,
+  "qtd": 63,
+  "regra": "SS atendida com equipe de campo na cadeia, OU cancelada que ficou de pé — sem nota nova no posto do COEP depois (gestor, 26/08). Nota pendente em outro posto não derruba: é outra frente.",
+  "atendidas_com_campo": 18,
+  "canceladas_de_pe": 45,
+  "canceladas_com_volta_confirmada": 9,
+  "canceladas_no_lote_de_junho": 20,
+  "fechadas_no_proprio_campo": 13,
   "ativos": [
    {
     "ativo": "7967181127",
@@ -987,6 +991,22 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "7900236054",
+    "tipo": "religador",
+    "localidade": "PUGMIL",
+    "fechou_em": "07/01/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900790075",
+    "tipo": "religador",
+    "localidade": "DOIS IRMAOS DO TOCANTINS",
+    "fechou_em": "07/01/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "7931383086",
     "tipo": "religador",
     "localidade": "MARIANOPOLIS",
@@ -995,12 +1015,36 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "7931219078",
+    "tipo": "religador",
+    "localidade": "ITACAJA",
+    "fechou_em": "08/07/2026",
+    "posto": "ETO-RD-PO",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "7965032004",
     "tipo": "religador",
     "localidade": "ARAGUAINA",
     "fechou_em": "10/03/2026",
     "posto": "ETO-RD-AR",
     "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5863887001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "fechou_em": "11/03/2026",
+    "posto": "ETO-TELE",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900453110",
+    "tipo": "religador",
+    "localidade": "SANTA RITA DO TOCANTINS",
+    "fechou_em": "11/08/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
    },
    {
     "ativo": "7957620015",
@@ -1027,6 +1071,30 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "5800090147",
+    "tipo": "regulador",
+    "localidade": "TAIPAS DO TOCANTINS",
+    "fechou_em": "13/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5850308009",
+    "tipo": "regulador",
+    "localidade": "GUARAI",
+    "fechou_em": "13/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900532053",
+    "tipo": "religador",
+    "localidade": "PIRAQUE",
+    "fechou_em": "13/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "5800438116",
     "tipo": "regulador",
     "localidade": "CHAPADA DA NATIVIDADE",
@@ -1043,12 +1111,76 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "7955825037",
+    "tipo": "religador",
+    "localidade": "ALIANCA DO TOCANTINS",
+    "fechou_em": "14/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "5801866013",
     "tipo": "regulador",
     "localidade": "PARAISO DO TOCANTINS",
     "fechou_em": "14/07/2026",
     "posto": "ETO-RD-PS",
     "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7900505026",
+    "tipo": "religador",
+    "localidade": "PONTE ALTA TOCANTINS",
+    "fechou_em": "14/07/2026",
+    "posto": "ETO-PROT",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7950310122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "fechou_em": "14/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7926089013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "fechou_em": "16/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7925733015",
+    "tipo": "religador",
+    "localidade": "PEDRO AFONSO",
+    "fechou_em": "17/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7931608059",
+    "tipo": "religador",
+    "localidade": "TAQUARALTO",
+    "fechou_em": "17/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7956063152",
+    "tipo": "religador",
+    "localidade": "SANTA ROSA DO TOCANTINS",
+    "fechou_em": "19/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7902314013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "fechou_em": "19/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
    },
    {
     "ativo": "5836764032",
@@ -1059,6 +1191,14 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "7957126085",
+    "tipo": "religador",
+    "localidade": "MONTE SANTO DO TOCANTINS",
+    "fechou_em": "20/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "7965164065",
     "tipo": "religador",
     "localidade": "AXIXA DO TOCANTINS",
@@ -1067,12 +1207,60 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "7955175004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "fechou_em": "21/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7913667006",
+    "tipo": "religador",
+    "localidade": "TOCANTINIA",
+    "fechou_em": "22/01/2026",
+    "posto": "ETO-RD-PA",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5833723026",
+    "tipo": "regulador",
+    "localidade": "PONTE ALTA DO TOCANTINS",
+    "fechou_em": "22/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7956117005",
+    "tipo": "religador",
+    "localidade": "ARRAIAS",
+    "fechou_em": "22/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7959990070",
+    "tipo": "religador",
+    "localidade": "RIO SONO",
+    "fechou_em": "22/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "7957163122",
     "tipo": "religador",
     "localidade": "PALMAS",
     "fechou_em": "22/06/2026",
     "posto": "ETO-TELE",
     "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7944319149",
+    "tipo": "religador",
+    "localidade": "CASEARA",
+    "fechou_em": "22/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
    },
    {
     "ativo": "7900018004",
@@ -1091,6 +1279,14 @@
     "como": "SS ATENDIDA"
    },
    {
+    "ativo": "5851753086",
+    "tipo": "regulador",
+    "localidade": "MARIANOPOLIS",
+    "fechou_em": "25/06/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS CANCELADA"
+   },
+   {
     "ativo": "5827102054",
     "tipo": "regulador",
     "localidade": "PUGMIL",
@@ -1105,6 +1301,174 @@
     "fechou_em": "29/06/2026",
     "posto": "ETO-TELE",
     "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5854681071",
+    "tipo": "regulador",
+    "localidade": "BREJINHO DE NAZARE",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5855776094",
+    "tipo": "regulador",
+    "localidade": "PEIXE",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7908206074",
+    "tipo": "religador",
+    "localidade": "DIANOPOLIS",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900930040",
+    "tipo": "religador",
+    "localidade": "ARAGOMINAS",
+    "fechou_em": "30/04/2026",
+    "posto": "ETO-RD-AR",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5820044123",
+    "tipo": "regulador",
+    "localidade": "AGUIARNOPOLIS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5835587001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5852775092",
+    "tipo": "regulador",
+    "localidade": "NOVO ACORDO",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5855606027",
+    "tipo": "regulador",
+    "localidade": "PONTE ALTA DO BOM JESUS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5855643052",
+    "tipo": "regulador",
+    "localidade": "FORMOSO DO ARAGUAIA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5856825025",
+    "tipo": "regulador",
+    "localidade": "ARAPOEMA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5860500009",
+    "tipo": "regulador",
+    "localidade": "GUARAI",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5862546023",
+    "tipo": "regulador",
+    "localidade": "COLINAS DO TOCANTINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5863381155",
+    "tipo": "regulador",
+    "localidade": "PALMEIRANTE",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900001227",
+    "tipo": "religador",
+    "localidade": "RECURSOLANDIA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900275024",
+    "tipo": "religador",
+    "localidade": "ITAPORA DO TOCANTINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7901216032",
+    "tipo": "religador",
+    "localidade": "ARAGUACU",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7925573007",
+    "tipo": "religador",
+    "localidade": "MIRACEMA DO TOCANTINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7925704079",
+    "tipo": "religador",
+    "localidade": "ITAPIRATINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7936753097",
+    "tipo": "religador",
+    "localidade": "TALISMA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7949660066",
+    "tipo": "religador",
+    "localidade": "TUPIRATINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7963661046",
+    "tipo": "religador",
+    "localidade": "NOVA ROSALANDIA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
    }
   ]
  },

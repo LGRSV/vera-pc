@@ -174,7 +174,14 @@ def montar():
         if s_["ativo"] in res and (_dept(s_["posto_que_recebeu"]) == "DCMD"
                                    or _dept(s_["foi_para"]) == "DCMD"):
             tocou_rd.add(s_["ativo"])
-    dcmd = [res[a] for a in sorted(tocou_rd) if res[a]["como_terminou"] == "SS ATENDIDA"]
+    atendidas = [res[a] for a in sorted(tocou_rd) if res[a]["como_terminou"] == "SS ATENDIDA"]
+    # Régua do gestor (26/08): cancelada que ficou de pé também é entrega — a demanda
+    # morreu sem precisar de troca, e nenhuma nota nova voltou para o posto do COEP.
+    # As 82 resolvidas já garantem isso (cancelada com nota nova no COEP foi tirada);
+    # nota pendente em OUTRO posto não derruba — é outra frente de trabalho (22/08).
+    canceladas = [r for r in res.values() if r["como_terminou"] == "SS CANCELADA"]
+    dcmd = sorted(atendidas + canceladas, key=lambda x: x["data_do_fechamento"][6:10]
+                  + x["data_do_fechamento"][3:5] + x["data_do_fechamento"][:2])
 
     pacote = {
         "gerado_em": "2026-08-26",
@@ -206,8 +213,15 @@ def montar():
         },
         "concluidos_dcmd_2026": {
             "qtd": len(dcmd),
-            "regra": "equipe de campo na cadeia + demanda fechada com SS atendida; "
-                     "cancelamento não é entrega",
+            "regra": "SS atendida com equipe de campo na cadeia, OU cancelada que ficou "
+                     "de pé — sem nota nova no posto do COEP depois (gestor, 26/08). "
+                     "Nota pendente em outro posto não derruba: é outra frente.",
+            "atendidas_com_campo": len(atendidas),
+            "canceladas_de_pe": len(canceladas),
+            "canceladas_com_volta_confirmada": sum(
+                1 for r in canceladas if "volta à operação" in r["prova"]),
+            "canceladas_no_lote_de_junho": sum(
+                1 for r in canceladas if r.get("cancelada_no_lote_de_junho")),
             "fechadas_no_proprio_campo": sum(1 for r in dcmd
                                              if _dept(r["posto_que_fechou"]) == "DCMD"),
             "ativos": [{"ativo": r["ativo"], "tipo": r["tipo"], "localidade": r["localidade"],
