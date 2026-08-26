@@ -1,0 +1,219 @@
+{
+  "fatia": "rt2025",
+  "rotulo": "Reguladores 2025",
+  "revisor": {
+    "conferidos": 18,
+    "corrigidos": 1
+  },
+  "itens": [
+    {
+      "ativo": "5803327001",
+      "ss": "ETO-COEP 00021/2026",
+      "peca": "controle",
+      "data": "04/09/2025",
+      "troca_executada": false,
+      "causa_raiz": "INSTALAÇÃO / COMISSIONAMENTO INADEQUADO",
+      "citacao": "Equipamento foi remanejado, 7 km da sua localização sentido Palmas necessário comissionamento completo*Equipamento com um dos cabos umbilicais danificado.",
+      "confianca": "media",
+      "nota": "A razão da troca do controle não é dita, mas o texto detalha remanejamento de 7 km sem comissionamento, cabo umbilical danificado e aterramento da bucha FC mal interligado — falha de instalação, não do equipamento."
+    },
+    {
+      "ativo": "5820790038",
+      "ss": "ETO-TELE 00159/2025",
+      "peca": "controle",
+      "data": "19/02/2025",
+      "troca_executada": true,
+      "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+      "citacao": "FEITO O PRIMEIRO ATAQUE E PERCEBIDO QUE O MESMO NÃO ESTA COMUNICANDO COM O SCADA. EM CAMPO ESTA COMULTANDO NORMAL",
+      "confianca": "alta",
+      "nota": "O texto só dá o sintoma — sem comunicação com o SCADA, comutando normal em campo — e nenhuma razão para a falha de comunicação."
+    },
+    {
+      "ativo": "5850308009",
+      "ss": "ETO-TELE 01109/2025",
+      "peca": "controle",
+      "data": "15/08/2025",
+      "troca_executada": true,
+      "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+      "citacao": "Realizar manutenção no RT 5850308009.",
+      "confianca": "alta",
+      "nota": "Texto de uma linha, só o pedido de manutenção — nem o modo de falha nem a causa aparecem."
+    },
+    {
+      "ativo": "5827102054",
+      "ss": "ETO-COEP 00216/2025",
+      "peca": "rele",
+      "data": "27/08/2025",
+      "troca_executada": true,
+      "causa_raiz": "UMIDADE / INFILTRAÇÃO",
+      "citacao": "Se possível retornar com controle completo pq o q está em campo teve infiltração de água",
+      "confianca": "media",
+      "nota": "O relé queimado e o nobreak defeituoso ficam dentro do controle que 'teve infiltração de água' — causa explícita do pedido de controle novo; a resistência alta da malha aparece como agravante, não como causa."
+    },
+    {
+      "ativo": "5800371025",
+      "ss": "ETO-COEP 00187/2025",
+      "peca": "rele",
+      "data": "23/08/2025",
+      "troca_executada": true,
+      "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+      "citacao": "Após testes foi constatado defeito nos relés da fase A e B, Modelo Toshiba TBR 1000.",
+      "confianca": "media",
+      "nota": "O laudo constata defeito nos relés Toshiba TBR 1000 das fases A e B sem dizer por que falharam — defeito do próprio eletrônico, sem causa mais profunda descrita no texto."
+    },
+    {
+      "ativo": "5854566043",
+      "ss": "ETO-COEP 00036/2025",
+      "peca": "celula",
+      "data": "21/03/2025",
+      "troca_executada": true,
+      "causa_raiz": "DESCARGA ATMOSFÉRICA (RAIO)",
+      "citacao": "a fase C do regulador 5854566043 está danificada devido a uma descarga atmosférica. Vazou óleo e o mesmo está com coloração escura o que evidencia o seu comprometimento.",
+      "confianca": "alta",
+      "nota": "Laudo explícito: fase C danificada por descarga atmosférica, com óleo vazado e escurecido; o código citado é o do próprio ativo da linha."
+    },
+    {
+      "ativo": "5854566043",
+      "ss": "ETO-COEP 00160/2025",
+      "peca": "celula",
+      "data": "23/07/2025",
+      "troca_executada": true,
+      "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+      "citacao": "A fase B está danificada e será necessário substituir a mesma. Malha de aterramento está relativamente boa e conectada. Fase A e C passaram nos ensaios.",
+      "confianca": "alta",
+      "nota": "Segunda falha do mesmo ativo no ano: a nota de campo fala fase C queimada, mas vale o parecer DMSL mais recente — fase B danificada, A e C aprovadas — e nenhum porquê; o aterramento estava bom."
+    },
+    {
+      "ativo": "5800438116",
+      "ss": "ETO-COEP 00171/2025",
+      "peca": "celula",
+      "data": "18/07/2025",
+      "troca_executada": true,
+      "causa_raiz": "DEFEITO MECÂNICO (CHAVE REVERSORA)",
+      "citacao": "Foi feito teste de elevar e abaixar nas fases B e C e o mesmo só aceita elevar os taps, constatando que o mercanismo da chave reversoura polaridade está com defeito.",
+      "confianca": "alta",
+      "nota": "Fases B/C travadas com causa diagnosticada explícita: defeito no mecanismo da chave reversora de polaridade (placa F do controle também com defeito); a origem do defeito mecânico não é dita."
+    },
+    {
+      "ativo": "5855411017",
+      "ss": "ETO-COEP 00199/2025",
+      "peca": "controle",
+      "data": "03/09/2025",
+      "troca_executada": false,
+      "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+      "citacao": "SEM COMUNICAÇÃO, FALHA DE ALIMENTAÇÃO - REALIZADO PRIMEIRO ATAQUE SEM SUCESSO.",
+      "confianca": "alta",
+      "nota": "O texto dá só o sintoma — sem comunicação, falha de alimentação, primeiro ataque sem sucesso — e a pendência de levar controle completo para trocar; onde está o defeito e por que a alimentação falhou não são ditos.",
+      "revisao": "Corrigido de DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ) para SEM CAUSA DESCRITA NO TEXTO. 'Falha de alimentação' é sintoma, não diagnóstico: ninguém constatou defeito no eletrônico (compare 5800371025, onde o DMSL diz 'após testes foi constatado defeito nos relés'). A causa foi inferida do remédio — trocar o controle completo — e remédio não é laudo; a falha de alimentação podia ser externa (trafo auxiliar, cabo). Confiança sobe para alta porque a ausência de causa é certa."
+    },
+    {
+      "ativo": "5800440256",
+      "ss": "ETO-TELE 01431/2025",
+      "peca": "celula",
+      "data": "30/11/2025",
+      "troca_executada": true,
+      "causa_raiz": "VAZAMENTO DE ÓLEO / VEDAÇÃO",
+      "citacao": "o mesmo esta com uma das celulas apresentando vazamento , o equipamento ficou bypassado",
+      "confianca": "alta",
+      "nota": "A célula vazou óleo a ponto de causar desarme da LD Ponte Alta–Mateiros e bypass — o vazamento é a falha declarada; a origem exata da perda de vedação não é detalhada."
+    },
+    {
+      "ativo": "5856070091",
+      "ss": "ETO-COEP 00056/2026",
+      "peca": "furto",
+      "data": "18/07/2025",
+      "troca_executada": true,
+      "causa_raiz": "FURTO",
+      "citacao": "Solicitação de serviço para reposição de equipamentos furtados",
+      "confianca": "alta",
+      "nota": "SS aberta como reposição de equipamento furtado; o restante do texto é a esteira de reposição e um erro de instalação posterior (fonte/carga invertidas), não a causa original."
+    },
+    {
+      "ativo": "5841308190",
+      "ss": "ETO-COEP 00154/2025",
+      "peca": "furto",
+      "data": "21/08/2025",
+      "troca_executada": true,
+      "causa_raiz": "FURTO",
+      "citacao": "Solicitação de serviço para reposição de equipamentos furtados",
+      "confianca": "alta",
+      "nota": "Reposição de equipamento furtado, já substituído pelos COCMs — furto declarado no texto."
+    },
+    {
+      "ativo": "5841308190",
+      "ss": "ETO-COEP 00197/2025",
+      "peca": "furto",
+      "data": "29/09/2025",
+      "troca_executada": false,
+      "causa_raiz": "FURTO",
+      "citacao": "Após alguns análise foi identificado que as 3 fases estava sem óleo, provavelmente foram roubados.",
+      "confianca": "alta",
+      "nota": "DMSL achou as 3 fases sem óleo ('provavelmente foram roubados') e o COEP desmobiliza o RT citando 'furtos recorrentes na região' — segundo furto do mesmo ativo no ano; o hedge do laudo é coberto pela decisão do COEP."
+    },
+    {
+      "ativo": "5856156091",
+      "ss": "ETO-COEP 00055/2026",
+      "peca": "furto",
+      "data": "16/06/2025",
+      "troca_executada": false,
+      "causa_raiz": "FURTO",
+      "citacao": "PARECER DA PROTEÇÃO:EQUIPAMENTOS FURTADOS. PARA AQUISIÇÃO DAS CELULAS DE REPOSIÇÃO, FAVOR CONSULTAR OS DADOS DE PLACA EM ANEXO.",
+      "confianca": "alta",
+      "nota": "Parecer da Proteção declara equipamentos furtados e pede células de reposição; o texto chama o ativo de 'religador' por engano, mas o código 5856156091 é o do próprio RT da linha."
+    },
+    {
+      "ativo": "5800961074",
+      "ss": "ETO-COEP 00221/2025",
+      "peca": "celula",
+      "data": "05/12/2025",
+      "troca_executada": false,
+      "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+      "citacao": "Substituir as 3 células- Melhoria na malha de aterramento - Melhoria no circuito de aterramento qua aterra as células.",
+      "confianca": "alta",
+      "nota": "O texto é só escopo de compra (3 células, melhorias de aterramento, conectores); a melhoria de aterramento sugere deficiência, mas nada liga isso à falha das células — não se chuta laudo."
+    },
+    {
+      "ativo": "5844630060",
+      "ss": "ETO-RD-AR 01131/2026",
+      "peca": "celula",
+      "data": "06/08/2025",
+      "troca_executada": true,
+      "causa_raiz": "VAZAMENTO DE ÓLEO / VEDAÇÃO",
+      "citacao": "Célula da fase A encontra-se com vazamento de óleo no pé da torneira. Necessário substituição da célula.",
+      "confianca": "alta",
+      "nota": "Vazamento de óleo no pé da torneira da fase A declarado pelo DMSL — ponto de vedação; o porquê da perda de vedação não é detalhado."
+    },
+    {
+      "ativo": "5858783119",
+      "ss": "ETO-COEP 00123/2025",
+      "peca": "furto",
+      "data": "24/03/2025",
+      "troca_executada": false,
+      "causa_raiz": "FURTO",
+      "citacao": "Constatado também que foi furtado todo o óleo isolante das 3 células, sendo necessário a substituição das 3 células.",
+      "confianca": "alta",
+      "nota": "Tampas de inspeção abertas, para-raios levados e todo o óleo isolante furtado das 3 células; o COEP confirma 'DEVIDO AO ERRO NA INSTALAÇÃO E O FURTO'."
+    },
+    {
+      "ativo": "5862236091",
+      "ss": "ETO-SE-PCM 00065/2025",
+      "peca": "celula",
+      "data": "08/12/2025",
+      "troca_executada": false,
+      "causa_raiz": "UMIDADE / INFILTRAÇÃO",
+      "citacao": "Célula da fase B estava com a tampa do contador de tape aberta, pegou chuva e molhou os contatos danificando a peça toda.",
+      "confianca": "alta",
+      "nota": "Causa explícita e completa: tampa do contador de tap aberta deixou a chuva molhar os contatos e danificar a célula da fase B — água de chuva, não defeito interno."
+    }
+  ],
+  "resumo": {
+    "SEM CAUSA DESCRITA NO TEXTO": 5,
+    "FURTO": 5,
+    "UMIDADE / INFILTRAÇÃO": 2,
+    "VAZAMENTO DE ÓLEO / VEDAÇÃO": 2,
+    "INSTALAÇÃO / COMISSIONAMENTO INADEQUADO": 1,
+    "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 1,
+    "DESCARGA ATMOSFÉRICA (RAIO)": 1,
+    "DEFEITO MECÂNICO (CHAVE REVERSORA)": 1
+  }
+}

@@ -1,0 +1,118 @@
+{
+ "fatia": "rt2026",
+ "rotulo": "Reguladores 2026",
+ "revisor": {
+  "conferidos": 9,
+  "corrigidos": 1
+ },
+ "itens": [
+  {
+   "ativo": "5800090147",
+   "ss": "ETO-COEP 00117/2026",
+   "peca": "celula",
+   "data": "02/04/2026",
+   "troca_executada": false,
+   "causa_raiz": "DEFEITO NO MICROSWITCH (SENSOR DE NEUTRO)",
+   "citacao": "Favor, substituir a célula da fase C do RT 5800090147 pois o microswitch que renconhece o neutro do regulador está com defeito.",
+   "confianca": "alta",
+   "nota": "Parecer DMSL (o mais recente) traz o nexo causal com 'pois': a célula sai porque o microswitch que reconhece o neutro falhou; o porquê da falha do microswitch não é dito."
+  },
+  {
+   "ativo": "5848305116",
+   "ss": "ETO-TELE 00935/2026",
+   "peca": "controle",
+   "data": "17/06/2026",
+   "troca_executada": true,
+   "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+   "citacao": "Na função Auto zero Regulador 2 foi para o TAP 16, em automático demostra comutação indevida e  em Falha na Cédula RT2",
+   "confianca": "media",
+   "nota": "Comutação indevida em automático é o controle comandando errado; a correção registrada foi a troca do relé, que normalizou o banco — defeito no relé, sem causa mais profunda no texto."
+  },
+  {
+   "ativo": "5800366016",
+   "ss": "ETO-RD-AR 00275/2026",
+   "peca": "celula",
+   "data": "09/02/2026",
+   "troca_executada": true,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "CELULAR QUEIMADA REGULADOR DE TENSÃO.SUBSTITUIR CELULA REGULADOR DE TENSÃO 5800366016 FASE A.",
+   "confianca": "alta",
+   "nota": "Texto dá só o modo — célula queimada — sem uma linha sobre o porquê; engenheiro não chuta laudo."
+  },
+  {
+   "ativo": "5836786094",
+   "ss": "ETO-COEP 00095/2026",
+   "peca": "furto",
+   "data": "16/04/2026",
+   "troca_executada": false,
+   "causa_raiz": "FURTO",
+   "citacao": "Favor levar outro regulador de tensão, pois o mesmo foi furtado em campo.",
+   "confianca": "alta",
+   "nota": "Texto inequívoco: o regulador foi furtado em campo; o parecer COEP posterior só trata da logística do substituto."
+  },
+  {
+   "ativo": "5800440256",
+   "ss": "ETO-TELE 01034/2026",
+   "peca": "celula",
+   "data": "06/08/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Substituir célula da Fase B do banco de Regulador de tensão e realizar melhorias na malha de aterramento do Regulador",
+   "confianca": "alta",
+   "nota": "Texto dá o modo — célula da fase B defeituosa, tensão oscilando de 16 a 23 kV com reclamação do cliente BRK — e duas prescrições lado a lado no parecer DMSL (trocar a célula E melhorar a malha de aterramento), sem uma linha dizendo que a malha causou a falha da célula. A malha fica registrada como indício na prescrição, não como laudo.",
+   "revisao": "De ATERRAMENTO DEFICIENTE (baixa) para SEM CAUSA DESCRITA NO TEXTO: a citação é real, mas prescrever melhoria na malha junto com a troca da célula não fecha nexo causal — a própria nota original admitia que 'o texto não fecha o nexo causal' e ainda assim cravou causa. Régua: prescrição de ação paralela não sustenta causa raiz (mesmo padrão do 5800366016, 'célula queimada' → sem causa). Engenheiro não chuta laudo."
+  },
+  {
+   "ativo": "5840227063",
+   "ss": "ETO-COEP 00151/2026",
+   "peca": "celula",
+   "data": "13/07/2026",
+   "troca_executada": false,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "Realizados ensaios de isolação nas três células, e foi identificado curto na fase A, sendo necessário a sua substituição",
+   "confianca": "alta",
+   "nota": "Ensaio de isolação identificou curto na célula (abertura citava fase C, DMSL fechou na A) — falha dielétrica interna comprovada por ensaio; o gatilho do curto não é declarado."
+  },
+  {
+   "ativo": "5856070091",
+   "ss": "ETO-COEP 00023/2026",
+   "peca": "furto",
+   "data": "26/01/2026",
+   "troca_executada": false,
+   "causa_raiz": "FURTO",
+   "citacao": "Regulador 5856070091 furtado as 3 fases",
+   "confianca": "alta",
+   "nota": "Furto das três fases do banco, dito com todas as letras; acesso livre na LD Almas-Natividade explica a exposição."
+  },
+  {
+   "ativo": "5800859011",
+   "ss": "ETO-COEP 00115/2026",
+   "peca": "controle",
+   "data": "27/05/2026",
+   "troca_executada": true,
+   "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+   "citacao": "Foi identificado relé da fase C com defeito conforme orientação da supervisão e necessário realiza retrofit para instalação de controle rua.",
+   "confianca": "alta",
+   "nota": "DMSL identifica relé da fase C com defeito (display apagado, equipamento bypassado, 'FICOU EM OPERAÇÃO: Não'); saída foi retrofit para controle rua. Por que o relé falhou não é dito."
+  },
+  {
+   "ativo": "5801866013",
+   "ss": "ETO-RD-PS 00303/2026",
+   "peca": "celula",
+   "data": "02/03/2026",
+   "troca_executada": true,
+   "causa_raiz": "UMIDADE / INFILTRAÇÃO",
+   "citacao": "Identificado infiltração na caixa de passagem da célula da fase C do banco regulador de tensão, será necessário fazer a substituição da mesma!",
+   "confianca": "alta",
+   "nota": "DMSL identificou infiltração na caixa de passagem da célula da fase C — água entrando é a causa direta do defeito que bypassou o banco."
+  }
+ ],
+ "resumo": {
+  "DEFEITO NO MICROSWITCH (SENSOR DE NEUTRO)": 1,
+  "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 2,
+  "SEM CAUSA DESCRITA NO TEXTO": 2,
+  "FURTO": 2,
+  "CURTO-CIRCUITO INTERNO": 1,
+  "UMIDADE / INFILTRAÇÃO": 1
+ }
+}
