@@ -71,7 +71,11 @@ comissionamento e obra de equipamento novo.
   então são as 93»; 18 delas fora da carteira). O balde sai do **posto da SS pendente**:
   PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento,
   sem criticidade definida (fora da aba ou «Sem classificação») = 1º ataque do DMSL;
-  RD = execução; COEP = aquisição, salvo «Em logística» da carteira.
+  RD = execução; COEP = aquisição, salvo «Em logística» da carteira. **Por cima da
+  esteira entram as decisões pontuais do gestor** (`DECISOES_DO_GESTOR` em
+  `visao_consolidada.py`, com motivo e data): 26/08 devolveu três para aquisição —
+  7908705049 (Artech sem suporte de instalação), 5836786094 (célula de 200 kVA para
+  equipamento de 400) e 5800961074 (peças realocadas para os Muito Alta).
 - **Primeiro ataque do DMSL não conta**: a demanda morreu na mão da DMSL.
 - **A carteira consolidada não serve de fonte para «resolvido»**: ela é a foto do que
   ainda está pendente; o que fechou e saiu não fica registrado nela.

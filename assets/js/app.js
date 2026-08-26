@@ -441,7 +441,7 @@ function visaoConsolidada() {
       ${linha('Aguardando comissionamento', b.comissionamento.qtd)}
       ${linha('DCMD · em execução', b.dcmd_execucao.qtd, 'com os COCM’s')}
       ${linha('DCMD · em logística', b.dcmd_logistica.qtd, 'no COEP, esperando o material')}
-      ${linha('DCMD · em processo de aquisição', b.dcmd_aquisicao.qtd, 'o restante pendente no COEP')}
+      ${linha('DCMD · em processo de aquisição', b.dcmd_aquisicao.qtd, `o restante pendente no COEP${(e.decisoes_do_gestor?.itens || []).length ? ` — inclui ${e.decisoes_do_gestor.itens.length} devolvidos por decisão do gestor` : ''}`)}
       ${linha('1º ataque do DMSL', b.dmsl_novos.qtd, 'novos — TELE sem criticidade na aba de mapeamento')}
     </div>
     <div class="numeros" style="margin-top:14px">
@@ -454,6 +454,9 @@ function visaoConsolidada() {
       { chave: 'resolvidos', nome: 'Resolvidos no mês', cor: 'var(--serie-3)',
         dica: 'pelo mês em que a demanda fechou' },
     ]) : ''}
+    ${(e.decisoes_do_gestor?.itens || []).length ? `<details class="detalhe-plano" open><summary>Decisões do gestor (${esc(e.decisoes_do_gestor.data)}) — ${e.decisoes_do_gestor.itens.length} voltas para a aquisição</summary>
+      ${e.decisoes_do_gestor.itens.map((x) => `<p class="destaque-texto" style="margin-top:8px"><b class="mono">${esc(x.ativo)}</b> ${esc(x.localidade)} — saía como «${esc(x.de)}». ${esc(x.motivo)}</p>`).join('')}
+    </details>` : ''}
     <details class="detalhe-plano"><summary>Dos ${pd.aquisicao} em aquisição, quantos estão no plano de compras?</summary>
       <div class="item-linha"><span>No plano de compras de 17/07</span><b>${pd.aquisicao_no_plano}</b></div>
       <div class="item-linha"><span>Ainda fora do plano</span><b>${pd.aquisicao_fora_do_plano}</b></div>
@@ -470,7 +473,10 @@ function visaoConsolidada() {
       definida na aba de mapeamento → comissionamento; sem criticidade definida (fora da aba ou
       «Sem classificação») → 1º ataque do DMSL · <b>ETO-RD-*</b> → execução com os COCM's ·
       <b>ETO-COEP</b> → aquisição, salvo quem a aba marca «Em logística». A aba de mapeamento entra
-      só como anotação (criticidade e etapa); aquisição cruza com o plano de compras de 17/07.</p>
+      só como anotação (criticidade e etapa); aquisição cruza com o plano de compras de 17/07.
+      Por cima da esteira entram as <b>decisões pontuais do gestor</b>, gravadas no código com motivo e
+      data (DECISOES_DO_GESTOR em visao_consolidada.py) — material errado ou realocado devolve o ativo
+      para a aquisição, mesmo com a SS pendurada em outro posto.</p>
       <p class="destaque-texto" style="margin-top:8px"><b>Para refazer com base nova</b> — largar a
       <b class="mono">BASE_SS_OS_ddmmaaaa.txt</b> em <b class="mono">data/raw</b> e rodar
       <b class="mono">python3 scripts/atualiza_visao_eto.py</b>: extrai o recorte, refaz esta visão, a

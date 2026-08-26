@@ -107,6 +107,12 @@ def como_foi_feito(v):
     "as 93». Quem está na carteira sem SS de indisponibilidade pendente fica de fora — e "
     "quem tem SS pendente fica dentro mesmo sem estar na carteira.",
     "",
+    "DECISÕES DO GESTOR — por cima da esteira. A esteira diz onde a SS está pendurada; o "
+    "gestor diz onde a bola está. Cada decisão vale com motivo e data, e aparece na coluna "
+    "«Decisão do gestor» da lista:",
+    *[f"• {i['ativo']} ({i['localidade']}) — saía como «{i['de']}». {i['motivo']}"
+      for i in v.get("decisoes_do_gestor", {}).get("itens", [])],
+    "",
     "PARA REFAZER COM BASE NOVA: largar a BASE_SS_OS_ddmmaaaa.txt em data/raw e rodar "
     "python3 scripts/atualiza_visao_eto.py — extrai o recorte, refaz a visão, esta "
     "planilha e o painel. A mesma régua está no site, na home, em «Como esta visão é "
@@ -132,9 +138,9 @@ def montar():
     ws.title = f"Visão ETO ({v['total']})"
     colunas = ["Balde", "Ativo", "Tipo", "Localidade", "SS pendente", "Posto da SS",
                "Criticidade (aba de mapeamento)", "Etapa na aba", "Está na aba",
-               "No plano de compras",
+               "No plano de compras", "Decisão do gestor",
                "Descrição da SS (cumulativa — vale o parecer mais recente)"]
-    larguras = [30, 14, 8, 24, 22, 14, 16, 24, 10, 12, 90]
+    larguras = [30, 14, 8, 24, 22, 14, 16, 24, 10, 12, 60, 90]
     ws.append(colunas)
     for c, larg in enumerate(larguras, 1):
         cel = ws.cell(row=1, column=c)
@@ -154,6 +160,7 @@ def montar():
                 i["ss_pendente"], i["ss_pendente"].split()[0],
                 i["criticidade"] or "—", i["etapa_da_planilha"], sn(i["na_carteira"]),
                 (sn(i["no_plano_de_compras"]) if "no_plano_de_compras" in i else "—"),
+                i.get("decisao_do_gestor", "—"),
                 desc or "—",
             ])
     for linha in ws.iter_rows(min_row=2):
@@ -161,6 +168,7 @@ def montar():
             cel.border = borda
             cel.alignment = Alignment(vertical="top")
         linha[-1].alignment = Alignment(vertical="top", wrap_text=True)
+        linha[-2].alignment = Alignment(vertical="top", wrap_text=True)
 
     ws2 = wb.create_sheet("Como foi feito")
     ws2.column_dimensions["A"].width = 110

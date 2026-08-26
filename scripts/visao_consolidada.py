@@ -36,6 +36,37 @@ import re
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(RAIZ, "data", "missao", "visao_consolidada.json")
 
+# ---- Decisões pontuais do gestor (26/08), por cima da régua da esteira.
+# A esteira diz onde a SS está pendurada; o gestor diz onde a BOLA está. Nos três
+# casos o material saiu errado ou foi realocado, e a demanda volta para a mesa de
+# aquisição mesmo com a SS em outro posto ou com a carteira dizendo «Em logística».
+# Cada decisão carrega o motivo por extenso — é ele que aparece na planilha e no
+# painel. Decisão nova entra aqui, com data.
+DECISOES_DO_GESTOR = {
+    "7908705049": {  # Aurora do Tocantins — a SS pendente segue na ETO-RD-DP 00409/2026
+        "balde": "dcmd_aquisicao",
+        "motivo": "Decisão do gestor (26/08): volta da execução para a aquisição por "
+                  "problema no envio do material — o modelo enviado foi um religador "
+                  "ARTECH sem suporte para instalação, então o que chegou não tem como "
+                  "ser instalado. Fica em aquisição até ser enviado equipamento "
+                  "compatível.",
+    },
+    "5836786094": {  # Peixe — a carteira marcava «Em logística»
+        "balde": "dcmd_aquisicao",
+        "motivo": "Decisão do gestor (26/08): sai de «Em logística» e volta para a "
+                  "aquisição — a célula enviada é de 200 kVA e o regulador é de "
+                  "400 kVA. Material incompatível com o equipamento; a compra volta "
+                  "para a mesa.",
+    },
+    "5800961074": {  # Dianópolis — a carteira marcava «Em logística»
+        "balde": "dcmd_aquisicao",
+        "motivo": "Decisão do gestor (26/08): sai de «Em logística» e volta para a "
+                  "aquisição — as peças que estavam separadas para este ativo foram "
+                  "realocadas para atender os de criticidade Muito Alta. Ele volta "
+                  "para a fila de compra.",
+    },
+}
+
 
 def _posicao(ssos):
     """O horizonte do recorte — a maior data de abertura, nunca o nome do arquivo."""
@@ -93,8 +124,13 @@ def montar():
             return "dcmd_logistica" if etapa == "Em logística" else "dcmd_aquisicao"
         raise SystemExit(f"posto sem balde na régua da esteira: {posto} ({r['NUM_TRAFO']})")
 
-    baldes = {b: [] for b in ("ajuste_de_protecao", "comissionamento", "dcmd_execucao",
-                              "dcmd_logistica", "dcmd_aquisicao", "dmsl_novos")}
+    NOME_BALDE = {
+        "ajuste_de_protecao": "ajuste de proteção", "comissionamento": "comissionamento",
+        "dcmd_execucao": "DCMD — em execução (COCM's)",
+        "dcmd_logistica": "DCMD — em logística",
+        "dcmd_aquisicao": "DCMD — em aquisição", "dmsl_novos": "1º ataque do DMSL",
+    }
+    baldes = {b: [] for b in NOME_BALDE}
     for r in sorted(pendentes, key=lambda x: x["NUM_TRAFO"]):
         cod = r["NUM_TRAFO"]
         na_carteira = cod in joa
@@ -108,7 +144,13 @@ def montar():
             "na_carteira": na_carteira,
             "etapa_da_planilha": x.get("etapa") if na_carteira else "(fora da carteira)",
         }
-        baldes[balde_de(r)].append(item)
+        b = balde_de(r)
+        dec = DECISOES_DO_GESTOR.get(cod)
+        if dec:
+            item["balde_pela_esteira"] = b
+            item["decisao_do_gestor"] = dec["motivo"]
+            b = dec["balde"]
+        baldes[b].append(item)
     total = sum(len(v) for v in baldes.values())
     fora_da_carteira = sum(1 for v in baldes.values() for i in v if not i["na_carteira"])
 
@@ -135,7 +177,7 @@ def montar():
     dcmd = [res[a] for a in sorted(tocou_rd) if res[a]["como_terminou"] == "SS ATENDIDA"]
 
     pacote = {
-        "gerado_em": "2026-08-22",
+        "gerado_em": "2026-08-26",
         "fonte": f"SS de indisponibilidade pendentes na {posicao} + mapeamento por "
                  "criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + "
                  "plano de compras de 17/07 + leitura da taxa de falha",
@@ -148,8 +190,19 @@ def montar():
                     "posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida "
                     "na aba de mapeamento = comissionamento, sem criticidade definida = "
                     "1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em "
-                    f"logística» da carteira). {fora_da_carteira} não estão na carteira.",
+                    f"logística» da carteira). Por cima da esteira entram as decisões pontuais do "
+                    "gestor, com motivo e data — hoje, três voltas para aquisição "
+                    f"(26/08). {fora_da_carteira} não estão na carteira.",
             "baldes": {b: {"qtd": len(v), "ativos": v} for b, v in baldes.items()},
+            "decisoes_do_gestor": {
+                "data": "26/08",
+                "itens": [{"ativo": i["ativo"], "localidade": i["localidade"],
+                           "tipo": i["tipo"],
+                           "de": NOME_BALDE[i["balde_pela_esteira"]],
+                           "motivo": i["decisao_do_gestor"]}
+                          for v in baldes.values() for i in v
+                          if "decisao_do_gestor" in i],
+            },
         },
         "concluidos_dcmd_2026": {
             "qtd": len(dcmd),

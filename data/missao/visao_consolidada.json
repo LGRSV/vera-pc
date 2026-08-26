@@ -1,11 +1,11 @@
 {
- "gerado_em": "2026-08-22",
+ "gerado_em": "2026-08-26",
  "fonte": "SS de indisponibilidade pendentes na base de SS/OS com aberturas até 20/08/2026 + mapeamento por criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + plano de compras de 17/07 + leitura da taxa de falha",
  "visao_eto": {
   "total": 93,
   "posicao": "base de SS/OS com aberturas até 20/08/2026",
   "fora_da_carteira": 18,
-  "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de indisponibilidade para operação pendente na base — o balde sai do posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento, sem criticidade definida = 1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em logística» da carteira). 18 não estão na carteira.",
+  "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de indisponibilidade para operação pendente na base — o balde sai do posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento, sem criticidade definida = 1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em logística» da carteira). Por cima da esteira entram as decisões pontuais do gestor, com motivo e data — hoje, três voltas para aquisição (26/08). 18 não estão na carteira.",
   "baldes": {
    "ajuste_de_protecao": {
     "qtd": 11,
@@ -198,7 +198,7 @@
     ]
    },
    "dcmd_execucao": {
-    "qtd": 4,
+    "qtd": 3,
     "ativos": [
      {
       "ativo": "5853360007",
@@ -219,15 +219,6 @@
       "etapa_da_planilha": "Entregue ao COCM"
      },
      {
-      "ativo": "7908705049",
-      "tipo": "RL",
-      "localidade": "AURORA DO TOCANTINS",
-      "criticidade": "Muito Alta",
-      "ss_pendente": "ETO-RD-DP 00409/2026",
-      "na_carteira": true,
-      "etapa_da_planilha": "Entregue ao COCM"
-     },
-     {
       "ativo": "7931219078",
       "tipo": "RL",
       "localidade": "ITACAJA",
@@ -239,17 +230,8 @@
     ]
    },
    "dcmd_logistica": {
-    "qtd": 3,
+    "qtd": 1,
     "ativos": [
-     {
-      "ativo": "5800961074",
-      "tipo": "RT",
-      "localidade": "DIANOPOLIS",
-      "criticidade": "Média",
-      "ss_pendente": "ETO-COEP 00221/2025",
-      "na_carteira": true,
-      "etapa_da_planilha": "Em logística"
-     },
      {
       "ativo": "5803327001",
       "tipo": "RT",
@@ -258,20 +240,11 @@
       "ss_pendente": "ETO-COEP 00149/2026",
       "na_carteira": true,
       "etapa_da_planilha": "Em logística"
-     },
-     {
-      "ativo": "5836786094",
-      "tipo": "RT",
-      "localidade": "PEIXE",
-      "criticidade": "Baixa",
-      "ss_pendente": "ETO-COEP 00095/2026",
-      "na_carteira": true,
-      "etapa_da_planilha": "Em logística"
      }
     ]
    },
    "dcmd_aquisicao": {
-    "qtd": 46,
+    "qtd": 49,
     "ativos": [
      {
       "ativo": "5800440256",
@@ -284,6 +257,18 @@
       "no_plano_de_compras": false
      },
      {
+      "ativo": "5800961074",
+      "tipo": "RT",
+      "localidade": "DIANOPOLIS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00221/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em logística",
+      "balde_pela_esteira": "dcmd_logistica",
+      "decisao_do_gestor": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — as peças que estavam separadas para este ativo foram realocadas para atender os de criticidade Muito Alta. Ele volta para a fila de compra.",
+      "no_plano_de_compras": false
+     },
+     {
       "ativo": "5825703064",
       "tipo": "RT",
       "localidade": "BRASILANDIA DO TOCANTINS",
@@ -291,6 +276,18 @@
       "ss_pendente": "ETO-COEP 00153/2026",
       "na_carteira": false,
       "etapa_da_planilha": "(fora da carteira)",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5836786094",
+      "tipo": "RT",
+      "localidade": "PEIXE",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00095/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em logística",
+      "balde_pela_esteira": "dcmd_logistica",
+      "decisao_do_gestor": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — a célula enviada é de 200 kVA e o regulador é de 400 kVA. Material incompatível com o equipamento; a compra volta para a mesa.",
       "no_plano_de_compras": false
      },
      {
@@ -422,6 +419,18 @@
       "na_carteira": true,
       "etapa_da_planilha": "Em compra",
       "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7908705049",
+      "tipo": "RL",
+      "localidade": "AURORA DO TOCANTINS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-RD-DP 00409/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Entregue ao COCM",
+      "balde_pela_esteira": "dcmd_execucao",
+      "decisao_do_gestor": "Decisão do gestor (26/08): volta da execução para a aquisição por problema no envio do material — o modelo enviado foi um religador ARTECH sem suporte para instalação, então o que chegou não tem como ser instalado. Fica em aquisição até ser enviado equipamento compatível.",
+      "no_plano_de_compras": true
      },
      {
       "ativo": "7910027196",
@@ -920,6 +929,32 @@
      }
     ]
    }
+  },
+  "decisoes_do_gestor": {
+   "data": "26/08",
+   "itens": [
+    {
+     "ativo": "5800961074",
+     "localidade": "DIANOPOLIS",
+     "tipo": "RT",
+     "de": "DCMD — em logística",
+     "motivo": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — as peças que estavam separadas para este ativo foram realocadas para atender os de criticidade Muito Alta. Ele volta para a fila de compra."
+    },
+    {
+     "ativo": "5836786094",
+     "localidade": "PEIXE",
+     "tipo": "RT",
+     "de": "DCMD — em logística",
+     "motivo": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — a célula enviada é de 200 kVA e o regulador é de 400 kVA. Material incompatível com o equipamento; a compra volta para a mesa."
+    },
+    {
+     "ativo": "7908705049",
+     "localidade": "AURORA DO TOCANTINS",
+     "tipo": "RL",
+     "de": "DCMD — em execução (COCM's)",
+     "motivo": "Decisão do gestor (26/08): volta da execução para a aquisição por problema no envio do material — o modelo enviado foi um religador ARTECH sem suporte para instalação, então o que chegou não tem como ser instalado. Fica em aquisição até ser enviado equipamento compatível."
+    }
+   ]
   }
  },
  "concluidos_dcmd_2026": {
@@ -1153,11 +1188,11 @@
   ]
  },
  "pendentes_dcmd": {
-  "execucao": 4,
-  "logistica": 3,
-  "aquisicao": 46,
-  "aquisicao_no_plano": 11,
-  "aquisicao_fora_do_plano": 35
+  "execucao": 3,
+  "logistica": 1,
+  "aquisicao": 49,
+  "aquisicao_no_plano": 12,
+  "aquisicao_fora_do_plano": 37
  },
  "taxa_2026": {
   "religador": {
