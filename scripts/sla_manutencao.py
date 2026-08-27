@@ -55,9 +55,11 @@ BASE_PADRAO = os.path.join(RAIZ, "data", "missao", "ss_ocorrencia.json")
 PRAZO = {"Muito Alta": 11, "Alta": 20, "Média": 40, "Baixa": 60}
 # A régua anterior fica como referência, para medir o que a proposta muda.
 PRAZO_ANTERIOR = {"Muito Alta": 8, "Alta": 15, "Média": 30, "Baixa": 50}
-# O gestor deu 26 dias para quem não tem criticidade definida e não retirou o número
-# ao propor a tabela nova. Fica 26; a média das quatro faixas novas daria 33.
-PRAZO_SEM_CRITICIDADE = 26
+# Sem criticidade definida: 60 dias (gestor, 27/08) — o mesmo teto do Baixa. Faz
+# sentido: sem classificação da operação, não há como exigir urgência. Antes eram 26,
+# e é a mudança que mais mexe no número — 70 das 131 entregas caem nessa faixa.
+PRAZO_SEM_CRITICIDADE = 60
+PRAZO_SEM_CRITICIDADE_ANTERIOR = 26
 HOJE = dt.datetime(2026, 8, 18, 23, 59)      # posição da conta do posto
 RE_SS = re.compile(r"([A-Z][A-Z-]*)\s*0*(\d+)/(\d{4})")
 RE_COCM = re.compile(r"-RD-")                 # ETO-RD-*, ENC-RD-*, DOLP-RD-*, DG-RD-*, ESO-RD-*

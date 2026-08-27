@@ -135,7 +135,7 @@ def entregas_ao_cocm(reg, crit, ativos):
         cod = (ativos.get(ss_original, {}) or ativos.get(ss_coep, {})).get("equipamento", "")
         c = crit.get(cod, "")
         prazo = base.PRAZO.get(c, base.PRAZO_SEM_CRITICIDADE)
-        prazo_antes = base.PRAZO_ANTERIOR.get(c, base.PRAZO_SEM_CRITICIDADE)
+        prazo_antes = base.PRAZO_ANTERIOR.get(c, base.PRAZO_SEM_CRITICIDADE_ANTERIOR)
         aberto = data_saida is None
         fim = data_saida or base.HOJE
         # dias de CALENDÁRIO, não períodos de 24h: a base guarda hora, e entregue dia
@@ -639,8 +639,8 @@ def aba_proposta(wb, entregas):
         ws.column_dimensions[c].width = 13
     ws.append(["O QUE A PROPOSTA DCMD MUDA"])
     ws.cell(row=1, column=1).font = Font(bold=True, size=12)
-    ws.append(["Proposta: Muito Alta 11 · Alta 20 · Média 40 · Baixa 60. "
-               "Anterior: 8 · 15 · 30 · 50. Sem classificação segue em 26 nas duas."])
+    ws.append(["Proposta: Muito Alta 11 · Alta 20 · Média 40 · Baixa 60 · sem "
+               "classificação 60. Anterior: 8 · 15 · 30 · 50 · sem classificação 26."])
 
     def bloco(titulo, grupos):
         ws.append([])
@@ -672,7 +672,7 @@ def aba_proposta(wb, entregas):
         bordar(ws, prim, ws.max_row)
 
     ordem = ["Muito Alta", "Alta", "Média", "Baixa", "Sem classificação"]
-    bloco("Por criticidade — só quem tem classificação sente a mudança",
+    bloco("Por criticidade",
           [(c, [e for e in entregas if e["criticidade"] == c]) for c in ordem])
     bloco("Por ano", [(str(a), [e for e in entregas if e["ano"] == a]) for a in ANOS]
           + [("2025 + 2026", entregas)])
@@ -719,16 +719,14 @@ def como_foi_feito(entregas, com_cocm):
         "espera para sempre.",
         "",
         "O PRAZO é a PROPOSTA DCMD (gestor, 27/08): Muito Alta 11 dias, Alta 20, Média "
-        "40, Baixa 60. Sem criticidade definida seguem os 26 dias que o gestor deu e não "
-        "retirou ao propor a tabela nova — a média das quatro faixas novas daria 33. A "
-        "criticidade vem da aba de mapeamento por criticidade da Relação de "
-        "Indisponíveis.",
+        "40, Baixa 60 e SEM CLASSIFICAÇÃO 60 — o mesmo teto do Baixa. Faz sentido: sem "
+        "classificação da operação, não há como exigir urgência. A criticidade vem da "
+        "aba de mapeamento por criticidade da Relação de Indisponíveis.",
         "",
-        "A ABA 7 mede o que a proposta muda contra a régua anterior (8/15/30/50), por "
-        "criticidade, por ano e por equipe, e lista nominalmente as entregas que "
-        "estouravam antes e passam a caber. Só quem tem criticidade definida sente a "
-        "mudança: sem classificação continua em 26 nas duas réguas — e é justamente aí "
-        "que estão os piores atrasos.",
+        "A ABA 7 mede o que a proposta muda contra a régua anterior (8/15/30/50 e 26 sem "
+        "classificação), por criticidade, por ano e por equipe, e lista nominalmente as "
+        "entregas que estouravam antes e passam a caber. O salto do sem-classificação de "
+        "26 para 60 dias é o que mais move o número: são 70 das 131 entregas.",
         "",
         "O SLA É ÍNDICE, não sim/não (régua do gestor, 27/08): dias gastos ÷ prazo da "
         "criticidade. Dois dias num prazo de oito dá 0,25 — sobrou três quartos do "
