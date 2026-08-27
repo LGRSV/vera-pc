@@ -564,16 +564,25 @@ def aba_criticidade(wb, entregas):
     return ws
 
 
-def aba_resolvidos(wb, entregas, caminho_base):
-    """A aba de resolvidos de 2026, com as colunas de SLA para a dinâmica."""
+def aba_resolvidos(wb, entregas, caminho_base, ativos):
+    """A aba de resolvidos de 2026, com as colunas de SLA para a dinâmica.
+
+    A DATA DA OCORRÊNCIA INICIAL vem da SS que abriu a cadeia — o campo
+    DTA_OCORRENCIA daquela SS, que é quando o defeito aconteceu de fato. Não é a
+    abertura da SS do COEP: entre o fato e a chegada ao posto passam meses, e é
+    justamente esse pedaço que o SLA de manutenção não enxerga.
+    """
     reg = base.base_de_repasse(caminho_base)
+    anterior = raizes(reg)
     crit = base.criticidades()
     with open(base.COEP, encoding="utf-8") as fh:
         cp = json.load(fh)
     por_ss = {e["ss_coep"]: e for e in entregas}
     res = [r for r in cp["resolvidos_do_coep"] if r["conta_como_resolvido_pelo_coep"]]
     ws = wb.create_sheet(f"7 · Resolvidos 2026 ({len(res)})")
-    colunas = [("Ativo", 13), ("Tipo", 7), ("Localidade", 22), ("SS no COEP", 20),
+    colunas = [("Ativo", 13), ("Tipo", 7), ("Localidade", 22),
+               ("Data da ocorrência inicial", 14), ("SS que abriu a ocorrência", 21),
+               ("Dias da ocorrência ao fechamento", 13), ("SS no COEP", 20),
                ("Como terminou", 14), ("Fechou em", 12), ("Posto que fechou", 15),
                ("Passou por COCM", 11), ("Ano da entrega", 8), ("Mês nº", 7),
                ("Mês", 8), ("Equipe (COCM)", 14), ("Criticidade", 14),
@@ -586,27 +595,31 @@ def aba_resolvidos(wb, entregas, caminho_base):
         k = base.norm(r["ss_no_coep"])
         e = por_ss.get(k)
         c = crit.get(r["ativo"], "") or "Sem classificação"
+        inicio = do_comeco(k, anterior)
+        oc = (ativos.get(inicio, {}) or ativos.get(k, {})).get("ocorrencia")
+        fecho = base.data(r["data_do_fechamento"])
+        ate = (fecho.date() - oc.date()).days if (oc and fecho) else ""
+        cabeca = [r["ativo"], "RL" if r["tipo"] == "religador" else "RT",
+                  r["localidade"], oc.strftime("%d/%m/%Y") if oc else "", inicio, ate]
         if e:
-            ws.append([r["ativo"], "RL" if r["tipo"] == "religador" else "RT",
-                       r["localidade"], k, r["como_terminou"], r["data_do_fechamento"],
+            ws.append(cabeca + [k, r["como_terminou"], r["data_do_fechamento"],
                        r["posto_que_fechou"], "sim", e["ano"], e["mes"],
                        MESES[e["mes"] - 1], e["equipe"], e["criticidade"], e["prazo"],
                        e["entrega"].strftime("%d/%m/%Y"),
                        e["devolucao"].strftime("%d/%m/%Y") if e["devolucao"] else "",
                        e["dias"], e["atraso"], e["indice"],
                        "sim" if e["dentro_do_prazo"] else "não", e["veredicto"]])
-            ws.cell(row=ws.max_row, column=19).number_format = "0.00"
-            cel = ws.cell(row=ws.max_row, column=21)
+            ws.cell(row=ws.max_row, column=22).number_format = "0.00"
+            cel = ws.cell(row=ws.max_row, column=24)
             cel.fill = AMARELO if e["em_curso"] else (VERDE if e["dentro_do_prazo"] else VERMELHO)
         else:
-            ws.append([r["ativo"], "RL" if r["tipo"] == "religador" else "RT",
-                       r["localidade"], k, r["como_terminou"], r["data_do_fechamento"],
+            ws.append(cabeca + [k, r["como_terminou"], r["data_do_fechamento"],
                        r["posto_que_fechou"], "não", "", "", "", "", c,
                        base.PRAZO.get(c, base.PRAZO_SEM_CRITICIDADE), "", "", "", "",
                        "", "", "não passou por COCM depois do posto"])
     bordar(ws, prim, ws.max_row)
     ws.freeze_panes = f"A{prim}"
-    ws.auto_filter.ref = f"A{prim - 1}:U{ws.max_row}"
+    ws.auto_filter.ref = f"A{prim - 1}:X{ws.max_row}"
     return ws, sum(1 for r in res if base.norm(r["ss_no_coep"]) in por_ss)
 
 
@@ -704,7 +717,7 @@ def montar(caminho=None):
     aba_mensal(wb, entregas)
     aba_equipe(wb, entregas)
     aba_criticidade(wb, entregas)
-    _, com_cocm = aba_resolvidos(wb, entregas, caminho)
+    _, com_cocm = aba_resolvidos(wb, entregas, caminho, ativos)
     ws = wb.create_sheet("Como foi feito")
     ws.column_dimensions["A"].width = 112
     for t in como_foi_feito(entregas, com_cocm):
