@@ -186,6 +186,29 @@ comissionamento e obra de equipamento novo.
 - Playwright: `NODE_PATH=/opt/node22/lib/node_modules /opt/node22/bin/node`,
   `executablePath: '/opt/pw-browsers/chromium'`.
 
+## A planilha base — o que os artifacts devem mostrar
+
+**`GESTAO_EQUIPAMENTOS_ESPECIAIS_COEP.xlsx`** (gestor, 27/08: «essa é a planilha base»)
+é a consolidação de tudo e **define o conteúdo dos artifacts**. Dez abas, e a ordem
+delas é a ordem da história:
+
+| Aba | O que traz |
+| --- | --- |
+| **Gestão** | os 53 pendentes do DCMD com a **esteira de execução**: PMA → Entregue N1 → Gerado Obra → Gerado EMD → Entregue N3 → Concluído COCM → Cadastro → Estudo Proteção → Repassado DMSL → Comissionado. Mais orçamento MO/MAT/Total por ativo, dias pendente e Status Prazo |
+| **Orçamento** | pivô por tipo e status: R$ 4,97 mi nos 53, e o painel do DCMD (backlog · saiu · entrou · pendente) contra os R$ 6,1 mi orçados |
+| **Taxa de Falha** | pivô por ano, equipamento e **tensão** |
+| **Falha Equipamentos** | o rol de causa raiz com citação, revisão, tensão e Concat |
+| **Base** | a tabela mensal achatada de taxa (chave Concat) |
+| **Resolvidos** | a dinâmica disjunta: 71 resolvidos · 54 na fila · 18 em outra mesa |
+| **SLA por equipe** | o SLA de manutenção |
+| **BASE SS_OS** · Planilha1 · Planilha2 | recorte e apoio de pivô |
+
+**A esteira da aba Gestão é a novidade que o painel ainda não mostra**: dez marcos por
+ativo, do PMA ao comissionamento — hoje todos vazios, é o que o gestor vai preencher.
+**Status** ali tem cinco valores (Avaliar compra 22 · Gerado PMA 20 · Em logística N1>N3
+6 · Em execução 3 · Reforma 2) e **Criticidade tem «Falta definir»** (4 ativos), que é
+diferente de «Sem classificação».
+
 ## Artifacts vivos
 
 | Página | URL |
