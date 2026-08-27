@@ -55,50 +55,120 @@ VERMELHO = PatternFill("solid", fgColor="FCE4E4")
 AMARELO = PatternFill("solid", fgColor="FFF2CC")
 
 
+def eh_cocm(posto):
+    return "-RD-" in (posto or "").upper()
+
+
+def repasse(ss, reg):
+    """(SS gerada, data do repasse). A data é a ABERTURA da SS gerada — o campo
+    DTA_REPASSE da base é cópia byte a byte da DTA_ABERTURA e não data nada."""
+    r = reg.get(ss)
+    if not r or not r["seguinte"]:
+        return None, None
+    prox = reg.get(r["seguinte"])
+    return r["seguinte"], (prox["abertura"] if prox else None)
+
+
 def entregas_ao_cocm(reg, crit, ativos):
-    """Toda entrega COEP → COCM da base, com a janela e o veredicto de cada uma."""
+    """Toda entrega ao COCM, pela régua do gestor (27/08, segunda correção).
+
+    O relógio começa no repasse da SS ORIGINAL (a do posto) para o COCM, e para no
+    repasse da SS do COCM para um posto FORA DO DCMD. Repasse de COCM para COCM não
+    para o relógio: continua tudo dentro do DCMD, só trocou de equipe.
+
+    Quando o campo conclui sem repassar, a parada é a conclusão da SS.
+    """
     saida, vistas = [], set()
-    for ss, r in reg.items():
+    for ss_coep, r in reg.items():
         if "COEP" not in r["posto"]:
             continue
-        p = base.passagem_pelo_cocm(ss, reg)
-        if not p or p["entrada"] is None or p["ss"] in vistas:
+        # a SS ORIGINAL é quem repassou ao campo. Quase sempre é a do próprio posto,
+        # mas em parte das cadeias o COEP passa por um intermediário antes — e é esse
+        # que gera a SS do COCM. Andar até achar preserva as cadeias inteiras.
+        ss_original, ss_gerada, entrega = ss_coep, None, None
+        atual = ss_coep
+        for _ in range(8):
+            prox, quando = repasse(atual, reg)
+            if not prox or quando is None:
+                break
+            p_ = reg.get(prox)
+            if p_ and eh_cocm(p_["posto"]):
+                ss_original, ss_gerada, entrega = atual, prox, quando
+                break
+            atual = prox
+        if not ss_gerada:
             continue
-        vistas.add(p["ss"])
-        ativo = ativos.get(ss, {})
-        cod = ativo.get("equipamento", "")
+        g = reg.get(ss_gerada)
+        if ss_gerada in vistas:
+            continue
+        vistas.add(ss_gerada)
+
+        # Régua do gestor (27/08, terceira correção): o relógio vai até o ÚLTIMO
+        # repasse para um posto fora do DCMD, ou até a atendida. A demanda pode voltar
+        # ao campo depois de passar pela TELE ou pela PROT — parar na primeira saída
+        # premiaria quem devolveu cedo e recebeu de volta.
+        atual, equipes, internos = ss_gerada, [g["posto"]], []
+        saidas, visto = [], set()
+        while atual and atual in reg and atual not in visto:
+            visto.add(atual)
+            r_ = reg[atual]
+            prox, quando = repasse(atual, reg)
+            if eh_cocm(r_["posto"]):
+                if prox and quando is not None:
+                    p_ = reg.get(prox)
+                    if p_ and eh_cocm(p_["posto"]):
+                        internos.append((prox, quando, p_["posto"]))
+                        equipes.append(p_["posto"])
+                    else:
+                        saidas.append((prox, quando,
+                                       p_["posto"] if p_ else "(fora da base)"))
+                elif r_["conclusao"] is not None:
+                    saidas.append(("", r_["conclusao"], "atendida no próprio COCM"))
+            if not prox:
+                break
+            atual = prox
+        if saidas:
+            ss_saida, data_saida, destino = saidas[-1]
+        else:
+            ss_saida, data_saida, destino = "", None, ""
+
+        cod = (ativos.get(ss_original, {}) or ativos.get(ss_coep, {})).get("equipamento", "")
         c = crit.get(cod, "")
         prazo = base.PRAZO.get(c, base.PRAZO_SEM_CRITICIDADE)
-        aberto = p["saida"] is None
-        fim = p["saida"] or base.HOJE
-        # dias de CALENDÁRIO, não períodos de 24h: SLA de negócio conta o dia, e a
-        # base guarda hora — entregue dia 6 às 14h e devolvido dia 8 às 9h é 2 dias.
-        dias = (fim.date() - p["entrada"].date()).days
-        # 18 SS da base fecham ANTES de abrir: o campo executou e o SGM abriu a SS
-        # depois, para regularizar. Conta 0 dia e fica marcado — não é giro relâmpago.
+        aberto = data_saida is None
+        fim = data_saida or base.HOJE
+        # dias de CALENDÁRIO, não períodos de 24h: a base guarda hora, e entregue dia
+        # 6 às 14h com devolução dia 8 às 9h é 2 dias de SLA, não 1.
+        dias = (fim.date() - entrega.date()).days
+        # 18 SS da base fecham ANTES de abrir: o campo executou e o SGM abriu depois,
+        # para regularizar. Conta 0 dia e fica marcado — não é giro relâmpago.
         retroativa = dias < 0
         if retroativa:
             dias = 0
-        dentro = dias <= prazo
+        info = ativos.get(ss_original, {}) or ativos.get(ss_coep, {})
         saida.append({
-            "ano": p["entrada"].year, "mes": p["entrada"].month,
-            "equipe": p["posto"], "ativo": cod,
+            "ano": entrega.year, "mes": entrega.month,
+            "ss_original": ss_original, "entrega": entrega, "ss_gerada": ss_gerada,
+            "ss_saida": ss_saida, "devolucao": data_saida, "destino": destino,
+            "equipe": equipes[0], "equipe_devolveu": equipes[-1],
+            "internos": internos, "ss_coep": ss_coep, "ss_cocm": ss_gerada,
+            "ativo": cod,
             "tipo": "RL" if cod[:2] in ("79", "78") else ("RT" if cod[:2] == "58" else ""),
-            "localidade": ativo.get("localidade", ""),
-            "ss_coep": ss, "ss_cocm": p["ss"],
+            "localidade": info.get("localidade", ""),
             "criticidade": c or "Sem classificação", "prazo": prazo,
-            "entrega": p["entrada"], "devolucao": p["saida"],
             "dias": dias, "atraso": max(0, dias - prazo),
-            # O SLA é ÍNDICE, não sim/não (régua do gestor, 27/08): dias usados sobre o
-            # prazo da criticidade. 2 dias num prazo de 8 é 0,25. Acima de 1,00 estourou.
+            # O SLA é ÍNDICE, não sim/não: dias usados sobre o prazo da criticidade.
             "indice": dias / prazo,
-            "dentro_do_prazo": dentro, "em_curso": aberto,
-            "veredicto": ("em curso, dentro do prazo" if dentro else "em curso, ESTOURADO")
-            if aberto else ("dentro do prazo" if dentro else "ESTOURADO"),
-            "destino": (p["base_da_saida"] + " · SS fechada antes de abrir (serviço "
-                        "regularizado depois) — conta 0 dia") if retroativa
-                       else p["base_da_saida"],
-            "retroativa": retroativa, "status_no_cocm": p["status"],
+            "dentro_do_prazo": dias <= prazo, "em_curso": aberto,
+            "veredicto": ("em curso, dentro do prazo" if dias <= prazo
+                          else "em curso, ESTOURADO") if aberto
+                         else ("dentro do prazo" if dias <= prazo else "ESTOURADO"),
+            "retroativa": retroativa,
+            "apuracao": ("ainda no COCM" if aberto else
+                         ("atendida no próprio COCM" if not ss_saida
+                          else "último repasse para posto fora do DCMD"))
+                        + (" · SS fechada antes de abrir (serviço regularizado depois)"
+                           " — conta 0 dia" if retroativa else ""),
         })
     return sorted(saida, key=lambda x: (x["entrega"], x["equipe"]))
 
@@ -138,22 +208,30 @@ def bordar(ws, de, ate):
             cel.border = BORDA
 
 
-COLS = [("Ano", 7), ("Mês nº", 7), ("Mês", 8), ("Equipe (COCM)", 14), ("Ativo", 13),
-        ("Tipo", 7), ("Localidade", 22), ("SS do COEP", 20), ("SS do COCM", 20),
-        ("Criticidade", 14), ("Prazo SLA (dias)", 10), ("Entrega ao COCM", 13),
-        ("Devolução", 12), ("Dias de manutenção", 11), ("Atraso (dias)", 10),
-        ("SLA (dias ÷ prazo)", 11), ("Dentro do prazo", 10), ("Em curso", 9),
-        ("SLA de manutenção", 22), ("Como a devolução foi apurada", 26)]
+COLS = [("ID", 9), ("Ativo", 13), ("Tipo", 7), ("Localidade", 20),
+        ("Ano", 7), ("Mês nº", 7), ("Mês", 8),
+        # o trio da entrada, na ordem que o gestor pediu
+        ("SS ORIGINAL (repassou ao campo)", 22), ("Data do repasse", 13),
+        ("SS GERADA (no COCM)", 21), ("Equipe que recebeu", 15),
+        # e a saída do DCMD — o último repasse para fora, ou a atendida
+        ("Repasses entre COCMs", 11), ("Equipe que devolveu", 15),
+        ("SS GERADA DEPOIS (fora do DCMD)", 22),
+        ("Data do repasse ao outro posto", 13), ("Posto de destino", 16),
+        ("Criticidade", 14), ("Prazo SLA (dias)", 10), ("Dias no DCMD", 10),
+        ("Atraso (dias)", 10), ("SLA (dias ÷ prazo)", 11), ("Dentro do prazo", 10),
+        ("Em curso", 9), ("SLA de manutenção", 22), ("Como a saída foi apurada", 30)]
 
 
 def linha_de(e):
-    return [e["ano"], e["mes"], MESES[e["mes"] - 1], e["equipe"], e["ativo"], e["tipo"],
-            e["localidade"], e["ss_coep"], e["ss_cocm"], e["criticidade"], e["prazo"],
-            e["entrega"].strftime("%d/%m/%Y"),
+    return [e["id"], e["ativo"], e["tipo"], e["localidade"], e["ano"], e["mes"],
+            MESES[e["mes"] - 1],
+            e["ss_original"], e["entrega"].strftime("%d/%m/%Y"), e["ss_gerada"],
+            e["equipe"], len(e["internos"]) or "", e["equipe_devolveu"],
+            e["ss_saida"] or ("(atendida no COCM)" if not e["em_curso"] else ""),
             e["devolucao"].strftime("%d/%m/%Y") if e["devolucao"] else "",
-            e["dias"], e["atraso"], e["indice"],
-            "sim" if e["dentro_do_prazo"] else "não",
-            "sim" if e["em_curso"] else "", e["veredicto"], e["destino"]]
+            e["destino"], e["criticidade"], e["prazo"], e["dias"], e["atraso"],
+            e["indice"], "sim" if e["dentro_do_prazo"] else "não",
+            "sim" if e["em_curso"] else "", e["veredicto"], e["apuracao"]]
 
 
 def aba_entregas(wb, entregas):
@@ -162,12 +240,12 @@ def aba_entregas(wb, entregas):
     prim = cabecalho(ws, COLS) + 1
     for e in entregas:
         ws.append(linha_de(e))
-        ws.cell(row=ws.max_row, column=14).number_format = "0.00"
-        cel = ws.cell(row=ws.max_row, column=19)
+        ws.cell(row=ws.max_row, column=21).number_format = "0.00"
+        cel = ws.cell(row=ws.max_row, column=24)
         cel.fill = AMARELO if e["em_curso"] else (VERDE if e["dentro_do_prazo"] else VERMELHO)
     bordar(ws, prim, ws.max_row)
     ws.freeze_panes = f"A{prim}"
-    ws.auto_filter.ref = f"A{prim - 1}:T{ws.max_row}"
+    ws.auto_filter.ref = f"A{prim - 1}:Y{ws.max_row}"
     return ws
 
 
@@ -616,6 +694,8 @@ def montar(caminho=None):
     ativos = dados_do_ativo(caminho)
     todas = entregas_ao_cocm(reg, crit, ativos)
     entregas = [e for e in todas if e["ano"] in ANOS]
+    for n, e in enumerate(entregas, 1):
+        e["id"] = f"OC-{n:03d}"
 
     wb = openpyxl.Workbook()
     aba_entregas(wb, entregas)
