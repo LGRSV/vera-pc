@@ -113,7 +113,9 @@ def dados_do_ativo(caminho):
             k = base.norm(r[1])
             if k:
                 d.setdefault(k, {"equipamento": str(r[3] or "").strip(),
-                                 "localidade": str(r[15] or "").strip()})
+                                 "localidade": str(r[15] or "").strip(),
+                                 "ocorrencia": base.data(r[6]),
+                                 "tipo_ativo": str(r[5] or "").strip()})
     return d
 
 
@@ -205,7 +207,7 @@ def resumo(grupo):
 
 
 def aba_mensal(wb, entregas):
-    ws = wb.create_sheet("3 · SLA mensal")
+    ws = wb.create_sheet("4 · SLA mensal")
     ws.column_dimensions["A"].width = 22
     for c in "BCDEFGHIJKLM":
         ws.column_dimensions[c].width = 10
@@ -252,6 +254,107 @@ def aba_mensal(wb, entregas):
     return ws
 
 
+def braco(posto):
+    """A que braço da esteira o posto pertence — a leitura do gestor."""
+    p = (posto or "").upper()
+    if "COEP" in p:
+        return "COEP (posto)"
+    if "-RD-" in p:
+        return "COCM (campo)"
+    if "TELE" in p or "-SE-" in p or "SCADA" in p or "DMSL" in p:
+        return "DMSL (telecom)"
+    if "PROT" in p or "DEOP" in p or "COI" in p:
+        return "DEOP (proteção)"
+    return p or "—"
+
+
+def raizes(reg):
+    """Quem aponta para quem — para achar o começo de cada cadeia."""
+    anterior = {}
+    for ss, r in reg.items():
+        if r["seguinte"]:
+            anterior.setdefault(r["seguinte"], ss)
+    return anterior
+
+
+def do_comeco(ss, anterior, limite=25):
+    """Sobe a cadeia até a SS que abriu a ocorrência."""
+    visto = set()
+    while ss in anterior and anterior[ss] not in visto and len(visto) < limite:
+        visto.add(ss)
+        ss = anterior[ss]
+    return ss
+
+
+def aba_cadeias(wb, entregas, reg, ativos):
+    """As 131 abertas salto a salto: todo repasse e o tempo em cada posto.
+
+    Um salto por linha, da SS que abriu a ocorrência até a última da cadeia. O tempo
+    de cada posto segue a mesma régua do SLA: a saída é a conclusão da SS, ou a
+    abertura da seguinte quando ela foi repassada — SS repassada sai da base sem
+    conclusão, e esperar por ela é esperar para sempre.
+    """
+    anterior = raizes(reg)
+    ws = wb.create_sheet("2 · Cadeia salto a salto", 1)
+    colunas = [("ID da ocorrência", 13), ("Ativo", 13), ("Tipo", 7), ("Localidade", 20),
+               ("Data da ocorrência", 13), ("SS que abriu", 20), ("Salto nº", 8),
+               ("SS", 20), ("Posto", 13), ("Braço", 16), ("Entrada no posto", 13),
+               ("Saída do posto", 13), ("Dias no posto", 10),
+               ("Como a saída foi apurada", 24), ("Repassou para", 13),
+               ("SS seguinte", 20), ("Situação da SS", 14), ("Depois do COEP", 10),
+               ("É a entrega do SLA", 11), ("Prazo SLA", 9), ("Índice SLA", 10)]
+    prim = cabecalho(ws, colunas) + 1
+    for n, e in enumerate(sorted(entregas, key=lambda x: (x["entrega"], x["ativo"])), 1):
+        ident = f"OC-{n:03d}"
+        inicio = do_comeco(e["ss_coep"], anterior)
+        info = ativos.get(inicio, {}) or ativos.get(e["ss_coep"], {})
+        oc = info.get("ocorrencia")
+        cad = base.cadeia(inicio, reg)
+        passou_coep = False
+        for i, (ss, r) in enumerate(cad, 1):
+            if r is None:
+                ws.append([ident, e["ativo"], e["tipo"], e["localidade"],
+                           oc.strftime("%d/%m/%Y") if oc else "", inicio, i, ss,
+                           "", "(fora da base de repasse)", "", "", "", "", "", "",
+                           "", "", "", "", ""])
+                continue
+            saida, apurada = r["conclusao"], "conclusão da SS"
+            if saida is None and r["seguinte"]:
+                prox = reg.get(r["seguinte"])
+                if prox and prox["abertura"]:
+                    saida, apurada = prox["abertura"], "abertura da SS seguinte"
+            if saida is None:
+                apurada = "ainda no posto"
+            dias = ""
+            if r["abertura"] and saida:
+                dias = max(0, (saida.date() - r["abertura"].date()).days)
+            elif r["abertura"]:
+                dias = (base.HOJE.date() - r["abertura"].date()).days
+            e_a_entrega = ss == e["ss_cocm"]
+            ws.append([
+                ident, e["ativo"], e["tipo"], e["localidade"],
+                oc.strftime("%d/%m/%Y") if oc else "", inicio, i, ss, r["posto"],
+                braco(r["posto"]),
+                r["abertura"].strftime("%d/%m/%Y") if r["abertura"] else "",
+                saida.strftime("%d/%m/%Y") if saida else "", dias, apurada,
+                reg[r["seguinte"]]["posto"] if r["seguinte"] in reg else
+                ("(fora da base)" if r["seguinte"] else ""),
+                r["seguinte"], r["status"],
+                "sim" if passou_coep else "", "SIM" if e_a_entrega else "",
+                e["prazo"] if e_a_entrega else "",
+                e["indice"] if e_a_entrega else ""])
+            if e_a_entrega:
+                ws.cell(row=ws.max_row, column=19).fill = (
+                    VERMELHO if e["indice"] > 1 else VERDE)
+                ws.cell(row=ws.max_row, column=21).number_format = "0.00"
+            if "COEP" in r["posto"]:
+                passou_coep = True
+    bordar(ws, prim, ws.max_row)
+    ws.freeze_panes = f"A{prim}"
+    ws.auto_filter.ref = f"A{prim - 1}:U{ws.max_row}"
+    return ws
+
+
 def aba_matriz(wb, entregas):
     """O pedido do gestor: o índice de SLA mensalizado, uma coluna por equipe.
 
@@ -259,7 +362,7 @@ def aba_matriz(wb, entregas):
     de 1,00 sobrou prazo; acima, estourou. Vazio quer dizer que a equipe não recebeu
     nada no mês — zero seria mentira, porque zero é desempenho perfeito.
     """
-    ws = wb.create_sheet("2 · SLA mensal por equipe", 1)
+    ws = wb.create_sheet("3 · SLA mensal por equipe", 1)
     ws.column_dimensions["A"].width = 10
     ws.append(["SLA DE MANUTENÇÃO — ÍNDICE MENSAL POR EQUIPE"])
     ws.cell(row=1, column=1).font = Font(bold=True, size=12)
@@ -309,7 +412,7 @@ def aba_matriz(wb, entregas):
 
 
 def aba_equipe(wb, entregas):
-    ws = wb.create_sheet("4 · SLA por equipe")
+    ws = wb.create_sheet("5 · SLA por equipe")
     ws.column_dimensions["A"].width = 20
     for c in "BCDEFGHI":
         ws.column_dimensions[c].width = 12
@@ -357,7 +460,7 @@ def aba_equipe(wb, entregas):
 
 
 def aba_criticidade(wb, entregas):
-    ws = wb.create_sheet("5 · SLA por criticidade")
+    ws = wb.create_sheet("6 · SLA por criticidade")
     ws.column_dimensions["A"].width = 20
     for c in "BCDEFGH":
         ws.column_dimensions[c].width = 12
@@ -391,7 +494,7 @@ def aba_resolvidos(wb, entregas, caminho_base):
         cp = json.load(fh)
     por_ss = {e["ss_coep"]: e for e in entregas}
     res = [r for r in cp["resolvidos_do_coep"] if r["conta_como_resolvido_pelo_coep"]]
-    ws = wb.create_sheet(f"6 · Resolvidos 2026 ({len(res)})")
+    ws = wb.create_sheet(f"7 · Resolvidos 2026 ({len(res)})")
     colunas = [("Ativo", 13), ("Tipo", 7), ("Localidade", 22), ("SS no COEP", 20),
                ("Como terminou", 14), ("Fechou em", 12), ("Posto que fechou", 15),
                ("Passou por COCM", 11), ("Ano da entrega", 8), ("Mês nº", 7),
@@ -492,6 +595,12 @@ def como_foi_feito(entregas, com_cocm):
         "«não passou por COCM», porque fecharam na TELE ou na PROT — execução de outro "
         "braço, sem SLA de manutenção a cobrar do campo.",
         "",
+        "A ABA 2 abre as mesmas entregas SALTO A SALTO: da SS que abriu a ocorrência até "
+        "a última da cadeia, um posto por linha, com o tempo parado em cada um. O ID da "
+        "ocorrência (OC-001, OC-002…) amarra as linhas de uma mesma cadeia, e o número "
+        "do ativo vai em toda linha. A coluna «É a entrega do SLA» marca o salto que o "
+        "SLA de manutenção cobra — o primeiro COCM depois do COEP.",
+        "",
         "TODAS AS ABAS DE LISTA TÊM FILTRO E COLUNAS CRUAS (ano, mês nº, mês, equipe, "
         "criticidade, prazo, dias, atraso, dentro do prazo) — é só selecionar e inserir "
         "tabela dinâmica para conferir qualquer corte.",
@@ -510,6 +619,7 @@ def montar(caminho=None):
 
     wb = openpyxl.Workbook()
     aba_entregas(wb, entregas)
+    aba_cadeias(wb, entregas, reg, ativos)
     aba_matriz(wb, entregas)
     aba_mensal(wb, entregas)
     aba_equipe(wb, entregas)
@@ -521,6 +631,11 @@ def montar(caminho=None):
         ws.append([t])
         ws.cell(row=ws.max_row, column=1).alignment = Alignment(wrap_text=True, vertical="top")
     ws.cell(row=1, column=1).font = Font(bold=True, size=12)
+
+    # as abas são criadas fora de ordem (cada insert empurra a anterior); reordena
+    # pelo número do próprio nome, para a numeração bater com a posição
+    wb._sheets.sort(key=lambda w: int(w.title.split("\u00b7")[0].strip())
+                    if w.title[0].isdigit() else 99)
 
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
     wb.save(SAIDA)
