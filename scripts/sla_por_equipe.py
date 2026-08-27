@@ -89,6 +89,9 @@ def entregas_ao_cocm(reg, crit, ativos):
             "criticidade": c or "Sem classificação", "prazo": prazo,
             "entrega": p["entrada"], "devolucao": p["saida"],
             "dias": dias, "atraso": max(0, dias - prazo),
+            # O SLA é ÍNDICE, não sim/não (régua do gestor, 27/08): dias usados sobre o
+            # prazo da criticidade. 2 dias num prazo de 8 é 0,25. Acima de 1,00 estourou.
+            "indice": dias / prazo,
             "dentro_do_prazo": dentro, "em_curso": aberto,
             "veredicto": ("em curso, dentro do prazo" if dentro else "em curso, ESTOURADO")
             if aberto else ("dentro do prazo" if dentro else "ESTOURADO"),
@@ -137,8 +140,8 @@ COLS = [("Ano", 7), ("Mês nº", 7), ("Mês", 8), ("Equipe (COCM)", 14), ("Ativo
         ("Tipo", 7), ("Localidade", 22), ("SS do COEP", 20), ("SS do COCM", 20),
         ("Criticidade", 14), ("Prazo SLA (dias)", 10), ("Entrega ao COCM", 13),
         ("Devolução", 12), ("Dias de manutenção", 11), ("Atraso (dias)", 10),
-        ("Dentro do prazo", 10), ("Em curso", 9), ("SLA de manutenção", 22),
-        ("Como a devolução foi apurada", 26)]
+        ("SLA (dias ÷ prazo)", 11), ("Dentro do prazo", 10), ("Em curso", 9),
+        ("SLA de manutenção", 22), ("Como a devolução foi apurada", 26)]
 
 
 def linha_de(e):
@@ -146,7 +149,8 @@ def linha_de(e):
             e["localidade"], e["ss_coep"], e["ss_cocm"], e["criticidade"], e["prazo"],
             e["entrega"].strftime("%d/%m/%Y"),
             e["devolucao"].strftime("%d/%m/%Y") if e["devolucao"] else "",
-            e["dias"], e["atraso"], "sim" if e["dentro_do_prazo"] else "não",
+            e["dias"], e["atraso"], e["indice"],
+            "sim" if e["dentro_do_prazo"] else "não",
             "sim" if e["em_curso"] else "", e["veredicto"], e["destino"]]
 
 
@@ -156,11 +160,12 @@ def aba_entregas(wb, entregas):
     prim = cabecalho(ws, COLS) + 1
     for e in entregas:
         ws.append(linha_de(e))
-        cel = ws.cell(row=ws.max_row, column=18)
+        ws.cell(row=ws.max_row, column=14).number_format = "0.00"
+        cel = ws.cell(row=ws.max_row, column=19)
         cel.fill = AMARELO if e["em_curso"] else (VERDE if e["dentro_do_prazo"] else VERMELHO)
     bordar(ws, prim, ws.max_row)
     ws.freeze_panes = f"A{prim}"
-    ws.auto_filter.ref = f"A{prim - 1}:S{ws.max_row}"
+    ws.auto_filter.ref = f"A{prim - 1}:T{ws.max_row}"
     return ws
 
 
@@ -182,18 +187,25 @@ def quadro(ws, titulo, cabecalhos, linhas, pct_col=None):
     return cab, prim, ws.max_row
 
 
+def indice(grupo):
+    """O SLA do grupo: dias gastos sobre prazo concedido. Ponderado de propósito —
+    média de índices dá o mesmo peso a um Muito Alta de 8 dias e a um Baixa de 50."""
+    prazo = sum(e["prazo"] for e in grupo)
+    return (sum(e["dias"] for e in grupo) / prazo) if prazo else 0
+
+
 def resumo(grupo):
-    """entregas · no prazo · estourou · em curso · cumprimento · mediana."""
+    """entregas · no prazo · estourou · em curso · cumprimento · mediana · SLA."""
     n = len(grupo)
     ok = sum(1 for e in grupo if e["dentro_do_prazo"])
     curso = sum(1 for e in grupo if e["em_curso"])
     dias = sorted(e["dias"] for e in grupo)
     return [n, ok, n - ok, curso, (ok / n) if n else 0,
-            dias[len(dias) // 2] if dias else 0]
+            dias[len(dias) // 2] if dias else 0, indice(grupo)]
 
 
 def aba_mensal(wb, entregas):
-    ws = wb.create_sheet("2 · SLA mensal")
+    ws = wb.create_sheet("3 · SLA mensal")
     ws.column_dimensions["A"].width = 22
     for c in "BCDEFGHIJKLM":
         ws.column_dimensions[c].width = 10
@@ -217,7 +229,7 @@ def aba_mensal(wb, entregas):
         linhas.append(["ANO"] + total)
         cab, prim, fim = quadro(
             ws, f"{ano}", ["Mês", "Entregas", "No prazo", "Estourou", "Em curso",
-                           "Cumprimento", "Mediana de dias"], linhas, pct_col=6)
+                           "Cumprimento", "Mediana de dias", "SLA (dias ÷ prazo)"], linhas, pct_col=6)
         for cel in ws[fim]:
             cel.font = Font(bold=True)
         faixas.append((ano, cab, prim, fim - 1))
@@ -240,8 +252,64 @@ def aba_mensal(wb, entregas):
     return ws
 
 
+def aba_matriz(wb, entregas):
+    """O pedido do gestor: o índice de SLA mensalizado, uma coluna por equipe.
+
+    Cada célula é dias gastos ÷ prazo concedido naquele mês, naquela equipe. Abaixo
+    de 1,00 sobrou prazo; acima, estourou. Vazio quer dizer que a equipe não recebeu
+    nada no mês — zero seria mentira, porque zero é desempenho perfeito.
+    """
+    ws = wb.create_sheet("2 · SLA mensal por equipe", 1)
+    ws.column_dimensions["A"].width = 10
+    ws.append(["SLA DE MANUTENÇÃO — ÍNDICE MENSAL POR EQUIPE"])
+    ws.cell(row=1, column=1).font = Font(bold=True, size=12)
+    ws.append(["Índice = dias gastos ÷ prazo da criticidade. 2 dias num prazo de 8 dá "
+               "0,25. Abaixo de 1,00 sobrou prazo; acima de 1,00 estourou."])
+    ws.append(["Célula vazia = a equipe não recebeu nada no mês. O total da linha e o da "
+               "coluna são ponderados: soma dos dias sobre soma dos prazos."])
+
+    for ano in ANOS:
+        doano = [e for e in entregas if e["ano"] == ano]
+        equipes = sorted({e["equipe"] for e in doano})
+        for rotulo, valor, fmt in (
+                (f"{ano} · índice de SLA (dias ÷ prazo)",
+                 lambda g: indice(g) if g else None, "0.00"),
+                (f"{ano} · entregas recebidas", lambda g: len(g) or None, "0")):
+            ws.append([])
+            ws.append([rotulo])
+            ws.cell(row=ws.max_row, column=1).font = Font(bold=True, size=11)
+            ws.append(["Mês"] + equipes + ["TOTAL"])
+            for cel in ws[ws.max_row]:
+                if cel.value is not None:
+                    cel.font, cel.fill = TITULO, FUNDO
+                    cel.alignment = Alignment(horizontal="center", wrap_text=True)
+            for i, col in enumerate(equipes, 2):
+                ws.column_dimensions[get_column_letter(i)].width = 13
+            ws.column_dimensions[get_column_letter(len(equipes) + 2)].width = 11
+            prim = ws.max_row + 1
+            for m, nome in enumerate(MESES, 1):
+                domes = [e for e in doano if e["mes"] == m]
+                ws.append([nome] + [valor([e for e in domes if e["equipe"] == q])
+                                    for q in equipes] + [valor(domes)])
+            ws.append(["TOTAL"] + [valor([e for e in doano if e["equipe"] == q])
+                                   for q in equipes] + [valor(doano)])
+            for cel in ws[ws.max_row]:
+                cel.font = Font(bold=True)
+            fim = ws.max_row
+            bordar(ws, prim, fim)
+            for r in range(prim, fim + 1):
+                for c in range(2, len(equipes) + 3):
+                    cel = ws.cell(row=r, column=c)
+                    cel.number_format = fmt
+                    cel.alignment = Alignment(horizontal="center")
+                    if fmt == "0.00" and isinstance(cel.value, float):
+                        cel.fill = VERMELHO if cel.value > 1 else (
+                            VERDE if cel.value <= 0.5 else AMARELO)
+    return ws
+
+
 def aba_equipe(wb, entregas):
-    ws = wb.create_sheet("3 · SLA por equipe")
+    ws = wb.create_sheet("4 · SLA por equipe")
     ws.column_dimensions["A"].width = 20
     for c in "BCDEFGHI":
         ws.column_dimensions[c].width = 12
@@ -266,7 +334,8 @@ def aba_equipe(wb, entregas):
         linhas.append(["TOTAL"] + resumo(sel) + [max((e["atraso"] for e in sel), default=0)])
         cab, prim, fim = quadro(
             ws, f"{ano}", ["Equipe", "Entregas", "No prazo", "Estourou", "Em curso",
-                           "Cumprimento", "Mediana de dias", "Pior atraso"],
+                           "Cumprimento", "Mediana de dias", "SLA (dias ÷ prazo)",
+                           "Pior atraso"],
             linhas, pct_col=6)
         for cel in ws[fim]:
             cel.font = Font(bold=True)
@@ -288,7 +357,7 @@ def aba_equipe(wb, entregas):
 
 
 def aba_criticidade(wb, entregas):
-    ws = wb.create_sheet("4 · SLA por criticidade")
+    ws = wb.create_sheet("5 · SLA por criticidade")
     ws.column_dimensions["A"].width = 20
     for c in "BCDEFGH":
         ws.column_dimensions[c].width = 12
@@ -306,7 +375,8 @@ def aba_criticidade(wb, entregas):
         linhas.append(["TOTAL", ""] + resumo(sel))
         cab, prim, fim = quadro(
             ws, f"{ano}", ["Criticidade", "Prazo", "Entregas", "No prazo", "Estourou",
-                           "Em curso", "Cumprimento", "Mediana de dias"],
+                           "Em curso", "Cumprimento", "Mediana de dias",
+                           "SLA (dias ÷ prazo)"],
             linhas, pct_col=7)
         for cel in ws[fim]:
             cel.font = Font(bold=True)
@@ -321,14 +391,15 @@ def aba_resolvidos(wb, entregas, caminho_base):
         cp = json.load(fh)
     por_ss = {e["ss_coep"]: e for e in entregas}
     res = [r for r in cp["resolvidos_do_coep"] if r["conta_como_resolvido_pelo_coep"]]
-    ws = wb.create_sheet(f"5 · Resolvidos 2026 ({len(res)})")
+    ws = wb.create_sheet(f"6 · Resolvidos 2026 ({len(res)})")
     colunas = [("Ativo", 13), ("Tipo", 7), ("Localidade", 22), ("SS no COEP", 20),
                ("Como terminou", 14), ("Fechou em", 12), ("Posto que fechou", 15),
                ("Passou por COCM", 11), ("Ano da entrega", 8), ("Mês nº", 7),
                ("Mês", 8), ("Equipe (COCM)", 14), ("Criticidade", 14),
                ("Prazo SLA (dias)", 10), ("Entrega ao COCM", 13), ("Devolução", 12),
                ("Dias de manutenção", 11), ("Atraso (dias)", 10),
-               ("Dentro do prazo", 10), ("SLA de manutenção", 22)]
+               ("SLA (dias ÷ prazo)", 11), ("Dentro do prazo", 10),
+               ("SLA de manutenção", 22)]
     prim = cabecalho(ws, colunas) + 1
     for r in sorted(res, key=lambda x: x["ativo"]):
         k = base.norm(r["ss_no_coep"])
@@ -341,19 +412,20 @@ def aba_resolvidos(wb, entregas, caminho_base):
                        MESES[e["mes"] - 1], e["equipe"], e["criticidade"], e["prazo"],
                        e["entrega"].strftime("%d/%m/%Y"),
                        e["devolucao"].strftime("%d/%m/%Y") if e["devolucao"] else "",
-                       e["dias"], e["atraso"],
+                       e["dias"], e["atraso"], e["indice"],
                        "sim" if e["dentro_do_prazo"] else "não", e["veredicto"]])
-            cel = ws.cell(row=ws.max_row, column=20)
+            ws.cell(row=ws.max_row, column=19).number_format = "0.00"
+            cel = ws.cell(row=ws.max_row, column=21)
             cel.fill = AMARELO if e["em_curso"] else (VERDE if e["dentro_do_prazo"] else VERMELHO)
         else:
             ws.append([r["ativo"], "RL" if r["tipo"] == "religador" else "RT",
                        r["localidade"], k, r["como_terminou"], r["data_do_fechamento"],
                        r["posto_que_fechou"], "não", "", "", "", "", c,
                        base.PRAZO.get(c, base.PRAZO_SEM_CRITICIDADE), "", "", "", "",
-                       "", "não passou por COCM depois do posto"])
+                       "", "", "não passou por COCM depois do posto"])
     bordar(ws, prim, ws.max_row)
     ws.freeze_panes = f"A{prim}"
-    ws.auto_filter.ref = f"A{prim - 1}:T{ws.max_row}"
+    ws.auto_filter.ref = f"A{prim - 1}:U{ws.max_row}"
     return ws, sum(1 for r in res if base.norm(r["ss_no_coep"]) in por_ss)
 
 
@@ -379,6 +451,12 @@ def como_foi_feito(entregas, com_cocm):
         "O PRAZO, pela criticidade da operação (aba de mapeamento por criticidade da "
         "Relação de Indisponíveis): Muito Alta 8 dias, Alta 15, Média 30, Baixa 50. Sem "
         "criticidade definida, 26 dias — o prazo médio.",
+        "",
+        "O SLA É ÍNDICE, não sim/não (régua do gestor, 27/08): dias gastos ÷ prazo da "
+        "criticidade. Dois dias num prazo de oito dá 0,25 — sobrou três quartos do "
+        "prazo. Acima de 1,00 estourou. O índice de um grupo é PONDERADO (soma dos dias "
+        "sobre soma dos prazos), não média de índices: média daria o mesmo peso a um "
+        "Muito Alta de 8 dias e a um Baixa de 50.",
         "",
         "A SÉRIE MENSAL é pelo mês da ENTREGA (coorte de entrada): a demanda entra no mês "
         "em que o compromisso foi assumido. A data de devolução está em coluna própria, "
@@ -432,6 +510,7 @@ def montar(caminho=None):
 
     wb = openpyxl.Workbook()
     aba_entregas(wb, entregas)
+    aba_matriz(wb, entregas)
     aba_mensal(wb, entregas)
     aba_equipe(wb, entregas)
     aba_criticidade(wb, entregas)
