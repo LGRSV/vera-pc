@@ -135,6 +135,7 @@ def entregas_ao_cocm(reg, crit, ativos):
         cod = (ativos.get(ss_original, {}) or ativos.get(ss_coep, {})).get("equipamento", "")
         c = crit.get(cod, "")
         prazo = base.PRAZO.get(c, base.PRAZO_SEM_CRITICIDADE)
+        prazo_antes = base.PRAZO_ANTERIOR.get(c, base.PRAZO_SEM_CRITICIDADE)
         aberto = data_saida is None
         fim = data_saida or base.HOJE
         # dias de CALENDÁRIO, não períodos de 24h: a base guarda hora, e entregue dia
@@ -159,6 +160,8 @@ def entregas_ao_cocm(reg, crit, ativos):
             "dias": dias, "atraso": max(0, dias - prazo),
             # O SLA é ÍNDICE, não sim/não: dias usados sobre o prazo da criticidade.
             "indice": dias / prazo,
+            "prazo_antes": prazo_antes, "indice_antes": dias / prazo_antes,
+            "dentro_antes": dias <= prazo_antes,
             "dentro_do_prazo": dias <= prazo, "em_curso": aberto,
             "veredicto": ("em curso, dentro do prazo" if dias <= prazo
                           else "em curso, ESTOURADO") if aberto
@@ -579,7 +582,7 @@ def aba_resolvidos(wb, entregas, caminho_base, ativos):
         cp = json.load(fh)
     por_ss = {e["ss_coep"]: e for e in entregas}
     res = [r for r in cp["resolvidos_do_coep"] if r["conta_como_resolvido_pelo_coep"]]
-    ws = wb.create_sheet(f"7 · Resolvidos 2026 ({len(res)})")
+    ws = wb.create_sheet(f"8 · Resolvidos 2026 ({len(res)})")
     colunas = [("Ativo", 13), ("Tipo", 7), ("Localidade", 22),
                ("Data da ocorrência inicial", 14), ("SS que abriu a ocorrência", 21),
                ("Dias da ocorrência ao fechamento", 13), ("SS no COEP", 20),
@@ -623,6 +626,79 @@ def aba_resolvidos(wb, entregas, caminho_base, ativos):
     return ws, sum(1 for r in res if base.norm(r["ss_no_coep"]) in por_ss)
 
 
+def aba_proposta(wb, entregas):
+    """O que a PROPOSTA DCMD (11/20/40/60) muda contra a régua anterior (8/15/30/50).
+
+    Só quem tem criticidade definida sente a mudança: sem classificação continua em
+    26 dias nas duas réguas, e é justamente onde estão os piores atrasos — por isso o
+    ganho é menor do que o afrouxamento sugere.
+    """
+    ws = wb.create_sheet("7 · Proposta DCMD × anterior")
+    ws.column_dimensions["A"].width = 22
+    for c in "BCDEFGHI":
+        ws.column_dimensions[c].width = 13
+    ws.append(["O QUE A PROPOSTA DCMD MUDA"])
+    ws.cell(row=1, column=1).font = Font(bold=True, size=12)
+    ws.append(["Proposta: Muito Alta 11 · Alta 20 · Média 40 · Baixa 60. "
+               "Anterior: 8 · 15 · 30 · 50. Sem classificação segue em 26 nas duas."])
+
+    def bloco(titulo, grupos):
+        ws.append([])
+        ws.append([titulo])
+        ws.cell(row=ws.max_row, column=1).font = Font(bold=True, size=11)
+        ws.append(["", "Entregas", "No prazo (anterior)", "No prazo (proposta)",
+                   "Ganho", "Cumprimento anterior", "Cumprimento proposta",
+                   "Índice anterior", "Índice proposta"])
+        for cel in ws[ws.max_row]:
+            if cel.value is not None:
+                cel.font, cel.fill = TITULO, FUNDO
+                cel.alignment = Alignment(horizontal="center", wrap_text=True)
+        prim = ws.max_row + 1
+        for nome, g in grupos:
+            if not g:
+                continue
+            n = len(g)
+            a = sum(1 for e in g if e["dentro_antes"])
+            b = sum(1 for e in g if e["dentro_do_prazo"])
+            ia = sum(e["dias"] for e in g) / sum(e["prazo_antes"] for e in g)
+            ib = sum(e["dias"] for e in g) / sum(e["prazo"] for e in g)
+            ws.append([nome, n, a, b, b - a, a / n, b / n, ia, ib])
+            for c in (6, 7):
+                ws.cell(row=ws.max_row, column=c).number_format = "0.0%"
+            for c in (8, 9):
+                ws.cell(row=ws.max_row, column=c).number_format = "0.00"
+            if b > a:
+                ws.cell(row=ws.max_row, column=5).fill = VERDE
+        bordar(ws, prim, ws.max_row)
+
+    ordem = ["Muito Alta", "Alta", "Média", "Baixa", "Sem classificação"]
+    bloco("Por criticidade — só quem tem classificação sente a mudança",
+          [(c, [e for e in entregas if e["criticidade"] == c]) for c in ordem])
+    bloco("Por ano", [(str(a), [e for e in entregas if e["ano"] == a]) for a in ANOS]
+          + [("2025 + 2026", entregas)])
+    bloco("Por equipe", sorted(
+        [(q, [e for e in entregas if e["equipe"] == q])
+         for q in {e["equipe"] for e in entregas}],
+        key=lambda x: -len(x[1])))
+
+    ws.append([])
+    viraram = [e for e in entregas if e["dentro_do_prazo"] and not e["dentro_antes"]]
+    ws.append([f"AS {len(viraram)} QUE A PROPOSTA SALVA — estouravam na régua anterior "
+               "e passam a caber no prazo"])
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+    ws.append(["Ativo", "Criticidade", "Dias no DCMD", "Prazo anterior",
+               "Prazo proposta", "Equipe", "Data do repasse"])
+    for cel in ws[ws.max_row]:
+        if cel.value is not None:
+            cel.font, cel.fill = TITULO, FUNDO
+    prim = ws.max_row + 1
+    for e in sorted(viraram, key=lambda x: -x["dias"]):
+        ws.append([e["ativo"], e["criticidade"], e["dias"], e["prazo_antes"],
+                   e["prazo"], e["equipe"], e["entrega"].strftime("%d/%m/%Y")])
+    bordar(ws, prim, ws.max_row)
+    return ws
+
+
 def como_foi_feito(entregas, com_cocm):
     por_ano = Counter(e["ano"] for e in entregas)
     return [
@@ -642,9 +718,17 @@ def como_foi_feito(entregas, com_cocm):
         "repassada sai da base sem data de conclusão: quem esperar a conclusão dela "
         "espera para sempre.",
         "",
-        "O PRAZO, pela criticidade da operação (aba de mapeamento por criticidade da "
-        "Relação de Indisponíveis): Muito Alta 8 dias, Alta 15, Média 30, Baixa 50. Sem "
-        "criticidade definida, 26 dias — o prazo médio.",
+        "O PRAZO é a PROPOSTA DCMD (gestor, 27/08): Muito Alta 11 dias, Alta 20, Média "
+        "40, Baixa 60. Sem criticidade definida seguem os 26 dias que o gestor deu e não "
+        "retirou ao propor a tabela nova — a média das quatro faixas novas daria 33. A "
+        "criticidade vem da aba de mapeamento por criticidade da Relação de "
+        "Indisponíveis.",
+        "",
+        "A ABA 7 mede o que a proposta muda contra a régua anterior (8/15/30/50), por "
+        "criticidade, por ano e por equipe, e lista nominalmente as entregas que "
+        "estouravam antes e passam a caber. Só quem tem criticidade definida sente a "
+        "mudança: sem classificação continua em 26 nas duas réguas — e é justamente aí "
+        "que estão os piores atrasos.",
         "",
         "O SLA É ÍNDICE, não sim/não (régua do gestor, 27/08): dias gastos ÷ prazo da "
         "criticidade. Dois dias num prazo de oito dá 0,25 — sobrou três quartos do "
@@ -717,6 +801,7 @@ def montar(caminho=None):
     aba_mensal(wb, entregas)
     aba_equipe(wb, entregas)
     aba_criticidade(wb, entregas)
+    aba_proposta(wb, entregas)
     _, com_cocm = aba_resolvidos(wb, entregas, caminho, ativos)
     ws = wb.create_sheet("Como foi feito")
     ws.column_dimensions["A"].width = 112

@@ -50,7 +50,13 @@ CARTEIRA = os.path.join(RAIZ, "data", "raw", "EQUIPAMENTOS_INDISPONIVEIS_ATUALIZ
 COEP = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
 BASE_PADRAO = os.path.join(RAIZ, "data", "missao", "ss_ocorrencia.json")
 
-PRAZO = {"Muito Alta": 8, "Alta": 15, "Média": 30, "Baixa": 50}
+# PROPOSTA DCMD (gestor, 27/08) — a régua que vale agora. Mais folgada que a
+# anterior em toda faixa: o Muito Alta ganha 3 dias, o Baixa ganha 10.
+PRAZO = {"Muito Alta": 11, "Alta": 20, "Média": 40, "Baixa": 60}
+# A régua anterior fica como referência, para medir o que a proposta muda.
+PRAZO_ANTERIOR = {"Muito Alta": 8, "Alta": 15, "Média": 30, "Baixa": 50}
+# O gestor deu 26 dias para quem não tem criticidade definida e não retirou o número
+# ao propor a tabela nova. Fica 26; a média das quatro faixas novas daria 33.
 PRAZO_SEM_CRITICIDADE = 26
 HOJE = dt.datetime(2026, 8, 18, 23, 59)      # posição da conta do posto
 RE_SS = re.compile(r"([A-Z][A-Z-]*)\s*0*(\d+)/(\d{4})")
