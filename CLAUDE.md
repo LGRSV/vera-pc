@@ -132,6 +132,15 @@ comissionamento e obra de equipamento novo.
 
 ## Arquivos e ambiente
 
+- **GESTÃO DE EQUIPAMENTOS: vale a de 27/08** («essa é a verdade a partir de hoje», gestor).
+  Mesma estrutura da de 12/08; o que mudou foi a posição da carteira na aba 1007ALLan
+  (SS aberta atualizada em 55 ativos + pareceres novos) — conferida contra a base:
+  114 de 116 batem; as 2 diferenças são a cadeia andando depois de 20/08 (SE-PCM→TELE).
+  **Armadilha**: na Planilha1 a coluna Criticidade foi sobrescrita por textos de parecer
+  em 63 linhas — a criticidade ali se perdeu; a válida segue na aba de mapeamento da
+  carteira (ATUALIZADA 16). O painel lê só BASE SS_OS, Planilha1 (modelo/status/valor),
+  Plan1 e os dois cadastros de Ajustes — nenhuma dessas colunas mudou.
+
 - **O AIC é um só**: `AIC_OBRAS_07082026.xlsx`, aba única «Export», 93 colunas,
   124.084 obras. `OBRAS_status_extracao_07082026.xlsx` é o mesmo arquivo (SHA-256
   idêntico), enviado com outro nome.
