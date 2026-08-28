@@ -307,23 +307,32 @@ def bloco_dinamica(r, pc):
   {marcador("A dinâmica do posto",
             f"{c['passaram']} passaram · conta do posto {c['conta_do_posto']}")}
   <div class="numeros">
-    {numero("Resolvidos", br(c["resolvidos"]), f"{pc['por_tipo'].get('RL', 0)} RL · {pc['por_tipo'].get('RT', 0)} RT", "bom")}
+    {numero("Trabalho do COEP concluído", br(c["trabalho_do_coep_concluido"]), f"{c['resolvidos']} encerradas + {c['despachados_para_outra_mesa']} despachadas", "bom")}
+    {numero("Demanda encerrada", br(c["resolvidos"]), f"{pc['por_tipo'].get('RL', 0)} RL · {pc['por_tipo'].get('RT', 0)} RT", "bom")}
     {numero("Na fila do posto", br(c["na_fila"]), "esperando o posto", "atento")}
-    {numero("Fora do posto", br(c["fora_do_posto"]), f"{c['despachados_para_outra_mesa']} em outra mesa · {c['em_execucao_no_campo']} no campo")}
-    {numero("Conta do posto", br(c["conta_do_posto"]), "resolvidos + fila", "sinal")}
+    {numero("Em execução no campo", br(c["em_execucao_no_campo"]), "obra acontecendo agora")}
   </div>
   <p class="texto">Cada equipamento conta <b>uma vez</b>. Quem resolveu uma demanda no ano
   e <b>voltou</b> para a fila conta como pendente, não como resolvido — são
   <b>{c["voltaram_para_a_fila"]}</b> nessa situação.</p>
-  <p class="texto">Resolvido é o que <b>acabou</b>. Os
-  <b>{c["despachados_para_outra_mesa"]}</b> que saíram para ajuste de proteção ou
-  comissionamento tiveram a peça trocada e o campo devolveu — a parte do COEP acabou —,
-  mas o equipamento <b>segue com SS aberta</b> na mesa seguinte. Não entram nos
-  resolvidos: ficam à vista, no balde deles. Os outros <b>{c["em_execucao_no_campo"]}</b>
-  ainda estão com um COCM, com a obra acontecendo agora.</p>
+  <p class="texto destaque">São <b>duas leituras</b> de «resolvido», e as duas estão
+  certas — respondem a perguntas diferentes. <b>{c["trabalho_do_coep_concluido"]}</b> é o
+  <b>escopo do posto</b>: o COEP diagnosticou, despachou e a peça foi trocada. Desses,
+  <b>{c["resolvidos"]}</b> tiveram a <b>demanda encerrada</b> de ponta a ponta; os outros
+  <b>{c["despachados_para_outra_mesa"]}</b> saíram para ajuste de proteção ou
+  comissionamento e <b>seguem com SS aberta</b> na mesa seguinte — de 1 a 41 dias lá.
+  Para cobrar o posto, vale {c["trabalho_do_coep_concluido"]}; para dizer o que o parque
+  ganhou de volta, vale {c["resolvidos"]}.</p>
+  <p class="texto">A <b>conta do posto</b> — o que ainda é do COEP ou passou por ele e
+  acabou — é <b>{c["conta_do_posto"]}</b>: {c["resolvidos"]} encerradas mais
+  {c["na_fila"]} na fila. Os outros <b>{c["fora_do_posto"]}</b> estão fora da mesa,
+  esperando outro braço.</p>
   <h3>Os {c["fora_do_posto"]} que estão fora do posto</h3>
-  <p class="texto">Saíram da fila do COEP e ainda não fecharam. Entram nos resolvidos
-  quando a mesa seguinte devolver.</p>
+  <p class="texto">Saíram da fila do COEP e ainda não fecharam. Os
+  <b>{c["despachados_para_outra_mesa"]}</b> que já voltaram do campo entram no trabalho
+  concluído do posto e passam para <b>demanda encerrada</b> quando a mesa seguinte fechar
+  a SS. Os <b>{c["em_execucao_no_campo"]}</b> em execução ainda estão com um COCM: não
+  entram em nenhuma das duas contas até a equipe devolver.</p>
   <ul class="no-campo">{fora}</ul>
   <h3>Os dez mais parados na fila</h3>
   <div class="rolagem"><table class="tabela">
@@ -357,7 +366,9 @@ def bloco_quadro(pc):
             f'<tr class="{classe}{" total" if t == "Total" else ""}">'
             f'<td class="rot">{esc(ROT[t])}</td>{celulas(t, grupo)}</tr>'
             for t in ("RL", "RT", "Total"))
-        return (f'<tr class="faixa"><td colspan="7">{esc(rotulo)}</td></tr>' + linhas)
+        marca = " recorte" if "recorte" in classe else ""
+        return (f'<tr class="faixa{marca}"><td colspan="7">{esc(rotulo)}</td></tr>'
+                + linhas)
 
     cabeca = ("".join(f'<th class="num-col{" passivo" if a != "2026" else ""}">{a}</th>'
                       for a in anos[:3])
@@ -379,12 +390,19 @@ def bloco_quadro(pc):
   <p class="texto">O ano é o da <b>demanda</b>, não o da chegada à mesa: uma falha de 2025
   que só foi resolvida agora conta em 2025. É assim que o <b>passivo</b> aparece — o que
   o ano herdou vivo.</p>
+  <p class="texto">A primeira faixa é o <b>escopo do posto</b> e abre nas duas de baixo:
+  o COEP concluiu o trabalho dele em <b>{q["Total"]["coep_concluiu"]["total"]}</b>
+  equipamentos, dos quais <b>{q["Total"]["resolvidos"]["total"]}</b> tiveram a demanda
+  encerrada de ponta a ponta e <b>{q["Total"]["despachados"]["total"]}</b> seguem com SS
+  aberta na mesa seguinte. Ela <b>não entra na soma</b> das outras — é um recorte por
+  cima delas.</p>
   <div class="rolagem"><table class="tabela quadro-ano">
     <thead><tr><th>&nbsp;</th>{cabeca}</tr></thead>
     <tbody>
-      {faixa("resolvidos", "Resolvidos pelo posto em 2026", "bom")}
+      {faixa("coep_concluiu", "Trabalho do COEP concluído · recorte, não soma com as de baixo", "bom recorte")}
+      {faixa("resolvidos", "├ demanda encerrada de ponta a ponta", "bom sub")}
+      {faixa("despachados", "└ despachados, SS aberta na mesa seguinte", "sub")}
       {faixa("fila", "Na fila do posto")}
-      {faixa("despachados", "Despachados para outra mesa")}
       {faixa("execucao", "Em execução no campo")}
       {faixa("geral", "Passaram pelo posto", "geral")}
     </tbody>
@@ -612,6 +630,9 @@ h4 { font-family:var(--titulo); font-weight:700; font-size:15px; letter-spacing:
   background:var(--campo); padding:7px 11px; border-top:2px solid var(--tinta); }
 .quadro-ano tr.total td { font-weight:600; border-bottom:2px solid var(--filete); }
 .quadro-ano tr.geral td { color:var(--tinta-2); }
+.quadro-ano tr.sub td.rot { padding-left:34px; color:var(--tinta-2); }
+.quadro-ano tr.faixa.recorte td { border-left:3px solid var(--sinal);
+  color:var(--sinal); }
 .quadro-ano tr.bom td.forte { color:var(--campo-verde); }
 .quadro-ano td.passivo { background:rgba(188,75,14,.06); }
 .quadro-ano th.passivo { background:linear-gradient(rgba(224,112,58,.26),rgba(224,112,58,.26)), var(--tinta); }

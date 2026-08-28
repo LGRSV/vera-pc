@@ -94,6 +94,7 @@ def montar(caminho=None):
             "na_fila": len(fila),
             "despachados_para_outra_mesa": len(despachados),
             "em_execucao_no_campo": len(execucao),
+            "trabalho_do_coep_concluido": len(resolvidos) + len(despachados),
             "conta_do_posto": len(resolvidos) + len(fila),
             "fora_do_posto": len(despachados) + len(execucao),
             "voltaram_para_a_fila": len(voltaram),
@@ -135,6 +136,7 @@ def montar(caminho=None):
         "na_fila": conta(fila),
         "fila_do_passivo": conta(herdados & fila),
         "despachados": conta(set(despachados)),
+        "coep_concluiu": conta(set(resolvidos) | set(despachados)),
         "em_execucao": conta(execs),
         "conta_do_posto": conta(res | fila),
     }
@@ -151,6 +153,9 @@ def montar(caminho=None):
     anos = ["2023", "2024", "2025", "2026"]
     grupos = {"resolvidos": set(resolvidos), "fila": set(fila),
               "despachados": set(despachados), "execucao": execs}
+    # a leitura do escopo do posto: encerradas + despachadas. Não entra na soma dos
+    # 143 — é um recorte por cima dos dois primeiros baldes, não um quinto balde.
+    coep = {"coep_concluiu": set(resolvidos) | set(despachados)}
     quadro_ano = {}
     for tipo in ("RL", "RT"):
         quadro_ano[tipo] = {}
@@ -161,9 +166,18 @@ def montar(caminho=None):
             por_ano["passivo"] = sum(por_ano[y] for y in ("2023", "2024", "2025"))
             por_ano["total"] = sum(por_ano[y] for y in anos)
             quadro_ano[tipo][nome] = por_ano
+    for tipo in ("RL", "RT"):
+        for nome, conj in coep.items():
+            por_ano = {y: sum(1 for a in conj
+                              if sig(a) == tipo and str(ano_da_demanda(a)) == y)
+                       for y in anos}
+            por_ano["passivo"] = sum(por_ano[y] for y in ("2023", "2024", "2025"))
+            por_ano["total"] = sum(por_ano[y] for y in anos)
+            quadro_ano[tipo][nome] = por_ano
     quadro_ano["Total"] = {
         nome: {k: quadro_ano["RL"][nome][k] + quadro_ano["RT"][nome][k]
-               for k in list(anos) + ["passivo", "total"]} for nome in grupos}
+               for k in list(anos) + ["passivo", "total"]}
+        for nome in list(grupos) + list(coep)}
     for tipo in quadro_ano:
         quadro_ano[tipo]["geral"] = {
             k: sum(quadro_ano[tipo][n][k] for n in grupos)

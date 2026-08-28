@@ -6,6 +6,7 @@
   "na_fila": 54,
   "despachados_para_outra_mesa": 15,
   "em_execucao_no_campo": 3,
+  "trabalho_do_coep_concluido": 86,
   "conta_do_posto": 125,
   "fora_do_posto": 18,
   "voltaram_para_a_fila": 11
@@ -364,6 +365,11 @@
    "RT": 4,
    "total": 15
   },
+  "coep_concluiu": {
+   "RL": 56,
+   "RT": 30,
+   "total": 86
+  },
   "em_execucao": {
    "RL": 2,
    "RT": 1,
@@ -409,6 +415,14 @@
     "passivo": 1,
     "total": 2
    },
+   "coep_concluiu": {
+    "2023": 1,
+    "2024": 9,
+    "2025": 27,
+    "2026": 19,
+    "passivo": 37,
+    "total": 56
+   },
    "geral": {
     "2023": 3,
     "2024": 9,
@@ -451,6 +465,14 @@
     "passivo": 0,
     "total": 1
    },
+   "coep_concluiu": {
+    "2023": 0,
+    "2024": 3,
+    "2025": 18,
+    "2026": 9,
+    "passivo": 21,
+    "total": 30
+   },
    "geral": {
     "2023": 0,
     "2024": 3,
@@ -492,6 +514,14 @@
     "2026": 2,
     "passivo": 1,
     "total": 3
+   },
+   "coep_concluiu": {
+    "2023": 1,
+    "2024": 12,
+    "2025": 45,
+    "2026": 28,
+    "passivo": 58,
+    "total": 86
    },
    "geral": {
     "2023": 3,

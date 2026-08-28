@@ -66,6 +66,14 @@ comissionamento e obra de equipamento novo.
   **71 resolvidos (45 RL + 26 RT) · 54 na fila · 15 despachados · 3 em execução = 143**,
   e a conta do posto em **71 + 54 = 125** — que é onde a memória do gestor sempre esteve
   («125 passaram, resolvemos 72, estamos com 53», 21/08).
+- **«Resolvido» tem duas leituras, e as duas ficam à vista** (gestor, 29/08: «esses 15
+  deveriam estar dentro dos 71 já que o COEP já resolveu»). Não estão dentro — são 15
+  ativos **diferentes**, interseção zero com os 71, conferido. O que muda é a pergunta:
+  **trabalho do COEP concluído = 86** (71 + 15), o escopo do posto, para cobrar o COEP; e
+  **demanda encerrada = 71**, de ponta a ponta, para dizer o que o parque ganhou de volta.
+  O painel mostra as duas, com o 86 como **recorte** por cima dos baldes — não soma com
+  eles. Na cadeia dos 15 a SS do COEP foi repassada e fechada, o COCM devolveu, e a SS
+  segue **aberta** na PROT/TELE/SE (1 a 41 dias lá).
 - **Régua do cancelamento (gestor, 22/08)**: cancelado é resolvido, **desde que não
   tenham aberto outra nota para aquele ativo no posto do COEP depois**. Se abriram, a
   demanda voltou para a mesa e segue pendente — não conta. Nota nova em **outro**
