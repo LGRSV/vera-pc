@@ -27,6 +27,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAIDA = os.path.join(RAIZ, "dist", "painel-coep.html")
 BASE = os.path.join(RAIZ, "data", "missao", "base_coep.json")
 SLA = os.path.join(RAIZ, "data", "missao", "sla_coep.json")
+PARTICAO = os.path.join(RAIZ, "data", "missao", "particao_coep.json")
 
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
          "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -282,15 +283,10 @@ def bloco_causas(f):
 
 
 # ------------------------------------------------------- 5. a dinâmica dos 143
-def bloco_dinamica(r):
-    contas = r["contas"]
+def bloco_dinamica(r, pc):
+    """A dinâmica na régua de 28/08 — a partição de particao_coep.py."""
+    c = pc["contas"]
     itens = r["itens"]
-    ordem = ["Resolvido", "Na fila do posto", "Em outra mesa"]
-    rot = {"Resolvido": "Resolvido (e não voltou)", "Na fila do posto": "Na fila do posto",
-           "Em outra mesa": "Em outra mesa"}
-    tom = {"Resolvido": "bom", "Na fila do posto": "atento", "Em outra mesa": ""}
-    voltaram = sum(1 for i in itens if i["voltou"])
-    realizados = sum(1 for i in itens if i["realizado_dcmd"])
     parados = sorted((i for i in itens if i["situacao"] == "Na fila do posto"),
                      key=lambda x: -x["dias"])[:10]
     linhas = "".join(
@@ -300,15 +296,30 @@ def bloco_dinamica(r):
         f'{esc(i["criticidade"])}</span></td>'
         f'<td class="cod">{esc(i["ss"])}</td>'
         f'<td class="num-col atrasado">{br(i["dias"])}</td></tr>' for i in parados)
+    campo = "".join(
+        f'<li><b class="cod">{esc(x["ativo"])}</b>'
+        f'<span>{esc(x["localidade"])}</span>'
+        f'<i>{esc(x["onde_esta"])} · {br(x["dias_la"])} dias no campo</i></li>'
+        for x in pc["em_execucao"])
     return f"""<section class="bloco" id="dinamica">
-  {marcador("A dinâmica do posto", "143 equipamentos, cada um contado uma vez")}
+  {marcador("A dinâmica do posto",
+            f"{c['passaram']} passaram · conta do posto {c['conta_do_posto']}")}
   <div class="numeros">
-    {"".join(numero(rot[s], br(contas.get(rot[s], contas.get(s, 0))), "", tom[s]) for s in ordem)}
+    {numero("Resolvidos", br(c["resolvidos"]), f"{pc['por_tipo'].get('RL', 0)} RL · {pc['por_tipo'].get('RT', 0)} RT", "bom")}
+    {numero("Na fila do posto", br(c["na_fila"]), "esperando o posto", "atento")}
+    {numero("Em execução no campo", br(c["em_execucao_no_campo"]), "obra acontecendo agora")}
+    {numero("Conta do posto", br(c["conta_do_posto"]), "resolvidos + fila", "sinal")}
   </div>
-  <p class="texto">A partição é <b>disjunta</b>: quem resolveu uma demanda no ano e voltou
-  para a fila conta como pendente, não como resolvido — são <b>{voltaram}</b> nessa
-  situação. Dos {contas.get("Resolvido (e não voltou)", 71)} resolvidos,
-  <b>{realizados}</b> levam o carimbo de realizado pelo DCMD.</p>
+  <p class="texto">Cada equipamento conta <b>uma vez</b>. Quem resolveu uma demanda no ano
+  e <b>voltou</b> para a fila conta como pendente, não como resolvido — são
+  <b>{c["voltaram_para_a_fila"]}</b> nessa situação. E quem saiu do campo para
+  <b>ajuste de proteção ou comissionamento</b> conta como resolvido: a peça foi trocada e
+  o COCM devolveu, falta só o braço seguinte — são <b>{c["vieram_de_outra_mesa"]}</b>.
+  Conferido na cadeia, um a um.</p>
+  <h3>Os três que ainda estão com o campo</h3>
+  <p class="texto">A cadeia deles termina num COCM: a obra está acontecendo agora. Entram
+  nos resolvidos quando a equipe devolver.</p>
+  <ul class="no-campo">{campo}</ul>
   <h3>Os dez mais parados na fila</h3>
   <div class="rolagem"><table class="tabela">
     <thead><tr><th>Ativo</th><th>Praça</th><th>Criticidade</th><th>SS</th>
@@ -524,6 +535,16 @@ h4 { font-family:var(--titulo); font-weight:700; font-size:15px; letter-spacing:
   font-style:italic; }
 .citacoes i { font-family:var(--dado); font-size:11px; color:var(--tinta-3);
   font-style:normal; }
+.no-campo { list-style:none; margin:0 0 6px; padding:0; display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px 18px; }
+.no-campo li { border:1px solid var(--filete); border-left:3px solid var(--ocre);
+  background:var(--fundo); padding:10px 13px; display:flex; flex-direction:column;
+  gap:2px; }
+.no-campo b { font-size:13.5px; }
+.no-campo span { font-family:var(--titulo); font-size:13.5px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--tinta-2); }
+.no-campo i { font-family:var(--dado); font-size:11.5px; color:var(--tinta-3);
+  font-style:normal; }
 .causa-tag { font-family:var(--titulo); font-size:11.5px; letter-spacing:.08em;
   text-transform:uppercase; color:var(--sinal); margin-left:6px; }
 
@@ -563,6 +584,8 @@ def montar():
         b = json.load(fh)
     with open(SLA, encoding="utf-8") as fh:
         s = json.load(fh)
+    with open(PARTICAO, encoding="utf-8") as fh:
+        pc = json.load(fh)
     g = b["gestao"]
     html = f"""<title>Prontuário do COEP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -580,7 +603,7 @@ def montar():
       <span>{g['qtd']} pendentes no DCMD</span>
       <span>{moeda(g['orcamento_total'])} parados</span>
       <span>{b['falhas']['qtd']} falhas lidas</span>
-      <span>143 pelo posto em 2026</span>
+      <span>{pc["contas"]["conta_do_posto"]} na conta do posto</span>
       <span>posição 18/08/2026</span>
     </div>
   </header>
@@ -588,7 +611,7 @@ def montar():
   {bloco_orcamento(g)}
   {bloco_taxa(b['mensal'], b['falhas'])}
   {bloco_causas(b['falhas'])}
-  {bloco_dinamica(b['resolvidos'])}
+  {bloco_dinamica(b['resolvidos'], pc)}
   {bloco_sla(s)}
   <footer class="fim">
     <p><b>De onde vem.</b> A planilha base de equipamentos especiais do COEP —

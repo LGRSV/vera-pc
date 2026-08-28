@@ -1,0 +1,303 @@
+{
+ "regua": "gestor, 28/08: quem voltou para a fila não conta como resolvido; quem saiu do campo para ajuste ou comissionamento conta. Os que ainda estão num COCM ficam em execução até a equipe devolver.",
+ "contas": {
+  "passaram": 143,
+  "resolvidos": 86,
+  "na_fila": 54,
+  "em_execucao_no_campo": 3,
+  "conta_do_posto": 140,
+  "voltaram_para_a_fila": 11,
+  "vieram_de_outra_mesa": 15
+ },
+ "por_tipo": {
+  "RT": 30,
+  "RL": 56
+ },
+ "resolvidos_por_outra_mesa": [
+  {
+   "ativo": "5846328094",
+   "tipo": "regulador",
+   "localidade": "PEIXE",
+   "ss_atual": "ETO-TELE 00986/2026",
+   "onde_esta": "ETO-TELE",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 41,
+   "passou_por_cocm": [
+    "ETO-RD-AG",
+    "ETO-RD-GU"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7900594026",
+   "tipo": "religador",
+   "localidade": "PONTE ALTA TOCANTINS",
+   "ss_atual": "ETO-SE-PA 00107/2026",
+   "onde_esta": "ETO-SE-PA",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 33,
+   "passou_por_cocm": [
+    "ETO-RD-PO"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7900573047",
+   "tipo": "religador",
+   "localidade": "FIGUEIROPOLIS",
+   "ss_atual": "ETO-PROT 00153/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 29,
+   "passou_por_cocm": [
+    "ETO-RD-GU",
+    "ETO-RD-AG",
+    "ETO-RD-GR",
+    "ETO-RD-GU"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7925087021",
+   "tipo": "religador",
+   "localidade": "PARANA",
+   "ss_atual": "ETO-PROT 00152/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 29,
+   "passou_por_cocm": [
+    "ETO-RD-AG",
+    "ETO-RD-GR",
+    "ETO-RD-GU"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7900117013",
+   "tipo": "religador",
+   "localidade": "PARAISO DO TOCANTINS",
+   "ss_atual": "ETO-PROT 00154/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 28,
+   "passou_por_cocm": [
+    "ETO-RD-PS",
+    "ETO-RD-PS",
+    "ETO-RD-PS"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7927169001",
+   "tipo": "religador",
+   "localidade": "PORTO NACIONAL",
+   "ss_atual": "ETO-PROT 00156/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 28,
+   "passou_por_cocm": [
+    "ETO-RD-PA"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7942572059",
+   "tipo": "religador",
+   "localidade": "TAQUARALTO",
+   "ss_atual": "ETO-PROT 00155/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 28,
+   "passou_por_cocm": [
+    "ETO-RD-PA"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "5854566043",
+   "tipo": "regulador",
+   "localidade": "SILVANOPOLIS",
+   "ss_atual": "ETO-PROT 00158/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 21,
+   "passou_por_cocm": [
+    "DG-RD-PO",
+    "ETO-RD-PO"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7908686014",
+   "tipo": "religador",
+   "localidade": "PIUM",
+   "ss_atual": "ETO-PROT 00159/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 21,
+   "passou_por_cocm": [
+    "ETO-RD-PS",
+    "ETO-RD-PS"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7953610256",
+   "tipo": "religador",
+   "localidade": "MATEIROS",
+   "ss_atual": "ETO-PROT 00157/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 21,
+   "passou_por_cocm": [
+    "ETO-RD-PO"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "5800371025",
+   "tipo": "regulador",
+   "localidade": "ARAPOEMA",
+   "ss_atual": "ETO-TELE 01040/2026",
+   "onde_esta": "ETO-TELE",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 19,
+   "passou_por_cocm": [
+    "ETO-RD-GR",
+    "ETO-RD-AR",
+    "ETO-RD-GR",
+    "ETO-RD-AR"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7929376022",
+   "tipo": "religador",
+   "localidade": "BABACULANDIA",
+   "ss_atual": "ETO-TELE 01107/2026",
+   "onde_esta": "ETO-TELE",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 5,
+   "passou_por_cocm": [
+    "ETO-RD-AR"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "5865120195",
+   "tipo": "regulador",
+   "localidade": "CENTENARIO",
+   "ss_atual": "ETO-SE-PCM 00091/2026",
+   "onde_esta": "ETO-SE-PCM",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 1,
+   "passou_por_cocm": [
+    "ETO-RD-GR"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7900230155",
+   "tipo": "religador",
+   "localidade": "PALMEIRANTE",
+   "ss_atual": "ETO-SE-PCM 00090/2026",
+   "onde_esta": "ETO-SE-PCM",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 1,
+   "passou_por_cocm": [
+    "ETO-RD-DP",
+    "ETO-RD-GR"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7933726256",
+   "tipo": "religador",
+   "localidade": "MATEIROS",
+   "ss_atual": "ETO-SE-PCM 00092/2026",
+   "onde_esta": "ETO-SE-PCM",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 1,
+   "passou_por_cocm": [
+    "ETO-RD-PA",
+    "ETO-RD-PO"
+   ],
+   "situacao": "Resolvido",
+   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+  }
+ ],
+ "em_execucao": [
+  {
+   "ativo": "7905357122",
+   "tipo": "religador",
+   "localidade": "PALMAS",
+   "ss_atual": "ETO-RD-PA 00352/2026",
+   "onde_esta": "ETO-RD-PA",
+   "etapa": "execução com os COCMs",
+   "dias_la": 88,
+   "passou_por_cocm": [
+    "ETO-RD-PA"
+   ],
+   "situacao": "Em execução no campo",
+   "nota": "a cadeia termina num COCM — a obra está acontecendo agora; entra nos resolvidos quando a equipe devolver"
+  },
+  {
+   "ativo": "7908705049",
+   "tipo": "religador",
+   "localidade": "AURORA DO TOCANTINS",
+   "ss_atual": "ETO-RD-DP 00409/2026",
+   "onde_esta": "ETO-RD-DP",
+   "etapa": "execução com os COCMs",
+   "dias_la": 43,
+   "passou_por_cocm": [
+    "ETO-RD-DP",
+    "ETO-RD-DP"
+   ],
+   "situacao": "Em execução no campo",
+   "nota": "a cadeia termina num COCM — a obra está acontecendo agora; entra nos resolvidos quando a equipe devolver"
+  },
+  {
+   "ativo": "5856070091",
+   "tipo": "regulador",
+   "localidade": "ALMAS",
+   "ss_atual": "ETO-RD-DP 00479/2026",
+   "onde_esta": "ETO-RD-DP",
+   "etapa": "execução com os COCMs",
+   "dias_la": 22,
+   "passou_por_cocm": [
+    "ETO-RD-DP",
+    "ETO-RD-DP",
+    "ETO-RD-DP"
+   ],
+   "situacao": "Em execução no campo",
+   "nota": "a cadeia termina num COCM — a obra está acontecendo agora; entra nos resolvidos quando a equipe devolver"
+  }
+ ],
+ "voltaram": [
+  "5800291035",
+  "7900453110",
+  "7903569004",
+  "7910027196",
+  "7925733015",
+  "7926089013",
+  "7927713200",
+  "7931608059",
+  "7954668084",
+  "7955946007",
+  "7955986084"
+ ]
+}

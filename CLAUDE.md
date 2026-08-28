@@ -54,10 +54,15 @@ comissionamento e obra de equipamento novo.
   no ano.
 - **Resolvido pelo posto** = a demanda passou pelo COEP dentro do ano E a cadeia dela
   fechou dentro do ano, com SS atendida ou cancelada.
-- **Quem voltou não conta como resolvido (gestor, 28/08)**: o equipamento que resolveu
-  uma demanda no ano e voltou para a fila conta **só como pendente**. Resolvidos ficam
-  **71** (82 − 11) e a conta do posto fecha em **71 + 54 = 125** — o número que o gestor
-  lembrava. O realizado do DCMD cai de 63 para **59** pela mesma régua.
+- **A partição de 28/08 (`particao_coep.py`)** — duas decisões do gestor no mesmo dia,
+  nas duas pontas da conta. **Quem voltou não conta**: resolveu no ano e voltou para a
+  fila é pendente, não resolvido (tira 11). **Quem saiu do campo conta**: em ajuste de
+  proteção ou comissionamento a peça foi trocada e o COCM devolveu — a parte do COEP e a
+  do campo terminaram (soma 15). Conferido na cadeia: os 18 de «outra mesa» passaram
+  **todos** por um COCM antes, e em 15 a cadeia já saiu do campo. Os **3 que ainda estão
+  num COCM** (7905357122 Palmas, 7908705049 Aurora, 5856070091 Almas) ficam em **execução
+  no campo** até a equipe devolver. Fecha em **86 resolvidos (56 RL + 30 RT) · 54 na fila
+  · 3 em execução = 143**, e a conta do posto em **86 + 54 = 140**.
 - **Régua do cancelamento (gestor, 22/08)**: cancelado é resolvido, **desde que não
   tenham aberto outra nota para aquele ativo no posto do COEP depois**. Se abriram, a
   demanda voltou para a mesa e segue pendente — não conta. Nota nova em **outro**
