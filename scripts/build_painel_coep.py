@@ -296,30 +296,35 @@ def bloco_dinamica(r, pc):
         f'{esc(i["criticidade"])}</span></td>'
         f'<td class="cod">{esc(i["ss"])}</td>'
         f'<td class="num-col atrasado">{br(i["dias"])}</td></tr>' for i in parados)
-    campo = "".join(
+    fora = "".join(
         f'<li><b class="cod">{esc(x["ativo"])}</b>'
         f'<span>{esc(x["localidade"])}</span>'
-        f'<i>{esc(x["onde_esta"])} · {br(x["dias_la"])} dias no campo</i></li>'
-        for x in pc["em_execucao"])
+        f'<i>{esc(x["onde_esta"])} · {br(x["dias_la"])} dia{"s" if x["dias_la"] != 1 else ""} lá · '
+        f'{esc(x["etapa"].split("—")[0].strip())}</i></li>'
+        for x in sorted(pc["resolvidos_por_outra_mesa"] + pc["em_execucao"],
+                        key=lambda z: -z["dias_la"]))
     return f"""<section class="bloco" id="dinamica">
   {marcador("A dinâmica do posto",
             f"{c['passaram']} passaram · conta do posto {c['conta_do_posto']}")}
   <div class="numeros">
     {numero("Resolvidos", br(c["resolvidos"]), f"{pc['por_tipo'].get('RL', 0)} RL · {pc['por_tipo'].get('RT', 0)} RT", "bom")}
     {numero("Na fila do posto", br(c["na_fila"]), "esperando o posto", "atento")}
-    {numero("Em execução no campo", br(c["em_execucao_no_campo"]), "obra acontecendo agora")}
+    {numero("Fora do posto", br(c["fora_do_posto"]), f"{c['despachados_para_outra_mesa']} em outra mesa · {c['em_execucao_no_campo']} no campo")}
     {numero("Conta do posto", br(c["conta_do_posto"]), "resolvidos + fila", "sinal")}
   </div>
   <p class="texto">Cada equipamento conta <b>uma vez</b>. Quem resolveu uma demanda no ano
   e <b>voltou</b> para a fila conta como pendente, não como resolvido — são
-  <b>{c["voltaram_para_a_fila"]}</b> nessa situação. E quem saiu do campo para
-  <b>ajuste de proteção ou comissionamento</b> conta como resolvido: a peça foi trocada e
-  o COCM devolveu, falta só o braço seguinte — são <b>{c["vieram_de_outra_mesa"]}</b>.
-  Conferido na cadeia, um a um.</p>
-  <h3>Os três que ainda estão com o campo</h3>
-  <p class="texto">A cadeia deles termina num COCM: a obra está acontecendo agora. Entram
-  nos resolvidos quando a equipe devolver.</p>
-  <ul class="no-campo">{campo}</ul>
+  <b>{c["voltaram_para_a_fila"]}</b> nessa situação.</p>
+  <p class="texto">Resolvido é o que <b>acabou</b>. Os
+  <b>{c["despachados_para_outra_mesa"]}</b> que saíram para ajuste de proteção ou
+  comissionamento tiveram a peça trocada e o campo devolveu — a parte do COEP acabou —,
+  mas o equipamento <b>segue com SS aberta</b> na mesa seguinte. Não entram nos
+  resolvidos: ficam à vista, no balde deles. Os outros <b>{c["em_execucao_no_campo"]}</b>
+  ainda estão com um COCM, com a obra acontecendo agora.</p>
+  <h3>Os {c["fora_do_posto"]} que estão fora do posto</h3>
+  <p class="texto">Saíram da fila do COEP e ainda não fecharam. Entram nos resolvidos
+  quando a mesa seguinte devolver.</p>
+  <ul class="no-campo">{fora}</ul>
   <h3>Os dez mais parados na fila</h3>
   <div class="rolagem"><table class="tabela">
     <thead><tr><th>Ativo</th><th>Praça</th><th>Criticidade</th><th>SS</th>
@@ -361,6 +366,7 @@ def bloco_quadro(pc):
 
     p_res = q["Total"]["resolvidos"]["passivo"] / q["Total"]["geral"]["passivo"]
     n_res = q["Total"]["resolvidos"]["2026"] / q["Total"]["geral"]["2026"]
+    vezes = p_res / n_res
     velhos = pc["passivo_na_fila"][:6]
     lista = "".join(
         f'<li><b class="cod">{esc(x["ativo"])}</b><span>{esc(x["localidade"])}</span>'
@@ -376,17 +382,18 @@ def bloco_quadro(pc):
   <div class="rolagem"><table class="tabela quadro-ano">
     <thead><tr><th>&nbsp;</th>{cabeca}</tr></thead>
     <tbody>
-      {faixa("resolvidos", "Resolvidos em 2026", "bom")}
+      {faixa("resolvidos", "Resolvidos pelo posto em 2026", "bom")}
       {faixa("fila", "Na fila do posto")}
+      {faixa("despachados", "Despachados para outra mesa")}
       {faixa("execucao", "Em execução no campo")}
       {faixa("geral", "Passaram pelo posto", "geral")}
     </tbody>
   </table></div>
   <p class="texto destaque">O passivo é <b>{br(q["Total"]["geral"]["passivo"])} dos
   {br(q["Total"]["geral"]["total"])}</b>, e o posto liquidou <b>{pct(p_res, 0)}</b> dele —
-  contra <b>{pct(n_res, 0)}</b> do que nasceu em 2026. O antigo saiu com o dobro da
-  eficácia do novo, que é o inverso do que uma fila costuma fazer. <b>2024 foi zerado</b>:
-  as doze demandas daquele ano fecharam todas.</p>
+  contra <b>{pct(n_res, 0)}</b> do que nasceu em 2026. O antigo saiu com quase
+  <b>{vezes:.0f} vezes</b> a eficácia do novo, que é o inverso do que uma fila costuma
+  fazer. <b>2024 foi zerado</b>: as doze demandas daquele ano fecharam todas.</p>
   <h3>O que resiste do passivo</h3>
   <p class="texto">Sobram <b>{br(q["Total"]["fila"]["passivo"])}</b> demandas antigas na
   fila — quase todas de 2025, e duas de 2023 que passam de mil e trezentos dias.</p>

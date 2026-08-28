@@ -1,22 +1,24 @@
 """
-A partição dos 143 na régua fechada em 28/08.
+A partição dos 143 na régua fechada em 28/08, corrigida em 29/08.
 
-Duas decisões do gestor, no mesmo dia, que mudam as duas pontas da conta:
+Três decisões do gestor, nas duas pontas da conta:
 
 1. QUEM VOLTOU NÃO CONTA COMO RESOLVIDO. «Se voltaram eu não resolvi» — o equipamento
    que resolveu uma demanda no ano e voltou para a fila conta só como pendente. Tira
    os 11 sobrepostos dos resolvidos.
 
-2. QUEM SAIU DO CAMPO CONTA. Os que estão em ajuste de proteção ou comissionamento
-   tiveram a peça trocada e o campo devolveu: a parte do COEP e a do COCM terminaram,
-   falta o braço seguinte. Conferido na cadeia — todos os 18 passaram por um COCM
-   antes, e em 15 deles a cadeia já saiu do campo.
+2. QUEM SAIU DO CAMPO TAMBÉM NÃO ENTRA NOS RESOLVIDOS. Os 15 que estão em ajuste de
+   proteção ou comissionamento tiveram a peça trocada e o campo devolveu — a parte do
+   COEP acabou —, mas o equipamento segue com SS aberta em outra mesa, de 1 a 41 dias
+   lá. Contá-los como resolvidos inflava o ano para 86, e o gestor não reconhece esse
+   número: «nem eu acho que resolvi 86». Ficam em balde próprio, à vista.
 
-   Os 3 que ainda ESTÃO num COCM ficam de fora: a obra está acontecendo agora. Eles
-   entram assim que a equipe devolver.
+3. OS 3 QUE AINDA ESTÃO NUM COCM ficam em execução no campo: a obra está acontecendo
+   agora.
 
-Resultado: 86 resolvidos · 54 na fila · 3 em execução no campo = 143, e a conta do
-posto fecha em 86 + 54 = 140.
+Resultado: 71 resolvidos · 54 na fila · 15 despachados · 3 em execução = 143, e a conta
+do posto fecha em 71 + 54 = 125 — que é onde a memória do gestor sempre esteve
+(«125 que passaram pelo COEP, desses resolvemos 72 e estamos com 53»).
 
 Grava data/missao/particao_coep.json.
 Rodar: python3 scripts/particao_coep.py [base_de_repasse.xlsx]
@@ -72,24 +74,29 @@ def montar(caminho=None):
                                 "agora; entra nos resolvidos quando a equipe devolver")
             execucao.append(registro)
         else:
-            registro["situacao"] = "Resolvido"
-            registro["nota"] = ("peça trocada e campo devolveu; falta o braço seguinte "
+            registro["situacao"] = "Despachado para outra mesa"
+            registro["nota"] = ("peça trocada e campo devolveu; a parte do COEP acabou, "
+                                "mas a SS segue aberta no braço seguinte "
                                 f"({r['etapa_da_esteira'].split('—')[0].strip()})")
             itens.append(registro)
 
-    resolvidos = sorted((set(res) - voltaram) | {x["ativo"] for x in itens})
+    resolvidos = sorted(set(res) - voltaram)
+    despachados = sorted(x["ativo"] for x in itens)
     pacote = {
-        "regua": "gestor, 28/08: quem voltou para a fila não conta como resolvido; quem "
-                 "saiu do campo para ajuste ou comissionamento conta. Os que ainda estão "
-                 "num COCM ficam em execução até a equipe devolver.",
+        "regua": "gestor, 28/08 e 29/08: quem voltou para a fila não conta como "
+                 "resolvido. Quem saiu do campo para ajuste ou comissionamento também "
+                 "não entra nos resolvidos — a parte do COEP acabou, mas o equipamento "
+                 "segue com SS aberta em outra mesa; fica em balde próprio. E quem ainda "
+                 "está num COCM fica em execução no campo.",
         "contas": {
             "passaram": len(at),
             "resolvidos": len(resolvidos),
             "na_fila": len(fila),
+            "despachados_para_outra_mesa": len(despachados),
             "em_execucao_no_campo": len(execucao),
             "conta_do_posto": len(resolvidos) + len(fila),
+            "fora_do_posto": len(despachados) + len(execucao),
             "voltaram_para_a_fila": len(voltaram),
-            "vieram_de_outra_mesa": len(itens),
         },
         "por_tipo": dict(Counter(
             "RL" if a[:2] in ("79", "78") else "RT" for a in resolvidos)),
@@ -127,6 +134,7 @@ def montar(caminho=None):
         "resolvidos_dos_novos": conta(novos & res),
         "na_fila": conta(fila),
         "fila_do_passivo": conta(herdados & fila),
+        "despachados": conta(set(despachados)),
         "em_execucao": conta(execs),
         "conta_do_posto": conta(res | fila),
     }
@@ -141,7 +149,8 @@ def montar(caminho=None):
         return ano_de(at[a]["primeira_chegada"])
 
     anos = ["2023", "2024", "2025", "2026"]
-    grupos = {"resolvidos": set(resolvidos), "fila": set(fila), "execucao": execs}
+    grupos = {"resolvidos": set(resolvidos), "fila": set(fila),
+              "despachados": set(despachados), "execucao": execs}
     quadro_ano = {}
     for tipo in ("RL", "RT"):
         quadro_ano[tipo] = {}
@@ -168,6 +177,7 @@ def montar(caminho=None):
          for a in herdados & fila), key=lambda x: -x["dias"])
 
     assert (pacote["contas"]["resolvidos"] + pacote["contas"]["na_fila"]
+            + pacote["contas"]["despachados_para_outra_mesa"]
             + pacote["contas"]["em_execucao_no_campo"] == len(at)), "a partição não fecha"
     with open(SAIDA, "w", encoding="utf-8") as fh:
         json.dump(pacote, fh, ensure_ascii=False, indent=1)
@@ -179,10 +189,11 @@ if __name__ == "__main__":
     c = p["contas"]
     print(f"gravado: {SAIDA}")
     print(f"  {c['resolvidos']} resolvidos · {c['na_fila']} na fila · "
+          f"{c['despachados_para_outra_mesa']} despachados · "
           f"{c['em_execucao_no_campo']} em execução = {c['passaram']}")
     print(f"  conta do posto: {c['resolvidos']} + {c['na_fila']} = {c['conta_do_posto']}")
-    print(f"  dos resolvidos, {c['vieram_de_outra_mesa']} vieram de outra mesa · "
-          f"{c['voltaram_para_a_fila']} voltaram e saíram da conta")
+    print(f"  fora do posto: {c['fora_do_posto']} · "
+          f"{c['voltaram_para_a_fila']} voltaram e saíram dos resolvidos")
     print(f"  por tipo: {p['por_tipo']}")
     for x in p["em_execucao"]:
         print(f"    em execução: {x['ativo']} · {x['localidade']} · {x['onde_esta']} · "

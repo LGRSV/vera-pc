@@ -1,17 +1,18 @@
 {
- "regua": "gestor, 28/08: quem voltou para a fila não conta como resolvido; quem saiu do campo para ajuste ou comissionamento conta. Os que ainda estão num COCM ficam em execução até a equipe devolver.",
+ "regua": "gestor, 28/08 e 29/08: quem voltou para a fila não conta como resolvido. Quem saiu do campo para ajuste ou comissionamento também não entra nos resolvidos — a parte do COEP acabou, mas o equipamento segue com SS aberta em outra mesa; fica em balde próprio. E quem ainda está num COCM fica em execução no campo.",
  "contas": {
   "passaram": 143,
-  "resolvidos": 86,
+  "resolvidos": 71,
   "na_fila": 54,
+  "despachados_para_outra_mesa": 15,
   "em_execucao_no_campo": 3,
-  "conta_do_posto": 140,
-  "voltaram_para_a_fila": 11,
-  "vieram_de_outra_mesa": 15
+  "conta_do_posto": 125,
+  "fora_do_posto": 18,
+  "voltaram_para_a_fila": 11
  },
  "por_tipo": {
-  "RT": 30,
-  "RL": 56
+  "RT": 26,
+  "RL": 45
  },
  "resolvidos_por_outra_mesa": [
   {
@@ -26,8 +27,8 @@
     "ETO-RD-AG",
     "ETO-RD-GU"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
    "ativo": "7900594026",
@@ -40,8 +41,8 @@
    "passou_por_cocm": [
     "ETO-RD-PO"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
    "ativo": "7900573047",
@@ -57,8 +58,8 @@
     "ETO-RD-GR",
     "ETO-RD-GU"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "7925087021",
@@ -73,8 +74,8 @@
     "ETO-RD-GR",
     "ETO-RD-GU"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "7900117013",
@@ -89,8 +90,8 @@
     "ETO-RD-PS",
     "ETO-RD-PS"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "7927169001",
@@ -103,8 +104,8 @@
    "passou_por_cocm": [
     "ETO-RD-PA"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "7942572059",
@@ -117,8 +118,8 @@
    "passou_por_cocm": [
     "ETO-RD-PA"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "5854566043",
@@ -132,8 +133,8 @@
     "DG-RD-PO",
     "ETO-RD-PO"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "7908686014",
@@ -147,8 +148,8 @@
     "ETO-RD-PS",
     "ETO-RD-PS"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "7953610256",
@@ -161,8 +162,8 @@
    "passou_por_cocm": [
     "ETO-RD-PO"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (ajuste de proteção)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
   },
   {
    "ativo": "5800371025",
@@ -178,8 +179,8 @@
     "ETO-RD-GR",
     "ETO-RD-AR"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
    "ativo": "7929376022",
@@ -192,8 +193,8 @@
    "passou_por_cocm": [
     "ETO-RD-AR"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
    "ativo": "5865120195",
@@ -206,8 +207,8 @@
    "passou_por_cocm": [
     "ETO-RD-GR"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
    "ativo": "7900230155",
@@ -221,8 +222,8 @@
     "ETO-RD-DP",
     "ETO-RD-GR"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
    "ativo": "7933726256",
@@ -236,8 +237,8 @@
     "ETO-RD-PA",
     "ETO-RD-PO"
    ],
-   "situacao": "Resolvido",
-   "nota": "peça trocada e campo devolveu; falta o braço seguinte (comissionamento)"
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   }
  ],
  "em_execucao": [
@@ -334,19 +335,19 @@
    "total": 93
   },
   "resolvidos": {
-   "RL": 56,
-   "RT": 30,
-   "total": 86
+   "RL": 45,
+   "RT": 26,
+   "total": 71
   },
   "resolvidos_do_passivo": {
-   "RL": 23,
+   "RL": 22,
    "RT": 14,
-   "total": 37
+   "total": 36
   },
   "resolvidos_dos_novos": {
-   "RL": 33,
-   "RT": 16,
-   "total": 49
+   "RL": 23,
+   "RT": 12,
+   "total": 35
   },
   "na_fila": {
    "RL": 43,
@@ -358,15 +359,20 @@
    "RT": 3,
    "total": 12
   },
+  "despachados": {
+   "RL": 11,
+   "RT": 4,
+   "total": 15
+  },
   "em_execucao": {
    "RL": 2,
    "RT": 1,
    "total": 3
   },
   "conta_do_posto": {
-   "RL": 99,
-   "RT": 41,
-   "total": 140
+   "RL": 88,
+   "RT": 37,
+   "total": 125
   }
  },
  "quadro_ano": {
@@ -374,10 +380,10 @@
    "resolvidos": {
     "2023": 1,
     "2024": 9,
-    "2025": 27,
-    "2026": 19,
-    "passivo": 37,
-    "total": 56
+    "2025": 26,
+    "2026": 9,
+    "passivo": 36,
+    "total": 45
    },
    "fila": {
     "2023": 2,
@@ -386,6 +392,14 @@
     "2026": 31,
     "passivo": 12,
     "total": 43
+   },
+   "despachados": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 1,
+    "2026": 10,
+    "passivo": 1,
+    "total": 11
    },
    "execucao": {
     "2023": 0,
@@ -409,9 +423,9 @@
     "2023": 0,
     "2024": 3,
     "2025": 18,
-    "2026": 9,
+    "2026": 5,
     "passivo": 21,
-    "total": 30
+    "total": 26
    },
    "fila": {
     "2023": 0,
@@ -420,6 +434,14 @@
     "2026": 7,
     "passivo": 4,
     "total": 11
+   },
+   "despachados": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 0,
+    "2026": 4,
+    "passivo": 0,
+    "total": 4
    },
    "execucao": {
     "2023": 0,
@@ -442,10 +464,10 @@
    "resolvidos": {
     "2023": 1,
     "2024": 12,
-    "2025": 45,
-    "2026": 28,
-    "passivo": 58,
-    "total": 86
+    "2025": 44,
+    "2026": 14,
+    "passivo": 57,
+    "total": 71
    },
    "fila": {
     "2023": 2,
@@ -454,6 +476,14 @@
     "2026": 38,
     "passivo": 16,
     "total": 54
+   },
+   "despachados": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 1,
+    "2026": 14,
+    "passivo": 1,
+    "total": 15
    },
    "execucao": {
     "2023": 0,

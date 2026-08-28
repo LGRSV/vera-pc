@@ -54,15 +54,18 @@ comissionamento e obra de equipamento novo.
   no ano.
 - **Resolvido pelo posto** = a demanda passou pelo COEP dentro do ano E a cadeia dela
   fechou dentro do ano, com SS atendida ou cancelada.
-- **A partição de 28/08 (`particao_coep.py`)** — duas decisões do gestor no mesmo dia,
-  nas duas pontas da conta. **Quem voltou não conta**: resolveu no ano e voltou para a
-  fila é pendente, não resolvido (tira 11). **Quem saiu do campo conta**: em ajuste de
-  proteção ou comissionamento a peça foi trocada e o COCM devolveu — a parte do COEP e a
-  do campo terminaram (soma 15). Conferido na cadeia: os 18 de «outra mesa» passaram
-  **todos** por um COCM antes, e em 15 a cadeia já saiu do campo. Os **3 que ainda estão
-  num COCM** (7905357122 Palmas, 7908705049 Aurora, 5856070091 Almas) ficam em **execução
-  no campo** até a equipe devolver. Fecha em **86 resolvidos (56 RL + 30 RT) · 54 na fila
-  · 3 em execução = 143**, e a conta do posto em **86 + 54 = 140**.
+- **A partição dos 143 (`particao_coep.py`)** parte em quatro. **Quem voltou não conta**
+  (gestor, 28/08): resolveu no ano e voltou para a fila é pendente, não resolvido — tira
+  11. **Resolvido é o que acabou** (gestor, 29/08): os 18 de «outra mesa» passaram
+  **todos** por um COCM antes, e em 15 a peça foi trocada e o campo devolveu — mas o
+  equipamento **segue com SS aberta** na mesa seguinte (PROT, TELE, SE), de 1 a 41 dias
+  lá. A parte do COEP acabou, o serviço não; ficam em **balde próprio**, não nos
+  resolvidos. Somá-los levava a 86, e o gestor não reconhece o número: «nem eu acho que
+  resolvi 86, no máximo 72». Os **3 que ainda estão num COCM** (7905357122 Palmas,
+  7908705049 Aurora, 5856070091 Almas) ficam em **execução no campo**. Fecha em
+  **71 resolvidos (45 RL + 26 RT) · 54 na fila · 15 despachados · 3 em execução = 143**,
+  e a conta do posto em **71 + 54 = 125** — que é onde a memória do gestor sempre esteve
+  («125 passaram, resolvemos 72, estamos com 53», 21/08).
 - **Régua do cancelamento (gestor, 22/08)**: cancelado é resolvido, **desde que não
   tenham aberto outra nota para aquele ativo no posto do COEP depois**. Se abriram, a
   demanda voltou para a mesa e segue pendente — não conta. Nota nova em **outro**
