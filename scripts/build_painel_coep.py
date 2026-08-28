@@ -330,58 +330,68 @@ def bloco_dinamica(r, pc):
 
 
 def bloco_quadro(pc):
-    """O quadro dos 140 por tipo, com o passivo dos anos anteriores como informativo."""
-    q = pc["quadro"]
-    pa = q["passivo_por_ano"]
+    """Os 143 pelo ANO DA DEMANDA, com tipo nas linhas.
 
-    def lin(rot, k, classe="", recuo=0):
-        d = q[k] if isinstance(k, str) else k
-        return (f'<tr class="{classe}"><td class="rot" style="padding-left:{11 + recuo * 18}px">'
-                f'{esc(rot)}</td><td class="num-col">{br(d["RL"])}</td>'
-                f'<td class="num-col">{br(d["RT"])}</td>'
-                f'<td class="num-col forte">{br(d["total"])}</td></tr>')
+    O passivo aqui é o que importa: demanda nascida em 2023, 2024 ou 2025 que ainda
+    estava viva quando o ano virou — não o ano em que o equipamento chegou à mesa.
+    """
+    q = pc["quadro_ano"]
+    anos = pc["anos"]
+    ROT = {"RL": "Religador", "RT": "Regulador", "Total": "Total"}
 
-    corpo = (
-        lin("Passaram pelo posto em 2026", "passaram", "topo")
-        + lin("Passivo dos anos anteriores", "passivo", "grupo", 1)
-        + "".join(lin(f"chegou em {a}", pa[a], "fraca", 2) for a in ("2023", "2024", "2025"))
-        + lin("Chegaram em 2026", "chegaram_em_2026", "grupo", 1)
-        + lin("Resolvidos em 2026", "resolvidos", "topo bom")
-        + lin("do passivo", "resolvidos_do_passivo", "fraca", 1)
-        + lin("dos que chegaram no ano", "resolvidos_dos_novos", "fraca", 1)
-        + lin("Na fila do posto", "na_fila", "topo")
-        + lin("do passivo", "fila_do_passivo", "fraca", 1)
-        + lin("Em execução no campo", "em_execucao", "topo")
-        + lin("Conta do posto", "conta_do_posto", "total"))
+    def celulas(tipo, grupo):
+        d = q[tipo][grupo]
+        return ("".join(f'<td class="num-col{" passivo" if a != "2026" else ""}">'
+                        f'{br(d[a]) if d[a] else "—"}</td>' for a in anos[:3])
+                + f'<td class="num-col forte passivo">{br(d["passivo"]) if d["passivo"] else "—"}</td>'
+                + f'<td class="num-col">{br(d["2026"]) if d["2026"] else "—"}</td>'
+                + f'<td class="num-col forte">{br(d["total"]) if d["total"] else "—"}</td>')
 
+    def faixa(grupo, rotulo, classe=""):
+        linhas = "".join(
+            f'<tr class="{classe}{" total" if t == "Total" else ""}">'
+            f'<td class="rot">{esc(ROT[t])}</td>{celulas(t, grupo)}</tr>'
+            for t in ("RL", "RT", "Total"))
+        return (f'<tr class="faixa"><td colspan="7">{esc(rotulo)}</td></tr>' + linhas)
+
+    cabeca = ("".join(f'<th class="num-col{" passivo" if a != "2026" else ""}">{a}</th>'
+                      for a in anos[:3])
+              + '<th class="num-col passivo">Passivo<br><em>23+24+25</em></th>'
+              + '<th class="num-col">2026</th><th class="num-col">Total</th>')
+
+    p_res = q["Total"]["resolvidos"]["passivo"] / q["Total"]["geral"]["passivo"]
+    n_res = q["Total"]["resolvidos"]["2026"] / q["Total"]["geral"]["2026"]
     velhos = pc["passivo_na_fila"][:6]
     lista = "".join(
         f'<li><b class="cod">{esc(x["ativo"])}</b><span>{esc(x["localidade"])}</span>'
         f'<i>desde {esc(x["desde"])} · {br(x["dias"])} dias</i></li>' for x in velhos)
-    p_res = q["resolvidos_do_passivo"]["total"] / q["passivo"]["total"]
-    n_res = q["resolvidos_dos_novos"]["total"] / q["chegaram_em_2026"]["total"]
 
     return f"""<section class="bloco" id="quadro">
-  {marcador("O quadro dos 140", "religador e regulador, com o passivo herdado")}
-  <div class="rolagem"><table class="tabela quadro">
-    <thead><tr><th>&nbsp;</th><th class="num-col">Religador</th>
-      <th class="num-col">Regulador</th><th class="num-col">Total</th></tr></thead>
-    <tbody>{corpo}</tbody></table></div>
-  <p class="texto">Os <b>143</b> são os que passaram; a <b>conta do posto é 140</b> —
-  resolvidos mais fila. A diferença são os três que ainda estão com a equipe de campo,
-  com a obra acontecendo agora.</p>
-  <h3>O passivo, como informativo</h3>
-  <p class="texto"><b>{q["passivo"]["total"]}</b> equipamentos já estavam na mesa em 1º de
-  janeiro — {q["passivo"]["RL"]} religadores e {q["passivo"]["RT"]} reguladores. Dois
-  esperam desde 2023, seis desde 2024 e quarenta e dois desde 2025. O posto liquidou
-  <b>{pct(p_res, 0)}</b> desse passivo no ano, contra <b>{pct(n_res, 0)}</b> do que chegou
-  novo — o velho saiu com mais eficácia que o novo, o inverso do que uma fila costuma
-  fazer.</p>
+  {marcador("O quadro por ano da demanda",
+            f"{q['Total']['geral']['total']} passaram · conta do posto "
+            f"{q['Total']['resolvidos']['total'] + q['Total']['fila']['total']}")}
+  <p class="texto">O ano é o da <b>demanda</b>, não o da chegada à mesa: uma falha de 2025
+  que só foi resolvida agora conta em 2025. É assim que o <b>passivo</b> aparece — o que
+  o ano herdou vivo.</p>
+  <div class="rolagem"><table class="tabela quadro-ano">
+    <thead><tr><th>&nbsp;</th>{cabeca}</tr></thead>
+    <tbody>
+      {faixa("resolvidos", "Resolvidos em 2026", "bom")}
+      {faixa("fila", "Na fila do posto")}
+      {faixa("execucao", "Em execução no campo")}
+      {faixa("geral", "Passaram pelo posto", "geral")}
+    </tbody>
+  </table></div>
+  <p class="texto destaque">O passivo é <b>{br(q["Total"]["geral"]["passivo"])} dos
+  {br(q["Total"]["geral"]["total"])}</b>, e o posto liquidou <b>{pct(p_res, 0)}</b> dele —
+  contra <b>{pct(n_res, 0)}</b> do que nasceu em 2026. O antigo saiu com o dobro da
+  eficácia do novo, que é o inverso do que uma fila costuma fazer. <b>2024 foi zerado</b>:
+  as doze demandas daquele ano fecharam todas.</p>
+  <h3>O que resiste do passivo</h3>
+  <p class="texto">Sobram <b>{br(q["Total"]["fila"]["passivo"])}</b> demandas antigas na
+  fila — quase todas de 2025, e duas de 2023 que passam de mil e trezentos dias.</p>
   <ul class="no-campo">{lista}</ul>
-  <p class="rodape-nota">Os {q["fila_do_passivo"]["total"]} do passivo que seguem na fila,
-  do mais antigo para o mais novo. Os dois primeiros esperam há mais de três anos e meio.</p>
 </section>"""
-
 
 # ------------------------------------------------------------------ 6. o SLA
 def bloco_sla(s):
@@ -589,6 +599,17 @@ h4 { font-family:var(--titulo); font-weight:700; font-size:15px; letter-spacing:
   font-style:italic; }
 .citacoes i { font-family:var(--dado); font-size:11px; color:var(--tinta-3);
   font-style:normal; }
+.quadro-ano td.rot { font-size:14px; padding-left:22px; }
+.quadro-ano tr.faixa td { font-family:var(--titulo); font-size:12.5px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--tinta-2);
+  background:var(--campo); padding:7px 11px; border-top:2px solid var(--tinta); }
+.quadro-ano tr.total td { font-weight:600; border-bottom:2px solid var(--filete); }
+.quadro-ano tr.geral td { color:var(--tinta-2); }
+.quadro-ano tr.bom td.forte { color:var(--campo-verde); }
+.quadro-ano td.passivo { background:rgba(188,75,14,.06); }
+.quadro-ano th.passivo { background:linear-gradient(rgba(224,112,58,.26),rgba(224,112,58,.26)), var(--tinta); }
+.quadro-ano th em { font-family:var(--dado); font-size:9.5px; font-weight:400;
+  letter-spacing:0; text-transform:none; opacity:.75; }
 .quadro td.rot { font-size:14px; }
 .quadro tr.topo td { border-top:2px solid var(--tinta); padding-top:10px; }
 .quadro tr.grupo td.rot, .quadro tr.fraca td.rot { color:var(--tinta-2); }

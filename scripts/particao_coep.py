@@ -130,6 +130,38 @@ def montar(caminho=None):
         "em_execucao": conta(execs),
         "conta_do_posto": conta(res | fila),
     }
+    # O quadro pelo ANO DA DEMANDA — o passivo de verdade: demanda nascida em 2023,
+    # 2024 ou 2025 que ainda estava viva quando o ano virou. Não confundir com o ano em
+    # que o equipamento chegou à mesa, que é outra coisa.
+    def ano_da_demanda(a):
+        r = res.get(a) if isinstance(res, dict) else None
+        r = {x["ativo"]: x for x in cp["resolvidos_do_coep"]}.get(a)
+        if r and r.get("ano_da_demanda"):
+            return int(r["ano_da_demanda"])
+        return ano_de(at[a]["primeira_chegada"])
+
+    anos = ["2023", "2024", "2025", "2026"]
+    grupos = {"resolvidos": set(resolvidos), "fila": set(fila), "execucao": execs}
+    quadro_ano = {}
+    for tipo in ("RL", "RT"):
+        quadro_ano[tipo] = {}
+        for nome, conj in grupos.items():
+            por_ano = {y: sum(1 for a in conj
+                              if sig(a) == tipo and str(ano_da_demanda(a)) == y)
+                       for y in anos}
+            por_ano["passivo"] = sum(por_ano[y] for y in ("2023", "2024", "2025"))
+            por_ano["total"] = sum(por_ano[y] for y in anos)
+            quadro_ano[tipo][nome] = por_ano
+    quadro_ano["Total"] = {
+        nome: {k: quadro_ano["RL"][nome][k] + quadro_ano["RT"][nome][k]
+               for k in list(anos) + ["passivo", "total"]} for nome in grupos}
+    for tipo in quadro_ano:
+        quadro_ano[tipo]["geral"] = {
+            k: sum(quadro_ano[tipo][n][k] for n in grupos)
+            for k in list(anos) + ["passivo", "total"]}
+    pacote["quadro_ano"] = quadro_ano
+    pacote["anos"] = anos
+
     pacote["passivo_na_fila"] = sorted(
         ({"ativo": a, "tipo": sig(a), "localidade": at[a]["localidade"],
           "desde": at[a]["primeira_chegada"], "dias": at[a]["dias_no_posto"]}
