@@ -1,23 +1,33 @@
 {
  "regua": "gestor, 28/08 e 29/08: quem voltou para a fila não conta como resolvido. Quem saiu do campo para ajuste ou comissionamento também não entra nos resolvidos — a parte do COEP acabou, mas o equipamento segue com SS aberta em outra mesa; fica em balde próprio. E quem ainda está num COCM fica em execução no campo.",
  "contas": {
-  "passaram": 130,
-  "resolvidos": 58,
+  "passaram": 119,
+  "resolvidos": 49,
   "na_fila": 54,
-  "despachados_para_outra_mesa": 15,
-  "em_execucao_no_campo": 3,
-  "trabalho_do_coep_concluido": 73,
-  "conta_do_posto": 112,
-  "fora_do_posto": 18,
+  "despachados_para_outra_mesa": 14,
+  "em_execucao_no_campo": 2,
+  "trabalho_do_coep_concluido": 63,
+  "conta_do_posto": 103,
+  "fora_do_posto": 16,
   "voltaram_para_a_fila": 11,
-  "fora_da_conta": 13,
+  "fora_da_conta": 24,
   "passaram_bruto": 143
  },
  "por_tipo": {
-  "RT": 22,
-  "RL": 36
+  "RT": 16,
+  "RL": 33
  },
  "fora_da_conta": [
+  {
+   "ativo": "5820044123",
+   "tipo_da_demanda": "AJUSTES DE PROTEÇÃO",
+   "localidade": "AGUIARNOPOLIS"
+  },
+  {
+   "ativo": "5835587001",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PORTO NACIONAL"
+  },
   {
    "ativo": "5852775092",
    "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
@@ -34,14 +44,49 @@
    "localidade": "PONTE ALTA DO BOM JESUS"
   },
   {
+   "ativo": "5856825025",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "ARAPOEMA"
+  },
+  {
+   "ativo": "5860500009",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "GUARAI"
+  },
+  {
+   "ativo": "5862464001",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PORTO NACIONAL"
+  },
+  {
    "ativo": "5862546023",
    "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
    "localidade": "COLINAS DO TOCANTINS"
   },
   {
+   "ativo": "5863381155",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PALMEIRANTE"
+  },
+  {
+   "ativo": "5865120195",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "CENTENARIO"
+  },
+  {
    "ativo": "7900236054",
    "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
    "localidade": "PUGMIL"
+  },
+  {
+   "ativo": "7902314013",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PARAISO DO TOCANTINS"
+  },
+  {
+   "ativo": "7905357122",
+   "tipo_da_demanda": "AJUSTES DE PROTEÇÃO",
+   "localidade": "PALMAS"
   },
   {
    "ativo": "7936753097",
@@ -79,9 +124,19 @@
    "localidade": "RIO SONO"
   },
   {
+   "ativo": "7963661046",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "NOVA ROSALANDIA"
+  },
+  {
    "ativo": "7965032004",
    "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
    "localidade": "ARAGUAINA"
+  },
+  {
+   "ativo": "7965164065",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "AXIXA DO TOCANTINS"
   }
  ],
  "resolvidos_por_outra_mesa": [
@@ -267,20 +322,6 @@
    "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
   },
   {
-   "ativo": "5865120195",
-   "tipo": "regulador",
-   "localidade": "CENTENARIO",
-   "ss_atual": "ETO-SE-PCM 00091/2026",
-   "onde_esta": "ETO-SE-PCM",
-   "etapa": "comissionamento — parte do COEP concluída",
-   "dias_la": 1,
-   "passou_por_cocm": [
-    "ETO-RD-GR"
-   ],
-   "situacao": "Despachado para outra mesa",
-   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
-  },
-  {
    "ativo": "7900230155",
    "tipo": "religador",
    "localidade": "PALMEIRANTE",
@@ -312,20 +353,6 @@
   }
  ],
  "em_execucao": [
-  {
-   "ativo": "7905357122",
-   "tipo": "religador",
-   "localidade": "PALMAS",
-   "ss_atual": "ETO-RD-PA 00352/2026",
-   "onde_esta": "ETO-RD-PA",
-   "etapa": "execução com os COCMs",
-   "dias_la": 88,
-   "passou_por_cocm": [
-    "ETO-RD-PA"
-   ],
-   "situacao": "Em execução no campo",
-   "nota": "a cadeia termina num COCM — a obra está acontecendo agora; entra nos resolvidos quando a equipe devolver"
-  },
   {
    "ativo": "7908705049",
    "tipo": "religador",
@@ -373,14 +400,14 @@
  ],
  "quadro": {
   "passaram": {
-   "RL": 92,
-   "RT": 38,
-   "total": 130
+   "RL": 88,
+   "RT": 31,
+   "total": 119
   },
   "passivo": {
-   "RL": 25,
-   "RT": 13,
-   "total": 38
+   "RL": 23,
+   "RT": 8,
+   "total": 31
   },
   "passivo_por_ano": {
    "2023": {
@@ -394,30 +421,30 @@
     "total": 1
    },
    "2025": {
-    "RL": 23,
-    "RT": 12,
-    "total": 35
+    "RL": 21,
+    "RT": 7,
+    "total": 28
    }
   },
   "chegaram_em_2026": {
-   "RL": 67,
-   "RT": 25,
-   "total": 92
+   "RL": 65,
+   "RT": 23,
+   "total": 88
   },
   "resolvidos": {
-   "RL": 36,
-   "RT": 22,
-   "total": 58
+   "RL": 33,
+   "RT": 16,
+   "total": 49
   },
   "resolvidos_do_passivo": {
-   "RL": 14,
-   "RT": 10,
-   "total": 24
+   "RL": 13,
+   "RT": 5,
+   "total": 18
   },
   "resolvidos_dos_novos": {
-   "RL": 22,
-   "RT": 12,
-   "total": 34
+   "RL": 20,
+   "RT": 11,
+   "total": 31
   },
   "na_fila": {
    "RL": 43,
@@ -431,23 +458,23 @@
   },
   "despachados": {
    "RL": 11,
-   "RT": 4,
-   "total": 15
+   "RT": 3,
+   "total": 14
   },
   "coep_concluiu": {
-   "RL": 47,
-   "RT": 26,
-   "total": 73
+   "RL": 44,
+   "RT": 19,
+   "total": 63
   },
   "em_execucao": {
-   "RL": 2,
+   "RL": 1,
    "RT": 1,
-   "total": 3
+   "total": 2
   },
   "conta_do_posto": {
-   "RL": 79,
-   "RT": 33,
-   "total": 112
+   "RL": 76,
+   "RT": 27,
+   "total": 103
   }
  },
  "quadro_ano": {
@@ -455,10 +482,10 @@
    "resolvidos": {
     "2023": 0,
     "2024": 2,
-    "2025": 26,
-    "2026": 8,
-    "passivo": 28,
-    "total": 36
+    "2025": 24,
+    "2026": 7,
+    "passivo": 26,
+    "total": 33
    },
    "fila": {
     "2023": 2,
@@ -479,36 +506,36 @@
    "execucao": {
     "2023": 0,
     "2024": 0,
-    "2025": 1,
+    "2025": 0,
     "2026": 1,
-    "passivo": 1,
-    "total": 2
+    "passivo": 0,
+    "total": 1
    },
    "coep_concluiu": {
     "2023": 0,
     "2024": 2,
-    "2025": 27,
-    "2026": 18,
-    "passivo": 29,
-    "total": 47
+    "2025": 25,
+    "2026": 17,
+    "passivo": 27,
+    "total": 44
    },
    "geral": {
     "2023": 2,
     "2024": 2,
-    "2025": 38,
-    "2026": 50,
-    "passivo": 42,
-    "total": 92
+    "2025": 35,
+    "2026": 49,
+    "passivo": 39,
+    "total": 88
    }
   },
   "RT": {
    "resolvidos": {
     "2023": 0,
     "2024": 1,
-    "2025": 16,
+    "2025": 10,
     "2026": 5,
-    "passivo": 17,
-    "total": 22
+    "passivo": 11,
+    "total": 16
    },
    "fila": {
     "2023": 0,
@@ -522,9 +549,9 @@
     "2023": 0,
     "2024": 0,
     "2025": 0,
-    "2026": 4,
+    "2026": 3,
     "passivo": 0,
-    "total": 4
+    "total": 3
    },
    "execucao": {
     "2023": 0,
@@ -537,28 +564,28 @@
    "coep_concluiu": {
     "2023": 0,
     "2024": 1,
-    "2025": 16,
-    "2026": 9,
-    "passivo": 17,
-    "total": 26
+    "2025": 10,
+    "2026": 8,
+    "passivo": 11,
+    "total": 19
    },
    "geral": {
     "2023": 0,
     "2024": 1,
-    "2025": 20,
-    "2026": 17,
-    "passivo": 21,
-    "total": 38
+    "2025": 14,
+    "2026": 16,
+    "passivo": 15,
+    "total": 31
    }
   },
   "Total": {
    "resolvidos": {
     "2023": 0,
     "2024": 3,
-    "2025": 42,
-    "2026": 13,
-    "passivo": 45,
-    "total": 58
+    "2025": 34,
+    "2026": 12,
+    "passivo": 37,
+    "total": 49
    },
    "fila": {
     "2023": 2,
@@ -572,33 +599,33 @@
     "2023": 0,
     "2024": 0,
     "2025": 1,
-    "2026": 14,
+    "2026": 13,
     "passivo": 1,
-    "total": 15
+    "total": 14
    },
    "execucao": {
     "2023": 0,
     "2024": 0,
-    "2025": 1,
+    "2025": 0,
     "2026": 2,
-    "passivo": 1,
-    "total": 3
+    "passivo": 0,
+    "total": 2
    },
    "coep_concluiu": {
     "2023": 0,
     "2024": 3,
-    "2025": 43,
-    "2026": 27,
-    "passivo": 46,
-    "total": 73
+    "2025": 35,
+    "2026": 25,
+    "passivo": 38,
+    "total": 63
    },
    "geral": {
     "2023": 2,
     "2024": 3,
-    "2025": 58,
-    "2026": 67,
-    "passivo": 63,
-    "total": 130
+    "2025": 49,
+    "2026": 65,
+    "passivo": 54,
+    "total": 119
    }
   }
  },

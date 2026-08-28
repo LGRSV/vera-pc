@@ -47,7 +47,7 @@ linhas.append(["TOTAL"] + [sum(d[b] for d in p["cruzado"].values()) for b in bal
               + [sum(d["total"] for d in p["cruzado"].values())])
 linhas.append([])
 linhas.append(["Entram na conta do posto", p["resumo"]["passaram"]])
-linhas.append(["Fora da conta (obra de equipamento novo)", p["resumo"]["fora_da_conta"]])
+linhas.append(["Fora da conta (não é manutenção)", p["resumo"]["fora_da_conta"]])
 linhas.append(["Passaram pelo posto, bruto", p["resumo"]["passaram_bruto"]])
 escreve(ws, linhas, [40, 18, 24, 16, 20, 16, 9])
 linha_total = len(p["cruzado"]) + 2
@@ -114,16 +114,22 @@ texto = [
     [""],
     ["O que ficou FORA da conta"],
     [""],
-    ["OBRAS (NOVOS EQUIPAMENTOS) é instalação de equipamento novo, não conserto. Os 13"],
-    ["ativos desse tipo saem da conta do posto por decisão do gestor (29/08). Eles"],
-    ["continuam na aba 'Base dos 143', marcados como 'Fora da conta', para conferência."],
-    ["Passaram pelo posto 143; a conta de manutenção é sobre 130."],
+    ["Por decisão do gestor (29/08) saem da conta do posto os tipos que não são"],
+    ["manutenção de equipamento — instalar, energizar e ajustar não é consertar:"],
+    [""],
+    ["   OBRAS (NOVOS EQUIPAMENTOS)   13    instalação de equipamento novo"],
+    ["   COMISSIONAMENTO               9    energização"],
+    ["   AJUSTES DE PROTEÇÃO           2    parametrização"],
+    ["                                24"],
+    [""],
+    ["Eles continuam na aba 'Base dos 143', marcados como 'Fora da conta', para"],
+    ["conferência. Passaram pelo posto 143; a conta de manutenção é sobre 119."],
     [""],
     ["O que continua na conta, mas não é falha"],
     [""],
-    ["COMISSIONAMENTO (9), SOLICITAÇÃO DE SERVIÇO (4), AVISOS DE ANOMALIA (4) e AJUSTES"],
-    ["DE PROTEÇÃO (2) também não são falha de equipamento. Somam 19 e seguem na conta"],
-    ["até o gestor dizer o contrário — basta mandar que saem junto com as obras."],
+    ["SOLICITAÇÃO DE SERVIÇO (4) e AVISOS DE ANOMALIA (4, somando os três tipos de"],
+    ["aviso) também não são falha de equipamento. Somam 8 e seguem na conta até o"],
+    ["gestor dizer o contrário — basta mandar que saem junto."],
     [""],
     ["Cada ativo aparece UMA VEZ"],
     [""],

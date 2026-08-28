@@ -351,14 +351,19 @@ def bloco_tiposs(td):
         return t.capitalize() if t.isupper() else t
 
     r = td["resumo"]
+    familia = {x["tipo_da_demanda"]: x["familia"] for x in td["por_ativo"]}
     baldes = [b for b in td["baldes"] if b != "fora"]
     rot = td["rotulo_balde"]
     # a linha de obra de equipamento novo zera na conta — sai da tabela e vira nota
     c = {t: dict(d, total=sum(d[b] for b in baldes))
          for t, d in td["cruzado"].items() if any(d[b] for b in baldes)}
+    excl = {t: d["fora"] for t, d in td["cruzado"].items() if d.get("fora")}
+    lista_excl = ", ".join(f"{nome(t).lower()} ({br(n)})"
+                           for t, n in sorted(excl.items(), key=lambda x: -x[1]))
+    restante = ", ".join(nome(t).lower() for t in c
+                         if familia.get(t) in ("Não é conserto", "Aviso de anomalia"))
     CLASSE = {"Falha — saiu de operação": "grave",
               "Falha — rodando com defeito": "meio"}
-    familia = {x["tipo_da_demanda"]: x["familia"] for x in td["por_ativo"]}
 
     def linha(t, d):
         f = familia.get(t, "")
@@ -398,9 +403,8 @@ def bloco_tiposs(td):
   <b>{br(r["passaram"])}</b> que entram na conta, <b>{br(r["indisponibilidade"])}</b>
   são de <b>indisponibilidade para operação</b> — o equipamento saiu de operação — e
   <b>{br(r["em_operacao_com_anomalia"])}</b> são de <b>em operação com anomalia</b>, que
-  segue rodando com defeito. Os outros <b>{br(r["nao_e_conserto"])}</b> são obra de
-  equipamento novo, comissionamento, ajuste de proteção, solicitação de serviço e aviso
-  de anomalia: <b>não são falha</b>.</p>
+  segue rodando com defeito. Sobram <b>{br(r["nao_e_conserto"])}</b> de {restante},
+  que também não são falha de equipamento e seguem na conta.</p>
   <div class="rolagem"><table class="tabela tiposs">
     <thead><tr><th>Tipo da SS</th>{cabeca}<th class="num-col">Total</th></tr></thead>
     <tbody>{corpo}{total}</tbody></table></div>
@@ -418,8 +422,8 @@ def bloco_tiposs(td):
       <th class="num-col">Encerradas</th></tr></thead>
     <tbody>{desf}</tbody></table></div>
   <p class="texto destaque">Fora da conta ficaram <b>{br(r["fora_da_conta"])}</b>
-  equipamentos cuja demanda é <b>obra de equipamento novo</b>: instalação, não conserto.
-  Eram {br(r["passaram_bruto"])} passando pelo posto; a conta de manutenção é sobre
+  equipamentos: {lista_excl}. Instalar, energizar e ajustar <b>não é consertar</b>.
+  Passaram {br(r["passaram_bruto"])} pelo posto; a conta de manutenção é sobre
   <b>{br(r["passaram"])}</b>.</p>
   <p class="rodape-nota">Tipo pelo campo TIPOSS da SS do COEP, na base
   {esc(td["fonte"])}. Quando o ativo teve mais de uma SS no posto vale a mais pesada —

@@ -63,10 +63,16 @@ FAMILIA = {
     "OBRAS (NOVOS EQUIPAMENTOS)": "Não é conserto",
     SEM_SS: "Sem SS na base",
 }
-# Obra de equipamento novo não é demanda de equipamento: é instalação. O gestor,
-# 29/08: «tipo de SS de obras novos equipamentos nem contabilizando deveriam estar».
-# Sai da conta do posto; a lista dos excluídos fica à vista, não some.
-FORA_DA_CONTA = {"OBRAS (NOVOS EQUIPAMENTOS)"}
+# O que não é demanda de manutenção de equipamento sai da conta do posto — decisões do
+# gestor em 29/08, na ordem em que vieram: «tipo de SS de obras novos equipamentos nem
+# contabilizando deveriam estar» e, logo depois, «retira esses de ajuste de proteção e
+# comissionamento». Instalar, energizar e ajustar não é consertar. A lista dos excluídos
+# fica à vista na planilha, não some.
+FORA_DA_CONTA = {
+    "OBRAS (NOVOS EQUIPAMENTOS)",
+    "COMISSIONAMENTO",
+    "AJUSTES DE PROTEÇÃO",
+}
 
 BALDES = ["resolvidos", "despachados", "fila", "execucao", "fora"]
 ROTULO_BALDE = {

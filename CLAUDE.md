@@ -108,15 +108,17 @@ comissionamento e obra de equipamento novo.
   (indisponibilidade > anomalia > aviso > o resto); 9 ativos têm tipos misturados. As SS
   **ETO-COEP 00011/2023, 00013/2023 e 00063/2023 não estão na base de SS/OS** — o export
   só alcança 24 SS do COEP de 2023 —, então 7915029003 e 7923674004 ficam sem tipo.
-- **Obra de equipamento novo sai da conta** (gestor, 29/08: «tipo de SS de obras novos
-  equipamentos nem contabilizando deveriam estar»). É instalação, não conserto. O filtro
-  mora em `tipo_da_demanda.FORA_DA_CONTA` e `particao_coep.py` importa dele — tirar os 13
-  refaz tudo sozinho. **Passaram 143 pelo posto; a conta de manutenção é sobre 130**:
-  **58 encerrados · 54 na fila · 15 despachados · 3 em execução**, trabalho do COEP
-  concluído **73** e conta do posto **58 + 54 = 112**. Os 13 continuam na planilha
-  marcados «Fora da conta». Seguem **dentro** da conta, por ora, comissionamento (9),
-  solicitação de serviço (4), avisos de anomalia (4) e ajuste de proteção (2) — 19 que
-  também não são falha, à espera da palavra do gestor.
+- **O que não é manutenção sai da conta** — duas decisões do gestor em 29/08, na ordem
+  em que vieram: «tipo de SS de obras novos equipamentos nem contabilizando deveriam
+  estar» e «retira esses de ajuste de proteção e comissionamento». Instalar, energizar e
+  ajustar não é consertar. Saem **24**: obra de equipamento novo (13), comissionamento (9)
+  e ajuste de proteção (2). O filtro mora em `tipo_da_demanda.FORA_DA_CONTA` e
+  `particao_coep.py` importa dele — mexer no conjunto refaz a partição inteira sozinha.
+  **Passaram 143 pelo posto; a conta de manutenção é sobre 119**: **49 encerrados (33 RL
+  + 16 RT) · 54 na fila · 14 despachados · 2 em execução**, trabalho do COEP concluído
+  **63** e conta do posto **49 + 54 = 103**. Os 24 continuam na planilha, marcados «Fora
+  da conta». Seguem **dentro** da conta solicitação de serviço (4) e avisos de anomalia
+  (4) — 8 que também não são falha, à espera da palavra do gestor.
 - **Ativo nunca se repete** (gestor, 29/08). Conferido nas quatro listas: 143 ativos
   distintos em 143 linhas, baldes disjuntos, nenhum código em dois lugares. Equipamento
   que saiu de operação duas vezes no ano conta uma vez; a coluna «SS no COEP» diz quantas
