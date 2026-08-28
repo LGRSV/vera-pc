@@ -63,12 +63,18 @@ FAMILIA = {
     "OBRAS (NOVOS EQUIPAMENTOS)": "Não é conserto",
     SEM_SS: "Sem SS na base",
 }
-BALDES = ["resolvidos", "despachados", "fila", "execucao"]
+# Obra de equipamento novo não é demanda de equipamento: é instalação. O gestor,
+# 29/08: «tipo de SS de obras novos equipamentos nem contabilizando deveriam estar».
+# Sai da conta do posto; a lista dos excluídos fica à vista, não some.
+FORA_DA_CONTA = {"OBRAS (NOVOS EQUIPAMENTOS)"}
+
+BALDES = ["resolvidos", "despachados", "fila", "execucao", "fora"]
 ROTULO_BALDE = {
     "resolvidos": "Demanda encerrada",
     "despachados": "Despachado para outra mesa",
     "fila": "Na fila do posto",
     "execucao": "Em execução no campo",
+    "fora": "Fora da conta",
 }
 
 
@@ -82,6 +88,29 @@ def mapa_tiposs():
     return m
 
 
+def tipo_de_cada_ativo():
+    """{ativo: TIPOSS mais pesado que ele teve no COEP}.
+
+    Não depende da partição — é o que `particao_coep.py` importa para tirar da conta
+    os ativos cuja demanda é obra de equipamento novo.
+    """
+    tiposs = mapa_tiposs()
+    with open(COEP, encoding="utf-8") as fh:
+        cp = json.load(fh)
+    saida = {}
+    for v in cp["ativos"]:
+        ss = [x.strip() for x in (v["ss"] or "").split("|") if x.strip()]
+        tipos = [tiposs[x] for x in ss if tiposs.get(x)]
+        saida[v["ativo"]] = (min(tipos, key=lambda t: ORDEM.get(t, 99))
+                             if tipos else SEM_SS)
+    return saida
+
+
+def fora_da_conta():
+    """Os ativos que não entram na conta do posto, com o motivo."""
+    return {a: t for a, t in tipo_de_cada_ativo().items() if t in FORA_DA_CONTA}
+
+
 def montar():
     tiposs = mapa_tiposs()
     with open(COEP, encoding="utf-8") as fh:
@@ -90,11 +119,12 @@ def montar():
         pc = json.load(fh)
 
     at = {a["ativo"]: a for a in cp["ativos"]}
-    fila = {a for a, v in at.items() if v["segue_no_posto"]}
-    desp = {x["ativo"] for x in pc["resolvidos_por_outra_mesa"]}
-    exe = {x["ativo"] for x in pc["em_execucao"]}
+    excl = set(fora_da_conta())          # obra de equipamento novo: fora de todo balde
+    fila = {a for a, v in at.items() if v["segue_no_posto"]} - excl
+    desp = {x["ativo"] for x in pc["resolvidos_por_outra_mesa"]} - excl
+    exe = {x["ativo"] for x in pc["em_execucao"]} - excl
     res = {r["ativo"] for r in cp["resolvidos_do_coep"]
-           if r["conta_como_resolvido_pelo_coep"]} - fila
+           if r["conta_como_resolvido_pelo_coep"]} - fila - excl
     desfecho = {r["ativo"]: r["como_terminou"] for r in cp["resolvidos_do_coep"]
                 if r["ativo"] in res}
     onde = {}
@@ -102,6 +132,9 @@ def montar():
                        ("fila", fila), ("execucao", exe)):
         for a in conj:
             onde[a] = nome
+    # os que saíram da conta não estão em balde nenhum da partição
+    for a in at:
+        onde.setdefault(a, "fora")
 
     linhas = []
     for a, v in at.items():
@@ -153,8 +186,11 @@ def montar():
 
     indisp = "INDISPONIBILIDADE PARA OPERAÇÃO"
     anomalia = "EM OPERAÇÃO COM ANOMALIA"
+    fora = [x for x in linhas if x["balde"] == "fora"]
     resumo = {
-        "passaram": len(linhas),
+        "passaram_bruto": len(linhas),
+        "fora_da_conta": len(fora),
+        "passaram": len(linhas) - len(fora),
         "indisponibilidade": cruzado.get(indisp, {}).get("total", 0),
         "em_operacao_com_anomalia": cruzado.get(anomalia, {}).get("total", 0),
         "indisponibilidade_resolvida": cruzado.get(indisp, {}).get("resolvidos", 0),
@@ -163,7 +199,8 @@ def montar():
         "indisponibilidade_cancelada": desfecho_por_tipo.get(indisp, {}).get("cancelada", 0),
         "indisponibilidade_despachada": cruzado.get(indisp, {}).get("despachados", 0),
         "nao_e_conserto": sum(v["total"] for f, v in por_familia.items()
-                              if f in ("Não é conserto", "Aviso de anomalia")),
+                              if f in ("Não é conserto", "Aviso de anomalia"))
+                          - len(fora),
     }
     # o que o parque de fato ganhou de volta: saiu de operação, SS atendida
     resumo["troca_confirmada"] = (resumo["indisponibilidade_atendida"]

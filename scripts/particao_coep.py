@@ -34,6 +34,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 import sla_manutencao as base  # noqa: E402
 import sla_por_equipe as eq  # noqa: E402
+import tipo_da_demanda as td  # noqa: E402
 
 SAIDA = os.path.join(RAIZ, "data", "missao", "particao_coep.json")
 COEP = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
@@ -53,14 +54,18 @@ def montar(caminho=None):
     with open(COEP, encoding="utf-8") as fh:
         cp = json.load(fh)
 
-    at = {a["ativo"]: a for a in cp["ativos"]}
+    # Obra de equipamento novo não é demanda de equipamento — sai antes de tudo.
+    excluidos = td.fora_da_conta()
+    at = {a["ativo"]: a for a in cp["ativos"] if a["ativo"] not in excluidos}
     res = {r["ativo"]: r for r in cp["resolvidos_do_coep"]
-           if r["conta_como_resolvido_pelo_coep"]}
+           if r["conta_como_resolvido_pelo_coep"] and r["ativo"] not in excluidos}
     fila = {a for a, v in at.items() if v["segue_no_posto"]}
     voltaram = set(res) & fila
 
     itens, execucao = [], []
     for r in cp["pendentes_em_outra_mesa"]:
+        if r["ativo"] in excluidos:
+            continue
         no_campo, passou = ainda_no_campo(r["ss_atual"], reg, anterior)
         registro = {
             "ativo": r["ativo"], "tipo": r["tipo"], "localidade": r["localidade"],
@@ -98,9 +103,16 @@ def montar(caminho=None):
             "conta_do_posto": len(resolvidos) + len(fila),
             "fora_do_posto": len(despachados) + len(execucao),
             "voltaram_para_a_fila": len(voltaram),
+            "fora_da_conta": len(excluidos),
+            "passaram_bruto": len(cp["ativos"]),
         },
         "por_tipo": dict(Counter(
             "RL" if a[:2] in ("79", "78") else "RT" for a in resolvidos)),
+        "fora_da_conta": sorted(
+            ({"ativo": a, "tipo_da_demanda": t,
+              "localidade": next((x["localidade"] for x in cp["ativos"]
+                                  if x["ativo"] == a), "")}
+             for a, t in excluidos.items()), key=lambda x: x["ativo"]),
         "resolvidos_por_outra_mesa": itens,
         "em_execucao": execucao,
         "voltaram": sorted(voltaram),

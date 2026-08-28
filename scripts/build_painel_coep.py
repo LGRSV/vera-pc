@@ -350,10 +350,12 @@ def bloco_tiposs(td):
         """Capitaliza só o que vem em caixa alta da base; «(sem SS na base)» fica."""
         return t.capitalize() if t.isupper() else t
 
-    c = td["cruzado"]
     r = td["resumo"]
-    baldes = td["baldes"]
+    baldes = [b for b in td["baldes"] if b != "fora"]
     rot = td["rotulo_balde"]
+    # a linha de obra de equipamento novo zera na conta — sai da tabela e vira nota
+    c = {t: dict(d, total=sum(d[b] for b in baldes))
+         for t, d in td["cruzado"].items() if any(d[b] for b in baldes)}
     CLASSE = {"Falha — saiu de operação": "grave",
               "Falha — rodando com defeito": "meio"}
     familia = {x["tipo_da_demanda"]: x["familia"] for x in td["por_ativo"]}
@@ -381,13 +383,19 @@ def bloco_tiposs(td):
         f'<td class="num-col">{br(des[t]["atendida"]) if des[t]["atendida"] else "—"}</td>'
         f'<td class="num-col">{br(des[t]["cancelada"]) if des[t]["cancelada"] else "—"}</td>'
         f'<td class="num-col forte">{br(des[t]["total"])}</td></tr>' for t in ordem)
+    desf += ('<tr class="total"><td class="rot-tiposs">Total</td>'
+             + "".join(f'<td class="num-col">'
+                       f'{br(sum(des[t][k] for t in ordem))}</td>'
+                       for k in ("atendida", "cancelada"))
+             + f'<td class="num-col forte">'
+               f'{br(sum(des[t]["total"] for t in ordem))}</td></tr>')
 
     return f"""<section class="bloco" id="tiposs">
   {marcador("O que era falha e o que não era",
             f"{r['indisponibilidade']} de indisponibilidade · "
             f"{r['em_operacao_com_anomalia']} em operação com anomalia")}
   <p class="texto destaque">«Resolvido» estava somando coisa que não é conserto. Dos
-  <b>{br(r["passaram"])}</b> que passaram pelo posto, <b>{br(r["indisponibilidade"])}</b>
+  <b>{br(r["passaram"])}</b> que entram na conta, <b>{br(r["indisponibilidade"])}</b>
   são de <b>indisponibilidade para operação</b> — o equipamento saiu de operação — e
   <b>{br(r["em_operacao_com_anomalia"])}</b> são de <b>em operação com anomalia</b>, que
   segue rodando com defeito. Os outros <b>{br(r["nao_e_conserto"])}</b> são obra de
@@ -403,12 +411,16 @@ def bloco_tiposs(td):
   fecharam por cancelamento. Somando as
   <b>{br(r["indisponibilidade_despachada"])}</b> despachadas, com a peça já trocada, a
   <b>troca confirmada</b> do ano é <b>{br(r["troca_confirmada"])}</b> equipamentos — não
-  os {br(r["passaram"])} que passaram nem o total de encerrados.</p>
+  os {br(r["passaram"])} que entraram na conta nem o total de encerrados.</p>
   <div class="rolagem"><table class="tabela tiposs">
     <thead><tr><th>Tipo da SS</th><th class="num-col">SS atendida</th>
       <th class="num-col">SS cancelada</th>
       <th class="num-col">Encerradas</th></tr></thead>
     <tbody>{desf}</tbody></table></div>
+  <p class="texto destaque">Fora da conta ficaram <b>{br(r["fora_da_conta"])}</b>
+  equipamentos cuja demanda é <b>obra de equipamento novo</b>: instalação, não conserto.
+  Eram {br(r["passaram_bruto"])} passando pelo posto; a conta de manutenção é sobre
+  <b>{br(r["passaram"])}</b>.</p>
   <p class="rodape-nota">Tipo pelo campo TIPOSS da SS do COEP, na base
   {esc(td["fonte"])}. Quando o ativo teve mais de uma SS no posto vale a mais pesada —
   indisponibilidade ganha de anomalia, que ganha do resto. Duas SS de janeiro de 2023

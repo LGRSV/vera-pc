@@ -1,20 +1,89 @@
 {
  "regua": "gestor, 28/08 e 29/08: quem voltou para a fila não conta como resolvido. Quem saiu do campo para ajuste ou comissionamento também não entra nos resolvidos — a parte do COEP acabou, mas o equipamento segue com SS aberta em outra mesa; fica em balde próprio. E quem ainda está num COCM fica em execução no campo.",
  "contas": {
-  "passaram": 143,
-  "resolvidos": 71,
+  "passaram": 130,
+  "resolvidos": 58,
   "na_fila": 54,
   "despachados_para_outra_mesa": 15,
   "em_execucao_no_campo": 3,
-  "trabalho_do_coep_concluido": 86,
-  "conta_do_posto": 125,
+  "trabalho_do_coep_concluido": 73,
+  "conta_do_posto": 112,
   "fora_do_posto": 18,
-  "voltaram_para_a_fila": 11
+  "voltaram_para_a_fila": 11,
+  "fora_da_conta": 13,
+  "passaram_bruto": 143
  },
  "por_tipo": {
-  "RT": 26,
-  "RL": 45
+  "RT": 22,
+  "RL": 36
  },
+ "fora_da_conta": [
+  {
+   "ativo": "5852775092",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "NOVO ACORDO"
+  },
+  {
+   "ativo": "5854681071",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "BREJINHO DE NAZARE"
+  },
+  {
+   "ativo": "5855606027",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "PONTE ALTA DO BOM JESUS"
+  },
+  {
+   "ativo": "5862546023",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "COLINAS DO TOCANTINS"
+  },
+  {
+   "ativo": "7900236054",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "PUGMIL"
+  },
+  {
+   "ativo": "7936753097",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "TALISMA"
+  },
+  {
+   "ativo": "7955175004",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ARAGUAINA"
+  },
+  {
+   "ativo": "7955825037",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ALIANCA DO TOCANTINS"
+  },
+  {
+   "ativo": "7956063152",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "SANTA ROSA DO TOCANTINS"
+  },
+  {
+   "ativo": "7956117005",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ARRAIAS"
+  },
+  {
+   "ativo": "7957163122",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "PALMAS"
+  },
+  {
+   "ativo": "7959990070",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "RIO SONO"
+  },
+  {
+   "ativo": "7965032004",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ARAGUAINA"
+  }
+ ],
  "resolvidos_por_outra_mesa": [
   {
    "ativo": "5846328094",
@@ -304,14 +373,14 @@
  ],
  "quadro": {
   "passaram": {
-   "RL": 101,
-   "RT": 42,
-   "total": 143
+   "RL": 92,
+   "RT": 38,
+   "total": 130
   },
   "passivo": {
-   "RL": 33,
-   "RT": 17,
-   "total": 50
+   "RL": 25,
+   "RT": 13,
+   "total": 38
   },
   "passivo_por_ano": {
    "2023": {
@@ -320,35 +389,35 @@
     "total": 2
    },
    "2024": {
-    "RL": 5,
+    "RL": 0,
     "RT": 1,
-    "total": 6
+    "total": 1
    },
    "2025": {
-    "RL": 26,
-    "RT": 16,
-    "total": 42
+    "RL": 23,
+    "RT": 12,
+    "total": 35
    }
   },
   "chegaram_em_2026": {
-   "RL": 68,
+   "RL": 67,
    "RT": 25,
-   "total": 93
+   "total": 92
   },
   "resolvidos": {
-   "RL": 45,
-   "RT": 26,
-   "total": 71
+   "RL": 36,
+   "RT": 22,
+   "total": 58
   },
   "resolvidos_do_passivo": {
-   "RL": 22,
-   "RT": 14,
-   "total": 36
+   "RL": 14,
+   "RT": 10,
+   "total": 24
   },
   "resolvidos_dos_novos": {
-   "RL": 23,
+   "RL": 22,
    "RT": 12,
-   "total": 35
+   "total": 34
   },
   "na_fila": {
    "RL": 43,
@@ -366,9 +435,9 @@
    "total": 15
   },
   "coep_concluiu": {
-   "RL": 56,
-   "RT": 30,
-   "total": 86
+   "RL": 47,
+   "RT": 26,
+   "total": 73
   },
   "em_execucao": {
    "RL": 2,
@@ -376,20 +445,20 @@
    "total": 3
   },
   "conta_do_posto": {
-   "RL": 88,
-   "RT": 37,
-   "total": 125
+   "RL": 79,
+   "RT": 33,
+   "total": 112
   }
  },
  "quadro_ano": {
   "RL": {
    "resolvidos": {
-    "2023": 1,
-    "2024": 9,
+    "2023": 0,
+    "2024": 2,
     "2025": 26,
-    "2026": 9,
-    "passivo": 36,
-    "total": 45
+    "2026": 8,
+    "passivo": 28,
+    "total": 36
    },
    "fila": {
     "2023": 2,
@@ -416,30 +485,30 @@
     "total": 2
    },
    "coep_concluiu": {
-    "2023": 1,
-    "2024": 9,
+    "2023": 0,
+    "2024": 2,
     "2025": 27,
-    "2026": 19,
-    "passivo": 37,
-    "total": 56
+    "2026": 18,
+    "passivo": 29,
+    "total": 47
    },
    "geral": {
-    "2023": 3,
-    "2024": 9,
+    "2023": 2,
+    "2024": 2,
     "2025": 38,
-    "2026": 51,
-    "passivo": 50,
-    "total": 101
+    "2026": 50,
+    "passivo": 42,
+    "total": 92
    }
   },
   "RT": {
    "resolvidos": {
     "2023": 0,
-    "2024": 3,
-    "2025": 18,
+    "2024": 1,
+    "2025": 16,
     "2026": 5,
-    "passivo": 21,
-    "total": 26
+    "passivo": 17,
+    "total": 22
    },
    "fila": {
     "2023": 0,
@@ -467,29 +536,29 @@
    },
    "coep_concluiu": {
     "2023": 0,
-    "2024": 3,
-    "2025": 18,
+    "2024": 1,
+    "2025": 16,
     "2026": 9,
-    "passivo": 21,
-    "total": 30
+    "passivo": 17,
+    "total": 26
    },
    "geral": {
     "2023": 0,
-    "2024": 3,
-    "2025": 22,
+    "2024": 1,
+    "2025": 20,
     "2026": 17,
-    "passivo": 25,
-    "total": 42
+    "passivo": 21,
+    "total": 38
    }
   },
   "Total": {
    "resolvidos": {
-    "2023": 1,
-    "2024": 12,
-    "2025": 44,
-    "2026": 14,
-    "passivo": 57,
-    "total": 71
+    "2023": 0,
+    "2024": 3,
+    "2025": 42,
+    "2026": 13,
+    "passivo": 45,
+    "total": 58
    },
    "fila": {
     "2023": 2,
@@ -516,20 +585,20 @@
     "total": 3
    },
    "coep_concluiu": {
-    "2023": 1,
-    "2024": 12,
-    "2025": 45,
-    "2026": 28,
-    "passivo": 58,
-    "total": 86
+    "2023": 0,
+    "2024": 3,
+    "2025": 43,
+    "2026": 27,
+    "passivo": 46,
+    "total": 73
    },
    "geral": {
-    "2023": 3,
-    "2024": 12,
-    "2025": 60,
-    "2026": 68,
-    "passivo": 75,
-    "total": 143
+    "2023": 2,
+    "2024": 3,
+    "2025": 58,
+    "2026": 67,
+    "passivo": 63,
+    "total": 130
    }
   }
  },

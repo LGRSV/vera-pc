@@ -2,7 +2,9 @@
  "regua": "o tipo do ativo é o da SS mais pesada que ele teve no COEP; indisponibilidade > em operação com anomalia > aviso > o resto",
  "fonte": "BASE_SS_OS_20082026.txt",
  "resumo": {
-  "passaram": 143,
+  "passaram_bruto": 143,
+  "fora_da_conta": 13,
+  "passaram": 130,
   "indisponibilidade": 102,
   "em_operacao_com_anomalia": 7,
   "indisponibilidade_resolvida": 34,
@@ -10,7 +12,7 @@
   "indisponibilidade_atendida": 26,
   "indisponibilidade_cancelada": 8,
   "indisponibilidade_despachada": 14,
-  "nao_e_conserto": 32,
+  "nao_e_conserto": 19,
   "troca_confirmada": 40
  },
  "cruzado": {
@@ -19,6 +21,7 @@
    "despachados": 14,
    "fila": 52,
    "execucao": 2,
+   "fora": 0,
    "total": 102
   },
   "EM OPERAÇÃO COM ANOMALIA": {
@@ -26,6 +29,7 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 7
   },
   "ANOMALIA EM RELIGADOR": {
@@ -33,6 +37,7 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 1
   },
   "AVISO DE ANOMALIA": {
@@ -40,6 +45,7 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 2
   },
   "AVISO PROTEÇÃO & SELETIVIDADE": {
@@ -47,6 +53,7 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 1
   },
   "AJUSTES DE PROTEÇÃO": {
@@ -54,6 +61,7 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 1,
+   "fora": 0,
    "total": 2
   },
   "COMISSIONAMENTO": {
@@ -61,6 +69,7 @@
    "despachados": 1,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 9
   },
   "SOLICITAÇÃO DE SERVIÇO": {
@@ -68,13 +77,15 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 4
   },
   "OBRAS (NOVOS EQUIPAMENTOS)": {
-   "resolvidos": 13,
+   "resolvidos": 0,
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 13,
    "total": 13
   },
   "(sem SS na base)": {
@@ -82,6 +93,7 @@
    "despachados": 0,
    "fila": 2,
    "execucao": 0,
+   "fora": 0,
    "total": 2
   }
  },
@@ -91,6 +103,7 @@
    "despachados": 14,
    "fila": 52,
    "execucao": 2,
+   "fora": 0,
    "total": 102
   },
   "Falha — rodando com defeito": {
@@ -98,6 +111,7 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 7
   },
   "Aviso de anomalia": {
@@ -105,13 +119,15 @@
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
+   "fora": 0,
    "total": 4
   },
   "Não é conserto": {
-   "resolvidos": 26,
+   "resolvidos": 13,
    "despachados": 1,
    "fila": 0,
    "execucao": 1,
+   "fora": 13,
    "total": 28
   },
   "Sem SS na base": {
@@ -119,6 +135,7 @@
    "despachados": 0,
    "fila": 2,
    "execucao": 0,
+   "fora": 0,
    "total": 2
   }
  },
@@ -164,9 +181,9 @@
    "total": 4
   },
   "OBRAS (NOVOS EQUIPAMENTOS)": {
-   "atendida": 2,
-   "cancelada": 11,
-   "total": 13
+   "atendida": 0,
+   "cancelada": 0,
+   "total": 0
   },
   "(sem SS na base)": {
    "atendida": 0,
@@ -178,13 +195,15 @@
   "resolvidos",
   "despachados",
   "fila",
-  "execucao"
+  "execucao",
+  "fora"
  ],
  "rotulo_balde": {
   "resolvidos": "Demanda encerrada",
   "despachados": "Despachado para outra mesa",
   "fila": "Na fila do posto",
-  "execucao": "Em execução no campo"
+  "execucao": "Em execução no campo",
+  "fora": "Fora da conta"
  },
  "por_ativo": [
   {
@@ -1114,214 +1133,6 @@
    "como_terminou": "SS CANCELADA",
    "ss": "ETO-COEP 00137/2026",
    "dias_no_posto": 1
-  },
-  {
-   "ativo": "5852775092",
-   "sigla": "RT",
-   "tipo": "regulador",
-   "localidade": "NOVO ACORDO",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 2,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00109/2026 | ETO-COEP 00038/2025",
-   "dias_no_posto": 447
-  },
-  {
-   "ativo": "5854681071",
-   "sigla": "RT",
-   "tipo": "regulador",
-   "localidade": "BREJINHO DE NAZARE",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 3,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00098/2025 | ETO-COEP 00029/2025 | ETO-COEP 00025/2026",
-   "dias_no_posto": 420
-  },
-  {
-   "ativo": "5855606027",
-   "sigla": "RT",
-   "tipo": "regulador",
-   "localidade": "PONTE ALTA DO BOM JESUS",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00106/2025",
-   "dias_no_posto": 397
-  },
-  {
-   "ativo": "5862546023",
-   "sigla": "RT",
-   "tipo": "regulador",
-   "localidade": "COLINAS DO TOCANTINS",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00217/2025",
-   "dias_no_posto": 238
-  },
-  {
-   "ativo": "7900236054",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "PUGMIL",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00072/2024",
-   "dias_no_posto": 246
-  },
-  {
-   "ativo": "7936753097",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "TALISMA",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00162/2024",
-   "dias_no_posto": 568
-  },
-  {
-   "ativo": "7955175004",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "ARAGUAINA",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00125/2024",
-   "dias_no_posto": 582
-  },
-  {
-   "ativo": "7955825037",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "ALIANCA DO TOCANTINS",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00152/2024",
-   "dias_no_posto": 535
-  },
-  {
-   "ativo": "7956063152",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "SANTA ROSA DO TOCANTINS",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 2,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00166/2024 | ETO-COEP 00091/2025",
-   "dias_no_posto": 404
-  },
-  {
-   "ativo": "7956117005",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "ARRAIAS",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00157/2024",
-   "dias_no_posto": 538
-  },
-  {
-   "ativo": "7957163122",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "PALMAS",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS ATENDIDA",
-   "ss": "ETO-COEP 00013/2025",
-   "dias_no_posto": 337
-  },
-  {
-   "ativo": "7959990070",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "RIO SONO",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00170/2024",
-   "dias_no_posto": 525
-  },
-  {
-   "ativo": "7965032004",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "ARAGUAINA",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "familia": "Não é conserto",
-   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
-   "qtd_ss_no_coep": 2,
-   "como_terminou": "SS ATENDIDA",
-   "ss": "ETO-COEP 00018/2026 | ETO-COEP 00003/2026",
-   "dias_no_posto": 13
   },
   {
    "ativo": "5800371025",
@@ -2474,6 +2285,214 @@
    "como_terminou": "",
    "ss": "ETO-COEP 00188/2025 | ETO-COEP 00116/2025",
    "dias_no_posto": 262
+  },
+  {
+   "ativo": "5852775092",
+   "sigla": "RT",
+   "tipo": "regulador",
+   "localidade": "NOVO ACORDO",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 2,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00109/2026 | ETO-COEP 00038/2025",
+   "dias_no_posto": 447
+  },
+  {
+   "ativo": "5854681071",
+   "sigla": "RT",
+   "tipo": "regulador",
+   "localidade": "BREJINHO DE NAZARE",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 3,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00098/2025 | ETO-COEP 00029/2025 | ETO-COEP 00025/2026",
+   "dias_no_posto": 420
+  },
+  {
+   "ativo": "5855606027",
+   "sigla": "RT",
+   "tipo": "regulador",
+   "localidade": "PONTE ALTA DO BOM JESUS",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00106/2025",
+   "dias_no_posto": 397
+  },
+  {
+   "ativo": "5862546023",
+   "sigla": "RT",
+   "tipo": "regulador",
+   "localidade": "COLINAS DO TOCANTINS",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00217/2025",
+   "dias_no_posto": 238
+  },
+  {
+   "ativo": "7900236054",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "PUGMIL",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00072/2024",
+   "dias_no_posto": 246
+  },
+  {
+   "ativo": "7936753097",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "TALISMA",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00162/2024",
+   "dias_no_posto": 568
+  },
+  {
+   "ativo": "7955175004",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "ARAGUAINA",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00125/2024",
+   "dias_no_posto": 582
+  },
+  {
+   "ativo": "7955825037",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "ALIANCA DO TOCANTINS",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00152/2024",
+   "dias_no_posto": 535
+  },
+  {
+   "ativo": "7956063152",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "SANTA ROSA DO TOCANTINS",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 2,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00166/2024 | ETO-COEP 00091/2025",
+   "dias_no_posto": 404
+  },
+  {
+   "ativo": "7956117005",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "ARRAIAS",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00157/2024",
+   "dias_no_posto": 538
+  },
+  {
+   "ativo": "7957163122",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "PALMAS",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00013/2025",
+   "dias_no_posto": 337
+  },
+  {
+   "ativo": "7959990070",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "RIO SONO",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00170/2024",
+   "dias_no_posto": 525
+  },
+  {
+   "ativo": "7965032004",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "ARAGUAINA",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "familia": "Não é conserto",
+   "todos_os_tipos": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "qtd_ss_no_coep": 2,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00018/2026 | ETO-COEP 00003/2026",
+   "dias_no_posto": 13
   }
  ]
 }
