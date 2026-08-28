@@ -103,11 +103,24 @@ comissionamento e obra de equipamento novo.
   comissionamento (9), solicitação de serviço (4), aviso de anomalia (4) e ajuste de
   proteção (2)** — não são falha. Nos 71 encerrados só **34** eram indisponibilidade, e
   destes **26 com SS atendida**; somando as **14 despachadas** com peça já trocada, a
-  **troca confirmada do ano é 40**. `tipo_da_demanda.py` monta, `dist/TIPO_DA_DEMANDA.xlsx`
-  entrega. **Régua**: o tipo do ativo é o da SS **mais pesada** que ele teve no COEP
+  **troca confirmada do ano é 40**. `tipo_da_demanda.py` monta,
+  `planilha_tipo_da_demanda.py` entrega em `dist/TIPO_DA_DEMANDA.xlsx`. **Régua**: o tipo do ativo é o da SS **mais pesada** que ele teve no COEP
   (indisponibilidade > anomalia > aviso > o resto); 9 ativos têm tipos misturados. As SS
   **ETO-COEP 00011/2023, 00013/2023 e 00063/2023 não estão na base de SS/OS** — o export
   só alcança 24 SS do COEP de 2023 —, então 7915029003 e 7923674004 ficam sem tipo.
+- **Obra de equipamento novo sai da conta** (gestor, 29/08: «tipo de SS de obras novos
+  equipamentos nem contabilizando deveriam estar»). É instalação, não conserto. O filtro
+  mora em `tipo_da_demanda.FORA_DA_CONTA` e `particao_coep.py` importa dele — tirar os 13
+  refaz tudo sozinho. **Passaram 143 pelo posto; a conta de manutenção é sobre 130**:
+  **58 encerrados · 54 na fila · 15 despachados · 3 em execução**, trabalho do COEP
+  concluído **73** e conta do posto **58 + 54 = 112**. Os 13 continuam na planilha
+  marcados «Fora da conta». Seguem **dentro** da conta, por ora, comissionamento (9),
+  solicitação de serviço (4), avisos de anomalia (4) e ajuste de proteção (2) — 19 que
+  também não são falha, à espera da palavra do gestor.
+- **Ativo nunca se repete** (gestor, 29/08). Conferido nas quatro listas: 143 ativos
+  distintos em 143 linhas, baldes disjuntos, nenhum código em dois lugares. Equipamento
+  que saiu de operação duas vezes no ano conta uma vez; a coluna «SS no COEP» diz quantas
+  SS ele teve (vai até 5).
 - **Primeiro ataque do DMSL não conta**: a demanda morreu na mão da DMSL.
 - **Realizado do DCMD no ano (gestor, 26/08)**: SS **atendida** com equipe de campo na
   cadeia **+ cancelada que ficou de pé** (sem nota nova no COEP depois; nota pendente em
