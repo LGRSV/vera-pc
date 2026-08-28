@@ -8,7 +8,8 @@ Seis visões pedidas pelo gestor em 29/08, todas na régua de 28/08 (71 resolvid
   2. O passivo — quantos vinham de anos anteriores, por tipo e por grupo
   3. Os 54 pendentes, por tipo, abertos pelo ano da ocorrência
   4. Os 125, por tipo e por ano da ocorrência
-  5. Falha em 2026, mês a mês, da taxa de falha da planilha base
+  5. Falha em 2026 e em 2025, mês a mês, da taxa de falha da planilha base, mais o
+     confronto do mesmo mês nos dois anos
   6. O passivo mês a mês, pela data da ocorrência inicial
 
 REGRA DO ANO: vale sempre a DATA DE OCORRÊNCIA, nunca a abertura da SS nem o número
@@ -192,24 +193,14 @@ def montar():
                   + [q[y] or "—" for y in ANOS] + [q["passivo"], q["total"]])
     negrito(ws, ws.max_row, 7)
 
-    # 5 — falha em 2026, mês a mês, da taxa de falha
+    # 5 — falha mês a mês, da taxa de falha da planilha base
     with open(BASE, encoding="utf-8") as fh:
         bc = json.load(fh)
-    ws2 = wb.create_sheet("Falha 2026 mensal")
-    ws2.column_dimensions["A"].width = 12
-    for c in "BCDE":
-        ws2.column_dimensions[c].width = 13
-    cabeca(ws2, 1, "5 · Quantos RL e RT falharam em 2026 (taxa de falha)",
-           ["Mês", "Religador", "Regulador", "Total", "Acumulado"])
-    rl = [x["falhas"] for x in bc["mensal"]["RL|2026"]][:8]
-    rt = [x["falhas"] for x in bc["mensal"]["RT|2026"]][:8]
-    ac = 0
-    for i in range(8):
-        ac += rl[i] + rt[i]
-        ws2.append([MES[i] + "/26", rl[i], rt[i], rl[i] + rt[i], ac])
-    ws2.append(["Total", sum(rl), sum(rt), sum(rl) + sum(rt), ""])
-    negrito(ws2, ws2.max_row, 5)
-    grafico(ws2, "Falhas de 2026 por mês", 2, 3, ws2.max_row - 1, "G2")
+    aba_falha(wb, bc, 2026, 8,
+              "5 · Quantos RL e RT falharam em 2026 (taxa de falha)")
+    aba_falha(wb, bc, 2025, 12,
+              "5b · Quantos RL e RT falharam em 2025 (taxa de falha)")
+    aba_confronto(wb, bc)
 
     # 6 — o passivo mês a mês, pela ocorrência inicial
     ws3 = wb.create_sheet("Passivo mensal")
@@ -243,6 +234,70 @@ def montar():
     os.makedirs(os.path.dirname(SAIDA), exist_ok=True)
     wb.save(SAIDA)
     return SAIDA, q_res, q_fila, q_125, len(passivo)
+
+
+
+def aba_falha(wb, bc, ano, ate, titulo):
+    """Uma aba de falha por ano — a série mensal da planilha base do gestor."""
+    ws = wb.create_sheet(f"Falha {ano} mensal")
+    ws.column_dimensions["A"].width = 12
+    for c in "BCDEFG":
+        ws.column_dimensions[c].width = 13
+    cabeca(ws, 1, titulo,
+           ["Mês", "Religador", "Regulador", "Total", "Acumulado",
+            "Parque RL", "Parque RT"])
+    rl = bc["mensal"][f"RL|{ano}"][:ate]
+    rt = bc["mensal"][f"RT|{ano}"][:ate]
+    ac = 0
+    for i in range(ate):
+        f_rl, f_rt = rl[i]["falhas"], rt[i]["falhas"]
+        ac += f_rl + f_rt
+        ws.append([f"{MES[i]}/{str(ano)[2:]}", f_rl, f_rt, f_rl + f_rt, ac,
+                   rl[i]["parque"], rt[i]["parque"]])
+    s_rl = sum(x["falhas"] for x in rl)
+    s_rt = sum(x["falhas"] for x in rt)
+    ws.append(["Total", s_rl, s_rt, s_rl + s_rt, "",
+               rl[-1]["parque"], rt[-1]["parque"]])
+    negrito(ws, ws.max_row, 7)
+    ws.append([])
+    ws.append(["Taxa do ano", round(s_rl / rl[-1]["parque"], 4),
+               round(s_rt / rt[-1]["parque"], 4),
+               round((s_rl + s_rt) / (rl[-1]["parque"] + rt[-1]["parque"]), 4)])
+    for c in (2, 3, 4):
+        ws.cell(row=ws.max_row, column=c).number_format = "0.00%"
+        ws.cell(row=ws.max_row, column=c).font = Font(bold=True)
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+    grafico(ws, f"Falhas de {ano} por mês", 2, 3, 2 + ate, "I2")
+    return ws
+
+
+def aba_confronto(wb, bc):
+    """2025 contra 2026, mês a mês — o mesmo mês nos dois anos, lado a lado."""
+    ws = wb.create_sheet("Falha 2025 x 2026")
+    ws.column_dimensions["A"].width = 12
+    for c in "BCDEFG":
+        ws.column_dimensions[c].width = 14
+    cabeca(ws, 1, "5c · O mesmo mês nos dois anos",
+           ["Mês", "RL 2025", "RL 2026", "RT 2025", "RT 2026",
+            "Total 2025", "Total 2026"])
+    d = {f"{t}|{a}": [x["falhas"] for x in bc["mensal"][f"{t}|{a}"]]
+         for t in ("RL", "RT") for a in (2025, 2026)}
+    for i in range(12):
+        ate26 = i < 8      # 2026 só tem dado até agosto, a posição do relatório
+        ws.append([MES[i],
+                   d["RL|2025"][i], d["RL|2026"][i] if ate26 else "",
+                   d["RT|2025"][i], d["RT|2026"][i] if ate26 else "",
+                   d["RL|2025"][i] + d["RT|2025"][i],
+                   (d["RL|2026"][i] + d["RT|2026"][i]) if ate26 else ""])
+    p8 = lambda k: sum(d[k][:8])
+    ws.append(["Jan–ago", p8("RL|2025"), p8("RL|2026"), p8("RT|2025"),
+               p8("RT|2026"), p8("RL|2025") + p8("RT|2025"),
+               p8("RL|2026") + p8("RT|2026")])
+    negrito(ws, ws.max_row, 7)
+    ws.append(["Ano fechado", sum(d["RL|2025"]), "", sum(d["RT|2025"]), "",
+               sum(d["RL|2025"]) + sum(d["RT|2025"]), ""])
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True, italic=True)
+    return ws
 
 
 def grafico(ws, titulo, cab, r0, r1, onde):
@@ -294,6 +349,15 @@ TEXTO = [
     "",
     "Os dois números não se somam nem se comparam direto: o primeiro é do parque, o",
     "segundo é da mesa.",
+    "",
+    "Cuidado com o parque das abas de falha:",
+    "A coluna Parque é a da série mensal da planilha base do gestor — 1.281 RL e 180 RT",
+    "em janeiro de 2026, mais a expansão somada no próprio mês. Para 2025 essa base foi",
+    "carregada para trás, então ela é o parque do fim de 2025, não a média do ano.",
+    "",
+    "A taxa oficial dos três anos usa outro parque: 1.307 RL e 207 RT. Nessa base as",
+    "taxas de 2025 ficam RL 2,68% e RT 8,70%, contra os 2,73% e 10,00% da aba. A",
+    "diferença é só o denominador; o número de falhas é o mesmo.",
     "",
     "Cada ativo conta uma vez:",
     "125 ativos distintos em 125 linhas. Equipamento que passou pelo posto duas vezes",
