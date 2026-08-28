@@ -275,6 +275,7 @@ diferente de «Sem classificação».
 | Página | URL |
 | --- | --- |
 | **Prontuário do COEP** (da planilha base, 28/08) | https://claude.ai/code/artifact/cd7d36b6-9e66-4451-b663-13e3b4462e0e |
+| **A apuração dos 143** (método e linha do tempo, 29/08) | https://claude.ai/code/artifact/299529d3-86f6-4623-9562-e4add456c6e8 |
 | Painel de equipamentos especiais | https://claude.ai/code/artifact/d65c0278-32e4-47aa-815b-43abc992a630 |
 | Dinâmica do posto | https://claude.ai/code/artifact/b4ef898c-efd8-4681-b996-2808001354ec |
 | Taxa de falha | https://claude.ai/code/artifact/978e5138-959a-4290-b454-c83774129095 |
