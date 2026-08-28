@@ -22,6 +22,7 @@ Grava data/missao/particao_coep.json.
 Rodar: python3 scripts/particao_coep.py [base_de_repasse.xlsx]
 """
 
+import datetime as dt
 import json
 import os
 import sys
@@ -96,6 +97,44 @@ def montar(caminho=None):
         "em_execucao": execucao,
         "voltaram": sorted(voltaram),
     }
+    # O passivo: quem já estava na mesa em 1º de janeiro, pelo ano em que chegou.
+    # Entra como informativo — não muda conta nenhuma, mas responde de onde vem a fila.
+    def ano_de(txt):
+        try:
+            return dt.datetime.strptime(txt, "%d/%m/%Y").year
+        except (TypeError, ValueError):
+            return None
+
+    sig = lambda a: "RL" if at[a]["tipo"] == "religador" else "RT"
+    herdados = {a for a, v in at.items() if v["ja_estava_de_antes"]}
+    novos = set(at) - herdados
+    res = set(resolvidos)
+    execs = {x["ativo"] for x in execucao}
+
+    def conta(conj):
+        c = Counter(sig(a) for a in conj)
+        return {"RL": c.get("RL", 0), "RT": c.get("RT", 0), "total": len(conj)}
+
+    pacote["quadro"] = {
+        "passaram": conta(set(at)),
+        "passivo": conta(herdados),
+        "passivo_por_ano": {str(y): conta({a for a in herdados
+                                           if ano_de(at[a]["primeira_chegada"]) == y})
+                            for y in (2023, 2024, 2025)},
+        "chegaram_em_2026": conta(novos),
+        "resolvidos": conta(res),
+        "resolvidos_do_passivo": conta(herdados & res),
+        "resolvidos_dos_novos": conta(novos & res),
+        "na_fila": conta(fila),
+        "fila_do_passivo": conta(herdados & fila),
+        "em_execucao": conta(execs),
+        "conta_do_posto": conta(res | fila),
+    }
+    pacote["passivo_na_fila"] = sorted(
+        ({"ativo": a, "tipo": sig(a), "localidade": at[a]["localidade"],
+          "desde": at[a]["primeira_chegada"], "dias": at[a]["dias_no_posto"]}
+         for a in herdados & fila), key=lambda x: -x["dias"])
+
     assert (pacote["contas"]["resolvidos"] + pacote["contas"]["na_fila"]
             + pacote["contas"]["em_execucao_no_campo"] == len(at)), "a partição não fecha"
     with open(SAIDA, "w", encoding="utf-8") as fh:

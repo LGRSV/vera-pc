@@ -299,5 +299,160 @@
   "7954668084",
   "7955946007",
   "7955986084"
+ ],
+ "quadro": {
+  "passaram": {
+   "RL": 101,
+   "RT": 42,
+   "total": 143
+  },
+  "passivo": {
+   "RL": 33,
+   "RT": 17,
+   "total": 50
+  },
+  "passivo_por_ano": {
+   "2023": {
+    "RL": 2,
+    "RT": 0,
+    "total": 2
+   },
+   "2024": {
+    "RL": 5,
+    "RT": 1,
+    "total": 6
+   },
+   "2025": {
+    "RL": 26,
+    "RT": 16,
+    "total": 42
+   }
+  },
+  "chegaram_em_2026": {
+   "RL": 68,
+   "RT": 25,
+   "total": 93
+  },
+  "resolvidos": {
+   "RL": 56,
+   "RT": 30,
+   "total": 86
+  },
+  "resolvidos_do_passivo": {
+   "RL": 23,
+   "RT": 14,
+   "total": 37
+  },
+  "resolvidos_dos_novos": {
+   "RL": 33,
+   "RT": 16,
+   "total": 49
+  },
+  "na_fila": {
+   "RL": 43,
+   "RT": 11,
+   "total": 54
+  },
+  "fila_do_passivo": {
+   "RL": 9,
+   "RT": 3,
+   "total": 12
+  },
+  "em_execucao": {
+   "RL": 2,
+   "RT": 1,
+   "total": 3
+  },
+  "conta_do_posto": {
+   "RL": 99,
+   "RT": 41,
+   "total": 140
+  }
+ },
+ "passivo_na_fila": [
+  {
+   "ativo": "7923674004",
+   "tipo": "RL",
+   "localidade": "ARAGUAINA",
+   "desde": "25/01/2023",
+   "dias": 1301
+  },
+  {
+   "ativo": "7915029003",
+   "tipo": "RL",
+   "localidade": "GURUPI",
+   "desde": "27/01/2023",
+   "dias": 1299
+  },
+  {
+   "ativo": "7920024127",
+   "tipo": "RL",
+   "localidade": "PALMEIRAS DO TOCANTINS",
+   "desde": "01/07/2025",
+   "dias": 413
+  },
+  {
+   "ativo": "7927446001",
+   "tipo": "RL",
+   "localidade": "PORTO NACIONAL",
+   "desde": "08/07/2025",
+   "dias": 406
+  },
+  {
+   "ativo": "7942485096",
+   "tipo": "RL",
+   "localidade": "PINDORAMA DO TOCANTINS",
+   "desde": "23/07/2025",
+   "dias": 391
+  },
+  {
+   "ativo": "7900535058",
+   "tipo": "RL",
+   "localidade": "SANTA FE DO ARAGUAIA",
+   "desde": "25/08/2025",
+   "dias": 358
+  },
+  {
+   "ativo": "7903112004",
+   "tipo": "RL",
+   "localidade": "ARAGUAINA",
+   "desde": "03/09/2025",
+   "dias": 349
+  },
+  {
+   "ativo": "7938137007",
+   "tipo": "RL",
+   "localidade": "MIRACEMA DO TOCANTINS",
+   "desde": "09/04/2025",
+   "dias": 336
+  },
+  {
+   "ativo": "7908196047",
+   "tipo": "RL",
+   "localidade": "FIGUEIROPOLIS",
+   "desde": "11/08/2025",
+   "dias": 311
+  },
+  {
+   "ativo": "5800961074",
+   "tipo": "RT",
+   "localidade": "DIANOPOLIS",
+   "desde": "05/12/2025",
+   "dias": 256
+  },
+  {
+   "ativo": "5856156091",
+   "tipo": "RT",
+   "localidade": "ALMAS",
+   "desde": "31/07/2025",
+   "dias": 238
+  },
+  {
+   "ativo": "5800291035",
+   "tipo": "RT",
+   "localidade": "MONTE DO CARMO",
+   "desde": "03/07/2025",
+   "dias": 208
+  }
  ]
 }

@@ -329,6 +329,60 @@ def bloco_dinamica(r, pc):
 </section>"""
 
 
+def bloco_quadro(pc):
+    """O quadro dos 140 por tipo, com o passivo dos anos anteriores como informativo."""
+    q = pc["quadro"]
+    pa = q["passivo_por_ano"]
+
+    def lin(rot, k, classe="", recuo=0):
+        d = q[k] if isinstance(k, str) else k
+        return (f'<tr class="{classe}"><td class="rot" style="padding-left:{11 + recuo * 18}px">'
+                f'{esc(rot)}</td><td class="num-col">{br(d["RL"])}</td>'
+                f'<td class="num-col">{br(d["RT"])}</td>'
+                f'<td class="num-col forte">{br(d["total"])}</td></tr>')
+
+    corpo = (
+        lin("Passaram pelo posto em 2026", "passaram", "topo")
+        + lin("Passivo dos anos anteriores", "passivo", "grupo", 1)
+        + "".join(lin(f"chegou em {a}", pa[a], "fraca", 2) for a in ("2023", "2024", "2025"))
+        + lin("Chegaram em 2026", "chegaram_em_2026", "grupo", 1)
+        + lin("Resolvidos em 2026", "resolvidos", "topo bom")
+        + lin("do passivo", "resolvidos_do_passivo", "fraca", 1)
+        + lin("dos que chegaram no ano", "resolvidos_dos_novos", "fraca", 1)
+        + lin("Na fila do posto", "na_fila", "topo")
+        + lin("do passivo", "fila_do_passivo", "fraca", 1)
+        + lin("Em execução no campo", "em_execucao", "topo")
+        + lin("Conta do posto", "conta_do_posto", "total"))
+
+    velhos = pc["passivo_na_fila"][:6]
+    lista = "".join(
+        f'<li><b class="cod">{esc(x["ativo"])}</b><span>{esc(x["localidade"])}</span>'
+        f'<i>desde {esc(x["desde"])} · {br(x["dias"])} dias</i></li>' for x in velhos)
+    p_res = q["resolvidos_do_passivo"]["total"] / q["passivo"]["total"]
+    n_res = q["resolvidos_dos_novos"]["total"] / q["chegaram_em_2026"]["total"]
+
+    return f"""<section class="bloco" id="quadro">
+  {marcador("O quadro dos 140", "religador e regulador, com o passivo herdado")}
+  <div class="rolagem"><table class="tabela quadro">
+    <thead><tr><th>&nbsp;</th><th class="num-col">Religador</th>
+      <th class="num-col">Regulador</th><th class="num-col">Total</th></tr></thead>
+    <tbody>{corpo}</tbody></table></div>
+  <p class="texto">Os <b>143</b> são os que passaram; a <b>conta do posto é 140</b> —
+  resolvidos mais fila. A diferença são os três que ainda estão com a equipe de campo,
+  com a obra acontecendo agora.</p>
+  <h3>O passivo, como informativo</h3>
+  <p class="texto"><b>{q["passivo"]["total"]}</b> equipamentos já estavam na mesa em 1º de
+  janeiro — {q["passivo"]["RL"]} religadores e {q["passivo"]["RT"]} reguladores. Dois
+  esperam desde 2023, seis desde 2024 e quarenta e dois desde 2025. O posto liquidou
+  <b>{pct(p_res, 0)}</b> desse passivo no ano, contra <b>{pct(n_res, 0)}</b> do que chegou
+  novo — o velho saiu com mais eficácia que o novo, o inverso do que uma fila costuma
+  fazer.</p>
+  <ul class="no-campo">{lista}</ul>
+  <p class="rodape-nota">Os {q["fila_do_passivo"]["total"]} do passivo que seguem na fila,
+  do mais antigo para o mais novo. Os dois primeiros esperam há mais de três anos e meio.</p>
+</section>"""
+
+
 # ------------------------------------------------------------------ 6. o SLA
 def bloco_sla(s):
     t = s["total"]
@@ -535,6 +589,16 @@ h4 { font-family:var(--titulo); font-weight:700; font-size:15px; letter-spacing:
   font-style:italic; }
 .citacoes i { font-family:var(--dado); font-size:11px; color:var(--tinta-3);
   font-style:normal; }
+.quadro td.rot { font-size:14px; }
+.quadro tr.topo td { border-top:2px solid var(--tinta); padding-top:10px; }
+.quadro tr.grupo td.rot, .quadro tr.fraca td.rot { color:var(--tinta-2); }
+.quadro tr.fraca td { font-size:12.5px; color:var(--tinta-3); }
+.quadro tr.bom td.forte { color:var(--campo-verde); }
+.quadro tr.total td { border-top:3px double var(--tinta); font-weight:600;
+  font-family:var(--titulo); letter-spacing:.06em; text-transform:uppercase; }
+.quadro tr.total td.num-col { font-family:var(--dado); font-size:15px;
+  text-transform:none; letter-spacing:0; }
+.quadro td.forte { font-weight:600; color:var(--tinta); }
 .no-campo { list-style:none; margin:0 0 6px; padding:0; display:grid;
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px 18px; }
 .no-campo li { border:1px solid var(--filete); border-left:3px solid var(--ocre);
@@ -612,6 +676,7 @@ def montar():
   {bloco_taxa(b['mensal'], b['falhas'])}
   {bloco_causas(b['falhas'])}
   {bloco_dinamica(b['resolvidos'], pc)}
+  {bloco_quadro(pc)}
   {bloco_sla(s)}
   <footer class="fim">
     <p><b>De onde vem.</b> A planilha base de equipamentos especiais do COEP —
