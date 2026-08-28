@@ -29,6 +29,7 @@ BASE = os.path.join(RAIZ, "data", "missao", "base_coep.json")
 SLA = os.path.join(RAIZ, "data", "missao", "sla_coep.json")
 PARTICAO = os.path.join(RAIZ, "data", "missao", "particao_coep.json")
 TIPOS = os.path.join(RAIZ, "data", "missao", "tipo_da_demanda.json")
+MENSAL62 = os.path.join(RAIZ, "data", "missao", "mensal_62.json")
 
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
          "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -341,6 +342,107 @@ def bloco_dinamica(r, pc):
       <th class="num-col">Dias</th></tr></thead><tbody>{linhas}</tbody></table></div>
   <p class="rodape-nota">Os dois primeiros esperam desde janeiro de 2023 — mais de mil e
   duzentos dias.</p>
+</section>"""
+
+
+def bloco_mensal(mn):
+    """Quando os 62 foram resolvidos, mês a mês — coluna empilhada.
+
+    Paleta conferida com o validador do dataviz nos dois temas: no claro
+    #1f7c50/#b8480c sobre #fbfaf6, no escuro #46a878/#e0703a sobre #1c1a16.
+    Duas séries, então legenda sempre; o rótulo direto é só o total da coluna,
+    nunca um número em cada segmento.
+    """
+    meses = mn["meses"]
+    NOME = {"01": "jan", "02": "fev", "03": "mar", "04": "abr",
+            "05": "mai", "06": "jun", "07": "jul", "08": "ago"}
+    enc = [mn["encerrados"].get(m, {}) for m in meses]
+    des = [mn["despachados"].get(m, {}) for m in meses]
+    e = [d.get("RL", 0) + d.get("RT", 0) for d in enc]
+    d = [x.get("RL", 0) + x.get("RT", 0) for x in des]
+    tot = [a + b for a, b in zip(e, d)]
+
+    L, R, T, B = 40, 14, 26, 42          # margens do plot
+    W, H = 920, 320
+    px, py = W - L - R, H - T - B
+    topo = 25                             # o pico, que também é o último tique
+    banda = px / len(meses)
+    larg = min(58, banda * 0.56)
+    alt = lambda v: py * v / topo
+
+    grade, rotx, barras, acum = [], [], [], 0
+    for i, tq in enumerate(range(0, topo + 1, 5)):
+        y = T + py - alt(tq)
+        grade.append(f'<line class="gx" x1="{L}" y1="{y:.1f}" x2="{L + px}" '
+                     f'y2="{y:.1f}"/>')
+        grade.append(f'<text class="tq" x="{L - 9}" y="{y + 4:.1f}">{tq}</text>')
+    for i, m in enumerate(meses):
+        cx = L + banda * (i + 0.5)
+        x = cx - larg / 2
+        acum += tot[i]
+        rotx.append(f'<text class="mes" x="{cx:.1f}" y="{T + py + 20}">'
+                    f'{NOME[m[-2:]]}</text>')
+        base_y = T + py
+        segs = ""
+        if e[i]:
+            h = alt(e[i])
+            r = 4 if not d[i] else 0
+            segs += (f'<rect class="enc" x="{x:.1f}" y="{base_y - h:.1f}" '
+                     f'width="{larg:.1f}" height="{h:.1f}" rx="{r}"/>')
+            base_y -= h + 2      # o vão de 2px entre segmentos empilhados
+        if d[i]:
+            h = max(alt(d[i]) - 2, 2)
+            segs += (f'<rect class="des" x="{x:.1f}" y="{base_y - h:.1f}" '
+                     f'width="{larg:.1f}" height="{h:.1f}" rx="4"/>')
+            base_y -= h
+        rot = (f'<text class="tot" x="{cx:.1f}" y="{base_y - 8:.1f}">{tot[i]}</text>'
+               if tot[i] else "")
+        dica = (f"{NOME[m[-2:]]}/26 · {tot[i]} no mês · acumulado {acum}"
+                + (f" — {e[i]} encerrada{'s' if e[i] != 1 else ''}" if e[i] else "")
+                + (f", {d[i]} despachada{'s' if d[i] != 1 else ''}" if d[i] else ""))
+        barras.append(
+            f'<g class="col" tabindex="0"><title>{esc(dica)}</title>'
+            f'<rect class="alvo" x="{cx - banda / 2:.1f}" y="{T}" '
+            f'width="{banda:.1f}" height="{py}"/>{segs}{rot}</g>')
+
+    linhas = "".join(
+        f'<tr><td>{NOME[m[-2:]]}/26</td>'
+        f'<td class="num-col">{br(e[i]) if e[i] else "—"}</td>'
+        f'<td class="num-col">{br(d[i]) if d[i] else "—"}</td>'
+        f'<td class="num-col forte">{br(tot[i])}</td></tr>'
+        for i, m in enumerate(meses))
+
+    return f"""<section class="bloco" id="mensal">
+  {marcador("Quando o posto resolveu", f"{sum(tot)} em 2026 · pico em julho")}
+  <p class="texto">Todos os <b>{sum(tot)}</b> caem em <b>2026</b> — conferido um a um,
+  nenhum fora do ano. O que é de outro ano é a <b>demanda</b>: das 48 encerradas,
+  33 são de 2025 e 3 de 2024. Resolver é deste ano; o problema, não.</p>
+  <figure class="grafico">
+    <figcaption>
+      <span class="ch"><i class="sw enc"></i>Demanda encerrada</span>
+      <span class="ch"><i class="sw des"></i>Despachada para outra mesa</span>
+    </figcaption>
+    <svg viewBox="0 0 {W} {H}" role="img"
+         aria-label="Colunas empilhadas dos {sum(tot)} resolvidos por mês de 2026">
+      {"".join(grade)}
+      <line class="eixo" x1="{L}" y1="{T + py}" x2="{L + px}" y2="{T + py}"/>
+      {"".join(barras)}
+      {"".join(rotx)}
+    </svg>
+  </figure>
+  <p class="texto"><b>Jan a maio deu 14</b>; só <b>junho e julho deram 39</b>. O pico de
+  julho — <b>25</b> num mês — é onde entram as 11 despachadas, os equipamentos que
+  saíram do campo com a peça trocada e foram para ajuste ou comissionamento.</p>
+  <div class="rolagem"><table class="tabela">
+    <thead><tr><th>Mês</th><th class="num-col">Encerrada</th>
+      <th class="num-col">Despachada</th><th class="num-col">Total</th></tr></thead>
+    <tbody>{linhas}
+      <tr class="total"><td>Total</td><td class="num-col">{br(sum(e))}</td>
+        <td class="num-col">{br(sum(d))}</td>
+        <td class="num-col forte">{br(sum(tot))}</td></tr></tbody></table></div>
+  <p class="rodape-nota">A encerrada conta no mês em que a cadeia fechou; a despachada,
+  no mês em que a SS chegou à mesa seguinte — que é quando a parte do COEP acabou.
+  Agosto vai até o dia 18.</p>
 </section>"""
 
 
@@ -725,6 +827,37 @@ h4 { font-family:var(--titulo); font-weight:700; font-size:15px; letter-spacing:
 .tiposs tr.meio td.rot-tiposs { font-weight:600; color:var(--ocre); }
 .tiposs tr.leve td { color:var(--tinta-2); }
 .tiposs tr.total td { font-weight:600; border-top:2px solid var(--tinta); }
+/* o gráfico mensal — paleta conferida com o validador nos dois temas */
+:root { --serie-enc:#1f7c50; --serie-des:#b8480c; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --serie-enc:#46a878; --serie-des:#e0703a; }
+}
+:root[data-theme="dark"] { --serie-enc:#46a878; --serie-des:#e0703a; }
+.grafico { margin:0 0 18px; }
+.grafico svg { width:100%; height:auto; display:block; overflow:visible; }
+.grafico figcaption { display:flex; flex-wrap:wrap; gap:6px 20px; margin-bottom:12px; }
+.grafico .ch { display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--titulo); font-size:12.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--tinta-2); }
+.grafico .sw { width:13px; height:13px; display:inline-block; }
+.grafico .sw.enc { background:var(--serie-enc); }
+.grafico .sw.des { background:var(--serie-des); }
+.grafico rect.enc { fill:var(--serie-enc); }
+.grafico rect.des { fill:var(--serie-des); }
+.grafico .gx { stroke:var(--filete); stroke-width:1; }
+.grafico .eixo { stroke:var(--tinta); stroke-width:1.5; }
+.grafico .tq { fill:var(--tinta-3); font-family:var(--dado); font-size:12px;
+  text-anchor:end; }
+.grafico .mes { fill:var(--tinta-2); font-family:var(--titulo); font-size:14px;
+  letter-spacing:.1em; text-transform:uppercase; text-anchor:middle; }
+.grafico .tot { fill:var(--tinta); font-family:var(--dado); font-size:14.5px;
+  font-weight:600; text-anchor:middle; }
+.grafico .alvo { fill:transparent; }
+.grafico .col { cursor:default; }
+.grafico .col:hover .alvo, .grafico .col:focus-visible .alvo {
+  fill:var(--campo); }
+.grafico .col:focus-visible { outline:2px solid var(--sinal); outline-offset:2px; }
+.tabela tr.total td { font-weight:600; border-top:2px solid var(--tinta); }
 .quadro-ano tr.faixa.recorte td { border-left:3px solid var(--sinal);
   color:var(--sinal); }
 .quadro-ano tr.bom td.forte { color:var(--campo-verde); }
@@ -795,6 +928,8 @@ def montar():
         pc = json.load(fh)
     with open(TIPOS, encoding="utf-8") as fh:
         td = json.load(fh)
+    with open(MENSAL62, encoding="utf-8") as fh:
+        mn = json.load(fh)
     g = b["gestao"]
     html = f"""<title>Prontuário do COEP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -821,6 +956,7 @@ def montar():
   {bloco_taxa(b['mensal'], b['falhas'])}
   {bloco_causas(b['falhas'])}
   {bloco_dinamica(b['resolvidos'], pc)}
+  {bloco_mensal(mn)}
   {bloco_tiposs(td)}
   {bloco_quadro(pc)}
   {bloco_sla(s)}
