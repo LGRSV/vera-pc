@@ -11,6 +11,9 @@ Seis visões pedidas pelo gestor em 29/08, todas na régua de 28/08 (71 resolvid
   5. Falha em 2026 e em 2025, mês a mês, da taxa de falha da planilha base, mais o
      confronto do mesmo mês nos dois anos
   6. O passivo mês a mês, pela data da ocorrência inicial
+  7. A premissa de setembro a dezembro: os 54 pendentes mais o que 2025 queimou
+     no mesmo quadrimestre
+  8. A base dos 125, um por linha, com como cada um foi resolvido
 
 REGRA DO ANO: vale sempre a DATA DE OCORRÊNCIA, nunca a abertura da SS nem o número
 dela. Nos 71 é a ocorrência da demanda que o posto fechou; nos 54, a da demanda que
@@ -96,6 +99,7 @@ def apurar():
 
     sig = {a: ("RL" if at[a]["tipo"] == "religador" else "RT") for a in mes}
     return {"resolvidos": r71, "fila": sorted(fila), "mes": mes, "sig": sig,
+            "res": res82, "at": {a: at[a] for a in mes},
             "localidade": {a: at[a]["localidade"] for a in mes}}
 
 
@@ -221,6 +225,12 @@ def montar():
     negrito(ws3, ws3.max_row, 5)
     grafico(ws3, "Passivo por mês da ocorrência", 2, 3, ws3.max_row - 1, "G2")
 
+    # 7 — a premissa de setembro a dezembro
+    aba_premissa(wb, bc, q_fila)
+
+    # 8 — a base dos 125
+    aba_base(wb, d)
+
     # a régua
     ws4 = wb.create_sheet("Como foi feito")
     ws4.column_dimensions["A"].width = 98
@@ -300,12 +310,149 @@ def aba_confronto(wb, bc):
     return ws
 
 
-def grafico(ws, titulo, cab, r0, r1, onde):
-    """cab = linha do cabeçalho (de onde sai o nome da série); r0..r1 = os dados."""
+def aba_premissa(wb, bc, q_fila):
+    """E se, de setembro a dezembro, queimar o mesmo que 2025 queimou?
+
+    A premissa do gestor: os 54 que já estão parados em agosto, mais o que falhou no
+    último quadrimestre de 2025. É cenário, não previsão — 2026 vinha com forma
+    diferente de 2025, concentrando falha no começo do ano.
+    """
+    ws = wb.create_sheet("Premissa set–dez")
+    ws.column_dimensions["A"].width = 34
+    for c in "BCD":
+        ws.column_dimensions[c].width = 14
+    rl = [x["falhas"] for x in bc["mensal"]["RL|2025"]][8:]
+    rt = [x["falhas"] for x in bc["mensal"]["RT|2025"]][8:]
+
+    cabeca(ws, 1, "7 · Se de setembro a dezembro queimar o mesmo que 2025",
+           ["", "Religador", "Regulador", "Total"])
+    ws.append(["Parados no posto em 18/08", q_fila["RL"]["total"],
+               q_fila["RT"]["total"], q_fila["Total"]["total"]])
+    for i, m in enumerate(("setembro", "outubro", "novembro", "dezembro")):
+        ws.append([f"+ falhas de {m} (como em 2025)", rl[i], rt[i], rl[i] + rt[i]])
+    ws.append(["Somam no quadrimestre", sum(rl), sum(rt), sum(rl) + sum(rt)])
+    negrito(ws, ws.max_row, 4)
+    ws.append(["FORA NO FIM DO ANO, sem resolver nada",
+               q_fila["RL"]["total"] + sum(rl), q_fila["RT"]["total"] + sum(rt),
+               q_fila["Total"]["total"] + sum(rl) + sum(rt)])
+    for c in range(1, 5):
+        ws.cell(row=ws.max_row, column=c).font = Font(bold=True, size=11, color=SINAL)
+
+    # como o estoque anda, mês a mês
+    r = cabeca(ws, ws.max_row + 2, "O acúmulo, mês a mês",
+               ["Mês", "Entram", "Estoque RL", "Estoque RT", "Estoque total"])
+    erl, ert = q_fila["RL"]["total"], q_fila["RT"]["total"]
+    ws.append(["ago/26 (hoje)", "—", erl, ert, erl + ert])
+    for i, m in enumerate(("set", "out", "nov", "dez")):
+        erl += rl[i]
+        ert += rt[i]
+        ws.append([f"{m}/26", rl[i] + rt[i], erl, ert, erl + ert])
+    negrito(ws, ws.max_row, 5)
+    grafico(ws, "Estoque de equipamentos fora, set a dez", r - 1, r, ws.max_row,
+            "G2", cols=(3, 4))
+
+    # e se o posto continuar resolvendo no ritmo de 2026?
+    ritmo = round(62 / 8, 1)          # os 62 concluídos em oito meses
+    ritmo_enc = round(48 / 8, 1)      # só as encerradas de ponta a ponta
+    fim = q_fila["Total"]["total"] + sum(rl) + sum(rt)
+    r = cabeca(ws, ws.max_row + 2, "E se o posto continuar resolvendo?",
+               ["Cenário", "Por mês", "Resolve em 4 meses", "Fora no fim do ano"])
+    ws.append(["Sem resolver nada", 0, 0, fim])
+    ws.append(["No ritmo dos encerrados (48 em 8 meses)", ritmo_enc,
+               round(ritmo_enc * 4), max(fim - round(ritmo_enc * 4), 0)])
+    ws.append(["No ritmo do trabalho concluído (62 em 8 meses)", ritmo,
+               round(ritmo * 4), max(fim - round(ritmo * 4), 0)])
+    ws.append(["No ritmo da peça comprovada (25 em 8 meses)", round(25 / 8, 1),
+               round(25 / 8 * 4), max(fim - round(25 / 8 * 4), 0)])
+    for r2 in range(r, ws.max_row + 1):
+        ws.cell(row=r2, column=4).font = Font(bold=True)
+    return ws
+
+
+def aba_base(wb, d):
+    """Os 125, um por linha, com como cada um foi resolvido."""
+    ws = wb.create_sheet("Base dos 125")
+    cols = [("Ativo", 13), ("RL/RT", 7), ("Praça", 24), ("Criticidade", 13),
+            ("Situação", 14), ("Ocorrência", 12), ("Ano", 7), ("Mês", 9),
+            ("Passivo?", 10), ("SS no COEP", 40), ("SS que fechou", 20),
+            ("Posto que fechou", 16), ("Como terminou", 14),
+            ("Data do fechamento", 15), ("Dias da demanda", 13),
+            ("Dias no posto", 12), ("Como foi resolvido", 62)]
+    ws.append([c[0] for c in cols])
+    at, res, sig, mes = d["at"], d["res"], d["sig"], d["mes"]
+    for grupo, conj in (("Resolvido", d["resolvidos"]), ("Na fila", d["fila"])):
+        for a in sorted(conj, key=lambda x: (sig[x], mes[x], x)):
+            r = res.get(a, {})
+            oc = r.get("ocorrencia_da_demanda") or ""
+            if not oc and mes[a]:
+                oc = f"{mes[a][5:7]}/{mes[a][:4]}"
+            ws.append([
+                a, sig[a], at[a]["localidade"], at[a].get("criticidade") or "—",
+                grupo, oc, mes[a][:4], f"{MES[int(mes[a][5:7]) - 1]}/{mes[a][2:4]}",
+                "passivo" if mes[a][:4] != "2026" else "de 2026",
+                at[a].get("ss") or "", r.get("ss_que_fechou") or "",
+                r.get("posto_que_fechou") or "", r.get("como_terminou") or "",
+                r.get("data_do_fechamento") or "", r.get("dias_da_demanda") or "",
+                at[a].get("dias_no_posto") or "",
+                r.get("prova") or ("segue pendente no posto" if grupo == "Na fila"
+                                   else ""),
+            ])
+    for i, (_, larg) in enumerate(cols, start=1):
+        cel = ws.cell(row=1, column=i)
+        cel.font = Font(bold=True, color=PAPEL, size=10)
+        cel.fill = PatternFill("solid", fgColor=TINTA)
+        cel.alignment = Alignment(horizontal="left", vertical="center",
+                                  wrap_text=True)
+        ws.column_dimensions[get_column_letter(i)].width = larg
+    ws.freeze_panes = "A2"
+    ws.auto_filter.ref = ws.dimensions
+    ws.row_dimensions[1].height = 30
+
+    # o resumo de como os 71 foram resolvidos
+    ws2 = wb.create_sheet("Como os 71 foram resolvidos")
+    ws2.column_dimensions["A"].width = 56
+    for c in "BCD":
+        ws2.column_dimensions[c].width = 13
+    r = cabeca(ws2, 1, "8 · Por que cada um saiu da fila",
+               ["Prova registrada", "Religador", "Regulador", "Total"])
+    provas = Counter((res[a]["prova"], sig[a]) for a in d["resolvidos"])
+    for pr in sorted({k[0] for k in provas}):
+        ws2.append([pr, provas.get((pr, "RL"), 0), provas.get((pr, "RT"), 0),
+                    provas.get((pr, "RL"), 0) + provas.get((pr, "RT"), 0)])
+    ws2.append(["Total", sum(1 for a in d["resolvidos"] if sig[a] == "RL"),
+                sum(1 for a in d["resolvidos"] if sig[a] == "RT"),
+                len(d["resolvidos"])])
+    negrito(ws2, ws2.max_row, 4)
+
+    r = cabeca(ws2, ws2.max_row + 2, "Pelo desfecho da SS",
+               ["Como terminou", "Religador", "Regulador", "Total"])
+    c = Counter((res[a]["como_terminou"], sig[a]) for a in d["resolvidos"])
+    for k in sorted({x[0] for x in c}):
+        ws2.append([k, c.get((k, "RL"), 0), c.get((k, "RT"), 0),
+                    c.get((k, "RL"), 0) + c.get((k, "RT"), 0)])
+    negrito(ws2, ws2.max_row, 4)
+
+    r = cabeca(ws2, ws2.max_row + 2, "Pelo posto que fechou a cadeia",
+               ["Posto", "Religador", "Regulador", "Total"])
+    c = Counter((res[a]["posto_que_fechou"], sig[a]) for a in d["resolvidos"])
+    for k, _ in Counter(res[a]["posto_que_fechou"]
+                        for a in d["resolvidos"]).most_common():
+        ws2.append([k, c.get((k, "RL"), 0), c.get((k, "RT"), 0),
+                    c.get((k, "RL"), 0) + c.get((k, "RT"), 0)])
+    negrito(ws2, ws2.max_row, 4)
+    return ws
+
+
+def grafico(ws, titulo, cab, r0, r1, onde, cols=(2, 3)):
+    """cab = linha do cabeçalho (de onde sai o nome da série); r0..r1 = os dados.
+
+    `cols` são as duas colunas das séries — nem sempre B e C: na aba da premissa o
+    que empilha é o estoque de RL e RT, que estão em C e D.
+    """
     g = BarChart()
     g.type, g.grouping, g.overlap = "col", "stacked", 100
     g.title, g.height, g.width, g.gapWidth = titulo, 8.5, 22, 70
-    for col, cor in ((2, COR_RL), (3, COR_RT)):
+    for col, cor in zip(cols, (COR_RL, COR_RT)):
         s = Series(Reference(ws, min_col=col, min_row=cab, max_row=r1),
                    title_from_data=True)
         s.graphicalProperties.solidFill = ColorChoice(srgbClr=cor)
@@ -349,6 +496,20 @@ TEXTO = [
     "",
     "Os dois números não se somam nem se comparam direto: o primeiro é do parque, o",
     "segundo é da mesa.",
+    "",
+    "A premissa de setembro a dezembro é CENÁRIO, não previsão:",
+    "Ela repete em 2026 o que 2025 queimou de setembro a dezembro — 11 religadores e",
+    "6 reguladores — em cima dos 54 já parados em 18/08. Dá 71 fora no fim do ano se o",
+    "posto não resolver mais nada.",
+    "",
+    "Mas 2026 não vinha com a forma de 2025. Este ano concentrou falha no começo: 24",
+    "das 37 caíram de janeiro a março, e de maio a agosto foram só 8. Repetir o",
+    "quadrimestre de 2025 é, por isso, uma premissa PESSIMISTA para o religador — em",
+    "2025 setembro a dezembro trouxe 11 RL, e o ritmo de 2026 desde maio é bem menor.",
+    "",
+    "Por isso a aba traz também o outro lado: quanto o posto derruba se continuar no",
+    "ritmo que teve. No ritmo do trabalho concluído (62 em oito meses) sobrariam 40",
+    "fora no fim do ano, não 71.",
     "",
     "Cuidado com o parque das abas de falha:",
     "A coluna Parque é a da série mensal da planilha base do gestor — 1.281 RL e 180 RT",
