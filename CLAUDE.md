@@ -96,6 +96,18 @@ comissionamento e obra de equipamento novo.
   `visao_consolidada.py`, com motivo e data): 26/08 devolveu três para aquisição —
   7908705049 (Artech sem suporte de instalação), 5836786094 (célula de 200 kVA para
   equipamento de 400) e 5800961074 (peças realocadas para os Muito Alta).
+- **«Resolvido» não é «consertado» — separar pelo TIPOSS** (gestor, 29/08: «nem fudendo
+  eu consertei 86 equipamentos»). Ele estava certo. Dos 143 que passaram pelo posto,
+  **102 são INDISPONIBILIDADE PARA OPERAÇÃO** (saiu de operação) e **7 EM OPERAÇÃO COM
+  ANOMALIA** (roda com defeito); os outros 32 são **obra de equipamento novo (13),
+  comissionamento (9), solicitação de serviço (4), aviso de anomalia (4) e ajuste de
+  proteção (2)** — não são falha. Nos 71 encerrados só **34** eram indisponibilidade, e
+  destes **26 com SS atendida**; somando as **14 despachadas** com peça já trocada, a
+  **troca confirmada do ano é 40**. `tipo_da_demanda.py` monta, `dist/TIPO_DA_DEMANDA.xlsx`
+  entrega. **Régua**: o tipo do ativo é o da SS **mais pesada** que ele teve no COEP
+  (indisponibilidade > anomalia > aviso > o resto); 9 ativos têm tipos misturados. As SS
+  **ETO-COEP 00011/2023, 00013/2023 e 00063/2023 não estão na base de SS/OS** — o export
+  só alcança 24 SS do COEP de 2023 —, então 7915029003 e 7923674004 ficam sem tipo.
 - **Primeiro ataque do DMSL não conta**: a demanda morreu na mão da DMSL.
 - **Realizado do DCMD no ano (gestor, 26/08)**: SS **atendida** com equipe de campo na
   cadeia **+ cancelada que ficou de pé** (sem nota nova no COEP depois; nota pendente em

@@ -28,6 +28,7 @@ SAIDA = os.path.join(RAIZ, "dist", "painel-coep.html")
 BASE = os.path.join(RAIZ, "data", "missao", "base_coep.json")
 SLA = os.path.join(RAIZ, "data", "missao", "sla_coep.json")
 PARTICAO = os.path.join(RAIZ, "data", "missao", "particao_coep.json")
+TIPOS = os.path.join(RAIZ, "data", "missao", "tipo_da_demanda.json")
 
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
          "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -343,6 +344,78 @@ def bloco_dinamica(r, pc):
 </section>"""
 
 
+def bloco_tiposs(td):
+    """O TIPOSS de cada um dos 143 — o que era falha e o que não era."""
+    def nome(t):
+        """Capitaliza só o que vem em caixa alta da base; «(sem SS na base)» fica."""
+        return t.capitalize() if t.isupper() else t
+
+    c = td["cruzado"]
+    r = td["resumo"]
+    baldes = td["baldes"]
+    rot = td["rotulo_balde"]
+    CLASSE = {"Falha — saiu de operação": "grave",
+              "Falha — rodando com defeito": "meio"}
+    familia = {x["tipo_da_demanda"]: x["familia"] for x in td["por_ativo"]}
+
+    def linha(t, d):
+        f = familia.get(t, "")
+        return (f'<tr class="{CLASSE.get(f, "leve")}">'
+                f'<td class="rot-tiposs">{esc(nome(t))}</td>'
+                + "".join(f'<td class="num-col">{br(d[b]) if d[b] else "—"}</td>'
+                          for b in baldes)
+                + f'<td class="num-col forte">{br(d["total"])}</td></tr>')
+
+    corpo = "".join(linha(t, d) for t, d in c.items())
+    total = ('<tr class="total"><td class="rot-tiposs">Total</td>'
+             + "".join(f'<td class="num-col">'
+                       f'{br(sum(d[b] for d in c.values()))}</td>' for b in baldes)
+             + f'<td class="num-col forte">'
+               f'{br(sum(d["total"] for d in c.values()))}</td></tr>')
+    cabeca = "".join(f'<th class="num-col">{esc(rot[b])}</th>' for b in baldes)
+
+    des = td["desfecho_por_tipo"]
+    ordem = [t for t in c if des.get(t, {}).get("total")]
+    desf = "".join(
+        f'<tr><td class="rot-tiposs">{esc(nome(t))}</td>'
+        f'<td class="num-col">{br(des[t]["atendida"]) if des[t]["atendida"] else "—"}</td>'
+        f'<td class="num-col">{br(des[t]["cancelada"]) if des[t]["cancelada"] else "—"}</td>'
+        f'<td class="num-col forte">{br(des[t]["total"])}</td></tr>' for t in ordem)
+
+    return f"""<section class="bloco" id="tiposs">
+  {marcador("O que era falha e o que não era",
+            f"{r['indisponibilidade']} de indisponibilidade · "
+            f"{r['em_operacao_com_anomalia']} em operação com anomalia")}
+  <p class="texto destaque">«Resolvido» estava somando coisa que não é conserto. Dos
+  <b>{br(r["passaram"])}</b> que passaram pelo posto, <b>{br(r["indisponibilidade"])}</b>
+  são de <b>indisponibilidade para operação</b> — o equipamento saiu de operação — e
+  <b>{br(r["em_operacao_com_anomalia"])}</b> são de <b>em operação com anomalia</b>, que
+  segue rodando com defeito. Os outros <b>{br(r["nao_e_conserto"])}</b> são obra de
+  equipamento novo, comissionamento, ajuste de proteção, solicitação de serviço e aviso
+  de anomalia: <b>não são falha</b>.</p>
+  <div class="rolagem"><table class="tabela tiposs">
+    <thead><tr><th>Tipo da SS</th>{cabeca}<th class="num-col">Total</th></tr></thead>
+    <tbody>{corpo}{total}</tbody></table></div>
+  <h3>O que de fato voltou a operar</h3>
+  <p class="texto">Das <b>{br(r["indisponibilidade_resolvida"])}</b> demandas de
+  indisponibilidade encerradas, <b>{br(r["indisponibilidade_atendida"])}</b> foram
+  <b>SS atendida</b> — serviço executado — e {br(r["indisponibilidade_cancelada"])}
+  fecharam por cancelamento. Somando as
+  <b>{br(r["indisponibilidade_despachada"])}</b> despachadas, com a peça já trocada, a
+  <b>troca confirmada</b> do ano é <b>{br(r["troca_confirmada"])}</b> equipamentos — não
+  os {br(r["passaram"])} que passaram nem o total de encerrados.</p>
+  <div class="rolagem"><table class="tabela tiposs">
+    <thead><tr><th>Tipo da SS</th><th class="num-col">SS atendida</th>
+      <th class="num-col">SS cancelada</th>
+      <th class="num-col">Encerradas</th></tr></thead>
+    <tbody>{desf}</tbody></table></div>
+  <p class="rodape-nota">Tipo pelo campo TIPOSS da SS do COEP, na base
+  {esc(td["fonte"])}. Quando o ativo teve mais de uma SS no posto vale a mais pesada —
+  indisponibilidade ganha de anomalia, que ganha do resto. Duas SS de janeiro de 2023
+  não estão na base e ficam sem tipo.</p>
+</section>"""
+
+
 def bloco_quadro(pc):
     """Os 143 pelo ANO DA DEMANDA, com tipo nas linhas.
 
@@ -631,6 +704,11 @@ h4 { font-family:var(--titulo); font-weight:700; font-size:15px; letter-spacing:
 .quadro-ano tr.total td { font-weight:600; border-bottom:2px solid var(--filete); }
 .quadro-ano tr.geral td { color:var(--tinta-2); }
 .quadro-ano tr.sub td.rot { padding-left:34px; color:var(--tinta-2); }
+.tiposs td.rot-tiposs { font-size:13px; }
+.tiposs tr.grave td.rot-tiposs { font-weight:600; color:var(--carimbo); }
+.tiposs tr.meio td.rot-tiposs { font-weight:600; color:var(--ocre); }
+.tiposs tr.leve td { color:var(--tinta-2); }
+.tiposs tr.total td { font-weight:600; border-top:2px solid var(--tinta); }
 .quadro-ano tr.faixa.recorte td { border-left:3px solid var(--sinal);
   color:var(--sinal); }
 .quadro-ano tr.bom td.forte { color:var(--campo-verde); }
@@ -699,6 +777,8 @@ def montar():
         s = json.load(fh)
     with open(PARTICAO, encoding="utf-8") as fh:
         pc = json.load(fh)
+    with open(TIPOS, encoding="utf-8") as fh:
+        td = json.load(fh)
     g = b["gestao"]
     html = f"""<title>Prontuário do COEP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -725,6 +805,7 @@ def montar():
   {bloco_taxa(b['mensal'], b['falhas'])}
   {bloco_causas(b['falhas'])}
   {bloco_dinamica(b['resolvidos'], pc)}
+  {bloco_tiposs(td)}
   {bloco_quadro(pc)}
   {bloco_sla(s)}
   <footer class="fim">
