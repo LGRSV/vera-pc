@@ -72,6 +72,7 @@ FORA_DA_CONTA = {
     "OBRAS (NOVOS EQUIPAMENTOS)",
     "COMISSIONAMENTO",
     "AJUSTES DE PROTEÇÃO",
+    "AVISO PROTEÇÃO & SELETIVIDADE",   # é proteção com outro nome — gestor, 29/08
 }
 
 BALDES = ["resolvidos", "despachados", "fila", "execucao", "fora"]

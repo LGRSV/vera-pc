@@ -1,21 +1,21 @@
 {
  "regua": "gestor, 28/08 e 29/08: quem voltou para a fila não conta como resolvido. Quem saiu do campo para ajuste ou comissionamento também não entra nos resolvidos — a parte do COEP acabou, mas o equipamento segue com SS aberta em outra mesa; fica em balde próprio. E quem ainda está num COCM fica em execução no campo.",
  "contas": {
-  "passaram": 119,
-  "resolvidos": 49,
+  "passaram": 118,
+  "resolvidos": 48,
   "na_fila": 54,
   "despachados_para_outra_mesa": 14,
   "em_execucao_no_campo": 2,
-  "trabalho_do_coep_concluido": 63,
-  "conta_do_posto": 103,
+  "trabalho_do_coep_concluido": 62,
+  "conta_do_posto": 102,
   "fora_do_posto": 16,
   "voltaram_para_a_fila": 11,
-  "fora_da_conta": 24,
+  "fora_da_conta": 25,
   "passaram_bruto": 143
  },
  "por_tipo": {
   "RT": 16,
-  "RL": 33
+  "RL": 32
  },
  "fora_da_conta": [
   {
@@ -72,6 +72,11 @@
    "ativo": "5865120195",
    "tipo_da_demanda": "COMISSIONAMENTO",
    "localidade": "CENTENARIO"
+  },
+  {
+   "ativo": "7900001227",
+   "tipo_da_demanda": "AVISO PROTEÇÃO & SELETIVIDADE",
+   "localidade": "RECURSOLANDIA"
   },
   {
    "ativo": "7900236054",
@@ -400,14 +405,14 @@
  ],
  "quadro": {
   "passaram": {
-   "RL": 88,
+   "RL": 87,
    "RT": 31,
-   "total": 119
+   "total": 118
   },
   "passivo": {
-   "RL": 23,
+   "RL": 22,
    "RT": 8,
-   "total": 31
+   "total": 30
   },
   "passivo_por_ano": {
    "2023": {
@@ -421,9 +426,9 @@
     "total": 1
    },
    "2025": {
-    "RL": 21,
+    "RL": 20,
     "RT": 7,
-    "total": 28
+    "total": 27
    }
   },
   "chegaram_em_2026": {
@@ -432,14 +437,14 @@
    "total": 88
   },
   "resolvidos": {
-   "RL": 33,
+   "RL": 32,
    "RT": 16,
-   "total": 49
+   "total": 48
   },
   "resolvidos_do_passivo": {
-   "RL": 13,
+   "RL": 12,
    "RT": 5,
-   "total": 18
+   "total": 17
   },
   "resolvidos_dos_novos": {
    "RL": 20,
@@ -462,9 +467,9 @@
    "total": 14
   },
   "coep_concluiu": {
-   "RL": 44,
+   "RL": 43,
    "RT": 19,
-   "total": 63
+   "total": 62
   },
   "em_execucao": {
    "RL": 1,
@@ -472,9 +477,9 @@
    "total": 2
   },
   "conta_do_posto": {
-   "RL": 76,
+   "RL": 75,
    "RT": 27,
-   "total": 103
+   "total": 102
   }
  },
  "quadro_ano": {
@@ -482,10 +487,10 @@
    "resolvidos": {
     "2023": 0,
     "2024": 2,
-    "2025": 24,
+    "2025": 23,
     "2026": 7,
-    "passivo": 26,
-    "total": 33
+    "passivo": 25,
+    "total": 32
    },
    "fila": {
     "2023": 2,
@@ -514,18 +519,18 @@
    "coep_concluiu": {
     "2023": 0,
     "2024": 2,
-    "2025": 25,
+    "2025": 24,
     "2026": 17,
-    "passivo": 27,
-    "total": 44
+    "passivo": 26,
+    "total": 43
    },
    "geral": {
     "2023": 2,
     "2024": 2,
-    "2025": 35,
+    "2025": 34,
     "2026": 49,
-    "passivo": 39,
-    "total": 88
+    "passivo": 38,
+    "total": 87
    }
   },
   "RT": {
@@ -582,10 +587,10 @@
    "resolvidos": {
     "2023": 0,
     "2024": 3,
-    "2025": 34,
+    "2025": 33,
     "2026": 12,
-    "passivo": 37,
-    "total": 49
+    "passivo": 36,
+    "total": 48
    },
    "fila": {
     "2023": 2,
@@ -614,18 +619,18 @@
    "coep_concluiu": {
     "2023": 0,
     "2024": 3,
-    "2025": 35,
+    "2025": 34,
     "2026": 25,
-    "passivo": 38,
-    "total": 63
+    "passivo": 37,
+    "total": 62
    },
    "geral": {
     "2023": 2,
     "2024": 3,
-    "2025": 49,
+    "2025": 48,
     "2026": 65,
-    "passivo": 54,
-    "total": 119
+    "passivo": 53,
+    "total": 118
    }
   }
  },

@@ -3,8 +3,8 @@
  "fonte": "BASE_SS_OS_20082026.txt",
  "resumo": {
   "passaram_bruto": 143,
-  "fora_da_conta": 24,
-  "passaram": 119,
+  "fora_da_conta": 25,
+  "passaram": 118,
   "indisponibilidade": 102,
   "em_operacao_com_anomalia": 7,
   "indisponibilidade_resolvida": 34,
@@ -12,7 +12,7 @@
   "indisponibilidade_atendida": 26,
   "indisponibilidade_cancelada": 8,
   "indisponibilidade_despachada": 14,
-  "nao_e_conserto": 8,
+  "nao_e_conserto": 7,
   "troca_confirmada": 40
  },
  "cruzado": {
@@ -49,11 +49,11 @@
    "total": 2
   },
   "AVISO PROTEÇÃO & SELETIVIDADE": {
-   "resolvidos": 1,
+   "resolvidos": 0,
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
-   "fora": 0,
+   "fora": 1,
    "total": 1
   },
   "AJUSTES DE PROTEÇÃO": {
@@ -115,11 +115,11 @@
    "total": 7
   },
   "Aviso de anomalia": {
-   "resolvidos": 4,
+   "resolvidos": 3,
    "despachados": 0,
    "fila": 0,
    "execucao": 0,
-   "fora": 0,
+   "fora": 1,
    "total": 4
   },
   "Não é conserto": {
@@ -162,8 +162,8 @@
   },
   "AVISO PROTEÇÃO & SELETIVIDADE": {
    "atendida": 0,
-   "cancelada": 1,
-   "total": 1
+   "cancelada": 0,
+   "total": 0
   },
   "AJUSTES DE PROTEÇÃO": {
    "atendida": 0,
@@ -909,22 +909,6 @@
    "como_terminou": "SS CANCELADA",
    "ss": "ETO-COEP 00219/2025",
    "dias_no_posto": 48
-  },
-  {
-   "ativo": "7900001227",
-   "sigla": "RL",
-   "tipo": "religador",
-   "localidade": "RECURSOLANDIA",
-   "criticidade": "",
-   "balde": "resolvidos",
-   "balde_rotulo": "Demanda encerrada",
-   "tipo_da_demanda": "AVISO PROTEÇÃO & SELETIVIDADE",
-   "familia": "Aviso de anomalia",
-   "todos_os_tipos": "AVISO PROTEÇÃO & SELETIVIDADE",
-   "qtd_ss_no_coep": 1,
-   "como_terminou": "SS CANCELADA",
-   "ss": "ETO-COEP 00100/2025",
-   "dias_no_posto": 404
   },
   {
    "ativo": "5855776094",
@@ -2109,6 +2093,22 @@
    "como_terminou": "",
    "ss": "ETO-COEP 00089/2026 | ETO-COEP 00177/2025",
    "dias_no_posto": 6
+  },
+  {
+   "ativo": "7900001227",
+   "sigla": "RL",
+   "tipo": "religador",
+   "localidade": "RECURSOLANDIA",
+   "criticidade": "",
+   "balde": "fora",
+   "balde_rotulo": "Fora da conta",
+   "tipo_da_demanda": "AVISO PROTEÇÃO & SELETIVIDADE",
+   "familia": "Aviso de anomalia",
+   "todos_os_tipos": "AVISO PROTEÇÃO & SELETIVIDADE",
+   "qtd_ss_no_coep": 1,
+   "como_terminou": "",
+   "ss": "ETO-COEP 00100/2025",
+   "dias_no_posto": 404
   },
   {
    "ativo": "5820044123",

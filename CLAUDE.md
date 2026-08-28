@@ -111,14 +111,21 @@ comissionamento e obra de equipamento novo.
 - **O que não é manutenção sai da conta** — duas decisões do gestor em 29/08, na ordem
   em que vieram: «tipo de SS de obras novos equipamentos nem contabilizando deveriam
   estar» e «retira esses de ajuste de proteção e comissionamento». Instalar, energizar e
-  ajustar não é consertar. Saem **24**: obra de equipamento novo (13), comissionamento (9)
-  e ajuste de proteção (2). O filtro mora em `tipo_da_demanda.FORA_DA_CONTA` e
-  `particao_coep.py` importa dele — mexer no conjunto refaz a partição inteira sozinha.
-  **Passaram 143 pelo posto; a conta de manutenção é sobre 119**: **49 encerrados (33 RL
-  + 16 RT) · 54 na fila · 14 despachados · 2 em execução**, trabalho do COEP concluído
-  **63** e conta do posto **49 + 54 = 103**. Os 24 continuam na planilha, marcados «Fora
-  da conta». Seguem **dentro** da conta solicitação de serviço (4) e avisos de anomalia
-  (4) — 8 que também não são falha, à espera da palavra do gestor.
+  ajustar não é consertar. Saem **25**: obra de equipamento novo (13), comissionamento (9),
+  ajuste de proteção (2) e **aviso proteção & seletividade (1)** — «tem outro ajuste de
+  proteção aí», que é proteção com outro nome. O filtro mora em
+  `tipo_da_demanda.FORA_DA_CONTA` e `particao_coep.py` importa dele — mexer no conjunto
+  refaz a partição inteira sozinha. **Passaram 143 pelo posto; a conta de manutenção é
+  sobre 118**: **48 encerrados (32 RL + 16 RT) · 54 na fila · 14 despachados · 2 em
+  execução**, trabalho do COEP concluído **62** e conta do posto **48 + 54 = 102**. Os 25
+  continuam na planilha, marcados «Fora da conta». Seguem **dentro** da conta solicitação
+  de serviço (4), aviso de anomalia (2) e anomalia em religador (1) — 7 que também não são
+  falha, à espera da palavra do gestor.
+- **O tipo mente no 7900001227 (Recursolândia)**: TIPOSS diz «aviso proteção &
+  seletividade», mas o parecer mais recente da DMSL na ETO-COEP 00100/2025 diz **sensor
+  interno de corrente com defeito, Cooper Form6 de 2009, obsoleto, com pedido de
+  substituição ao DCMD**. Pelo texto é falha de equipamento; pelo tipo, não. Saiu da conta
+  **pelo tipo** — a régua é o TIPOSS —, com a ressalva escrita na aba «Como foi feito».
 - **Ativo nunca se repete** (gestor, 29/08). Conferido nas quatro listas: 143 ativos
   distintos em 143 linhas, baldes disjuntos, nenhum código em dois lugares. Equipamento
   que saiu de operação duas vezes no ano conta uma vez; a coluna «SS no COEP» diz quantas
