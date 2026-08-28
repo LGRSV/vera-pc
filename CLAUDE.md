@@ -54,6 +54,10 @@ comissionamento e obra de equipamento novo.
   no ano.
 - **Resolvido pelo posto** = a demanda passou pelo COEP dentro do ano E a cadeia dela
   fechou dentro do ano, com SS atendida ou cancelada.
+- **Quem voltou não conta como resolvido (gestor, 28/08)**: o equipamento que resolveu
+  uma demanda no ano e voltou para a fila conta **só como pendente**. Resolvidos ficam
+  **71** (82 − 11) e a conta do posto fecha em **71 + 54 = 125** — o número que o gestor
+  lembrava. O realizado do DCMD cai de 63 para **59** pela mesma régua.
 - **Régua do cancelamento (gestor, 22/08)**: cancelado é resolvido, **desde que não
   tenham aberto outra nota para aquele ativo no posto do COEP depois**. Se abriram, a
   demanda voltou para a mesa e segue pendente — não conta. Nota nova em **outro**
