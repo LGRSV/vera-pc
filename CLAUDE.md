@@ -203,6 +203,13 @@ delas é a ordem da história:
 | **SLA por equipe** | o SLA de manutenção |
 | **BASE SS_OS** · Planilha1 · Planilha2 | recorte e apoio de pivô |
 
+**O Prontuário do COEP sai daqui** (`base_coep.py` extrai, `build_painel_coep.py` desenha):
+a ordem das seções é a ordem das abas. Duas armadilhas achadas ao montar: na aba **Base**
+as colunas de regulador estão vazias e a rotulada «Qtd RT 13» guarda o **parque 180** — o
+mensal tem de sair da aba **Falha Equipamentos**; e nela o ano vem da **fatia** («RL 2025»),
+não da coluna Ano, porque numa das 90 as duas discordam (7933585074, falha de 2025 com
+ocorrência em 27/01/2026).
+
 **A esteira da aba Gestão é a novidade que o painel ainda não mostra**: dez marcos por
 ativo, do PMA ao comissionamento — hoje todos vazios, é o que o gestor vai preencher.
 **Status** ali tem cinco valores (Avaliar compra 22 · Gerado PMA 20 · Em logística N1>N3
@@ -213,6 +220,7 @@ diferente de «Sem classificação».
 
 | Página | URL |
 | --- | --- |
+| **Prontuário do COEP** (da planilha base, 28/08) | https://claude.ai/code/artifact/cd7d36b6-9e66-4451-b663-13e3b4462e0e |
 | Painel de equipamentos especiais | https://claude.ai/code/artifact/d65c0278-32e4-47aa-815b-43abc992a630 |
 | Dinâmica do posto | https://claude.ai/code/artifact/b4ef898c-efd8-4681-b996-2808001354ec |
 | Taxa de falha | https://claude.ai/code/artifact/978e5138-959a-4290-b454-c83774129095 |
