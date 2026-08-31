@@ -270,6 +270,24 @@ ativo, do PMA ao comissionamento — hoje todos vazios, é o que o gestor vai pr
 6 · Em execução 3 · Reforma 2) e **Criticidade tem «Falta definir»** (4 ativos), que é
 diferente de «Sem classificação».
 
+- **Taxa de falha POR PEÇA** (`taxa_por_peca.py` → `dist/TAXA_POR_PECA.xlsx`, 31/08). O rol
+  de falhas dá SS, ativo, tensão e peça; o que falta vem dos **ajustes da proteção** em
+  `GESTAO_DE_EQUIPAMENTOS.xlsx`: a aba **Ajustes Reguladores de Tensão** (426 linhas) traz
+  POTÊNCIA e CONTROLADOR do RT, e **Ajustes RL Poste** (1.292) traz TENSÃO e RELÉ do RL.
+  Casam 27/27 RT e 62/63 RL — o único de fora, 7930359149 (Caseara), é o mesmo que tem
+  tensão «#N/A» no rol; fica **inferido** em 34,5 pelos seis vizinhos da praça.
+  **O sinal está no modelo, não na peça**: 25 das 26 falhas de tanque são NOJA RC10, mas
+  isso é volume — ele é 78,6% do parque e tem índice **0,88**, abaixo da média. Quem falha
+  acima é o **COOPER F6: 10,3% do parque, 22,6% das falhas, índice 2,19** — o mesmo modelo
+  que a DMSL chama de obsoleto no 7900001227. ARTECHE P500 (5 unidades) e TAVRIDA (27) dão
+  índice alto com amostra pequena demais.
+- **Duas ressalvas do rol de falhas**, registradas na aba «Alertas»: a **potência** de 4
+  reguladores está fora das três classes que o gestor reconhece (398 → é 400; 239 em dois
+  e 250 em um — e 250 kVA é rating padrão de 13,8 kV, então pode ser a régua que está
+  incompleta, não o cadastro); e **3 ativos se repetem no mesmo ano** — 7908708116 na
+  MESMA SS com tanque e controle, 5841308190 com dois furtos e 5854566043 com duas
+  células. Por peça as 90 linhas contam; por equipamento seriam **87**.
+
 ## Artifacts vivos
 
 | Página | URL |
