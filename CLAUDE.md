@@ -281,6 +281,13 @@ diferente de «Sem classificação».
   acima é o **COOPER F6: 10,3% do parque, 22,6% das falhas, índice 2,19** — o mesmo modelo
   que a DMSL chama de obsoleto no 7900001227. ARTECHE P500 (5 unidades) e TAVRIDA (27) dão
   índice alto com amostra pequena demais.
+- **A taxa por CLASSE, não pelo tipo inteiro** (aba «Taxa por classe»): a classe de
+  potência e a faixa de tensão só existem nos ajustes, então o denominador é o parque
+  **desses cadastros** — 190 RT e 1.292 RL, não os 207 e 1.307 oficiais. Parque de RT por
+  potência: **167 → 25 · 200 → 67 · 400 → 98**. Parque de RL por tensão: **13,8 → 460 ·
+  34,5 → 832**. **A célula de 200 kVA falha 2,5× mais**: 7 falhas em 67 (10,4%) contra 4
+  em 98 na de 400 (4,1%) e 1 em 25 na de 167 (4,0%, amostra pequena). No religador, o
+  **34,5 kV falha 1,6× mais** que o 13,8 (5,7% contra 3,5%).
 - **Duas ressalvas do rol de falhas**, registradas na aba «Alertas»: a **potência** de 4
   reguladores está fora das três classes que o gestor reconhece (398 → é 400; 239 em dois
   e 250 em um — e 250 kVA é rating padrão de 13,8 kV, então pode ser a régua que está

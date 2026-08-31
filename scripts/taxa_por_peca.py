@@ -204,6 +204,132 @@ def grafico(ws, titulo, cab, r0, r1, onde, cols=(2, 3)):
     ws.add_chart(g, onde)
 
 
+def parque_por_classe():
+    """O parque de cada classe, dos mesmos ajustes de onde sai a classe da falha.
+
+    Sem isso a taxa por potência não existe: dividir a célula de 200 pelo parque
+    inteiro de regulador esconde que o parque de 200 é menor que o de 400.
+    """
+    wb = load_workbook(AJUSTES, read_only=True, data_only=True)
+    rt_pot, rt_ten, rl_ten = Counter(), Counter(), Counter()
+    for r in list(wb["Ajustes Reguladores de Tensão"].iter_rows(values_only=True))[1:]:
+        if not r[0]:
+            continue
+        classe, _, _ = classe_rt(r[4])
+        if classe:
+            rt_pot[classe] += 1
+        f = faixa(r[8])
+        if f:
+            rt_ten[f] += 1
+    for r in list(wb["Ajustes RL Poste"].iter_rows(values_only=True))[1:]:
+        if r[0]:
+            f = faixa(r[12])
+            if f:
+                rl_ten[f] += 1
+    return rt_pot, rt_ten, rl_ten
+
+
+def aba_por_classe(wb, itens):
+    """A taxa de cada peça contra o parque da CLASSE, não do tipo inteiro."""
+    rt_pot, rt_ten, rl_ten = parque_por_classe()
+    ws = wb.create_sheet("Taxa por classe")
+    ws.column_dimensions["A"].width = 26
+    for c in "BCDEFG":
+        ws.column_dimensions[c].width = 14
+
+    def bloco(titulo, chaves, parque, filtro, rotulo):
+        r0 = cabeca(ws, ws.max_row + (2 if ws.max_row > 1 else 0), titulo,
+                    ["Peça"] + [rotulo(k) for k in chaves] + ["Total"])
+        sub = [i for i in itens if filtro(i)]
+        pecas = [p for p in ORDEM_PECA if any(i["peca"] == p for i in sub)]
+        for p in pecas:
+            linha = [sum(1 for i in sub if i["peca"] == p and i["chave"] == k)
+                     for k in chaves]
+            if not sum(linha):
+                continue
+            ws.append([PECA_ROTULO[p]] + [x or "—" for x in linha] + [sum(linha)])
+        tot = [sum(1 for i in sub if i["chave"] == k) for k in chaves]
+        ws.append(["Total de falhas"] + tot + [sum(tot)])
+        fecha(ws, ws.max_row, len(chaves) + 2)
+        ws.append(["Parque da classe"] + [parque.get(k, 0) for k in chaves]
+                  + [sum(parque.get(k, 0) for k in chaves)])
+        ws.append(["TAXA no biênio"]
+                  + [round(tot[n] / parque[k], 4) if parque.get(k) else 0
+                     for n, k in enumerate(chaves)]
+                  + [round(sum(tot) / sum(parque.get(k, 0) for k in chaves), 4)])
+        for c in range(2, len(chaves) + 3):
+            ws.cell(row=ws.max_row, column=c).number_format = "0.0%"
+            ws.cell(row=ws.max_row, column=c).font = Font(bold=True)
+        ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+        return r0
+
+    for i in itens:
+        i["chave"] = i["potencia"]
+    bloco("Regulador — por potência da célula (parque dos ajustes: 190)",
+          list(CLASSES_RT), rt_pot, lambda i: i["tipo"] == "RT" and i["potencia"],
+          lambda k: f"{k} kVA")
+    for i in itens:
+        i["chave"] = i["faixa"]
+    bloco("Religador — por faixa de tensão (parque dos ajustes: 1.292)",
+          ["13,8 kV", "34,5 kV"], rl_ten,
+          lambda i: i["tipo"] == "RL" and i["faixa"], lambda k: k)
+    bloco("Regulador — por faixa de tensão (parque dos ajustes: 190)",
+          ["13,8 kV", "34,5 kV"], rt_ten,
+          lambda i: i["tipo"] == "RT" and i["faixa"], lambda k: k)
+
+    # a célula isolada — a pergunta que o gestor fez em cima da mesa
+    r0 = cabeca(ws, ws.max_row + 2,
+                "A CÉLULA, isolada — a taxa de cada potência",
+                ["Potência da célula", "Falhas no biênio", "Parque da classe",
+                 "Taxa", "Índice vs média", "Amostra"],
+                [26, 16, 16, 12, 15, 26])
+    cel = [i for i in itens if i["tipo"] == "RT" and i["peca"] == "celula"
+           and i["potencia"]]
+    media = len(cel) / sum(rt_pot.get(k, 0) for k in CLASSES_RT)
+    for k in CLASSES_RT:
+        f = sum(1 for i in cel if i["potencia"] == k)
+        n = rt_pot.get(k, 0)
+        taxa = f / n if n else 0
+        ws.append([f"{k} kVA", f or "—", n, round(taxa, 4),
+                   round(taxa / media, 2) if media else 0,
+                   "pequena demais para concluir" if n < 30 else ""])
+        ws.cell(row=ws.max_row, column=4).number_format = "0.0%"
+        ws.cell(row=ws.max_row, column=5).number_format = "0.00"
+    ws.append(["Total / média", len(cel),
+               sum(rt_pot.get(k, 0) for k in CLASSES_RT), round(media, 4), 1.0, ""])
+    ws.cell(row=ws.max_row, column=4).number_format = "0.0%"
+    ws.cell(row=ws.max_row, column=5).number_format = "0.00"
+    fecha(ws, ws.max_row, 6)
+
+    ws.append([])
+    for t in [
+        "O que a célula mostra:",
+        "A de 200 kVA falha 2,5 vezes mais que as outras duas: 7 falhas em 67",
+        "equipamentos contra 4 em 98 na de 400 e 1 em 25 na de 167. É o único recorte",
+        "de potência em que a diferença é grande o bastante para não ser acaso.",
+        "",
+        "A de 167 tem parque de 25 — uma falha a mais dobra a taxa. Está marcada.",
+        "",
+        "Por que o parque aqui é outro:"
+        "A classe de potência e a faixa de tensão só existem nos ajustes da proteção,",
+        "então o denominador tem de ser o parque DESSES cadastros: 190 reguladores e",
+        "1.292 religadores, não os 207 e 1.307 oficiais. A diferença são os",
+        "equipamentos sem estudo de proteção cadastrado.",
+        "",
+        "Por isso a taxa desta aba é um pouco maior que a da aba «Taxa por peça», que",
+        "usa o parque oficial. As duas estão certas; o denominador é que muda.",
+        "",
+        "As duas se somam de anos:",
+        "É a taxa do BIÊNIO — 2025 e 2026 juntos —, porque separar por ano deixaria",
+        "célula de 167 com uma falha em 25 equipamentos, número que não sustenta",
+        "conclusão nenhuma.",
+    ]:
+        ws.append([t])
+        if t.endswith(":"):
+            ws.cell(row=ws.max_row, column=1).font = Font(bold=True, size=11)
+    return ws
+
+
 def aba_modelo(wb, itens):
     """Falhas contra o PARQUE de cada modelo — sem isso o volume engana.
 
@@ -334,10 +460,13 @@ def planilha(itens, alertas):
     cruza("Peça × relé — só religador", "rele_rl", reles,
           lambda i: i["tipo"] == "RL")
 
-    # 3 — a taxa por modelo, contra o parque de verdade
+    # 3 — a taxa por classe: RT por potência da célula, RL por tensão
+    aba_por_classe(wb, itens)
+
+    # 4 — a taxa por modelo, contra o parque de verdade
     aba_modelo(wb, itens)
 
-    # 4 — a base, uma falha por linha
+    # 5 — a base, uma falha por linha
     ws3 = wb.create_sheet("Base das falhas")
     cols = [("Ano", 7), ("SS", 21), ("Ativo", 13), ("RL/RT", 7),
             ("Faixa de tensão", 14), ("Potência (RT)", 13),
@@ -364,7 +493,7 @@ def planilha(itens, alertas):
     ws3.auto_filter.ref = ws3.dimensions
     ws3.row_dimensions[1].height = 30
 
-    # 5 — o que não fecha
+    # 6 — o que não fecha
     ws4 = wb.create_sheet("Alertas")
     cabeca(ws4, 1, "O que não fecha, e que só o gestor decide",
            ["Alerta", "Ativo", "Onde", "O que foi encontrado"], [30, 13, 12, 92])
@@ -374,7 +503,7 @@ def planilha(itens, alertas):
         ws4.cell(row=r, column=4).alignment = Alignment(wrap_text=True,
                                                         vertical="top")
 
-    # 6 — a régua
+    # 7 — a régua
     ws5 = wb.create_sheet("Como foi feito")
     ws5.column_dimensions["A"].width = 98
     unicos = len({(i["ano"], i["tipo"], i["ativo"]) for i in itens})
@@ -440,7 +569,13 @@ def TEXTO(n, unicos):
         f"deveria contar {unicos}, não {n}. A taxa por PEÇA, que é o que esta planilha",
         "monta, conta a peça trocada, então as três linhas extras ficam.",
         "",
-        "O modelo do relé é onde está o sinal:",
+        "A taxa por classe:",
+        "A aba «Taxa por classe» divide cada peça pelo parque da CLASSE dela — a célula",
+        "de 200 kVA pelo parque de 200, não pelo parque inteiro de regulador. É a",
+        "única forma de comparar: o parque tem 98 reguladores de 400, 67 de 200 e 25",
+        "de 167, então a mesma quantidade de falhas significa coisas diferentes.",
+        "",
+        "O modelo do relé é onde está o sinal:"
         "A aba «Taxa por modelo de relé» compara falhas contra o parque de cada",
         "modelo. O COOPER F6 falha 2,2 vezes mais que a média; o NOJA RC10, que parece",
         "o vilão por concentrar 25 das 26 falhas de tanque, falha abaixo da média —",
