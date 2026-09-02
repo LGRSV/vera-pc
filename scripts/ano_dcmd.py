@@ -128,26 +128,30 @@ def mensal(itens):
 
 
 # ----------------------------------------------------------------------------- abas
-def aba_ano(wb, linhas, herdados):
+def aba_ano(wb, linhas, herdados, bc):
     ws = wb.create_sheet("O ano inteiro")
     bm.titulo(ws, "2026 NA VISÃO DCMD — janeiro a agosto apurado, setembro a dezembro pela premissa",
               "Os 143 equipamentos que passaram pelo posto do COEP. O ano abre com %d herdados de "
               "2025 ou antes. De janeiro a agosto os números vêm da base; de setembro em diante é a "
               "premissa do gestor, reancorada no estoque apurado de %d — por isso dezembro fecha em "
-              "%d, e não nos 29 do quadro, que partia de um backlog redondo de 100."
-              % (herdados, linhas[7]["fim"], linhas[-1]["fim"]))
+              "%d, e não nos 29 do quadro, que partia de um backlog redondo de 100. O banco de "
+              "capacitor vai em coluna própria; de setembro em diante ele fica parado em %d, "
+              "porque a premissa não projeta BC."
+              % (herdados, linhas[7]["fim"], linhas[-1]["fim"], bc[-1]["fim"]))
     cab = ["Mês", "Origem", "Backlog no início", "Entraram", "Resolvidos", "Backlog no fim",
-           "Variação", "RL entraram", "RT entraram", "RL resolvidos", "RT resolvidos"]
-    bm.cabecalho(ws, 4, cab, [13, 11, 17, 12, 12, 16, 11, 13, 13, 14, 14])
+           "Variação", "BC no fim", "TOTAL com BC", "RL entraram", "RT entraram",
+           "RL resolvidos", "RT resolvidos"]
+    bm.cabecalho(ws, 4, cab, [13, 11, 17, 12, 12, 16, 11, 12, 14, 13, 13, 14, 14])
     r = 5
-    for L in linhas:
+    bc_fim = [b["fim"] for b in bc] + [bc[-1]["fim"]] * 4      # a premissa não projeta BC
+    for L, b in zip(linhas, bc_fim):
         ws.append([L["rotulo"], L["origem"], L["inicio"], L["entraram"], L["resolvidos"], L["fim"],
-                   L["fim"] - L["inicio"], L["rl_entraram"], L["rt_entraram"],
+                   L["fim"] - L["inicio"], b, L["fim"] + b, L["rl_entraram"], L["rt_entraram"],
                    L["rl_resolvidos"], L["rt_resolvidos"]])
-        for c in range(2, 12):
+        for c in range(2, 14):
             ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
         if L["origem"] == "premissa":
-            for c in range(1, 12):
+            for c in range(1, 14):
                 ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
         r += 1
     fim = r - 1
@@ -323,11 +327,18 @@ def aba_base(wb, itens):
     return Counter(i["balde"] for i in itens)
 
 
-def aba_como(wb, linhas, herdados, baldes, invertidos):
+def aba_como(wb, linhas, herdados, baldes, invertidos, bc):
     ws = wb.create_sheet("Como foi feito")
     ws.column_dimensions["A"].width = 112
     base = linhas[7]["fim"]
     texto = [
+        ("A REGRA QUE MANDA AQUI", True),
+        ("A série de janeiro a agosto TEM DE BATER com os números de setembro em diante. Não são "
+         "duas contas: é uma só, cortada no meio. O que fecha agosto é o que abre setembro — por "
+         "isso a premissa foi reancorada no estoque apurado, e não no backlog redondo de 100. "
+         "Qualquer número novo que chegue para set–dez tem de fechar contra este saldo de agosto; "
+         "se não fechar, é sinal de que as duas metades estão em réguas diferentes.", False),
+        ("", False),
         ("A CONTA, EM UMA LINHA", True),
         ("%d herdados de 2025 ou antes + %d que chegaram em 2026 = 143 que passaram pelo posto. "
          "Desses, 71 resolvidos até agosto e %d ainda abertos — que é %d na fila do posto e %d em "
@@ -366,6 +377,15 @@ def aba_como(wb, linhas, herdados, baldes, invertidos):
         ("%d ativos têm data de fechamento anterior à data de chegada ao posto (%s). A saída foi "
          "travada na data de entrada; sem isso o saldo não fecha."
          % (len(invertidos), ", ".join(a for a, _, _ in invertidos)), False),
+        ("", False),
+        ("O BANCO DE CAPACITOR", True),
+        ("Entra a pedido do gestor (02/09): «tem que ter a visão de BC, que começa com código "
+         "operativo 59». Ele nunca aparecia nas contas porque a consulta da base de repasse o "
+         "descarta na cláusula «COD_ELE NOT IN ('59','BR')» — só indo direto na base de SS/OS. "
+         "São 242 SS em 102 ativos, e o backlog cai de %d no começo do ano para %d. De setembro "
+         "em diante ele fica parado nesse número na tabela, porque a premissa do gestor não "
+         "projeta BC — quando houver premissa de BC, é só substituir." % (bc[0]["inicio"], bc[-1]["fim"]), False),
+        ("", False),
         ("Esta é a visão DCMD, do posto. Não confundir com o backlog do parque em "
          "dist/BACKLOG_MENSAL_2026.xlsx, que conta todo RL/RT com indisponibilidade aberta (93 no "
          "fecho da base) — é outro recorte, mais largo, e serve para outra pergunta.", False),
@@ -377,24 +397,64 @@ def aba_como(wb, linhas, herdados, baldes, invertidos):
             c.font = Font(bold=True, size=11, color=SINAL if i == 1 else TINTA)
 
 
+def bc_mensal():
+    """O banco de capacitor (59), que a consulta da base de repasse descarta. Vem da base
+    de SS/OS pela mesma régua de indisponibilidade do backlog do parque."""
+    ss, posicao = bm.ler()
+    dem, _ = bm.demandas(ss, {bm.IND})
+    return bm.serie(dem, posicao, ("BC",)), posicao
+
+
+def aba_bc(wb, bc, posicao):
+    ws = wb.create_sheet("Banco de capacitor")
+    bm.titulo(ws, "O banco de capacitor — a visão que faltava",
+              "Código operativo 59. Ele nunca aparecia nas contas porque a consulta da base de "
+              "repasse o descarta na cláusula «COD_ELE NOT IN ('59','BR')». Indo direto na base de "
+              "SS/OS são 242 SS em 102 ativos, e o backlog cai de %d no começo do ano para %d na "
+              "posição de %s. Mesma régua do parque: ativo com SS de indisponibilidade em aberto."
+              % (bc[0]["inicio"], bc[-1]["fim"], posicao.strftime("%d/%m/%Y")))
+    bm.cabecalho(ws, 4, ["Mês", "BC no início", "Entraram", "Saíram", "BC no fim"],
+                 [14, 15, 12, 12, 14])
+    r = 5
+    for L in bc:
+        ws.append([L["rotulo"], L["inicio"], L["entraram"], L["sairam"], L["fim"]])
+        for c in range(2, 6):
+            ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+        r += 1
+    fim = r - 1
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth = "col", "clustered", 70
+    ch.add_data(Reference(ws, min_col=5, min_row=4, max_row=fim), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
+    ch.title = "Bancos de capacitor com demanda aberta, no fim de cada mês"
+    ch.y_axis.title = "bancos"
+    bm.cor_barra(ch.series[0], NEUTRO)
+    bm.rotulos(ch.series[0])
+    ch.legend = None
+    bm.categorias(ch, ws, "$A$5:$A$%d" % fim)
+    ws.add_chart(bm.estilo(ch, 12, 24), "A16")
+
+
 def montar(saida=SAIDA):
     itens, invertidos = apurar()
     herdados, linhas = mensal(itens)
+    bc, pos_bc = bc_mensal()
     assert sum(L["resolvidos"] for L in linhas[:8]) == 71, "os resolvidos de jan–ago têm de dar 71"
     assert linhas[7]["fim"] == 72, "o estoque de agosto tem de dar 72"
     wb = Workbook()
     wb.remove(wb.active)
-    aba_ano(wb, linhas, herdados)
+    aba_ano(wb, linhas, herdados, bc)
     aba_quadro(wb, linhas)
     aba_ritmo(wb, linhas)
     aba_71(wb, linhas, itens)
+    aba_bc(wb, bc, pos_bc)
     baldes = aba_base(wb, itens)
-    aba_como(wb, linhas, herdados, baldes, invertidos)
+    aba_como(wb, linhas, herdados, baldes, invertidos, bc)
     os.makedirs(os.path.dirname(saida), exist_ok=True)
     wb.save(saida)
     with open(JSON_SAIDA, "w", encoding="utf-8") as fh:
         json.dump({"posicao": POSICAO.isoformat(), "herdados": herdados, "baldes": dict(baldes),
-                   "mensal": linhas, "quadro_do_gestor": QUADRO_PENDENTES,
+                   "mensal": linhas, "mensal_bc": bc, "quadro_do_gestor": QUADRO_PENDENTES,
                    "invertidos": [[a, c.isoformat(), s.isoformat()] for a, c, s in invertidos]},
                   fh, ensure_ascii=False, indent=1)
     print("%s | herdados %d | baldes %s" % (saida, herdados, dict(baldes)))

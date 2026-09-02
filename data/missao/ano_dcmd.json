@@ -164,6 +164,96 @@
    "rt_resolvidos": null
   }
  ],
+ "mensal_bc": [
+  {
+   "mes": 1,
+   "rotulo": "janeiro",
+   "inicio": 23,
+   "entraram": 1,
+   "sairam": 1,
+   "fim": 23,
+   "de_2025_ou_antes": 22,
+   "idade_mediana": 278,
+   "mais_velha": 712
+  },
+  {
+   "mes": 2,
+   "rotulo": "fevereiro",
+   "inicio": 23,
+   "entraram": 0,
+   "sairam": 1,
+   "fim": 22,
+   "de_2025_ou_antes": 21,
+   "idade_mediana": 306,
+   "mais_velha": 740
+  },
+  {
+   "mes": 3,
+   "rotulo": "março",
+   "inicio": 22,
+   "entraram": 0,
+   "sairam": 2,
+   "fim": 20,
+   "de_2025_ou_antes": 19,
+   "idade_mediana": 337,
+   "mais_velha": 771
+  },
+  {
+   "mes": 4,
+   "rotulo": "abril",
+   "inicio": 20,
+   "entraram": 0,
+   "sairam": 0,
+   "fim": 20,
+   "de_2025_ou_antes": 19,
+   "idade_mediana": 367,
+   "mais_velha": 801
+  },
+  {
+   "mes": 5,
+   "rotulo": "maio",
+   "inicio": 20,
+   "entraram": 1,
+   "sairam": 5,
+   "fim": 16,
+   "de_2025_ou_antes": 14,
+   "idade_mediana": 398,
+   "mais_velha": 832
+  },
+  {
+   "mes": 6,
+   "rotulo": "junho",
+   "inicio": 16,
+   "entraram": 0,
+   "sairam": 0,
+   "fim": 16,
+   "de_2025_ou_antes": 14,
+   "idade_mediana": 428,
+   "mais_velha": 862
+  },
+  {
+   "mes": 7,
+   "rotulo": "julho",
+   "inicio": 16,
+   "entraram": 0,
+   "sairam": 0,
+   "fim": 16,
+   "de_2025_ou_antes": 14,
+   "idade_mediana": 459,
+   "mais_velha": 893
+  },
+  {
+   "mes": 8,
+   "rotulo": "agosto",
+   "inicio": 16,
+   "entraram": 0,
+   "sairam": 3,
+   "fim": 13,
+   "de_2025_ou_antes": 12,
+   "idade_mediana": 481,
+   "mais_velha": 915
+  }
+ ],
  "quadro_do_gestor": [
   102,
   70,

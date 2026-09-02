@@ -8,7 +8,13 @@ demanda aberta no fim de cada mês, quantos entraram e quantos saíram.
 A RÉGUA É A DA VISÃO ETO, a que o próprio gestor fixou em 22/08: ativo 58/79 com SS
 de INDISPONIBILIDADE PARA OPERAÇÃO pendente na base de SS/OS — «só tem 93, então são
 as 93». A série reproduz esse 93 no fecho da base, o que serve de âncora: a conta
-não foi calibrada para dar 93, ela dá 93 sozinha.
+não foi calibrada para dar 93, ela dá 93 sozinha (há um `assert` no script).
+
+O BANCO DE CAPACITOR ENTRA JUNTO (gestor, 02/09: «tem que ter a visão de BC, que
+começa com código operativo 59»). Ele nunca aparecia porque a consulta da base de
+repasse o descarta — `AND COD_ELE NOT IN ('59','BR')`. Indo direto na base de SS/OS
+saem 242 SS em 102 ativos, e o backlog dele cai de 23 no começo do ano para 13.
+O 93 do gestor é RL + RT; com BC o total vai a 106.
 
 COMO A DEMANDA É MONTADA (repasse não é falha nova — a cadeia inteira é uma só):
 
@@ -51,6 +57,7 @@ from openpyxl.utils import get_column_letter
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 SSOS = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
+SSOS_BC = os.path.join(RAIZ, "data", "missao", "ssos_bc.json")
 COEP = os.path.join(RAIZ, "data", "missao", "coep_2026.json")
 SAIDA = os.path.join(RAIZ, "dist", "BACKLOG_MENSAL_2026.xlsx")
 JSON_SAIDA = os.path.join(RAIZ, "data", "missao", "backlog_mensal.json")
@@ -62,7 +69,8 @@ INF = dt.date(9999, 12, 31)
 D = dt.timedelta(days=1)
 
 IND = "INDISPONIBILIDADE PARA OPERAÇÃO"
-ANOMALIA = {"EM OPERAÇÃO COM ANOMALIA", "ANOMALIA EM RELIGADOR", "ANOMALIA EM REGULADORES"}
+ANOMALIA = {"EM OPERAÇÃO COM ANOMALIA", "ANOMALIA EM RELIGADOR", "ANOMALIA EM REGULADORES",
+            "ANOMALIA EM BANCO DE CAPACITOR"}
 REGUAS = [("Indisponibilidade para operação", {IND}),
           ("Indisponibilidade + anomalia", {IND} | ANOMALIA)]
 
@@ -78,12 +86,18 @@ def data(s):
 
 
 def tipo_do_ativo(codigo):
-    return "RT" if codigo[:2] == "58" else "RL"
+    """58 regulador · 59 banco de capacitor · 78 e 79 religador."""
+    return {"58": "RT", "59": "BC"}.get(codigo[:2], "RL")
 
 
 def ler():
+    """RL/RT do recorte de sempre mais o banco de capacitor, que a consulta da base de
+    repasse joga fora (`COD_ELE NOT IN ('59','BR')`) e por isso nunca apareceu."""
     with open(SSOS, encoding="utf-8") as fh:
         ss = json.load(fh)
+    if os.path.exists(SSOS_BC):
+        with open(SSOS_BC, encoding="utf-8") as fh:
+            ss = ss + json.load(fh)
     datas = [d for d in (data(x["DATA_ABERTURA_SS"]) for x in ss) if d]
     datas += [d for d in (data(x.get("DATA_TERMINO_SS")) for x in ss) if d]
     return ss, max(datas)
@@ -132,8 +146,8 @@ def demandas(ss, tipos):
     return saida, soltas
 
 
-def serie(dem, posicao, so_tipo=None):
-    itens = [d for d in dem if so_tipo is None or d["tipo"] == so_tipo]
+def serie(dem, posicao, tipos=None):
+    itens = [d for d in dem if tipos is None or d["tipo"] in tipos]
     aberto = lambda t: sum(1 for d in itens if d["abertura"] <= t < d["fim"])
     linhas = []
     for m in range(1, 9):
@@ -142,7 +156,7 @@ def serie(dem, posicao, so_tipo=None):
         ent = [d for d in itens if ini <= d["abertura"] <= fim]
         sai = [d for d in itens if ini <= d["fim"] <= fim]
         si, sf = aberto(ini - D), aberto(fim)
-        assert sf == si + len(ent) - len(sai), (m, so_tipo, si, len(ent), len(sai), sf)
+        assert sf == si + len(ent) - len(sai), (m, tipos, si, len(ent), len(sai), sf)
         na_fila = [d for d in itens if d["abertura"] <= fim < d["fim"]]
         idades = sorted((fim - d["abertura"]).days for d in na_fila)
         linhas.append({
@@ -218,22 +232,26 @@ def cor_barra(s, cor):
 
 
 # ----------------------------------------------------------------------------- abas
-def aba_mensal(wb, linhas, posicao, soltas):
+def aba_mensal(wb, linhas, bc, total, posicao, soltas):
     ws = wb.create_sheet("Backlog mensal")
     titulo(ws, "BACKLOG MENSAL 2026 — religadores e reguladores com demanda aberta",
            "Régua da visão ETO: ativo 58/79 com SS de indisponibilidade para operação em aberto. "
            "Entrou é demanda nova no mês; saiu é demanda encerrada. O saldo fecha em todos os meses: "
-           "fim = início + entrou − saiu. Agosto é parcial, até %s — a base tem aberturas até 20/08 "
-           "e fechamentos até 21/08." % posicao.strftime("%d/%m/%Y"))
+           "fim = início + entrou − saiu. As cinco primeiras colunas são RL e RT, a régua que o "
+           "gestor ancorou nos 93; o banco de capacitor (código 59) vem em coluna própria e no "
+           "total, porque a consulta da base de repasse o joga fora e ele nunca aparecia. "
+           "Agosto é parcial, até %s." % posicao.strftime("%d/%m/%Y"))
     cab = ["Mês", "Backlog no início", "Entraram", "Saíram", "Backlog no fim",
-           "Variação", "Da fila, de 2025 ou antes", "Idade mediana da fila (dias)",
+           "Variação", "BC no fim do mês", "TOTAL com BC",
+           "Da fila, de 2025 ou antes", "Idade mediana da fila (dias)",
            "A mais velha da fila (dias)"]
-    cabecalho(ws, 4, cab, [14, 17, 12, 12, 16, 11, 20, 20, 20])
+    cabecalho(ws, 4, cab, [14, 17, 12, 12, 16, 11, 15, 14, 20, 20, 20])
     r = 5
-    for L in linhas:
+    for L, b, t in zip(linhas, bc, total):
         ws.append([L["rotulo"], L["inicio"], L["entraram"], L["sairam"], L["fim"],
-                   L["fim"] - L["inicio"], L["de_2025_ou_antes"], L["idade_mediana"], L["mais_velha"]])
-        for c in range(2, 10):
+                   L["fim"] - L["inicio"], b["fim"], t["fim"],
+                   L["de_2025_ou_antes"], L["idade_mediana"], L["mais_velha"]])
+        for c in range(2, 12):
             ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
         r += 1
     fim = r - 1
@@ -243,7 +261,9 @@ def aba_mensal(wb, linhas, posicao, soltas):
     ws.cell(row=r, column=4, value=f"=SUM(D5:D{fim})").font = Font(bold=True)
     ws.cell(row=r, column=5, value=linhas[-1]["fim"]).font = Font(bold=True)
     ws.cell(row=r, column=6, value=linhas[-1]["fim"] - linhas[0]["inicio"]).font = Font(bold=True)
-    for c in range(2, 7):
+    ws.cell(row=r, column=7, value=bc[-1]["fim"]).font = Font(bold=True)
+    ws.cell(row=r, column=8, value=total[-1]["fim"]).font = Font(bold=True)
+    for c in range(2, 9):
         ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
 
     ch = BarChart()
@@ -273,36 +293,43 @@ def aba_mensal(wb, linhas, posicao, soltas):
 
 
 def aba_tipo(wb, dem, posicao):
-    ws = wb.create_sheet("RL e RT")
-    titulo(ws, "O mesmo backlog, separado em religador e regulador",
-           "Mesma régua e mesma fronteira de mês. A soma das duas linhas de saldo dá o backlog total.")
+    ws = wb.create_sheet("RL, RT e BC")
+    titulo(ws, "O mesmo backlog, separado em religador, regulador e banco de capacitor",
+           "Mesma régua e mesma fronteira de mês. A soma das três linhas de saldo dá o backlog "
+           "total. O banco de capacitor (código operativo 59) fica fora da consulta da base de "
+           "repasse, então só aparece indo direto na base de SS/OS.")
     cab = ["Mês", "RL no início", "RL entraram", "RL saíram", "RL no fim",
-           "RT no início", "RT entraram", "RT saíram", "RT no fim"]
-    cabecalho(ws, 4, cab, [14] + [13] * 8)
-    rl, rt = serie(dem, posicao, "RL"), serie(dem, posicao, "RT")
+           "RT no início", "RT entraram", "RT saíram", "RT no fim",
+           "BC no início", "BC entraram", "BC saíram", "BC no fim", "TOTAL no fim"]
+    cabecalho(ws, 4, cab, [14] + [12] * 13)
+    rl, rt = serie(dem, posicao, ("RL",)), serie(dem, posicao, ("RT",))
+    bc = serie(dem, posicao, ("BC",))
     r = 5
-    for a, b in zip(rl, rt):
+    for a, b, c3 in zip(rl, rt, bc):
         ws.append([a["rotulo"], a["inicio"], a["entraram"], a["sairam"], a["fim"],
-                   b["inicio"], b["entraram"], b["sairam"], b["fim"]])
-        for c in range(2, 10):
+                   b["inicio"], b["entraram"], b["sairam"], b["fim"],
+                   c3["inicio"], c3["entraram"], c3["sairam"], c3["fim"],
+                   a["fim"] + b["fim"] + c3["fim"]])
+        for c in range(2, 15):
             ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
         r += 1
     fim = r - 1
     ch = BarChart()
     ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "clustered", 80, -12
-    for col in (5, 9):
+    for col in (5, 9, 13):
         ch.add_data(Reference(ws, min_col=col, min_row=4, max_row=fim), titles_from_data=True)
     ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
     ch.title = "Backlog no fim do mês, por tipo de equipamento"
     ch.y_axis.title = "demandas abertas"
     cor_barra(ch.series[0], LARANJA)
     cor_barra(ch.series[1], VERDE)
+    cor_barra(ch.series[2], NEUTRO)
     for s in ch.series:
         rotulos(s)
     ch.legend.position, ch.legend.overlay = "b", False
     categorias(ch, ws, "$A$5:$A$%d" % fim)
     ws.add_chart(estilo(ch, 12, 26), "A16")
-    return rl, rt
+    return rl, rt, bc
 
 
 def aba_cascata(wb, linhas, posicao):
@@ -358,11 +385,11 @@ def aba_reguas(wb, ss, posicao):
            "A larga soma quem roda com defeito (em operação com anomalia, anomalia em religador). "
            "As duas contam equipamento, não SS.")
     cab = ["Mês", "Só indisponibilidade", "Indisponibilidade + anomalia"]
-    cabecalho(ws, 4, cab, [14, 22, 26])
+    cabecalho(ws, 4, cab, [14, 22, 26])   # aqui os três tipos juntos, RL + RT + BC
     series = []
     for _, tipos in REGUAS:
-        dem, _ = demandas(ss, tipos)
-        series.append(serie(dem, posicao))
+        d2, _ = demandas(ss, tipos)
+        series.append(serie(d2, posicao))
     r = 5
     for i in range(8):
         ws.append([MESES[i], series[0][i]["fim"], series[1][i]["fim"]])
@@ -512,11 +539,14 @@ def aba_como(wb, posicao, soltas, n_dem, linhas, larga):
 def montar(saida=SAIDA):
     ss, posicao = ler()
     dem, soltas = demandas(ss, {IND})
-    linhas = serie(dem, posicao)
+    linhas = serie(dem, posicao, ("RL", "RT"))     # a régua ancorada nos 93 do gestor
+    bc = serie(dem, posicao, ("BC",))
+    total = serie(dem, posicao)
+    assert linhas[-1]["fim"] == 93, "a âncora do gestor é 93 em RL+RT; deu %d" % linhas[-1]["fim"]
     wb = Workbook()
     wb.remove(wb.active)
-    aba_mensal(wb, linhas, posicao, soltas)
-    rl, rt = aba_tipo(wb, dem, posicao)
+    aba_mensal(wb, linhas, bc, total, posicao, soltas)
+    rl, rt, bc = aba_tipo(wb, dem, posicao)
     aba_cascata(wb, linhas, posicao)
     larga = aba_reguas(wb, ss, posicao)
     aba_coep(wb)
@@ -529,10 +559,13 @@ def montar(saida=SAIDA):
                    "ancora": {"estoque_na_posicao": linhas[-1]["fim"],
                               "visao_eto_do_gestor": 93},
                    "repassadas_sem_seguinte": soltas, "mensal": linhas,
-                   "mensal_rl": rl, "mensal_rt": rt,
+                   "mensal_rl": rl, "mensal_rt": rt, "mensal_bc": bc,
+                   "mensal_total": total,
                    "mensal_regua_larga": larga}, fh, ensure_ascii=False, indent=1)
     print("%s: %d demandas, %d linhas na base, posição %s" % (saida, len(dem), n, posicao))
-    print("  backlog: %s" % " · ".join("%s %d" % (L["rotulo"][:3], L["fim"]) for L in linhas))
+    print("  RL+RT: %s" % " · ".join("%s %d" % (L["rotulo"][:3], L["fim"]) for L in linhas))
+    print("  BC   : %s" % " · ".join("%s %d" % (L["rotulo"][:3], L["fim"]) for L in bc))
+    print("  TOTAL: %s" % " · ".join("%s %d" % (L["rotulo"][:3], L["fim"]) for L in total))
     from planilha_automatica import grava_cache
     print("  cache: %d células" % grava_cache(saida))
     return saida

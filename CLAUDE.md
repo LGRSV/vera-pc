@@ -135,6 +135,21 @@ comissionamento e obra de equipamento novo.
   cadeia **+ cancelada que ficou de pé** (sem nota nova no COEP depois; nota pendente em
   outro posto não derruba). 2026: 18 + 45 = **63**. Atendida fechada só na TELE/PROT sem
   campo na cadeia é execução do DMSL/DEOP, fica fora (19 casos).
+- **A série do ano é UMA conta só, cortada no meio** (gestor, 02/09, dito duas vezes): o
+  apurado de jan–ago **tem de bater com os números de setembro em diante**. O que fecha
+  agosto é o que abre setembro. Por isso a premissa de set–dez foi reancorada no estoque
+  apurado; número novo que chegar para set–dez tem de fechar contra o saldo de agosto, e
+  se não fechar é sinal de que as duas metades estão em réguas diferentes.
+- **Banco de capacitor entra nas contas** (gestor, 02/09: «tem que ter a visão de BC, que
+  começa com código operativo 59»). Ele nunca aparecia porque a consulta da base de repasse
+  o descarta (`AND COD_ELE NOT IN ('59','BR')`) — só sai indo direto na base de SS/OS.
+  `data/missao/ssos_bc.json` (gerado com o remontador de `extrai_ssos_min.py` e o regex
+  `59\d{8}$`): **242 SS em 102 ativos**, aberturas de 03/01/2024 a **22/08/2026** — dois
+  dias além do RL/RT, então a posição do recorte inteiro passa a ser 22/08. Backlog de BC
+  pela régua de indisponibilidade: **23 · 23 · 22 · 20 · 20 · 16 · 16 · 16 · 13** (início do
+  ano a agosto). Com BC o backlog do parque vai de 93 para **106**; o 93 do gestor é RL+RT.
+  Cuidado: BC com **qualquer** SS pendente são 52, e só 13 são de indisponibilidade — a
+  carteira do gestor traz 23 BC, que é outra régua.
 - **A carteira consolidada não serve de fonte para «resolvido»**: ela é a foto do que
   ainda está pendente; o que fechou e saiu não fica registrado nela.
 
