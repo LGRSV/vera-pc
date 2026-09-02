@@ -336,6 +336,34 @@ diferente de «Sem classificação».
   abas. O que fica para o gestor decidir: a MO do RT completo fora de 400/34,5; 5841308190 (dois
   furtos sem orçamento); 7947203070 (controle no rol, completo na carteira).
 
+- **O quadro da premissa set–dez em gráficos** (`painel_premissa_setdez.py` →
+  `dist/PAINEL_PREMISSA_SETDEZ.xlsx`, 02/09). O gestor mandou o quadro **sem rótulo de
+  coluna** — backlog 100 fixo · entrante 8·5·4·6 · resolvidos acumulados 6·35·57·77 ·
+  pendentes 102·70·47·29 · orçado 5.206.065,02 → 6.062.323,84 · forecast 2.129.866,67 →
+  6.058.299,31. **As colunas são setembro a dezembro de 2026**, provado no centavo pela
+  planilha base: o primeiro forecast é o realizado de jan–ago (R$ 1.605.280,07, soma
+  acumulada da aba **Apresentação**) + o desembolso de setembro da premissa da aba
+  Orçamento (R$ 524.586,60); o último é a soma acumulada de tudo na Apresentação
+  (R$ 6.058.299,32), **R$ 4.024,53 abaixo do orçado** — a mesma diferença que a
+  Apresentação guarda em G8. **PENDENTES = BACKLOG + ENTRANTE − RESOLVIDOS**, coluna a
+  coluna, reproduz os quatro números exato — mas resolvidos é acumulado e entrante é do
+  mês, então os entrantes de meses anteriores somem da conta; acumulando-os a série vira
+  **102 · 78 · 60 · 46** (dezembro 17 acima). Idem o desembolso de setembro, que carrega o
+  ano inteiro. As duas ressalvas estão na aba «Como ler» e a segunda leitura tem aba
+  própria. Oito abas de gráfico, todas lendo a aba **Dados** (mudou lá, mudou o gráfico),
+  com `grava_cache()` de `planilha_automatica` para não abrir em branco.
+  **Régua de gráfico** (skill dataviz): par **#1f7c50 verde / #b8480c laranja** aprovado no
+  validador sobre `#fbfaf6` (deuteranopia ΔE 8,9 · visão normal 22,9 · contraste ≥ 3:1) —
+  ocre `#996c15` **reprova** contra o laranja (ΔE 1,4 deutan) e grafite `#6d675a` não tem
+  croma para ser categórico, só serve de neutro; **nunca dois eixos Y** (grandeza diferente
+  = gráfico separado); legenda sempre que houver 2 séries. **Armadilhas do openpyxl em
+  gráfico**: com `from_rows=True, titles_from_data=True` o título da série vem da **coluna
+  A de cada linha**, então a linha de categorias **não pode entrar** no `Reference` (entra
+  como série fantasma); combinar `BarChart += LineChart` **sem** mexer em `axId` mantém
+  eixo único (mexer cria o segundo eixo); cascata se faz com série-base `noFill` + `dPt`
+  por ponto; e o **código de formato é sempre em convenção US** — `0.0%` e `R$ #,##0.00`,
+  nunca `0,0%` (a vírgula ali é separador de milhar).
+
 ## Artifacts vivos
 
 | Página | URL |
