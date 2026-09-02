@@ -295,6 +295,32 @@ diferente de «Sem classificação».
   MESMA SS com tanque e controle, 5841308190 com dois furtos e 5854566043 com duas
   células. Por peça as 90 linhas contam; por equipamento seriam **87**.
 
+- **A planilha automática** (`planilha_automatica.py` → `dist/GESTAO_AUTOMATICA.xlsx`, 01/09;
+  `confere_planilha_automatica.py` calcula as fórmulas com a biblioteca `formulas` e checa 62
+  pontos). Pedido do gestor: «seleciono Tanque e ele traz Tanque da 34,5 NOJA código 690005; célula
+  de 400 kVA 90.230, se for 2, 180.460». A planilha base faz isso com **XLOOKUP em dois arquivos
+  externos** (carteira do SharePoint: aba «Criticidade por Equipamento», colunas AS «RL Auto»,
+  AT «Valor Material», AU «Valor mão de obra estimado»; e GESTÃO DE EQUIPAMENTOS.xlsx para a
+  tensão) — fora da rede ficam só os valores em cache, que estão em
+  `xl/externalLinks/externalLink1.xml` dentro do xlsx. A automática é autocontida: **Catálogo**
+  (chave `Tipo|Peça|Classe`; classe = tensão no RL, kVA na célula), **Cadastro** (1.292 RL + 189
+  RT dos ajustes, mais 7930359149 inferido), **Lançamento** (300 linhas: ativo → peça em lista
+  dependente do tipo via `INDIRECT("Pecas_"&tipo)` → qtd), **Gestão** (53, com «Bate?» contra a
+  carteira: 53 de 53) e **Falha Equipamentos** (90). **Preço: vale a carteira de 27/08**; onde ela
+  não tem linha, «Premissas e Preços» do ORCAMENTO_EQ_ESPECIAIS (16/07). No RL as três fontes
+  batem no centavo (690001 tanque 13,8 R$ 21.785,72 · 690005 tanque 34,5 R$ 38.151,48 · 690916
+  controle 13,8 R$ 33.816,82 · 692263 controle 34,5 R$ 38.094,72; MO 11.016,94 / 13.209,34). **No
+  RT a carteira é mais barata que o orçamento**: célula 400 (690241) R$ 90.230 contra 126.893,80;
+  célula 200 (690240) 51.705,75 contra 57.720,41; célula 239 (690236) 62.113,20 contra 61.098,29;
+  controle (651638) 23.259,60 + MO 20.000 contra 29.445,39 + 0; célula 167 (690669) só no
+  orçamento, R$ 27.616,62; MO de célula 51.402,14 (13,8) / 80.318,50 (34,5); RT completo 400 =
+  293.949,60 (= 3 × 90.230 + 23.259,60) + MO 200.637. **Só quatro potências têm código de célula**
+  (167, 200, 239, 400); 250/398/667 vão à mais próxima. Mão de obra é por serviço, uma vez por
+  linha. **Armadilhas do openpyxl** achadas aqui: `formula1` da validação vai **sem o «=»** e precisa
+  de `showErrorMessage=True`; lista com «13,8» tem de ser intervalo (a vírgula separa itens);
+  regravar a planilha base com openpyxl perde o gráfico da aba SLA — por isso a automática é
+  arquivo à parte, com instrução de mover as abas.
+
 ## Artifacts vivos
 
 | Página | URL |
