@@ -1,0 +1,369 @@
+{
+ "posicao": "2026-08-21",
+ "regua": "indisponibilidade para operação",
+ "ancora": {
+  "estoque_na_posicao": 93,
+  "visao_eto_do_gestor": 93
+ },
+ "repassadas_sem_seguinte": 145,
+ "mensal": [
+  {
+   "mes": 1,
+   "rotulo": "janeiro",
+   "inicio": 70,
+   "entraram": 31,
+   "sairam": 18,
+   "fim": 83,
+   "de_2025_ou_antes": 60,
+   "idade_mediana": 150,
+   "mais_velha": 703
+  },
+  {
+   "mes": 2,
+   "rotulo": "fevereiro",
+   "inicio": 83,
+   "entraram": 23,
+   "sairam": 29,
+   "fim": 77,
+   "de_2025_ou_antes": 53,
+   "idade_mediana": 187,
+   "mais_velha": 731
+  },
+  {
+   "mes": 3,
+   "rotulo": "março",
+   "inicio": 77,
+   "entraram": 55,
+   "sairam": 47,
+   "fim": 85,
+   "de_2025_ou_antes": 45,
+   "idade_mediana": 117,
+   "mais_velha": 762
+  },
+  {
+   "mes": 4,
+   "rotulo": "abril",
+   "inicio": 85,
+   "entraram": 50,
+   "sairam": 47,
+   "fim": 88,
+   "de_2025_ou_antes": 43,
+   "idade_mediana": 101,
+   "mais_velha": 792
+  },
+  {
+   "mes": 5,
+   "rotulo": "maio",
+   "inicio": 88,
+   "entraram": 23,
+   "sairam": 32,
+   "fim": 79,
+   "de_2025_ou_antes": 38,
+   "idade_mediana": 124,
+   "mais_velha": 823
+  },
+  {
+   "mes": 6,
+   "rotulo": "junho",
+   "inicio": 79,
+   "entraram": 36,
+   "sairam": 31,
+   "fim": 84,
+   "de_2025_ou_antes": 28,
+   "idade_mediana": 92,
+   "mais_velha": 853
+  },
+  {
+   "mes": 7,
+   "rotulo": "julho",
+   "inicio": 84,
+   "entraram": 28,
+   "sairam": 25,
+   "fim": 87,
+   "de_2025_ou_antes": 26,
+   "idade_mediana": 122,
+   "mais_velha": 884
+  },
+  {
+   "mes": 8,
+   "rotulo": "agosto",
+   "inicio": 87,
+   "entraram": 23,
+   "sairam": 17,
+   "fim": 93,
+   "de_2025_ou_antes": 21,
+   "idade_mediana": 72,
+   "mais_velha": 905
+  }
+ ],
+ "mensal_rl": [
+  {
+   "mes": 1,
+   "rotulo": "janeiro",
+   "inicio": 55,
+   "entraram": 29,
+   "sairam": 15,
+   "fim": 69,
+   "de_2025_ou_antes": 47,
+   "idade_mediana": 144,
+   "mais_velha": 703
+  },
+  {
+   "mes": 2,
+   "rotulo": "fevereiro",
+   "inicio": 69,
+   "entraram": 22,
+   "sairam": 28,
+   "fim": 63,
+   "de_2025_ou_antes": 41,
+   "idade_mediana": 178,
+   "mais_velha": 731
+  },
+  {
+   "mes": 3,
+   "rotulo": "março",
+   "inicio": 63,
+   "entraram": 49,
+   "sairam": 41,
+   "fim": 71,
+   "de_2025_ou_antes": 35,
+   "idade_mediana": 71,
+   "mais_velha": 762
+  },
+  {
+   "mes": 4,
+   "rotulo": "abril",
+   "inicio": 71,
+   "entraram": 46,
+   "sairam": 44,
+   "fim": 73,
+   "de_2025_ou_antes": 33,
+   "idade_mediana": 70,
+   "mais_velha": 792
+  },
+  {
+   "mes": 5,
+   "rotulo": "maio",
+   "inicio": 73,
+   "entraram": 15,
+   "sairam": 25,
+   "fim": 63,
+   "de_2025_ou_antes": 29,
+   "idade_mediana": 116,
+   "mais_velha": 823
+  },
+  {
+   "mes": 6,
+   "rotulo": "junho",
+   "inicio": 63,
+   "entraram": 29,
+   "sairam": 27,
+   "fim": 65,
+   "de_2025_ou_antes": 19,
+   "idade_mediana": 91,
+   "mais_velha": 853
+  },
+  {
+   "mes": 7,
+   "rotulo": "julho",
+   "inicio": 65,
+   "entraram": 19,
+   "sairam": 19,
+   "fim": 65,
+   "de_2025_ou_antes": 17,
+   "idade_mediana": 122,
+   "mais_velha": 884
+  },
+  {
+   "mes": 8,
+   "rotulo": "agosto",
+   "inicio": 65,
+   "entraram": 20,
+   "sairam": 14,
+   "fim": 71,
+   "de_2025_ou_antes": 14,
+   "idade_mediana": 73,
+   "mais_velha": 905
+  }
+ ],
+ "mensal_rt": [
+  {
+   "mes": 1,
+   "rotulo": "janeiro",
+   "inicio": 15,
+   "entraram": 2,
+   "sairam": 3,
+   "fim": 14,
+   "de_2025_ou_antes": 13,
+   "idade_mediana": 184,
+   "mais_velha": 521
+  },
+  {
+   "mes": 2,
+   "rotulo": "fevereiro",
+   "inicio": 14,
+   "entraram": 1,
+   "sairam": 1,
+   "fim": 14,
+   "de_2025_ou_antes": 12,
+   "idade_mediana": 212,
+   "mais_velha": 549
+  },
+  {
+   "mes": 3,
+   "rotulo": "março",
+   "inicio": 14,
+   "entraram": 6,
+   "sairam": 6,
+   "fim": 14,
+   "de_2025_ou_antes": 10,
+   "idade_mediana": 224,
+   "mais_velha": 580
+  },
+  {
+   "mes": 4,
+   "rotulo": "abril",
+   "inicio": 14,
+   "entraram": 4,
+   "sairam": 3,
+   "fim": 15,
+   "de_2025_ou_antes": 10,
+   "idade_mediana": 212,
+   "mais_velha": 610
+  },
+  {
+   "mes": 5,
+   "rotulo": "maio",
+   "inicio": 15,
+   "entraram": 8,
+   "sairam": 7,
+   "fim": 16,
+   "de_2025_ou_antes": 9,
+   "idade_mediana": 236,
+   "mais_velha": 641
+  },
+  {
+   "mes": 6,
+   "rotulo": "junho",
+   "inicio": 16,
+   "entraram": 7,
+   "sairam": 4,
+   "fim": 19,
+   "de_2025_ou_antes": 9,
+   "idade_mediana": 96,
+   "mais_velha": 671
+  },
+  {
+   "mes": 7,
+   "rotulo": "julho",
+   "inicio": 19,
+   "entraram": 9,
+   "sairam": 6,
+   "fim": 22,
+   "de_2025_ou_antes": 9,
+   "idade_mediana": 127,
+   "mais_velha": 702
+  },
+  {
+   "mes": 8,
+   "rotulo": "agosto",
+   "inicio": 22,
+   "entraram": 3,
+   "sairam": 3,
+   "fim": 22,
+   "de_2025_ou_antes": 7,
+   "idade_mediana": 63,
+   "mais_velha": 723
+  }
+ ],
+ "mensal_regua_larga": [
+  {
+   "mes": 1,
+   "rotulo": "janeiro",
+   "inicio": 120,
+   "entraram": 40,
+   "sairam": 36,
+   "fim": 124,
+   "de_2025_ou_antes": 96,
+   "idade_mediana": 138,
+   "mais_velha": 722
+  },
+  {
+   "mes": 2,
+   "rotulo": "fevereiro",
+   "inicio": 124,
+   "entraram": 32,
+   "sairam": 37,
+   "fim": 119,
+   "de_2025_ou_antes": 83,
+   "idade_mediana": 166,
+   "mais_velha": 750
+  },
+  {
+   "mes": 3,
+   "rotulo": "março",
+   "inicio": 119,
+   "entraram": 59,
+   "sairam": 61,
+   "fim": 117,
+   "de_2025_ou_antes": 68,
+   "idade_mediana": 134,
+   "mais_velha": 762
+  },
+  {
+   "mes": 4,
+   "rotulo": "abril",
+   "inicio": 117,
+   "entraram": 60,
+   "sairam": 54,
+   "fim": 123,
+   "de_2025_ou_antes": 61,
+   "idade_mediana": 101,
+   "mais_velha": 792
+  },
+  {
+   "mes": 5,
+   "rotulo": "maio",
+   "inicio": 123,
+   "entraram": 31,
+   "sairam": 49,
+   "fim": 105,
+   "de_2025_ou_antes": 50,
+   "idade_mediana": 117,
+   "mais_velha": 823
+  },
+  {
+   "mes": 6,
+   "rotulo": "junho",
+   "inicio": 105,
+   "entraram": 39,
+   "sairam": 46,
+   "fim": 98,
+   "de_2025_ou_antes": 33,
+   "idade_mediana": 92,
+   "mais_velha": 853
+  },
+  {
+   "mes": 7,
+   "rotulo": "julho",
+   "inicio": 98,
+   "entraram": 28,
+   "sairam": 32,
+   "fim": 94,
+   "de_2025_ou_antes": 29,
+   "idade_mediana": 122,
+   "mais_velha": 884
+  },
+  {
+   "mes": 8,
+   "rotulo": "agosto",
+   "inicio": 94,
+   "entraram": 28,
+   "sairam": 18,
+   "fim": 104,
+   "de_2025_ou_antes": 25,
+   "idade_mediana": 86,
+   "mais_velha": 905
+  }
+ ]
+}

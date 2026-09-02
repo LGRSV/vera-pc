@@ -377,6 +377,30 @@ diferente de «Sem classificação».
   (`scratchpad/previa.py` + screenshot), que serve de prévia visual para o gestor conferir
   sem abrir o Excel.
 
+- **O backlog mês a mês** (`backlog_mensal.py` → `dist/BACKLOG_MENSAL_2026.xlsx` e
+  `data/missao/backlog_mensal.json`, 02/09). Backlog é **estoque**: quantos RL/RT estavam com
+  demanda aberta no fim de cada mês. **A régua é a da visão ETO** — ativo 58/79 com SS de
+  INDISPONIBILIDADE PARA OPERAÇÃO em aberto —, e a série **fecha em 93 na posição da base**,
+  o mesmo 93 que o gestor deu em 22/08: é âncora, não calibração. Série 2026: **início 70 ·
+  jan 83 · fev 77 · mar 85 · abr 88 · mai 79 · jun 84 · jul 87 · ago 93**; no ano entraram
+  269 e saíram 246 — quase empate, e é por isso que a fila não cede. **RL oscila 63–73; RT
+  sobe de 14 para 22.** A fila **rejuvenesce**: herdados de 2025 ou antes caem de 60 para 21
+  e a idade mediana de 150 para 72 dias (a mais velha, 905 dias). Pela régua larga
+  (indisponibilidade + anomalia) vai de 120 a 104.
+  **Como a demanda é montada**: abre na abertura da primeira SS, fecha na saída da última;
+  a saída é a conclusão, senão a abertura da SS seguinte do mesmo ativo, senão segue aberta.
+  **A exceção que decide o número**: SS REPASSADA **sem nenhuma SS seguinte no recorte** sai
+  do registro na data em que foi aberta (145 casos) — tratá-las como abertas para sempre
+  levaria o estoque de 93 para **217** e nada bateria com o gestor. **Fronteira do mês** que
+  faz o saldo fechar nos oito meses (`assert` no script): estoque no fim = `abertura <= último
+  dia < saída`; entradas e saídas = datas dentro do mês. Medir o estoque no dia 1º do mês
+  seguinte quebra a conta (demanda que abre naquele dia entra sem ser entrada).
+  **Horizonte**: `BASE_SS_OS_20082026.txt` tem aberturas até 20/08 e **fechamentos até 21/08**
+  — a posição é 21/08/2026 e agosto é mês parcial. Para chegar a hoje: base nova em
+  `data/raw` → `extrai_ssos_min.py` → `backlog_mensal.py`. O recorte `data/missao/ssos_min.json`
+  tem 6.362 SS (2024–2026). **Não confundir** com a fila do posto do COEP (`curva_mensal` de
+  `coep_2026.json`, 42–54), que é outro recorte e vai numa aba à parte para comparar.
+
 ## Artifacts vivos
 
 | Página | URL |
