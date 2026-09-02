@@ -295,31 +295,46 @@ diferente de «Sem classificação».
   MESMA SS com tanque e controle, 5841308190 com dois furtos e 5854566043 com duas
   células. Por peça as 90 linhas contam; por equipamento seriam **87**.
 
-- **A planilha automática** (`planilha_automatica.py` → `dist/GESTAO_AUTOMATICA.xlsx`, 01/09;
-  `confere_planilha_automatica.py` calcula as fórmulas com a biblioteca `formulas` e checa 62
-  pontos). Pedido do gestor: «seleciono Tanque e ele traz Tanque da 34,5 NOJA código 690005; célula
-  de 400 kVA 90.230, se for 2, 180.460». A planilha base faz isso com **XLOOKUP em dois arquivos
-  externos** (carteira do SharePoint: aba «Criticidade por Equipamento», colunas AS «RL Auto»,
-  AT «Valor Material», AU «Valor mão de obra estimado»; e GESTÃO DE EQUIPAMENTOS.xlsx para a
-  tensão) — fora da rede ficam só os valores em cache, que estão em
+- **A planilha automática** (`planilha_automatica.py` → `dist/GESTAO_AUTOMATICA.xlsx`, 01–02/09;
+  `confere_planilha_automatica.py` calcula as fórmulas com a biblioteca `formulas` — pip — e
+  checa 112 pontos, inclusive seis cenários de borda numa cópia). Pedido do gestor, como foi dito:
+  «se eu selecionar que o defeito é o Tanque ele já traz Tanque da 34,5 Noja Código 69001
+  (exemplo, não me recordo se é isso mesmo); se eu disser que é uma célula de 400 kVA 90.000,
+  se for 2, 180.000, usando valores reais» — com os reais: tanque 34,5 é o **690005** e a célula
+  de 400 é a **690241 a R$ 90.230** (duas, 180.460). A planilha base faz isso com **XLOOKUP em
+  dois arquivos externos** (carteira do SharePoint: aba «Criticidade por Equipamento», colunas AS
+  «RL Auto», AT «Valor Material», AU «Valor mão de obra estimado»; e GESTÃO DE EQUIPAMENTOS.xlsx
+  para a tensão) — fora da rede ficam só os valores em cache, que estão em
   `xl/externalLinks/externalLink1.xml` dentro do xlsx. A automática é autocontida: **Catálogo**
-  (chave `Tipo|Peça|Classe`; classe = tensão no RL, kVA na célula), **Cadastro** (1.292 RL + 189
-  RT dos ajustes, mais 7930359149 inferido), **Lançamento** (300 linhas: ativo → peça em lista
-  dependente do tipo via `INDIRECT("Pecas_"&tipo)` → qtd), **Gestão** (53, com «Bate?» contra a
-  carteira: 53 de 53) e **Falha Equipamentos** (90). **Preço: vale a carteira de 27/08**; onde ela
-  não tem linha, «Premissas e Preços» do ORCAMENTO_EQ_ESPECIAIS (16/07). No RL as três fontes
+  (chave `Tipo|Peça|Tensão|kVA`; kVA só na célula e no RT completo; completos em fórmula sobre as
+  peças), **Cadastro** (1.292 RL + 189 RT dos ajustes, mais 7930359149 com tensão pelo alimentador
+  LD03414149), **Lançamento** (300 linhas: ativo → peça em lista dependente do tipo via
+  `INDIRECT("Pecas_"&tipo)` → qtd; colunas manuais de tensão e potência mandam sobre o cadastro),
+  **Gestão** (53, «Bate?» 53 de 53 contra a carteira) e **Falha Equipamentos** (90; furto orçado
+  pela carteira só na falha mais recente do ativo — 5836786094 célula ×1, 5856070091/5856156091/
+  5858783119 completo —, o resto em branco «definir»). **Preço: vale a carteira de 27/08**; onde
+  ela não tem linha, «Premissas e Preços» do ORCAMENTO_EQ_ESPECIAIS (16/07). No RL as três fontes
   batem no centavo (690001 tanque 13,8 R$ 21.785,72 · 690005 tanque 34,5 R$ 38.151,48 · 690916
   controle 13,8 R$ 33.816,82 · 692263 controle 34,5 R$ 38.094,72; MO 11.016,94 / 13.209,34). **No
   RT a carteira é mais barata que o orçamento**: célula 400 (690241) R$ 90.230 contra 126.893,80;
-  célula 200 (690240) 51.705,75 contra 57.720,41; célula 239 (690236) 62.113,20 contra 61.098,29;
-  controle (651638) 23.259,60 + MO 20.000 contra 29.445,39 + 0; célula 167 (690669) só no
-  orçamento, R$ 27.616,62; MO de célula 51.402,14 (13,8) / 80.318,50 (34,5); RT completo 400 =
-  293.949,60 (= 3 × 90.230 + 23.259,60) + MO 200.637. **Só quatro potências têm código de célula**
-  (167, 200, 239, 400); 250/398/667 vão à mais próxima. Mão de obra é por serviço, uma vez por
-  linha. **Armadilhas do openpyxl** achadas aqui: `formula1` da validação vai **sem o «=»** e precisa
-  de `showErrorMessage=True`; lista com «13,8» tem de ser intervalo (a vírgula separa itens);
-  regravar a planilha base com openpyxl perde o gráfico da aba SLA — por isso a automática é
-  arquivo à parte, com instrução de mover as abas.
+  célula 200 em 34,5 (690240) 51.705,75 contra 57.720,41; célula «200» em 13,8 = **690236, que o
+  orçamento chama de 239 kVA**, 62.113,20 contra 61.098,29; controle (651638) 23.259,60 + MO
+  20.000 contra 29.445,39 + 0; célula 167 (690669) só no orçamento, R$ 27.616,62; MO de célula
+  51.402,14 (13,8) / 80.318,50 (34,5); **RT completo 400 = 293.949,60 (= 3 × 90.230 + 23.259,60)
+  + MO 200.637, que é 2 × (80.318,50 + 20.000)** — essa regra vale para as outras classes, a
+  confirmar. **Só quatro códigos de célula** (690669, 690236, 690240, 690241); a classe é a do
+  gestor (167/200/400): 398 → 400, 239 e 250 → 200, com aviso; 300 e 667 são os desvios graves.
+  Mão de obra é por serviço, uma vez por linha. A auditoria por workflow (4 lentes + 2 céticos por
+  achado, 02/09) confirmou e o script corrigiu: tensão manual virava número e apagava a MO
+  (formato `@` + `&""`); INDEX em célula vazia dá **0** (usar `T(INDEX(...))`); furto ×3 era chute;
+  completos eram constantes; intervalos fixos (agora 3.000/200/1.000); ativo fora do cadastro e
+  prefixo 59 sem mensagem; sem cache de valores a planilha abre em branco no Modo Protegido —
+  `grava_cache()` calcula com `formulas` e injeta `<v>` no XML. **Armadilhas do openpyxl** achadas
+  aqui: `formula1` da validação vai **sem o «=»** e precisa de `showErrorMessage=True`; lista com
+  «13,8» tem de ser intervalo (a vírgula separa itens); regravar a planilha base com openpyxl
+  perde o gráfico da aba SLA — por isso a automática é arquivo à parte, com instrução de mover as
+  abas. O que fica para o gestor decidir: a MO do RT completo fora de 400/34,5; 5841308190 (dois
+  furtos sem orçamento); 7947203070 (controle no rol, completo na carteira).
 
 ## Artifacts vivos
 
