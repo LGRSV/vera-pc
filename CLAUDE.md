@@ -236,7 +236,9 @@ comissionamento e obra de equipamento novo.
 - **O número no nome da carteira não versiona**: a «ATUALIZADA_3» de 22/08 é byte a byte a
   ATUALIZADA 16 (MD5 igual). Conferir hash antes de reprocessar.
 - **`dist/` está no `.gitignore`** — planilhas vão por SendUserFile, não por commit.
-- **LibreOffice não roda neste ambiente** — o Excel grava valores, não fórmulas.
+- **LibreOffice não roda neste ambiente**: o binário existe (`/usr/bin/soffice` 24.2.7.2) mas
+  recusa qualquer xlsx, inclusive um mínimo do openpyxl e um gravado pelo Excel. Para ver
+  um gráfico, renderizar SVG por Playwright. O Excel grava valores, não fórmulas.
 - Playwright: `NODE_PATH=/opt/node22/lib/node_modules /opt/node22/bin/node`,
   `executablePath: '/opt/pw-browsers/chromium'`.
 
@@ -362,7 +364,18 @@ diferente de «Sem classificação».
   como série fantasma); combinar `BarChart += LineChart` **sem** mexer em `axId` mantém
   eixo único (mexer cria o segundo eixo); cascata se faz com série-base `noFill` + `dPt`
   por ponto; e o **código de formato é sempre em convenção US** — `0.0%` e `R$ #,##0.00`,
-  nunca `0,0%` (a vírgula ali é separador de milhar).
+  nunca `0,0%` (a vírgula ali é separador de milhar). **`set_categories` com rótulo de
+  TEXTO grava `numRef` e o Excel mostra 1·2·3·4 no lugar dos meses** — tem de ser
+  `ser.cat = AxDataSource(strRef=StrRef("'Aba'!$B$4:$E$4"))`, aplicado em cada série de
+  cada sub-gráfico de `ch._charts`; e o `axPos` sai `l` nos dois eixos, então acertar
+  `x_axis.axPos = "b"` na mão. Gráfico só na segunda aba passa despercebido — repetir um
+  na primeira. **Conferência de gráfico**: LibreOffice está instalado (`/usr/bin/soffice`,
+  24.2.7.2) mas **não carrega xlsx nenhum** neste ambiente, nem um mínimo do openpyxl nem
+  um gravado pelo Excel («source file could not be loaded», mesmo com
+  `-env:UserInstallation` próprio) — não serve para renderizar. Matplotlib também não está
+  instalado. O caminho que funciona é **SVG em HTML renderizado pelo Playwright/Chromium**
+  (`scratchpad/previa.py` + screenshot), que serve de prévia visual para o gestor conferir
+  sem abrir o Excel.
 
 ## Artifacts vivos
 

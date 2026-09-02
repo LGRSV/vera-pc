@@ -28,6 +28,7 @@ import sys
 from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.chart.axis import ChartLines
+from openpyxl.chart.data_source import AxDataSource, StrRef
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.marker import DataPoint, Marker
 from openpyxl.chart.shapes import GraphicalProperties
@@ -84,6 +85,8 @@ def estilo(ch, alto=11, largo=22):
     ch.style = None
     ch.x_axis.delete = False
     ch.y_axis.delete = False
+    ch.x_axis.axPos, ch.y_axis.axPos = "b", "l"
+    ch.x_axis.crosses = ch.y_axis.crosses = "autoZero"
     gl = ChartLines()
     gl.spPr = GraphicalProperties()
     gl.spPr.line = LineProperties(solidFill=GRADE, w=6350)
@@ -92,6 +95,16 @@ def estilo(ch, alto=11, largo=22):
     for eixo in (ch.x_axis, ch.y_axis):
         eixo.spPr = GraphicalProperties()
         eixo.spPr.line = LineProperties(solidFill=GRADE, w=6350)
+    return ch
+
+
+def categorias(ch, ws, ref="$B$4:$E$4"):
+    """Mês é TEXTO: sem strRef o openpyxl grava numRef e o Excel mostra 1·2·3·4.
+    Vale para o gráfico combinado também — `_charts` traz os dois sub-gráficos."""
+    alvo = "'%s'!%s" % (ws.title, ref)
+    for sub in (getattr(ch, "_charts", None) or [ch]):
+        for s_ in sub.series:
+            s_.cat = AxDataSource(strRef=StrRef(alvo))
     return ch
 
 
@@ -190,6 +203,21 @@ def aba_dados(wb):
         for cc in range(2, 6):
             ws.cell(row=rr, column=cc).alignment = Alignment(horizontal="center")
     ws.freeze_panes = "B5"
+    # o mesmo burn-down aqui, para quem abrir a planilha ver gráfico já na primeira aba
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "clustered", 90, -12
+    ch.add_data(Reference(ws, min_col=1, min_row=8, max_col=5, max_row=8),
+                from_rows=True, titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=2, min_row=4, max_col=5, max_row=4))
+    ch.title = "Pendentes no fim do mês (as outras sete visões estão nas abas seguintes)"
+    ch.y_axis.title = "equipamentos"
+    s0 = ch.series[0]
+    s0.graphicalProperties = GraphicalProperties(solidFill=LARANJA)
+    s0.graphicalProperties.line = LineProperties(solidFill="FBFAF6", w=25400)
+    rotulos(s0)
+    ch.legend = None
+    categorias(ch, ws)
+    ws.add_chart(estilo(ch, 10, 22), "A23")
     return ws
 
 
@@ -221,7 +249,7 @@ def refs(ws, n):
 
 # --------------------------------------------------------------------------- as sete visões
 def v1_fila(wb):
-    ws = aba(wb, "1 · A fila", "A fila cai de 102 para 29 até dezembro",
+    ws = aba(wb, "1 Fila", "A fila cai de 102 para 29 até dezembro",
              "As barras são o que fica pendente no fim de cada mês; a linha é o total resolvido no ano "
              "até ali. As duas contam equipamentos, então dividem o mesmo eixo.",
              [("Pendentes no fim do mês", 8), ("Resolvidos (acumulado)", 7)], ["0", "0"])
@@ -250,11 +278,12 @@ def v1_fila(wb):
     ch += lin                      # mesmo eixo — sem segundo eixo Y
     ch.legend.position = "b"
     ch.legend.overlay = False
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 24), "A9")
 
 
 def v2_cascata(wb):
-    ws = wb.create_sheet("2 · Cascata de dezembro")
+    ws = wb.create_sheet("2 Cascata")
     titulo(ws, "De onde saem os 29 pendentes de dezembro",
            "Parte do backlog de 100, soma o que entra e desconta o que foi resolvido no ano. "
            "As duas barras cinzas são saldos; as coloridas, movimento.")
@@ -292,11 +321,12 @@ def v2_cascata(wb):
     ]
     rotulos(valor)
     ch.legend = None
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 22), "A9")
 
 
 def v3_ritmo(wb):
-    ws = aba(wb, "3 · Ritmo do mês", "O que resolve e o que entra, mês a mês",
+    ws = aba(wb, "3 Ritmo", "O que resolve e o que entra, mês a mês",
              "Resolvidos no mês é a diferença do acumulado; entrante é o que a premissa espera queimar. "
              "Enquanto a barra verde for maior que a laranja, a fila drena.",
              [("Resolvidos no mês", 14), ("Entrantes no mês", 6)], ["0", "0"])
@@ -305,11 +335,12 @@ def v3_ritmo(wb):
                 "Resolvidos × entrantes, por mês", "equipamentos")
     for s in ch.series:
         rotulos(s)
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 22), "A9")
 
 
 def v4_dinheiro(wb):
-    ws = aba(wb, "4 · Orçado × forecast", "O forecast alcança o orçado em dezembro",
+    ws = aba(wb, "4 Orcado x forecast", "O forecast alcança o orçado em dezembro",
              "Os dois acumulados. Em dezembro o forecast fecha R$ 4.024,53 abaixo do orçado de 2026 "
              "(R$ 6.058.299,31 contra R$ 6.062.323,84) — a mesma diferença da aba Apresentação da "
              "planilha base.",
@@ -317,22 +348,24 @@ def v4_dinheiro(wb):
     dados, cats = refs(ws, 2)
     ch = barras(ws, dados, cats, [NEUTRO, VERDE],
                 "Orçado e forecast de desembolso, acumulados", "R$", fmt=MOEDA)
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 24), "A9")
 
 
 def v5_saldo(wb):
-    ws = aba(wb, "5 · Saldo a gastar", "O que falta desembolsar encolhe a cada mês",
+    ws = aba(wb, "5 Saldo", "O que falta desembolsar encolhe a cada mês",
              "Orçado menos forecast. De R$ 3,08 milhões em setembro para R$ 4.024,53 em dezembro — "
              "ou seja, a premissa consome o orçamento inteiro do ano.",
              [("Saldo a desembolsar", 16)], [MOEDA])
     dados, cats = refs(ws, 1)
     ch = barras(ws, dados, cats, [LARANJA], "Saldo a desembolsar no fim de cada mês", "R$", fmt=MOEDA)
     rotulos(ch.series[0], MOEDA)
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 22), "A8")
 
 
 def v6_execucao(wb):
-    ws = aba(wb, "6 · Execução", "A execução do orçamento vai de 41% a 99,9%",
+    ws = aba(wb, "6 Execucao", "A execução do orçamento vai de 41% a 99,9%",
              "Forecast dividido pelo orçado do mês. Em dezembro sobra 0,07% do orçamento — "
              "R$ 4.024,53.",
              [("Execução do orçamento", 17)], [PCT])
@@ -340,11 +373,12 @@ def v6_execucao(wb):
     ch = barras(ws, dados, cats, [VERDE], "Percentual do orçamento comprometido", "% do orçado", fmt=PCT)
     rotulos(ch.series[0], PCT)
     ch.y_axis.scaling.max = 1
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 22), "A8")
 
 
 def v7_composicao(wb):
-    ws = aba(wb, "7 · Composição", "Quanto da carteira do mês já está resolvido",
+    ws = aba(wb, "7 Composicao", "Quanto da carteira do mês já está resolvido",
              "Cada barra é a carteira daquele mês (backlog + entrante) repartida em resolvido e "
              "pendente. Em setembro 5,6%; em dezembro, 72,6%.",
              [("Carteira já resolvida", 18), ("Ainda pendente", 19)], [PCT, PCT])
@@ -353,11 +387,12 @@ def v7_composicao(wb):
                 "Composição da carteira do mês", "% da carteira", fmt=PCT, empilhado="percentStacked")
     for s in ch.series:
         rotulos(s, PCT)
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 22), "A9")
 
 
 def v8_leituras(wb):
-    ws = aba(wb, "8 · Duas leituras", "A conta do pendente muda com o entrante acumulado",
+    ws = aba(wb, "8 Duas leituras", "A conta do pendente muda com o entrante acumulado",
              "A linha do quadro desconta, em cada mês, só os entrantes daquele mês. Se os entrantes "
              "dos meses anteriores continuarem na fila, dezembro fecha em 46, não em 29. "
              "Não é correção — é a pergunta para o gestor.",
@@ -367,6 +402,7 @@ def v8_leituras(wb):
                 "Pendentes: as duas leituras da mesma premissa", "equipamentos")
     for s in ch.series:
         rotulos(s)
+    categorias(ch, ws)
     ws.add_chart(estilo(ch, 12, 24), "A9")
 
 
