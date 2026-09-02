@@ -401,6 +401,25 @@ diferente de «Sem classificação».
   tem 6.362 SS (2024–2026). **Não confundir** com a fila do posto do COEP (`curva_mensal` de
   `coep_2026.json`, 42–54), que é outro recorte e vai numa aba à parte para comparar.
 
+- **O ano de 2026 na visão DCMD, de ponta a ponta** (`ano_dcmd.py` → `dist/ANO_DCMD_2026.xlsx`
+  e `data/missao/ano_dcmd.json`, 02/09). Correção do gestor: **o quadro de set–dez é visão
+  DCMD**, não a visão ETO, e nela «resolvemos 71 até agosto». **O backlog de 100 do quadro é
+  número redondo de referência** (gestor, 02/09), não estoque apurado — o apurado no fim de
+  agosto é **72** (54 na fila do posto + 18 em outra mesa, que a partição reparte em 15
+  despachados + 3 em execução). **Reancorando a premissa dele no 72, dezembro fecha em 18, não
+  em 29**; a diferença de 28 anda junto o ano todo (set 74×102 · out 50×70 · nov 32×47 ·
+  dez 18×29). Série apurada: herdados 50 → jan 52 · fev 56 · mar 63 · abr 73 · mai 68 · jun 70
+  · jul 77 · ago 72; entradas 6·5·11·12·6·31·21·1 (93) e **os 71 resolvidos mensalizados:
+  4·1·4·2·11·29·14·6** (45 RL + 26 RT; junho sozinho faz 29). **O ritmo da premissa é o dobro
+  do realizado**: jan–ago resolveu 8,9/mês e recebeu 11,6; set–dez promete resolver 19,2/mês
+  e receber 5,8. Dezembro em quatro cenários, todos partindo de 72: premissa **18** · entrada
+  no ritmo real **41** · resolução no ritmo real **59** · tudo no ritmo real **82**.
+  **Armadilha**: 2 ativos (7921040031, 7955430075) têm `data_do_fechamento` **anterior** à
+  `primeira_chegada` — travar a saída na data de entrada, senão o saldo não fecha e a série
+  point-in-time discorda da corrente. Posição do apurado: **18/08/2026** (`coep_2026.json`),
+  agosto parcial. **Não confundir com `BACKLOG_MENSAL_2026.xlsx`** (visão ETO, todo RL/RT com
+  indisponibilidade aberta, 93 no fecho da base): recorte mais largo, outra pergunta.
+
 ## Artifacts vivos
 
 | Página | URL |
