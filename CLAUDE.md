@@ -463,6 +463,23 @@ diferente de «Sem classificação».
   **R$ 6.169,00** · 100 **R$ 10.126,33** · 150 e 200 **R$ 11.558,31** · 300 **R$ 12.990,28**. Os 45
   bancos da carteira somam **R$ 430.431,30**.
 
+- **O quadro «Sem BC» e a cascata** (`cascata_sem_bc.py` → `dist/CASCATA_SEM_BC_2026.xlsx`, 03/09).
+  Quadro que o gestor mandou em imagem, ano fechado de janeiro a dezembro: backlog 2025 = **59**,
+  entrante 7·8·9·5·1·2·4·1·8·9·5·1 (**60**), resolvidos 1·2·4·1·16·9·6·2·6·6·22·20 (**95**),
+  pendentes **65·71·76·80·65·58·56·55·57·60·43·24**. **Fecha sozinho nos doze meses**
+  (`pendentes = anterior + entrante − resolvidos`, `assert` no script) — a fila cede 35 no ano.
+  Duas metades: jan–abr **sobe 21** (entram 29, saem 8), mai–dez **desce 56** (entram 31, saem 87);
+  maio (16), novembro (22) e dezembro (20) fazem 58 dos 95, e fora deles o ritmo é 3,4/mês.
+  Julho a outubro quase empatam e a fila fica parada em torno de 55.
+  Três abas de gráfico, todas lendo a aba **Dados**: cascata do saldo (um degrau por mês), cascata
+  detalhada (entrante e resolvido em degraus separados) e ritmo em barras com a linha de pendentes.
+  **Como se faz cascata no openpyxl**: quatro séries empilhadas — base `noFill` + total (as duas
+  pontas ancoradas no chão) + sobe + desce —, com `base = MIN(ini;fim)` e o degrau em `MAX(0;…)`;
+  o zero das séries que não valem naquele ponto some com `numFmt` de rótulo `'"+"0;;;'` /
+  `'"−"0;;;'` / `'0;;;'`, que esconde zero e põe o sinal.
+  **É outro recorte**: aqui o ano abre em 59 e resolve 32 de jan a ago; na visão DCMD abre em 50 e
+  resolve 71. Não é erro de nenhum dos dois — mas dizer qual é qual antes de pôr os dois juntos.
+
 ## Artifacts vivos
 
 | Página | URL |
