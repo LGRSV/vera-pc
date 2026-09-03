@@ -435,31 +435,33 @@ diferente de «Sem classificação».
   agosto parcial. **Não confundir com `BACKLOG_MENSAL_2026.xlsx`** (visão ETO, todo RL/RT com
   indisponibilidade aberta, 93 no fecho da base): recorte mais largo, outra pergunta.
 
-- **A curva TOTAL de 2026, com banco de capacitor** (`curva_total_2026.py` →
-  `dist/CURVA_TOTAL_2026.xlsx` e `data/missao/curva_total.json`, 03/09). Pedido do gestor: «eu tinha
-  71 resolvidos até o final de agosto, então passaram 173 esses de Jan (com o passivo dos anos
-  anteriores, levando em consideração também banco de capacitor)… mensalize a curva de pendentes —
-  Total até chegar em exatamente 102 em setembro… depois mensaliza a curva de resolvidos — 71», e
-  logo em seguida «de Janeiro a Agosto; a partir de setembro os dados têm que bater». Universo: os
-  **143 RL/RT do posto** mais o **BC que esteve no posto** pela régua de manutenção
-  (indisponibilidade + anomalia + aviso de anomalia) — **46 demandas em 44 bancos**, 24 herdados.
-  **Total: 189 passaram · 82 resolvidos (71 + 11) · 107 pendentes no fim de agosto** (72 RL/RT +
-  35 BC). Série de pendentes: **74 · 76 · 80 · 86 · 96 · 92 · 96 · 106 · 107** (dez/25 a ago);
-  entraram 115 e saíram 82. Os **71 mensalizados são os do RL/RT, sem ajuste** (4·1·4·2·11·29·14·6);
-  o BC soma 11 em coluna própria para não mexer no número dele.
-  **Não existe corte de BC que feche os 173**: seriam precisos 30 que passaram E 30 pendentes ao
-  mesmo tempo — ou seja, nenhum BC resolvido no ano —, e as **32.768 combinações de TIPOSS** varridas
-  (no parque e no posto) não entregam isso; as que dão 30 num eixo erram no outro e nenhuma tem régua
-  que a defenda. **O 173 é aritmética, 102 + 71**, e o 102 é o primeiro ponto do gráfico de forecast.
-  Cortes com régua, no posto (passaram/pendentes): indisponibilidade **24/13** · indisp + anomalia
-  **26/15** · manutenção **46/35** · tudo **56/45**.
-  **A emenda com setembro**: o gráfico do gestor fecha agosto em **100** para setembro cair em 102
-  (100 + 8 − 6), e a cadeia dele é mês = anterior + entrante − resolver (102 → 78 → 60 → 46). A mesma
-  premissa ancorada no apurado dá **109 · 85 · 67 · 53** — a diferença de **7** anda constante nos
-  quatro meses. **Nem a carteira (ATUALIZADA 16) nem a planilha base têm um único código 59**,
-  conferido aba por aba: BC nunca entrou na conta do gestor. Dois bancos (5900358003 e 5900600004)
-  abrem e fecham duas vezes no ano, por isso 46 demandas em 44 ativos — a série conta **demanda**,
-  que é o certo para estoque.
+- **A curva TOTAL de 2026 — a conta do gestor e a conta real** (`curva_total_2026.py` →
+  `dist/CURVA_TOTAL_2026.xlsx` e `data/missao/curva_total.json`, 03/09). **A régua veio dele, com
+  todas as letras**: «em janeiro tinha 173, quantidade total, aí foi diminuindo com os resolvidos
+  mensalmente até chegar em 102 em setembro de 2026». Não é «173 passaram no ano» — é **curva de
+  queima**: carteira fechada de 173 em janeiro descontando mês a mês o que se resolve, **sem contar
+  o que entra**. E fecha sozinha, sem ajuste, com os 71 resolvidos mensalizados do apurado
+  (4·1·4·2·11·29·14·6): **jan 173 · fev 169 · mar 168 · abr 164 · mai 162 · jun 151 · jul 122 ·
+  ago 108 · set 102** (quantidade no início de cada mês). O 102 cai exato no início de setembro,
+  que é onde o quadro de premissa de set–dez começa. **Antes de ele explicar, a leitura errada era
+  «173 = quantos passaram»** — e aí não fechava com corte nenhum (varri as 32.768 combinações de
+  TIPOSS do BC à toa). Quando o gestor der um número e ele não fechar, **perguntar qual é a
+  pergunta antes de procurar o corte**.
+  **A conta real vai em aba própria**, e é outra pergunta: somando a demanda nova, o estoque sobe
+  de 74 para 107 (entraram 115, saíram 82). Uma desce, a outra sobe; a diferença é a entrada.
+- **Banco de capacitor: «só consertei 1 BC esse ano e tem 43 pendentes no COEP»** (gestor, 03/09) —
+  e ele está certo, com a base provando pelo avesso. A planilha que ele mandou
+  (`data/raw/BANCO_DE_CAPACITOR_MANUTENCAO.xlsx`, aba «Banco Capacitor»; as linhas de BC são as que
+  têm POTENCIA preenchida) traz **46 SS de BC no COEP em 45 bancos**, e as 46 casam com a base de
+  SS/OS — **todas SS PENDENTE, nenhuma fechada**. Já as **11 demandas de BC que a régua automática
+  dava como resolvidas em 2026 fecharam TODAS por SS CANCELADA**, em lotes do mesmo dia e em vários
+  postos ao mesmo tempo (15/01 · 11/03 · 14/05 · 15/05 · 22/05 · 29/05 · 20/08). Isso é limpeza de
+  cadastro, não conserto: **nenhuma SS de BC do COEP foi ATENDIDA em 2026** (as 21 atendidas do ano
+  são de outros postos — comissionamento da PROT, linha viva das RD). É a régua «resolvido não é
+  consertado» aplicada ao capacitor, então **a coluna de BC resolvido vai zerada**.
+  **Preço do BC, do próprio gestor** (célula + mão de obra, todos com 2 células): 50 kVAr
+  **R$ 6.169,00** · 100 **R$ 10.126,33** · 150 e 200 **R$ 11.558,31** · 300 **R$ 12.990,28**. Os 45
+  bancos da carteira somam **R$ 430.431,30**.
 
 ## Artifacts vivos
 
