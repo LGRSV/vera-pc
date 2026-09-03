@@ -435,6 +435,32 @@ diferente de «Sem classificação».
   agosto parcial. **Não confundir com `BACKLOG_MENSAL_2026.xlsx`** (visão ETO, todo RL/RT com
   indisponibilidade aberta, 93 no fecho da base): recorte mais largo, outra pergunta.
 
+- **A curva TOTAL de 2026, com banco de capacitor** (`curva_total_2026.py` →
+  `dist/CURVA_TOTAL_2026.xlsx` e `data/missao/curva_total.json`, 03/09). Pedido do gestor: «eu tinha
+  71 resolvidos até o final de agosto, então passaram 173 esses de Jan (com o passivo dos anos
+  anteriores, levando em consideração também banco de capacitor)… mensalize a curva de pendentes —
+  Total até chegar em exatamente 102 em setembro… depois mensaliza a curva de resolvidos — 71», e
+  logo em seguida «de Janeiro a Agosto; a partir de setembro os dados têm que bater». Universo: os
+  **143 RL/RT do posto** mais o **BC que esteve no posto** pela régua de manutenção
+  (indisponibilidade + anomalia + aviso de anomalia) — **46 demandas em 44 bancos**, 24 herdados.
+  **Total: 189 passaram · 82 resolvidos (71 + 11) · 107 pendentes no fim de agosto** (72 RL/RT +
+  35 BC). Série de pendentes: **74 · 76 · 80 · 86 · 96 · 92 · 96 · 106 · 107** (dez/25 a ago);
+  entraram 115 e saíram 82. Os **71 mensalizados são os do RL/RT, sem ajuste** (4·1·4·2·11·29·14·6);
+  o BC soma 11 em coluna própria para não mexer no número dele.
+  **Não existe corte de BC que feche os 173**: seriam precisos 30 que passaram E 30 pendentes ao
+  mesmo tempo — ou seja, nenhum BC resolvido no ano —, e as **32.768 combinações de TIPOSS** varridas
+  (no parque e no posto) não entregam isso; as que dão 30 num eixo erram no outro e nenhuma tem régua
+  que a defenda. **O 173 é aritmética, 102 + 71**, e o 102 é o primeiro ponto do gráfico de forecast.
+  Cortes com régua, no posto (passaram/pendentes): indisponibilidade **24/13** · indisp + anomalia
+  **26/15** · manutenção **46/35** · tudo **56/45**.
+  **A emenda com setembro**: o gráfico do gestor fecha agosto em **100** para setembro cair em 102
+  (100 + 8 − 6), e a cadeia dele é mês = anterior + entrante − resolver (102 → 78 → 60 → 46). A mesma
+  premissa ancorada no apurado dá **109 · 85 · 67 · 53** — a diferença de **7** anda constante nos
+  quatro meses. **Nem a carteira (ATUALIZADA 16) nem a planilha base têm um único código 59**,
+  conferido aba por aba: BC nunca entrou na conta do gestor. Dois bancos (5900358003 e 5900600004)
+  abrem e fecham duas vezes no ano, por isso 46 demandas em 44 ativos — a série conta **demanda**,
+  que é o certo para estoque.
+
 ## Artifacts vivos
 
 | Página | URL |
