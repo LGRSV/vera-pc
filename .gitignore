@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+
+# cache do extrato do AIC (94 MB, refeito pelo scripts/cadeia_obra.py)
+data/missao/aic_full.json
+
+# base crua de SS/OS (36 MB; recorte vai em data/missao/ssos_min.json)
+data/raw/BASE_SS_OS_20082026.txt

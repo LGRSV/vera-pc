@@ -1,0 +1,904 @@
+{
+ "premissas": [
+  "Falha é o que exigiu peça grande. Religador: controle, tanque ou completo. Regulador: célula, relé, completo ou furto. Definição do gestor em 21/08.",
+  "Placa de alimentação CA e relé de sincronismo são outras palavras para controle e contam como falha. Placa de comunicação, placa 3G, rádio e antena são telecom e não contam. O que decide é a peça, não a palavra placa nem a palavra relé.",
+  "Não conta como falha: trafo auxiliar, chave faca, rádio, antena, bateria, aterramento, cabo, conector, poste, poda, ajuste de proteção, comissionamento e obra de equipamento novo. Vai em aba separada.",
+  "Agentes leram o texto completo das SS e das OS dos 129 ativos da carteira — 1.087 SS. Outro time revisou cada falha apontada e derrubou o que não se sustentava no texto: de 127 apontadas, 113 ficaram e 14 caíram.",
+  "A taxa conta equipamentos que falharam no ano, não ocorrências: ativo que falhou duas vezes no mesmo ano conta uma vez naquele ano — e conta de novo se falhar em outro ano. As ocorrências aparecem ao lado, como detalhe.",
+  "Equipamento trocado por obra direta, sem nunca entrar na carteira do COEP, também falhou: entra pela obra de substituição do AIC concluída no ano, descontando a obra que cita ativo já contado pela leitura. O ano é o da conclusão física da obra — a troca direta costuma sair na semana da falha.",
+  "O ano da falha é o da data de ocorrência. Se não houver, é a data escrita junto do parecer. A data de abertura da SS é o último recurso: ela vem em média 39 dias depois da falha, e em 9,8% dos casos cai em outro ano — medido nas 10.386 SS da base nova, com data de ocorrência em 100% das linhas.",
+  "Repasse não é falha nova. Quando a mesma demanda passa de equipe em equipe, o sistema abre SS nova a cada passagem. Todas contam como uma falha só.",
+  "O parque é o atual, informado pelo gestor: 1.307 religadores (1.297 + 10 instalados em 2026) e 207 reguladores (197 + 10). Vale para os três anos: instala-se pouco por ano — dificilmente mais de 20 por família — e a variação não muda a taxa. A reconstrução pelas obras do AIC foi abandonada porque superconta.",
+  "A taxa é a divisão direta: total que falharam ÷ parque. 2026 vai até 20/08 e a taxa mostrada é a do ano até aqui, sem anualizar; o ritmo projetado vai em nota de rodapé.",
+  "Regulador é banco de três células. O parque conta banco, não célula. Falha de uma célula é uma falha do banco.",
+  "A carteira dos 129 é o que o COEP acompanha. Equipamento trocado por obra direta, sem passar pela carteira, entra pelas obras de substituição do AIC.",
+  "A base de SS/OS só é confiável de 2024 em diante: tem 2 SS em 2022 e 58 em 2023, contra 2.197 em 2024. É extrato truncado, não parque saudável.",
+  "O texto da SS é cumulativo: o sistema cola parecer novo por cima do antigo. Vale sempre o parecer mais recente. Isso foi instruído aos agentes e conferido na revisão.",
+  "Quando a SS e a OS discordam, vale a OS. Ela traz o campo Serviço Executado, que é o registro do que foi feito de fato."
+ ],
+ "janela": {
+  "cheios": [
+   2024,
+   2025
+  ],
+  "parcial": 2026,
+  "corte": "2026-08-20"
+ },
+ "triagem_ss": {
+  "programada": 2484,
+  "falha": 3153,
+  "rede": 472,
+  "indefinida": 243
+ },
+ "parque": {
+  "religador": 1307,
+  "regulador": 207,
+  "nota": "parque no início de 2026; as instalações do ano somam por cima",
+  "fonte": "informado pelo gestor em 21/08/2026",
+  "no_cadastro_de_ajustes": {
+   "religador": 1292,
+   "regulador": 189
+  },
+  "sem_estudo_de_ajuste_cadastrado": {
+   "religador": 15,
+   "regulador": 18
+  },
+  "ativos_com_ss_fora_do_cadastro": 50,
+  "ativos_sem_familia_identificavel": 1
+ },
+ "eventos": 1918,
+ "eventos_na_janela_cheia": 1497,
+ "taxa_anos_cheios": {
+  "religador": {
+   "geral": {
+    "eventos": 1300,
+    "equipamento_ano": 2614,
+    "taxa_100": 49.7,
+    "mtbf_anos": 2.0
+   },
+   "funcional": {
+    "eventos": 737,
+    "equipamento_ano": 2614,
+    "taxa_100": 28.2,
+    "mtbf_anos": 3.5
+   },
+   "anomalia": {
+    "eventos": 563,
+    "equipamento_ano": 2614,
+    "taxa_100": 21.5,
+    "mtbf_anos": 4.6
+   },
+   "parque": 1307
+  },
+  "regulador": {
+   "geral": {
+    "eventos": 197,
+    "equipamento_ano": 414,
+    "taxa_100": 47.6,
+    "mtbf_anos": 2.1
+   },
+   "funcional": {
+    "eventos": 113,
+    "equipamento_ano": 414,
+    "taxa_100": 27.3,
+    "mtbf_anos": 3.7
+   },
+   "anomalia": {
+    "eventos": 84,
+    "equipamento_ano": 414,
+    "taxa_100": 20.3,
+    "mtbf_anos": 4.9
+   },
+   "parque": 207
+  }
+ },
+ "taxa_2026_anualizada": {
+  "religador": {
+   "eventos": 303,
+   "equipamento_ano": 827.2,
+   "taxa_100": 36.6,
+   "mtbf_anos": 2.7
+  },
+  "regulador": {
+   "eventos": 47,
+   "equipamento_ano": 131.0,
+   "taxa_100": 35.9,
+   "mtbf_anos": 2.8
+  }
+ },
+ "taxa_por_marca": {
+  "religador|NOJA": {
+   "eventos": 990,
+   "equipamento_ano": 2038,
+   "taxa_100": 48.6,
+   "mtbf_anos": 2.1,
+   "parque": 1019
+  },
+  "religador|COOPER": {
+   "eventos": 161,
+   "equipamento_ano": 266,
+   "taxa_100": 60.5,
+   "mtbf_anos": 1.7,
+   "parque": 133
+  },
+  "religador|SCHNEIDER": {
+   "eventos": 101,
+   "equipamento_ano": 210,
+   "taxa_100": 48.1,
+   "mtbf_anos": 2.1,
+   "parque": 105
+  },
+  "religador|TAVRIDA": {
+   "eventos": 18,
+   "equipamento_ano": 54,
+   "taxa_100": 33.3,
+   "mtbf_anos": 3.0,
+   "parque": 27
+  },
+  "regulador|ITB": {
+   "eventos": 138,
+   "equipamento_ano": 306,
+   "taxa_100": 45.1,
+   "mtbf_anos": 2.2,
+   "parque": 153
+  },
+  "regulador|TOSHIBA": {
+   "eventos": 39,
+   "equipamento_ano": 62,
+   "taxa_100": 62.9,
+   "mtbf_anos": 1.6,
+   "parque": 31
+  }
+ },
+ "reincidencia": {
+  "ativos_com_mais_de_um_evento": 368,
+  "eventos_desses_ativos": 1014,
+  "pior": [
+   [
+    "7900722193",
+    10
+   ],
+   [
+    "5800440256",
+    7
+   ],
+   [
+    "7900930040",
+    7
+   ],
+   [
+    "7925871077",
+    7
+   ],
+   [
+    "7935866004",
+    6
+   ],
+   [
+    "7908708116",
+    6
+   ],
+   [
+    "7900618193",
+    6
+   ],
+   [
+    "7933585074",
+    6
+   ]
+  ]
+ },
+ "modo_de_falha_declarado": {
+  "eventos_com_origem": 1520,
+  "eventos_sem_origem": 398,
+  "cobertura_pct": 79.2,
+  "top": [
+   [
+    "RELIGADOR",
+    920
+   ],
+   [
+    "RELÉ",
+    297
+   ],
+   [
+    "REGULADOR DE TENSÃO",
+    130
+   ],
+   [
+    "FORA DE SERVIÇO",
+    76
+   ],
+   [
+    "COMUNICAÇÃO",
+    66
+   ],
+   [
+    "OUTROS",
+    36
+   ],
+   [
+    "EQUIPAMENTO",
+    30
+   ],
+   [
+    "INSPEÇÃO VISUAL",
+    27
+   ],
+   [
+    "COMANDO MECÂNICO",
+    24
+   ],
+   [
+    "ARMÁRIO DE CONTROLE",
+    22
+   ],
+   [
+    "DEFEITO MECANICO",
+    19
+   ],
+   [
+    "ATERRAMENTO",
+    14
+   ],
+   [
+    "ESTRUTURA",
+    13
+   ],
+   [
+    "MANUTENÇÃO",
+    12
+   ],
+   [
+    "DISP ELÉTRICO COMANDO",
+    8
+   ]
+  ]
+ },
+ "ancoragem": {
+  "por_ocorrencia": 1912,
+  "por_abertura": 6,
+  "cobertura_pct": 99.7
+ },
+ "defasagem_ocorrencia_abertura": {
+  "ss_com_as_duas_datas": 170,
+  "dias": {
+   "min": 0,
+   "p25": 1,
+   "mediana": 22,
+   "p75": 63,
+   "max": 734,
+   "media": 65.4
+  },
+  "mesmo_dia": 41,
+  "acima_de_180_dias": 18,
+  "trocam_de_ano": 27,
+  "trocam_de_ano_pct": 15.9,
+  "serie_por_ocorrencia": {
+   "2022": 1,
+   "2023": 4,
+   "2024": 14,
+   "2025": 92,
+   "2026": 59
+  },
+  "serie_por_abertura": {
+   "2023": 5,
+   "2024": 6,
+   "2025": 79,
+   "2026": 80
+  },
+  "leitura": "A defasagem nunca é negativa: a abertura sempre vem depois. O erro de usar abertura é portanto SISTEMÁTICO e direcional — empurra falha antiga para o ano corrente, inflando o ano recente e esvaziando os anteriores. Nesta amostra a abertura tira 8 eventos de 2024 e 13 de 2025 e joga 21 em 2026."
+ },
+ "impacto_da_ancora": {
+  "eventos_conferiveis": 1912,
+  "mudaram_de_ano": 146,
+  "atraso_mediano_dias": 0,
+  "leitura": "Nos eventos em que dá para conferir as duas datas, mais de um terço estava no ano errado pela abertura. A série por abertura não serve para ler tendência; serve só para medir o próprio atraso de registro."
+ },
+ "regua_do_componente": {
+  "regra": "Conta na taxa de falha: tanque/parte ativa, controle, equipamento completo (religador); controle, células, banco completo (regulador). Furto conta quando leva uma dessas peças. Fica separado: trafo auxiliar, chave faca, rádio/antena, bateria, aterramento, cabo/conector, estrutura e parametrização — trazidos, não somados.",
+  "classificacao_dos_eventos": {
+   "indefinido": 1762,
+   "acessorio": 25,
+   "grande": 131
+  },
+  "cobertura_de_evidencia_pct": 8.1,
+  "proporcao_peca_grande_onde_ha_leitura_pct": 84.0,
+  "por_familia_e_ano": {
+   "religador": {
+    "2024": {
+     "com_peca_grande": 10,
+     "taxa_confirmada_100": 0.77,
+     "acessorio_separado": 0,
+     "sem_evidencia_de_componente": 574,
+     "eventos_no_ano": 584
+    },
+    "2025": {
+     "com_peca_grande": 55,
+     "taxa_confirmada_100": 4.21,
+     "acessorio_separado": 3,
+     "sem_evidencia_de_componente": 658,
+     "eventos_no_ano": 716
+    },
+    "2026": {
+     "com_peca_grande": 27,
+     "taxa_confirmada_100": 3.26,
+     "acessorio_separado": 14,
+     "sem_evidencia_de_componente": 262,
+     "eventos_no_ano": 303
+    }
+   },
+   "regulador": {
+    "2024": {
+     "com_peca_grande": 6,
+     "taxa_confirmada_100": 2.9,
+     "acessorio_separado": 0,
+     "sem_evidencia_de_componente": 64,
+     "eventos_no_ano": 70
+    },
+    "2025": {
+     "com_peca_grande": 26,
+     "taxa_confirmada_100": 12.56,
+     "acessorio_separado": 4,
+     "sem_evidencia_de_componente": 97,
+     "eventos_no_ano": 127
+    },
+    "2026": {
+     "com_peca_grande": 7,
+     "taxa_confirmada_100": 5.34,
+     "acessorio_separado": 4,
+     "sem_evidencia_de_componente": 36,
+     "eventos_no_ano": 47
+    }
+   }
+  },
+  "limite": "O ORIGEM_SS não substitui a leitura: nas 92 SS lidas na íntegra, com ORIGEM_SS = RELIGADOR, 18 exigiram peça grande e 13 não. Estender a régua às 6.305 SS depende do texto da SS (campo DESCRIPTION) ou do DEFEITO_SS, nenhum dos dois presente no extrato de RL/RT que está no repositório."
+ },
+ "peca_grande_em_campo": {
+  "fonte": "OBRAS_COM_EQP.xlsx · aba «Exportar Planilha» — 135 linhas, 69 obras · cruzado com o AIC de 07/08/2026",
+  "convencao": "Convenção do Allan: religador se divide em PARTE ATIVA e CONTROLE; regulador, em CÉLULA e CONTROLE. O relé de sincronismo 616033 entra em Controle de regulador — é o controle por fase da geração antiga, e nas 4 obras em que aparece está sempre junto de célula de regulador, nunca de religador.",
+  "so_obra_nao_concluida": true,
+  "obras": 69,
+  "pecas_levadas": 69,
+  "valor_levado": 3175778.63,
+  "por_familia": {
+   "religador": {
+    "pecas": 50,
+    "valor": 1497616.46,
+    "detalhe": {
+     "Parte Ativa": 26,
+     "Controle": 24
+    }
+   },
+   "regulador": {
+    "pecas": 19,
+    "valor": 1678162.17,
+    "detalhe": {
+     "Célula": 15,
+     "Controle": 4
+    }
+   }
+  }
+ },
+ "parque_por_ano": {
+  "religador": {
+   "2024": {
+    "medio": 1307,
+    "fonte_dos_instalados": "gestor"
+   },
+   "2025": {
+    "medio": 1307,
+    "fonte_dos_instalados": "gestor"
+   },
+   "2026": {
+    "medio": 1307,
+    "fonte_dos_instalados": "gestor"
+   }
+  },
+  "regulador": {
+   "2024": {
+    "medio": 207,
+    "fonte_dos_instalados": "gestor"
+   },
+   "2025": {
+    "medio": 207,
+    "fonte_dos_instalados": "gestor"
+   },
+   "2026": {
+    "medio": 207,
+    "fonte_dos_instalados": "gestor"
+   }
+  }
+ },
+ "resolvidos_por_ano": {
+  "demandas_de_falha_encerradas": {
+   "2024": {
+    "religador": 471,
+    "regulador": 45
+   },
+   "2025": {
+    "religador": 672,
+    "regulador": 113
+   },
+   "2026": {
+    "religador": 429,
+    "regulador": 69
+   }
+  },
+  "obra_de_substituicao_concluida_em_campo": {
+   "2024": {
+    "religador": 53,
+    "regulador": 11
+   },
+   "2025": {
+    "religador": 27,
+    "regulador": 14
+   },
+   "2026": {
+    "religador": 5,
+    "regulador": 4
+   }
+  },
+  "obra_de_substituicao_encerrada_no_contabil": {
+   "2024": {
+    "religador": 35,
+    "regulador": 12
+   },
+   "2025": {
+    "religador": 53,
+    "regulador": 18
+   },
+   "2026": {
+    "religador": 4,
+    "regulador": 3
+   }
+  },
+  "leitura": "2026 vai só até 20/08 e a obra leva meses para encerrar no contábil, então a linha de obra encerrada subconta 2026 por atraso de sistema, não por queda de produção. A linha de demandas encerradas é a mais comparável entre anos."
+ },
+ "serie_por_ano": {
+  "2024": {
+   "religador": {
+    "parque": 1307,
+    "equipamento_ano": 1307.0,
+    "eventos": 584,
+    "taxa_100": 44.7,
+    "funcional_100": 28.7,
+    "anomalia_100": 16.0,
+    "mtbf_anos": 2.2,
+    "ativos_distintos": 406,
+    "incidencia_pct": 31.1,
+    "trocas_confirmadas": 53,
+    "taxa_substituicao_100": 4.1,
+    "chamadas_por_troca": 11.0
+   },
+   "regulador": {
+    "parque": 207,
+    "equipamento_ano": 207.0,
+    "eventos": 70,
+    "taxa_100": 33.8,
+    "funcional_100": 22.7,
+    "anomalia_100": 11.1,
+    "mtbf_anos": 3.0,
+    "ativos_distintos": 56,
+    "incidencia_pct": 27.1,
+    "trocas_confirmadas": 11,
+    "taxa_substituicao_100": 5.3,
+    "chamadas_por_troca": 6.4
+   },
+   "_modo_declarado": {
+    "eventos_com_origem": 530,
+    "cobertura_pct": 81.0,
+    "top": [
+     [
+      "RELIGADOR",
+      297
+     ],
+     [
+      "RELÉ",
+      94
+     ],
+     [
+      "COMUNICAÇÃO",
+      66
+     ],
+     [
+      "REGULADOR DE TENSÃO",
+      41
+     ],
+     [
+      "FORA DE SERVIÇO",
+      27
+     ],
+     [
+      "OUTROS",
+      18
+     ],
+     [
+      "COMANDO MECÂNICO",
+      17
+     ],
+     [
+      "INSPEÇÃO VISUAL",
+      15
+     ]
+    ]
+   },
+   "_ancora": {
+    "por_ocorrencia": 654,
+    "por_abertura": 0,
+    "cobertura_pct": 100.0
+   },
+   "_fator_de_exposicao": 1.0
+  },
+  "2025": {
+   "religador": {
+    "parque": 1307,
+    "equipamento_ano": 1307.0,
+    "eventos": 716,
+    "taxa_100": 54.8,
+    "funcional_100": 27.7,
+    "anomalia_100": 27.1,
+    "mtbf_anos": 1.8,
+    "ativos_distintos": 493,
+    "incidencia_pct": 37.7,
+    "trocas_confirmadas": 27,
+    "taxa_substituicao_100": 2.1,
+    "chamadas_por_troca": 26.5
+   },
+   "regulador": {
+    "parque": 207,
+    "equipamento_ano": 207.0,
+    "eventos": 127,
+    "taxa_100": 61.4,
+    "funcional_100": 31.9,
+    "anomalia_100": 29.5,
+    "mtbf_anos": 1.6,
+    "ativos_distintos": 79,
+    "incidencia_pct": 38.2,
+    "trocas_confirmadas": 14,
+    "taxa_substituicao_100": 6.8,
+    "chamadas_por_troca": 9.1
+   },
+   "_modo_declarado": {
+    "eventos_com_origem": 653,
+    "cobertura_pct": 77.5,
+    "top": [
+     [
+      "RELIGADOR",
+      437
+     ],
+     [
+      "RELÉ",
+      123
+     ],
+     [
+      "REGULADOR DE TENSÃO",
+      64
+     ],
+     [
+      "FORA DE SERVIÇO",
+      21
+     ],
+     [
+      "OUTROS",
+      15
+     ],
+     [
+      "ARMÁRIO DE CONTROLE",
+      8
+     ],
+     [
+      "INSPEÇÃO VISUAL",
+      7
+     ],
+     [
+      "EQUIPAMENTO",
+      7
+     ]
+    ]
+   },
+   "_ancora": {
+    "por_ocorrencia": 842,
+    "por_abertura": 1,
+    "cobertura_pct": 99.9
+   },
+   "_fator_de_exposicao": 1.0
+  },
+  "2026": {
+   "religador": {
+    "parque": 1307,
+    "equipamento_ano": 827.2,
+    "eventos": 303,
+    "taxa_100": 36.6,
+    "funcional_100": 24.8,
+    "anomalia_100": 11.8,
+    "mtbf_anos": 2.7,
+    "ativos_distintos": 245,
+    "incidencia_pct": 18.7,
+    "trocas_confirmadas": 5,
+    "taxa_substituicao_100": 0.6,
+    "chamadas_por_troca": 60.6
+   },
+   "regulador": {
+    "parque": 207,
+    "equipamento_ano": 131.0,
+    "eventos": 47,
+    "taxa_100": 35.9,
+    "funcional_100": 25.2,
+    "anomalia_100": 10.7,
+    "mtbf_anos": 2.8,
+    "ativos_distintos": 38,
+    "incidencia_pct": 18.4,
+    "trocas_confirmadas": 4,
+    "taxa_substituicao_100": 3.1,
+    "chamadas_por_troca": 11.8
+   },
+   "_modo_declarado": {
+    "eventos_com_origem": 283,
+    "cobertura_pct": 80.9,
+    "top": [
+     [
+      "RELIGADOR",
+      150
+     ],
+     [
+      "RELÉ",
+      66
+     ],
+     [
+      "FORA DE SERVIÇO",
+      24
+     ],
+     [
+      "REGULADOR DE TENSÃO",
+      17
+     ],
+     [
+      "EQUIPAMENTO",
+      10
+     ],
+     [
+      "ARMÁRIO DE CONTROLE",
+      9
+     ],
+     [
+      "DEFEITO ELETRICO",
+      4
+     ],
+     [
+      "DISP ELÉTRICO COMANDO",
+      3
+     ]
+    ]
+   },
+   "_ancora": {
+    "por_ocorrencia": 345,
+    "por_abertura": 5,
+    "cobertura_pct": 98.6
+   },
+   "_fator_de_exposicao": 0.6329
+  }
+ },
+ "incidencia": {
+  "religador": {
+   "parque": 1307,
+   "ativos_com_ao_menos_um_evento": 736,
+   "incidencia_pct_em_2_anos": 56.3,
+   "distribuicao_eventos_por_ativo": {
+    "1": 416,
+    "2": 177,
+    "3": 83,
+    "4": 37,
+    "5": 11,
+    "6": 9,
+    "7": 2,
+    "10": 1
+   },
+   "ativos_com_3_ou_mais": 143,
+   "eventos_vindos_da_cauda": 530,
+   "pct_dos_eventos_na_cauda": 40.8
+  },
+  "regulador": {
+   "parque": 207,
+   "ativos_com_ao_menos_um_evento": 115,
+   "incidencia_pct_em_2_anos": 55.6,
+   "distribuicao_eventos_por_ativo": {
+    "1": 67,
+    "2": 28,
+    "3": 11,
+    "4": 6,
+    "5": 2,
+    "7": 1
+   },
+   "ativos_com_3_ou_mais": 20,
+   "eventos_vindos_da_cauda": 74,
+   "pct_dos_eventos_na_cauda": 37.6
+  }
+ },
+ "substituicao": {
+  "registros": 36,
+  "peca_substituida": [
+   [
+    "Tanque",
+    10
+   ],
+   [
+    "Controle",
+    6
+   ],
+   [
+    "Completo",
+    4
+   ],
+   [
+    "Rádio",
+    2
+   ],
+   [
+    "Antena",
+    2
+   ],
+   [
+    "3 Celulas",
+    2
+   ],
+   [
+    "1 Celula",
+    2
+   ],
+   [
+    "Tanque (Parte Ativa)",
+    1
+   ],
+   [
+    "Parte Ativa",
+    1
+   ],
+   [
+    "O Tanque",
+    1
+   ],
+   [
+    "Trafo",
+    1
+   ],
+   [
+    "Controle Completo",
+    1
+   ],
+   [
+    "Celula Fase B",
+    1
+   ],
+   [
+    "Ajuste",
+    1
+   ],
+   [
+    "Completo - Relé Cooper",
+    1
+   ],
+   [
+    "Completo (Controle - Cooper)",
+    1
+   ],
+   [
+    "Transferir Para O Comc",
+    1
+   ],
+   [
+    "Corrigir O Aterramento",
+    1
+   ],
+   [
+    "Pr Do Trafo",
+    1
+   ],
+   [
+    "Chave",
+    1
+   ],
+   [
+    "Fase B",
+    1
+   ],
+   [
+    "Melhoria De Aterramento",
+    1
+   ],
+   [
+    "1 Controle",
+    1
+   ]
+  ],
+  "codigo_material": [
+   [
+    "651638",
+    6
+   ],
+   [
+    "690241",
+    3
+   ],
+   [
+    "690240",
+    2
+   ],
+   [
+    "690669",
+    1
+   ],
+   [
+    "690236",
+    1
+   ]
+  ],
+  "substituicoes_concluidas": 12,
+  "por_familia": [
+   [
+    "religador",
+    22
+   ],
+   [
+    "regulador",
+    14
+   ]
+  ]
+ },
+ "trocas_no_aic": {
+  "obras_de_substituicao": {
+   "religador": 237,
+   "regulador": 91
+  },
+  "por_ano_de_conclusao_fisica": {
+   "2019": {
+    "religador": 14,
+    "regulador": 9
+   },
+   "2020": {
+    "regulador": 6,
+    "religador": 6
+   },
+   "2021": {
+    "regulador": 8,
+    "religador": 14
+   },
+   "2022": {
+    "religador": 24,
+    "regulador": 11
+   },
+   "2023": {
+    "religador": 44,
+    "regulador": 14
+   },
+   "2024": {
+    "religador": 53,
+    "regulador": 11
+   },
+   "2025": {
+    "religador": 27,
+    "regulador": 14
+   },
+   "2026": {
+    "religador": 5,
+    "regulador": 4
+   }
+  }
+ },
+ "conversao_chamada_troca": {
+  "religador": {
+   "chamadas_atribuidas_ao_equipamento": 1300,
+   "trocas_confirmadas": 80,
+   "taxa_chamada_100": 49.7,
+   "taxa_substituicao_100": 3.1,
+   "chamadas_por_troca": 16.2
+  },
+  "regulador": {
+   "chamadas_atribuidas_ao_equipamento": 197,
+   "trocas_confirmadas": 25,
+   "taxa_chamada_100": 47.6,
+   "taxa_substituicao_100": 6.0,
+   "chamadas_por_troca": 7.9
+  }
+ }
+}

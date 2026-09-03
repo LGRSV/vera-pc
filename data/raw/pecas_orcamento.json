@@ -1,0 +1,419 @@
+{
+  "gerado_em": "2026-08-13",
+  "realocacao": {
+    "premissa_corrigida": "«Equipamento entregue ao COCM» não quer dizer que o ativo foi resolvido por outra via e a peça sobrou. É o último estágio do próprio pedido: em aquisição → em processo logístico → entregue ao COCM. A peça chegou PARA AQUELE ativo.",
+    "pecas_livres": 2,
+    "valor_livre": 76246.2,
+    "pool_aparente": 16,
+    "valor_aparente": 477421.54,
+    "ativo_que_liberou": "7900594026",
+    "porque_liberou": "Ponte Alta do Tocantins foi resolvido por remanejamento de equipamento vindo de Guaraí. É o único com «Necessário COEP Requisitar material» = Não, sem EMD, sem depósito, SIGCCO «Indeferir a obra» e obra 0312600354 zerada no AIC — nada orçado, nada realizado. O tanque e o controle comprados para ele nunca foram usados.",
+    "alocacoes": [
+      {
+        "ativo": "7930428001",
+        "criticidade": "Alta",
+        "localidade": "PORTO NACIONAL",
+        "classe_tensao": "34,5 kV",
+        "codigo": "690005",
+        "descricao_peca": "Tanque / Parte ativa - Religador 34,5 kV",
+        "qtd": 1,
+        "valor": 38151.48,
+        "veio_de": "7900594026",
+        "confianca": "media",
+        "ressalva": "Origem 100% comprovada: o 7900594026 foi resolvido por remanejamento de equipamento vindo de Guarai (OBRAS_EQ_ESPECIAL 'Planilha1' L5: 'Necessario COEP Requisitar material' = Nao, sem EMD, sem Deposito, SIGCCO 'Indeferir a obra'; AIC obra 0312600354 com MO_ORCADO=0, MT_ORCADO=0, VAL_TOTAL_ORCADO=0 e MT_REALIZADO vazio; decisoes_gestor.json 13/08: 'resolvido pelo COEP - foi o primeiro remanejamento de equipamento do posto'). A peca comprada nunca foi consumida. Destino: ATUALIZADA6 'Criticidade por Equipamento' L55 col J = Tanque, K=1, check Pendente, SS ETO-COEP 00150/2026 aberta em 20/07/2026 e PENDENTE (ssos_min.json), parecer DMSL 16/07/2026 'sera necessario fazer a substituicao da parte ativa'. DUAS RESSALVAS: (1) MARCA - a peca foi encomendada com marca COOPER F6 (plano_compras.csv) e o 7930428001 e NOJA RC10 (equipamentos.json). No plano o codigo 690005 aparece amarrado a quatro marcas ao mesmo tempo (COOPER F6, NOJA RC10, SCHNEIDER ADVC, TAVRIDA), o que sugere codigo generico de ERP, mas o proprio DMSL prova que marca importa nesta distribuidora quando diz que acabou peca de reposicao Cooper. Confirmar com a engenharia de material antes de emitir a transferencia. (2) Na mesma col L ha um 'PARECER COEP: Equipamento Funcionando no SCADA, favor reavaliar a necessidade de substituicao' que nunca foi respondido no registro - o parecer DMSL de 16/07 e a abertura da SS em 20/07 sao posteriores e sustentam a necessidade, mas convem o de-acordo do COEP por escrito. Este ativo nao aparece em OBRAS_EQ_ESPECIAL, entao nao ha segunda fonte com codigo de material."
+      },
+      {
+        "ativo": "7944559149",
+        "criticidade": "Média",
+        "localidade": "CASEARA",
+        "classe_tensao": "34,5 kV",
+        "codigo": "692263",
+        "descricao_peca": "Controle - Religador 34,5 kV",
+        "qtd": 1,
+        "valor": 38094.72,
+        "veio_de": "7900594026",
+        "confianca": "media",
+        "ressalva": "Mesma origem comprovada (7900594026, obra 0312600354 sem nada orcado nem realizado). Vai para Media e nao para Muito Alta/Alta porque nenhum ativo Muito Alta ou Alta fora do plano tem defeito de controle: varri as 135 linhas de ATUALIZADA6 e os unicos abertos em Alta sao 7955520116 e 7930428001 (tanque), 7908302256 e 7936038076 (sem defeito registrado) e 5853360007 (aterramento). Destino: ATUALIZADA6 L64 col J = Controle, K=1, 'curto na placa foi tentado recuperar sem sucesso', 'Equipamento ficou em operacao?: Nao'; SS ETO-COEP 00063/2026 aberta em 31/03/2026 e PENDENTE (ssos_min.json). RESSALVAS: (1) MARCA - peca encomendada como COOPER F6, destino e NOJA RC10; mesma pergunta a engenharia. (2) NAO foi para o 7900535058 mesmo tendo SS bem mais antiga (ETO-COEP 00173/2025, aberta 25/08/2025), porque o parecer DMSL em ATUALIZADA6 L61 col L diz que nao ha mais peca de reposicao para religador Cooper e que e preciso trocar o conjunto completo por um NOJA RC10 - um controle avulso nao devolveria aquele ativo a operacao. Aqui a peca de fato religa o equipamento. (3) O desempate por antiguidade foi feito pela DATA_ABERTURA_SS de ssos_min.json, nao pelo numero da SS: o numero nao e cronologico (ETO-COEP 00133/2026 do 7955986084 foi aberta em 08/07/2026, depois da 00063/2026)."
+      }
+    ],
+    "descobertos": [
+      {
+        "ativo": "7903569004",
+        "criticidade": "Muito Alta",
+        "localidade": "ARAGUAINA",
+        "classe_tensao": "13,8 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "nao definida",
+        "valor_estimado": 0,
+        "porque": "Falta diagnostico, nao peca. ATUALIZADA6 L12 com defeito (col J), quantidade (K) e descricao (L) vazias; meta.json marca resolvido=false, espera = primeiro ataque / laudo do DMSL. E o unico ativo aberto de 13,8 kV fora do plano nas tres criticidades. Sem laudo nao da para escolher material."
+      },
+      {
+        "ativo": "7955520116",
+        "criticidade": "Alta",
+        "localidade": "CHAPADA DA NATIVIDADE",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1)",
+        "valor_estimado": 38151.48,
+        "porque": "Ficou sem o unico tanque livre por dois motivos, nao por prioridade. Primeiro: nao ha SS ativa - a ETO-TELE 00961/2026 foi baixada como 'em operacao no SCADA' (ssos_min.json, SS ATENDIDA) e a ETO-COEP 00149/2025 esta REPASSADA; ATUALIZADA6 L57 traz SS = CONCLUIDA com observacao 'Cancelada errada pelo DMSL'. Sem SS aberta nao se emite requisicao. Segundo: existe via de suprimento paralela ja em andamento - AIC obra 0512600178 'SUBSTITUICAO DE RELIGADOR RDR CHAPADA DA NATIVIDADE', status 'PLANEJAMENTO:TOMADA DE PRECO FINALIZADA', MT_ORCADO R$ 31.250, nada realizado ainda; e OBRAS_EQ_ESPECIAL L4 diz 'Necessario COEP Requisitar material' = Nao. Mandar um tanque por fora arriscaria duas partes ativas para o mesmo poste. A necessidade e real - decisoes_gestor.json 13/08: 'a equipe verificou o religador em campo e ja esta dando tratativa. A parte ativa danificada continua la'. Acao: reabrir a SS e checar com o COEP se a obra 0512600178 ja contempla a parte ativa."
+      },
+      {
+        "ativo": "7908302256",
+        "criticidade": "Alta",
+        "localidade": "MATEIROS",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "nao definida",
+        "valor_estimado": 0,
+        "porque": "ATUALIZADA6 L33 col J vazia, parecer COEP = 'Primeiro ataque DMSL'. decisoes_gestor.json 13/08: a parte ativa nunca foi trocada, houve baixa indevida da cadeia (ETO-COEP 00071/2026 repassada; TELE 00970/2026, COEP 00135/2026 e TELE 00997/2026 fecharam sem a substituicao). Precisa de primeiro ataque em campo antes de definir material."
+      },
+      {
+        "ativo": "7936038076",
+        "criticidade": "Alta",
+        "localidade": "DUERE",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "nao definida",
+        "valor_estimado": 0,
+        "porque": "ATUALIZADA6 L56 com J, K e L vazias. decisoes_gestor.json 13/08: 'pendente - cancelada errada pelo DMSL. A SS foi dada como CONCLUIDA no sistema sem o servico ter sido feito, e ainda nao houve reabertura'. Sem defeito registrado nao da para escolher peca."
+      },
+      {
+        "ativo": "5853360007",
+        "criticidade": "Alta",
+        "localidade": "MIRACEMA DO TOCANTINS",
+        "classe_tensao": "34,5 kV",
+        "marca": "ITB / RUA (Regulador)",
+        "peca_faltante": "nenhuma - e servico, nao material",
+        "valor_estimado": 0,
+        "porque": "ATUALIZADA6 L39 col J = Melhoria de aterramento, K=1. Nao consome nenhum dos 8 codigos do catalogo. O bloqueio e autorizacao de passagem: 'Problema na autorizacao de p[assagem]' no parecer COEP - o cliente nao liberou entrada na propriedade. Realocar peca nao resolve."
+      },
+      {
+        "ativo": "7900535058",
+        "criticidade": "Média",
+        "localidade": "SANTA FE DO ARAGUAIA",
+        "classe_tensao": "34,5 kV",
+        "marca": "COOPER F6",
+        "peca_faltante": "690005 (tanque) + 692263 (controle) - conjunto completo",
+        "valor_estimado": 76246.2,
+        "porque": "E a SS mais antiga de toda a fila (ETO-COEP 00173/2025 aberta em 25/08/2025, PENDENTE em ssos_min.json) e mesmo assim nao recebeu o controle livre. Motivo: ATUALIZADA6 L61 col J diz 'Controle', mas a col L traz o parecer do DMSL - 'rele danificado, firmware corrompido, o mesmo nao inicia. Devido ao fato de nao possuirmos mais pecas de reposicao para religador cooper, se faz necessario a substituicao de todo conjunto por um Noja RC10'. Um controle avulso nao devolve o ativo a operacao. Precisa entrar como conjunto completo, e nao ha tanque livre para ele."
+      },
+      {
+        "ativo": "7908249152",
+        "criticidade": "Média",
+        "localidade": "SANTA ROSA DO TOCANTINS",
+        "classe_tensao": "34,5 kV",
+        "marca": "COOPER F6",
+        "peca_faltante": "690005 (tanque) + 692263 (controle)",
+        "valor_estimado": 76246.2,
+        "porque": "ATUALIZADA6 L66 col J = 'Tanque + controle', K=1, SS ETO-COEP 00038/2026, check Pendente. Precisa das duas pecas e o estoque livre de ambos os codigos 34,5 kV zerou com as duas alocacoes acima."
+      },
+      {
+        "ativo": "7928564039",
+        "criticidade": "Média",
+        "localidade": "ARAGUATINS",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 (tanque) + 692263 (controle)",
+        "valor_estimado": 76246.2,
+        "porque": "ATUALIZADA6 L76 col J = 'Tanque + controle', K=1, SS ETO-COEP 00123/2026, check Pendente; parecer DMSL 28/07/2025 aponta tanque, modulo e rele com defeito. Estoque livre zerado nos dois codigos."
+      },
+      {
+        "ativo": "7933585074",
+        "criticidade": "Média",
+        "localidade": "DIANOPOLIS",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1)",
+        "valor_estimado": 38151.48,
+        "porque": "ATUALIZADA6 L70 col J = Tanque, K=1, parecer COEP 30/06 'REALIZAR SUBSTITUICAO DO TANQUE, O MESMO ESTA COM DEFEITO'. SS ETO-COEP 00024/2026 aberta em 27/01/2026 (ssos_min.json), a mais antiga da fila de tanque em Media. Perdeu o unico tanque livre para um ativo de criticidade Alta, como o gestor pediu. Na proposta original recebia um tanque vindo do 7925087021 - essa origem caiu: OBRAS L15 mostra EMD 511540, Deposito 4906, Status Entrega Concluida em 10/07/2026, ou seja o material ja foi entregue para o proprio 7925087021 (Alta), que segue Pendente."
+      },
+      {
+        "ativo": "7927396052",
+        "criticidade": "Média",
+        "localidade": "FORMOSO DO ARAGUAIA",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1)",
+        "valor_estimado": 38151.48,
+        "porque": "ATUALIZADA6 L69 col J = Tanque, K=1, SS ETO-COEP 00045/2026, check Pendente. Nao ha tanque 34,5 kV livre."
+      },
+      {
+        "ativo": "7925733015",
+        "criticidade": "Média",
+        "localidade": "PEDRO AFONSO",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1)",
+        "valor_estimado": 38151.48,
+        "porque": "ATUALIZADA6 L68 col J = Tanque, K=1, SS ETO-COEP 00058/2026, tanque em curto conforme DMSL 24/03/2026. Nao ha tanque livre."
+      },
+      {
+        "ativo": "7937102148",
+        "criticidade": "Média",
+        "localidade": "SAO VALERIO DA NATIVIDADE",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1)",
+        "valor_estimado": 38151.48,
+        "porque": "ATUALIZADA6 L63 col J = Tanque, K=1, SS ETO-COEP 00129/2026, check Pendente. Nao ha tanque livre."
+      },
+      {
+        "ativo": "7900525015",
+        "criticidade": "Média",
+        "localidade": "PEDRO AFONSO",
+        "classe_tensao": "34,5 kV",
+        "marca": "COOPER F6",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1) - A CONFIRMAR",
+        "valor_estimado": 38151.48,
+        "porque": "ATUALIZADA6 L75 col J = Tanque, K=1, SS ETO-COEP 00125/2026. RESSALVA: o proprio COEP ainda nao fechou se e troca do religador ou so das buchas de entrada (fase A estourada, col L). Fechar esse ponto antes de comprometer R$ 38.151,48."
+      },
+      {
+        "ativo": "7927713200",
+        "criticidade": "Média",
+        "localidade": "SAO SALVADOR DO TOCANTINS",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "690005 - Tanque / Parte ativa - Religador 34,5 kV (1)",
+        "valor_estimado": 38151.48,
+        "porque": "ATUALIZADA6 L62 col J = Tanque, K=1. Alem de nao haver tanque livre, a SS esta como CONCLUIDA com check Pendente - decisoes_gestor.json 13/08: 'cancelada errada pelo DMSL, SS dada como CONCLUIDA com check pendente; demanda aberta no COEP'. Reabrir antes de requisitar."
+      },
+      {
+        "ativo": "7955986084",
+        "criticidade": "Média",
+        "localidade": "DIVINOPOLIS",
+        "classe_tensao": "34,5 kV",
+        "marca": "NOJA RC10",
+        "peca_faltante": "692263 - Controle - Religador 34,5 kV (1)",
+        "valor_estimado": 38094.72,
+        "porque": "Perdeu o unico controle livre para o 7944559149 por antiguidade real de SS: ETO-COEP 00133/2026 aberta em 08/07/2026 contra 31/03/2026 do 7944559149 (ssos_min.json). O defeito nao esta na col J de ATUALIZADA6 L73, que esta vazia - foi lido da col L: parecer COEP de 14/07/2026 'SUBSTITUIR CONTROLE COMPLETO', placa de alimentacao CA em curto."
+      },
+      {
+        "ativo": "5840227063",
+        "criticidade": "Média",
+        "localidade": "BANDEIRANTES DO TOCANTINS",
+        "classe_tensao": "34,5 kV",
+        "marca": "ITB / RUA (Regulador)",
+        "peca_faltante": "690241 - Celula - Regulador 34,5 kV / 400 kvar (1)",
+        "valor_estimado": 126893.8,
+        "porque": "ATUALIZADA6 L46 col J = Celula, K=1, SS ETO-COEP 00151/2026, check Pendente; ensaio de isolacao do DMSL em 13/07/2026 achou curto na fase A. Nao ha nenhuma celula 690241 livre - as 4 do plano estao comprometidas (1 em processo logistico para o 5854566043 e 3 em aquisicao para o 5856070091, este ja com EMD 514814 emitido e Status Entrega Concluida em OBRAS L25). A potencia bate: banco de 398/400 kvar em equipamentos.json contra celula de 400 kvar do catalogo."
+      },
+      {
+        "ativo": "5800961074",
+        "criticidade": "Média",
+        "localidade": "DIANOPOLIS",
+        "classe_tensao": "34,5 kV",
+        "marca": "ITB / RUA (Regulador)",
+        "peca_faltante": "690241 - Celula - Regulador 34,5 kV (3) + melhoria de aterramento",
+        "valor_estimado": 380681.4,
+        "porque": "ATUALIZADA6 L65 col J = 'Celulas + melhoria de aterramento', K=3, SS ETO-COEP 00221/2025, check Pendente. Nao ha celula livre. RESSALVAS FORTES: (a) o parecer COEP da col G diz 'Equipamento em Logistica' e a observacao da col H diz 'Vamos retirar de uma obra de construcao de uma linha antiga e usar na manutencao' - pode ja haver solucao por remanejamento, confirmar antes de comprar; (b) equipamentos.json registra o banco com 200 kvar e o 690241 e celula de 400 kvar - confirmar compatibilidade de potencia."
+      },
+      {
+        "ativo": "5800291035",
+        "criticidade": "Média",
+        "localidade": "MONTE DO CARMO",
+        "classe_tensao": "34,5 kV",
+        "marca": "TOSHIBA / RUA (Regulador)",
+        "peca_faltante": "90556 - Chave faca (6: 3 lado fonte + 3 lado carga) + malha de terra",
+        "valor_estimado": 4418.58,
+        "porque": "ATUALIZADA6 L58 col J = 'Melhoria de aterramento', mas o parecer DMSL na col L e mais especifico: as 3 celulas do banco passaram nos testes funcionais e o que falta e corrigir a malha de terra, baixar o banco, substituir as 3 chaves facas do lado Fonte e as 3 do lado Carga e instalar suporte inclinado. Nao precisa de celula nem de controle. A unica 90556 do plano esta comprometida com o 7920024127 (em aquisicao). E o descoberto mais barato de resolver: 6 x R$ 736,43 = R$ 4.418,58 em material."
+      }
+    ],
+    "falta_comprar": [
+      {
+        "codigo": "690005",
+        "descricao": "Tanque / Parte ativa — Religador 34,5 kV",
+        "qtd": 10,
+        "unitario": 38151.48,
+        "total": 381514.8
+      },
+      {
+        "codigo": "692263",
+        "descricao": "Controle — Religador 34,5 kV",
+        "qtd": 4,
+        "unitario": 38094.72,
+        "total": 152378.88
+      },
+      {
+        "codigo": "690241",
+        "descricao": "Célula — Regulador 34,5 kV",
+        "qtd": 4,
+        "unitario": 126893.8,
+        "total": 507575.2
+      },
+      {
+        "codigo": "90556",
+        "descricao": "Chave faca",
+        "qtd": 6,
+        "unitario": 736.43,
+        "total": 4418.58
+      }
+    ],
+    "falta_comprar_total": 1045887.46,
+    "ressalvas": [
+      "A premissa central da proposta original estava errada e as tres revisoes derrubaram: 'Equipamento entregue ao COCM' NAO quer dizer que o ativo foi atendido por outra via e a peca sobrou. E o terceiro e ultimo estagio do proprio pedido de compra ('Em processo de aquisicao' -> 'Em processo logistico' -> 'Equipamento entregue ao COCM'), o mesmo vocabulario da coluna G 'Parecer COEP' da ATUALIZADA6. Significa que a peca comprada chegou e foi entregue PARA AQUELE ativo.",
+      "Verificado por mim nas fontes primarias: dos 11 ativos de origem, 10 tem EMD emitido, numero de deposito e Status Entrega Concluida em OBRAS_EQ_ESPECIAL 'Planilha1', e o defeito registrado casa um-a-um com o codigo comprado. Em quatro deles o material ja foi apropriado em obra no AIC (0112600424 MT_REALIZADO 21.786 contra R$ 21.785,72 de um 690001; 0212600422 = 56.476; 0112600425 = 56.384; 0112600383 = 22.568; 0212600425 = 44.406; 0712600318 = 38.813). Essas 14 pecas (R$ 401.175,34, 84% do valor) nao existem como sobra.",
+      "O pool livre cai de 16 pecas / R$ 477.421,54 para 2 pecas / R$ 76.246,20. Um unico ativo passa no teste: o 7900594026 (Ponte Alta do Tocantins), com 'Necessario COEP Requisitar material' = Nao, sem EMD, sem deposito, SIGCCO 'Indeferir a obra' e obra 0312600354 no AIC com MO_ORCADO=0, MT_ORCADO=0 e nada realizado. Foi resolvido por remanejamento de equipamento vindo de Guarai, confirmado pelo proprio gestor em decisoes_gestor.json (13/08).",
+      "Cai a alocacao do 651638 para o 5856070091 (Almas, Muito Alta), que era o carro-chefe do trabalho, e cai nas duas pontas. Na origem: o controle do 5800371025 foi instalado em 30/07/2026 (OBRAS L35: Status da Substituicao Concluida, Equipamento Entregue Sim, Cod Material P/ Requisitar 651638, EMD 514635; AIC obra 0712600318 MT_REALIZADO 38.813) e decisoes_gestor.json de 13/08 registra o gestor confirmando 'o controle ja foi instalado'. No destino: OBRAS L25 traz 'Cod Material P/ Requisitar' = 690241 e so isso, com EMD 514814 e Status Entrega Concluida em 20/07/2026; o AIC da obra 0512600177 tem MT_ORCADO R$ 388.396, coerente com 3 celulas a R$ 126.893,80 e sem espaco para um controle. A 'lacuna de controle' vinha so do texto livre 'Celulas + controle' da col J da ATUALIZADA6.",
+      "Caem tambem as duas alocacoes de tanque que tiravam peca de ativos de criticidade igual ou maior ainda esperando: 7908686014 (Pium, Muito Alta - OBRAS L17 Status da Substituicao Pendente, Equipamento Entregue Nao, EMD 510214, deposito 2903, obs 'Previsao de Substituicao atrasada') e 7925087021 (Alta - OBRAS L15 Pendente, Entregue Nao, EMD 511540, deposito 4906, obs 'ETO-RD-GU 1391/2026 atrasada'). O material esta no deposito do COCM reservado para eles.",
+      "O 692263 saiu do 7900535058 e foi para o 7944559149. Motivo: ATUALIZADA6 L61 col L traz o parecer do DMSL dizendo que nao ha mais peca de reposicao para religador Cooper e que e preciso trocar o conjunto completo por um NOJA RC10 - um controle avulso de R$ 38.094,72 nao devolveria aquele ativo a operacao.",
+      "Fica aberta a questao de MARCA nos dois codigos que sobrevivem. As duas pecas livres foram encomendadas como COOPER F6 e vao para ativos NOJA RC10. No plano de compras o codigo 690005 aparece amarrado a COOPER F6, NOJA RC10, SCHNEIDER ADVC e TAVRIDA ao mesmo tempo, e o 692263 igual - isso sugere codigo generico de ERP, mas o proprio DMSL diz que acabou peca de reposicao Cooper, o que prova que marca importa na pratica. Nao ha nas fontes nada que confirme intercambialidade. Ambas as alocacoes ficam com confianca media por causa disso.",
+      "O gestor pediu para olhar as pecas 'em aquisicao'. Conferi esse balde: sao 20 pecas / R$ 931.008,89 em 11 ativos, e TODOS os 11 continuam abertos (resolvido=false em meta.json). Nao ha folga ali tambem. Dois deles ja tem material entregue sem o plano ter registrado - 7900453110 (EMD 510215, Status Entrega Concluida, OBRAS L19) e 5856070091 (EMD 514814, Concluida) - mas os ativos seguem pendentes, entao a peca continua amarrada a eles.",
+      "O plano de compras e uma foto de 16/07/2026 (declarado nas abas 'Compra MA+Alta' e 'Compra (estatico)'). Hoje e 13/08. A coluna Status esta defasada nos dois sentidos, e por isso a segmentacao livre/comprometido nao pode ser feita por ela: tem que ser feita por EMD + Status Entrega + Data Entrega de OBRAS_EQ_ESPECIAL e por MT_REALIZADO do AIC, usando o plano so para codigo e preco.",
+      "A ordenacao por antiguidade foi refeita. O numero da SS nao e cronologico - confirmei em ssos_min.json que a ETO-COEP 00133/2026 foi aberta em 08/07/2026, depois da 00063/2026 aberta em 31/03/2026. Usei DATA_ABERTURA_SS.",
+      "Uma cobranca da primeira revisao eu verifiquei e NAO confirmei. Ela apontava 6 ativos supostamente omitidos da lista de descobertos (5801866013, 5865120195, 5800438116, 5846328094, 5851753086, 5827102054). Conferi um por um: os seis estao com resolvido=true em meta.json, e o 5800438116 tem parecer COEP de 01/07 dizendo que o Dener ja tem as pecas sobressalentes de obra para usar, enquanto o 5827102054 tem decisao do gestor de 13/08 como 'executado'. A exclusao deles estava certa e os R$ 253.787,60 de celula que a revisao queria acrescentar nao existem como demanda de compra.",
+      "O 5803327001 fica como duvidoso e nao entrou em nenhum dos dois lados da conta. O plano diz 'Equipamento entregue ao COCM', a ATUALIZADA6 L28 col G diz 'Em processo logistico' com previsao de entrega 10/08, OBRAS L38 tem todas as colunas de substituicao vazias, sem EMD e sem obra, e a observacao e 'CONTROLE RUA QUE VOLTOU DE DIANOPOLIS'. Pode ser estoque real de devolucao ou material ainda a caminho - as fontes nao fecham. Se for estoque real, e mais R$ 29.445,39 disponivel, mas so serviria em regulador e ainda dependeria da resposta sobre o 651638 ser codigo unico sem variante por classe de tensao."
+    ],
+    "texto": "Antes dos numeros, a correcao que muda tudo: eu tinha lido \"Equipamento entregue ao COCM\" como \"esse ativo ja foi resolvido por outra via, entao a peca que voce mandou comprar sobrou\". Esta errado. Fui nas fontes e o status e o ultimo estagio do proprio pedido — \"Em processo de aquisicao\" vira \"Em processo logistico\" e vira \"Equipamento entregue ao COCM\". Quer dizer que a peca chegou e foi entregue PARA AQUELE ativo, nao que ela sobrou.\n\nA prova esta em OBRAS_EQ_ESPECIAL: dos 11 ativos, 10 tem EMD emitido, numero de deposito e Status Entrega Concluida, e o defeito registrado casa exatamente com o codigo comprado. E no AIC o material ja foi apropriado em obra — a obra 0112600424 tem MT_REALIZADO de 21.786 contra R$ 21.785,72 de um tanque 690001, bate no centavo. Nao e peca parada em deposito, e custo lancado.\n\n1. QUANTO DA PARA REALOCAR\nDuas pecas, R$ 76.246,20. Nao dezesseis, nem os R$ 477.421,54 que eu tinha anunciado, nem os R$ 181.994,55 de realocacao. As outras 14 pecas (R$ 401.175,34, 84% do valor) nao existem como sobra.\n\nUm unico ativo liberou peca de verdade: o 7900594026, de Ponte Alta do Tocantins. Ele e o unico com \"Necessario COEP Requisitar material\" = Nao, sem EMD, sem deposito, SIGCCO \"Indeferir a obra\", e a obra 0312600354 esta zerada no AIC — nada orcado, nada realizado. Foi o remanejamento de Guarai que voce mesmo confirmou dia 13/08. Como a solucao veio de equipamento deslocado, o tanque e o controle comprados para ele nunca foram usados.\n\n2. PARA ONDE VAO\n- 7930428001, Porto Nacional, criticidade ALTA: 1 tanque 690005, R$ 38.151,48. SS ETO-COEP 00150/2026 aberta em 20/07, pendente, defeito Tanque, parecer do DMSL de 16/07 mandando trocar a parte ativa.\n- 7944559149, Caseara, criticidade MEDIA: 1 controle 692263, R$ 38.094,72. SS ETO-COEP 00063/2026 aberta em 31/03, pendente, curto na placa, equipamento fora de operacao.\n\nFoi para Media porque nao existe nenhum ativo Muito Alta ou Alta fora do plano precisando de controle — varri as 135 linhas da planilha de criticidade. Os unicos Alta abertos sao dois de tanque e dois sem defeito registrado.\n\n3. O QUE SOBRA SEM DESTINO\nNada. As duas pecas livres foram as duas alocadas. Aquela historia de R$ 265.981,60 em tanque e controle de 13,8 kV parados no deposito nao existe — as dez pecas de 13,8 kV foram todas entregues ou apropriadas nos ativos que as pediram.\n\n4. QUEM CONTINUA DESCOBERTO — 19 ATIVOS\nMuito Alta (1): 7903569004, Araguaina. Nao e falta de peca, e falta de laudo — o defeito nunca foi registrado.\nAlta (4): 7955520116 (Chapada da Natividade) precisa de tanque; 7908302256 (Mateiros) e 7936038076 (Duere) estao sem diagnostico, os dois com SS baixada indevidamente; 5853360007 (Miracema) e servico de aterramento travado por autorizacao de passagem do proprietario, nao consome material.\nMedia (14): sete pedem tanque, quatro pedem controle (dois deles conjunto completo), dois pedem celula e um pede chave faca.\n\nO que falta comprar para eles, com o preco de tabela:\n- 10 tanques 690005 = R$ 381.514,80\n- 4 controles 692263 = R$ 152.378,88\n- 4 celulas 690241 = R$ 507.575,20\n- 6 chaves faca 90556 = R$ 4.418,58\nTotal R$ 1.045.887,46. Fora os tres ativos sem diagnostico, que ainda nao da para dimensionar.\n\nO caso mais barato da lista e o 5800291035, Monte do Carmo: as tres celulas do banco passaram nos testes funcionais, falta corrigir a malha de terra e trocar 6 chaves faca — R$ 4.418,58 em material.\n\nSobre as pecas \"em aquisicao\", que foi o que voce pediu para eu olhar: sao 20 pecas, R$ 931.008,89, em 11 ativos, e todos os 11 continuam abertos. Nao ha folga ali tambem. Dois deles, o 7900453110 e o 5856070091, ja tem EMD emitido e entrega concluida sem o plano ter registrado, mas os ativos seguem pendentes, entao a peca continua amarrada a eles.\n\n5. ONDE A INFORMACAO E FRACA\nA marca. As duas pecas livres foram encomendadas como COOPER F6 e vao para ativos NOJA RC10. No plano o codigo 690005 aparece amarrado a quatro marcas ao mesmo tempo — Cooper, Noja, Schneider e Tavrida — o que sugere codigo generico de sistema, mas o proprio DMSL escreveu que acabou peca de reposicao Cooper, ou seja marca importa na pratica. Nenhuma fonte responde isso. Por causa disso as duas alocacoes ficam com confianca media, e essa e a primeira pergunta a fazer para a engenharia de material.\n\nO 5856070091, de Almas, saiu inteiramente da conta. Eu tinha proposto mandar um controle para la dizendo que o plano comprou as celulas e esqueceu o controle. Errado nas duas pontas: o controle que eu ia tirar do 5800371025 foi instalado em 30/07 — voce mesmo confirmou dia 13/08 — e o 5856070091 ja esta com as tres celulas entregues, EMD 514814, entrega concluida em 20/07. A obra dele no AIC tem R$ 388.396 orcados em material, que e o valor de tres celulas e nao comporta controle nenhum. O que trava o equipamento, pelo parecer do DMSL, e que o regulador esta instalado errado, com carga do lado da fonte. E servico de campo, nao peca.\n\nO 7955520116 nao levou o tanque por dois motivos praticos, nao por prioridade: nao tem SS ativa — foi baixada como \"em operacao no SCADA\" e precisa ser reaberta antes de qualquer requisicao — e ja existe uma via paralela, a obra 0512600178, em tomada de preco finalizada com R$ 31.250 orcados. Mandar tanque por fora arriscaria duas partes ativas para o mesmo poste. A necessidade e real, voce confirmou que a parte ativa danificada continua la.\n\nO 7900535058, de Santa Fe do Araguaia, tem a SS mais antiga de toda a fila — aberta em 25/08/2025 — e mesmo assim nao levou o controle. O DMSL diz que nao ha mais reposicao para religador Cooper e que e preciso trocar o conjunto completo por um Noja RC10. Um controle avulso de R$ 38 mil nao religaria o equipamento.\n\nTres ativos estao com SS cancelada errada pelo DMSL e precisam ser reabertas antes de qualquer requisicao: 7955520116, 7927713200 e 7936038076.\n\nDuas duvidas de escopo antes de gastar: no 7900525015 o COEP ainda nao decidiu se e troca do tanque ou so das buchas de entrada; e no 5800961074 o cadastro diz banco de 200 kvar enquanto a celula 690241 e de 400 kvar, alem de haver anotacao de que iam retirar celula de uma obra antiga para usar na manutencao — pode nem precisar comprar.\n\nPor fim, o plano de compras e uma foto de 16/07 e hoje e 13/08. Ele esta quase um mes defasado nos dois sentidos. Para qualquer decisao daqui para frente, a coluna Status do plano nao serve — o que vale e EMD, Status Entrega e Data Entrega da OBRAS_EQ_ESPECIAL, mais o MT_REALIZADO do AIC. O plano serve para codigo e preco."
+  },
+  "aic": {
+    "sigco": [
+      {
+        "codigo": "8481",
+        "rotulo": "Regulador de Tensao - confirmado: DESCRICAO = SUBSTITUICAO DE REGULADOR em 105 das 151 obras; 113 obras citam so regulador, 15 citam so religador, 2 citam ambos, 21 nao citam nenhum",
+        "obras": 151,
+        "mo_orcado": 925348,
+        "mt_orcado": 9756309,
+        "tx_orcado": 637311,
+        "val_total_orcado": 11318964,
+        "mo_realizado": 1113412,
+        "mt_realizado": 7860182,
+        "txa_realizado": 9730,
+        "total_realizado": 8983328,
+        "saldo": 107191,
+        "obras_encerradas": 133,
+        "obras_abertas": 18,
+        "primeira_encerrada": "2019-03-06",
+        "ultima_encerrada": "2026-06-30",
+        "realizado_2026": 558970
+      },
+      {
+        "codigo": "8495",
+        "rotulo": "Religador - confirmado: DESCRICAO = SUBSTITUICAO DE RELIGADOR em 203 das 376 obras e MANUTENCAO CORRETIVA em 160; 247 obras citam so religador, 13 citam so regulador, 116 nao citam nenhum dos dois no texto",
+        "obras": 376,
+        "mo_orcado": 1434526,
+        "mt_orcado": 14735487,
+        "tx_orcado": 894302,
+        "val_total_orcado": 17064300,
+        "mo_realizado": 1853202,
+        "mt_realizado": 11646814,
+        "txa_realizado": 17504,
+        "total_realizado": 13517519,
+        "saldo": 700612,
+        "obras_encerradas": 269,
+        "obras_abertas": 107,
+        "primeira_encerrada": "2019-04-25",
+        "ultima_encerrada": "2026-06-30",
+        "realizado_2026": 618111
+      }
+    ],
+    "obras_dos_ativos": [
+      "7931610122 | obra 0112600383 | SIGCO 8495 | realizado R$ 28.141,00 | sem encerramento | OBRA NO PRAZO | SUBSTITUICAO DE RELIGADOR",
+      "7933766059 | obra 0112600424 | SIGCO 8495 | realizado R$ 21.786,00 | sem encerramento | OBRA NO PRAZO | SUBSTITUICAO DE RELIGADOR",
+      "7927169001 | obra 0112600425 | SIGCO 8495 | realizado R$ 61.579,00 | sem encerramento | OBRA NO PRAZO | SUBSTITUICAO DE RELIGADOR",
+      "5853360007 | obra 0212400905 | SIGCO 8389 | realizado R$ 0,00 | sem DTH_ENCERRAMENTO no AIC (o aic_obras.csv diz encerrada em 2024-12-06 - divergencia) | MANUTENCAO CORRETIVA",
+      "5851753086 | obra 0212500355 | SIGCO 8389 | realizado R$ 0,00 | sem DTH_ENCERRAMENTO no AIC (o aic_obras.csv diz encerrada em 2025-08-28 - divergencia) | MANUTENCAO CORRETIVA",
+      "7919270014 | obra 0212501060 | SIGCO 8805 | realizado R$ 51.082,00 | encerrada 2026-03-26 | ENCERRADA CONTABIL | SUBSTITUICAO DE POSTE EMERGENCIAL - nao e obra de religador",
+      "7900117013 | obra 0212600422 | SIGCO 8495 | realizado R$ 56.476,00 | sem encerramento | OBRA NO PRAZO | MANUTENCAO CORRETIVA",
+      "7938137007 | obra 0212600423 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | MANUTENCAO CORRETIVA",
+      "7908686014 | obra 0212600425 | SIGCO 8495 | realizado R$ 44.406,00 | sem encerramento | OBRA NO PRAZO | MANUTENCAO CORRETIVA",
+      "7957126085 | obra 0212600428 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | MANUTENCAO CORRETIVA",
+      "5855411017 | obra 0212600536 | SIGCO 8389 | realizado R$ 0,00 | encerrada 2026-08-06 | MANUTENCAO CORRETIVA",
+      "5827102054 | obra 0212600537 | SIGCO 8389 | realizado R$ 0,00 | encerrada 2026-07-28 | ENCERRADA CONTABIL | MANUTENCAO CORRETIVA",
+      "5801866013 | obra 0212600539 | SIGCO 8389 | realizado R$ 27.676,00 | sem encerramento | OBRA NO PRAZO | MANUTENCAO CORRETIVA",
+      "7930428001 | obra 0312400657 | SIGCO 8495 | realizado R$ 45.598,00 | encerrada 2025-01-24 | ENCERRADA CONTABIL | MANUTENCAO CORRETIVA",
+      "7900453110 | obra 0312600264 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | MANUTENCAO CORRETIVA",
+      "7933726256 | obra 0312600351 | SIGCO 8495 | realizado R$ 63.722,00 | sem encerramento | OBRA NO PRAZO | MANUTENCAO CORRETIVA",
+      "5854566043 | obra 0312600352 | SIGCO 8495 | realizado R$ 105.094,00 | sem encerramento | OBRA NO PRAZO | MANUTENCAO CORRETIVA - ATENCAO: ativo e REGULADOR mas a obra esta no SIGCO de RELIGADOR",
+      "7900594026 | obra 0312600354 | SIGCO EM BRANCO no AIC | realizado R$ 0,00 | sem encerramento | MANUTENCAO CORRETIVA - obra sem SIGCO nao entra em orcamento nenhum",
+      "7900573047 | obra 0412600391 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE RELIGADOR",
+      "7925087021 | obra 0412600392 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE RELIGADOR",
+      "5836786094 | obra 0412600550 | SIGCO 8481 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE REGULADOR",
+      "5820790038 | obra 0512400342 | SIGCO 8481 | realizado R$ 176.637,00 | encerrada 2024-12-31 | ENCERRADA CONTABIL | SUBSTITUICAO DE REGULADOR - maior realizado da carteira",
+      "7908716091 | obra 0512500291 | SIGCO 8495 | realizado R$ 11.326,00 | sem encerramento | FORA DA NORMALIDADE | SUBSTITUICAO DE RELIGADOR",
+      "7908705049 | obra 0512600135 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE RELIGADOR",
+      "5856070091 | obra 0512600177 | SIGCO 8481 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE REGULADOR",
+      "7955520116 | obra 0512600178 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE RELIGADOR",
+      "5800438116 | obra 0512600179 | SIGCO 8481 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE REGULADOR",
+      "7900930040 | obra 0612500816 | SIGCO 8495 | realizado R$ 86.762,00 | encerrada 2025-10-15 | ENCERRADA CONTABIL | SUBSTITUICAO DE RELIGADOR",
+      "5800366016 | obra 0612600152 | SIGCO EM BRANCO no AIC | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE REGULADOR - obra sem SIGCO nao entra em orcamento nenhum",
+      "7900018004 | obra 0612600439 | SIGCO 8495 | realizado R$ 81.697,00 | encerrada 2026-06-26 | ENCERRADA CONTABIL | SUBSTITUICAO DE RELIGADOR",
+      "5800291077 | obra 0612600478 | SIGCO 8481 | realizado R$ 60.670,00 | encerrada 2026-06-22 | ENCERRADA CONTABIL | SUBSTITUICAO DE REGULADOR",
+      "7929376022 | obra 0612600565 | SIGCO 8495 | realizado R$ 0,00 | sem encerramento | SUBSTITUICAO DE RELIGADOR",
+      "5844630060 | obra 0612600626 | SIGCO 8481 | realizado R$ 61.098,00 | sem encerramento | OBRA NO PRAZO | SUBSTITUICAO DE REGULADOR",
+      "7934698002 | obra 0662600265 | SIGCO 8495 | realizado R$ 43.769,00 | encerrada 2026-06-29 | ENCERRADA CONTABIL | SUBSTITUICAO DE RELIGADOR",
+      "7943790134 | obra 0662600266 | SIGCO 8495 | realizado R$ 40.428,00 | encerrada 2026-06-30 | ENCERRADA CONTABIL | SUBSTITUICAO DE RELIGADOR",
+      "5858783119 | obra 0662600361 | SIGCO 8481 | realizado R$ 0,00 | encerrada 2026-06-30 | SUBSTITUICAO DE REGULADOR - encerrou sem nenhum realizado",
+      "7957620015 | obra 0712600316 | SIGCO 8495 | realizado R$ 58.086,00 | sem encerramento | OBRA NO PRAZO | SUBSTITUICAO DE RELIGADOR",
+      "5800371025 e 7900230155 | obra 0712600318 | SIGCO 8481 | realizado R$ 38.813,00 | sem encerramento | OBRA NO PRAZO | SUBSTITUICAO DE REGULADOR - uma obra cobrindo dois ativos (1 RT + 1 RL)",
+      "5850308009 | obra 0712600418 | SIGCO 8389 | realizado R$ 0,00 | encerrada 2026-07-30 | MANUTENCAO CORRETIVA",
+      "5800859011 | obra 0712600419 | SIGCO 8481 | realizado R$ 0,00 | sem encerramento | MANUTENCAO PREVENTIVA"
+    ],
+    "resumo": "O arquivo AIC tem 124.084 linhas de dados (linha 1 cabecalho, linha 2 vazia, dados da linha 3 em diante), 1 obra por linha (124.084 NUM_OBRA distintos) e 341 valores distintos de NUM_PROJETO_SIGCO.\n\n8481 - REGULADORES: 151 obras. Orcado R$ 11.318.964,00 (MO 925.348,00 + MT 9.756.309,00 + TX 637.311,00). Realizado R$ 8.983.328,00 (MO 1.113.412,00 + MT 7.860.182,00 + TXA 9.730,00). Saldo SICOC R$ 107.191,00. 133 encerradas x 18 sem data de encerramento. Primeira encerrada 06/03/2019, ultima 30/06/2026. Das encerradas em 2026 (9 obras) entrou R$ 558.970,00.\n\n8495 - RELIGADORES: 376 obras. Orcado R$ 17.064.300,00 (MO 1.434.526,00 + MT 14.735.487,00 + TX 894.302,00). Realizado R$ 13.517.519,00 (MO 1.853.202,00 + MT 11.646.814,00 + TXA 17.504,00). Saldo SICOC R$ 700.612,00. 269 encerradas x 107 sem data. Primeira encerrada 25/04/2019, ultima 30/06/2026. Das encerradas em 2026 (15 obras) entrou R$ 618.111,00.\n\nTEM MAO DE OBRA E MATERIAL, SIM. E o material domina: em 8481 o MT e 87,5% do realizado (7.860.182 de 8.983.328) e a MO 12,4%. Em 8495 o MT e 86,2% (11.646.814 de 13.517.519) e a MO 13,7%. Taxa e residual nos dois (0,1%). Ou seja, o custo dessas obras e basicamente a peca, nao a equipe - o que casa com o plano de compras.\n\nREALIZADO MENOR QUE O ORCADO NOS DOIS: 8481 realizou 79,4% do orcado, 8495 realizou 79,2%. Parte disso e obra indeferida entrando na conta: 20 indeferidas em 8481 e 37 em 8495, todas com realizado zero. No total, 28 das 151 obras de 8481 e 123 das 376 de 8495 estao com TOTAL_REALIZADO = 0,00.\n\nCURVA POR ANO DE ENCERRAMENTO (realizado):\n8481 - 2019: 678.022,00 (15 obras) | 2020: 356.424,00 (9) | 2021: 1.152.106,00 (12) | 2022: 720.881,00 (14) | 2023: 1.087.785,00 (18) | 2024: 2.815.322,00 (32) | 2025: 1.513.907,00 (24) | 2026: 558.970,00 (9)\n8495 - 2019: 769.379,00 (19) | 2020: 448.159,00 (12) | 2021: 1.159.519,00 (37) | 2022: 793.380,00 (18) | 2023: 2.272.997,00 (49) | 2024: 1.454.117,00 (32) | 2025: 5.366.132,00 (87) | 2026: 618.111,00 (15)\n2025 foi o pico dos religadores (5,37 milhoes, 87 obras encerradas). 2026 ate 30/06 esta bem abaixo dos dois - so 24 obras encerradas somando 1.177.081,00 nos dois codigos juntos. A base foi extraida em 07/08/2026, entao 2026 e ano parcial.\n\nOS DOIS CODIGOS SAO POUCO REPRESENTATIVOS NO BOLO GERAL: 8495 e o 27o SIGCO por realizado e 8481 o 32o, de 341. Juntos dao R$ 22.500.847,00 num arquivo onde so o 11341 (ramal rural) tem R$ 400,29 milhoes.\n\nCONFIRMACAO DO ROTULO: sim, 8481 e Regulador e 8495 e Religador, mas a classificacao vaza nas duas pontas. Em 8481 ha 17 obras cujo texto fala de RELIGADOR (ex.: obra 0612400377, encerrada 25/06/2024, R$ 82.145,00, DESCRICAO_OBRA \"SUBSTITUICAO DE RELIGADOR 7900478025\"; obra 0662400211, 26/06/2024, R$ 100.474,00, \"SUBSTITUICAO DE RELIGADOR - RELIG. - 7900225090 - 34,5 KV\"). Em 8495 ha 13 obras cujo texto fala de REGULADOR (ex.: obra 0312500254, encerrada 30/10/2025, R$ 221.898,00, \"SUBSTUICAO DO REGULADOR\"; obra 0312500255, 07/11/2025, R$ 110.600,00, \"SUBSTITUICAO DE REGULADOR DANIFICADO\"). Nao e erro de leitura: e apontamento errado na abertura da obra. Entao o valor por SIGCO tem um ruido de classificacao da ordem de 10% das obras - se voce for defender numero de regulador vs religador em reuniao, esse e o ponto que te questionam.\n\nALERTA NA CARTEIRA: das 40 obras dos seus ativos, 6 estao em SIGCO 8389 (que nao e nem regulador nem religador) e 2 estao com NUM_PROJETO_SIGCO EM BRANCO no AIC (obras 0312600354 do religador 7900594026 e 0612600152 do regulador 5800366016). Obra em branco no SIGCO nao entra em nenhum orcamento - vale cobrar o apontamento. E o ativo 7919270014 esta na obra 0212501060, que e SIGCO 8805 (POSTE DANIFICADO), encerrada em 26/03/2026 com R$ 51.082,00 - obra de poste, nao de religador.\n\nOBSERVACAO DE PRECISAO: o AIC nao guarda centavos. Todos os campos financeiros de 8481 e 8495 vem como numero inteiro (0 valores com centavos em 527 linhas verificadas). Os \",00\" abaixo sao do arquivo, nao arredondamento meu.",
+    "ano": 2026,
+    "extracao": "2026-08-07",
+    "sigco_2026": [
+      {
+        "codigo": "8481",
+        "rotulo": "Regulador de Tensão",
+        "obras": 16,
+        "indeferidas": 1,
+        "indeferidas_orcado": 411495.0,
+        "mo": 62271.0,
+        "mt": 596608.0,
+        "tx": 0.0,
+        "realizado": 658881.0,
+        "orcado": 1510280.0,
+        "consumo_pct": 43.6,
+        "mo_pct": 9.5,
+        "mt_pct": 90.5,
+        "encerradas": 8,
+        "encerradas_realizado": 558970.0,
+        "abertas": 13,
+        "abertas_realizado": 318254.0,
+        "abertas_orcado": 1134672.0,
+        "obras_indeferidas": [
+          {
+            "obra": "0662600361",
+            "descricao": "SUBSTITUIÇÃO DE REGULADOR",
+            "orcado": 411495.0
+          }
+        ]
+      },
+      {
+        "codigo": "8495",
+        "rotulo": "Religador",
+        "obras": 33,
+        "indeferidas": 2,
+        "indeferidas_orcado": 79814.0,
+        "mo": 124305.0,
+        "mt": 990649.0,
+        "tx": 0.0,
+        "realizado": 1114954.0,
+        "orcado": 1234909.0,
+        "consumo_pct": 90.3,
+        "mo_pct": 11.1,
+        "mt_pct": 88.9,
+        "encerradas": 13,
+        "encerradas_realizado": 618111.0,
+        "abertas": 28,
+        "abertas_realizado": 866718.0,
+        "abertas_orcado": 1078417.0,
+        "obras_indeferidas": [
+          {
+            "obra": "0212500367",
+            "descricao": "MANUTENÇÃO CORRETIVA",
+            "orcado": 19128.0
+          },
+          {
+            "obra": "0312500619",
+            "descricao": "MANUTENÇÃO CORRETIVA",
+            "orcado": 60686.0
+          }
+        ]
+      }
+    ],
+    "total_realizado_2026": 1773835.0,
+    "total_orcado_2026": 2745189.0,
+    "criterio": "Obra de 2026 = aberta ou encerrada em 2026. Obra INDEFERIDA fica fora da cota — não consome orçamento. Base extraída em 07/08/2026, então o ano está parcial."
+  }
+}

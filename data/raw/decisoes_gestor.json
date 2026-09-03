@@ -1,0 +1,114 @@
+[
+  {
+    "ativo": "5800371025",
+    "localidade": "ARAPOEMA",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: o controle já foi instalado. A SS pendente na TELE (ETO-TELE 01040/2026) é o comissionamento — o parecer sobre os cabos de 16/08 é de 16/07 e ficou herdado pela descrição cumulativa do SGM, não é a situação atual."
+  },
+  {
+    "ativo": "7929376022",
+    "localidade": "BABACULANDIA",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: controle instalado recentemente. O SGM ainda não registrou — a SS de execução ETO-RD-AR 01231/2026 (10/08, obra 0612600565) segue PENDENTE no DCMD, a ETO-COEP 00120/2026 continua pendurada no COEP desde 30/06 e não há SS de Proteção aberta: a última do ativo é a ETO-PROT 00370/2024, atendida em 2024."
+  },
+  {
+    "ativo": "7900594026",
+    "localidade": "PONTE ALTA DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: resolvido pelo COEP — foi o primeiro remanejamento de equipamento do posto. As SS da ETO-SE-PA (00107/2026 e 00115/2026) são a cauda do mesmo serviço, no comissionamento."
+  },
+  {
+    "ativo": "7926089013",
+    "localidade": "PARAISO DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou: continua pendente de verdade. O cancelamento da SS de entrada não resolveu o ativo — a demanda seguinte está aberta no COEP."
+  },
+  {
+    "ativo": "7908196047",
+    "localidade": "FIGUEIROPOLIS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou: continua pendente. Tem duas demandas abertas — uma no COEP e outra no DMSL, esta provavelmente ainda em primeiro ataque, que é a razão de o ativo não ter parecer COEP na planilha de criticidade."
+  },
+  {
+    "ativo": "7955520116",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou: entra como pendente. É a única exceção do tipo — a SS foi baixada como «equipamento operacional» (ETO-TELE 00961/2026, parecer «em operação no SCADA»), mas a equipe verificou o religador em campo e já está dando tratativa. A parte ativa danificada continua lá."
+  },
+  {
+    "ativo": "7915029003",
+    "localidade": "GURUPI",
+    "data": "2026-08-13",
+    "decisao": "excluir",
+    "nota": "Gestor mandou tirar da análise (13/08). As duas SS de 2023 da foto de entrada (ETO-COEP 00013 e 00063/2023) não existem mais no SGM; o ativo tem histórico só com o DMSL, encerrado em 06/01/2026."
+  },
+  {
+    "ativo": "5862236091",
+    "localidade": "ALMAS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente. O check da planilha ATUALIZADA6 está «Pendente» e a demanda segue aberta no COEP — as peças foram redirecionadas para o 5856070091, de prioridade maior."
+  },
+  {
+    "ativo": "7919270014",
+    "localidade": "PIUM",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente. Check «Pendente» na planilha atual e demanda aberta no COEP; a obra encerrada no AIC não fecha esta demanda."
+  },
+  {
+    "ativo": "7936038076",
+    "localidade": "DUERE",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. A SS foi dada como CONCLUÍDA no sistema sem o serviço ter sido feito, e ainda não houve reabertura."
+  },
+  {
+    "ativo": "7908708116",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. Parecer «Equipamento Fora de operação»; a demanda foi reaberta e está no DCMD."
+  },
+  {
+    "ativo": "7910027196",
+    "localidade": "LAGOA DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. SS dada como CONCLUÍDA com check pendente; a demanda voltou a existir no COEP."
+  },
+  {
+    "ativo": "7927713200",
+    "localidade": "SAO SALVADOR DO TOCANTINS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Gestor confirmou (13/08): pendente — cancelada errada pelo DMSL. SS dada como CONCLUÍDA com check pendente; demanda aberta no COEP."
+  },
+  {
+    "ativo": "7908302256",
+    "localidade": "MATEIROS",
+    "data": "2026-08-13",
+    "decisao": "pendente",
+    "nota": "Revisão dos 3 revisores sobre o texto das SS/OS: a parte ativa nunca foi trocada — o que houve foi baixa indevida da cadeia. A ETO-COEP 00071/2026 foi REPASSADA e as SS seguintes (TELE 00970/2026, COEP 00135/2026, TELE 00997/2026) fecharam sem a substituição. Segue pendente no COEP."
+  },
+  {
+    "ativo": "5827102054",
+    "localidade": "PUGMIL",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Revisão dos 3 revisores: houve intervenção comprovada — nobreak, relé, cabo e bateria trocados. O que ficou faltando é o controle completo, negado pelo COEP; a ETO-COEP 00216/2025 seguiu REPASSADA. Equipamento manutencionado, processo ainda em curso."
+  },
+  {
+    "ativo": "5850308009",
+    "localidade": "GUARAI",
+    "data": "2026-08-13",
+    "decisao": "executado",
+    "nota": "Gestor confirmou: essa realmente foi cancelada e havia SS para consertar, mas o equipamento já estava em operação. O laudo de controle danificado e a fase em manual que aparecem no mesmo texto são do ciclo anterior — o controle foi substituído por completo em 12/09/2025 e a visita de campo confirmou o equipamento operando, o que liberou o redirecionamento do controle comprado para Arapoema (5800371025)."
+  }
+]

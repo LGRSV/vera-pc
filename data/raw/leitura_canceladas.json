@@ -1,0 +1,352 @@
+{
+  "gerado_em": "2026-08-13",
+  "criterio": "Regra do gestor: SS da ETO-COEP cancelada a partir de 01/05/2026 conta como resolvida se (a) nenhuma SS nova foi aberta no ativo depois e (b) nenhum texto de SS ou OS sinaliza que ainda é preciso abrir SS, trocar peça ou que o equipamento segue indisponível.",
+  "universo": {
+    "ss_canceladas": 48,
+    "ativos": 40,
+    "sem_ss_nova": 37,
+    "com_ss_nova": 3
+  },
+  "resolvidos": [
+    {
+      "ativo": "7955825037",
+      "localidade": "ALIANCA DO TOCANTINS",
+      "motivo": "Bloco de obra de 2024 cancelado sem SS nova depois. O pedido de poste/comissionamento e texto cumulativo do ciclo de 2024, ancorado na obra 0402300790 (ENCERRADA CONTABIL 05/12/2024). Duas provas de operacao posteriores ao cancelamento: ETO-TELE 01472/2025 (MP - AJUSTE EED, ATENDIDA 02/06/2026, OS 'COMUNICACAO ORBICON COM O TEMPO DE RESPOSTA MUITO ALTO. FOI SUBSTITUIDA PELA ANTENA TELESPAZIO FICANDO NORMAL') e ETO-TELE 00492/2026 (COM - COMISSIONAMENTO EED, ATENDIDA 31/07/2026, 'Atualizado a base e feito teste com scada'). Nenhuma SS aberta hoje; ativo fora da planilha de criticidade.",
+      "ss_cancelada": "ETO-COEP 00152/2024 + ETO-PROT 00395/2024 + ETO-TELE 01018/2024",
+      "data_cancelamento": "14/05/2026 16:47",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "7956117005",
+      "localidade": "ARRAIAS",
+      "motivo": "Texto de falta de itens para comissionamento e de 2024, herdado por cumulatividade, e foi superado por fatos de 2026 com OS assinada: ETO-TELE 00236/2026 (ATENDIDA 24/02/2026, troca de cabos e reposicionamento da antena), ETO-RD-DP 00079/2026 (ATENDIDA 05/02/2026, para-raio da fase C trocado COM LINHA VIVA na saida do religador) e ETO-TELE 00338/2026 (ATENDIDA 20/03/2026, 'FEITO A ATUALIZACAO DO AJUSTE DO RELIGADOR 7956117005'). Obra 0502300584 encerrada 28/11/2024. Residuo: ETO-PROT 00004/2025 segue REPASSADA, mas o que ela pede foi executado pela gemea de mesmo carimbo — fechar no SGM.",
+      "ss_cancelada": "ETO-COEP 00157/2024 + ETO-PROT 00406/2024 + ETO-TELE 01026/2024",
+      "data_cancelamento": "22/05/2026 11:06",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "7944319149",
+      "localidade": "CASEARA",
+      "motivo": "O laudo de 'substituir parte ativa / defeito no sensor do tanque' colado na SS e de OUTRO ativo (7955430075, SID 4589/2025, que tem cadeia propria em outra localidade). O parecer legitimo esta na OS da ETO-TELE 00876/2025: 'Manutencao do cabo RG 213 que havia saido do conector, foi refeito a solda. Equipamento devolvido a operacao. Equipamento ficou em operacao: Sim Pendencia: Nao'. A ETO-COEP 00201/2025 cancelada era duplicata burocratica (SS PRINCIPAL: ETO-TELE 00876/2025). Planilha de hoje: 'SS aberta: CONCLUIDA', 'Check: Ok'.",
+      "ss_cancelada": "ETO-COEP 00201/2025 + ETO-RD-PS 00297/2025",
+      "data_cancelamento": "22/06/2026 17:02",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "5835587001",
+      "localidade": "PORTO NACIONAL",
+      "motivo": "Todas as pendencias do parecer DMSL de 23/09/2025 foram executadas: ETO-RD-PO 00238/2025 ('FOI SUBSTITUIDA A CELULA FASE B, FOI SUBSTITUIDO CONTROLE, FOI FEITO MELHORIA NA MALHA DE ATERRAMENTO, FOI FEITO POCO') e OS da ETO-TELE 01522/2025 (ATENDIDA 29/12/2025, ensaios nas 3 celulas e 'realizado testes com scada e cos', 'Equipamento ficou em operacao? sim / Pendencia: nao'). O cancelamento de 30/06/2026 e limpeza de SS residual seis meses depois da execucao. Residuo: ETO-TELE 01074/2025, ETO-RD-PO 00238/2025 e ETO-PROT 00392/2025 seguem REPASSADAS — baixar no SGM.",
+      "ss_cancelada": "ETO-COEP 00198/2025 + ETO-PROT 00269/2025 + ETO-TELE 01119/2025",
+      "data_cancelamento": "30/06/2026 10:51",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "5820044123",
+      "localidade": "AGUIARNOPOLIS",
+      "motivo": "O merito NAO e do cancelamento e sim da obra: no AIC completo existe a obra 0662500671 'SUBSTITUICAO DE REGULADOR' citando nominalmente a SS cancelada e o ativo, executada e paga em 12/11/2025 (encerramento tecnico 27/11/2025, realizado R$ 72.700). A obra gemea 0662500592 (substituicao da fase C danificada) foi INDEFERIDA justamente por ter sido absorvida pela 0662500671. Nenhuma SS depois de 24/10/2025. O painel ja classifica certo (resolvido por obra, nao por cancelamento) e nao precisa mudar.",
+      "ss_cancelada": "ETO-COEP 00202/2025 + ETO-TELE 01168/2025",
+      "data_cancelamento": "30/06/2026 20:44",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "5855643052",
+      "localidade": "FORMOSO DO ARAGUAIA",
+      "motivo": "A pendencia de malha de aterramento e datada 23/08/2025 e foi sucedida pela intervencao de 20/10/2025 (ETO-TELE 01219/2025, SID 5545/2025): 'Foi substituido o rele, feito a calibracao, feito a medicao do aterramento e colocando em operacao'. A causa raiz real era 'RT3 nao esta comutando', resolvida com troca do rele; o aterramento era hipotese, nao laudo. Quase 10 meses sem nenhuma SS e a demanda nasceu de reclamacao RAML de cliente — se persistisse, teria voltado. Residuo: ETO-PROT 00353/2024 segue REPASSADA (mesma cadeia da ETO-TELE 00908/2024, atendida com 'ficou em operacao? Sim') — mandar encerrar. Ajustar o site: a situacao 'Executado — falta ajuste ou comissionamento' esta desatualizada.",
+      "ss_cancelada": "ETO-COEP 00174/2025 + ETO-COEP 00182/2025 + ETO-TELE 00917/2025 + ETO-RD-PS 00283/2025",
+      "data_cancelamento": "30/06/2026 20:45",
+      "confianca": "media"
+    },
+    {
+      "ativo": "7901216032",
+      "localidade": "ARAGUACU",
+      "motivo": "A demanda ('substituir o NOJA RC01 obsoleto por um RC10', criticidade PROGRAMAVEL, melhoria de parque) foi CUMPRIDA antes do cancelamento. Prova de cadastro: o COD_GIS do ativo muda de 190-17419981 (SS de 2024/2025) para 190-17413696 nas SS de comissionamento de 24/11/2025 — objeto fisico novo no mesmo codigo operativo. Casa com a obra 0402200525 (ARAGUACU, instalacao de religador, conclusao fisica 10/09/2025, encerrada contabil 26/09/2025) e com o fechamento do DMSL em 28/01/2026: 'FOI TESTADO COM O COS E ENTREGUE AO MESMO'. Ajuste no site (nao muda o balde): manutencionado deve virar true e como_resolveu 'Religador obsoleto substituido na obra 0402200525 e comissionado'. Residuo: ETO-PROT 00263/2025 segue REPASSADA.",
+      "ss_cancelada": "ETO-COEP 00115/2025",
+      "data_cancelamento": "30/06/2026 21:43",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "5855606027",
+      "localidade": "PONTE ALTA DO BOM JESUS",
+      "motivo": "Unico dos 40 em que a ultima acao registrada e uma SS ATENDIDA com OS de servico feito em campo: ETO-RD-DP 00293/2026 (aberta 30/04/2026, ATENDIDA 05/05/2026) — 'DESATIVACAO DE REGULADOR DE TENSAO FASE A, C. FOI RETIRADO DE CAMPO 02 PECAS DE REGULADOR DE TENSAO BONS. REGULADOR ESTA BAY PASSADO. PECAS RETIRADAS SERAO APLICADAS EM OBRAS DE CONSTRUCAO.' O curto na fase B deixou de ser demanda por decisao da empresa ('PARECER COEP: REMOVEMOS AS CELULAS BOAS PARA UTILIZAR EM OBRA REGULADA, DE ACORDO COM ALINHAMENTO DA ANDRESA'). Obra 0512600155 com conclusao fisica 06/08/2026 e fiscalizacao aprovada. CORRECAO DE ROTULO OBRIGATORIA: 'Em operacao' e falso — trocar para 'Desativado — by-passado, celulas das fases A e C retiradas e realocadas'. Ponta solta de patrimonio: a celula da fase B com curto (serie 017153) continua no poste sem registro de retirada ou descarte.",
+      "ss_cancelada": "ETO-COEP 00106/2025 + ETO-PROT 00137/2025 + ETO-TELE 00353/2025",
+      "data_cancelamento": "30/06/2026 22:15",
+      "confianca": "alta"
+    },
+    {
+      "ativo": "5850308009",
+      "localidade": "GUARAI",
+      "motivo": "E o caso-padrao do que o gestor descreveu. O controle danificado FOI trocado: OS da ETO-TELE 01109/2025 ('Foi substituido o controle por completo. Feito teste com COS') e da ETO-TELE 01141/2025 ('Controle substituido por completo pela equipe Adeilton/Edicleber, dia 12/09/2025'). E o EMD (OBRAS_EQ_ESPECIAL, linha da ETO-COEP 00180/2025) registra a visita: 'Equipamento em operacao em campo de acordo com a visita do Luanderson tem fotos / Equipamento ja em operacao, realocar controle de Regulador para Arapoema 5800371025'. Foi a campo, viu operando e realocou o material reservado. Obra 0712600418 encerrada 30/07/2026 com realizado R$ 0,00. Tarefas: fechar ETO-COEP 00185/2025 e ETO-RD-GR 00810/2025 (senao o ativo volta a aparecer pendente) e efetivar o redirecionamento do controle comprado.",
+      "ss_cancelada": "ETO-COEP 00127/2026 + ETO-COEP 00180/2025 + ETO-TELE 00913/2025 + ETO-TELE 00958/2026",
+      "data_cancelamento": "13/07/2026 19:31",
+      "confianca": "alta"
+    }
+  ],
+  "pendencias": [
+    {
+      "ativo": "7956063152",
+      "localidade": "SANTA ROSA DO TOCANTINS",
+      "porque": "Pedido de material em aberto, sem nenhuma OS na vida do equipamento (5 SS, zero NUMERO_OS). Nenhuma contraprova de comissionamento ou operacao. Nao esta na planilha de criticidade — sumiu do controle sem nunca ter sido tratado. Hoje o site conta como RESOLVIDO: tirar.",
+      "trecho": "Nao foi possivel comissionar o equipamento 7956063152 pois o mesmo estava sem cordao umbilical, sem radio e conexoes, e sem alimentacao do trafo no equipamento. Favor, sanar pendencias.",
+      "ss_nova": "nenhuma — o que reprova e a condicao (b)",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7959990070",
+      "localidade": "RIO SONO",
+      "porque": "Nenhuma OS jamais emitida nos 4 registros. Pedido de radio nunca atendido e sem registro de comissionamento. Agravante: o cadastro esta trocado no mapa (ETO-CADTOC 00279/2024, 'o RL 7959990070 em campo esta no lugar da CH 3300730070'), SS PENDENTE desde 24/10/2024 sem termino; busquei 3300730070 na base inteira: ZERO ocorrencias, entao nao ha comissionamento escondido sob outro codigo. Hoje o site conta como RESOLVIDO: tirar.",
+      "trecho": "NAO FOI POSSIVEL COMISSIONAR O EQUIPAMENTO DEVIDO A AUSENCIA DO RADIO GE. FAVOR, PROVIDENCIAR O RADIO.",
+      "ss_nova": "nenhuma",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7900594026",
+      "localidade": "PONTE ALTA DO TOCANTINS",
+      "porque": "ATENCAO — NAO REABRIR. Nao e resolucao por cancelamento (falha nas duas condicoes: o texto do dia do cancelamento diz que a nota nao foi atendida e nasceram SS de outro ciclo depois), MAS o ativo JA ESTA RESOLVIDO por execucao em campo, confirmada pelo proprio gestor em 13/08/2026 ('resolvido pelo COEP — foi o primeiro remanejamento de equipamento do posto; as SS da ETO-SE-PA sao a cauda do mesmo servico, no comissionamento'). Equipamento substituido em 15/07/2026, OS ETO-RD-PO 1860, obra 0312600354. O painel ja o conta como resolvido e deve continuar assim. Entra nesta lista so porque o mecanismo NAO foi o cancelamento.",
+      "trecho": "PARECER DMSL 10/06/2026: Tem uma nota aberta para esse equipamento solicitando a substituicao desde 20/10/2025, como a nota nao foi atendida estamos repassando para area responsavel.",
+      "ss_nova": "ETO-COEP 00113/2026, ETO-RD-PO 00185/2026, ETO-SE-PA 00107/2026, ETO-PROT 00148/2026, ETO-SE-PA 00115/2026 (cauda do mesmo servico)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7926089013",
+      "localidade": "PARAISO DO TOCANTINS",
+      "porque": "O gestor ja arbitrou este caso em 13/08/2026 como PENDENTE ('o cancelamento da SS de entrada nao resolveu o ativo — a demanda seguinte esta aberta no COEP'). Planilha de hoje: SS aberta ETO-COEP 00078/2026, Parecer COEP 'Em processo de aquisicao', previsao de entrega 20/10, Check 'Pendente', defeito 'Tanque'. O site ja marca nao resolvido — nada muda.",
+      "trecho": "SID 1805/2026 DATA 15/04/2026 ... Equipamento ficou em operacao: Nao Pendencia: sim atualizar a base e subistituir o tanque",
+      "ss_nova": "ETO-COEP 00078/2026 (aberta)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7925733015",
+      "localidade": "PEDRO AFONSO",
+      "porque": "A pendencia nao vive na SS cancelada e sim na ETO-COEP 00058/2026, que continua sem DATA_TERMINO_SS. Planilha de hoje: 'Em processo de aquisicao', Check 'Pendente', defeito 'Tanque'. Cancelar a 00107/2026 nao tocou nela. O site ja marca nao resolvido.",
+      "trecho": "DATA DA MANUTENCAO: 24/03/2026 SID: 1475/2026 Tanque do equipamento em Curto FICOU EM OPERACAO?: Nao PENDENCIA: Sim, repassar a nota para DCMD substituir tanque",
+      "ss_nova": "ETO-COEP 00058/2026 (aberta, sem termino)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7931608059",
+      "localidade": "TAQUARALTO",
+      "porque": "O mais grave dos de aquisicao: criticidade Muito Alta, transferencia dos bairros Morada do Sol (6.033 UCs). O parecer nao e herdado — e SID 2727/2026 de 18/05/2026, tres dias APOS a abertura da propria SS cancelada e um mes antes do cancelamento. Nenhum texto posterior registra troca de tanque ou radio. O site ja marca nao resolvido.",
+      "trecho": "A parte ativa do equipamento PRECISA SER SUBSTITUIDA. Equipamento ficou em operacao?: Nao Pendencia: Sim - Substituir o tanque e o radio",
+      "ss_nova": "ETO-COEP 00040/2026 (aberta)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7908196047",
+      "localidade": "FIGUEIROPOLIS",
+      "porque": "Falham as duas condicoes. SS novas depois do cancelamento de 18/06/2026: ETO-TELE 00939/2026 (02/07), ETO-COEP 00122/2026 (13/07) e o par ETO-TELE 01002/2026 + ETO-COEP 00168/2026 (03/08/2026), esta ultima SS PENDENTE sem termino. Gestor confirmou 'pendente' em 13/08/2026. O site ja marca nao resolvido.",
+      "trecho": "PARECER DMSL: Constatado curto-circuito no tanque do religador, impedindo as operacoes de abertura e fechamento do equipamento. Solicita-se a substituicao completa do religador, incluindo tanque e unidade de controle.",
+      "ss_nova": "ETO-COEP 00168/2026 (PENDENTE) e ETO-TELE 01002/2026",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7902314013",
+      "localidade": "PARAISO DO TOCANTINS",
+      "porque": "Laudo de defeito sem execucao. O parecer de 28/05-01/06/2025 e a ULTIMA palavra tecnica e nunca foi contrariado; nenhum texto registra troca da parte ativa nem chegada do radio GE. A triagem de entrada classificava a propria SS como 'PENDENCIA DCMD / REPASSAR DMSL', 993 clientes. A obra 0202400623 encerrou em 28/02/2025, ANTES do laudo. O site diz resolvido=true, como_resolveu 'Comissionamento concluido' — sem lastro. TIRAR dos resolvidos.",
+      "trecho": "Equipamento ainda nao esta comissionado devido problemas na parte ativa, nao aceita comandos de fechamento e abertura, sera necessario substituir somente a parte ativa (DISJUNTOR) falta tambem o radio GE. Equipamento ficou em operacao?: NAO",
+      "ss_nova": "nenhuma",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "5851753086",
+      "localidade": "MARIANOPOLIS",
+      "porque": "O cancelamento nao foi o mecanismo: havia outra SS viva cobrindo a mesma pendencia (ETO-TELE 00881/2026, aberta 02/06/2026, atendida so em 17/07/2026) — foi limpeza de duplicidade. E a planilha de HOJE (snapshot de agosto: cita a ETO-TELE 01002/2026 de 03/08 e parecer de 27/07/2026) ainda traz o RT nas abas Pendentes e Criticidade com Parecer COEP 'Aguardando comissionamento' e Check 'Em andamento'. A OS de 15/07 e INSTRUCAO, nao resultado ('REALIZAR TESTES E VOLTAR COM RT 5851753086 EM OPERACAO'). TIRAR dos resolvidos.",
+      "trecho": "MESMO ESTA BY-PASSADO EM CAMPO ... DESDE ENTAO MESMO NAO VOLTOU PARA OPERACAO / Equipamento ficou em operacao? Nao",
+      "ss_nova": "ETO-TELE 00881/2026 (aberta antes do cancelamento, ainda 'Em andamento' na planilha de agosto)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "5854681071",
+      "localidade": "BREJINHO DE NAZARE",
+      "porque": "7 SS na base inteira, ZERO atendidas e ZERO OS — o RT nunca foi comissionado. Ligacao carga/fase invertida em duas fases e impeditivo eletrico. Obra 0302100570 ENCERRADA CONTABIL desde 10/07/2024, sem obra aberta para cobrir a correcao, e nada em plano de compras. Ausencia de SS nova aqui e abandono, nao resolucao. TIRAR dos resolvidos.",
+      "trecho": "as fases A e B estao com a ligacao carga/fase invertidas, nao contem antena, nao contem suporte de antena e nao contem radio GE. Favor, sanar pendencias para possibilitar o comissonamento.",
+      "ss_nova": "nenhuma",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7963661046",
+      "localidade": "NOVA ROSALANDIA",
+      "porque": "Parecer corretamente ancorado (DATA 16/03/2026, bate com a OS da ETO-TELE 00331/2026, SID 1264/2026), e as SS canceladas foram abertas em 18/03/2026, DEPOIS do parecer — nao e heranca. Nenhuma OS, SS ou registro de substituicao do controle depois disso; a substituicao nem esta orcada. Obra 0202500503 encerrada 24/02/2026, antes do laudo. O painel diz 'Comissionamento concluido / Em operacao' — o oposto do documento. TIRAR dos resolvidos.",
+      "trecho": "E NECESSARIO REALIZAR A SUBSTITUICAO COMPLETA DO CONTROLE, EQUIPAMENTO DANIFICADO - FABRICANTE NOJA / Equipamento ficou em operacao?: Nao / Pendencia: Sim, FAVOR REALIZAR AS CORRECOES",
+      "ss_nova": "nenhuma",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7900001227",
+      "localidade": "RECURSOLANDIA",
+      "porque": "O religador esta energizado e comunicando desde 21/01/2026, mas o defeito de origem (sensor de corrente com medicao variando, equipamento obsoleto) nunca aparece resolvido, e a OS de 28/01/2026 ainda descreve 'TIPO EQUIPAMENTO: Cooper Form6' — ou seja, a substituicao pedida ao DCMD nao ocorreu. As SS atendidas posteriores tratam de bateria (rotina) e conectores oxidados. Religador que nao mede corrente direito e protecao comprometida, e a cadeia nasceu de ocorrencia com atuacao da retaguarda penalizando cargas urbanas. Nao esta em plano de compras nem no AIC. TIRAR dos resolvidos, ou o gestor arquiva a substituicao por decisao expressa.",
+      "trecho": "o sensor interno que mede a corrente esta com defeito. A medicao esta variando de 5 a 5min ... equipamento obsoleto. Solicitar ao DCMD a substituicao do equipamento",
+      "ss_nova": "nenhuma",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "5863381155",
+      "localidade": "PALMEIRANTE",
+      "porque": "3 SS na vida do ativo, todas de comissionamento, todas canceladas no mesmo carimbo, nenhuma com OS. Malha de aterramento em 738 ohm sem nenhum registro de melhoria. Obra 0702500302 ENCERRADA CONTABIL em 12/08/2025 com o RT sem comissionar. O painel afirmar 'Comissionamento concluido' nao tem lastro documental. TIRAR dos resolvidos.",
+      "trecho": "PARECER DMSL: Malha de aterramento esta dando 738, muito acima do aceitavel para operacao do RT. Necessario realizar melhoria na malha / NECESSARIO CONFERIR MALHA DE ATERRAMENTO ANTES DE INSERIR O ATIVO NO SISTEMA",
+      "ss_nova": "nenhuma",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7949660066",
+      "localidade": "TUPIRATINS",
+      "porque": "O parecer manda abrir demanda ('Repassar a nota para o DCMD substituir o equipamento') — e exatamente a sinalizacao que reprova pela regra (b) — e nunca foi atendido. Alem disso a ETO-PROT 00345/2024 (mesmo defeito, analogicas de corrente no rele Tavrida) segue REPASSADA e sem termino, 666 dias em aberto. A ETO-TELE 01514/2025 e troca de bateria (rotina) e nao toca no erro de medicao das fases B e C. O equipamento opera MEDINDO ERRADO por decisao do operador — operacao degradada, nao normalizacao. TIRAR dos resolvidos.",
+      "trecho": "Repassar a nota para o DCMD substituir o equipamento / deixar o equipamento em operacao, para poder realizar futuras manobras",
+      "ss_nova": "ETO-PROT 00345/2024 nunca encerrada (666 dias em aberto)",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7900275024",
+      "localidade": "ITAPORA DO TOCANTINS",
+      "porque": "Falha a condicao (a): a ETO-TELE 01093/2026 foi aberta em 10/08/2026, seis semanas DEPOIS do cancelamento, continua SS PENDENTE e tem defeito proprio de outro ciclo (ajuste das escalas de corrente das fases e do neutro no SCADA e temporizacao do Keep Alive). A substituicao do NOJA RC01 obsoleto nunca virou obra. O site ja marca nao resolvido — nada muda.",
+      "trecho": "realizar subsituicao do RLG 7900275024 ... NOJA RC01 (obsoleto), por um modelo NOJA RC10",
+      "ss_nova": "ETO-TELE 01093/2026 (10/08/2026, PENDENTE)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7925704079",
+      "localidade": "ITAPIRATINS",
+      "porque": "Laudo de defeito sem execucao. A OS de 10/12/2025 que fecha com 'FICOU EM OPERACAO?: Sim / PENDENCIA: Nao' e da atividade de telecom/protecao (base, ajustes, comissionamento SCADA) — o formulario e por equipamento E por atividade, e equipe de telecom nao avalia tanque. A parte grave do parecer nunca aparece resolvida. Unica obra do ativo no AIC e de 2019. TIRAR dos resolvidos; fecha em alta so com confirmacao escrita do DMSL de que o tanque foi trocado ou reensaiado sem defeito.",
+      "trecho": "foi constatado defeito no tanque do RLG 7925704079, assim, solicito a substituicao do mesmo",
+      "ss_nova": "nenhuma",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7925573007",
+      "localidade": "MIRACEMA DO TOCANTINS",
+      "porque": "Parecer datado 24/06/2025, inequivoco e nunca desmentido: religador operando em modo seccionalizador a pedido da protecao e indisponibilidade parcial, nao normalizacao. Nada registra a troca da parte ativa. Tres SS vivas no mesmo ativo: ETO-PROT 00133/2026 (PENDENTE, EMERGENCIAL, defeito proprio 'desarmou por rele 50/51 mesmo no grupo 2'), ETO-RD-PA 00528/2024 e ETO-PROT 00462/2024 (REPASSADAS ha 716 e 618 dias). O painel diz 'Trocado — falta o ajuste da Protecao', sem lastro textual. TIRAR dos resolvidos.",
+      "trecho": "Necessario substituir a parte ativa do equipamento / Pendencia: sim, substituir parte ativa / Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao",
+      "ss_nova": "ETO-PROT 00133/2026 (aberta 27/06/2026, ainda PENDENTE hoje)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "5852775092",
+      "localidade": "NOVO ACORDO",
+      "porque": "E o exemplo que o gestor deu, e pela regra que ele mesmo escreveu o caso CAI. O parecer mais recente e posterior ao corte de 01/05 e e uma reprovacao tecnica sem correcao registrada. O RT nunca entrou em operacao ('EQUIPE ESTEVE NO EQUIPAMENTO DIA 10/03/2025 PARA REALIZAR O COMISSIONAMENTO POREM NAO FOI POSSIVEL COLOCAR O EQUIPAMENTO EM OPERACAO DEVIDO SER NECESSARIO REALIZAR MELHORIA NA MALHA DE ATERRAMENTO'). E a demanda foi REABERTA depois do laudo: ETO-COEP 00109/2026 e ETO-TELE 00252/2026 nasceram em 09/06/2026, 27 dias apos a medicao reprovada, com prazo ate 08/08/2026, e foram canceladas 21 dias depois, dentro do SLA. Obra 0102301329 encerrada contabil em 12/06/2024 com o equipamento nunca comissionado. TIRAR dos resolvidos ate o gestor responder se o aterramento foi corrigido depois de 13/05/2026.",
+      "trecho": "dmsl 13/05/2026 Servico Executado: Foi realizada a medicao do aterramento do equipamento. O resultado ficou fora do padrao tecnico, indicando necessidade de correcao.",
+      "ss_nova": "ETO-COEP 00109/2026 + ETO-TELE 00252/2026 (abertas 09/06/2026, apos o laudo, e canceladas dentro do prazo)",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "5862546023",
+      "localidade": "COLINAS DO TOCANTINS",
+      "porque": "Parecer do ciclo corrente (ida a campo em 03/11/2025, SS abertas em 04/11/2025) pedindo troca de controle, sem nenhum texto posterior de controle trocado, comissionamento concluido ou entrega ao COS. Ja acumula DOIS cancelamentos — o primeiro par foi cancelado por motivo administrativo ('O.S nao despacharam para o tablet'). Obra 0702500104 encerrada contabil em 31/08/2025 com o banco de regulador nunca comissionado. Equipamento novo, pago, parado no poste. TIRAR dos resolvidos.",
+      "trecho": "PARECER DMSL: Durante testes foi constatado que o controle apresenta defeito, impossibilitando a finalizacao do comissionamento. Favor, substituir controle RUA.",
+      "ss_nova": "nenhuma",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "5856825025",
+      "localidade": "ARAPOEMA",
+      "porque": "Parecer de 10/06/2025, sete dias antes da abertura da SS cancelada — ciclo corrente, nao heranca. E ha prova de que o defeito seguia vivo em 2026: a ETO-TELE 00809/2026 (29/04/2026, EMERGENCIAL, origem FORA DE SERVICO) — 'PROVIDENCIAR A MANUTENCAO POIS NAO TEM COMUNICACAO NO SCADA (SEM SUPERVISORIO) SEM POSSIBILIDADE DE CONTROLE PELO OPERADOR' — foi cancelada em 05/05/2026 SEM NENHUMA OS, tres dias depois de estourar o prazo. Obra 0602400710 encerrada 28/03/2025. O site diz 'Comissionamento concluido'; o texto diz 'nao foi possivel colocar o equipamento em operacao'. TIRAR dos resolvidos; volta como indisponivel aguardando controle, radio e centelhador.",
+      "trecho": "Equipe esteve no RT 5856825025 dia 10/06/2025 porem nao foi possivel colocar o equipamento em operacao devido defeito no controle. Favor, substituir controle e fornecer o radio e centelhador",
+      "ss_nova": "ETO-TELE 00809/2026 (emergencial, cancelada esteril em 05/05/2026)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "5860500009",
+      "localidade": "GUARAI",
+      "porque": "3 SS na vida inteira, todas da mesma demanda de comissionamento de obra nova, todas canceladas no bloco de 30/06/2026. Nenhuma linha diz que o rele foi fornecido ou que o comissionamento foi concluido. A obra 0702300578 foi encerrada contabil em 30/06/2025 — um mes ANTES de a primeira SS de comissionamento ser aberta. Ativo novo, capitalizado, que nunca regulou. O painel diz 'Comissionamento concluido': baixa indevida pura. TIRAR dos resolvidos.",
+      "trecho": "PARECER DMSL: Nao foi possivel realizar o comissionamento pois as portas RS232 e ETHERNET do rele estao com defeito, sendo necessario a substituicao do Rele. Favor, fornecer rele novo.",
+      "ss_nova": "nenhuma",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7900532053",
+      "localidade": "PIRAQUE",
+      "porque": "Falha a condicao (b) em quatro lugares independentes: (1) o parecer da propria SS, '30/06-EQUIPAMENTO EM OPERACAO NO SCADA, AGUARDANDO RESPOSTA DO DMSL PARA SEGUIR COM AS TRATATIVAS', duas semanas antes do cancelamento; (2) a demanda original nunca desmentida; (3) a planilha de HOJE traz Parecer COEP 'REPASSAR O DMSL' com Check em branco; (4) a Observacao 'Equipamento nao identificado no SCADA e Mapa TS' contradiz o proprio parecer. PROVA DECISIVA: em data/equipamentos.json ha aquisicao em andamento de 'Religador completo + radio GE', R$ 104.067,62, 408 dias pendente, '407 - DIAS AGUARDANDO DCMD'. Nao ha como isso conviver com resolvido. TIRAR dos resolvidos, salvo se o gestor confirmar que mandou encerrar e cancelar a compra.",
+      "trecho": "Favor, realizar substituicao completa do RLG 7900532053 que encontra-se com defeito devido entrada de agua no cordao umbilical e danos causados por abelhas. O radio tambem precisa ser fornecido pois o existente esta danificado.",
+      "ss_nova": "nenhuma — mas ha compra de R$ 104.067,62 aberta ha 408 dias no DCMD",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "5800090147",
+      "localidade": "TAIPAS DO TOCANTINS",
+      "porque": "A peca nomeada nunca foi trocada e a compra esta VIVA: o plano de compras traz 'Celula fase C (microswitch) — R$ 138.038,91 — Em compra', amarrado a propria ETO-COEP 00117/2026 que foi cancelada. O 'equipamento ficou operando' e qualificado ('devido ser possivel manobrar de forma manual') — o automatismo segue morto. A camada mais nova e do proprio COEP: 'PARECER COEP: AGUARDANDO RETORNO DO DMSL'. O 'Check Ok' de hoje foi carimbado DEPOIS do cancelamento — e consequencia dele, nao evidencia independente. TIRAR dos resolvidos.",
+      "trecho": "Favor, substituir a celula da fase C do RT 5800090147 pois o microswitch que renconhece o neutro do regulador esta com defeito",
+      "ss_nova": "nenhuma — mas ha compra de R$ 138.038,91 em andamento",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7950310122",
+      "localidade": "PALMAS",
+      "porque": "Equipamento em BYPASS, ou seja, indisponivel, e o defeito ficou orfao. O parecer que autoriza o cancelamento vem do proprio dia ('14/07/2026 PARECER COEP: INVESTIGAR COM O ALAN ANTES DE ABRIR PARA COMPRA') e nao afirma operacao — e trava de compra, nao constatacao de campo. Procurei as 'notas' citadas no laudo em tudo: nao existem. O ativo so aparece em duas fontes do repositorio inteiro (2 SS em ssos_min.json e a aba de ajuste do GESTAO_DE_EQUIPAMENTOS) — sem EMD, sem obra, sem compra, sem criticidade. ATENCAO: este ativo NAO esta em consolidado.lista do meta.json — ele nao aparece no painel de jeito nenhum. Precisa ser incluido como pendente.",
+      "trecho": "Constatado que o equipamento esta em Bypass. Foi aberta nota para substituicao da parte ativa, abri nota para substituir completo o equipamento",
+      "ss_nova": "nenhuma (a outra SS do ativo e substituicao de bateria, rotina)",
+      "acao": "aguarda o gestor"
+    },
+    {
+      "ativo": "7900505026",
+      "localidade": "PONTE ALTA DO TOCANTINS",
+      "porque": "O pedido de substituicao completa NAO e texto herdado: a ETO-COEP 00042/2026 tem DataOcorrencia 26/02/2026, POSTERIOR a revisao de ajustes de 30/01/2026 — o defeito de falha de abertura reapareceu depois dos testes funcionais com corrente. E a camada do COEP nao afirma resolucao, PERGUNTA: 'O Equipamento se encontra em operacao no SCADA, favor verificar e reavaliar se existe pendencia de substituicao' — pergunta em aberto no momento do cancelamento, sem resposta de ninguem. Contrapeso honesto: nao ha obra, EMD nem compra, e a planilha ja marcava 'CONCLUIDA' antes do cancelamento — o COEP tratou como encerrado, mas isso nao mostra o defeito resolvido. Religador que nao abre para defeito a jusante penaliza o Ramal do Gato (288 UCs), a UFV Videira e a cidade de Pindorama. TIRAR dos resolvidos.",
+      "trecho": "PARECER DMSL: FAVOR REALIZAR A SUBSTITUICAO DO EQUIOAMENTO COMPLETO, FALHA DE ABERTURA PARA PROTECAO (DataOcorrencia 26/02/2026, STATUS PENDENCIA DCMD, 334 clientes)",
+      "ss_nova": "nenhuma",
+      "acao": "reclassificado"
+    },
+    {
+      "ativo": "7957126085",
+      "localidade": "MONTE SANTO DO TOCANTINS",
+      "porque": "Unico caso com evidencia real em sentido contrario (o EMD diz 'Equipamento em operacao no SCADA, favor enviar tanque para Porto Nacional e cancelar a Obra'), mas nao vence: o parecer MAIS RECENTE e de 10/07 — 'EQUIPAMENTO ENTREGUE, FAVOR REALIZAR SUBSTITUICAO, DEPOIS ENCAMINHAR PARA PROTECAO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO' — dez dias ANTES do cancelamento. E o que foi entregue estava errado: 'ENVIOU UM TANQUE AO INVES DO CONTROLE, ENVIAR CONTROLE DA 24 NOJA'. A compra segue correndo: 'Controle completo + cabo BT, R$ 51.304,06, Em logistica', amarrada a propria SS cancelada. A rede continua manobrada por causa do defeito ('444R de Paraiso I esta manobrada para o 454R'). Em bypass o cliente fica energizado mas sem protecao. TIRAR dos resolvidos e levar ao gestor a contradicao entre o EMD (cancelar a obra) e a compra em logistica.",
+      "trecho": "RELIGADOR COM RELE QUEIMADO - EQUIPAMENTO BY PASSADO / Equipamento ficou em operacao?: NAO / 10/07 PARECER COEP: EQUIPAMENTO ENTREGUE, FAVOR REALIZAR SUBSTITUICAO",
+      "ss_nova": "nenhuma — mas ha compra de R$ 51.304,06 em logistica e obra 0212600428 'em andamento'",
+      "acao": "reclassificado"
+    }
+  ],
+  "indefinidos": [
+    {
+      "ativo": "7955175004",
+      "localidade": "ARAGUAINA",
+      "tipo": "Religador",
+      "porque": "A condicao (a) passa (nada aberto depois de 21/05/2026), mas nao existe UMA UNICA linha dizendo que o equipamento esta operacional ou comissionado. Ha um trio de SS de defeito FISICO posterior a substituicao do religador — ETO-RD-AR 01893/2024, ETO-COEP 00148/2024 e ETO-RD-AR 01999/2024, 'Controle + parte ativa danificada 7955175004' — aberto em 21/11/2024 e cancelado em 26/11/2024 SEM NENHUMA OS, e nunca aparece resolvido. Mesmo padrao que o gestor ja marcou como pendente no 7955520116. Somando: inversao de fase com pedido expresso de enviar base para conferencia (jan/2025) + 3 SS emergenciais abertas ha 19 meses, uma delas do COEP, com prazo estourado."
+    },
+    {
+      "ativo": "5833723026",
+      "localidade": "PONTE ALTA DO TOCANTINS",
+      "tipo": "Regulador de Tensao",
+      "porque": "Em nenhuma hipotese pode entrar como resolvido, mas tambem nao e o caso do gestor. O defeito de origem nunca foi tratado ('vazamentos de oleos nos RT da fase A e C. Favor, substituir os RT', com o primeiro-ataque deixando o equipamento 'bloqueado no tap +3') e nao existe OS de substituicao em lugar nenhum. O unico fato de 2026 diz que o ativo SAIU DE CAMPO: DG-RD-PO 00269/2026, 'o mesmo foi removido devido estar em um local ruim de comunicacao'. A demanda perdeu o objeto por retirada, nao por operacao. Armadilha 1 pura: o unico formulario com 'ficou em operacao? Sim / Pendencia NAO' e de JANEIRO DE 2024, nove meses antes do laudo de vazamento de 17/10/2024."
+    },
+    {
+      "ativo": "7908206074",
+      "localidade": "DIANOPOLIS",
+      "tipo": "Religador",
+      "porque": "O unico apoio a tese de operacao e a planilha, e ela nao esta ancorada no ciclo certo. A ultima SS do ativo e a propria ETO-COEP 00063/2025 (15/04/2025, 'o tanque se encontra queimado, solicitamos a substituicao'), cancelada em 29/06/2026 sem OS e sem texto posterior de execucao. O 'SS aberta: CONCLUIDA' da planilha esta pendurado no ciclo de 2024 (ETO-COEP 00023/2024, que no SGM esta REPASSADA, nao concluida) e o parecer 'Em Operacao confirmado com os COCM's' nao tem data — descreve o episodio de 25/11/2024, anterior ao tanque queimado. Este ativo ja reincidiu uma vez pelo mesmo defeito depois de ter sido declarado em operacao."
+    },
+    {
+      "ativo": "5855776094",
+      "localidade": "PEIXE",
+      "tipo": "Regulador de Tensao",
+      "porque": "O RT esta regulando (ETO-TELE 00577/2025, 'Alterar banda morta', ATENDIDA 03/06/2025), entao nao e pendencia disfarcada pura. Mas o comissionamento nunca foi confirmado: a OS de 15/05/2025 (SID 2548/2025) termina com duas ordens de retorno — 'Nao foi possivel fechar enlace com o mestre. Reprogramar depois para nova tentativa apos a equipe resolver a queda do mestre sao Valerio' e 'Foi feito a medicao do aterramento, melhorar mais um pouco a malha'. E a ETO-COEP 00101/2025 (URGENTE, 'Refazer aterramento pois o mesmo encontra-se exposto') foi cancelada 13 meses depois sem OS e sem nenhum texto dizendo que o aterramento foi refeito. Obra 0402400522 encerrada desde 30/12/2024."
+    },
+    {
+      "ativo": "7936753097",
+      "localidade": "TALISMA",
+      "tipo": "Religador",
+      "porque": "Nao fecha para nenhum dos dois lados. A favor: nenhuma SS depois do cancelamento; em 06/01/2026 abriram e concluiram troca de bateria (13/01/2026) — religador com bucha estourada na fase C e curto interno nao fica no poste recebendo bateria; e a descricao cadastral mudou de 'BLOCO RELIGADOR DE LINHA' para 'RELIGADOR DE LINHA - 15,0kV'. Contra: nenhum texto registra a substituicao pelo NOJA RC10 nem o encerramento do curto interno, e a demanda era explicita ('substituir o equipamento completo pelo modelo NOJA RC10' e 'REINSTALAR ESTE RL NO POSTE #ID93731277'). Varri o AIC por ativo, por SS e pelo ID do poste: nenhuma obra cita o ativo; a 0412500035 (corretiva, religador) foi INDEFERIDA com realizado zero e a 0402500009 ('REINSTALACAO DE 01 RELIGADOR', executada em jan/2025) nao cita o ativo."
+    }
+  ],
+  "reclassificar": [
+    "5800090147",
+    "5852775092",
+    "5854681071",
+    "5862546023",
+    "7900001227",
+    "7900505026",
+    "7900532053",
+    "7925704079",
+    "7949660066",
+    "7956063152",
+    "7957126085",
+    "7959990070"
+  ],
+  "perguntar_ao_gestor": [
+    "5851753086",
+    "5856825025",
+    "5860500009",
+    "5863381155",
+    "7900594026",
+    "7902314013",
+    "7925573007",
+    "7963661046"
+  ],
+  "caso_5852775092": "O exemplo do gestor mistura DOIS ativos diferentes, e por isso nao serve de regua. Conferi os dois na base.\n\n(1) A ETO-COEP 00112/2026 NAO e do 5852775092. Ela e do religador 7900594026, de PONTE ALTA DO TOCANTINS: nasceu em 10/06/2026 as 11:10:03 e morreu as 14:10:00 do MESMO DIA, junto com a gemea ETO-TELE 00282/2026 — cancelamento de roteamento, tres horas de vida, com a demanda seguindo viva na ETO-TELE 00793/2026 aberta as 11:12:18. Esse ativo E resolvido, mas por EXECUCAO, nao por cancelamento: o proprio gestor registrou em 13/08/2026 que foi o primeiro remanejamento de equipamento do posto (equipamento substituido em 15/07/2026, OS ETO-RD-PO 1860, obra 0312600354), e as SS da ETO-SE-PA 00107/2026 e 00115/2026 sao a cauda do comissionamento. O painel ja o conta como resolvido e nao muda.\n\n(2) O 5852775092 e um REGULADOR de 34,5 kV de NOVO ACORDO (o texto da SS diz 'RELIGADOR N 5852775092' por erro do redator), obra 0102301329, encerrada contabil em 12/06/2024 com o equipamento nunca comissionado. Suas SS — ETO-PROT 00138/2024, ETO-TELE 00420/2024, ETO-COEP 00038/2025, ETO-RD-PA 00278/2025, ETO-COEP 00109/2026 e ETO-TELE 00252/2026 — foram canceladas em bloco em 30/06/2026 as 22:04.\n\nE aqui o caso NAO fecha como resolvido, pela regra que o proprio gestor escreveu. O parecer mais recente, ancorado em data e posterior ao corte de 01/05, e uma REPROVACAO tecnica: 'dmsl 13/05/2026 Servico Executado: Foi realizada a medicao do aterramento do equipamento. O resultado ficou fora do padrao tecnico, indicando necessidade de correcao.' — sem nenhum registro posterior de correcao. Abaixo dele, o texto confirma que o RT nunca entrou em operacao: 'EQUIPE ESTEVE NO EQUIPAMENTO DIA 10/03/2025 PARA REALIZAR O COMISSIONAMENTO POREM NAO FOI POSSIVEL COLOCAR O EQUIPAMENTO EM OPERACAO DEVIDO SER NECESSARIO REALIZAR MELHORIA NA MALHA DE ATERRAMENTO'. As duas ancoras de data sao deste ciclo, nao heranca.\n\nO que derruba de vez: a demanda foi REABERTA depois do laudo reprovado. ETO-COEP 00109/2026 e ETO-TELE 00252/2026 foram abertas em 09/06/2026 as 10:14:02 — 27 dias DEPOIS da medicao reprovada — com prazo ate 08/08/2026, e foram canceladas 21 dias depois, ainda dentro do SLA. Quem cancela SS aberta ha 21 dias, dentro do prazo, nao esta fechando assunto vencido: esta tirando da fila. O unico indicio a favor de operacao e a ETO-TELE 00472/2025 (29/04/2025, EM OPERACAO COM ANOMALIA), baixada com 'Aberto indevido, nao teve um primeiro ataque antes de confirmar a falha de comunicacao' — fraco demais contra o laudo de 13/05/2026.\n\nPERGUNTA OBJETIVA PARA O GESTOR: o aterramento do 5852775092 foi corrigido depois de 13/05/2026? Se sim, vira resolvido por cancelamento na hora. Se nao, sai dos resolvidos do painel (hoje esta como resolvido=true, 'Em operacao').",
+  "texto": "Passei os 40 ativos fio a fio, com contraprova em cima de cada leitura. Resultado.\n\nRESOLUCAO DE VERDADE: 9 de 40. Sao 7955825037 (Alianca), 7956117005 (Arraias), 7944319149 (Caseara), 5835587001 (Porto Nacional), 5820044123 (Aguiarnopolis), 5855643052 (Formoso), 7901216032 (Araguacu), 5855606027 (Ponte Alta do Bom Jesus) e 5850308009 (Guarai). Em todos: nenhuma SS nova depois do cancelamento, nenhuma peca ou SS pendente sinalizada, e prova positiva de servico feito ou de equipamento operando. O caso mais parecido com o que voce descreveu e o 5850308009 — o EMD registra a visita: 'Equipamento em operacao em campo de acordo com a visita do Luanderson tem fotos / Equipamento ja em operacao, realocar controle de Regulador para Arapoema'.\n\nGANHO NOVO NO NUMERO: ZERO. Conferi um a um no meta.json: os 9 JA estao com resolvido=true no site. Nenhum passa a contar. O efeito da sua regra nao foi somar resolvidos — foi o contrario, e essa e a noticia.\n\nPENDENCIA DISFARCADA DE CANCELAMENTO: 26 de 40. Destes, 19 estao HOJE contados como resolvidos no site e precisam SAIR e ser reabertos pelo posto: 7956063152 (Santa Rosa), 7959990070 (Rio Sono), 7902314013 (Paraiso), 5851753086 (Marianopolis), 5854681071 (Brejinho), 7963661046 (Nova Rosalandia), 7900001227 (Recursolandia), 5863381155 (Palmeirante), 7949660066 (Tupiratins), 7925704079 (Itapiratins), 7925573007 (Miracema), 5852775092 (Novo Acordo), 5862546023 (Colinas), 5856825025 (Arapoema), 5860500009 (Guarai), 7900532053 (Piraque), 5800090147 (Taipas), 7900505026 (Ponte Alta) e 7957126085 (Monte Santo). Outros 5 o site ja marca como pendentes (7926089013, 7925733015, 7931608059, 7908196047, 7900275024) — dois deles voce mesmo ja arbitrou em 13/08. E ha um caso a parte: o 7900594026 (Ponte Alta) esta nesta lista so porque nao foi resolvido POR CANCELAMENTO — ele esta resolvido pelo remanejamento que voce confirmou. NAO reabrir.\n\nO padrao dos 26, em ordem de frequencia: peca pedida e nunca fornecida (radio GE, controle, tanque, parte ativa, celula de fase); equipamento comissionado no papel e nunca posto em operacao, com a obra ja encerrada contabilmente (5854681071, 5862546023, 5860500009, 5863381155, 5852775092, 7902314013 — ativo novo, capitalizado, parado no poste); e tres casos com DINHEIRO ainda correndo, que e o sinal mais duro de que nao houve resolucao: 7900532053 com compra de R$ 104.067 parada ha 408 dias no DCMD, 5800090147 com celula de fase C de R$ 138.038 'em compra' e 7957126085 com controle de R$ 51.304 em logistica. Nao da para chamar de resolvido um ativo que tem compra aberta para conserta-lo.\n\nDois alertas de cadastro: o 7950310122 (Palmas, em bypass, defeito orfao) NAO existe na lista do painel — precisa ser incluido como pendente. E o 7959990070 (Rio Sono) esta trocado no mapa com a chave 3300730070, com a SS de cadastro pendente desde 24/10/2024.\n\nINDEFINIDOS: 5 — 7955175004 (Araguaina), 5833723026 (Ponte Alta do Tocantins), 7908206074 (Dianopolis), 5855776094 (Peixe) e 7936753097 (Talisma). Todos os cinco estao hoje como resolvidos no site e nenhum tem prova documental. O que falta: em 7955175004, 7908206074 e 5855776094, uma palavra sua — voce viu esses equipamentos operando? Em 7936753097, o DCMD confirmar se o NOJA RC10 chegou a substituir o equipamento. O 5833723026 e caso diferente: o RT foi RETIRADO de campo em 2026 por local ruim de comunicacao, com vazamento de oleo nas fases A e C sem solucao — nao e 'fui la e estava operando', e o painel nao pode continuar dizendo 'Em operacao'.\n\nSOBRE O SEU EXEMPLO: a ETO-COEP 112/2026 nao e do 5852775092. Ela e do 7900594026, de Ponte Alta — nasceu e morreu no mesmo dia 10/06/2026, tres horas de vida, cancelamento de roteamento. Esse ativo e resolvido, mas pelo remanejamento, nao pelo cancelamento. Ja o 5852775092, de Novo Acordo, tem medicao de aterramento REPROVADA em 13/05/2026 sem correcao registrada, e a demanda foi reaberta 27 dias depois desse laudo (ETO-COEP 00109/2026, em 09/06) e cancelada dentro do prazo. Ele so vira resolvido se voce confirmar que o aterramento foi corrigido depois de 13/05/2026.\n\nRESUMO: 9 resolvidos (todos ja contados) + 26 pendencias disfarcadas (24 delas hoje contadas como resolvidas ou invisiveis no painel) + 5 indefinidos = 40. O percentual de resolvidos do site (74 de 159, 47,8%) esta inflado, nao subestimado."
+}

@@ -1,0 +1,7459 @@
+{
+ "fonte": "GESTAO_EQUIPAMENTOS_ESPECIAIS_COEP.xlsx — a planilha base do gestor (28/08): «tudo que tiver nela é a nova verdade»",
+ "gestao": {
+  "qtd": 53,
+  "orcamento_total": 4969638.46,
+  "por_status": {
+   "Avaliar compra": 22,
+   "Gerado PMA": 20,
+   "Em logistica (N1>N3)": 6,
+   "Em execução": 3,
+   "Reforma": 2
+  },
+  "por_criticidade": {
+   "Baixa": 18,
+   "Média": 13,
+   "Muito Alta": 11,
+   "Alta": 7,
+   "Falta definir": 4
+  },
+  "por_tipo": {
+   "RL": 41,
+   "RT": 12
+  },
+  "por_defeito": {
+   "Tanque 34,5": 15,
+   "RL Completo 34,5": 12,
+   "Controle 34,5": 6,
+   "RL Completo 13,8": 5,
+   "RT Completo 400 34,5": 3,
+   "Célula 400 34,5": 3,
+   "Tanque 13,8": 2,
+   "Célula 200 34,5": 2,
+   "Controle 167 13,8": 1,
+   "Acessório 400 34,5": 1,
+   "Controle 200 13,8": 1,
+   "Controle 200 34,5": 1
+  },
+  "marcos": [
+   "PMA",
+   "Entregue N1",
+   "Gerado obra",
+   "Gerado EMD",
+   "Entregue N3",
+   "Concluído COCM",
+   "Cadastro",
+   "Estudo de proteção",
+   "Repassado DMSL",
+   "Comissionado"
+  ],
+  "marcos_preenchidos": {
+   "PMA": 0,
+   "Entregue N1": 0,
+   "Gerado obra": 0,
+   "Gerado EMD": 0,
+   "Entregue N3": 0,
+   "Concluído COCM": 0,
+   "Cadastro": 0,
+   "Estudo de proteção": 0,
+   "Repassado DMSL": 0,
+   "Comissionado": 0
+  },
+  "ativos": [
+   {
+    "ativo": "7942485096",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00158/2025",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 521,
+    "responsavel": "COEP",
+    "status_prazo": "387 - DIAS FORA DO PRAZO",
+    "municipio": "PINDORAMA DO TOCANTINS",
+    "polo": "PONTE ALTA TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5858783119",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00164/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "RT Completo 400 34,5",
+    "mo": 200637.0,
+    "mat": 293949.6,
+    "total": 494586.6,
+    "dias_pendente": 511,
+    "responsavel": "COEP",
+    "status_prazo": "377 - DIAS FORA DO PRAZO",
+    "municipio": "SAO BENTO DO TOCANTINS",
+    "polo": "TOCANTINOPOLIS",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7900453110",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00087/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 482,
+    "responsavel": "COEP",
+    "status_prazo": "470 - DIAS FORA DO PRAZO",
+    "municipio": "SANTA RITA DO TOCANTINS",
+    "polo": "PORTO NACIONAL",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7923927122",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00148/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 477,
+    "responsavel": "COEP",
+    "status_prazo": "343 - DIAS FORA DO PRAZO",
+    "municipio": "PALMAS",
+    "polo": "PALMAS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5853360007",
+    "tipo": "RT",
+    "ss": "ETO-RD-PS 00323/2025",
+    "criticidade": "Alta",
+    "status": "Em execução",
+    "defeito": "Acessório 400 34,5",
+    "mo": 0.0,
+    "mat": 15000.0,
+    "total": 15000.0,
+    "dias_pendente": 475,
+    "responsavel": "COCM-C",
+    "status_prazo": "449 - DIAS FORA DO PRAZO",
+    "municipio": "MIRACEMA DO TOCANTINS",
+    "polo": "MIRACEMA DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7928564039",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00123/2026",
+    "criticidade": "Média",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 445,
+    "responsavel": "COEP",
+    "status_prazo": "359 - DIAS FORA DO PRAZO",
+    "municipio": "ARAGUATINS",
+    "polo": "AUGUSTINOPOLIS",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7920024127",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00120/2025",
+    "criticidade": "Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 441,
+    "responsavel": "COEP",
+    "status_prazo": "415 - DIAS FORA DO PRAZO",
+    "municipio": "PALMEIRAS DO TOCANTINS",
+    "polo": "TOCANTINOPOLIS",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5856156091",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00160/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "RT Completo 400 34,5",
+    "mo": 200637.0,
+    "mat": 293949.6,
+    "total": 494586.6,
+    "dias_pendente": 427,
+    "responsavel": "COEP",
+    "status_prazo": "293 - DIAS FORA DO PRAZO",
+    "municipio": "ALMAS",
+    "polo": "DIANOPOLIS",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7931219078",
+    "tipo": "RL",
+    "ss": "ETO-RD-PO 00183/2026",
+    "criticidade": "Falta definir",
+    "status": "Em execução",
+    "defeito": "Acessório 34,5",
+    "mo": 0.0,
+    "mat": 15000.0,
+    "total": 15000.0,
+    "dias_pendente": 420,
+    "responsavel": "COCM-C",
+    "status_prazo": "",
+    "municipio": "ITACAJA",
+    "polo": "GUARAI",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7927446001",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00143/2025",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 417,
+    "responsavel": "COEP",
+    "status_prazo": "283 - DIAS FORA DO PRAZO",
+    "municipio": "PORTO NACIONAL",
+    "polo": "PORTO NACIONAL",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7930428001",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00150/2026",
+    "criticidade": "Alta",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 412,
+    "responsavel": "COEP",
+    "status_prazo": "386 - DIAS FORA DO PRAZO",
+    "municipio": "PORTO NACIONAL",
+    "polo": "PORTO NACIONAL",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7928241200",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00128/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 409,
+    "responsavel": "COEP",
+    "status_prazo": "275 - DIAS FORA DO PRAZO",
+    "municipio": "SAO SALVADOR DO TOCANTINS",
+    "polo": "PEIXE",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7908705049",
+    "tipo": "RL",
+    "ss": "ETO-RD-DP 00409/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 13,8",
+    "mo": 11016.94,
+    "mat": 55602.54,
+    "total": 66619.48,
+    "dias_pendente": 397,
+    "responsavel": "COCM-S",
+    "status_prazo": "385 - DIAS FORA DO PRAZO",
+    "municipio": "AURORA DO TOCANTINS",
+    "polo": "DIANOPOLIS",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5856070091",
+    "tipo": "RT",
+    "ss": "ETO-RD-DP 00479/2026",
+    "criticidade": "Muito Alta",
+    "status": "Em execução",
+    "defeito": "RT Completo 400 34,5",
+    "mo": 200637.0,
+    "mat": 293949.6,
+    "total": 494586.6,
+    "dias_pendente": 395,
+    "responsavel": "COCM-S",
+    "status_prazo": "383 - DIAS FORA DO PRAZO",
+    "municipio": "ALMAS",
+    "polo": "DIANOPOLIS",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7900535058",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00173/2025",
+    "criticidade": "Média",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 374,
+    "responsavel": "COEP",
+    "status_prazo": "288 - DIAS FORA DO PRAZO",
+    "municipio": "SANTA FE DO ARAGUAIA",
+    "polo": "ARAGUAINA",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5855411017",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00156/2026",
+    "criticidade": "Baixa",
+    "status": "Em logistica (N1>N3)",
+    "defeito": "Controle 200 13,8",
+    "mo": 20000.0,
+    "mat": 23259.6,
+    "total": 43259.6,
+    "dias_pendente": 348,
+    "responsavel": "COEP",
+    "status_prazo": "214 - DIAS FORA DO PRAZO",
+    "municipio": "BARROLANDIA",
+    "polo": "MIRACEMA DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7903112004",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00184/2025",
+    "criticidade": "Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 348,
+    "responsavel": "COEP",
+    "status_prazo": "322 - DIAS FORA DO PRAZO",
+    "municipio": "ARAGUAINA",
+    "polo": "ARAGUAINA",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5803327001",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00149/2026",
+    "criticidade": "Alta",
+    "status": "Em logistica (N1>N3)",
+    "defeito": "Controle 167 13,8",
+    "mo": 20000.0,
+    "mat": 23259.6,
+    "total": 43259.6,
+    "dias_pendente": 347,
+    "responsavel": "COEP",
+    "status_prazo": "321 - DIAS FORA DO PRAZO",
+    "municipio": "PORTO NACIONAL",
+    "polo": "PORTO NACIONAL",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7908196047",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00168/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 13,8",
+    "mo": 11016.94,
+    "mat": 55602.54,
+    "total": 66619.48,
+    "dias_pendente": 322,
+    "responsavel": "COEP",
+    "status_prazo": "188 - DIAS FORA DO PRAZO",
+    "municipio": "FIGUEIROPOLIS",
+    "polo": "ALVORADA",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7947203070",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00131/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 267,
+    "responsavel": "COEP",
+    "status_prazo": "255 - DIAS FORA DO PRAZO",
+    "municipio": "RIO SONO",
+    "polo": "PALMAS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5800961074",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00221/2025",
+    "criticidade": "Média",
+    "status": "Em logistica (N1>N3)",
+    "defeito": "Célula 200 34,5",
+    "mo": 80318.5,
+    "mat": 51705.75,
+    "total": 132024.25,
+    "dias_pendente": 255,
+    "responsavel": "COEP",
+    "status_prazo": "169 - DIAS FORA DO PRAZO",
+    "municipio": "DIANOPOLIS",
+    "polo": "DIANOPOLIS",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5862236091",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00158/2026",
+    "criticidade": "Baixa",
+    "status": "Em logistica (N1>N3)",
+    "defeito": "Célula 400 34,5",
+    "mo": 80318.5,
+    "mat": 90230.0,
+    "total": 170548.5,
+    "dias_pendente": 252,
+    "responsavel": "COEP",
+    "status_prazo": "118 - DIAS FORA DO PRAZO",
+    "municipio": "ALMAS",
+    "polo": "DIANOPOLIS",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7901110084",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00061/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 243,
+    "responsavel": "COEP",
+    "status_prazo": "109 - DIAS FORA DO PRAZO",
+    "municipio": "DIVINOPOLIS",
+    "polo": "DIVINOPOLIS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7937102148",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00129/2026",
+    "criticidade": "Média",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 242,
+    "responsavel": "COEP",
+    "status_prazo": "156 - DIAS FORA DO PRAZO",
+    "municipio": "SAO VALERIO DA NATIVIDADE",
+    "polo": "PEIXE",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7938137007",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00144/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 13,8",
+    "mo": 11016.94,
+    "mat": 55602.54,
+    "total": 66619.48,
+    "dias_pendente": 234,
+    "responsavel": "COEP",
+    "status_prazo": "100 - DIAS FORA DO PRAZO",
+    "municipio": "MIRACEMA DO TOCANTINS",
+    "polo": "MIRACEMA DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7927646026",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00029/2026",
+    "criticidade": "Alta",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 220,
+    "responsavel": "COEP",
+    "status_prazo": "194 - DIAS FORA DO PRAZO",
+    "municipio": "PONTE ALTA TOCANTINS",
+    "polo": "PONTE ALTA TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7908249152",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00038/2026",
+    "criticidade": "Média",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 207,
+    "responsavel": "COEP",
+    "status_prazo": "121 - DIAS FORA DO PRAZO",
+    "municipio": "SANTA ROSA DO TOCANTINS",
+    "polo": "PORTO NACIONAL",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5840227063",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00151/2026",
+    "criticidade": "Média",
+    "status": "Em logistica (N1>N3)",
+    "defeito": "Célula 400 34,5",
+    "mo": 80318.5,
+    "mat": 90230.0,
+    "total": 170548.5,
+    "dias_pendente": 206,
+    "responsavel": "COEP",
+    "status_prazo": "120 - DIAS FORA DO PRAZO",
+    "municipio": "BANDEIRANTES DO TOCANTINS",
+    "polo": "COLINAS DO TOCANTINS",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7933585074",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00024/2026",
+    "criticidade": "Média",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 202,
+    "responsavel": "COEP",
+    "status_prazo": "116 - DIAS FORA DO PRAZO",
+    "municipio": "DIANOPOLIS",
+    "polo": "DIANOPOLIS",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7931608059",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00040/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 13,8",
+    "mo": 11016.94,
+    "mat": 21785.72,
+    "total": 32802.66,
+    "dias_pendente": 201,
+    "responsavel": "COEP",
+    "status_prazo": "189 - DIAS FORA DO PRAZO",
+    "municipio": "PALMAS",
+    "polo": "TAQUARALTO",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7925744087",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00059/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 189,
+    "responsavel": "COEP",
+    "status_prazo": "177 - DIAS FORA DO PRAZO",
+    "municipio": "GOIANORTE",
+    "polo": "GUARAI",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7921202014",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00132/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 183,
+    "responsavel": "COEP",
+    "status_prazo": "49 - DIAS FORA DO PRAZO",
+    "municipio": "PIUM",
+    "polo": "PARAISO DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7927396052",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00045/2026",
+    "criticidade": "Média",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 181,
+    "responsavel": "COEP",
+    "status_prazo": "95 - DIAS FORA DO PRAZO",
+    "municipio": "FORMOSO DO ARAGUAIA",
+    "polo": "ALVORADA",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7926442035",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00051/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 180,
+    "responsavel": "COEP",
+    "status_prazo": "46 - DIAS FORA DO PRAZO",
+    "municipio": "MONTE DO CARMO",
+    "polo": "PONTE ALTA TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7919270014",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00159/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Controle 34,5",
+    "mo": 13209.34,
+    "mat": 38094.72,
+    "total": 51304.06,
+    "dias_pendente": 173,
+    "responsavel": "COEP",
+    "status_prazo": "39 - DIAS FORA DO PRAZO",
+    "municipio": "PIUM",
+    "polo": "PARAISO DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7925733015",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00058/2026",
+    "criticidade": "Média",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 157,
+    "responsavel": "COEP",
+    "status_prazo": "71 - DIAS FORA DO PRAZO",
+    "municipio": "PEDRO AFONSO",
+    "polo": "GUARAI",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7925871077",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00048/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 154,
+    "responsavel": "COEP",
+    "status_prazo": "142 - DIAS FORA DO PRAZO",
+    "municipio": "GOIATINS",
+    "polo": "COLINAS DO TOCANTINS",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7944559149",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00063/2026",
+    "criticidade": "Média",
+    "status": "Gerado PMA",
+    "defeito": "Controle 34,5",
+    "mo": 13209.34,
+    "mat": 38094.72,
+    "total": 51304.06,
+    "dias_pendente": 153,
+    "responsavel": "COEP",
+    "status_prazo": "67 - DIAS FORA DO PRAZO",
+    "municipio": "CASEARA",
+    "polo": "DIVINOPOLIS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7923673004",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00124/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 13,8",
+    "mo": 11016.94,
+    "mat": 55602.54,
+    "total": 66619.48,
+    "dias_pendente": 144,
+    "responsavel": "COEP",
+    "status_prazo": "132 - DIAS FORA DO PRAZO",
+    "municipio": "ARAGUAINA",
+    "polo": "ARAGUAINA",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7926089013",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00078/2026",
+    "criticidade": "Alta",
+    "status": "Gerado PMA",
+    "defeito": "Controle 34,5",
+    "mo": 13209.34,
+    "mat": 38094.72,
+    "total": 51304.06,
+    "dias_pendente": 143,
+    "responsavel": "COEP",
+    "status_prazo": "117 - DIAS FORA DO PRAZO",
+    "municipio": "PARAISO DO TOCANTINS",
+    "polo": "PARAISO DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7927413001",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00141/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 140,
+    "responsavel": "COEP",
+    "status_prazo": "128 - DIAS FORA DO PRAZO",
+    "municipio": "PORTO NACIONAL",
+    "polo": "PORTO NACIONAL",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7900525015",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00125/2026",
+    "criticidade": "Média",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 126,
+    "responsavel": "COEP",
+    "status_prazo": "40 - DIAS FORA DO PRAZO",
+    "municipio": "PEDRO AFONSO",
+    "polo": "GUARAI",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5836786094",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00095/2026",
+    "criticidade": "Baixa",
+    "status": "Reforma",
+    "defeito": "Célula 400 34,5",
+    "mo": 80318.5,
+    "mat": 90230.0,
+    "total": 170548.5,
+    "dias_pendente": 123,
+    "responsavel": "COEP",
+    "status_prazo": "VENCE EM: 11 DIAS",
+    "municipio": "PEIXE",
+    "polo": "PEIXE",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7913662076",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00114/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Tanque 13,8",
+    "mo": 11016.94,
+    "mat": 21785.72,
+    "total": 32802.66,
+    "dias_pendente": 70,
+    "responsavel": "COEP",
+    "status_prazo": "VENCE EM: 64 DIAS",
+    "municipio": "DUERE",
+    "polo": "GURUPI",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5825703064",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00153/2026",
+    "criticidade": "Falta definir",
+    "status": "Reforma",
+    "defeito": "Controle 200 34,5",
+    "mo": 20000.0,
+    "mat": 23259.6,
+    "total": 43259.6,
+    "dias_pendente": 56,
+    "responsavel": "COEP",
+    "status_prazo": "",
+    "municipio": "BRASILANDIA DO TOCANTINS",
+    "polo": "GUARAI",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7930359149",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00138/2026",
+    "criticidade": "Falta definir",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 54,
+    "responsavel": "COEP",
+    "status_prazo": "",
+    "municipio": "CASEARA",
+    "polo": "DIVINOPOLIS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7910027196",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00154/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "RL Completo 34,5",
+    "mo": 13209.34,
+    "mat": 76246.2,
+    "total": 89455.54,
+    "dias_pendente": 40,
+    "responsavel": "COEP",
+    "status_prazo": "VENCE EM: 94 DIAS",
+    "municipio": "LAGOA DO TOCANTINS",
+    "polo": "TAQUARALTO",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7955946007",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00134/2026",
+    "criticidade": "Baixa",
+    "status": "Avaliar compra",
+    "defeito": "Controle 34,5",
+    "mo": 13209.34,
+    "mat": 38094.72,
+    "total": 51304.06,
+    "dias_pendente": 40,
+    "responsavel": "COEP",
+    "status_prazo": "VENCE EM: 94 DIAS",
+    "municipio": "MIRACEMA DO TOCANTINS",
+    "polo": "MIRACEMA DO TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7955986084",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00133/2026",
+    "criticidade": "Média",
+    "status": "Avaliar compra",
+    "defeito": "Controle 34,5",
+    "mo": 13209.34,
+    "mat": 38094.72,
+    "total": 51304.06,
+    "dias_pendente": 40,
+    "responsavel": "COEP",
+    "status_prazo": "VENCE EM: 46 DIAS",
+    "municipio": "DIVINOPOLIS",
+    "polo": "DIVINOPOLIS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7953211079",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00147/2026",
+    "criticidade": "Falta definir",
+    "status": "Avaliar compra",
+    "defeito": "Controle 34,5",
+    "mo": 13209.34,
+    "mat": 38094.72,
+    "total": 51304.06,
+    "dias_pendente": 33,
+    "responsavel": "COEP",
+    "status_prazo": "",
+    "municipio": "ITAPIRATINS",
+    "polo": "GUARAI",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7903569004",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00152/2026",
+    "criticidade": "Muito Alta",
+    "status": "Gerado PMA",
+    "defeito": "RL Completo 13,8",
+    "mo": 11016.94,
+    "mat": 55602.54,
+    "total": 66619.48,
+    "dias_pendente": 28,
+    "responsavel": "COEP",
+    "status_prazo": "16 - DIAS FORA DO PRAZO",
+    "municipio": "ARAGUAINA",
+    "polo": "ARAGUAINA",
+    "regional": "NORTE",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "5800440256",
+    "tipo": "RT",
+    "ss": "ETO-COEP 00169/2026",
+    "criticidade": "Muito Alta",
+    "status": "Em logistica (N1>N3)",
+    "defeito": "Célula 200 34,5",
+    "mo": 80318.5,
+    "mat": 51705.75,
+    "total": 132024.25,
+    "dias_pendente": 21,
+    "responsavel": "COEP",
+    "status_prazo": "9 - DIAS FORA DO PRAZO",
+    "municipio": "MATEIROS",
+    "polo": "PONTE ALTA TOCANTINS",
+    "regional": "CENTRO",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   },
+   {
+    "ativo": "7927713200",
+    "tipo": "RL",
+    "ss": "ETO-COEP 00157/2026",
+    "criticidade": "Média",
+    "status": "Gerado PMA",
+    "defeito": "Tanque 34,5",
+    "mo": 13209.34,
+    "mat": 38151.48,
+    "total": 51360.82000000001,
+    "dias_pendente": 21,
+    "responsavel": "COEP",
+    "status_prazo": "VENCE EM: 65 DIAS",
+    "municipio": "SAO SALVADOR DO TOCANTINS",
+    "polo": "PEIXE",
+    "regional": "SUL",
+    "marcos": [
+     {
+      "nome": "PMA",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N1",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado obra",
+      "valor": ""
+     },
+     {
+      "nome": "Gerado EMD",
+      "valor": ""
+     },
+     {
+      "nome": "Entregue N3",
+      "valor": ""
+     },
+     {
+      "nome": "Concluído COCM",
+      "valor": ""
+     },
+     {
+      "nome": "Cadastro",
+      "valor": ""
+     },
+     {
+      "nome": "Estudo de proteção",
+      "valor": ""
+     },
+     {
+      "nome": "Repassado DMSL",
+      "valor": ""
+     },
+     {
+      "nome": "Comissionado",
+      "valor": ""
+     }
+    ],
+    "andou": 0
+   }
+  ]
+ },
+ "falhas": {
+  "qtd": 90,
+  "por_fatia": {
+   "RL 2025": 35,
+   "RT 2025": 18,
+   "RT 2026": 9,
+   "RL 2026": 28
+  },
+  "por_causa": {
+   "SEM CAUSA DESCRITA NO TEXTO": 45,
+   "CURTO-CIRCUITO INTERNO": 12,
+   "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 9,
+   "FURTO": 7,
+   "UMIDADE / INFILTRAÇÃO": 4,
+   "FALHA DE INSTALAÇÃO / MONTAGEM": 2,
+   "FIRMWARE / ATUALIZAÇÃO": 2,
+   "OBSOLESCÊNCIA (SEM PEÇAS DE REPOSIÇÃO)": 2,
+   "VAZAMENTO DE ÓLEO / VEDAÇÃO": 2,
+   "VANDALISMO": 1,
+   "DEFEITO MECÂNICO (CHAVE REVERSORA)": 1,
+   "DESCARGA ATMOSFÉRICA (RAIO)": 1,
+   "INSTALAÇÃO / COMISSIONAMENTO INADEQUADO": 1,
+   "DEFEITO NO MICROSWITCH (SENSOR DE NEUTRO)": 1
+  },
+  "por_tensao": {
+   "34.500": 67,
+   "13.800": 22,
+   "sem cadastro": 1
+  },
+  "por_peca": {
+   "tanque": 26,
+   "completo": 22,
+   "controle": 21,
+   "celula": 12,
+   "furto": 7,
+   "rele": 2
+  },
+  "causa_por_fatia": {
+   "RL 2025": {
+    "SEM CAUSA DESCRITA NO TEXTO": 19,
+    "CURTO-CIRCUITO INTERNO": 7,
+    "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 2,
+    "FALHA DE INSTALAÇÃO / MONTAGEM": 2,
+    "FIRMWARE / ATUALIZAÇÃO": 2,
+    "OBSOLESCÊNCIA (SEM PEÇAS DE REPOSIÇÃO)": 2,
+    "VANDALISMO": 1
+   },
+   "RL 2026": {
+    "SEM CAUSA DESCRITA NO TEXTO": 19,
+    "CURTO-CIRCUITO INTERNO": 4,
+    "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 4,
+    "UMIDADE / INFILTRAÇÃO": 1
+   },
+   "RT 2025": {
+    "FURTO": 5,
+    "SEM CAUSA DESCRITA NO TEXTO": 5,
+    "UMIDADE / INFILTRAÇÃO": 2,
+    "VAZAMENTO DE ÓLEO / VEDAÇÃO": 2,
+    "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 1,
+    "DEFEITO MECÂNICO (CHAVE REVERSORA)": 1,
+    "DESCARGA ATMOSFÉRICA (RAIO)": 1,
+    "INSTALAÇÃO / COMISSIONAMENTO INADEQUADO": 1
+   },
+   "RT 2026": {
+    "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 2,
+    "FURTO": 2,
+    "SEM CAUSA DESCRITA NO TEXTO": 2,
+    "CURTO-CIRCUITO INTERNO": 1,
+    "DEFEITO NO MICROSWITCH (SENSOR DE NEUTRO)": 1,
+    "UMIDADE / INFILTRAÇÃO": 1
+   }
+  },
+  "itens": [
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900230155",
+    "ss": "ETO-COEP 00056/2025",
+    "tensao": "34.500",
+    "data": "29/03/2025",
+    "mes": "março",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "sim",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«Não responde a comandos abertura e fechamento local ou remoto, pois está com sinal de curto circuito»",
+    "nota": "Tanque danificado com sinal de curto-circuito bloqueando comandos; o para-raios do trafo queimado junto sugere surto, mas o laudo não afirma descarga.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900573047",
+    "ss": "ETO-COEP 00080/2026",
+    "tensao": "13.800",
+    "data": "09/10/2025",
+    "mes": "outubro",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«o mesmo estar em curto conforme fotos anexadas»",
+    "nota": "Relato de campo com fotos dá o equipamento em curto e o DMSL constata parte ativa, placa, tanque e relé queimados — curto como mecanismo; origem não descrita.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7908196047",
+    "ss": "ETO-COEP 00215/2025",
+    "tensao": "13.800",
+    "data": "29/09/2025",
+    "mes": "setembro",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«Constatado curto-circuito no tanque do religador, impedindo as operações de abertura e fechamento do equipamento»",
+    "nota": "Diagnóstico DMSL explícito de curto-circuito no tanque travando abertura/fechamento; a origem do curto não é detalhada.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7923927122",
+    "ss": "ETO-COEP 00079/2025",
+    "tensao": "34.500",
+    "data": "27/04/2025",
+    "mes": "abril",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«substituir tanque do RL-7923927122 em curto, Anomalia identificada desarme das LD»",
+    "nota": "Tanque em curto derrubando as LDs Palmas/Aparecida e Taquaruçu — curto interno como mecanismo; origem não descrita.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7928241200",
+    "ss": "ETO-COEP 00139/2025",
+    "tensao": "34.500",
+    "data": "04/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«fizemos ensaios elétricos e foi constatado que o tanque está em curto»",
+    "nota": "Ensaios elétricos constataram o tanque em curto depois de o equipamento tirar a linha — curto interno como mecanismo; origem não descrita.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7931610122",
+    "ss": "ETO-COEP 00083/2026",
+    "tensao": "13.800",
+    "data": "10/10/2025",
+    "mes": "outubro",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«Houve um curto no equipamento danificando a parte ativa, e antena!»",
+    "nota": "Curto no equipamento danificou parte ativa e antena; o texto não localiza a origem (dano simultâneo na antena até sugere surto externo, não afirmado).",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7933766059",
+    "ss": "ETO-COEP 00082/2026",
+    "tensao": "13.800",
+    "data": "08/10/2025",
+    "mes": "outubro",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«Houve um curto na parte ativa do equipamento danificando a mesma, será necessário fazer a substituição somente do tanque, parte ativa.»",
+    "nota": "O DMSL afirma curto na própria parte ativa danificando-a — mecanismo explícito; a origem do curto não é detalhada.",
+    "revisao": "Causa mantida (CURTO-CIRCUITO INTERNO); confiança rebaixada de alta para media: 'Houve um curto na parte ativa do equipamento danificando a mesma' é narrativa de evento sem dizer como se constatou — mesmo fraseado e mesmo formato de laudo DMSL do 7931610122, classificado media. Alta fica reservada a curto constatado por ensaio (7928241200, 7908196047)."
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900594026",
+    "ss": "ETO-COEP 00210/2025",
+    "tensao": "34.500",
+    "data": "15/10/2025",
+    "mes": "outubro",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«o equipamento está com falha na porta de comunicação serial RS 232»",
+    "nota": "Falha localizada na porta serial RS-232 do relé Cooper Form 6 — defeito de hardware do controle; o porquê da falha não é descrito.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7936038076",
+    "ss": "ETO-TELE 00074/2025",
+    "tensao": "34.500",
+    "data": "03/02/2025",
+    "mes": "fevereiro",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«FOI IDENTIFICADO DISPLAY DO RELE APAGADO - ALIMENTAÇÃO CA NORMAL»",
+    "nota": "Alimentação CA normal com display do relé apagado aponta falha intrínseca da eletrônica do controle; a OS trocou o relé e atualizou o firmware.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7957126085",
+    "ss": "ETO-COEP 00156/2025",
+    "tensao": "34.500",
+    "data": "05/06/2025",
+    "mes": "junho",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "FALHA DE INSTALAÇÃO / MONTAGEM",
+    "citacao": "«Os para raios da fase B e C estão fechando arco na cruzeta. Curto desceu para o controle danificando os componentes.»",
+    "nota": "Causa explícita: para-raios arqueando na cruzeta por distância inadequada — o curto desceu e danificou o controle; a correção pede abaixar o tanque para afastar das cruzetas.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7957620015",
+    "ss": "ETO-COEP 00081/2026",
+    "tensao": "13.800",
+    "data": "08/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "FALHA DE INSTALAÇÃO / MONTAGEM",
+    "citacao": "«A antena do rádio do RLG 7957620015 fica próximo da BT, onde a mesma veio a encostar no cabo da fase o que ocasionou um curto-circuito no rádio, que passou para todos os componentes do controle»",
+    "nota": "Causa explícita: antena instalada próxima da BT encostou no cabo da fase e o curto propagou do rádio para todo o controle — erro de montagem.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900117013",
+    "ss": "ETO-COEP 00084/2026",
+    "tensao": "13.800",
+    "data": "02/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "sim",
+    "causa": "FIRMWARE / ATUALIZAÇÃO",
+    "citacao": "«equipe DMSL Elisfran estava atualizando firmware no equipamento  , porém relé parou de funcionar devido essa atualização»",
+    "nota": "Explícito: o relé do Cooper Form6 parou de funcionar durante atualização de firmware feita pela própria equipe DMSL; sem peça de reposição, virou troca completa por Noja.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900535058",
+    "ss": "ETO-COEP 00173/2025",
+    "tensao": "34.500",
+    "data": "08/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "FIRMWARE / ATUALIZAÇÃO",
+    "citacao": "«encontra-se com o relé danificado, firmware corrompido, o mesmo não inicia»",
+    "nota": "O relé não inicia por firmware corrompido (laudo DMSL); a origem da corrupção não é descrita, as abelhas no painel relatadas pela equipe não são vinculadas pelo laudo, e a troca completa decorre da falta de peças Cooper.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900018004",
+    "ss": "ETO-COEP 00178/2025",
+    "tensao": "34.500",
+    "data": "21/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "sim",
+    "causa": "OBSOLESCÊNCIA (SEM PEÇAS DE REPOSIÇÃO)",
+    "citacao": "«Por se tratar de modelo obsoleto e não termos peça de reposição para religador cooper, se faz necessário a substituição completa por um modelo NOJA RC10»",
+    "nota": "Defeito no controle sem causa descrita; a substituição completa se dá pela obsolescência do Cooper sem peça de reposição.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7903112004",
+    "ss": "ETO-COEP 00184/2025",
+    "tensao": "34.500",
+    "data": "03/09/2025",
+    "mes": "setembro",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "OBSOLESCÊNCIA (SEM PEÇAS DE REPOSIÇÃO)",
+    "citacao": "«como se trata de um modelo COOPER FORM6 que está obsoleto e não possuímos peças sobressalentes, faz-se necessária substituição completa por modelo NOJA RC10»",
+    "nota": "O texto só dá 'defeito' genérico; o que determina a perda do equipamento completo é a obsolescência do Cooper FORM6 sem sobressalentes — a causa da falha primária não é descrita.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7900453110",
+    "ss": "ETO-COEP 00087/2026",
+    "tensao": "34.500",
+    "data": "22/04/2025",
+    "mes": "abril",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Equipamento está com defeito na parte ativa, não aceita o comando de fechamento. Será necessário substituir o equipamento completo.»",
+    "nota": "Defeito na parte ativa que não fecha é modo; nenhum porquê no texto — e a parte ativa comprada foi remanejada para outro ativo.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7901110084",
+    "ss": "ETO-COEP 00061/2026",
+    "tensao": "34.500",
+    "data": "17/12/2025",
+    "mes": "dezembro",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Rl esta danificado dando passagem de tensão mesmo aberto»",
+    "nota": "Análise técnica e testes funcionais só constatam a parte ativa com defeito (dá passagem aberto); o formulário confirma que não ficou em operação; sem porquê.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7908705049",
+    "ss": "ETO-TELE 00824/2025",
+    "tensao": "13.800",
+    "data": "16/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«constatou que o tanque e o relé do mesmo se encontra queimado, providenciar substituição»",
+    "nota": "Tanque e relé queimados é o modo; a queima simultânea sugere evento elétrico maior, mas o texto não nomeia o agente.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7910027196",
+    "ss": "ETO-COEP 00154/2026",
+    "tensao": "34.500",
+    "data": "08/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Necessitando substituição completa em função do defeito de leitura de corrente da fase B»",
+    "nota": "Modo claro (leitura da fase B incorreta) sem causa firmada — o COEP especula 'erro de calibração', o parecer DMSL mais recente mantém a troca sem confirmar o porquê.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7920024127",
+    "ss": "ETO-COEP 00120/2025",
+    "tensao": "34.500",
+    "data": "02/06/2025",
+    "mes": "junho",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«equipe DMSL constatou que o relé e a parte ativa do equipamento 7920024127 estão com defeito, sendo necessária a substituição completa por um modelo NOJA RC 10»",
+    "nota": "Relé e parte ativa 'com defeito' é modo puro, sem mecanismo; o bloco 3E-SUL de painel solar SIGFI colado no fim da descrição é texto de terceiro e foi descartado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7922995039",
+    "ss": "ETO-TELE 00555/2025",
+    "tensao": "13.800",
+    "data": "29/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«equipe DMSL constatou que o RLG 7922995039 encontra-se com parte ativa e controle danificados»",
+    "nota": "Parte ativa e controle danificados constatados em teste, sem qualquer mecanismo ou agente no texto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7925087021",
+    "ss": "ETO-COEP 00222/2025",
+    "tensao": "34.500",
+    "data": "08/12/2025",
+    "mes": "dezembro",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Realizar a substituição do tanque do equipamento.»",
+    "nota": "Nesta descrição restou só a ordem de substituir o tanque e a logística do COEP; o 'religador em curto' da cadeia está em outra nota, não citável aqui.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7925871077",
+    "ss": "ETO-TELE 00799/2025",
+    "tensao": "34.500",
+    "data": "10/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Foi realizado primeiro ataque mais o mesmo continua intermitente.»",
+    "nota": "A descrição só relata intermitência após o primeiro ataque; a fonte queimada aparece na OS e, mesmo lá, sem a causa da queima.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7927446001",
+    "ss": "ETO-COEP 00143/2025",
+    "tensao": "34.500",
+    "data": "26/06/2025",
+    "mes": "junho",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Placa de alimentação danificada, devido a curto, não temos material sobressalente para manutenção! Favor substituir o equipamento completo.»",
+    "nota": "Modo: placa de alimentação danificada 'devido a curto', sem o texto localizar o curto — pode ser interno ou vindo da rede BT pela alimentação, como nos casos das SS 00156/2025 e 00081/2026; a falta de sobressalente levou à troca do equipamento completo.",
+    "revisao": "De CURTO-CIRCUITO INTERNO (media) para SEM CAUSA DESCRITA NO TEXTO (alta): o laudo diz só 'devido a curto', sem localizar o curto no equipamento. A placa de alimentação é a interface com a BT externa e há dois casos na própria fatia (7957126085 e 7957620015) em que o curto que danificou o controle veio de fora. 'INTERNO' era inferência, não texto; o mecanismo citado fica registrado na nota."
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7928564039",
+    "ss": "ETO-COEP 00162/2025",
+    "tensao": "34.500",
+    "data": "29/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Equipamento com tanque, modulo e rele com defeito, solicitar troca do equipamento ao DCMD.»",
+    "nota": "Tanque, módulo e relé 'com defeito' é modo em três peças, sem mecanismo algum descrito.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7930428001",
+    "ss": "DG-RD-PO 00419/2025",
+    "tensao": "34.500",
+    "data": "01/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«equipamento dando passagem na fase A ficou bay-passado até substituição»",
+    "nota": "Dar passagem na fase A é o modo (o interruptor não isola); o texto não diz por que o tanque falhou.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7931383086",
+    "ss": "ETO-TELE 00505/2025",
+    "tensao": "34.500",
+    "data": "15/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«RL 7931383086 perde a comunicaçao quando perde a CA»",
+    "nota": "A descrição traz só o sintoma inicial (perde comunicação sem CA, hipótese de bateria); o tanque danificado aparece na OS, sem causa.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7933585074",
+    "ss": "ETO-COEP 00024/2026",
+    "tensao": "34.500",
+    "data": "27/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«REALIZAR SUBSTITUIÇÃO DO TANQUE, O MESMO ESTÁ COM DEFEITO.»",
+    "nota": "Só o modo (tanque com defeito); o 'defeito em curto' registrado em SS irmã de 12/2025 não está nesta descrição.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7934698002",
+    "ss": "ETO-COEP 00094/2025",
+    "tensao": "13.800",
+    "data": "06/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "VANDALISMO",
+    "citacao": "«Substituir  caixa de controle  do RL 7934698002-RDU TOCANTINÓPOLIS, onde a mesma se encontra destruída  em campo»",
+    "nota": "Caixa de controle destruída restando a carcaça indica agente mecânico externo (vandalismo? abalroamento?), mas o texto não nomeia; a OBS traz o código com dígitos transpostos (7934968002), mesmo ativo e mesma RDU.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7937102148",
+    "ss": "ETO-COEP 00228/2025",
+    "tensao": "34.500",
+    "data": "18/12/2025",
+    "mes": "dezembro",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Tanque com defeito, realizar substituição do tanque.»",
+    "nota": "Só o modo — tanque com defeito; nenhum porquê no texto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7938137007",
+    "ss": "ETO-TELE 00050/2026",
+    "tensao": "13.800",
+    "data": "26/12/2025",
+    "mes": "dezembro",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«REALIZAR TROCA DE BATERIA DO EQUIPAMENTO»",
+    "nota": "A descrição pede só troca de bateria; o problema na parte ativa (bucha da fase A) está na OS, sem causa descrita.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7942485096",
+    "ss": "ETO-COEP 00158/2025",
+    "tensao": "34.500",
+    "data": "14/03/2025",
+    "mes": "março",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Ao testar o tanque, foi constatado que o mesmo está danificado e precisa ser substituído»",
+    "nota": "O teste só constata o dano ('danificado'), nenhuma causa no texto — e o DMSL frisa que o controle não precisa ser trocado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7943790134",
+    "ss": "ETO-COEP 00181/2025",
+    "tensao": "34.500",
+    "data": "29/05/2025",
+    "mes": "maio",
+    "ano": "2025",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«foi constado que o RLG 7943790134 encontra-se com a parte ativa danificada»",
+    "nota": "Os testes constataram a parte ativa danificada, sem porquê; o vazamento interno da fase C citado na revisão anterior está em outra SS, não nesta descrição.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7947203070",
+    "ss": "ETO-COEP 00131/2026",
+    "tensao": "34.500",
+    "data": "23/11/2025",
+    "mes": "novembro",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Foi feito análise técnica, a placa do equipamento está queimada nessesario subistituir o equipamento completo»",
+    "nota": "Modo: placa do controle queimada, constatada em análise técnica; nenhum porquê da queima no texto. O parecer COEP mais recente (13/07) definiu compra de controle.",
+    "revisao": "De DEFEITO ELETRÔNICO (media) para SEM CAUSA DESCRITA NO TEXTO (alta): 'placa queimada' é modo de falha (queima), sem diagnóstico funcional nem agente — mesma situação da fonte queimada (7925871077) e do relé queimado (7908705049), que o próprio arquivo classifica SEM CAUSA. DEFEITO ELETRÔNICO fica para diagnóstico funcional específico, como display apagado com CA normal (7936038076) e porta RS-232 falhada (7900594026)."
+   },
+   {
+    "fatia": "RL 2025",
+    "tipo": "RL",
+    "ativo": "7949648145",
+    "ss": "ETO-TELE 00630/2025",
+    "tensao": "13.800",
+    "data": "10/06/2025",
+    "mes": "junho",
+    "ano": "2025",
+    "peca": "completo",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«FAVOR, REALIZAR SUBSTITUIÇÃO DE RELIGADOR»",
+    "nota": "Descrição de uma linha só, sem modo nem causa; a execução da troca vem da OS.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5800371025",
+    "ss": "ETO-COEP 00187/2025",
+    "tensao": "34.500",
+    "data": "23/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "rele",
+    "troca": "sim",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«Após testes foi constatado defeito nos relés da fase A e B, Modelo Toshiba TBR 1000.»",
+    "nota": "O laudo constata defeito nos relés Toshiba TBR 1000 das fases A e B sem dizer por que falharam — defeito do próprio eletrônico, sem causa mais profunda descrita no texto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5800438116",
+    "ss": "ETO-COEP 00171/2025",
+    "tensao": "34.500",
+    "data": "18/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "DEFEITO MECÂNICO (CHAVE REVERSORA)",
+    "citacao": "«Foi feito teste de elevar e abaixar nas fases B e C e o mesmo só aceita elevar os taps, constatando que o mercanismo da chave reversoura polaridade está com defeito.»",
+    "nota": "Fases B/C travadas com causa diagnosticada explícita: defeito no mecanismo da chave reversora de polaridade (placa F do controle também com defeito); a origem do defeito mecânico não é dita.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5854566043",
+    "ss": "ETO-COEP 00036/2025",
+    "tensao": "34.500",
+    "data": "21/03/2025",
+    "mes": "março",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "DESCARGA ATMOSFÉRICA (RAIO)",
+    "citacao": "«a fase C do regulador 5854566043 está danificada devido a uma descarga atmosférica. Vazou óleo e o mesmo está com coloração escura o que evidencia o seu comprometimento.»",
+    "nota": "Laudo explícito: fase C danificada por descarga atmosférica, com óleo vazado e escurecido; o código citado é o do próprio ativo da linha.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5841308190",
+    "ss": "ETO-COEP 00154/2025",
+    "tensao": "34.500",
+    "data": "21/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "furto",
+    "troca": "sim",
+    "causa": "FURTO",
+    "citacao": "«Solicitação de serviço para reposição de equipamentos furtados»",
+    "nota": "Reposição de equipamento furtado, já substituído pelos COCMs — furto declarado no texto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5841308190",
+    "ss": "ETO-COEP 00197/2025",
+    "tensao": "34.500",
+    "data": "29/09/2025",
+    "mes": "setembro",
+    "ano": "2025",
+    "peca": "furto",
+    "troca": "não",
+    "causa": "FURTO",
+    "citacao": "«Após alguns análise foi identificado que as 3 fases estava sem óleo, provavelmente foram roubados.»",
+    "nota": "DMSL achou as 3 fases sem óleo ('provavelmente foram roubados') e o COEP desmobiliza o RT citando 'furtos recorrentes na região' — segundo furto do mesmo ativo no ano; o hedge do laudo é coberto pela decisão do COEP.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5856070091",
+    "ss": "ETO-COEP 00056/2026",
+    "tensao": "34.500",
+    "data": "18/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "furto",
+    "troca": "sim",
+    "causa": "FURTO",
+    "citacao": "«Solicitação de serviço para reposição de equipamentos furtados»",
+    "nota": "SS aberta como reposição de equipamento furtado; o restante do texto é a esteira de reposição e um erro de instalação posterior (fonte/carga invertidas), não a causa original.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5856156091",
+    "ss": "ETO-COEP 00055/2026",
+    "tensao": "34.500",
+    "data": "16/06/2025",
+    "mes": "junho",
+    "ano": "2025",
+    "peca": "furto",
+    "troca": "não",
+    "causa": "FURTO",
+    "citacao": "«PARECER DA PROTEÇÃO:EQUIPAMENTOS FURTADOS. PARA AQUISIÇÃO DAS CELULAS DE REPOSIÇÃO, FAVOR CONSULTAR OS DADOS DE PLACA EM ANEXO.»",
+    "nota": "Parecer da Proteção declara equipamentos furtados e pede células de reposição; o texto chama o ativo de 'religador' por engano, mas o código 5856156091 é o do próprio RT da linha.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5858783119",
+    "ss": "ETO-COEP 00123/2025",
+    "tensao": "34.500",
+    "data": "24/03/2025",
+    "mes": "março",
+    "ano": "2025",
+    "peca": "furto",
+    "troca": "não",
+    "causa": "FURTO",
+    "citacao": "«Constatado também que foi furtado todo o óleo isolante das 3 células, sendo necessário a substituição das 3 células.»",
+    "nota": "Tampas de inspeção abertas, para-raios levados e todo o óleo isolante furtado das 3 células; o COEP confirma 'DEVIDO AO ERRO NA INSTALAÇÃO E O FURTO'.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5803327001",
+    "ss": "ETO-COEP 00021/2026",
+    "tensao": "13.800",
+    "data": "04/09/2025",
+    "mes": "setembro",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "INSTALAÇÃO / COMISSIONAMENTO INADEQUADO",
+    "citacao": "«Equipamento foi remanejado, 7 km da sua localização sentido Palmas necessário comissionamento completo*Equipamento com um dos cabos umbilicais danificado.»",
+    "nota": "A razão da troca do controle não é dita, mas o texto detalha remanejamento de 7 km sem comissionamento, cabo umbilical danificado e aterramento da bucha FC mal interligado — falha de instalação, não do equipamento.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5800961074",
+    "ss": "ETO-COEP 00221/2025",
+    "tensao": "34.500",
+    "data": "05/12/2025",
+    "mes": "dezembro",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Substituir as 3 células- Melhoria na malha de aterramento - Melhoria no circuito de aterramento qua aterra as células.»",
+    "nota": "O texto é só escopo de compra (3 células, melhorias de aterramento, conectores); a melhoria de aterramento sugere deficiência, mas nada liga isso à falha das células — não se chuta laudo.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5820790038",
+    "ss": "ETO-TELE 00159/2025",
+    "tensao": "34.500",
+    "data": "19/02/2025",
+    "mes": "fevereiro",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«FEITO O PRIMEIRO ATAQUE E PERCEBIDO QUE O MESMO NÃO ESTA COMUNICANDO COM O SCADA. EM CAMPO ESTA COMULTANDO NORMAL»",
+    "nota": "O texto só dá o sintoma — sem comunicação com o SCADA, comutando normal em campo — e nenhuma razão para a falha de comunicação.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5850308009",
+    "ss": "ETO-TELE 01109/2025",
+    "tensao": "13.800",
+    "data": "15/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Realizar manutenção no RT 5850308009.»",
+    "nota": "Texto de uma linha, só o pedido de manutenção — nem o modo de falha nem a causa aparecem.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5854566043",
+    "ss": "ETO-COEP 00160/2025",
+    "tensao": "34.500",
+    "data": "23/07/2025",
+    "mes": "julho",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«A fase B está danificada e será necessário substituir a mesma. Malha de aterramento está relativamente boa e conectada. Fase A e C passaram nos ensaios.»",
+    "nota": "Segunda falha do mesmo ativo no ano: a nota de campo fala fase C queimada, mas vale o parecer DMSL mais recente — fase B danificada, A e C aprovadas — e nenhum porquê; o aterramento estava bom.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5855411017",
+    "ss": "ETO-COEP 00199/2025",
+    "tensao": "13.800",
+    "data": "03/09/2025",
+    "mes": "setembro",
+    "ano": "2025",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«SEM COMUNICAÇÃO, FALHA DE ALIMENTAÇÃO - REALIZADO PRIMEIRO ATAQUE SEM SUCESSO.»",
+    "nota": "O texto dá só o sintoma — sem comunicação, falha de alimentação, primeiro ataque sem sucesso — e a pendência de levar controle completo para trocar; onde está o defeito e por que a alimentação falhou não são ditos.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5827102054",
+    "ss": "ETO-COEP 00216/2025",
+    "tensao": "34.500",
+    "data": "27/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "rele",
+    "troca": "sim",
+    "causa": "UMIDADE / INFILTRAÇÃO",
+    "citacao": "«Se possível retornar com controle completo pq o q está em campo teve infiltração de água»",
+    "nota": "O relé queimado e o nobreak defeituoso ficam dentro do controle que 'teve infiltração de água' — causa explícita do pedido de controle novo; a resistência alta da malha aparece como agravante, não como causa.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5862236091",
+    "ss": "ETO-SE-PCM 00065/2025",
+    "tensao": "34.500",
+    "data": "08/12/2025",
+    "mes": "dezembro",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "não",
+    "causa": "UMIDADE / INFILTRAÇÃO",
+    "citacao": "«Célula da fase B estava com a tampa do contador de tape aberta, pegou chuva e molhou os contatos danificando a peça toda.»",
+    "nota": "Causa explícita e completa: tampa do contador de tap aberta deixou a chuva molhar os contatos e danificar a célula da fase B — água de chuva, não defeito interno.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5800440256",
+    "ss": "ETO-TELE 01431/2025",
+    "tensao": "34.500",
+    "data": "30/11/2025",
+    "mes": "novembro",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "VAZAMENTO DE ÓLEO / VEDAÇÃO",
+    "citacao": "«o mesmo esta com uma das celulas apresentando vazamento , o equipamento ficou bypassado»",
+    "nota": "A célula vazou óleo a ponto de causar desarme da LD Ponte Alta–Mateiros e bypass — o vazamento é a falha declarada; a origem exata da perda de vedação não é detalhada.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2025",
+    "tipo": "RT",
+    "ativo": "5844630060",
+    "ss": "ETO-RD-AR 01131/2026",
+    "tensao": "13.800",
+    "data": "06/08/2025",
+    "mes": "agosto",
+    "ano": "2025",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "VAZAMENTO DE ÓLEO / VEDAÇÃO",
+    "citacao": "«Célula da fase A encontra-se com vazamento de óleo no pé da torneira. Necessário substituição da célula.»",
+    "nota": "Vazamento de óleo no pé da torneira da fase A declarado pelo DMSL — ponto de vedação; o porquê da perda de vedação não é detalhado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5840227063",
+    "ss": "ETO-COEP 00151/2026",
+    "tensao": "34.500",
+    "data": "13/07/2026",
+    "mes": "julho",
+    "ano": "2026",
+    "peca": "celula",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«Realizados ensaios de isolação nas três células, e foi identificado curto na fase A, sendo necessário a sua substituição»",
+    "nota": "Ensaio de isolação identificou curto na célula (abertura citava fase C, DMSL fechou na A) — falha dielétrica interna comprovada por ensaio; o gatilho do curto não é declarado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5800859011",
+    "ss": "ETO-COEP 00115/2026",
+    "tensao": "13.800",
+    "data": "27/05/2026",
+    "mes": "maio",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«Foi identificado relé da fase C com defeito conforme orientação da supervisão e necessário realiza retrofit para instalação de controle rua.»",
+    "nota": "DMSL identifica relé da fase C com defeito (display apagado, equipamento bypassado, 'FICOU EM OPERAÇÃO: Não'); saída foi retrofit para controle rua. Por que o relé falhou não é dito.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5848305116",
+    "ss": "ETO-TELE 00935/2026",
+    "tensao": "34.500",
+    "data": "17/06/2026",
+    "mes": "junho",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«Na função Auto zero Regulador 2 foi para o TAP 16, em automático demostra comutação indevida e  em Falha na Cédula RT2»",
+    "nota": "Comutação indevida em automático é o controle comandando errado; a correção registrada foi a troca do relé, que normalizou o banco — defeito no relé, sem causa mais profunda no texto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5800090147",
+    "ss": "ETO-COEP 00117/2026",
+    "tensao": "34.500",
+    "data": "02/04/2026",
+    "mes": "abril",
+    "ano": "2026",
+    "peca": "celula",
+    "troca": "não",
+    "causa": "DEFEITO NO MICROSWITCH (SENSOR DE NEUTRO)",
+    "citacao": "«Favor, substituir a célula da fase C do RT 5800090147 pois o microswitch que renconhece o neutro do regulador está com defeito.»",
+    "nota": "Parecer DMSL (o mais recente) traz o nexo causal com 'pois': a célula sai porque o microswitch que reconhece o neutro falhou; o porquê da falha do microswitch não é dito.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5836786094",
+    "ss": "ETO-COEP 00095/2026",
+    "tensao": "34.500",
+    "data": "16/04/2026",
+    "mes": "abril",
+    "ano": "2026",
+    "peca": "furto",
+    "troca": "não",
+    "causa": "FURTO",
+    "citacao": "«Favor levar outro regulador de tensão, pois o mesmo foi furtado em campo.»",
+    "nota": "Texto inequívoco: o regulador foi furtado em campo; o parecer COEP posterior só trata da logística do substituto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5856070091",
+    "ss": "ETO-COEP 00023/2026",
+    "tensao": "34.500",
+    "data": "26/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "furto",
+    "troca": "não",
+    "causa": "FURTO",
+    "citacao": "«Regulador 5856070091 furtado as 3 fases»",
+    "nota": "Furto das três fases do banco, dito com todas as letras; acesso livre na LD Almas-Natividade explica a exposição.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5800366016",
+    "ss": "ETO-RD-AR 00275/2026",
+    "tensao": "34.500",
+    "data": "09/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«CELULAR QUEIMADA REGULADOR DE TENSÃO.SUBSTITUIR CELULA REGULADOR DE TENSÃO 5800366016 FASE A.»",
+    "nota": "Texto dá só o modo — célula queimada — sem uma linha sobre o porquê; engenheiro não chuta laudo.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5800440256",
+    "ss": "ETO-TELE 01034/2026",
+    "tensao": "34.500",
+    "data": "06/08/2026",
+    "mes": "agosto",
+    "ano": "2026",
+    "peca": "celula",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Substituir célula da Fase B do banco de Regulador de tensão e realizar melhorias na malha de aterramento do Regulador»",
+    "nota": "Texto dá o modo — célula da fase B defeituosa, tensão oscilando de 16 a 23 kV com reclamação do cliente BRK — e duas prescrições lado a lado no parecer DMSL (trocar a célula E melhorar a malha de aterramento), sem uma linha dizendo que a malha causou a falha da célula. A malha fica registrada como indício na prescrição, não como laudo.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RT 2026",
+    "tipo": "RT",
+    "ativo": "5801866013",
+    "ss": "ETO-RD-PS 00303/2026",
+    "tensao": "13.800",
+    "data": "02/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "celula",
+    "troca": "sim",
+    "causa": "UMIDADE / INFILTRAÇÃO",
+    "citacao": "«Identificado infiltração na caixa de passagem da célula da fase C do banco regulador de tensão, será necessário fazer a substituição da mesma!»",
+    "nota": "DMSL identificou infiltração na caixa de passagem da célula da fase C — água entrando é a causa direta do defeito que bypassou o banco.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7908249152",
+    "ss": "ETO-COEP 00038/2026",
+    "tensao": "34.500",
+    "data": "22/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«Houve um curto no equipamento danificando a parte ativa, será necessário fazer a substituição do equipamento completo ( parte ativa e controle)»",
+    "nota": "DMSL é explícito: um curto no equipamento danificou a parte ativa e exigiu a troca completa.",
+    "revisao": "Causa mantida (CURTO-CIRCUITO INTERNO), confiança rebaixada de alta para media: 'houve um curto no equipamento danificando a parte ativa' declara o curto mas não o localiza (equipamento inteiro, sem dizer onde nasceu) — sustenta a categoria com confiança média, não alta. Compare com 'tanque em curto' (SS 00058, 00039), onde a localização interna é explícita e a alta se sustenta."
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7925733015",
+    "ss": "ETO-COEP 00058/2026",
+    "tensao": "34.500",
+    "data": "13/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«DESCRIÇÃO: Tanque do equipamento em Curto»",
+    "nota": "Formulário DMSL explícito (tanque em curto), coerente com o 'provavel curto-circuito interno' apontado no primeiro ataque.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7926089013",
+    "ss": "ETO-COEP 00039/2026",
+    "tensao": "34.500",
+    "data": "24/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«foi identificado que o tanque do equipamento entrou em curto o mesmo necessário substituir o tanque»",
+    "nota": "Análise técnica explícita: o tanque entrou em curto; a origem do curto não é detalhada, mas a causa nomeada no texto é o curto interno.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7957021094",
+    "ss": "ETO-TELE 00861/2026",
+    "tensao": "34.500",
+    "data": "10/07/2026",
+    "mes": "julho",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "CURTO-CIRCUITO INTERNO",
+    "citacao": "«SEGUE SS DE RELIGADOR COM CURTO INTERNO, DJUNTOR DE BT NÃO ACEITA.»",
+    "nota": "Texto explícito em 'curto interno' no circuito de BT (disjuntor não aceitava); a OS resolveu trocando fonte, bateria e relé, então a extensão exata do curto é inferida.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7929376022",
+    "ss": "ETO-COEP 00068/2026",
+    "tensao": "34.500",
+    "data": "25/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«PRIMEIRO ATAQUE IDENTIFICOU QUE RELE ESTA EM CURTO»",
+    "nota": "Relé em curto (reincidente após a nota 224/2026) levou o DMSL a mandar trocar o controle completo; o porquê do curto no relé não é informado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7930359149",
+    "ss": "ETO-COEP 00138/2026",
+    "tensao": "sem cadastro",
+    "data": "07/07/2026",
+    "mes": "julho",
+    "ano": "2026",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«PLACA DO RL ESTA CARBONIZADA COM SINAL DE CURTO.»",
+    "nota": "O único mecanismo declarado no texto está na placa: 'PLACA DO RL ESTA CARBONIZADA COM SINAL DE CURTO' (camada do primeiro ataque, não contradita pelo parecer DMSL de 07/07). A parte ativa aparece só como 'com defeito', sem porquê.",
+    "revisao": "Reclassificado de CURTO-CIRCUITO INTERNO para DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ). O curto do texto está localizado na placa — mesmo padrão de 'curto na placa'/'relé em curto' que o próprio classificador pôs em DEFEITO ELETRÔNICO (SS 00064, 00063, 00068). Ler um evento único de curto interno atingindo comando e parte ativa era inferência: o texto não diz que a parte ativa falhou por curto. Citação mantida; confiança media mantida."
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7944559149",
+    "ss": "ETO-COEP 00063/2026",
+    "tensao": "34.500",
+    "data": "17/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«Serviço Executado:  curto na placa foi tentando recuperar a mesma porém não teve sucesso!»",
+    "nota": "Curto na placa de alimentação, irrecuperável, é falha eletrônica explícita; o porquê do curto na placa não é informado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7955946007",
+    "ss": "ETO-COEP 00064/2026",
+    "tensao": "34.500",
+    "data": "02/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+    "citacao": "«Necessário substituir a placa de alimentação ca, a mesma está em curto não conseguimos recuperar.»",
+    "nota": "Placa de alimentação CA em curto e irrecuperável é falha eletrônica explícita do controle; o porquê do curto na placa não é dito.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7903569004",
+    "ss": "ETO-COEP 00060/2026",
+    "tensao": "13.800",
+    "data": "11/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Realizar substituição do equipamento todo e parte ativa.»",
+    "nota": "Só o sintoma (sem comunicação após primeiro ataque) e a ordem de trocar tudo; nenhum laudo do porquê.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7908302256",
+    "ss": "ETO-COEP 00071/2026",
+    "tensao": "34.500",
+    "data": "06/04/2026",
+    "mes": "abril",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Serviço Executado: Equipamento com a parte ativa com defeito, será necessário fazer a substituição da mesma!»",
+    "nota": "Parte ativa com defeito é modo; nada no texto (dominado por dados de configuração de satélite) explica a origem.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7908708116",
+    "ss": "ETO-COEP 00020/2026",
+    "tensao": "34.500",
+    "data": "22/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Substituição de tanque e controle, os mesmos estão com defeitos.»",
+    "nota": "Texto dá só o modo (tanque com defeito) e o parecer COEP mais recente ainda pede explicação do defeito; nenhum porquê registrado.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7908708116",
+    "ss": "ETO-COEP 00020/2026",
+    "tensao": "34.500",
+    "data": "22/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Substituição de tanque e controle, os mesmos estão com defeitos.»",
+    "nota": "Mesma SS do tanque: 'controle com defeito' é modo de falha, não causa; nada no texto explica a origem.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7913662076",
+    "ss": "ETO-COEP 00114/2026",
+    "tensao": "13.800",
+    "data": "08/06/2026",
+    "mes": "junho",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Foi confirmado pela equipe DMSL o defeito do tanque, favor seguir com a substituição e correção da chave de entrada fase B danificada.»",
+    "nota": "Defeito do tanque confirmado sem explicação da origem; a chave de entrada danificada é peça fora da taxa.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7919270014",
+    "ss": "ETO-COEP 00074/2026",
+    "tensao": "34.500",
+    "data": "25/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Substituir Equipamento completo problema na placa de alimentação e na parte ativa»",
+    "nota": "Dois modos de falha (placa de alimentação e parte ativa) sem nenhum porquê declarado para nenhum deles.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7921202014",
+    "ss": "ETO-COEP 00088/2026",
+    "tensao": "34.500",
+    "data": "15/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«indentificado o problema na parte ativa será  necessário fazer a substituição da mesmo»",
+    "nota": "Problema na parte ativa sem porquê; a menção a substituir o pára-raios da fase C é indício fraco demais para atribuir descarga atmosférica.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7923673004",
+    "ss": "ETO-COEP 00057/2026",
+    "tensao": "13.800",
+    "data": "26/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«RELIGADOR COM RELÉ DANIFICADO, REALIZAR SUBSTITUIÇÃO»",
+    "nota": "Relé danificado é o modo de falha; o texto não diz por que danificou.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7925871077",
+    "ss": "ETO-COEP 00048/2026",
+    "tensao": "34.500",
+    "data": "16/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«PENDENCIA: Religador continua by passado, equipamento está com defeito na parte ativa»",
+    "nota": "SS recriada por baixa indevida da antiga repete só o modo (defeito na parte ativa), sem causa.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7926442035",
+    "ss": "ETO-TELE 00298/2026",
+    "tensao": "34.500",
+    "data": "18/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Parte ativa do equipamento danificada: necessita substituição»",
+    "nota": "Parte ativa danificada sem porquê; o vazamento de óleo citado é do trafo (auxiliar, fora da taxa), não da parte ativa do religador.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7927169001",
+    "ss": "ETO-COEP 00036/2026",
+    "tensao": "13.800",
+    "data": "16/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Foi verificado que o tanque do equipamento está danificado, sendo necessário substituir o tanque do equipamento.»",
+    "nota": "Parecer DMSL constata tanque danificado sem dizer o que o danificou.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7927396052",
+    "ss": "ETO-COEP 00045/2026",
+    "tensao": "34.500",
+    "data": "17/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«equipe DMSL constatou que apenas o tanque do RLG 7927396052 encontra-se queimado. Favor, substituir parte ativa do equipamento.»",
+    "nota": "Fumaça no painel e tanque queimado são modo; o texto não explica a origem da queima.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7927413001",
+    "ss": "ETO-COEP 00141/2026",
+    "tensao": "34.500",
+    "data": "16/04/2026",
+    "mes": "abril",
+    "ano": "2026",
+    "peca": "completo",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Placa de alimentação do equipamento com defeito, VERIFICAR SE É POSSIVEL  substituir o equipamento completo.»",
+    "nota": "'Placa de alimentação com defeito' é modo de falha, não mecanismo: o texto não diz curto, queima nem origem. Mesmo nível de evidência de 'relé danificado' (SS 00057) e 'problema na placa de alimentação' (SS 00074), classificados SEM CAUSA.",
+    "revisao": "Derrubado de DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ) para SEM CAUSA DESCRITA NO TEXTO. 'Com defeito' não declara mecanismo elétrico nenhum — pela régua ('célula queimada' não sustenta causa, é modo), 'placa com defeito' também não sustenta. Os itens mantidos em DEFEITO ELETRÔNICO têm curto explícito na placa/relé; este não tem. Citação real, mas insuficiente para a causa."
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7927646026",
+    "ss": "ETO-COEP 00029/2026",
+    "tensao": "34.500",
+    "data": "09/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«O religador apresenta defeito no tanque, sendo necessário substituir o tanque o mesmo está tirando a linha»",
+    "nota": "Modo: defeito no tanque que derruba a linha ('está tirando a linha'), com by-pass e troca de isoladores pedida. Nenhum mecanismo declarado — a palavra curto não aparece no texto.",
+    "revisao": "Derrubado de CURTO-CIRCUITO INTERNO para SEM CAUSA DESCRITA NO TEXTO. A própria nota original admitia 'inferência de curto interno, não dito com todas as letras' — 'tirando a linha' é sintoma (desarme da linha), e deduzir dele falha de isolação interna é o mesmo salto que a régua veda em 'célula queimada' → descarga. Onde o curto conta (SS 00058, 00039, 00038, TELE 00861), o texto o declara; aqui não declara."
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7931608059",
+    "ss": "ETO-COEP 00040/2026",
+    "tensao": "13.800",
+    "data": "28/01/2026",
+    "mes": "janeiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«foi identificado que o tanque do equipamento está danificado, sendo assim,  necessário substituir o tanque e o rádio do equipamento, que está queimado»",
+    "nota": "Tanque danificado e rádio queimado são modos de falha; nenhum porquê no texto.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7933726256",
+    "ss": "ETO-PROT 00145/2026",
+    "tensao": "34.500",
+    "data": "04/04/2026",
+    "mes": "abril",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Equipamento com defeito na parte ativa, será necessário fazer a substituição da parte ativa»",
+    "nota": "Defeito na parte ativa sem porquê; a 'melhoria na malha de terra' pedida é recomendação, não causa declarada.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7953211079",
+    "ss": "ETO-COEP 00147/2026",
+    "tensao": "34.500",
+    "data": "16/07/2026",
+    "mes": "julho",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "não",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Segue nota para substituir relé religador avariado marca noja , equipamento N: 7953211079 - Itapiratins .»",
+    "nota": "Relé Noja avariado informado pelo técnico DMSL, sem laudo do porquê da avaria.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7953610256",
+    "ss": "ETO-COEP 00050/2026",
+    "tensao": "34.500",
+    "data": "16/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "completo",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«Trocado o DPS, o mesmo estava queimado devido ao tanque estar furado.»",
+    "nota": "A cadeia documentada para no tanque furado (que queimou o DPS e gerou o curto no gabinete); o texto não diz por que o tanque furou — não especulo tiro, vandalismo ou corrosão.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7955986084",
+    "ss": "ETO-TELE 00323/2026",
+    "tensao": "34.500",
+    "data": "31/03/2026",
+    "mes": "março",
+    "ano": "2026",
+    "peca": "controle",
+    "troca": "sim",
+    "causa": "SEM CAUSA DESCRITA NO TEXTO",
+    "citacao": "«ATUALIZAR AJUSTES DO RL 7955986084 LD PARAISO A DIVINOPOLIS. IMPLEMENTAÇÃO DE PROTEÇÃO DE SUBTENSÃO (27)»",
+    "nota": "Esta SS é só de ajuste de proteção; a evidência da falha (placa de alimentação CA em curto, substituída) está na OS, fora desta descrição — não uso o que a descrição não traz.",
+    "revisao": ""
+   },
+   {
+    "fatia": "RL 2026",
+    "tipo": "RL",
+    "ativo": "7925744087",
+    "ss": "ETO-COEP 00059/2026",
+    "tensao": "34.500",
+    "data": "09/02/2026",
+    "mes": "fevereiro",
+    "ano": "2026",
+    "peca": "tanque",
+    "troca": "não",
+    "causa": "UMIDADE / INFILTRAÇÃO",
+    "citacao": "«foi identificado água dentro da parte interna do tanque e cabo umbilical encharcado de água»",
+    "nota": "Água dentro do tanque e cabo umbilical encharcado: infiltração explícita como origem da falha do tanque.",
+    "revisao": ""
+   }
+  ]
+ },
+ "mensal": {
+  "RL|2025": [
+   {
+    "mes": "janeiro",
+    "falhas": 1,
+    "parque": 1281
+   },
+   {
+    "mes": "fevereiro",
+    "falhas": 1,
+    "parque": 1281
+   },
+   {
+    "mes": "março",
+    "falhas": 2,
+    "parque": 1281
+   },
+   {
+    "mes": "abril",
+    "falhas": 2,
+    "parque": 1281
+   },
+   {
+    "mes": "maio",
+    "falhas": 7,
+    "parque": 1281
+   },
+   {
+    "mes": "junho",
+    "falhas": 4,
+    "parque": 1281
+   },
+   {
+    "mes": "julho",
+    "falhas": 5,
+    "parque": 1281
+   },
+   {
+    "mes": "agosto",
+    "falhas": 2,
+    "parque": 1281
+   },
+   {
+    "mes": "setembro",
+    "falhas": 2,
+    "parque": 1281
+   },
+   {
+    "mes": "outubro",
+    "falhas": 4,
+    "parque": 1281
+   },
+   {
+    "mes": "novembro",
+    "falhas": 1,
+    "parque": 1281
+   },
+   {
+    "mes": "dezembro",
+    "falhas": 4,
+    "parque": 1281
+   }
+  ],
+  "RL|2026": [
+   {
+    "mes": "janeiro",
+    "falhas": 6,
+    "parque": 1283
+   },
+   {
+    "mes": "fevereiro",
+    "falhas": 7,
+    "parque": 1283
+   },
+   {
+    "mes": "março",
+    "falhas": 8,
+    "parque": 1285
+   },
+   {
+    "mes": "abril",
+    "falhas": 3,
+    "parque": 1287
+   },
+   {
+    "mes": "maio",
+    "falhas": 0,
+    "parque": 1290
+   },
+   {
+    "mes": "junho",
+    "falhas": 1,
+    "parque": 1291
+   },
+   {
+    "mes": "julho",
+    "falhas": 3,
+    "parque": 1294
+   },
+   {
+    "mes": "agosto",
+    "falhas": 0,
+    "parque": 1294
+   },
+   {
+    "mes": "setembro",
+    "falhas": 0,
+    "parque": 1294
+   },
+   {
+    "mes": "outubro",
+    "falhas": 0,
+    "parque": 1294
+   },
+   {
+    "mes": "novembro",
+    "falhas": 0,
+    "parque": 1294
+   },
+   {
+    "mes": "dezembro",
+    "falhas": 0,
+    "parque": 1294
+   }
+  ],
+  "RT|2025": [
+   {
+    "mes": "janeiro",
+    "falhas": 0,
+    "parque": 180
+   },
+   {
+    "mes": "fevereiro",
+    "falhas": 1,
+    "parque": 180
+   },
+   {
+    "mes": "março",
+    "falhas": 2,
+    "parque": 180
+   },
+   {
+    "mes": "abril",
+    "falhas": 0,
+    "parque": 180
+   },
+   {
+    "mes": "maio",
+    "falhas": 0,
+    "parque": 180
+   },
+   {
+    "mes": "junho",
+    "falhas": 1,
+    "parque": 180
+   },
+   {
+    "mes": "julho",
+    "falhas": 3,
+    "parque": 180
+   },
+   {
+    "mes": "agosto",
+    "falhas": 5,
+    "parque": 180
+   },
+   {
+    "mes": "setembro",
+    "falhas": 3,
+    "parque": 180
+   },
+   {
+    "mes": "outubro",
+    "falhas": 0,
+    "parque": 180
+   },
+   {
+    "mes": "novembro",
+    "falhas": 1,
+    "parque": 180
+   },
+   {
+    "mes": "dezembro",
+    "falhas": 2,
+    "parque": 180
+   }
+  ],
+  "RT|2026": [
+   {
+    "mes": "janeiro",
+    "falhas": 1,
+    "parque": 180
+   },
+   {
+    "mes": "fevereiro",
+    "falhas": 1,
+    "parque": 183
+   },
+   {
+    "mes": "março",
+    "falhas": 1,
+    "parque": 186
+   },
+   {
+    "mes": "abril",
+    "falhas": 2,
+    "parque": 187
+   },
+   {
+    "mes": "maio",
+    "falhas": 1,
+    "parque": 188
+   },
+   {
+    "mes": "junho",
+    "falhas": 1,
+    "parque": 189
+   },
+   {
+    "mes": "julho",
+    "falhas": 1,
+    "parque": 190
+   },
+   {
+    "mes": "agosto",
+    "falhas": 1,
+    "parque": 190
+   },
+   {
+    "mes": "setembro",
+    "falhas": 0,
+    "parque": 190
+   },
+   {
+    "mes": "outubro",
+    "falhas": 0,
+    "parque": 190
+   },
+   {
+    "mes": "novembro",
+    "falhas": 0,
+    "parque": 190
+   },
+   {
+    "mes": "dezembro",
+    "falhas": 0,
+    "parque": 190
+   }
+  ]
+ },
+ "resolvidos": {
+  "contas": {
+   "Resolvido (e não voltou)": 71,
+   "Na fila do posto": 54,
+   "Em outra mesa": 18
+  },
+  "itens": [
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5800291035",
+    "tipo": "regulador",
+    "localidade": "MONTE DO CARMO",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00174/2026",
+    "desde": "11/08/2026",
+    "ano": "2026",
+    "dias": 7,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5800440256",
+    "tipo": "regulador",
+    "localidade": "MATEIROS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00169/2026",
+    "desde": "06/08/2026",
+    "ano": "2026",
+    "dias": 12,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5800961074",
+    "tipo": "regulador",
+    "localidade": "DIANOPOLIS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00221/2025",
+    "desde": "05/12/2025",
+    "ano": "2025",
+    "dias": 256,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5803327001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00149/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 29,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5825703064",
+    "tipo": "regulador",
+    "localidade": "BRASILANDIA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00153/2026",
+    "desde": "21/07/2026",
+    "ano": "2026",
+    "dias": 28,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5836786094",
+    "tipo": "regulador",
+    "localidade": "PEIXE",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00095/2026",
+    "desde": "18/05/2026",
+    "ano": "2026",
+    "dias": 92,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5840227063",
+    "tipo": "regulador",
+    "localidade": "BANDEIRANTES DO TOCANTINS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00151/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 29,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5855411017",
+    "tipo": "regulador",
+    "localidade": "BARROLANDIA",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00156/2026",
+    "desde": "24/07/2026",
+    "ano": "2026",
+    "dias": 25,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5856156091",
+    "tipo": "regulador",
+    "localidade": "ALMAS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00160/2026",
+    "desde": "27/07/2026",
+    "ano": "2026",
+    "dias": 22,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5858783119",
+    "tipo": "regulador",
+    "localidade": "SAO BENTO DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00164/2026",
+    "desde": "31/07/2026",
+    "ano": "2026",
+    "dias": 18,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "5862236091",
+    "tipo": "regulador",
+    "localidade": "ALMAS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00158/2026",
+    "desde": "27/07/2026",
+    "ano": "2026",
+    "dias": 22,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7900453110",
+    "tipo": "religador",
+    "localidade": "SANTA RITA DO TOCANTINS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00087/2026",
+    "desde": "27/04/2026",
+    "ano": "2026",
+    "dias": 113,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7900525015",
+    "tipo": "religador",
+    "localidade": "PEDRO AFONSO",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00125/2026",
+    "desde": "07/07/2026",
+    "ano": "2026",
+    "dias": 42,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7900535058",
+    "tipo": "religador",
+    "localidade": "SANTA FE DO ARAGUAIA",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00173/2025",
+    "desde": "25/08/2025",
+    "ano": "2025",
+    "dias": 358,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7901110084",
+    "tipo": "religador",
+    "localidade": "DIVINOPOLIS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00061/2026",
+    "desde": "31/03/2026",
+    "ano": "2026",
+    "dias": 140,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7903112004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00184/2025",
+    "desde": "03/09/2025",
+    "ano": "2025",
+    "dias": 349,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7903569004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00152/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 29,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7908196047",
+    "tipo": "religador",
+    "localidade": "FIGUEIROPOLIS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00168/2026",
+    "desde": "03/08/2026",
+    "ano": "2026",
+    "dias": 15,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7908249152",
+    "tipo": "religador",
+    "localidade": "SANTA ROSA DO TOCANTINS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00038/2026",
+    "desde": "24/02/2026",
+    "ano": "2026",
+    "dias": 175,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7908302256",
+    "tipo": "religador",
+    "localidade": "MATEIROS",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00175/2026",
+    "desde": "11/08/2026",
+    "ano": "2026",
+    "dias": 7,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7910027196",
+    "tipo": "religador",
+    "localidade": "LAGOA DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00154/2026",
+    "desde": "22/07/2026",
+    "ano": "2026",
+    "dias": 27,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7913662076",
+    "tipo": "religador",
+    "localidade": "DUERE",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00114/2026",
+    "desde": "10/06/2026",
+    "ano": "2026",
+    "dias": 69,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7915029003",
+    "tipo": "religador",
+    "localidade": "GURUPI",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00013/2023 | ETO-COEP 00063/2023",
+    "desde": "27/01/2023",
+    "ano": "2023",
+    "dias": 1299,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7919270014",
+    "tipo": "religador",
+    "localidade": "PIUM",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00159/2026",
+    "desde": "27/07/2026",
+    "ano": "2026",
+    "dias": 22,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7920024127",
+    "tipo": "religador",
+    "localidade": "PALMEIRAS DO TOCANTINS",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00120/2025",
+    "desde": "01/07/2025",
+    "ano": "2025",
+    "dias": 413,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7921202014",
+    "tipo": "religador",
+    "localidade": "PIUM",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00132/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 41,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7923673004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00124/2026",
+    "desde": "07/07/2026",
+    "ano": "2026",
+    "dias": 42,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7923674004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00011/2023",
+    "desde": "25/01/2023",
+    "ano": "2023",
+    "dias": 1301,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7923927122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00148/2026",
+    "desde": "16/07/2026",
+    "ano": "2026",
+    "dias": 33,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7925733015",
+    "tipo": "religador",
+    "localidade": "PEDRO AFONSO",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00058/2026",
+    "desde": "30/03/2026",
+    "ano": "2026",
+    "dias": 141,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7925744087",
+    "tipo": "religador",
+    "localidade": "GOIANORTE",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00059/2026",
+    "desde": "30/03/2026",
+    "ano": "2026",
+    "dias": 141,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7925871077",
+    "tipo": "religador",
+    "localidade": "GOIATINS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00048/2026",
+    "desde": "16/03/2026",
+    "ano": "2026",
+    "dias": 155,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7926089013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00078/2026",
+    "desde": "23/04/2026",
+    "ano": "2026",
+    "dias": 117,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7926442035",
+    "tipo": "religador",
+    "localidade": "MONTE DO CARMO",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00051/2026",
+    "desde": "18/03/2026",
+    "ano": "2026",
+    "dias": 153,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7927396052",
+    "tipo": "religador",
+    "localidade": "FORMOSO DO ARAGUAIA",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00045/2026",
+    "desde": "02/03/2026",
+    "ano": "2026",
+    "dias": 169,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7927413001",
+    "tipo": "religador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00141/2026",
+    "desde": "13/07/2026",
+    "ano": "2026",
+    "dias": 36,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7927446001",
+    "tipo": "religador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00143/2025",
+    "desde": "08/07/2025",
+    "ano": "2025",
+    "dias": 406,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7927646026",
+    "tipo": "religador",
+    "localidade": "PONTE ALTA TOCANTINS",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00029/2026",
+    "desde": "04/02/2026",
+    "ano": "2026",
+    "dias": 195,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7927713200",
+    "tipo": "religador",
+    "localidade": "SAO SALVADOR DO TOCANTINS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00157/2026",
+    "desde": "27/07/2026",
+    "ano": "2026",
+    "dias": 22,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7928241200",
+    "tipo": "religador",
+    "localidade": "SAO SALVADOR DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00128/2026",
+    "desde": "07/07/2026",
+    "ano": "2026",
+    "dias": 42,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7928564039",
+    "tipo": "religador",
+    "localidade": "ARAGUATINS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00123/2026",
+    "desde": "07/07/2026",
+    "ano": "2026",
+    "dias": 42,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7930359149",
+    "tipo": "religador",
+    "localidade": "CASEARA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00138/2026",
+    "desde": "13/07/2026",
+    "ano": "2026",
+    "dias": 36,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7930428001",
+    "tipo": "religador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00150/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 29,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7931608059",
+    "tipo": "religador",
+    "localidade": "TAQUARALTO",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00040/2026",
+    "desde": "24/02/2026",
+    "ano": "2026",
+    "dias": 175,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7933585074",
+    "tipo": "religador",
+    "localidade": "DIANOPOLIS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00024/2026",
+    "desde": "27/01/2026",
+    "ano": "2026",
+    "dias": 203,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7937102148",
+    "tipo": "religador",
+    "localidade": "SAO VALERIO DA NATIVIDADE",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00129/2026",
+    "desde": "07/07/2026",
+    "ano": "2026",
+    "dias": 42,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7938137007",
+    "tipo": "religador",
+    "localidade": "MIRACEMA DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00144/2026",
+    "desde": "15/07/2026",
+    "ano": "2026",
+    "dias": 34,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7942485096",
+    "tipo": "religador",
+    "localidade": "PINDORAMA DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00158/2025",
+    "desde": "23/07/2025",
+    "ano": "2025",
+    "dias": 391,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7944559149",
+    "tipo": "religador",
+    "localidade": "CASEARA",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00063/2026",
+    "desde": "31/03/2026",
+    "ano": "2026",
+    "dias": 140,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7947203070",
+    "tipo": "religador",
+    "localidade": "RIO SONO",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00131/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 41,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7953211079",
+    "tipo": "religador",
+    "localidade": "ITAPIRATINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00147/2026",
+    "desde": "16/07/2026",
+    "ano": "2026",
+    "dias": 33,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7954668084",
+    "tipo": "religador",
+    "localidade": "DIVINOPOLIS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00176/2026",
+    "desde": "11/08/2026",
+    "ano": "2026",
+    "dias": 7,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7955946007",
+    "tipo": "religador",
+    "localidade": "MIRACEMA DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00134/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 41,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Na fila do posto",
+    "ativo": "7955986084",
+    "tipo": "religador",
+    "localidade": "DIVINOPOLIS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00133/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 41,
+    "voltou": true,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "5800371025",
+    "tipo": "regulador",
+    "localidade": "ARAPOEMA",
+    "criticidade": "Alta",
+    "ss": "ETO-TELE 01040/2026",
+    "desde": "30/07/2026",
+    "ano": "2026",
+    "dias": 19,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-TELE",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "5846328094",
+    "tipo": "regulador",
+    "localidade": "PEIXE",
+    "criticidade": "Média",
+    "ss": "ETO-TELE 00986/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 41,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-TELE",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "5854566043",
+    "tipo": "regulador",
+    "localidade": "SILVANOPOLIS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-PROT 00158/2026",
+    "desde": "28/07/2026",
+    "ano": "2026",
+    "dias": 21,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "5856070091",
+    "tipo": "regulador",
+    "localidade": "ALMAS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-RD-DP 00479/2026",
+    "desde": "27/07/2026",
+    "ano": "2026",
+    "dias": 22,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-RD-DP",
+    "etapa": "execução com os COCMs"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "5865120195",
+    "tipo": "regulador",
+    "localidade": "CENTENARIO",
+    "criticidade": "Alta",
+    "ss": "ETO-SE-PCM 00091/2026",
+    "desde": "17/08/2026",
+    "ano": "2026",
+    "dias": 1,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-SE-PCM",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7900117013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-PROT 00154/2026",
+    "desde": "21/07/2026",
+    "ano": "2026",
+    "dias": 28,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7900230155",
+    "tipo": "religador",
+    "localidade": "PALMEIRANTE",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-SE-PCM 00090/2026",
+    "desde": "17/08/2026",
+    "ano": "2026",
+    "dias": 1,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-SE-PCM",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7900573047",
+    "tipo": "religador",
+    "localidade": "FIGUEIROPOLIS",
+    "criticidade": "Alta",
+    "ss": "ETO-PROT 00153/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 29,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7900594026",
+    "tipo": "religador",
+    "localidade": "PONTE ALTA TOCANTINS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-SE-PA 00107/2026",
+    "desde": "16/07/2026",
+    "ano": "2026",
+    "dias": 33,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-SE-PA",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7905357122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-PA 00352/2026",
+    "desde": "22/05/2026",
+    "ano": "2026",
+    "dias": 88,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-RD-PA",
+    "etapa": "execução com os COCMs"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7908686014",
+    "tipo": "religador",
+    "localidade": "PIUM",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-PROT 00159/2026",
+    "desde": "28/07/2026",
+    "ano": "2026",
+    "dias": 21,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7908705049",
+    "tipo": "religador",
+    "localidade": "AURORA DO TOCANTINS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-RD-DP 00409/2026",
+    "desde": "06/07/2026",
+    "ano": "2026",
+    "dias": 43,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-RD-DP",
+    "etapa": "execução com os COCMs"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7925087021",
+    "tipo": "religador",
+    "localidade": "PARANA",
+    "criticidade": "Alta",
+    "ss": "ETO-PROT 00152/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 29,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7927169001",
+    "tipo": "religador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Alta",
+    "ss": "ETO-PROT 00156/2026",
+    "desde": "21/07/2026",
+    "ano": "2026",
+    "dias": 28,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7929376022",
+    "tipo": "religador",
+    "localidade": "BABACULANDIA",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 01107/2026",
+    "desde": "13/08/2026",
+    "ano": "2026",
+    "dias": 5,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-TELE",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7933726256",
+    "tipo": "religador",
+    "localidade": "MATEIROS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-SE-PCM 00092/2026",
+    "desde": "17/08/2026",
+    "ano": "2026",
+    "dias": 1,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-SE-PCM",
+    "etapa": "comissionamento — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7942572059",
+    "tipo": "religador",
+    "localidade": "TAQUARALTO",
+    "criticidade": "Média",
+    "ss": "ETO-PROT 00155/2026",
+    "desde": "21/07/2026",
+    "ano": "2026",
+    "dias": 28,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Em outra mesa",
+    "ativo": "7953610256",
+    "tipo": "religador",
+    "localidade": "MATEIROS",
+    "criticidade": "Alta",
+    "ss": "ETO-PROT 00157/2026",
+    "desde": "28/07/2026",
+    "ano": "2026",
+    "dias": 21,
+    "voltou": false,
+    "como_terminou": "",
+    "posto_que_fechou": "",
+    "realizado_dcmd": false,
+    "onde_esta": "ETO-PROT",
+    "etapa": "ajuste de proteção — parte do COEP concluída"
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5800090147",
+    "tipo": "regulador",
+    "localidade": "TAIPAS DO TOCANTINS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00117/2026",
+    "desde": "13/07/2026",
+    "ano": "2026",
+    "dias": 102,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5800291077",
+    "tipo": "regulador",
+    "localidade": "GOIATINS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 00413/2026",
+    "desde": "31/03/2026",
+    "ano": "2026",
+    "dias": 49,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5800366016",
+    "tipo": "regulador",
+    "localidade": "WANDERLANDIA",
+    "criticidade": "Alta",
+    "ss": "ETO-TELE 00804/2026",
+    "desde": "06/05/2026",
+    "ano": "2026",
+    "dias": 235,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5800438116",
+    "tipo": "regulador",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "criticidade": "Média",
+    "ss": "ETO-TELE 01039/2026",
+    "desde": "13/08/2026",
+    "ano": "2026",
+    "dias": 390,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5800859011",
+    "tipo": "regulador",
+    "localidade": "TUPIRAMA",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 01037/2026",
+    "desde": "13/08/2026",
+    "ano": "2026",
+    "dias": 77,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5801866013",
+    "tipo": "regulador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "criticidade": "Alta",
+    "ss": "ETO-RD-PS 00303/2026",
+    "desde": "14/07/2026",
+    "ano": "2026",
+    "dias": 133,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-PS",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5820044123",
+    "tipo": "regulador",
+    "localidade": "AGUIARNOPOLIS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00202/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 270,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5827102054",
+    "tipo": "regulador",
+    "localidade": "PUGMIL",
+    "criticidade": "Média",
+    "ss": "ETO-RD-PS 00289/2026",
+    "desde": "28/07/2026",
+    "ano": "2026",
+    "dias": 334,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-PS",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5833723026",
+    "tipo": "regulador",
+    "localidade": "PONTE ALTA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00126/2024",
+    "desde": "22/05/2026",
+    "ano": "2026",
+    "dias": 617,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5835587001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00198/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 293,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5836764032",
+    "tipo": "regulador",
+    "localidade": "ARAGUACU",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 00807/2026",
+    "desde": "20/05/2026",
+    "ano": "2026",
+    "dias": 302,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5841308190",
+    "tipo": "regulador",
+    "localidade": "NOVO JARDIM",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00197/2025",
+    "desde": "18/03/2026",
+    "ano": "2026",
+    "dias": 242,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5844630060",
+    "tipo": "regulador",
+    "localidade": "NOVA OLINDA",
+    "criticidade": "Baixa",
+    "ss": "ETO-RD-AR 01131/2026",
+    "desde": "24/07/2026",
+    "ano": "2026",
+    "dias": 351,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-AR",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5850308009",
+    "tipo": "regulador",
+    "localidade": "GUARAI",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00127/2026",
+    "desde": "13/07/2026",
+    "ano": "2026",
+    "dias": 332,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5851753086",
+    "tipo": "regulador",
+    "localidade": "MARIANOPOLIS",
+    "criticidade": "Média",
+    "ss": "ETO-RD-PS 00261/2026",
+    "desde": "25/06/2026",
+    "ano": "2026",
+    "dias": 56,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-RD-PS",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5852775092",
+    "tipo": "regulador",
+    "localidade": "NOVO ACORDO",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00109/2026",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 756,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5854681071",
+    "tipo": "regulador",
+    "localidade": "BREJINHO DE NAZARE",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00025/2026",
+    "desde": "29/06/2026",
+    "ano": "2026",
+    "dias": 585,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5855606027",
+    "tipo": "regulador",
+    "localidade": "PONTE ALTA DO BOM JESUS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00106/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 455,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5855643052",
+    "tipo": "regulador",
+    "localidade": "FORMOSO DO ARAGUAIA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00182/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 315,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5855776094",
+    "tipo": "regulador",
+    "localidade": "PEIXE",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00101/2025",
+    "desde": "29/06/2026",
+    "ano": "2026",
+    "dias": 399,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5856825025",
+    "tipo": "regulador",
+    "localidade": "ARAPOEMA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00112/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 462,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5860500009",
+    "tipo": "regulador",
+    "localidade": "GUARAI",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00176/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 348,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5862464001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Falta definir",
+    "ss": "ETO-PROT 00094/2026",
+    "desde": "19/05/2026",
+    "ano": "2026",
+    "dias": 207,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-PROT",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5862546023",
+    "tipo": "regulador",
+    "localidade": "COLINAS DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00217/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 238,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5863381155",
+    "tipo": "regulador",
+    "localidade": "PALMEIRANTE",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00170/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 362,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "5863887001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "criticidade": "Falta definir",
+    "ss": "ETO-TELE 00215/2026",
+    "desde": "11/03/2026",
+    "ano": "2026",
+    "dias": 112,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900001227",
+    "tipo": "religador",
+    "localidade": "RECURSOLANDIA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00100/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 498,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900018004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Alta",
+    "ss": "ETO-TELE 00872/2026",
+    "desde": "23/06/2026",
+    "ano": "2026",
+    "dias": 305,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900236054",
+    "tipo": "religador",
+    "localidade": "PUGMIL",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-PS 00114/2025",
+    "desde": "07/01/2026",
+    "ano": "2026",
+    "dias": 1096,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-RD-PS",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900275024",
+    "tipo": "religador",
+    "localidade": "ITAPORA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00114/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 372,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900505026",
+    "tipo": "religador",
+    "localidade": "PONTE ALTA TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-PROT 00136/2026",
+    "desde": "14/07/2026",
+    "ano": "2026",
+    "dias": 138,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-PROT",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900532053",
+    "tipo": "religador",
+    "localidade": "PIRAQUE",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00102/2025",
+    "desde": "13/07/2026",
+    "ano": "2026",
+    "dias": 413,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900790075",
+    "tipo": "religador",
+    "localidade": "DOIS IRMAOS DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-PS 00112/2025",
+    "desde": "07/01/2026",
+    "ano": "2026",
+    "dias": 315,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-RD-PS",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7900930040",
+    "tipo": "religador",
+    "localidade": "ARAGOMINAS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-RD-AR 00764/2026",
+    "desde": "30/04/2026",
+    "ano": "2026",
+    "dias": 253,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-RD-AR",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7901151022",
+    "tipo": "religador",
+    "localidade": "BABACULANDIA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-AR 01243/2026",
+    "desde": "12/08/2026",
+    "ano": "2026",
+    "dias": 11,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-AR",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7901216032",
+    "tipo": "religador",
+    "localidade": "ARAGUACU",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00115/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 372,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7902314013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00152/2025",
+    "desde": "19/06/2026",
+    "ano": "2026",
+    "dias": 483,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7908206074",
+    "tipo": "religador",
+    "localidade": "DIANOPOLIS",
+    "criticidade": "Baixa",
+    "ss": "ETO-COEP 00063/2025",
+    "desde": "29/06/2026",
+    "ano": "2026",
+    "dias": 439,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7908708116",
+    "tipo": "religador",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "criticidade": "Baixa",
+    "ss": "ETO-TELE 00959/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 166,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7913667006",
+    "tipo": "religador",
+    "localidade": "TOCANTINIA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-PA 00331/2025",
+    "desde": "22/01/2026",
+    "ano": "2026",
+    "dias": 741,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-RD-PA",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7921040031",
+    "tipo": "religador",
+    "localidade": "RIO DOS BOIS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 00324/2026",
+    "desde": "12/02/2026",
+    "ano": "2026",
+    "dias": 49,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7922995039",
+    "tipo": "religador",
+    "localidade": "ARAGUATINS",
+    "criticidade": "Média",
+    "ss": "ETO-PROT 00135/2026",
+    "desde": "17/08/2026",
+    "ano": "2026",
+    "dias": 444,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-PROT",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7925573007",
+    "tipo": "religador",
+    "localidade": "MIRACEMA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00119/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 608,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7925704079",
+    "tipo": "religador",
+    "localidade": "ITAPIRATINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00189/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 340,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7925737080",
+    "tipo": "religador",
+    "localidade": "DARCINOPOLIS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-AR 00838/2026",
+    "desde": "13/05/2026",
+    "ano": "2026",
+    "dias": 49,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-AR",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7931219078",
+    "tipo": "religador",
+    "localidade": "ITACAJA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-PO 00180/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 380,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-RD-PO",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7931383086",
+    "tipo": "religador",
+    "localidade": "MARIANOPOLIS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-PROT 00074/2026",
+    "desde": "08/04/2026",
+    "ano": "2026",
+    "dias": 337,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-PROT",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7931610122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 01025/2026",
+    "desde": "04/08/2026",
+    "ano": "2026",
+    "dias": 298,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7933766059",
+    "tipo": "religador",
+    "localidade": "TAQUARALTO",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 01024/2026",
+    "desde": "03/08/2026",
+    "ano": "2026",
+    "dias": 298,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7934698002",
+    "tipo": "religador",
+    "localidade": "TOCANTINOPOLIS",
+    "criticidade": "Alta",
+    "ss": "ETO-COEP 00094/2025",
+    "desde": "30/05/2026",
+    "ano": "2026",
+    "dias": 389,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7936038076",
+    "tipo": "religador",
+    "localidade": "DUERE",
+    "criticidade": "Alta",
+    "ss": "ETO-TELE 00962/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 127,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7936753097",
+    "tipo": "religador",
+    "localidade": "TALISMA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00162/2024",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 575,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7943790134",
+    "tipo": "religador",
+    "localidade": "ESPERANTINA",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-COEP 00181/2025",
+    "desde": "06/06/2026",
+    "ano": "2026",
+    "dias": 373,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7944319149",
+    "tipo": "religador",
+    "localidade": "CASEARA",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00201/2025",
+    "desde": "22/06/2026",
+    "ano": "2026",
+    "dias": 325,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7949660066",
+    "tipo": "religador",
+    "localidade": "TUPIRATINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00099/2025",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 454,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7950310122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00137/2026",
+    "desde": "14/07/2026",
+    "ano": "2026",
+    "dias": 1,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7955175004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00125/2024",
+    "desde": "21/05/2026",
+    "ano": "2026",
+    "dias": 617,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7955430075",
+    "tipo": "religador",
+    "localidade": "DOIS IRMAOS DO TOCANTINS",
+    "criticidade": "Baixa",
+    "ss": "ETO-TELE 00964/2026",
+    "desde": "31/03/2026",
+    "ano": "2026",
+    "dias": 223,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7955520116",
+    "tipo": "religador",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "criticidade": "Alta",
+    "ss": "ETO-TELE 00961/2026",
+    "desde": "08/07/2026",
+    "ano": "2026",
+    "dias": 361,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": false,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7955825037",
+    "tipo": "religador",
+    "localidade": "ALIANCA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00152/2024",
+    "desde": "14/05/2026",
+    "ano": "2026",
+    "dias": 552,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7956063152",
+    "tipo": "religador",
+    "localidade": "SANTA ROSA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00091/2025",
+    "desde": "19/05/2026",
+    "ano": "2026",
+    "dias": 617,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7956117005",
+    "tipo": "religador",
+    "localidade": "ARRAIAS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00157/2024",
+    "desde": "22/05/2026",
+    "ano": "2026",
+    "dias": 557,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7957126085",
+    "tipo": "religador",
+    "localidade": "MONTE SANTO DO TOCANTINS",
+    "criticidade": "Média",
+    "ss": "ETO-COEP 00145/2026",
+    "desde": "20/07/2026",
+    "ano": "2026",
+    "dias": 409,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7957163122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-TELE 00362/2026",
+    "desde": "22/06/2026",
+    "ano": "2026",
+    "dias": 648,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7957620015",
+    "tipo": "religador",
+    "localidade": "PEDRO AFONSO",
+    "criticidade": "Muito Alta",
+    "ss": "ETO-TELE 00879/2026",
+    "desde": "12/06/2026",
+    "ano": "2026",
+    "dias": 399,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7959990070",
+    "tipo": "religador",
+    "localidade": "RIO SONO",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00170/2024",
+    "desde": "22/05/2026",
+    "ano": "2026",
+    "dias": 598,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7962635060",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-TELE 00936/2026",
+    "desde": "29/06/2026",
+    "ano": "2026",
+    "dias": 189,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7963661046",
+    "tipo": "religador",
+    "localidade": "NOVA ROSALANDIA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-COEP 00049/2026",
+    "desde": "30/06/2026",
+    "ano": "2026",
+    "dias": 151,
+    "voltou": false,
+    "como_terminou": "SS CANCELADA",
+    "posto_que_fechou": "ETO-COEP",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7965032004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "criticidade": "Falta definir",
+    "ss": "ETO-RD-AR 00444/2026",
+    "desde": "10/03/2026",
+    "ano": "2026",
+    "dias": 61,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-AR",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7965164065",
+    "tipo": "religador",
+    "localidade": "AXIXA DO TOCANTINS",
+    "criticidade": "Falta definir",
+    "ss": "ETO-TELE 00181/2026",
+    "desde": "21/01/2026",
+    "ano": "2026",
+    "dias": 75,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-TELE",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   },
+   {
+    "situacao": "Resolvido",
+    "ativo": "7967181127",
+    "tipo": "religador",
+    "localidade": "PALMEIRAS DO TOCANTINS",
+    "criticidade": "Média",
+    "ss": "ETO-RD-AG 00670/2026",
+    "desde": "01/07/2026",
+    "ano": "2026",
+    "dias": 159,
+    "voltou": false,
+    "como_terminou": "SS ATENDIDA",
+    "posto_que_fechou": "ETO-RD-AG",
+    "realizado_dcmd": true,
+    "onde_esta": "",
+    "etapa": ""
+   }
+  ],
+  "por_situacao": {
+   "Na fila do posto": 54,
+   "Em outra mesa": 18,
+   "Resolvido": 71
+  },
+  "por_tipo": {
+   "regulador": 42,
+   "religador": 101
+  }
+ }
+}

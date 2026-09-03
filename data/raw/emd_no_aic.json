@@ -1,0 +1,1829 @@
+{
+  "gerado_em": "2026-08-13",
+  "fonte": "OBRAS_EQ_ESPECIAL.xlsx (planilha de EMD) × AIC de 07/08/2026, casando pelo número da obra",
+  "total": 36,
+  "no_aic": 31,
+  "realizado": 732771.0,
+  "orcado": 2225180.0,
+  "etapas": [
+    {
+      "etapa": "1 · Projeto em andamento",
+      "obras": 1,
+      "realizado": 0.0,
+      "orcado": 0.0,
+      "ativos": [
+        "7900594026"
+      ]
+    },
+    {
+      "etapa": "2 · Tomada de preço",
+      "obras": 1,
+      "realizado": 0.0,
+      "orcado": 35203.0,
+      "ativos": [
+        "7955520116"
+      ]
+    },
+    {
+      "etapa": "3 · Abertura contábil — nada executado",
+      "obras": 9,
+      "realizado": 0.0,
+      "orcado": 974819.0,
+      "ativos": [
+        "5856070091",
+        "5800438116",
+        "5836786094",
+        "7908705049",
+        "7929376022",
+        "7938137007",
+        "7957126085",
+        "7925087021",
+        "7900453110"
+      ]
+    },
+    {
+      "etapa": "4 · Início físico — obra andando",
+      "obras": 2,
+      "realizado": 60599.0,
+      "orcado": 97713.0,
+      "ativos": [
+        "5800371025",
+        "7933766059"
+      ]
+    },
+    {
+      "etapa": "5 · Conclusão física",
+      "obras": 2,
+      "realizado": 44406.0,
+      "orcado": 52512.0,
+      "ativos": [
+        "7900573047",
+        "7908686014"
+      ]
+    },
+    {
+      "etapa": "6 · Fiscalização aprovada",
+      "obras": 9,
+      "realizado": 461872.0,
+      "orcado": 435154.0,
+      "ativos": [
+        "5844630060",
+        "5801866013",
+        "5854566043",
+        "5800859011",
+        "7933726256",
+        "7931610122",
+        "7927169001",
+        "7900117013",
+        "7957620015"
+      ]
+    },
+    {
+      "etapa": "7 · Encerramento técnico",
+      "obras": 3,
+      "realizado": 165894.0,
+      "orcado": 138073.0,
+      "ativos": [
+        "7900018004",
+        "7943790134",
+        "7934698002"
+      ]
+    },
+    {
+      "etapa": "Indeferida",
+      "obras": 4,
+      "realizado": 0.0,
+      "orcado": 491706.0,
+      "ativos": [
+        "5855411017",
+        "5850308009",
+        "5827102054",
+        "5858783119"
+      ]
+    },
+    {
+      "etapa": "Sem obra no AIC",
+      "obras": 5,
+      "realizado": 0.0,
+      "orcado": 0.0,
+      "ativos": [
+        "5803327001",
+        "5853360007",
+        "7903112004",
+        "7953610256",
+        "7900230155"
+      ]
+    }
+  ],
+  "linhas": [
+    {
+      "ativo": "7900594026",
+      "local": "PONTE ALTA DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0312600354",
+      "sigco": "",
+      "esperado": "8495",
+      "sigco_ok": false,
+      "etapa": "1 · Projeto em andamento",
+      "ordem": 0,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7955520116",
+      "local": "CHAPADA DA NATIVIDADE",
+      "tipo": "Religador",
+      "obra": "0512600178",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "2 · Tomada de preço",
+      "ordem": 1,
+      "real": 0.0,
+      "orc": 35203.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5856070091",
+      "local": "ALMAS",
+      "tipo": "Regulador",
+      "obra": "0512600177",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 397619.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5800438116",
+      "local": "CHAPADA DA NATIVIDADE",
+      "tipo": "Regulador",
+      "obra": "0512600179",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 252311.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5836786094",
+      "local": "PEIXES",
+      "tipo": "Regulador",
+      "obra": "0412600550",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 75818.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7908705049",
+      "local": "AURORA DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0512600135",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 50740.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7929376022",
+      "local": "BABACULANDIA",
+      "tipo": "Religador",
+      "obra": "0612600565",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 35525.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7938137007",
+      "local": "MIRACEMA DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0212600423",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 44523.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7957126085",
+      "local": "MONTE SANTO DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0212600428",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 33467.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7925087021",
+      "local": "PARANA",
+      "tipo": "Religador",
+      "obra": "0412600392",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 51155.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7900453110",
+      "local": "SANTA RITA DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0312600264",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "3 · Abertura contábil — nada executado",
+      "ordem": 2,
+      "real": 0.0,
+      "orc": 33661.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5800371025",
+      "local": "COLINAS DO TOCANTINS",
+      "tipo": "Regulador",
+      "obra": "0712600318",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "4 · Início físico — obra andando",
+      "ordem": 3,
+      "real": 38813.0,
+      "orc": 34575.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7933766059",
+      "local": "TAQUARALTO",
+      "tipo": "Religador",
+      "obra": "0112600424",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "4 · Início físico — obra andando",
+      "ordem": 3,
+      "real": 21786.0,
+      "orc": 63138.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7900573047",
+      "local": "FIGUEIROPOLIS",
+      "tipo": "Religador",
+      "obra": "0412600391",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "5 · Conclusão física",
+      "ordem": 4,
+      "real": 0.0,
+      "orc": 19045.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7908686014",
+      "local": "PIUM",
+      "tipo": "Religador",
+      "obra": "0212600425",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "5 · Conclusão física",
+      "ordem": 4,
+      "real": 44406.0,
+      "orc": 33467.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5844630060",
+      "local": "NOVA OLINDA",
+      "tipo": "Regulador",
+      "obra": "0612600626",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 61098.0,
+      "orc": 62083.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5801866013",
+      "local": "PARAISO DO TOCANTINS",
+      "tipo": "Regulador",
+      "obra": "0212600539",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 27676.0,
+      "orc": 58978.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5854566043",
+      "local": "SILVANOPOLIS",
+      "tipo": "Regulador",
+      "obra": "0312600352",
+      "sigco": "8495",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 105094.0,
+      "orc": 131876.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5800859011",
+      "local": "TUPIRAMA",
+      "tipo": "Regulador",
+      "obra": "0712600419",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 0.0,
+      "orc": 26907.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7933726256",
+      "local": "MATEIROS",
+      "tipo": "Religador",
+      "obra": "0312600351",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 63722.0,
+      "orc": 34384.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7931610122",
+      "local": "PALMAS",
+      "tipo": "Religador",
+      "obra": "0112600383",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 28141.0,
+      "orc": 16619.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7927169001",
+      "local": "PALMAS",
+      "tipo": "Religador",
+      "obra": "0112600425",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 61579.0,
+      "orc": 18873.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7900117013",
+      "local": "PARAISO DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0212600422",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 56476.0,
+      "orc": 33561.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7957620015",
+      "local": "PEDRO AFONSO",
+      "tipo": "Religador",
+      "obra": "0712600316",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 58086.0,
+      "orc": 51873.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7900018004",
+      "local": "ARAGUAINA",
+      "tipo": "Religador",
+      "obra": "0612600439",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "7 · Encerramento técnico",
+      "ordem": 6,
+      "real": 81697.0,
+      "orc": 66775.0,
+      "enc": "2026-06-26"
+    },
+    {
+      "ativo": "7943790134",
+      "local": "ESPERANTINA",
+      "tipo": "Religador",
+      "obra": "0662600266",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "7 · Encerramento técnico",
+      "ordem": 6,
+      "real": 40428.0,
+      "orc": 35773.0,
+      "enc": "2026-06-30"
+    },
+    {
+      "ativo": "7934698002",
+      "local": "TOCANTINOPOLIS",
+      "tipo": "Religador",
+      "obra": "0662600265",
+      "sigco": "8495",
+      "esperado": "8495",
+      "sigco_ok": true,
+      "etapa": "7 · Encerramento técnico",
+      "ordem": 6,
+      "real": 43769.0,
+      "orc": 35525.0,
+      "enc": "2026-06-29"
+    },
+    {
+      "ativo": "5855411017",
+      "local": "BARROLANDIA",
+      "tipo": "Regulador",
+      "obra": "0212600536",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 26717.0,
+      "enc": "2026-08-06"
+    },
+    {
+      "ativo": "5850308009",
+      "local": "GUARAI",
+      "tipo": "Regulador",
+      "obra": "0712600418",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 26777.0,
+      "enc": "2026-07-30"
+    },
+    {
+      "ativo": "5827102054",
+      "local": "PUGMIL",
+      "tipo": "Regulador",
+      "obra": "0212600537",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 26717.0,
+      "enc": "2026-07-28"
+    },
+    {
+      "ativo": "5858783119",
+      "local": "SAO BENTO DO TOCANTINS",
+      "tipo": "Regulador",
+      "obra": "0662600361",
+      "sigco": "8481",
+      "esperado": "8481",
+      "sigco_ok": true,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 411495.0,
+      "enc": "2026-06-30"
+    },
+    {
+      "ativo": "5803327001",
+      "local": "LUZIMANGUES",
+      "tipo": "Regulador",
+      "obra": "—",
+      "sigco": "",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Sem obra no AIC",
+      "ordem": 9,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5853360007",
+      "local": "MIRACEMA DO TOCANTINS",
+      "tipo": "Regulador",
+      "obra": "—",
+      "sigco": "",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Sem obra no AIC",
+      "ordem": 9,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7903112004",
+      "local": "ARAGUAINA",
+      "tipo": "Religador",
+      "obra": "—",
+      "sigco": "",
+      "esperado": "8495",
+      "sigco_ok": false,
+      "etapa": "Sem obra no AIC",
+      "ordem": 9,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7953610256",
+      "local": "MATEIROS",
+      "tipo": "Religador",
+      "obra": "—",
+      "sigco": "",
+      "esperado": "8495",
+      "sigco_ok": false,
+      "etapa": "Sem obra no AIC",
+      "ordem": 9,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    },
+    {
+      "ativo": "7900230155",
+      "local": "PALMEIRANTE",
+      "tipo": "Religador",
+      "obra": "SEM OBRA",
+      "sigco": "",
+      "esperado": "8495",
+      "sigco_ok": false,
+      "etapa": "Sem obra no AIC",
+      "ordem": 9,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    }
+  ],
+  "sigco_errado": [
+    {
+      "ativo": "7900594026",
+      "local": "PONTE ALTA DO TOCANTINS",
+      "tipo": "Religador",
+      "obra": "0312600354",
+      "sigco": "",
+      "esperado": "8495",
+      "sigco_ok": false,
+      "etapa": "1 · Projeto em andamento",
+      "ordem": 0,
+      "real": 0.0,
+      "orc": 0.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5801866013",
+      "local": "PARAISO DO TOCANTINS",
+      "tipo": "Regulador",
+      "obra": "0212600539",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 27676.0,
+      "orc": 58978.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5854566043",
+      "local": "SILVANOPOLIS",
+      "tipo": "Regulador",
+      "obra": "0312600352",
+      "sigco": "8495",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "6 · Fiscalização aprovada",
+      "ordem": 5,
+      "real": 105094.0,
+      "orc": 131876.0,
+      "enc": ""
+    },
+    {
+      "ativo": "5855411017",
+      "local": "BARROLANDIA",
+      "tipo": "Regulador",
+      "obra": "0212600536",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 26717.0,
+      "enc": "2026-08-06"
+    },
+    {
+      "ativo": "5850308009",
+      "local": "GUARAI",
+      "tipo": "Regulador",
+      "obra": "0712600418",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 26777.0,
+      "enc": "2026-07-30"
+    },
+    {
+      "ativo": "5827102054",
+      "local": "PUGMIL",
+      "tipo": "Regulador",
+      "obra": "0212600537",
+      "sigco": "8389",
+      "esperado": "8481",
+      "sigco_ok": false,
+      "etapa": "Indeferida",
+      "ordem": 8,
+      "real": 0.0,
+      "orc": 26717.0,
+      "enc": "2026-07-28"
+    }
+  ],
+  "sigco_errado_realizado": 132770.0,
+  "regra_sigco": "Religador vai no SIGCO 8495; regulador de tensão, no 8481.",
+  "consumo_por_mes": {
+    "8481": {
+      "rotulo": "Regulador",
+      "por_mes": [
+        {
+          "mes": "2019-04",
+          "obras": 4,
+          "realizado": 172780.0,
+          "mo": 18832.0,
+          "mt": 153948.0,
+          "orcado": 218814.0,
+          "acumulado": 172780.0
+        },
+        {
+          "mes": "2019-06",
+          "obras": 1,
+          "realizado": 36499.0,
+          "mo": 4788.0,
+          "mt": 31711.0,
+          "orcado": 49763.0,
+          "acumulado": 209279.0
+        },
+        {
+          "mes": "2019-08",
+          "obras": 1,
+          "realizado": 35016.0,
+          "mo": 3944.0,
+          "mt": 31072.0,
+          "orcado": 43078.0,
+          "acumulado": 244295.0
+        },
+        {
+          "mes": "2019-09",
+          "obras": 3,
+          "realizado": 152595.0,
+          "mo": 8596.0,
+          "mt": 143999.0,
+          "orcado": 183099.0,
+          "acumulado": 396890.0
+        },
+        {
+          "mes": "2019-10",
+          "obras": 1,
+          "realizado": 83893.0,
+          "mo": 5068.0,
+          "mt": 78825.0,
+          "orcado": 92415.0,
+          "acumulado": 480783.0
+        },
+        {
+          "mes": "2019-11",
+          "obras": 1,
+          "realizado": 34617.0,
+          "mo": 2907.0,
+          "mt": 31711.0,
+          "orcado": 47481.0,
+          "acumulado": 515400.0
+        },
+        {
+          "mes": "2019-12",
+          "obras": 3,
+          "realizado": 162622.0,
+          "mo": 17178.0,
+          "mt": 145445.0,
+          "orcado": 160431.0,
+          "acumulado": 678022.0
+        },
+        {
+          "mes": "2020-02",
+          "obras": 1,
+          "realizado": 68058.0,
+          "mo": 4623.0,
+          "mt": 63435.0,
+          "orcado": 93519.0,
+          "acumulado": 746080.0
+        },
+        {
+          "mes": "2020-03",
+          "obras": 1,
+          "realizado": 70808.0,
+          "mo": 5803.0,
+          "mt": 65006.0,
+          "orcado": 96195.0,
+          "acumulado": 816888.0
+        },
+        {
+          "mes": "2020-04",
+          "obras": 1,
+          "realizado": 6721.0,
+          "mo": 5417.0,
+          "mt": 1303.0,
+          "orcado": 9080.0,
+          "acumulado": 823609.0
+        },
+        {
+          "mes": "2020-06",
+          "obras": 1,
+          "realizado": 946.0,
+          "mo": 618.0,
+          "mt": 328.0,
+          "orcado": 31307.0,
+          "acumulado": 824555.0
+        },
+        {
+          "mes": "2020-07",
+          "obras": 1,
+          "realizado": 43077.0,
+          "mo": 10061.0,
+          "mt": 33016.0,
+          "orcado": 59437.0,
+          "acumulado": 867632.0
+        },
+        {
+          "mes": "2020-08",
+          "obras": 1,
+          "realizado": 39282.0,
+          "mo": 6422.0,
+          "mt": 32860.0,
+          "orcado": 51044.0,
+          "acumulado": 906914.0
+        },
+        {
+          "mes": "2020-09",
+          "obras": 1,
+          "realizado": 60615.0,
+          "mo": 4874.0,
+          "mt": 55741.0,
+          "orcado": 77221.0,
+          "acumulado": 967529.0
+        },
+        {
+          "mes": "2020-10",
+          "obras": 1,
+          "realizado": 35352.0,
+          "mo": 3637.0,
+          "mt": 31714.0,
+          "orcado": 46393.0,
+          "acumulado": 1002881.0
+        },
+        {
+          "mes": "2020-11",
+          "obras": 1,
+          "realizado": 31565.0,
+          "mo": 0.0,
+          "mt": 31565.0,
+          "orcado": 18645.0,
+          "acumulado": 1034446.0
+        },
+        {
+          "mes": "2021-05",
+          "obras": 2,
+          "realizado": 266990.0,
+          "mo": 13256.0,
+          "mt": 253733.0,
+          "orcado": 260539.0,
+          "acumulado": 1301436.0
+        },
+        {
+          "mes": "2021-06",
+          "obras": 2,
+          "realizado": 179858.0,
+          "mo": 19825.0,
+          "mt": 159694.0,
+          "orcado": 117348.0,
+          "acumulado": 1481294.0
+        },
+        {
+          "mes": "2021-08",
+          "obras": 3,
+          "realizado": 265770.0,
+          "mo": 53518.0,
+          "mt": 212251.0,
+          "orcado": 149127.0,
+          "acumulado": 1747064.0
+        },
+        {
+          "mes": "2021-09",
+          "obras": 1,
+          "realizado": 30709.0,
+          "mo": 0.0,
+          "mt": 30709.0,
+          "orcado": 35655.0,
+          "acumulado": 1777773.0
+        },
+        {
+          "mes": "2021-10",
+          "obras": 2,
+          "realizado": 319239.0,
+          "mo": 33237.0,
+          "mt": 286001.0,
+          "orcado": 320509.0,
+          "acumulado": 2097012.0
+        },
+        {
+          "mes": "2021-11",
+          "obras": 1,
+          "realizado": 89540.0,
+          "mo": 6372.0,
+          "mt": 83167.0,
+          "orcado": 88496.0,
+          "acumulado": 2186552.0
+        },
+        {
+          "mes": "2022-08",
+          "obras": 3,
+          "realizado": 132249.0,
+          "mo": 22434.0,
+          "mt": 109814.0,
+          "orcado": 107055.0,
+          "acumulado": 2318801.0
+        },
+        {
+          "mes": "2022-09",
+          "obras": 3,
+          "realizado": 108295.0,
+          "mo": 7836.0,
+          "mt": 100460.0,
+          "orcado": 113962.0,
+          "acumulado": 2427096.0
+        },
+        {
+          "mes": "2022-11",
+          "obras": 2,
+          "realizado": 299873.0,
+          "mo": 26375.0,
+          "mt": 273500.0,
+          "orcado": 212733.0,
+          "acumulado": 2726969.0
+        },
+        {
+          "mes": "2022-12",
+          "obras": 4,
+          "realizado": 180464.0,
+          "mo": 29549.0,
+          "mt": 150915.0,
+          "orcado": 154867.0,
+          "acumulado": 2907433.0
+        },
+        {
+          "mes": "2023-02",
+          "obras": 2,
+          "realizado": 79130.0,
+          "mo": 7078.0,
+          "mt": 71962.0,
+          "orcado": 94766.0,
+          "acumulado": 2986563.0
+        },
+        {
+          "mes": "2023-05",
+          "obras": 2,
+          "realizado": 139329.0,
+          "mo": 6839.0,
+          "mt": 132490.0,
+          "orcado": 159811.0,
+          "acumulado": 3125892.0
+        },
+        {
+          "mes": "2023-06",
+          "obras": 3,
+          "realizado": 99340.0,
+          "mo": 11461.0,
+          "mt": 87279.0,
+          "orcado": 94656.0,
+          "acumulado": 3225232.0
+        },
+        {
+          "mes": "2023-07",
+          "obras": 2,
+          "realizado": 60637.0,
+          "mo": 5852.0,
+          "mt": 54785.0,
+          "orcado": 77340.0,
+          "acumulado": 3285869.0
+        },
+        {
+          "mes": "2023-08",
+          "obras": 1,
+          "realizado": 196414.0,
+          "mo": 16890.0,
+          "mt": 179524.0,
+          "orcado": 238418.0,
+          "acumulado": 3482283.0
+        },
+        {
+          "mes": "2023-10",
+          "obras": 1,
+          "realizado": 12129.0,
+          "mo": 4100.0,
+          "mt": 8029.0,
+          "orcado": 5206.0,
+          "acumulado": 3494412.0
+        },
+        {
+          "mes": "2023-12",
+          "obras": 6,
+          "realizado": 500806.0,
+          "mo": 58344.0,
+          "mt": 442461.0,
+          "orcado": 491790.0,
+          "acumulado": 3995218.0
+        },
+        {
+          "mes": "2024-02",
+          "obras": 5,
+          "realizado": 370941.0,
+          "mo": 54050.0,
+          "mt": 316890.0,
+          "orcado": 398830.0,
+          "acumulado": 4366159.0
+        },
+        {
+          "mes": "2024-03",
+          "obras": 4,
+          "realizado": 331125.0,
+          "mo": 24161.0,
+          "mt": 306964.0,
+          "orcado": 392988.0,
+          "acumulado": 4697284.0
+        },
+        {
+          "mes": "2024-05",
+          "obras": 1,
+          "realizado": 87589.0,
+          "mo": 2314.0,
+          "mt": 85275.0,
+          "orcado": 76619.0,
+          "acumulado": 4784873.0
+        },
+        {
+          "mes": "2024-06",
+          "obras": 4,
+          "realizado": 327085.0,
+          "mo": 25264.0,
+          "mt": 301820.0,
+          "orcado": 282018.0,
+          "acumulado": 5111958.0
+        },
+        {
+          "mes": "2024-07",
+          "obras": 1,
+          "realizado": 26139.0,
+          "mo": 4932.0,
+          "mt": 21207.0,
+          "orcado": 24699.0,
+          "acumulado": 5138097.0
+        },
+        {
+          "mes": "2024-08",
+          "obras": 4,
+          "realizado": 321890.0,
+          "mo": 30362.0,
+          "mt": 291528.0,
+          "orcado": 277276.0,
+          "acumulado": 5459987.0
+        },
+        {
+          "mes": "2024-09",
+          "obras": 1,
+          "realizado": 35870.0,
+          "mo": 190.0,
+          "mt": 35680.0,
+          "orcado": 42056.0,
+          "acumulado": 5495857.0
+        },
+        {
+          "mes": "2024-10",
+          "obras": 4,
+          "realizado": 140471.0,
+          "mo": 21078.0,
+          "mt": 119393.0,
+          "orcado": 113239.0,
+          "acumulado": 5636328.0
+        },
+        {
+          "mes": "2024-11",
+          "obras": 2,
+          "realizado": 480144.0,
+          "mo": 110866.0,
+          "mt": 362017.0,
+          "orcado": 347110.0,
+          "acumulado": 6116472.0
+        },
+        {
+          "mes": "2024-12",
+          "obras": 6,
+          "realizado": 694068.0,
+          "mo": 193993.0,
+          "mt": 500076.0,
+          "orcado": 792651.0,
+          "acumulado": 6810540.0
+        },
+        {
+          "mes": "2025-01",
+          "obras": 5,
+          "realizado": 444977.0,
+          "mo": 37419.0,
+          "mt": 407558.0,
+          "orcado": 373723.0,
+          "acumulado": 7255517.0
+        },
+        {
+          "mes": "2025-03",
+          "obras": 2,
+          "realizado": 144135.0,
+          "mo": 24654.0,
+          "mt": 119480.0,
+          "orcado": 138611.0,
+          "acumulado": 7399652.0
+        },
+        {
+          "mes": "2025-04",
+          "obras": 2,
+          "realizado": 9732.0,
+          "mo": 368.0,
+          "mt": 9364.0,
+          "orcado": 13766.0,
+          "acumulado": 7409384.0
+        },
+        {
+          "mes": "2025-05",
+          "obras": 1,
+          "realizado": 101195.0,
+          "mo": 10559.0,
+          "mt": 89196.0,
+          "orcado": 98899.0,
+          "acumulado": 7510579.0
+        },
+        {
+          "mes": "2025-08",
+          "obras": 1,
+          "realizado": 96584.0,
+          "mo": 5706.0,
+          "mt": 90879.0,
+          "orcado": 97373.0,
+          "acumulado": 7607163.0
+        },
+        {
+          "mes": "2025-09",
+          "obras": 1,
+          "realizado": 97757.0,
+          "mo": 9981.0,
+          "mt": 87776.0,
+          "orcado": 40293.0,
+          "acumulado": 7704920.0
+        },
+        {
+          "mes": "2025-10",
+          "obras": 1,
+          "realizado": 59447.0,
+          "mo": 9314.0,
+          "mt": 50133.0,
+          "orcado": 39370.0,
+          "acumulado": 7764367.0
+        },
+        {
+          "mes": "2025-11",
+          "obras": 3,
+          "realizado": 197519.0,
+          "mo": 16031.0,
+          "mt": 181488.0,
+          "orcado": 194552.0,
+          "acumulado": 7961886.0
+        },
+        {
+          "mes": "2025-12",
+          "obras": 2,
+          "realizado": 362561.0,
+          "mo": 44165.0,
+          "mt": 318397.0,
+          "orcado": 301068.0,
+          "acumulado": 8324447.0
+        },
+        {
+          "mes": "2026-01",
+          "obras": 1,
+          "realizado": 12672.0,
+          "mo": 7184.0,
+          "mt": 5487.0,
+          "orcado": 13973.0,
+          "acumulado": 8337119.0
+        },
+        {
+          "mes": "2026-02",
+          "obras": 1,
+          "realizado": 29212.0,
+          "mo": 2189.0,
+          "mt": 27023.0,
+          "orcado": 39784.0,
+          "acumulado": 8366331.0
+        },
+        {
+          "mes": "2026-03",
+          "obras": 3,
+          "realizado": 370018.0,
+          "mo": 43682.0,
+          "mt": 326335.0,
+          "orcado": 409267.0,
+          "acumulado": 8736349.0
+        },
+        {
+          "mes": "2026-05",
+          "obras": 1,
+          "realizado": 28585.0,
+          "mo": 149.0,
+          "mt": 28436.0,
+          "orcado": 37779.0,
+          "acumulado": 8764934.0
+        },
+        {
+          "mes": "2026-06",
+          "obras": 2,
+          "realizado": 118483.0,
+          "mo": 9067.0,
+          "mt": 109416.0,
+          "orcado": 152560.0,
+          "acumulado": 8883417.0
+        }
+      ],
+      "total_realizado": 8983328.0,
+      "total_orcado": 9631020.0,
+      "encerradas_realizado": 8883417.0,
+      "sem_encerramento": 10,
+      "sem_encerramento_realizado": 99911.0,
+      "indeferidas": 20,
+      "indeferidas_orcado": 1687944.0,
+      "obras": 151
+    },
+    "8495": {
+      "rotulo": "Religador",
+      "por_mes": [
+        {
+          "mes": "2019-04",
+          "obras": 1,
+          "realizado": 54209.0,
+          "mo": 3013.0,
+          "mt": 51197.0,
+          "orcado": 67921.0,
+          "acumulado": 54209.0
+        },
+        {
+          "mes": "2019-06",
+          "obras": 1,
+          "realizado": 39489.0,
+          "mo": 3581.0,
+          "mt": 35908.0,
+          "orcado": 43167.0,
+          "acumulado": 93698.0
+        },
+        {
+          "mes": "2019-08",
+          "obras": 6,
+          "realizado": 287201.0,
+          "mo": 22492.0,
+          "mt": 264709.0,
+          "orcado": 331376.0,
+          "acumulado": 380899.0
+        },
+        {
+          "mes": "2019-10",
+          "obras": 3,
+          "realizado": 161125.0,
+          "mo": 14439.0,
+          "mt": 146687.0,
+          "orcado": 180727.0,
+          "acumulado": 542024.0
+        },
+        {
+          "mes": "2019-11",
+          "obras": 1,
+          "realizado": 40623.0,
+          "mo": 5044.0,
+          "mt": 35579.0,
+          "orcado": 43167.0,
+          "acumulado": 582647.0
+        },
+        {
+          "mes": "2019-12",
+          "obras": 6,
+          "realizado": 186732.0,
+          "mo": 59593.0,
+          "mt": 127139.0,
+          "orcado": 194804.0,
+          "acumulado": 769379.0
+        },
+        {
+          "mes": "2020-03",
+          "obras": 2,
+          "realizado": 91914.0,
+          "mo": 6501.0,
+          "mt": 85413.0,
+          "orcado": 111755.0,
+          "acumulado": 861293.0
+        },
+        {
+          "mes": "2020-08",
+          "obras": 1,
+          "realizado": 13367.0,
+          "mo": 0.0,
+          "mt": 13367.0,
+          "orcado": 497.0,
+          "acumulado": 874660.0
+        },
+        {
+          "mes": "2020-10",
+          "obras": 3,
+          "realizado": 139041.0,
+          "mo": 18337.0,
+          "mt": 120704.0,
+          "orcado": 166344.0,
+          "acumulado": 1013701.0
+        },
+        {
+          "mes": "2020-11",
+          "obras": 2,
+          "realizado": 139132.0,
+          "mo": 5822.0,
+          "mt": 133310.0,
+          "orcado": 126995.0,
+          "acumulado": 1152833.0
+        },
+        {
+          "mes": "2020-12",
+          "obras": 1,
+          "realizado": 64705.0,
+          "mo": 7104.0,
+          "mt": 57601.0,
+          "orcado": 42319.0,
+          "acumulado": 1217538.0
+        },
+        {
+          "mes": "2021-02",
+          "obras": 6,
+          "realizado": 319695.0,
+          "mo": 17141.0,
+          "mt": 302552.0,
+          "orcado": 394524.0,
+          "acumulado": 1537233.0
+        },
+        {
+          "mes": "2021-03",
+          "obras": 2,
+          "realizado": 99457.0,
+          "mo": 5262.0,
+          "mt": 94195.0,
+          "orcado": 137003.0,
+          "acumulado": 1636690.0
+        },
+        {
+          "mes": "2021-04",
+          "obras": 9,
+          "realizado": 412380.0,
+          "mo": 18600.0,
+          "mt": 393781.0,
+          "orcado": 517424.0,
+          "acumulado": 2049070.0
+        },
+        {
+          "mes": "2021-06",
+          "obras": 1,
+          "realizado": 65408.0,
+          "mo": 1735.0,
+          "mt": 63673.0,
+          "orcado": 90408.0,
+          "acumulado": 2114478.0
+        },
+        {
+          "mes": "2021-08",
+          "obras": 2,
+          "realizado": 33133.0,
+          "mo": 3840.0,
+          "mt": 29292.0,
+          "orcado": 28429.0,
+          "acumulado": 2147611.0
+        },
+        {
+          "mes": "2021-09",
+          "obras": 3,
+          "realizado": 106253.0,
+          "mo": 7631.0,
+          "mt": 98623.0,
+          "orcado": 143835.0,
+          "acumulado": 2253864.0
+        },
+        {
+          "mes": "2021-10",
+          "obras": 2,
+          "realizado": 65343.0,
+          "mo": 1121.0,
+          "mt": 64222.0,
+          "orcado": 89748.0,
+          "acumulado": 2319207.0
+        },
+        {
+          "mes": "2021-11",
+          "obras": 2,
+          "realizado": 57850.0,
+          "mo": 25808.0,
+          "mt": 32041.0,
+          "orcado": 70214.0,
+          "acumulado": 2377057.0
+        },
+        {
+          "mes": "2022-07",
+          "obras": 4,
+          "realizado": 154984.0,
+          "mo": 16171.0,
+          "mt": 138814.0,
+          "orcado": 156346.0,
+          "acumulado": 2532041.0
+        },
+        {
+          "mes": "2022-08",
+          "obras": 3,
+          "realizado": 179816.0,
+          "mo": 15814.0,
+          "mt": 164003.0,
+          "orcado": 175557.0,
+          "acumulado": 2711857.0
+        },
+        {
+          "mes": "2022-09",
+          "obras": 5,
+          "realizado": 244808.0,
+          "mo": 23916.0,
+          "mt": 220891.0,
+          "orcado": 244670.0,
+          "acumulado": 2956665.0
+        },
+        {
+          "mes": "2022-10",
+          "obras": 1,
+          "realizado": 50777.0,
+          "mo": 1062.0,
+          "mt": 49715.0,
+          "orcado": 64553.0,
+          "acumulado": 3007442.0
+        },
+        {
+          "mes": "2022-11",
+          "obras": 2,
+          "realizado": 93312.0,
+          "mo": 9634.0,
+          "mt": 83679.0,
+          "orcado": 124217.0,
+          "acumulado": 3100754.0
+        },
+        {
+          "mes": "2022-12",
+          "obras": 1,
+          "realizado": 69683.0,
+          "mo": 6192.0,
+          "mt": 63491.0,
+          "orcado": 50450.0,
+          "acumulado": 3170437.0
+        },
+        {
+          "mes": "2023-01",
+          "obras": 3,
+          "realizado": 48813.0,
+          "mo": 5596.0,
+          "mt": 43217.0,
+          "orcado": 132734.0,
+          "acumulado": 3219250.0
+        },
+        {
+          "mes": "2023-02",
+          "obras": 4,
+          "realizado": 176934.0,
+          "mo": 19008.0,
+          "mt": 157926.0,
+          "orcado": 117536.0,
+          "acumulado": 3396184.0
+        },
+        {
+          "mes": "2023-03",
+          "obras": 4,
+          "realizado": 296975.0,
+          "mo": 30488.0,
+          "mt": 266486.0,
+          "orcado": 180365.0,
+          "acumulado": 3693159.0
+        },
+        {
+          "mes": "2023-04",
+          "obras": 1,
+          "realizado": 7490.0,
+          "mo": 1697.0,
+          "mt": 5793.0,
+          "orcado": 9001.0,
+          "acumulado": 3700649.0
+        },
+        {
+          "mes": "2023-05",
+          "obras": 6,
+          "realizado": 347005.0,
+          "mo": 34012.0,
+          "mt": 312993.0,
+          "orcado": 282080.0,
+          "acumulado": 4047654.0
+        },
+        {
+          "mes": "2023-06",
+          "obras": 2,
+          "realizado": 104499.0,
+          "mo": 9088.0,
+          "mt": 95410.0,
+          "orcado": 92704.0,
+          "acumulado": 4152153.0
+        },
+        {
+          "mes": "2023-07",
+          "obras": 1,
+          "realizado": 62894.0,
+          "mo": 5038.0,
+          "mt": 57856.0,
+          "orcado": 58148.0,
+          "acumulado": 4215047.0
+        },
+        {
+          "mes": "2023-08",
+          "obras": 4,
+          "realizado": 189141.0,
+          "mo": 16581.0,
+          "mt": 172560.0,
+          "orcado": 189927.0,
+          "acumulado": 4404188.0
+        },
+        {
+          "mes": "2023-09",
+          "obras": 3,
+          "realizado": 144437.0,
+          "mo": 11377.0,
+          "mt": 133060.0,
+          "orcado": 149057.0,
+          "acumulado": 4548625.0
+        },
+        {
+          "mes": "2023-10",
+          "obras": 3,
+          "realizado": 127781.0,
+          "mo": 7875.0,
+          "mt": 119906.0,
+          "orcado": 183253.0,
+          "acumulado": 4676406.0
+        },
+        {
+          "mes": "2023-12",
+          "obras": 13,
+          "realizado": 767028.0,
+          "mo": 58565.0,
+          "mt": 708234.0,
+          "orcado": 811998.0,
+          "acumulado": 5443434.0
+        },
+        {
+          "mes": "2024-01",
+          "obras": 1,
+          "realizado": 39503.0,
+          "mo": 2085.0,
+          "mt": 37418.0,
+          "orcado": 41785.0,
+          "acumulado": 5482937.0
+        },
+        {
+          "mes": "2024-02",
+          "obras": 4,
+          "realizado": 218875.0,
+          "mo": 27403.0,
+          "mt": 191474.0,
+          "orcado": 140579.0,
+          "acumulado": 5701812.0
+        },
+        {
+          "mes": "2024-04",
+          "obras": 2,
+          "realizado": 74318.0,
+          "mo": 3386.0,
+          "mt": 70931.0,
+          "orcado": 63616.0,
+          "acumulado": 5776130.0
+        },
+        {
+          "mes": "2024-05",
+          "obras": 3,
+          "realizado": 140026.0,
+          "mo": 28752.0,
+          "mt": 111273.0,
+          "orcado": 105129.0,
+          "acumulado": 5916156.0
+        },
+        {
+          "mes": "2024-06",
+          "obras": 7,
+          "realizado": 401216.0,
+          "mo": 47820.0,
+          "mt": 353396.0,
+          "orcado": 300173.0,
+          "acumulado": 6317372.0
+        },
+        {
+          "mes": "2024-07",
+          "obras": 3,
+          "realizado": 121448.0,
+          "mo": 13616.0,
+          "mt": 107831.0,
+          "orcado": 99113.0,
+          "acumulado": 6438820.0
+        },
+        {
+          "mes": "2024-08",
+          "obras": 1,
+          "realizado": 79274.0,
+          "mo": 5476.0,
+          "mt": 73798.0,
+          "orcado": 30547.0,
+          "acumulado": 6518094.0
+        },
+        {
+          "mes": "2024-10",
+          "obras": 1,
+          "realizado": 68589.0,
+          "mo": 3837.0,
+          "mt": 64752.0,
+          "orcado": 55294.0,
+          "acumulado": 6586683.0
+        },
+        {
+          "mes": "2024-11",
+          "obras": 3,
+          "realizado": 89513.0,
+          "mo": 5165.0,
+          "mt": 84348.0,
+          "orcado": 79894.0,
+          "acumulado": 6676196.0
+        },
+        {
+          "mes": "2024-12",
+          "obras": 4,
+          "realizado": 221355.0,
+          "mo": 17724.0,
+          "mt": 199083.0,
+          "orcado": 112838.0,
+          "acumulado": 6897551.0
+        },
+        {
+          "mes": "2025-01",
+          "obras": 27,
+          "realizado": 1641226.0,
+          "mo": 237848.0,
+          "mt": 1403378.0,
+          "orcado": 1416334.0,
+          "acumulado": 8538777.0
+        },
+        {
+          "mes": "2025-02",
+          "obras": 7,
+          "realizado": 359167.0,
+          "mo": 72692.0,
+          "mt": 286476.0,
+          "orcado": 303051.0,
+          "acumulado": 8897944.0
+        },
+        {
+          "mes": "2025-03",
+          "obras": 2,
+          "realizado": 110837.0,
+          "mo": 24032.0,
+          "mt": 86805.0,
+          "orcado": 115790.0,
+          "acumulado": 9008781.0
+        },
+        {
+          "mes": "2025-04",
+          "obras": 11,
+          "realizado": 894787.0,
+          "mo": 171685.0,
+          "mt": 721708.0,
+          "orcado": 689282.0,
+          "acumulado": 9903568.0
+        },
+        {
+          "mes": "2025-05",
+          "obras": 6,
+          "realizado": 463798.0,
+          "mo": 85030.0,
+          "mt": 378770.0,
+          "orcado": 411971.0,
+          "acumulado": 10367366.0
+        },
+        {
+          "mes": "2025-06",
+          "obras": 7,
+          "realizado": 460053.0,
+          "mo": 82479.0,
+          "mt": 377573.0,
+          "orcado": 268469.0,
+          "acumulado": 10827419.0
+        },
+        {
+          "mes": "2025-07",
+          "obras": 2,
+          "realizado": 125237.0,
+          "mo": 21642.0,
+          "mt": 103596.0,
+          "orcado": 143722.0,
+          "acumulado": 10952656.0
+        },
+        {
+          "mes": "2025-08",
+          "obras": 2,
+          "realizado": 120246.0,
+          "mo": 7635.0,
+          "mt": 112611.0,
+          "orcado": 77694.0,
+          "acumulado": 11072902.0
+        },
+        {
+          "mes": "2025-09",
+          "obras": 4,
+          "realizado": 190473.0,
+          "mo": 31615.0,
+          "mt": 158857.0,
+          "orcado": 227431.0,
+          "acumulado": 11263375.0
+        },
+        {
+          "mes": "2025-10",
+          "obras": 3,
+          "realizado": 368529.0,
+          "mo": 60982.0,
+          "mt": 307546.0,
+          "orcado": 136001.0,
+          "acumulado": 11631904.0
+        },
+        {
+          "mes": "2025-11",
+          "obras": 4,
+          "realizado": 248006.0,
+          "mo": 38023.0,
+          "mt": 209983.0,
+          "orcado": 158851.0,
+          "acumulado": 11879910.0
+        },
+        {
+          "mes": "2025-12",
+          "obras": 7,
+          "realizado": 383773.0,
+          "mo": 158136.0,
+          "mt": 225637.0,
+          "orcado": 235148.0,
+          "acumulado": 12263683.0
+        },
+        {
+          "mes": "2026-01",
+          "obras": 1,
+          "realizado": 46136.0,
+          "mo": 8362.0,
+          "mt": 37773.0,
+          "orcado": 29889.0,
+          "acumulado": 12309819.0
+        },
+        {
+          "mes": "2026-02",
+          "obras": 4,
+          "realizado": 170608.0,
+          "mo": 24128.0,
+          "mt": 146481.0,
+          "orcado": 121070.0,
+          "acumulado": 12480427.0
+        },
+        {
+          "mes": "2026-03",
+          "obras": 2,
+          "realizado": 88534.0,
+          "mo": 11974.0,
+          "mt": 76561.0,
+          "orcado": 58913.0,
+          "acumulado": 12568961.0
+        },
+        {
+          "mes": "2026-04",
+          "obras": 1,
+          "realizado": 47021.0,
+          "mo": 7166.0,
+          "mt": 39855.0,
+          "orcado": 42229.0,
+          "acumulado": 12615982.0
+        },
+        {
+          "mes": "2026-05",
+          "obras": 1,
+          "realizado": 30676.0,
+          "mo": 4423.0,
+          "mt": 26252.0,
+          "orcado": 32342.0,
+          "acumulado": 12646658.0
+        },
+        {
+          "mes": "2026-06",
+          "obras": 4,
+          "realizado": 235136.0,
+          "mo": 19667.0,
+          "mt": 215469.0,
+          "orcado": 235341.0,
+          "acumulado": 12881794.0
+        }
+      ],
+      "total_realizado": 13517519.0,
+      "total_orcado": 14603231.0,
+      "encerradas_realizado": 12881794.0,
+      "sem_encerramento": 101,
+      "sem_encerramento_realizado": 635725.0,
+      "indeferidas": 37,
+      "indeferidas_orcado": 2461069.0,
+      "obras": 376
+    }
+  }
+}
