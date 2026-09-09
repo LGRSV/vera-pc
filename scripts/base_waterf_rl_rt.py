@@ -1208,6 +1208,106 @@ def aba_resolvidos(wb, linhas, gest, crit):
     ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8)
 
 
+
+def aba_mensal(wb, conta, entrada, res, linhas, gest, crit):
+    """Tudo mês a mês numa tabela só: entrante, resolvido e pendente, em RL/RT e por criticidade."""
+    ws = wb.create_sheet("Mensal completo")
+    ws.sheet_view.showGridLines = False
+    ent_sd, res_sd, _ = previsao_setdez(gest)
+    mes_do_status = {st: m for st, m in ESTEIRA}
+    norm = lambda a: crit.get(a) if crit.get(a) in CRITS else "A definir"
+    for d in conta.values():
+        d["_crit"] = norm(d["ativo"])
+    # criticidade dos resolvidos previstos, pelo mês de status da Gestão
+    crit_sd = {m: Counter() for m in MESES_Q}
+    for g in gest:
+        m = mes_do_status.get(g["status"])
+        if m:
+            crit_sd[m][norm(g["ativo"])] += 1
+    crit_sd["outubro"]["A definir"] += Q_RESOLVIDOS[1] - sum(crit_sd["outubro"].values())
+
+    bm.titulo(ws, "TUDO MÊS A MÊS — entrante, resolvido e pendente, em RL/RT e por criticidade",
+              "Uma linha por mês, os doze. Janeiro a agosto é apurado; setembro a dezembro é a "
+              "previsão pela sua régua (resolvidos pela aba Gestão por Status, entrantes pela taxa "
+              "de substituição). As cinco últimas colunas repartem os RESOLVIDOS do mês por "
+              "criticidade; a criticidade dos pendentes está na aba «Por criticidade».")
+    cabecalhos = ["Mês", "Origem", "Ent RL", "Ent RT", "ENTRANTE", "Res RL", "Res RT", "RESOLVIDO",
+                  "Pend RL", "Pend RT", "PENDENTE"] + ["Res · " + c for c in CRITS]
+    cab(ws, 4, cabecalhos, [14, 11, 9, 9, 11, 9, 9, 11, 10, 10, 11] + [13] * len(CRITS))
+    r = 5
+    ini = r
+    prl, prt = ALVO_RL_RT[0][1], ALVO_RL_RT[0][2]
+    ws.cell(row=r, column=1, value="Backlog 2025").font = Font(bold=True)
+    for c, v in ((9, prl), (10, prt), (11, prl + prt)):
+        ws.cell(row=r, column=c, value=v)
+    for c in range(1, len(cabecalhos) + 1):
+        ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
+        ws.cell(row=r, column=c).border = FINO
+        if c > 1:
+            ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+    r += 1
+    for i in range(12):
+        if i < 8:
+            L = linhas[i]
+            nome, origem = L["mes"], "apurado"
+            erl, ert, rrl, rrt = L["rl_ent"], L["rt_ent"], L["rl_res"], L["rt_res"]
+            cc = Counter(d["_crit"] for d in conta.values() if res.get(id(d)) == i)
+        else:
+            j = i - 8
+            nome, origem = MESES_Q[j], "previsto"
+            erl, ert = ent_sd[j]["RL"], ent_sd[j]["RT"]
+            rrl, rrt = res_sd[j]["RL"], res_sd[j]["RT"]
+            cc = crit_sd[MESES_Q[j]]
+        prl += erl - rrl
+        prt += ert - rrt
+        vals = [nome, origem, erl, ert, erl + ert, rrl, rrt, rrl + rrt, prl, prt, prl + prt]
+        vals += [cc.get(c_, 0) for c_ in CRITS]
+        for c, v in enumerate(vals, 1):
+            cel = ws.cell(row=r, column=c, value=v)
+            cel.border = FINO
+            if c > 1:
+                cel.alignment = Alignment(horizontal="center")
+        for c in (5, 8, 11):
+            ws.cell(row=r, column=c).font = Font(bold=True)
+        if i >= 8:
+            for c in range(1, len(cabecalhos) + 1):
+                ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
+        r += 1
+    fim = r - 1
+    ws.cell(row=r, column=1, value="no ano").font = Font(bold=True)
+    for c in [3, 4, 5, 6, 7, 8] + list(range(12, 12 + len(CRITS))):
+        col = get_column_letter(c)
+        cel = ws.cell(row=r, column=c, value="=SUM(%s%d:%s%d)" % (col, ini + 1, col, fim))
+        cel.font, cel.alignment = Font(bold=True), Alignment(horizontal="center")
+
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "clustered", 80, -12
+    ch.add_data(Reference(ws, min_col=5, min_row=4, max_row=fim), titles_from_data=True)
+    ch.add_data(Reference(ws, min_col=8, min_row=4, max_row=fim), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=ini, max_row=fim))
+    ch.title = "Entrante e resolvido em cada mês"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], LARANJA)
+    bm.cor_barra(ch.series[1], VERDE)
+    for s_ in ch.series:
+        bm.rotulos(s_)
+    bm.categorias(ch, ws, "$A$%d:$A$%d" % (ini, fim))
+    ws.add_chart(bm.estilo(ch, 12, 30), "R4")
+
+    ch2 = BarChart()
+    ch2.type, ch2.grouping, ch2.gapWidth, ch2.overlap = "col", "stacked", 60, 100
+    ch2.add_data(Reference(ws, min_col=12, min_row=4, max_col=11 + len(CRITS), max_row=fim),
+                 titles_from_data=True)
+    ch2.set_categories(Reference(ws, min_col=1, min_row=ini, max_row=fim))
+    ch2.title = "Resolvidos de cada mês, repartidos por criticidade"
+    ch2.y_axis.title = "equipamentos"
+    for s_, c_ in zip(ch2.series, CRITS):
+        bm.cor_barra(s_, COR_CRIT[c_])
+        bm.rotulos(s_)
+    bm.categorias(ch2, ws, "$A$%d:$A$%d" % (ini, fim))
+    ws.add_chart(bm.estilo(ch2, 12, 30), "R26")
+
+
 def aba_conta(wb, conta, entrada, res, cad, posicao):
     ws = wb.create_sheet("Base do Waterf")
     ws.sheet_view.showGridLines = False
@@ -1464,6 +1564,7 @@ def montar(saida=SAIDA):
         aba_ano(wb, linhas, back, gest)
         aba_criticidade(wb, conta, entrada, res, linhas, gest, crit)
         aba_resolvidos(wb, linhas, gest, crit)
+        aba_mensal(wb, conta, entrada, res, linhas, gest, crit)
         aba_ago_dez(wb, gest, n_rl, n_rt)
     if dele:
         aba_pendentes(wb, dele, por_demanda, posicao)

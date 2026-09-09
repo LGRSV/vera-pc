@@ -572,6 +572,9 @@ diferente de «Sem classificação».
   de pendentes do mesmo quadro e o quadro do forecast dão **58** — dois contra um, então vale
   **45/13**. É a única das treze linhas em que as tabelas dele brigam, e o acumulado de resolvidos
   confirma o 58 (junho 9, julho 6 — não trocados).
+  **A aba «Mensal completo»** junta tudo numa linha por mês, os doze: entrante RL/RT, resolvido
+  RL/RT, pendente RL/RT e os resolvidos do mês repartidos por criticidade. É a visão que ele pediu
+  como «isso aqui mensal».
   **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
   posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
 
