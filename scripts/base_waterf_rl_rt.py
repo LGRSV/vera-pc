@@ -70,6 +70,17 @@ W_RESOLVIDOS = [1, 2, 4, 1, 16, 9, 6, 2]
 W_PENDENTES = [65, 71, 76, 80, 65, 58, 56, 55]
 # setembro, ainda no quadro dele: 55 + 8 − 6 = 57
 S_ENTRANTE, S_RESOLVIDOS, S_PENDENTES = 8, 6, 57
+# set–dez do quadro dele
+Q_ENTRANTE = [8, 9, 5, 1]
+Q_RESOLVIDOS = [6, 6, 22, 20]
+Q_PENDENTES = [57, 60, 43, 24]
+MESES_Q = ["setembro", "outubro", "novembro", "dezembro"]
+# taxa de SUBSTITUIÇÃO — a que gera demanda de peça grande (taxa_falha.json)
+TAXA_SUB = {"RL": 3.1, "RT": 6.0}
+PARQUE_AGO = {"RL": 1294, "RT": 190}
+# a esteira da aba Gestão, na ordem em que ele monta o forecast na aba Apresentação
+ESTEIRA = [("Em logistica (N1>N3)", "setembro"), ("Em execução", "outubro"),
+           ("Reforma", "outubro"), ("Avaliar compra", "novembro"), ("Gerado PMA", "dezembro")]
 
 
 def tipo(cod):
@@ -472,6 +483,215 @@ def aba_pendentes(wb, dele, por_demanda, posicao):
         r += 1
 
 
+
+def gestao_por_status():
+    """A aba Gestão da planilha dele: 53 ativos com Status. É a fonte dos resolvidos."""
+    if not os.path.exists(GEE2):
+        return []
+    ws = load_workbook(GEE2, data_only=True)["Gestão"]
+    L = list(ws.iter_rows(values_only=True))
+    cab_ = [("" if v is None else str(v).strip()) for v in L[0]]
+    ix = {n: k for k, n in enumerate(cab_) if n}
+    out = []
+    for r in L[1:]:
+        if not r[ix["Ativo"]]:
+            continue
+        cod = str(r[ix["Ativo"]]).strip()
+        out.append({"ativo": cod, "tipo_eq": tipo(cod), "ss": r[ix["SS SGM"]],
+                    "status": str(r[ix["Status"]]).strip(),
+                    "criticidade": r[ix["Criticidade"]], "defeito": r[ix["Defeito"]],
+                    "orcamento": r[ix["Orçamento Total"]], "municipio": r[ix.get("Município", 0)],
+                    "dias": r[ix.get("Dias Pendente", 0)]})
+    return out
+
+
+def aba_ago_dez(wb, gest, n_ago_rl, n_ago_rt):
+    """Set–dez pela régua que ele descreveu: entrante por taxa de falha, resolvidos pela Gestão."""
+    ws = wb.create_sheet("Agosto a dezembro")
+    ws.sheet_view.showGridLines = False
+    por_status = Counter(g["status"] for g in gest)
+    mes_do_status = {st: m for st, m in ESTEIRA}
+    por_mes = Counter()
+    for g in gest:
+        m = mes_do_status.get(g["status"])
+        if m:
+            por_mes[m] += 1
+    ent_mes = sum(PARQUE_AGO[t] * TAXA_SUB[t] / 100 / 12 for t in ("RL", "RT"))
+
+    bm.titulo(ws, "AGOSTO A DEZEMBRO — a régua que você descreveu, conferida",
+              "«Entrantes pela taxa de falha; resolvidos pelos que estão na Gestão como Em "
+              "aquisição e tais.» Confere nos resolvidos e NÃO confere nos entrantes. Os %d da aba "
+              "Gestão, repartidos pelo Status na ordem da sua aba Apresentação, reproduzem três "
+              "dos quatro meses no número exato. Já os entrantes 8·9·5·1 não vêm de taxa nenhuma: "
+              "são cópia do bloco de fevereiro a maio, e a taxa de substituição sobre o parque de "
+              "agosto dá %.1f por mês, não 5,75." % (len(gest), ent_mes))
+
+    r = 4
+    ws.cell(row=r, column=1, value="1 · OS RESOLVIDOS — batem com a aba Gestão").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Mês", "Status da Gestão", "Ativos com esse status", "Resolvidos no quadro",
+                "Confere?"], [14, 26, 20, 20, 26])
+    r += 1
+    ordem = [("setembro", ["Em logistica (N1>N3)"]), ("outubro", ["Em execução", "Reforma"]),
+             ("novembro", ["Avaliar compra"]), ("dezembro", ["Gerado PMA"])]
+    for i, (mes, sts) in enumerate(ordem):
+        n = sum(por_status.get(x, 0) for x in sts)
+        alvo = Q_RESOLVIDOS[i]
+        ws.cell(row=r, column=1, value=mes)
+        ws.cell(row=r, column=2, value=" + ".join(sts))
+        ws.cell(row=r, column=3, value=n)
+        ws.cell(row=r, column=4, value=alvo)
+        cel = ws.cell(row=r, column=5, value="bate no número" if n == alvo
+                      else "falta %d" % (alvo - n) if n < alvo else "sobra %d" % (n - alvo))
+        cel.font = Font(bold=True, color=VERDE if n == alvo else SINAL, size=10)
+        for c in range(1, 6):
+            ws.cell(row=r, column=c).border = FINO
+            if c in (3, 4):
+                ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+        r += 1
+    ws.cell(row=r, column=1, value="total").font = Font(bold=True)
+    ws.cell(row=r, column=3, value=len(gest)).font = Font(bold=True)
+    ws.cell(row=r, column=4, value=sum(Q_RESOLVIDOS)).font = Font(bold=True)
+    ws.cell(row=r, column=5, value="53 na Gestão contra 54 no quadro — sobra 1 em outubro")
+    for c in (3, 4):
+        ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+    r += 2
+
+    ws.cell(row=r, column=1, value="A ESCADA DE DINHEIRO CONFIRMA — aba Apresentação").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    for t in ["O forecast acumulado do seu quadro em SETEMBRO é R$ 2.129.866,67; a aba Apresentação "
+              "dá R$ 2.129.865,66 no degrau «Realizado + Em Execução». Um real de diferença.",
+              "E em DEZEMBRO o quadro dá R$ 6.058.299,31 contra R$ 6.058.299,32 da Apresentação "
+              "somando tudo. Bate no centavo. Outubro e novembro é que ficam fora da escada.",
+              "Ou seja: a coluna de dinheiro e a de resolvidos vêm do mesmo lugar — a esteira de "
+              "status da Gestão. Isso está certo e é rastreável."]:
+        cel = ws.cell(row=r, column=1, value="· " + t)
+        cel.alignment = Alignment(wrap_text=True, vertical="top")
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=5)
+        ws.row_dimensions[r].height = 30
+        r += 1
+    r += 1
+
+    ws.cell(row=r, column=1, value="2 · OS ENTRANTES — não vêm da taxa de falha").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["De onde", "Set", "Out", "Nov", "Dez", "Total", "Leitura"],
+        [30, 8, 8, 8, 8, 9, 54])
+    r += 1
+    ent_taxa = [round(ent_mes)] * 4
+    ent_taxa[3] += round(ent_mes * 4) - sum(ent_taxa)
+    for rot, vals, leitura in (
+        ("Quadro Waterf", Q_ENTRANTE,
+         "É cópia exata do bloco de fevereiro a maio da própria coluna (8·9·5·1)."),
+        ("Taxa de substituição", ent_taxa,
+         "RL 3,1 e RT 6,0 por 100 ao ano sobre o parque de agosto (1.294 e 190): %.2f por mês."
+         % ent_mes)):
+        ws.cell(row=r, column=1, value=rot)
+        for k, v in enumerate(vals):
+            ws.cell(row=r, column=2 + k, value=v).alignment = Alignment(horizontal="center")
+        ws.cell(row=r, column=6, value=sum(vals)).alignment = Alignment(horizontal="center")
+        ws.cell(row=r, column=6).font = Font(bold=True)
+        ws.cell(row=r, column=7, value=leitura).alignment = Alignment(wrap_text=True, vertical="top")
+        for c in range(1, 8):
+            ws.cell(row=r, column=c).border = FINO
+        ws.row_dimensions[r].height = 30
+        r += 1
+    for t in ["Uma taxa de falha dá série PLANA — o parque quase não muda de setembro a dezembro. "
+              "Ela nunca produz 8·9·5·1 caindo para 1 em dezembro; dezembro com um entrante só é o "
+              "sinal mais claro de que a coluna foi colada.",
+              "A taxa usada é a de SUBSTITUIÇÃO (3,1 no religador e 6,0 no regulador por 100 ao "
+              "ano), que é a que gera demanda de peça grande. A taxa de CHAMADA é bem maior — 49,7 "
+              "e 47,6 — mas conta toda ida a campo, inclusive o que não vira compra."]:
+        cel = ws.cell(row=r, column=1, value="· " + t)
+        cel.alignment = Alignment(wrap_text=True, vertical="top")
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=7)
+        ws.row_dimensions[r].height = 30
+        r += 1
+    r += 1
+
+    ws.cell(row=r, column=1, value="3 · A SÉRIE PELA SUA PRÓPRIA RÉGUA").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Mês", "Entrante (taxa)", "Resolvidos (Gestão)", "Pendentes",
+                "Pendentes no quadro", "Dif."], [14, 15, 19, 13, 19, 9])
+    r += 1
+    ini_serie = r
+    saldo = n_ago_rl + n_ago_rt
+    ws.cell(row=r, column=1, value="agosto (real)").font = Font(bold=True)
+    ws.cell(row=r, column=4, value=saldo).font = Font(bold=True)
+    ws.cell(row=r, column=5, value=55)
+    ws.cell(row=r, column=6, value=saldo - 55)
+    for c in range(1, 7):
+        ws.cell(row=r, column=c).border = FINO
+        ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
+        if c > 1:
+            ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+    r += 1
+    res_gest = [por_mes.get(m, 0) for m in MESES_Q]
+    for i, mes in enumerate(MESES_Q):
+        saldo += ent_taxa[i] - res_gest[i]
+        ws.cell(row=r, column=1, value=mes)
+        ws.cell(row=r, column=2, value=ent_taxa[i])
+        ws.cell(row=r, column=3, value=res_gest[i])
+        ws.cell(row=r, column=4, value=saldo).font = Font(bold=True)
+        ws.cell(row=r, column=5, value=Q_PENDENTES[i])
+        ws.cell(row=r, column=6, value=saldo - Q_PENDENTES[i])
+        for c in range(1, 7):
+            ws.cell(row=r, column=c).border = FINO
+            if c > 1:
+                ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+        r += 1
+    fim_serie = r - 1
+    ws.cell(row=r, column=1, value="Pela sua régua dezembro fecha em %d, e não em %d — %d entrantes "
+            "a menos (%d contra %d) e %d resolvido a menos."
+            % (saldo, Q_PENDENTES[-1], sum(Q_ENTRANTE) - sum(ent_taxa), sum(ent_taxa),
+               sum(Q_ENTRANTE), sum(Q_RESOLVIDOS) - sum(res_gest))).font = \
+        Font(bold=True, size=10, color=SINAL)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=6)
+    ws.row_dimensions[r].height = 28
+
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "clustered", 80, -12
+    ch.add_data(Reference(ws, min_col=4, min_row=ini_serie - 1, max_col=5, max_row=fim_serie),
+                titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=ini_serie, max_row=fim_serie))
+    ch.title = "Pendentes de agosto a dezembro: pela sua régua e como está no quadro"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], LARANJA)
+    bm.cor_barra(ch.series[1], NEUTRO)
+    for s_ in ch.series:
+        bm.rotulos(s_)
+    bm.categorias(ch, ws, "$A$%d:$A$%d" % (ini_serie, fim_serie))
+    ws.add_chart(bm.estilo(ch, 12, 28), "H%d" % (ini_serie - 1))
+
+    r += 2
+    ws.cell(row=r, column=1, value="4 · OS %d DA GESTÃO, POR STATUS E MÊS" % len(gest)).font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Ativo", "Tipo", "Status", "Mês previsto", "Criticidade", "Defeito",
+                "Orçamento total", "Município", "Dias pendente"],
+        [12, 7, 22, 14, 14, 24, 16, 22, 13])
+    r += 1
+    for g in sorted(gest, key=lambda g: (MESES_Q.index(mes_do_status.get(g["status"], "dezembro")),
+                                         g["tipo_eq"], g["ativo"])):
+        ws.cell(row=r, column=1, value=g["ativo"])
+        c = ws.cell(row=r, column=2, value=g["tipo_eq"])
+        c.font = Font(bold=True, color=VERDE if g["tipo_eq"] == "RT" else LARANJA, size=10)
+        ws.cell(row=r, column=3, value=g["status"])
+        ws.cell(row=r, column=4, value=mes_do_status.get(g["status"], "—"))
+        ws.cell(row=r, column=5, value=g["criticidade"])
+        ws.cell(row=r, column=6, value=g["defeito"])
+        cel = ws.cell(row=r, column=7, value=g["orcamento"])
+        cel.number_format = 'R$ #,##0.00'
+        ws.cell(row=r, column=8, value=g["municipio"])
+        ws.cell(row=r, column=9, value=g["dias"])
+        for c_ in (2, 4, 5, 9):
+            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        r += 1
+
+
 def aba_conta(wb, conta, entrada, res, cad, posicao):
     ws = wb.create_sheet("Base do Waterf")
     ws.sheet_view.showGridLines = False
@@ -722,6 +942,9 @@ def montar(saida=SAIDA):
                 "está marcado «a nomear» — com um export novo eu preencho."
                 % (n_rl + n_rt, n_rl, n_rt, S_PENDENTES, S_ENTRANTE, S_RESOLVIDOS, len(novos)),
                 ago_set)
+    gest = gestao_por_status()
+    if gest:
+        aba_ago_dez(wb, gest, n_rl, n_rt)
     if dele:
         aba_pendentes(wb, dele, por_demanda, posicao)
     aba_resumo(wb, conta, linhas, len({d["ativo"] for d in itens}), 0)

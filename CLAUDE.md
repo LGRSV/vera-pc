@@ -533,6 +533,19 @@ diferente de «Sem classificação».
   **Agosto→setembro**: o quadro dá 57 com 8 entrantes e 6 resolvidos; a base nomeia **1** entrante
   (ETO-COEP 00194/2026, 7929376022, Babaçulândia, aberta em 01/09) e **nenhum** resolvido, porque
   `BASE_SS_OS_20082026` fecha em 21/08. O resto vai marcado «a nomear» — só um export novo resolve.
+  **Set–dez, pela régua que ele deu em 09/09** («entrantes pela taxa de falha que tá na visão do
+  orçamento, menos os resolvidos que estão na Gestão como Em aquisição e tais»). **Resolvidos:
+  CONFEREM.** Os 53 da aba Gestão, repartidos pelo Status na ordem da aba Apresentação, reproduzem
+  três dos quatro meses no número exato: **set 6 = Em logística (N1>N3) · nov 22 = Avaliar compra ·
+  dez 20 = Gerado PMA**; outubro dá 5 (Em execução 3 + Reforma 2) contra 6 do quadro — 53 contra 54.
+  **A escada de dinheiro confirma**: o forecast acumulado de setembro (R$ 2.129.866,67) é o degrau
+  «Realizado + Em Execução» da Apresentação (R$ 2.129.865,66, um real de diferença) e dezembro bate
+  no centavo (R$ 6.058.299,31 × ,32). **Entrantes: NÃO CONFEREM.** 8·9·5·1 é cópia do bloco fev–mai
+  e não sai de taxa nenhuma; pela **taxa de substituição** — RL **3,1** e RT **6,0** por 100 ao ano
+  (`taxa_falha.json`, `conversao_chamada_troca`, que é a que gera peça grande; a de chamada, 49,7 e
+  47,6, conta toda ida a campo) — sobre o parque de agosto (1.294 e 190) dá **4,3/mês, 17 em quatro
+  meses contra 23**. E taxa de falha dá série **plana**: nunca 8·9·5·1 caindo para 1 em dezembro.
+  **Pela régua dele, dezembro fecha em 19, não em 24.**
   **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
   posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
 
