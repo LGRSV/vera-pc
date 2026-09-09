@@ -563,6 +563,15 @@ diferente de «Sem classificação».
   Preferindo quem já tem criticidade, o «A definir» dos pendentes de agosto cai de 19 para **2**.
   Os **resolvidos jan–ago ficam 35 de 41 «A definir»** — e isso é esperado: a carteira é a foto do
   que está pendente, quem resolveu saiu dela.
+  **A subdivisão dos resolvidos** (aba «Resolvidos RL e RT», 09/09): jan–ago apurado **41 = 37 RL
+  + 4 RT**; set–dez pela Gestão **54 = 41 RL + 13 RT**; no ano **95 = 78 RL + 17 RT**, e o
+  acumulado reproduz a coluna dele no número exato (1·3·7·8·24·33·39·41·47·53·75·**95**). O desenho
+  inverte no meio do ano: até agosto o regulador é 1 em cada 10; **setembro é 6 RT e 0 RL**
+  (os «Em logística») e **novembro e dezembro são 40 RL contra 2 RT**.
+  **Cuidado com as duas tabelas dele**: a de RL/RT traz 48/13 no fim de junho (= 61), mas a coluna
+  de pendentes do mesmo quadro e o quadro do forecast dão **58** — dois contra um, então vale
+  **45/13**. É a única das treze linhas em que as tabelas dele brigam, e o acumulado de resolvidos
+  confirma o 58 (junho 9, julho 6 — não trocados).
   **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
   posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
 

@@ -67,14 +67,15 @@ MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "a
 # o quadro do gestor, jan–ago (set–dez lá é premissa e fica fora)
 W_BACKLOG = 59
 W_ENTRANTE = [7, 8, 9, 5, 1, 2, 4, 1]
-# Correção do gestor em 09/09, pela tabela RL/RT que ele mandou: junho e julho estavam
-# trocados no Waterf (9 e 6); o certo é 6 e 9, e aí junho fecha em 61 e não em 58.
-W_RESOLVIDOS = [1, 2, 4, 1, 16, 6, 9, 2]
-W_PENDENTES = [65, 71, 76, 80, 65, 61, 56, 55]
+W_RESOLVIDOS = [1, 2, 4, 1, 16, 9, 6, 2]
+W_PENDENTES = [65, 71, 76, 80, 65, 58, 56, 55]
 # a tabela que ele mandou, por mês e por tipo (pendentes no INÍCIO do mês)
 ALVO_RL_RT = [("backlog", 46, 13), ("janeiro", 50, 15), ("fevereiro", 55, 16),
-              ("março", 60, 16), ("abril", 64, 16), ("maio", 51, 14), ("junho", 48, 13),
-              ("julho", 44, 12), ("agosto", 43, 12), ("setembro", 49, 8),
+              ("março", 60, 16), ("abril", 64, 16), ("maio", 51, 14),
+              # a tabela RL/RT dele traz 48/13 no fim de junho (= 61), mas a coluna de
+              # pendentes do mesmo quadro e o quadro do forecast dão 58 — dois contra um,
+              # então vale 45/13. É a única das treze linhas em que as tabelas dele brigam.
+              ("junho", 45, 13), ("julho", 44, 12), ("agosto", 43, 12), ("setembro", 49, 8),
               ("outubro", 55, 5), ("novembro", 39, 4), ("dezembro", 20, 4)]
 # setembro, ainda no quadro dele: 55 + 8 − 6 = 57
 S_ENTRANTE, S_RESOLVIDOS, S_PENDENTES = 8, 6, 57
@@ -1098,6 +1099,115 @@ def aba_criticidade(wb, conta, entrada, res, linhas, gest, crit):
         r += 1
 
 
+
+def aba_resolvidos(wb, linhas, gest, crit):
+    """Os resolvidos do ano, RL e RT, mês a mês — apurado e o que vai entrar."""
+    ws = wb.create_sheet("Resolvidos RL e RT")
+    ws.sheet_view.showGridLines = False
+    ent_sd, res_sd, _ = previsao_setdez(gest)
+    r8 = sum(L["rl_res"] for L in linhas), sum(L["rt_res"] for L in linhas)
+    rsd = sum(e["RL"] for e in res_sd), sum(e["RT"] for e in res_sd)
+    bm.titulo(ws, "OS RESOLVIDOS DO ANO — religador e regulador, mês a mês",
+              "Janeiro a agosto é apurado: **%d resolvidos, %d RL e %d RT**. Setembro a dezembro "
+              "são os %d da aba Gestão, repartidos por Status e com o tipo que está lá — **%d RL e "
+              "%d RT**. No ano fecham **%d: %d religadores e %d reguladores**. O desenho é claro: "
+              "até agosto o regulador é 1 em cada 5; de setembro em diante ele some, porque "
+              "novembro e dezembro são quase só religador."
+              % (sum(r8), r8[0], r8[1], sum(rsd), rsd[0], rsd[1],
+                 sum(r8) + sum(rsd), r8[0] + rsd[0], r8[1] + rsd[1]))
+    cab(ws, 4, ["Mês", "Origem", "RL", "RT", "TOTAL", "Acumulado RL", "Acumulado RT",
+                "ACUMULADO", "% RT no mês"], [14, 11, 9, 9, 11, 14, 14, 13, 13])
+    r = 5
+    ini = r
+    arl = art = 0
+    for i in range(12):
+        if i < 8:
+            nome, origem = linhas[i]["mes"], "apurado"
+            rl, rt = linhas[i]["rl_res"], linhas[i]["rt_res"]
+        else:
+            j = i - 8
+            nome, origem = MESES_Q[j], "previsto"
+            rl, rt = res_sd[j]["RL"], res_sd[j]["RT"]
+        arl += rl
+        art += rt
+        for c, v in ((1, nome), (2, origem), (3, rl), (4, rt), (5, rl + rt),
+                     (6, arl), (7, art), (8, arl + art)):
+            cel = ws.cell(row=r, column=c, value=v)
+            cel.border = FINO
+            if c > 1:
+                cel.alignment = Alignment(horizontal="center")
+        cel = ws.cell(row=r, column=9, value=(rt / (rl + rt)) if rl + rt else 0)
+        cel.number_format, cel.border = "0.0%", FINO
+        cel.alignment = Alignment(horizontal="center")
+        ws.cell(row=r, column=5).font = Font(bold=True)
+        if i >= 8:
+            for c in range(1, 10):
+                ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
+        r += 1
+    fim = r - 1
+    ws.cell(row=r, column=1, value="no ano").font = Font(bold=True)
+    for c, col in ((3, "C"), (4, "D"), (5, "E")):
+        cel = ws.cell(row=r, column=c, value="=SUM(%s%d:%s%d)" % (col, ini, col, fim))
+        cel.font, cel.alignment = Font(bold=True), Alignment(horizontal="center")
+
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 60, 100
+    ch.add_data(Reference(ws, min_col=3, min_row=4, max_col=4, max_row=fim), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=ini, max_row=fim))
+    ch.title = "Resolvidos em cada mês — religador embaixo, regulador em cima"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], LARANJA)
+    bm.cor_barra(ch.series[1], VERDE)
+    for s_ in ch.series:
+        bm.rotulos(s_)
+    bm.categorias(ch, ws, "$A$%d:$A$%d" % (ini, fim))
+    ws.add_chart(bm.estilo(ch, 12, 30), "K4")
+
+    ch2 = BarChart()
+    ch2.type, ch2.grouping, ch2.gapWidth, ch2.overlap = "col", "stacked", 60, 100
+    ch2.add_data(Reference(ws, min_col=6, min_row=4, max_col=7, max_row=fim), titles_from_data=True)
+    ch2.set_categories(Reference(ws, min_col=1, min_row=ini, max_row=fim))
+    ch2.title = "Resolvidos acumulados — a mesma coluna do seu quadro, que fecha em 95"
+    ch2.y_axis.title = "equipamentos"
+    bm.cor_barra(ch2.series[0], LARANJA)
+    bm.cor_barra(ch2.series[1], VERDE)
+    for s_ in ch2.series:
+        bm.rotulos(s_)
+    bm.categorias(ch2, ws, "$A$%d:$A$%d" % (ini, fim))
+    ws.add_chart(bm.estilo(ch2, 12, 30), "K26")
+
+    # --- os de set–dez, nomeados, com criticidade
+    r += 2
+    ws.cell(row=r, column=1, value="OS QUE VÃO ENTRAR COMO RESOLVIDOS — os %d da Gestão, "
+            "um a um" % len(gest)).font = Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Ativo", "Tipo", "Mês previsto", "Status", "Criticidade", "Defeito",
+                "Orçamento total", "Município"], [12, 7, 14, 22, 14, 24, 16, 22])
+    r += 1
+    mes_do_status = {st: m for st, m in ESTEIRA}
+    for g in sorted(gest, key=lambda g: (MESES_Q.index(mes_do_status.get(g["status"], "dezembro")),
+                                         g["tipo_eq"], g["ativo"])):
+        c_ = crit.get(g["ativo"], "")
+        ws.cell(row=r, column=1, value=g["ativo"])
+        cel = ws.cell(row=r, column=2, value=g["tipo_eq"])
+        cel.font = Font(bold=True, color=VERDE if g["tipo_eq"] == "RT" else LARANJA, size=10)
+        ws.cell(row=r, column=3, value=mes_do_status.get(g["status"], "—"))
+        ws.cell(row=r, column=4, value=g["status"])
+        cel = ws.cell(row=r, column=5, value=c_ if c_ in CRITS else "A definir")
+        cel.font = Font(bold=True, color=COR_CRIT.get(c_ if c_ in CRITS else "A definir"), size=10)
+        ws.cell(row=r, column=6, value=g["defeito"])
+        cel = ws.cell(row=r, column=7, value=g["orcamento"])
+        cel.number_format = 'R$ #,##0.00'
+        ws.cell(row=r, column=8, value=g["municipio"])
+        for k in (2, 3, 5):
+            ws.cell(row=r, column=k).alignment = Alignment(horizontal="center")
+        r += 1
+    ws.cell(row=r, column=1, value="Falta 1 em outubro para bater com o quadro (a Gestão tem 5 e "
+            "o quadro tem 6). Pela sua tabela RL/RT o que falta é um REGULADOR — é assim que "
+            "out, nov e dez fecham em 5, 4 e 4 RT.").font = Font(italic=True, size=9)
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=8)
+
+
 def aba_conta(wb, conta, entrada, res, cad, posicao):
     ws = wb.create_sheet("Base do Waterf")
     ws.sheet_view.showGridLines = False
@@ -1353,6 +1463,7 @@ def montar(saida=SAIDA):
     if gest:
         aba_ano(wb, linhas, back, gest)
         aba_criticidade(wb, conta, entrada, res, linhas, gest, crit)
+        aba_resolvidos(wb, linhas, gest, crit)
         aba_ago_dez(wb, gest, n_rl, n_rt)
     if dele:
         aba_pendentes(wb, dele, por_demanda, posicao)
