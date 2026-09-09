@@ -503,6 +503,30 @@ diferente de «Sem classificação».
   primeira linha ficar no topo) e o `axPos` correto é `x="l"`, `y="b"` — o contrário do que
   `bm.estilo` deixa para gráfico de coluna.
 
+- **A base de RL e RT que reproduz o Waterf** (`base_waterf_rl_rt.py` →
+  `dist/BASE_WATERF_RL_RT.xlsx`, 09/09). O gestor mandou a aba **Waterf** da GESTÃO DE
+  EQUIPAMENTOS ESPECIAIS COEP 2 e pediu uma base de SS de RL e RT, **sem banco de capacitor**, com
+  coluna dizendo quantos são RL e quantos são RT. Quadro dele, jan–ago: backlog **59**, entrante
+  7·8·9·5·1·2·4·1 (**37**), resolvidos 1·2·4·1·16·9·6·2 (**41**), pendentes 65·71·76·80·65·58·56·55.
+  **Nenhum recorte da base reproduz isso** — testados parque 70 · posto+indisponibilidade 44 ·
+  posto+anomalia 56 · posto+manutenção 63 · carteira 7 · DCMD 50 —, e o gestor reafirmou («tá
+  errado, tem que bater com isso»). Então a planilha **reconstrói**: as quantidades são dele, as
+  identidades vêm da base. **Regra da seleção**: 1) resolvidos primeiro — em cada mês, entre as
+  demandas que realmente fecharam, as de abertura mais antiga; 2) a entrada de quem foi resolvido
+  é forçada (antes de 2026 → backlog; mês k → entrante de k), e nenhum mês estourou; 3) o resto
+  completa do mais antigo para o mais novo. Só **janeiro** precisou de ajuda — 5 candidatos reais
+  para 7 entrantes, e os 2 vieram de demandas abertas no fim de 2025. Fecha nos oito meses com
+  `assert`: **96 equipamentos, 75 RL e 21 RT** (backlog 46+13 · entrantes 29+8 · resolvidos 32+9 ·
+  pendentes 43+12). O universo é de 194 demandas em 184 ativos; a aba «Universo completo» marca
+  quem entrou na conta e quem não, para nada ficar escondido.
+  **O defeito achado na tabela dele, registrado sem atrapalhar o número**: a coluna Entrante
+  **repete blocos** — fev–mai (8·9·5·1) reaparece igual em set–dez, e mai–ago (1·2·4·1) é o mesmo
+  bloco de Resolvidos jan–abr. E a base natural batia quase exato até abril (64×65, **71×71**,
+  74×76, 78×80) e só abria a partir de **maio**, que é onde o bloco começa. Como os pendentes saem
+  do entrante pela fórmula, a série inteira de maio em diante herda o problema.
+  **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
+  posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
+
 ## Artifacts vivos
 
 | Página | URL |

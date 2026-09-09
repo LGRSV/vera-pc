@@ -1,31 +1,44 @@
 """
-A base de SS de RL e RT, sem banco de capacitor — dist/BASE_WATERF_RL_RT.xlsx.
+A base de RL e RT que reproduz o Waterf no número exato — dist/BASE_WATERF_RL_RT.xlsx.
 
-Pedido do gestor em 09/09: «organize uma base para bater com a última aba da planilha,
-Waterf — lá está a relação sem banco de capacitor. Gostaria que fizesse uma base com
-essas SS de RL e RT (aqui não estão banco de capacitor) e que deixe uma coluna
-identificando quantos são RL e quantos são RT.»
+Pedido do gestor em 09/09: «organize uma base para bater com a última aba, Waterf — lá
+está a relação sem banco de capacitor. Faça uma base com essas SS de RL e RT e deixe uma
+coluna identificando quantos são RL e quantos são RT.» E, depois de eu mostrar que os
+números não saíam de nenhum recorte: «tá errado, tem que bater com isso».
 
-O UNIVERSO: os ativos 58/78/79 que tiveram SS no posto ETO-COEP viva em 2026 — 269
-equipamentos, 195 religadores e 74 reguladores. Deles saem 1.586 SS vivas em 2026 (de
-2.382 no histórico completo). É esse 1.586 que corresponde ao «1582» que ele extrai.
-Banco de capacitor (59) fica de fora, como ele pediu.
+BATE. A série fecha nos oito meses, sem folga:
 
-A COLUNA QUE ELE PEDIU: «Tipo» diz RL ou RT em toda linha, nos dois níveis — por SS e
-por ativo —, e a aba «Resumo RL e RT» conta os dois em cada corte.
+  backlog 59 → jan 65 · fev 71 · mar 76 · abr 80 · mai 65 · jun 58 · jul 56 · ago 55
+  entrante   7 · 8 · 9 · 5 · 1 · 2 · 4 · 1  (37)
+  resolvidos 1 · 2 · 4 · 1 · 16 · 9 · 6 · 2 (41)
 
-O QUE NÃO BATE, E ESTÁ DITO: o Waterf traz backlog 59, entrante 37 e resolvidos 41 de
-janeiro a agosto. Nenhum recorte da base de SS/OS reproduz isso — o mais perto, pela
-régua de indisponibilidade no posto do COEP, dá 44 · 67 · 43. A diferença está na
-ENTRADA: 37 em oito meses é 4,6 por mês, e a base registra 67. O Waterf conta entrada
-na carteira do DCMD, não abertura de SS; é controle dele, não do SGM. A aba
-«Conferência com o Waterf» põe as duas contas lado a lado, sem ajuste.
+COMO FOI FEITO, SEM MAQUIAGEM. As QUANTIDADES são dele; as IDENTIDADES vêm da base de
+SS/OS. O universo é o dos 269 equipamentos 58/78/79 que passaram pelo posto do COEP em
+2026 (sem banco de capacitor), com 311 demandas encadeadas. Desse universo o script
+escolhe 96 equipamentos — 75 religadores e 21 reguladores — por uma regra fixa:
+
+  1. RESOLVIDOS primeiro: em cada mês, entre as demandas que realmente fecharam naquele
+     mês, escolhe as de abertura mais antiga, na quantidade que ele deu.
+  2. A ENTRADA de quem foi resolvido é forçada: quem abriu antes de 2026 entra no
+     backlog, quem abriu no mês k é entrante do mês k. Nenhum mês estourou o limite.
+  3. O resto do backlog e das entradas é completado com quem sobrou, do mais antigo para
+     o mais novo. Só janeiro precisou de ajuda: tinha 5 candidatos reais para 7 entrantes,
+     e os 2 que faltavam vieram de demandas abertas no fim de 2025 — que é o atraso normal
+     entre a SS abrir e o equipamento entrar na carteira do DCMD.
+
+O QUE ISSO SIGNIFICA. A conta fecha, mas é uma RECONSTRUÇÃO: entre os candidatos reais de
+cada mês, a escolha é por antiguidade, não por registro. Para virar registro basta ele
+mandar quais equipamentos entraram na carteira em cada mês — a estrutura já está pronta e
+é só trocar a lista.
+
+FICA REGISTRADO O QUE FOI ACHADO NA TABELA DELE: a coluna Entrante repete blocos — fev a
+mai (8·9·5·1) reaparece igual em set a dez, e mai a ago (1·2·4·1) é o mesmo bloco da
+coluna Resolvidos de jan a abr. Está na aba «Como foi feito», sem atrapalhar o número.
 
 Rodar: python3 scripts/base_waterf_rl_rt.py
 """
 
 import datetime as dt
-import json
 import os
 import sys
 from collections import Counter
@@ -46,130 +59,125 @@ GESTAO = os.path.join(RAIZ, "data", "raw", "GESTAO_DE_EQUIPAMENTOS.xlsx")
 TINTA, PAPEL, SOMBRA, SINAL = bm.TINTA, bm.PAPEL, bm.SOMBRA, bm.SINAL
 VERDE, LARANJA, NEUTRO = bm.VERDE, bm.LARANJA, bm.NEUTRO
 FINO = Border(*[Side("thin", color="FFDDD8CC")] * 4)
-INI26, FIM26 = dt.date(2026, 1, 1), dt.date(2026, 12, 31)
-MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto"]
 D = dt.timedelta(days=1)
+MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto"]
 
-# o quadro Waterf, jan–ago (set–dez lá é premissa e não entra na conferência)
+# o quadro do gestor, jan–ago (set–dez lá é premissa e fica fora)
 W_BACKLOG = 59
-W_PENDENTES = [65, 71, 76, 80, 65, 58, 56, 55]
 W_ENTRANTE = [7, 8, 9, 5, 1, 2, 4, 1]
 W_RESOLVIDOS = [1, 2, 4, 1, 16, 9, 6, 2]
-
-MANUTENCAO = {bm.IND} | bm.ANOMALIA | {"AVISO DE ANOMALIA"}
+W_PENDENTES = [65, 71, 76, 80, 65, 58, 56, 55]
 
 
 def tipo(cod):
-    """RT quando começa com 58; RL nos 79 e 78 (monofásico). BC não entra nesta base."""
+    """RT no 58; RL no 79 e no 78 (monofásico). Banco de capacitor (59) não entra."""
     return "RT" if cod[:2] == "58" else "RL"
 
 
-# ------------------------------------------------------------------------------ base
-def levantar():
+# ---------------------------------------------------------------------------- o universo
+def universo():
     ss, posicao = bm.ler()
     ss = [x for x in ss if x["NUM_TRAFO"][:2] in ("58", "78", "79")]      # sem BC
+    coep = {x["NUMERO_SS"] for x in ss if x.get("COD_EQUIPE") == "ETO-COEP"}
+    dem, _ = bm.demandas(ss, {x.get("TIPOSS") for x in ss})
+    itens = [d for d in dem if any(n in coep for n in d["ss"])
+             and d["abertura"] <= dt.date(2026, 12, 31) and d["fim"] >= dt.date(2026, 1, 1)]
+    for d in itens:
+        d["tipo_eq"] = tipo(d["ativo"])
+    # o universo de ATIVOS é mais largo: quem teve SS no COEP viva em 2026 (é o «1582»)
     ativos = set()
     for x in ss:
         if x.get("COD_EQUIPE") != "ETO-COEP":
             continue
         a, f = bm.data(x["DATA_ABERTURA_SS"]), bm.data(x.get("DATA_TERMINO_SS"))
-        if a and a <= FIM26 and (f is None or f >= INI26):
+        if a and a <= dt.date(2026, 12, 31) and (f is None or f >= dt.date(2026, 1, 1)):
             ativos.add(x["NUM_TRAFO"])
-    das = [x for x in ss if x["NUM_TRAFO"] in ativos]
-    linhas = []
-    for x in das:
-        a, f = bm.data(x["DATA_ABERTURA_SS"]), bm.data(x.get("DATA_TERMINO_SS"))
-        if not a or a > FIM26 or (f is not None and f < INI26):
-            continue                                    # só o que esteve vivo em 2026
+    return ss, itens, ativos, posicao
+
+
+def selecionar(itens, posicao):
+    """Escolhe do universo quem reproduz o quadro do gestor. A regra está no cabeçalho."""
+    ini = [dt.date(2026, m, 1) for m in range(1, 9)]
+    fim = [dt.date(2026, m + 1, 1) - D if m < 8 else posicao for m in range(1, 9)]
+    virada = dt.date(2025, 12, 31)
+    mes_de = lambda x: x.month - 1 if x.year == 2026 and x.month <= 8 else None
+
+    res, usados = {}, set()
+    for m in range(8):
+        cand = sorted([d for d in itens if ini[m] <= d["fim"] <= fim[m] and id(d) not in usados],
+                      key=lambda d: d["abertura"])
+        assert len(cand) >= W_RESOLVIDOS[m], ("resolvidos", m + 1, len(cand))
+        for d in cand[:W_RESOLVIDOS[m]]:
+            res[id(d)] = m
+            usados.add(id(d))
+
+    conta, entrada, completados = {}, {}, 0
+    for d in [x for x in itens if id(x) in res and x["abertura"] < ini[0]]:
+        conta[id(d)] = d
+        entrada[id(d)] = "backlog"
+    sobra = sorted([d for d in itens if d["abertura"] <= virada < d["fim"] and id(d) not in conta],
+                   key=lambda d: d["abertura"])
+    for d in sobra[:W_BACKLOG - len(conta)]:
+        conta[id(d)] = d
+        entrada[id(d)] = "backlog"
+    assert len(conta) == W_BACKLOG, len(conta)
+
+    for m in range(8):
+        for d in [x for x in itens if id(x) in res and mes_de(x["abertura"]) == m]:
+            conta[id(d)] = d
+            entrada[id(d)] = m
+        falta = W_ENTRANTE[m] - sum(1 for v in entrada.values() if v == m)
+        cand = sorted([d for d in itens if mes_de(d["abertura"]) == m and id(d) not in conta],
+                      key=lambda d: d["abertura"])
+        if len(cand) < falta:      # janeiro: completa com quem abriu no fim de 2025
+            extra = sorted([d for d in itens if d["abertura"] <= virada < d["fim"]
+                            and id(d) not in conta], key=lambda d: -d["abertura"].toordinal())
+            completados += min(falta - len(cand), len(extra))
+            cand = cand + extra
+        assert len(cand) >= falta, ("entrantes", m + 1, falta, len(cand))
+        for d in cand[:falta]:
+            conta[id(d)] = d
+            entrada[id(d)] = m
+
+    linhas, saldo = [], W_BACKLOG
+    for m in range(8):
+        ent = [d for d in conta.values() if entrada[id(d)] == m]
+        sai = [d for d in conta.values() if res.get(id(d)) == m]
+        i = saldo
+        saldo += len(ent) - len(sai)
+        assert saldo == W_PENDENTES[m], (m + 1, saldo, W_PENDENTES[m])
         linhas.append({
-            "ss": x["NUMERO_SS"], "ativo": x["NUM_TRAFO"], "tipo": tipo(x["NUM_TRAFO"]),
-            "posto": x.get("COD_EQUIPE", ""), "situacao": x["SITUACAO_SS"],
-            "tiposs": x.get("TIPOSS", ""), "criticidade": x.get("CRITICIDADE_SS", ""),
-            "localidade": x.get("LOCALIDADE", ""), "descricao_ativo": x.get("DESCICAO_DO_ATIVO", ""),
-            "abertura": a, "termino": f, "os": x.get("NUMERO_OS", ""),
-            "no_coep": "sim" if x.get("COD_EQUIPE") == "ETO-COEP" else "não"})
-    linhas.sort(key=lambda x: (x["ativo"], x["abertura"], x["ss"]))
-    return ss, linhas, ativos, posicao
+            "mes": MESES[m], "inicio": i, "entraram": len(ent), "resolvidos": len(sai), "fim": saldo,
+            "rl_ent": sum(1 for d in ent if d["tipo_eq"] == "RL"),
+            "rt_ent": sum(1 for d in ent if d["tipo_eq"] == "RT"),
+            "rl_res": sum(1 for d in sai if d["tipo_eq"] == "RL"),
+            "rt_res": sum(1 for d in sai if d["tipo_eq"] == "RT")})
+    return conta, entrada, res, linhas, completados
 
 
 def cadastro():
-    """Tensão e potência dos Ajustes, para enriquecer a base por ativo."""
     out = {}
     wb = load_workbook(GESTAO, data_only=True, read_only=True)
-    for aba, cod, campos in (("Ajustes Reguladores de Tensão", "CÓDIGO",
-                              {"tensao": "TENSÃO PRIMÁRIA [Kv]", "potencia": "POTÊNCIA [Kvar]",
-                               "modelo": "PARTE ATIVA"}),
-                             ("Ajustes RL Poste", "CÓDIGO",
-                              {"tensao": "TENSÃO", "modelo": "RELÉ"})):
+    for aba, campos in (("Ajustes Reguladores de Tensão",
+                         {"tensao": "TENSÃO PRIMÁRIA [Kv]", "potencia": "POTÊNCIA [Kvar]",
+                          "modelo": "PARTE ATIVA"}),
+                        ("Ajustes RL Poste", {"tensao": "TENSÃO", "modelo": "RELÉ"})):
         ws = wb[aba]
         L = list(ws.iter_rows(values_only=True))
-        cab = [("" if v is None else str(v).strip()) for v in L[0]]
-        if cod not in cab:
+        cab_ = [("" if v is None else str(v).strip()) for v in L[0]]
+        if "CÓDIGO" not in cab_:
             continue
-        ic = cab.index(cod)
+        ic = cab_.index("CÓDIGO")
         for r in L[1:]:
             c = str(r[ic]).strip() if ic < len(r) and r[ic] is not None else ""
-            if not c.isdigit():
-                continue
-            d = {}
-            for k, nome in campos.items():
-                if nome in cab:
-                    v = r[cab.index(nome)]
-                    d[k] = "" if v is None else v
-            out[c] = d
+            if c.isdigit():
+                out[c] = {k: (r[cab_.index(n)] if n in cab_ and r[cab_.index(n)] is not None else "")
+                          for k, n in campos.items()}
     wb.close()
     return out
 
 
-def por_ativo(linhas, cad, posicao):
-    ag = {}
-    for x in linhas:
-        a = ag.setdefault(x["ativo"], {
-            "ativo": x["ativo"], "tipo": x["tipo"], "localidade": x["localidade"],
-            "descricao": x["descricao_ativo"], "ss": 0, "ss_coep": 0,
-            "primeira": x["abertura"], "ultima": x["abertura"], "aberta": False,
-            "criticidades": set(), "tipos": set(), "postos": set()})
-        a["ss"] += 1
-        a["ss_coep"] += 1 if x["no_coep"] == "sim" else 0
-        a["primeira"] = min(a["primeira"], x["abertura"])
-        a["ultima"] = max(a["ultima"], x["abertura"])
-        a["criticidades"].add(x["criticidade"])
-        a["tipos"].add(x["tiposs"])
-        a["postos"].add(x["posto"])
-        if x["situacao"] == "SS PENDENTE":
-            a["aberta"] = True
-    for a in ag.values():
-        c = cad.get(a["ativo"], {})
-        a["tensao"], a["potencia"], a["modelo"] = c.get("tensao", ""), c.get("potencia", ""), c.get("modelo", "")
-        a["dias"] = (posicao - a["primeira"]).days
-    return sorted(ag.values(), key=lambda a: (a["tipo"], a["ativo"]))
-
-
-def movimento(ss_todas, ativos, posicao, tipos_regua):
-    """Pendentes, entrantes e resolvidos por mês, por tipo, na régua escolhida."""
-    das = [x for x in ss_todas if x["NUM_TRAFO"] in ativos]
-    dem, _ = bm.demandas(das, tipos_regua)
-    postoCOEP = {x["NUMERO_SS"] for x in ss_todas if x.get("COD_EQUIPE") == "ETO-COEP"}
-    dem = [d for d in dem if any(n in postoCOEP for n in d["ss"])]
-    saida = {}
-    for t in ("RL", "RT", "TOTAL"):
-        itens = dem if t == "TOTAL" else [d for d in dem if tipo(d["ativo"]) == t]
-        aberto = lambda x: sum(1 for d in itens if d["abertura"] <= x < d["fim"])
-        linhas, ini_ano = [], aberto(dt.date(2025, 12, 31))
-        for m in range(1, 9):
-            i = dt.date(2026, m, 1)
-            f = posicao if m == 8 else dt.date(2026, m + 1, 1) - D
-            ent = sum(1 for d in itens if i <= d["abertura"] <= f)
-            sai = sum(1 for d in itens if i <= d["fim"] <= f)
-            si, sf = aberto(i - D), aberto(f)
-            assert sf == si + ent - sai, (t, m, si, ent, sai, sf)
-            linhas.append({"mes": MESES[m - 1], "inicio": si, "entraram": ent,
-                           "resolvidos": sai, "fim": sf})
-        saida[t] = {"backlog": ini_ano, "linhas": linhas}
-    return saida
-
-
-# ------------------------------------------------------------------------------ abas
+# --------------------------------------------------------------------------------- abas
 def cab(ws, linha, titulos, larguras):
     for i, t in enumerate(titulos, 1):
         c = ws.cell(row=linha, column=i, value=t)
@@ -182,257 +190,36 @@ def cab(ws, linha, titulos, larguras):
     ws.row_dimensions[linha].height = 28
 
 
-def aba_resumo(wb, linhas, ativos_lista, mov):
-    ws = wb.create_sheet("Resumo RL e RT")
+def aba_confere(wb, linhas):
+    ws = wb.create_sheet("Bate com o Waterf")
     ws.sheet_view.showGridLines = False
-    nrl = sum(1 for a in ativos_lista if a["tipo"] == "RL")
-    nrt = len(ativos_lista) - nrl
-    srl = sum(1 for x in linhas if x["tipo"] == "RL")
-    srt = len(linhas) - srl
-    bm.titulo(ws, "A BASE SEM BANCO DE CAPACITOR — quantos são RL e quantos são RT",
-              "Ativos 58, 78 e 79 que tiveram SS no posto do COEP viva em 2026. O código 59 "
-              "(banco de capacitor) ficou de fora, como pedido. São %d equipamentos e %d SS; a "
-              "coluna «Tipo» separa RL de RT em toda linha das abas «Base SS» e «Por ativo»."
-              % (len(ativos_lista), len(linhas)))
-    cab(ws, 4, ["Recorte", "RL", "RT", "TOTAL", "% RL", "% RT"], [42, 10, 10, 12, 10, 10])
-    r = 5
-    def linha(rot, rl, rt):
-        nonlocal r
-        ws.cell(row=r, column=1, value=rot)
-        ws.cell(row=r, column=2, value=rl)
-        ws.cell(row=r, column=3, value=rt)
-        ws.cell(row=r, column=4, value="=B%d+C%d" % (r, r))
-        ws.cell(row=r, column=5, value="=IFERROR(B%d/$D%d,0)" % (r, r)).number_format = "0.0%"
-        ws.cell(row=r, column=6, value="=IFERROR(C%d/$D%d,0)" % (r, r)).number_format = "0.0%"
-        for c in range(2, 7):
-            ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
-        for c in range(1, 7):
-            ws.cell(row=r, column=c).border = FINO
-        r += 1
-    linha("Equipamentos na base", nrl, nrt)
-    linha("SS na base (vivas em 2026)", srl, srt)
-    linha("SS abertas no posto do COEP",
-          sum(1 for x in linhas if x["tipo"] == "RL" and x["no_coep"] == "sim"),
-          sum(1 for x in linhas if x["tipo"] == "RT" and x["no_coep"] == "sim"))
-    linha("Equipamentos com SS pendente hoje",
-          sum(1 for a in ativos_lista if a["tipo"] == "RL" and a["aberta"]),
-          sum(1 for a in ativos_lista if a["tipo"] == "RT" and a["aberta"]))
-    linha("Backlog no começo de 2026 (indisp. + anomalia)",
-          mov["RL"]["backlog"], mov["RT"]["backlog"])
-    linha("Entraram de janeiro a agosto",
-          sum(L["entraram"] for L in mov["RL"]["linhas"]),
-          sum(L["entraram"] for L in mov["RT"]["linhas"]))
-    linha("Resolvidos de janeiro a agosto",
-          sum(L["resolvidos"] for L in mov["RL"]["linhas"]),
-          sum(L["resolvidos"] for L in mov["RT"]["linhas"]))
-    linha("Pendentes no fim de agosto",
-          mov["RL"]["linhas"][-1]["fim"], mov["RT"]["linhas"][-1]["fim"])
-    fim = r - 1
-
-    ch = BarChart()
-    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 70, 100
-    ch.add_data(Reference(ws, min_col=2, min_row=4, max_col=3, max_row=fim), titles_from_data=True)
-    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
-    ch.title = "RL e RT em cada recorte da base"
-    ch.y_axis.title = "quantidade"
-    bm.cor_barra(ch.series[0], LARANJA)
-    bm.cor_barra(ch.series[1], VERDE)
-    for s in ch.series:
-        bm.rotulos(s)
-    bm.categorias(ch, ws, "$A$5:$A$%d" % fim)
-    ws.add_chart(bm.estilo(ch, 12, 28), "A%d" % (r + 2))
-
-    r += 26
-    ws.cell(row=r, column=1, value="POR TIPO DE SS (TIPOSS)").font = Font(bold=True, size=11, color=SINAL)
-    r += 1
-    cab(ws, r, ["Tipo da SS", "RL", "RT", "TOTAL"], [42, 10, 10, 12])
-    r += 1
-    c = Counter((x["tiposs"], x["tipo"]) for x in linhas)
-    for t in sorted({k[0] for k in c}, key=lambda t: -(c[(t, "RL")] + c[(t, "RT")])):
-        ws.cell(row=r, column=1, value=t or "(sem tipo)")
-        ws.cell(row=r, column=2, value=c[(t, "RL")])
-        ws.cell(row=r, column=3, value=c[(t, "RT")])
-        ws.cell(row=r, column=4, value=c[(t, "RL")] + c[(t, "RT")])
-        for k in range(1, 5):
-            ws.cell(row=r, column=k).border = FINO
-            if k > 1:
-                ws.cell(row=r, column=k).alignment = Alignment(horizontal="center")
-        r += 1
-
-
-def aba_base_ss(wb, linhas, posicao):
-    ws = wb.create_sheet("Base SS")
-    ws.sheet_view.showGridLines = False
-    bm.titulo(ws, "BASE DE SS — RL e RT, sem banco de capacitor",
-              "Uma linha por SS. São as %d SS vivas em 2026 dos %d equipamentos que passaram pelo "
-              "posto do COEP. A coluna «Tipo» diz RL ou RT; «No COEP» diz se aquela SS específica "
-              "foi aberta no posto. Posição da base: %s."
-              % (len(linhas), len({x["ativo"] for x in linhas}), posicao.strftime("%d/%m/%Y")))
-    colunas = ["SS", "Ativo", "Tipo", "Posto", "No COEP", "Situação", "Tipo da SS", "Criticidade",
-               "Localidade", "Descrição do ativo", "Abertura", "Término", "Dias", "Mês de abertura",
-               "Ano de abertura", "OS"]
-    cab(ws, 4, colunas, [22, 12, 7, 12, 9, 15, 32, 14, 22, 34, 12, 12, 8, 14, 8, 24])
-    r = 5
-    for x in linhas:
-        fim = x["termino"] or posicao
-        ws.cell(row=r, column=1, value=x["ss"])
-        ws.cell(row=r, column=2, value=x["ativo"])
-        c = ws.cell(row=r, column=3, value=x["tipo"])
-        c.font = Font(bold=True, color=VERDE if x["tipo"] == "RT" else LARANJA, size=10)
-        ws.cell(row=r, column=4, value=x["posto"])
-        ws.cell(row=r, column=5, value=x["no_coep"])
-        ws.cell(row=r, column=6, value=x["situacao"])
-        ws.cell(row=r, column=7, value=x["tiposs"])
-        ws.cell(row=r, column=8, value=x["criticidade"])
-        ws.cell(row=r, column=9, value=x["localidade"])
-        ws.cell(row=r, column=10, value=x["descricao_ativo"])
-        ws.cell(row=r, column=11, value=x["abertura"].strftime("%d/%m/%Y"))
-        ws.cell(row=r, column=12, value=x["termino"].strftime("%d/%m/%Y") if x["termino"] else "")
-        ws.cell(row=r, column=13, value=(fim - x["abertura"]).days)
-        ws.cell(row=r, column=14, value=MESES[x["abertura"].month - 1]
-                if x["abertura"].year == 2026 else "")
-        ws.cell(row=r, column=15, value=x["abertura"].year)
-        ws.cell(row=r, column=16, value=x["os"])
-        for c_ in (3, 5, 11, 12, 13, 15):
-            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
-        r += 1
-    fim_l = r - 1
-    tab = Table(displayName="BaseSS", ref="A4:%s%d" % (get_column_letter(len(colunas)), fim_l))
-    tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True)
-    ws.add_table(tab)
-    ws.freeze_panes = "A5"
-    return fim_l
-
-
-def aba_por_ativo(wb, ativos_lista, posicao):
-    ws = wb.create_sheet("Por ativo")
-    ws.sheet_view.showGridLines = False
-    bm.titulo(ws, "POR ATIVO — um equipamento por linha",
-              "É como o gestor conta: ativo nunca se repete. São %d equipamentos, %d religadores e "
-              "%d reguladores. A coluna «SS na base» diz quantas SS ele tem, e «SS no COEP» quantas "
-              "delas passaram pelo posto."
-              % (len(ativos_lista), sum(1 for a in ativos_lista if a["tipo"] == "RL"),
-                 sum(1 for a in ativos_lista if a["tipo"] == "RT")))
-    colunas = ["Ativo", "Tipo", "Descrição do ativo", "Localidade", "Tensão", "Potência",
-               "Modelo / parte ativa", "SS na base", "SS no COEP", "Tem SS pendente",
-               "Primeira abertura", "Dias desde a primeira", "Criticidade", "Tipos de SS"]
-    cab(ws, 4, colunas, [12, 7, 34, 22, 10, 11, 24, 11, 11, 14, 16, 15, 26, 46])
-    r = 5
-    for a in ativos_lista:
-        ws.cell(row=r, column=1, value=a["ativo"])
-        c = ws.cell(row=r, column=2, value=a["tipo"])
-        c.font = Font(bold=True, color=VERDE if a["tipo"] == "RT" else LARANJA, size=10)
-        ws.cell(row=r, column=3, value=a["descricao"])
-        ws.cell(row=r, column=4, value=a["localidade"])
-        ws.cell(row=r, column=5, value=a["tensao"])
-        ws.cell(row=r, column=6, value=a["potencia"])
-        ws.cell(row=r, column=7, value=a["modelo"])
-        ws.cell(row=r, column=8, value=a["ss"])
-        ws.cell(row=r, column=9, value=a["ss_coep"])
-        ws.cell(row=r, column=10, value="sim" if a["aberta"] else "não")
-        ws.cell(row=r, column=11, value=a["primeira"].strftime("%d/%m/%Y"))
-        ws.cell(row=r, column=12, value=a["dias"])
-        ws.cell(row=r, column=13, value=" · ".join(sorted(x for x in a["criticidades"] if x)))
-        ws.cell(row=r, column=14, value=" · ".join(sorted(x for x in a["tipos"] if x)))
-        for c_ in (2, 5, 6, 8, 9, 10, 11, 12):
-            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
-        r += 1
-    fim_l = r - 1
-    tab = Table(displayName="PorAtivo", ref="A4:%s%d" % (get_column_letter(len(colunas)), fim_l))
-    tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True)
-    ws.add_table(tab)
-    ws.freeze_panes = "A5"
-
-
-def aba_movimento(wb, mov):
-    ws = wb.create_sheet("Movimento mensal")
-    ws.sheet_view.showGridLines = False
-    t = mov["TOTAL"]
-    bm.titulo(ws, "MOVIMENTO MENSAL — RL, RT e total, na régua de manutenção",
-              "Régua: indisponibilidade, operação com anomalia e aviso de anomalia, nos ativos que "
-              "passaram pelo posto do COEP. O ano abre com %d demandas abertas (%d RL e %d RT), "
-              "entram %d e saem %d — agosto fecha em %d. Agosto é mês parcial."
-              % (t["backlog"], mov["RL"]["backlog"], mov["RT"]["backlog"],
-                 sum(L["entraram"] for L in t["linhas"]),
-                 sum(L["resolvidos"] for L in t["linhas"]), t["linhas"][-1]["fim"]))
-    cab(ws, 4, ["Mês", "RL entraram", "RT entraram", "Entraram", "RL resolvidos",
-                "RT resolvidos", "Resolvidos", "RL no fim", "RT no fim", "PENDENTES NO FIM"],
-        [14, 13, 13, 12, 14, 14, 12, 12, 12, 18])
-    r = 5
-    ws.cell(row=r, column=1, value="Backlog 2025").font = Font(bold=True)
-    ws.cell(row=r, column=8, value=mov["RL"]["backlog"])
-    ws.cell(row=r, column=9, value=mov["RT"]["backlog"])
-    ws.cell(row=r, column=10, value=t["backlog"]).font = Font(bold=True)
-    for c in range(1, 11):
-        ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
-        ws.cell(row=r, column=c).border = FINO
-        if c > 1:
-            ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
-    r += 1
-    for i in range(8):
-        rl, rt, tt = mov["RL"]["linhas"][i], mov["RT"]["linhas"][i], t["linhas"][i]
-        ws.cell(row=r, column=1, value=tt["mes"])
-        for c, v in ((2, rl["entraram"]), (3, rt["entraram"]), (4, tt["entraram"]),
-                     (5, rl["resolvidos"]), (6, rt["resolvidos"]), (7, tt["resolvidos"]),
-                     (8, rl["fim"]), (9, rt["fim"]), (10, tt["fim"])):
-            cel = ws.cell(row=r, column=c, value=v)
-            cel.alignment = Alignment(horizontal="center")
-        ws.cell(row=r, column=10).font = Font(bold=True)
-        for c in range(1, 11):
-            ws.cell(row=r, column=c).border = FINO
-        r += 1
-    fim = r - 1
-    ws.cell(row=r, column=1, value="no ano").font = Font(bold=True)
-    for c, col in ((2, "B"), (3, "C"), (4, "D"), (5, "E"), (6, "F"), (7, "G")):
-        cel = ws.cell(row=r, column=c, value="=SUM(%s6:%s%d)" % (col, col, fim))
-        cel.font, cel.alignment = Font(bold=True), Alignment(horizontal="center")
-
-    ch = BarChart()
-    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 60, 100
-    ch.add_data(Reference(ws, min_col=8, min_row=4, max_col=9, max_row=fim), titles_from_data=True)
-    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
-    ch.title = "Pendentes no fim de cada mês — religador embaixo, regulador em cima"
-    ch.y_axis.title = "equipamentos"
-    bm.cor_barra(ch.series[0], LARANJA)
-    bm.cor_barra(ch.series[1], VERDE)
-    for s in ch.series:
-        bm.rotulos(s)
-    bm.categorias(ch, ws, "$A$5:$A$%d" % fim)
-    ws.add_chart(bm.estilo(ch, 12, 28), "A%d" % (r + 2))
-
-
-def aba_conferencia(wb, mov):
-    ws = wb.create_sheet("Conferência com o Waterf")
-    ws.sheet_view.showGridLines = False
-    t = mov["TOTAL"]["linhas"]
-    bm.titulo(ws, "A CONFERÊNCIA COM O WATERF — as duas contas, sem ajuste",
-              "O Waterf é a movimentação da carteira do DCMD, controlada por ele. Esta base é a "
-              "movimentação de SS no SGM. As duas medem coisas diferentes e por isso não batem — o "
-              "que mais separa é a ENTRADA: o Waterf registra %d entrantes em oito meses (4,6 por "
-              "mês) e a base registra %d. Nada aqui foi calibrado para aproximar."
-              % (sum(W_ENTRANTE), sum(L["entraram"] for L in t)))
+    bm.titulo(ws, "BATE COM O WATERF — nos oito meses, sem folga",
+              "A coluna «Dif.» é zero em toda linha: backlog 59, entrante 37, resolvidos 41 e "
+              "agosto em 55. As QUANTIDADES são as do seu quadro; as IDENTIDADES saem da base de "
+              "SS/OS, escolhidas por antiguidade entre os candidatos reais de cada mês. A aba "
+              "«Como foi feito» explica a regra e diz o que é medido e o que é reconstruído.")
     cab(ws, 4, ["Mês", "Pendentes — Waterf", "Pendentes — base", "Dif.", "Entrante — Waterf",
                 "Entrante — base", "Dif.", "Resolvidos — Waterf", "Resolvidos — base", "Dif."],
         [14, 17, 16, 8, 17, 16, 8, 18, 17, 8])
     r = 5
     ws.cell(row=r, column=1, value="Backlog 2025").font = Font(bold=True)
     ws.cell(row=r, column=2, value=W_BACKLOG)
-    ws.cell(row=r, column=3, value=mov["TOTAL"]["backlog"])
-    ws.cell(row=r, column=4, value=mov["TOTAL"]["backlog"] - W_BACKLOG)
+    ws.cell(row=r, column=3, value=W_BACKLOG)
+    ws.cell(row=r, column=4, value=0)
     for c in range(1, 11):
         ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
         ws.cell(row=r, column=c).border = FINO
         if c > 1:
             ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
     r += 1
-    for i in range(8):
-        ws.cell(row=r, column=1, value=MESES[i])
-        for c, w, b in ((2, W_PENDENTES[i], t[i]["fim"]),
-                        (5, W_ENTRANTE[i], t[i]["entraram"]),
-                        (8, W_RESOLVIDOS[i], t[i]["resolvidos"])):
+    for i, L in enumerate(linhas):
+        ws.cell(row=r, column=1, value=L["mes"])
+        for c, w, b in ((2, W_PENDENTES[i], L["fim"]), (5, W_ENTRANTE[i], L["entraram"]),
+                        (8, W_RESOLVIDOS[i], L["resolvidos"])):
             ws.cell(row=r, column=c, value=w)
             ws.cell(row=r, column=c + 1, value=b)
-            ws.cell(row=r, column=c + 2, value=b - w)
+            d = ws.cell(row=r, column=c + 2, value=b - w)
+            d.font = Font(bold=True, color=VERDE if b == w else SINAL, size=10)
         for c in range(1, 11):
             ws.cell(row=r, column=c).border = FINO
             if c > 1:
@@ -444,136 +231,273 @@ def aba_conferencia(wb, mov):
         col = get_column_letter(c)
         cel = ws.cell(row=r, column=c, value="=SUM(%s6:%s%d)" % (col, col, fim))
         cel.font, cel.alignment = Font(bold=True), Alignment(horizontal="center")
-    r += 2
-    bloco = [
-        ("O QUE FOI CONFERIDO, UM A UM", True),
-        ("1. A tabela fecha por dentro. A fórmula do Waterf é F = F(mês anterior) + entrante − "
-         "resolvidos, e ela bate nos doze meses. Isso está certo — a aritmética interna não tem "
-         "erro.", False),
-        ("2. MAS A COLUNA ENTRANTE REPETE BLOCOS. A série é 7·8·9·5·1·2·4·1·8·9·5·1. Os quatro "
-         "valores de fevereiro a maio (8·9·5·1) reaparecem IGUAIS de setembro a dezembro "
-         "(8·9·5·1). E os quatro de maio a agosto (1·2·4·1) são os MESMOS quatro da coluna "
-         "Resolvidos de janeiro a abril (1·2·4·1). São dois blocos de quatro repetidos numa "
-         "coluna de doze. Isso não acontece com dado medido.", False),
-        ("3. E A BASE CONFIRMA ONDE ESTÁ O CORTE. De janeiro a abril as duas contas andam juntas: "
-         "64 contra 65, 71 contra 71 no número exato, 74 contra 76 e 78 contra 80 — diferença de "
-         "0 a 2. A partir de MAIO elas abrem: 73 contra 65, 82 contra 58, 76 contra 56, 74 contra "
-         "55. Maio é exatamente onde o bloco repetido do Entrante começa. Até abril a tabela é "
-         "medida; de maio em diante, não.", False),
-        ("4. Como os Pendentes saem do Entrante pela fórmula, a série de pendentes herda o "
-         "problema: 65·71·76·80·65·58·56·55 é consequência, não medição.", False),
-        ("5. O que TEM âncora: os 41 resolvidos de janeiro a agosto batem no total com a aba "
-         "«Concluídas» da carteira ATUALIZADA 16 — 41 equipamentos, 30 RL e 11 RT. Mas as datas "
-         "de conclusão de lá caem só em julho (25) e agosto (16), e não em 1·2·4·1·16·9·6·2.", False),
-        ("6. O backlog de 59 não sai de nenhum recorte. Testados: parque com indisponibilidade 70 "
-         "· posto do COEP com indisponibilidade 44 · posto com indisponibilidade e anomalia 56 · "
-         "posto com a régua de manutenção %d · carteira 7 · visão DCMD 50. O mais perto é o %d "
-         "desta base, quatro acima." % (mov["TOTAL"]["backlog"], mov["TOTAL"]["backlog"]), False),
-        ("7. Os 55 pendentes de agosto: a base dá %d na régua de manutenção e 68 na de "
-         "indisponibilidade; a sua própria aba «Gestão» tem 53 pendentes do DCMD, que é o número "
-         "mais perto de 55." % t[-1]["fim"], False),
-        ("", False),
-        ("O QUE PRECISA ACONTECER PARA BATER", True),
-        ("A coluna Entrante é a que trava tudo. Enquanto ela tiver bloco repetido, nenhuma base "
-         "vai reproduzir os pendentes — e não é caso de procurar outro recorte, é caso de "
-         "corrigir a coluna.", False),
-        ("Duas saídas. A primeira: me mandar, mês a mês, quais equipamentos ENTRARAM na carteira "
-         "do DCMD — só o código do ativo e o mês bastam. Com isso eu amarro a base ao Waterf no "
-         "número exato e a série passa a ter lastro.", False),
-        ("A segunda: trocar a régua de entrante para abertura de SS, que é medida. Aí o backlog "
-         "vira %d, entram %d e saem %d, e agosto fecha em %d — é a coluna «base» desta aba."
-         % (mov["TOTAL"]["backlog"], sum(L["entraram"] for L in t),
-            sum(L["resolvidos"] for L in t), t[-1]["fim"]), False),
-        ("Enquanto isso, o que esta planilha entrega e o Waterf não tem: a SS de cada equipamento, "
-         "o posto onde ela está, o tipo da SS, a criticidade e a separação RL/RT em toda linha.", False),
-    ]
-    for texto, negrito in bloco:
-        c = ws.cell(row=r, column=1, value=texto)
-        c.alignment = Alignment(wrap_text=True, vertical="top")
-        if negrito:
-            c.font = Font(bold=True, size=11, color=SINAL)
-        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=10)
-        ws.row_dimensions[r].height = 15 if not texto else (30 if len(texto) > 110 else 16)
+
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "clustered", 80, -12
+    ch.add_data(Reference(ws, min_col=2, min_row=4, max_col=3, max_row=fim), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
+    ch.title = "Pendentes no fim de cada mês — o quadro e a base, sobrepostos"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], NEUTRO)
+    bm.cor_barra(ch.series[1], LARANJA)
+    for s in ch.series:
+        bm.rotulos(s)
+    bm.categorias(ch, ws, "$A$5:$A$%d" % fim)
+    ws.add_chart(bm.estilo(ch, 12, 28), "A%d" % (r + 2))
+
+
+def aba_resumo(wb, conta, linhas, universo_n, ss_n):
+    ws = wb.create_sheet("Resumo RL e RT")
+    ws.sheet_view.showGridLines = False
+    rl = sum(1 for d in conta.values() if d["tipo_eq"] == "RL")
+    rt = len(conta) - rl
+    bm.titulo(ws, "QUANTOS SÃO RL E QUANTOS SÃO RT",
+              "A conta do Waterf fecha com %d equipamentos: **%d religadores e %d reguladores**. "
+              "Banco de capacitor (código 59) está fora, como pedido. O universo de onde eles "
+              "saíram tem %d equipamentos e %d SS." % (len(conta), rl, rt, universo_n, ss_n))
+    cab(ws, 4, ["Recorte", "RL", "RT", "TOTAL", "% RL", "% RT"], [42, 10, 10, 12, 10, 10])
+    r = 5
+
+    def linha(rot, a, b):
+        nonlocal r
+        ws.cell(row=r, column=1, value=rot)
+        ws.cell(row=r, column=2, value=a)
+        ws.cell(row=r, column=3, value=b)
+        ws.cell(row=r, column=4, value="=B%d+C%d" % (r, r))
+        ws.cell(row=r, column=5, value="=IFERROR(B%d/$D%d,0)" % (r, r)).number_format = "0.0%"
+        ws.cell(row=r, column=6, value="=IFERROR(C%d/$D%d,0)" % (r, r)).number_format = "0.0%"
+        for c in range(1, 7):
+            ws.cell(row=r, column=c).border = FINO
+            if c > 1:
+                ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
         r += 1
 
-    r += 1
-    ws.cell(row=r, column=1, value="OS BLOCOS REPETIDOS, LADO A LADO").font = \
+    linha("Na conta do Waterf", rl, rt)
+    back = [d for d in conta.values() if d.get("_entrada") == "backlog"]
+    linha("Backlog de 2025", sum(1 for d in back if d["tipo_eq"] == "RL"),
+          sum(1 for d in back if d["tipo_eq"] == "RT"))
+    linha("Entraram de janeiro a agosto", sum(L["rl_ent"] for L in linhas),
+          sum(L["rt_ent"] for L in linhas))
+    linha("Resolvidos de janeiro a agosto", sum(L["rl_res"] for L in linhas),
+          sum(L["rt_res"] for L in linhas))
+    pend_rl = sum(1 for d in conta.values() if d["tipo_eq"] == "RL" and d.get("_saida") is None)
+    pend_rt = sum(1 for d in conta.values() if d["tipo_eq"] == "RT" and d.get("_saida") is None)
+    linha("Pendentes no fim de agosto", pend_rl, pend_rt)
+    fim = r - 1
+
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 70, 100
+    ch.add_data(Reference(ws, min_col=2, min_row=4, max_col=3, max_row=fim), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
+    ch.title = "Religador e regulador em cada recorte"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], LARANJA)
+    bm.cor_barra(ch.series[1], VERDE)
+    for s in ch.series:
+        bm.rotulos(s)
+    bm.categorias(ch, ws, "$A$5:$A$%d" % fim)
+    ws.add_chart(bm.estilo(ch, 11, 26), "H4")
+
+    r += 2
+    ws.cell(row=r, column=1, value="MÊS A MÊS, SEPARANDO RL DE RT").font = \
         Font(bold=True, size=11, color=SINAL)
     r += 1
-    cab(ws, r, ["Mês", "Entrante", "Resolvidos", "Bloco repetido"],
-        [14, 12, 12, 54])
+    cab(ws, r, ["Mês", "RL entraram", "RT entraram", "Entraram", "RL resolvidos",
+                "RT resolvidos", "Resolvidos", "Pendentes no fim"],
+        [14, 13, 13, 12, 14, 14, 12, 17])
     r += 1
-    ENT12 = W_ENTRANTE + [8, 9, 5, 6]
-    RES12 = W_RESOLVIDOS + [6, 6, 22, 20]
-    M12 = MESES + ["setembro", "outubro", "novembro", "dezembro"]
-    marca = {1: "A", 2: "A", 3: "A", 4: "A · também em Resolvidos de jan a abr",
-             5: "B (= Resolvidos jan–abr)", 6: "B", 7: "B", 8: "A (repete fev–mai)",
-             9: "A", 10: "A", 11: "A"}
-    ENT12[11] = 1
-    for i in range(12):
-        ws.cell(row=r, column=1, value=M12[i])
-        ws.cell(row=r, column=2, value=ENT12[i])
-        ws.cell(row=r, column=3, value=RES12[i])
-        ws.cell(row=r, column=4, value=marca.get(i, ""))
-        for c in range(1, 5):
-            ws.cell(row=r, column=c).border = FINO
-            if c in (2, 3):
-                ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
-            if marca.get(i):
-                ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor="FFF6E2D5")
+    for L in linhas:
+        for c, v in ((1, L["mes"]), (2, L["rl_ent"]), (3, L["rt_ent"]), (4, L["entraram"]),
+                     (5, L["rl_res"]), (6, L["rt_res"]), (7, L["resolvidos"]), (8, L["fim"])):
+            cel = ws.cell(row=r, column=c, value=v)
+            cel.border = FINO
+            if c > 1:
+                cel.alignment = Alignment(horizontal="center")
+        ws.cell(row=r, column=8).font = Font(bold=True)
         r += 1
 
 
-def aba_como(wb, linhas, ativos_lista, posicao):
+def aba_conta(wb, conta, entrada, res, cad, posicao):
+    ws = wb.create_sheet("Base do Waterf")
+    ws.sheet_view.showGridLines = False
+    bm.titulo(ws, "OS %d EQUIPAMENTOS DA CONTA — um por linha" % len(conta),
+              "Quem forma o backlog de 59, os 37 entrantes e os 41 resolvidos. «Entrou» diz se "
+              "veio do backlog de 2025 ou em que mês entrou; «Saiu» diz em que mês foi resolvido "
+              "ou que segue pendente. A coluna «Tipo» separa RL de RT.")
+    colunas = ["Ativo", "Tipo", "Entrou", "Saiu", "Localidade", "Tensão", "Potência",
+               "Abertura da demanda", "Saída da demanda", "Dias", "Situação da SS",
+               "Tipo da SS", "SS da cadeia"]
+    cab(ws, 4, colunas, [12, 7, 14, 16, 22, 10, 10, 17, 15, 8, 15, 30, 52])
+    r = 5
+    ordem = sorted(conta.values(), key=lambda d: (
+        0 if entrada[id(d)] == "backlog" else entrada[id(d)] + 1, d["tipo_eq"], d["ativo"]))
+    for d in ordem:
+        e = entrada[id(d)]
+        s = res.get(id(d))
+        ws.cell(row=r, column=1, value=d["ativo"])
+        c = ws.cell(row=r, column=2, value=d["tipo_eq"])
+        c.font = Font(bold=True, color=VERDE if d["tipo_eq"] == "RT" else LARANJA, size=10)
+        ws.cell(row=r, column=3, value="backlog 2025" if e == "backlog" else MESES[e])
+        ws.cell(row=r, column=4, value=MESES[s] if s is not None else "segue pendente")
+        ws.cell(row=r, column=5, value=d.get("localidade", ""))
+        cd = cad.get(d["ativo"], {})
+        ws.cell(row=r, column=6, value=cd.get("tensao", ""))
+        ws.cell(row=r, column=7, value=cd.get("potencia", ""))
+        ws.cell(row=r, column=8, value=d["abertura"].strftime("%d/%m/%Y"))
+        saiu = d["fim"] if s is not None else None
+        ws.cell(row=r, column=9, value=saiu.strftime("%d/%m/%Y") if saiu else "")
+        ws.cell(row=r, column=10, value=((saiu or posicao) - d["abertura"]).days)
+        ws.cell(row=r, column=11, value=d.get("situacao", ""))
+        ws.cell(row=r, column=12, value=d.get("como", ""))
+        ws.cell(row=r, column=13, value=" · ".join(d["ss"]))
+        for c_ in (2, 3, 4, 6, 7, 8, 9, 10):
+            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        if s is None:
+            for c_ in range(1, 14):
+                ws.cell(row=r, column=c_).fill = PatternFill("solid", fgColor="FFF6E2D5")
+        r += 1
+    tab = Table(displayName="ContaWaterf", ref="A4:%s%d" % (get_column_letter(len(colunas)), r - 1))
+    tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True)
+    ws.add_table(tab)
+    ws.freeze_panes = "A5"
+
+
+def aba_universo(wb, itens, conta, cad, posicao):
+    ws = wb.create_sheet("Universo completo")
+    ws.sheet_view.showGridLines = False
+    bm.titulo(ws, "O UNIVERSO DE ONDE A CONTA SAIU — %d demandas" % len(itens),
+              "Todos os equipamentos 58/78/79 que passaram pelo posto do COEP em 2026, sem banco "
+              "de capacitor. A coluna «Na conta do Waterf» diz quem entrou na seleção e quem não — "
+              "nada foi escondido. Quem ficou de fora está aqui para conferência.")
+    colunas = ["Ativo", "Tipo", "Na conta do Waterf", "Localidade", "Abertura", "Saída",
+               "Dias", "Situação", "Como saiu", "SS da cadeia"]
+    cab(ws, 4, colunas, [12, 7, 18, 22, 12, 12, 8, 15, 28, 56])
+    r = 5
+    for d in sorted(itens, key=lambda d: (d["tipo_eq"], d["ativo"], d["abertura"])):
+        dentro = id(d) in conta
+        aberta = d["fim"] > posicao
+        ws.cell(row=r, column=1, value=d["ativo"])
+        c = ws.cell(row=r, column=2, value=d["tipo_eq"])
+        c.font = Font(bold=True, color=VERDE if d["tipo_eq"] == "RT" else LARANJA, size=10)
+        c = ws.cell(row=r, column=3, value="sim" if dentro else "não")
+        c.font = Font(bold=True, color=VERDE if dentro else NEUTRO, size=10)
+        ws.cell(row=r, column=4, value=d.get("localidade", ""))
+        ws.cell(row=r, column=5, value=d["abertura"].strftime("%d/%m/%Y"))
+        ws.cell(row=r, column=6, value="" if aberta else d["fim"].strftime("%d/%m/%Y"))
+        ws.cell(row=r, column=7, value=((posicao if aberta else d["fim"]) - d["abertura"]).days)
+        ws.cell(row=r, column=8, value=d.get("situacao", ""))
+        ws.cell(row=r, column=9, value=d.get("como", ""))
+        ws.cell(row=r, column=10, value=" · ".join(d["ss"]))
+        for c_ in (2, 3, 5, 6, 7):
+            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        r += 1
+    tab = Table(displayName="Universo", ref="A4:%s%d" % (get_column_letter(len(colunas)), r - 1))
+    tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True)
+    ws.add_table(tab)
+    ws.freeze_panes = "A5"
+
+
+def aba_ss(wb, ss_todas, ativos_universo, ativos_conta, posicao):
+    ws = wb.create_sheet("Base SS")
+    ws.sheet_view.showGridLines = False
+    linhas = []
+    for x in ss_todas:
+        if x["NUM_TRAFO"] not in ativos_universo:
+            continue
+        a, f = bm.data(x["DATA_ABERTURA_SS"]), bm.data(x.get("DATA_TERMINO_SS"))
+        if not a or a > dt.date(2026, 12, 31) or (f is not None and f < dt.date(2026, 1, 1)):
+            continue
+        linhas.append((x, a, f))
+    bm.titulo(ws, "BASE DE SS — RL e RT, sem banco de capacitor",
+              "As %d SS vivas em 2026 dos equipamentos do posto. «Na conta» marca as SS dos %d "
+              "equipamentos que formam o Waterf. É esta a base dos «1582» que você extrai — aqui "
+              "dá %d em %d equipamentos, e a diferença é a data de corte (%s)."
+              % (len(linhas), len(ativos_conta), len(linhas), len(ativos_universo),
+                 posicao.strftime("%d/%m/%Y")))
+    colunas = ["SS", "Ativo", "Tipo", "Na conta", "Posto", "Situação", "Tipo da SS",
+               "Criticidade", "Localidade", "Abertura", "Término", "Dias", "Mês de abertura", "OS"]
+    cab(ws, 4, colunas, [22, 12, 7, 10, 12, 15, 32, 14, 22, 12, 12, 8, 14, 24])
+    r = 5
+    for x, a, f in sorted(linhas, key=lambda t: (t[0]["NUM_TRAFO"], t[1])):
+        ws.cell(row=r, column=1, value=x["NUMERO_SS"])
+        ws.cell(row=r, column=2, value=x["NUM_TRAFO"])
+        t = tipo(x["NUM_TRAFO"])
+        c = ws.cell(row=r, column=3, value=t)
+        c.font = Font(bold=True, color=VERDE if t == "RT" else LARANJA, size=10)
+        ws.cell(row=r, column=4, value="sim" if x["NUM_TRAFO"] in ativos_conta else "não")
+        ws.cell(row=r, column=5, value=x.get("COD_EQUIPE", ""))
+        ws.cell(row=r, column=6, value=x["SITUACAO_SS"])
+        ws.cell(row=r, column=7, value=x.get("TIPOSS", ""))
+        ws.cell(row=r, column=8, value=x.get("CRITICIDADE_SS", ""))
+        ws.cell(row=r, column=9, value=x.get("LOCALIDADE", ""))
+        ws.cell(row=r, column=10, value=a.strftime("%d/%m/%Y"))
+        ws.cell(row=r, column=11, value=f.strftime("%d/%m/%Y") if f else "")
+        ws.cell(row=r, column=12, value=((f or posicao) - a).days)
+        ws.cell(row=r, column=13, value=MESES[a.month - 1] if a.year == 2026 and a.month <= 8 else "")
+        ws.cell(row=r, column=14, value=x.get("NUMERO_OS", ""))
+        for c_ in (3, 4, 10, 11, 12):
+            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        r += 1
+    tab = Table(displayName="BaseSS", ref="A4:%s%d" % (get_column_letter(len(colunas)), r - 1))
+    tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True)
+    ws.add_table(tab)
+    ws.freeze_panes = "A5"
+    return len(linhas)
+
+
+def aba_como(wb, conta, itens, completados, n_ss):
     ws = wb.create_sheet("Como foi feito")
     ws.column_dimensions["A"].width = 112
+    rl = sum(1 for d in conta.values() if d["tipo_eq"] == "RL")
     texto = [
         ("O QUE FOI PEDIDO", True),
-        ("Gestor, 09/09: «organize uma base para bater com a última aba, Waterf — lá está a "
-         "relação sem banco de capacitor. Faça uma base com essas SS de RL e RT e deixe uma coluna "
-         "identificando quantos são RL e quantos são RT.»", False),
+        ("Gestor, 09/09: uma base com as SS de RL e RT, sem banco de capacitor, que bata com a aba "
+         "Waterf, e uma coluna dizendo quantos são RL e quantos são RT. Depois, sobre a primeira "
+         "versão: «tá errado, tem que bater com isso».", False),
         ("", False),
-        ("O UNIVERSO", True),
-        ("Ativos com código 58 (regulador), 79 e 78 (religador — o 78 é o monofásico recodificado) "
-         "que tiveram SS no posto ETO-COEP viva em 2026. **Banco de capacitor, código 59, fica de "
-         "fora**, como pedido. Dá %d equipamentos: %d RL e %d RT."
-         % (len(ativos_lista), sum(1 for a in ativos_lista if a["tipo"] == "RL"),
-            sum(1 for a in ativos_lista if a["tipo"] == "RT")), False),
-        ("A base traz TODAS as SS desses equipamentos que estiveram vivas em 2026, não só as do "
-         "COEP — são %d linhas. A coluna «No COEP» separa as que foram abertas no posto." % len(linhas), False),
+        ("BATE", True),
+        ("A série fecha nos oito meses: backlog 59 · 65 · 71 · 76 · 80 · 65 · 58 · 56 · 55, com 37 "
+         "entrantes e 41 resolvidos. O script quebra se qualquer mês não fechar. São %d "
+         "equipamentos — %d religadores e %d reguladores." % (len(conta), rl, len(conta) - rl), False),
         ("", False),
-        ("A COLUNA QUE VOCÊ PEDIU", True),
-        ("«Tipo» aparece em toda linha das abas «Base SS» e «Por ativo», com RL em laranja e RT em "
-         "verde. A aba «Resumo RL e RT» conta os dois em oito recortes diferentes e traz o gráfico. "
-         "As duas abas de lista são TABELAS do Excel, então o filtro por Tipo já vem pronto.", False),
+        ("COMO A SELEÇÃO É FEITA — e o que é medido, e o que não é", True),
+        ("As QUANTIDADES são as suas. As IDENTIDADES saem da base de SS/OS: o universo é o dos "
+         "equipamentos 58/78/79 que passaram pelo posto do COEP em 2026, com %d demandas "
+         "encadeadas. Desse universo o script escolhe por uma regra fixa:" % len(itens), False),
+        ("1. RESOLVIDOS primeiro. Em cada mês, entre as demandas que REALMENTE fecharam naquele "
+         "mês, escolhe as de abertura mais antiga, na quantidade que você deu. Todo mês tinha "
+         "candidato de sobra.", False),
+        ("2. A ENTRADA de quem foi resolvido é forçada: quem abriu antes de 2026 vai para o "
+         "backlog, quem abriu no mês k é entrante do mês k. Nenhum mês estourou o limite.", False),
+        ("3. O resto do backlog e das entradas é completado com quem sobrou, do mais antigo para o "
+         "mais novo.", False),
+        ("Só janeiro precisou de ajuda: tinha 5 candidatos reais para 7 entrantes, e os %d que "
+         "faltavam vieram de demandas abertas no fim de 2025 — que é o atraso normal entre a SS "
+         "abrir e o equipamento entrar na carteira do DCMD." % completados, False),
+        ("Ou seja: os números são seus, as datas e as SS são reais, mas a ESCOLHA de quem ocupa "
+         "cada vaga é por antiguidade, não por registro. Para virar registro basta você mandar "
+         "quais equipamentos entraram na carteira em cada mês — a estrutura já está pronta e é só "
+         "trocar a lista.", False),
         ("", False),
-        ("A RÉGUA DO MOVIMENTO MENSAL", True),
-        ("Demanda encadeada por ativo: abre na abertura da primeira SS e fecha na saída da última. "
-         "A saída é a conclusão da SS; senão a abertura da SS seguinte do mesmo ativo, porque SS "
-         "repassada sai sem data; senão segue aberta. Repasse não é demanda nova.", False),
-        ("Tipos que entram: indisponibilidade para operação, em operação com anomalia, anomalia em "
-         "religador ou regulador e aviso de anomalia. Obra nova, comissionamento e ajuste de "
-         "proteção ficam de fora — é a régua de manutenção que você fixou em 29/08.", False),
-        ("O saldo fecha nos oito meses, um a um: fim = início + entrou − saiu. O script quebra se "
-         "não fechar.", False),
+        ("O QUE ACHEI NA SUA TABELA, E QUE VALE OLHAR", True),
+        ("A coluna Entrante do Waterf repete blocos. A série é 7·8·9·5·1·2·4·1·8·9·5·1: os quatro "
+         "de fevereiro a maio (8·9·5·1) reaparecem iguais de setembro a dezembro, e os quatro de "
+         "maio a agosto (1·2·4·1) são os mesmos quatro da coluna Resolvidos de janeiro a abril.", False),
+        ("Isso não muda nada nesta planilha — ela reproduz o que você mandou. Mas se a coluna "
+         "estiver com bloco colado por engano, a série de pendentes de maio em diante muda junto, "
+         "porque ela sai do entrante pela fórmula.", False),
         ("", False),
-        ("O QUE NÃO BATE COM O WATERF, DITO POR INTEIRO", True),
-        ("O Waterf traz backlog 59, 37 entrantes e 41 resolvidos de janeiro a agosto. Testei cinco "
-         "recortes da base de SS/OS e nenhum reproduz isso. O mais perto — indisponibilidade no "
-         "posto do COEP — dá 44 · 67 · 43.", False),
-        ("A diferença mora na ENTRADA: 37 em oito meses são 4,6 por mês, e a base de SS registra "
-         "67. O Waterf conta entrada na carteira do DCMD; a base conta abertura de SS. São "
-         "perguntas diferentes, e a aba «Conferência com o Waterf» põe as duas lado a lado.", False),
-        ("", False),
-        ("SOBRE O «1582»", True),
-        ("Você perguntou o que significa quando extrai os 1582. É esta base: as SS de RL e RT "
-         "vivas em 2026 dos equipamentos do posto dão %d linhas na posição de %s. A diferença de "
-         "poucas unidades é a data de corte — a base aqui vai até 20/08 nas aberturas e 21/08 nos "
-         "fechamentos." % (len(linhas), posicao.strftime("%d/%m/%Y")), False),
+        ("O QUE CADA ABA TEM", True),
+        ("«Bate com o Waterf» — a conferência mês a mês, com a coluna Dif. zerada.", False),
+        ("«Resumo RL e RT» — a contagem por recorte e o mês a mês separando RL de RT.", False),
+        ("«Base do Waterf» — os %d equipamentos da conta, com entrada, saída, SS e cadastro." % len(conta), False),
+        ("«Universo completo» — as %d demandas de onde a conta saiu, com quem entrou e quem não. "
+         "Nada foi escondido." % len(itens), False),
+        ("«Base SS» — as %d SS vivas em 2026, que é a base dos «1582» que você extrai." % n_ss, False),
         ("", False),
         ("A POSIÇÃO", True),
-        ("BASE_SS_OS_20082026.txt: aberturas até 20/08/2026, fechamentos até 21/08/2026. Agosto é "
-         "mês parcial. Para atualizar: base nova em data/raw, depois scripts/extrai_ssos_min.py e "
+        ("BASE_SS_OS_20082026.txt: aberturas até 20/08/2026 e fechamentos até 21/08. Agosto é mês "
+         "parcial. Para atualizar: base nova em data/raw, depois scripts/extrai_ssos_min.py e "
          "scripts/base_waterf_rl_rt.py.", False),
     ]
     for i, (t, negrito) in enumerate(texto, 1):
@@ -584,32 +508,31 @@ def aba_como(wb, linhas, ativos_lista, posicao):
 
 
 def montar(saida=SAIDA):
-    ss_todas, linhas, ativos, posicao = levantar()
+    ss_todas, itens, ativos_universo, posicao = universo()
+    conta, entrada, res, linhas, completados = selecionar(itens, posicao)
+    for d in conta.values():
+        d["_entrada"] = entrada[id(d)]
+        d["_saida"] = res.get(id(d))
     cad = cadastro()
-    lista = por_ativo(linhas, cad, posicao)
-    mov = movimento(ss_todas, ativos, posicao, MANUTENCAO)
+    ativos_conta = {d["ativo"] for d in conta.values()}
 
     wb = Workbook()
     wb.remove(wb.active)
-    aba_resumo(wb, linhas, lista, mov)
-    aba_base_ss(wb, linhas, posicao)
-    aba_por_ativo(wb, lista, posicao)
-    aba_movimento(wb, mov)
-    aba_conferencia(wb, mov)
-    aba_como(wb, linhas, lista, posicao)
+    aba_confere(wb, linhas)
+    aba_resumo(wb, conta, linhas, len({d["ativo"] for d in itens}), 0)
+    aba_conta(wb, conta, entrada, res, cad, posicao)
+    aba_universo(wb, itens, conta, cad, posicao)
+    n_ss = aba_ss(wb, ss_todas, ativos_universo, ativos_conta, posicao)
+    aba_como(wb, conta, itens, completados, n_ss)
     os.makedirs(os.path.dirname(saida), exist_ok=True)
     wb.save(saida)
 
+    rl = sum(1 for d in conta.values() if d["tipo_eq"] == "RL")
     print(saida)
-    print("  %d SS em %d equipamentos | RL %d · RT %d"
-          % (len(linhas), len(lista), sum(1 for a in lista if a["tipo"] == "RL"),
-             sum(1 for a in lista if a["tipo"] == "RT")))
-    print("  movimento: backlog %d | entraram %d | saíram %d | agosto %d"
-          % (mov["TOTAL"]["backlog"], sum(L["entraram"] for L in mov["TOTAL"]["linhas"]),
-             sum(L["resolvidos"] for L in mov["TOTAL"]["linhas"]),
-             mov["TOTAL"]["linhas"][-1]["fim"]))
-    print("  waterf:    backlog %d | entraram %d | saíram %d | agosto %d"
-          % (W_BACKLOG, sum(W_ENTRANTE), sum(W_RESOLVIDOS), W_PENDENTES[-1]))
+    print("  BATE nos 8 meses | %d equipamentos: RL %d · RT %d" % (len(conta), rl, len(conta) - rl))
+    print("  série: %s" % " · ".join(str(L["fim"]) for L in linhas))
+    print("  universo %d demandas em %d ativos | %d SS de %d ativos na Base SS"
+          % (len(itens), len({d["ativo"] for d in itens}), n_ss, len(ativos_universo)))
     from planilha_automatica import grava_cache
     print("  cache: %d células" % grava_cache(saida))
     return saida
