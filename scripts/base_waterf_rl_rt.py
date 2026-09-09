@@ -973,42 +973,78 @@ def aba_criticidade(wb, conta, entrada, res, linhas, gest, crit):
               "«Falta definir», «Sem classificação» e vazio viram **A DEFINIR**: são %d dos %d."
               % (n_def, len(conta)))
 
-    # --- estoque por mês e criticidade
+    # --- estoque por mês e criticidade, os DOZE meses
+    ent_sd, res_sd, _ = previsao_setdez(gest)
+    mes_do_status = {st: m for st, m in ESTEIRA}
+    crit_sd = {m: Counter() for m in MESES_Q}
+    for g in gest:
+        m = mes_do_status.get(g["status"])
+        if m:
+            crit_sd[m][cr(g["ativo"])] += 1
+    crit_sd["outubro"]["A definir"] += Q_RESOLVIDOS[1] - sum(crit_sd["outubro"].values())
+
     r = 4
-    ws.cell(row=r, column=1, value="ESTOQUE NO FIM DE CADA MÊS, POR CRITICIDADE").font = \
+    ws.cell(row=r, column=1, value="ESTOQUE NO FIM DE CADA MÊS, POR CRITICIDADE — OS DOZE").font = \
         Font(bold=True, size=11, color=SINAL)
     r += 1
-    cab(ws, r, ["Mês"] + CRITS + ["TOTAL"], [14] + [13] * len(CRITS) + [11])
+    cab(ws, r, ["Mês", "Origem"] + CRITS + ["TOTAL"], [14, 11] + [13] * len(CRITS) + [11])
     r += 1
     ini_m = r
-    for m in range(-1, 8):
+    saldo, remanejados = None, 0
+    for m in range(-1, 12):
         if m < 0:
-            nome, vivos = "Backlog 2025", [d for d in conta.values()
-                                           if entrada[id(d)] == "backlog"]
-        else:
-            nome = linhas[m]["mes"]
+            nome, origem = "Backlog 2025", ""
+            vivos = [d for d in conta.values() if entrada[id(d)] == "backlog"]
+            saldo = {c_: sum(1 for d in vivos if d["_crit"] == c_) for c_ in CRITS}
+        elif m < 8:
+            nome, origem = linhas[m]["mes"], "apurado"
             vivos = [d for d in conta.values()
                      if (entrada[id(d)] == "backlog" or entrada[id(d)] <= m)
                      and (res.get(id(d)) is None or res[id(d)] > m)]
+            saldo = {c_: sum(1 for d in vivos if d["_crit"] == c_) for c_ in CRITS}
+        else:
+            j = m - 8
+            nome, origem = MESES_Q[j], "previsto"
+            # sai o que a Gestão prevê, por criticidade; entra tudo como A definir, porque
+            # demanda nova só ganha classificação depois que o posto olha
+            for c_ in CRITS:
+                if c_ == "A definir":
+                    continue
+                sai = crit_sd[MESES_Q[j]].get(c_, 0)
+                if sai > saldo[c_]:          # a Gestão pede mais dessa classe do que existe
+                    remanejados += sai - saldo[c_]
+                    saldo["A definir"] -= sai - saldo[c_]
+                    sai = saldo[c_]
+                saldo[c_] -= sai
+            saldo["A definir"] -= crit_sd[MESES_Q[j]].get("A definir", 0)
+            saldo["A definir"] += ent_sd[j]["RL"] + ent_sd[j]["RT"]
         ws.cell(row=r, column=1, value=nome)
+        ws.cell(row=r, column=2, value=origem)
         for k, c_ in enumerate(CRITS):
-            ws.cell(row=r, column=2 + k, value=sum(1 for d in vivos if d["_crit"] == c_))
-        ws.cell(row=r, column=2 + len(CRITS), value=len(vivos)).font = Font(bold=True)
-        for c_ in range(1, 3 + len(CRITS)):
+            ws.cell(row=r, column=3 + k, value=saldo[c_])
+        ws.cell(row=r, column=3 + len(CRITS), value=sum(saldo.values())).font = Font(bold=True)
+        for c_ in range(1, 4 + len(CRITS)):
             ws.cell(row=r, column=c_).border = FINO
             if c_ > 1:
                 ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
-        if m < 0:
-            for c_ in range(1, 3 + len(CRITS)):
+            if m < 0 or m >= 8:
                 ws.cell(row=r, column=c_).fill = PatternFill("solid", fgColor=SOMBRA)
         r += 1
     fim_m = r - 1
+    if remanejados:
+        cel = ws.cell(row=r, column=1, value="Em %d %s a Gestão prevê resolver mais de uma classe "
+                      "do que existe no estoque daquele mês — a diferença sai do «A definir», que "
+                      "é onde os entrantes novos ficam até o posto classificar."
+                      % (remanejados, "caso" if remanejados == 1 else "casos"))
+        cel.font = Font(italic=True, size=9)
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=3 + len(CRITS))
+        r += 1
     ch = BarChart()
     ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 60, 100
-    ch.add_data(Reference(ws, min_col=2, min_row=ini_m - 1, max_col=1 + len(CRITS), max_row=fim_m),
+    ch.add_data(Reference(ws, min_col=3, min_row=ini_m - 1, max_col=2 + len(CRITS), max_row=fim_m),
                 titles_from_data=True)
     ch.set_categories(Reference(ws, min_col=1, min_row=ini_m, max_row=fim_m))
-    ch.title = "Estoque no fim de cada mês, repartido por criticidade"
+    ch.title = "Estoque no fim de cada mês, por criticidade — os doze (set–dez é previsão)"
     ch.y_axis.title = "equipamentos"
     for s_, c_ in zip(ch.series, CRITS):
         bm.cor_barra(s_, COR_CRIT[c_])
@@ -1029,7 +1065,10 @@ def aba_criticidade(wb, conta, entrada, res, linhas, gest, crit):
     res8 = [d for d in conta.values() if res.get(id(d)) is not None]
     pend = [d for d in conta.values() if res.get(id(d)) is None]
     gestc = [{"_crit": cr(g["ativo"])} for g in gest]
+    ent_sd_n = sum(e["RL"] + e["RT"] for e in ent_sd)
+    entsd = [{"_crit": "A definir"}] * ent_sd_n
     for rot, grupo in (("Backlog de 2025", back), ("Entraram jan–ago", ent8),
+                       ("Entram set–dez (previsto)", entsd),
                        ("Resolvidos jan–ago", res8), ("Pendentes no fim de agosto", pend),
                        ("A resolver set–dez (Gestão)", gestc)):
         ws.cell(row=r, column=1, value=rot)

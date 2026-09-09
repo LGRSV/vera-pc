@@ -572,6 +572,12 @@ diferente de «Sem classificação».
   de pendentes do mesmo quadro e o quadro do forecast dão **58** — dois contra um, então vale
   **45/13**. É a única das treze linhas em que as tabelas dele brigam, e o acumulado de resolvidos
   confirma o 58 (junho 9, julho 6 — não trocados).
+  **A criticidade cobre os DOZE meses** (aba «Por criticidade», 09/09): jan–ago apurado, set–dez
+  derivado — sai o que a Gestão prevê por classe e **entra tudo como «A definir»**, porque demanda
+  nova só ganha classificação depois que o posto olha. Série de Muito Alta: 7 → 13 em abril → 11 em
+  agosto → **0 em dezembro**; Baixa zera em novembro (a Gestão resolve 18 Baixa); e dezembro fecha
+  com **19 dos 24 «A definir»** — a fila do fim do ano é quase toda demanda nova. Em 1 mês a Gestão
+  pede mais de uma classe do que existe no estoque, e a diferença sai do «A definir».
   **A aba «Mensal completo»** junta tudo numa linha por mês, os doze: entrante RL/RT, resolvido
   RL/RT, pendente RL/RT e os resolvidos do mês repartidos por criticidade. É a visão que ele pediu
   como «isso aqui mensal».
