@@ -692,6 +692,155 @@ def aba_ago_dez(wb, gest, n_ago_rl, n_ago_rt):
         r += 1
 
 
+
+def previsao_setdez(gest):
+    """Set–dez repartido em RL e RT: resolvidos pela Gestão, entrantes pela taxa."""
+    mes_do_status = {st: m for st, m in ESTEIRA}
+    res = {m: {"RL": 0, "RT": 0} for m in MESES_Q}
+    for g in gest:
+        m = mes_do_status.get(g["status"])
+        if m:
+            res[m][g["tipo_eq"]] += 1
+    # o entrante do quadro repartido na proporção da taxa de substituição
+    peso_rl = PARQUE_AGO["RL"] * TAXA_SUB["RL"] / (PARQUE_AGO["RL"] * TAXA_SUB["RL"]
+                                                   + PARQUE_AGO["RT"] * TAXA_SUB["RT"])
+    ent, acum = [], 0.0
+    for i, n in enumerate(Q_ENTRANTE):
+        acum += n * peso_rl
+        rl = round(acum) - sum(e["RL"] for e in ent)
+        ent.append({"RL": rl, "RT": n - rl})
+    return ent, [res[m] for m in MESES_Q], peso_rl
+
+
+def aba_ano(wb, linhas, back, gest):
+    ws = wb.create_sheet("O ano inteiro 2026")
+    ws.sheet_view.showGridLines = False
+    ent_sd, res_sd, peso = previsao_setdez(gest)
+    b_rl = sum(1 for d in back if d["tipo_eq"] == "RL")
+    b_rt = len(back) - b_rl
+    e8_rl, e8_rt = sum(L["rl_ent"] for L in linhas), sum(L["rt_ent"] for L in linhas)
+    r8_rl, r8_rt = sum(L["rl_res"] for L in linhas), sum(L["rt_res"] for L in linhas)
+    esd_rl, esd_rt = sum(e["RL"] for e in ent_sd), sum(e["RT"] for e in ent_sd)
+    rsd_rl, rsd_rt = sum(e["RL"] for e in res_sd), sum(e["RT"] for e in res_sd)
+    fim_rl = b_rl + e8_rl + esd_rl - r8_rl - rsd_rl
+    fim_rt = b_rt + e8_rt + esd_rt - r8_rt - rsd_rt
+
+    bm.titulo(ws, "O ANO INTEIRO DE 2026 — janeiro a dezembro, RL e RT separados",
+              "Janeiro a agosto é apurado, na conta que reproduz o Waterf. Setembro a dezembro é "
+              "previsão pela SUA régua: resolvidos pelos %d da aba Gestão repartidos por Status "
+              "(setembro Em logística, outubro Em execução e Reforma, novembro Avaliar compra, "
+              "dezembro Gerado PMA) e entrantes na proporção da taxa de substituição — %.0f%% "
+              "religador. Dezembro fecha em %d; no seu quadro dá 24, e a diferença é o 1 a mais "
+              "que o quadro põe em outubro." % (len(gest), peso * 100, fim_rl + fim_rt))
+
+    cab(ws, 4, ["Recorte", "RL", "RT", "TOTAL", "% RL", "% RT"], [40, 10, 10, 12, 10, 10])
+    r = 5
+    for rot, a, b in (("Backlog de 2025", b_rl, b_rt),
+                      ("Entraram jan–ago (apurado)", e8_rl, e8_rt),
+                      ("Entraram set–dez (previsto)", esd_rl, esd_rt),
+                      ("Resolvidos jan–ago (apurado)", r8_rl, r8_rt),
+                      ("Resolvidos set–dez (Gestão)", rsd_rl, rsd_rt),
+                      ("Pendentes no fim de dezembro", fim_rl, fim_rt)):
+        ws.cell(row=r, column=1, value=rot)
+        ws.cell(row=r, column=2, value=a)
+        ws.cell(row=r, column=3, value=b)
+        ws.cell(row=r, column=4, value="=B%d+C%d" % (r, r))
+        ws.cell(row=r, column=5, value="=IFERROR(B%d/$D%d,0)" % (r, r)).number_format = "0.0%"
+        ws.cell(row=r, column=6, value="=IFERROR(C%d/$D%d,0)" % (r, r)).number_format = "0.0%"
+        for c in range(1, 7):
+            ws.cell(row=r, column=c).border = FINO
+            if c > 1:
+                ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+        r += 1
+    fim_rec = r - 1
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 70, 100
+    ch.add_data(Reference(ws, min_col=2, min_row=4, max_col=3, max_row=fim_rec), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim_rec))
+    ch.title = "Religador e regulador em cada recorte — 2026 inteiro"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], LARANJA)
+    bm.cor_barra(ch.series[1], VERDE)
+    for s_ in ch.series:
+        bm.rotulos(s_)
+    bm.categorias(ch, ws, "$A$5:$A$%d" % fim_rec)
+    ws.add_chart(bm.estilo(ch, 12, 28), "H4")
+
+    r += 2
+    ws.cell(row=r, column=1, value="MÊS A MÊS, OS DOZE").font = Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Mês", "Origem", "RL entraram", "RT entraram", "RL resolvidos", "RT resolvidos",
+                "RL no fim", "RT no fim", "TOTAL no fim"],
+        [14, 11, 13, 13, 14, 14, 12, 12, 15])
+    r += 1
+    ini_m = r
+    ws.cell(row=r, column=1, value="Backlog 2025").font = Font(bold=True)
+    ws.cell(row=r, column=7, value=b_rl)
+    ws.cell(row=r, column=8, value=b_rt)
+    ws.cell(row=r, column=9, value=b_rl + b_rt).font = Font(bold=True)
+    for c in range(1, 10):
+        ws.cell(row=r, column=c).fill = PatternFill("solid", fgColor=SOMBRA)
+        ws.cell(row=r, column=c).border = FINO
+        if c > 1:
+            ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+    r += 1
+    srl, srt = b_rl, b_rt
+    for i in range(12):
+        if i < 8:
+            L = linhas[i]
+            nome, origem = L["mes"], "apurado"
+            erl, ert, rrl, rrt = L["rl_ent"], L["rt_ent"], L["rl_res"], L["rt_res"]
+        else:
+            j = i - 8
+            nome, origem = MESES_Q[j], "previsto"
+            erl, ert = ent_sd[j]["RL"], ent_sd[j]["RT"]
+            rrl, rrt = res_sd[j]["RL"], res_sd[j]["RT"]
+        srl += erl - rrl
+        srt += ert - rrt
+        for c, v in ((1, nome), (2, origem), (3, erl), (4, ert), (5, rrl), (6, rrt),
+                     (7, srl), (8, srt), (9, srl + srt)):
+            cel = ws.cell(row=r, column=c, value=v)
+            cel.border = FINO
+            if c > 1:
+                cel.alignment = Alignment(horizontal="center")
+            if i >= 8:
+                cel.fill = PatternFill("solid", fgColor=SOMBRA)
+        ws.cell(row=r, column=9).font = Font(bold=True)
+        r += 1
+    fim_m = r - 1
+    ws.cell(row=r, column=1, value="no ano").font = Font(bold=True)
+    for c, col in ((3, "C"), (4, "D"), (5, "E"), (6, "F")):
+        cel = ws.cell(row=r, column=c, value="=SUM(%s%d:%s%d)" % (col, ini_m + 1, col, fim_m))
+        cel.font, cel.alignment = Font(bold=True), Alignment(horizontal="center")
+
+    ch2 = BarChart()
+    ch2.type, ch2.grouping, ch2.gapWidth, ch2.overlap = "col", "stacked", 60, 100
+    ch2.add_data(Reference(ws, min_col=7, min_row=ini_m - 1, max_col=8, max_row=fim_m),
+                 titles_from_data=True)
+    ch2.set_categories(Reference(ws, min_col=1, min_row=ini_m, max_row=fim_m))
+    ch2.title = "Pendentes no fim de cada mês — RL embaixo, RT em cima (set–dez sombreado é previsão)"
+    ch2.y_axis.title = "equipamentos"
+    bm.cor_barra(ch2.series[0], LARANJA)
+    bm.cor_barra(ch2.series[1], VERDE)
+    for s_ in ch2.series:
+        bm.rotulos(s_)
+    bm.categorias(ch2, ws, "$A$%d:$A$%d" % (ini_m, fim_m))
+    ws.add_chart(bm.estilo(ch2, 12, 30), "K%d" % (ini_m - 1))
+
+    ch3 = BarChart()
+    ch3.type, ch3.grouping, ch3.gapWidth, ch3.overlap = "col", "clustered", 80, -12
+    ch3.add_data(Reference(ws, min_col=3, min_row=ini_m - 1, max_col=6, max_row=fim_m),
+                 titles_from_data=True)
+    ch3.set_categories(Reference(ws, min_col=1, min_row=ini_m, max_row=fim_m))
+    ch3.title = "Entraram e resolvidos em cada mês, separando religador de regulador"
+    ch3.y_axis.title = "equipamentos"
+    for s_, cor in zip(ch3.series, (LARANJA, "E08A4A", VERDE, "6FB394")):
+        bm.cor_barra(s_, cor)
+        bm.rotulos(s_)
+    bm.categorias(ch3, ws, "$A$%d:$A$%d" % (ini_m, fim_m))
+    ws.add_chart(bm.estilo(ch3, 12, 30), "K%d" % (ini_m + 24))
+
+
 def aba_conta(wb, conta, entrada, res, cad, posicao):
     ws = wb.create_sheet("Base do Waterf")
     ws.sheet_view.showGridLines = False
@@ -944,6 +1093,7 @@ def montar(saida=SAIDA):
                 ago_set)
     gest = gestao_por_status()
     if gest:
+        aba_ano(wb, linhas, back, gest)
         aba_ago_dez(wb, gest, n_rl, n_rt)
     if dele:
         aba_pendentes(wb, dele, por_demanda, posicao)
