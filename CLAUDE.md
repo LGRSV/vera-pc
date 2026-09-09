@@ -546,6 +546,23 @@ diferente de «Sem classificação».
   47,6, conta toda ida a campo) — sobre o parque de agosto (1.294 e 190) dá **4,3/mês, 17 em quatro
   meses contra 23**. E taxa de falha dá série **plana**: nunca 8·9·5·1 caindo para 1 em dezembro.
   **Pela régua dele, dezembro fecha em 19, não em 24.**
+  **Correção do gestor em 09/09, com a tabela RL/RT dele**: no Waterf **junho e julho estavam
+  trocados** — resolvidos 6 e 9, não 9 e 6 —, e aí junho fecha em **61**, não 58. E o **6º
+  resolvido de outubro que falta na Gestão é um REGULADOR**: com ele, out/nov/dez fecham em 5, 4 e
+  4 RT, exatamente como ele mandou. Com as duas correções a planilha **bate nas 13 linhas, RL e
+  RT** (`assert` por tipo em cada mês): 46/13 · 50/15 · 55/16 · 60/16 · 64/16 · 51/14 · 48/13 ·
+  44/12 · 43/12 · 49/8 · 55/5 · 39/4 · **20/4**.
+  **A seleção virou tipo-a-tipo**: em cada mês o entrante de cada tipo é `Δestoque + resolvidos`, e
+  os resolvidos por tipo saem da faixa que mantém os dois entrantes não negativos. **Armadilha**: o
+  resolvido que abriu no PRÓPRIO mês obriga um entrante naquele mês — se escolher resolvido por
+  criticidade, puxa demanda nova para dentro do mês e estoura a cota. Por isso o **resolvido vai
+  pelo mais antigo e a criticidade só desempata**; a preferência por criticidade fica no backlog e
+  nos entrantes, e é o que faz a conta cair em cima dos ativos que ele acompanha.
+  **Criticidade** (aba «Por criticidade»): do EQUIPAMENTO, na ordem Gestão → Resolvidos → aba de
+  mapeamento da ATUALIZADA 16; «Falta definir», «Sem classificação» e vazio viram **A definir**.
+  Preferindo quem já tem criticidade, o «A definir» dos pendentes de agosto cai de 19 para **2**.
+  Os **resolvidos jan–ago ficam 35 de 41 «A definir»** — e isso é esperado: a carteira é a foto do
+  que está pendente, quem resolveu saiu dela.
   **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
   posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
 

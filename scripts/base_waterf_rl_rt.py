@@ -40,6 +40,7 @@ Rodar: python3 scripts/base_waterf_rl_rt.py
 
 import datetime as dt
 import os
+import re
 import sys
 from collections import Counter
 
@@ -66,8 +67,15 @@ MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "a
 # o quadro do gestor, jan–ago (set–dez lá é premissa e fica fora)
 W_BACKLOG = 59
 W_ENTRANTE = [7, 8, 9, 5, 1, 2, 4, 1]
-W_RESOLVIDOS = [1, 2, 4, 1, 16, 9, 6, 2]
-W_PENDENTES = [65, 71, 76, 80, 65, 58, 56, 55]
+# Correção do gestor em 09/09, pela tabela RL/RT que ele mandou: junho e julho estavam
+# trocados no Waterf (9 e 6); o certo é 6 e 9, e aí junho fecha em 61 e não em 58.
+W_RESOLVIDOS = [1, 2, 4, 1, 16, 6, 9, 2]
+W_PENDENTES = [65, 71, 76, 80, 65, 61, 56, 55]
+# a tabela que ele mandou, por mês e por tipo (pendentes no INÍCIO do mês)
+ALVO_RL_RT = [("backlog", 46, 13), ("janeiro", 50, 15), ("fevereiro", 55, 16),
+              ("março", 60, 16), ("abril", 64, 16), ("maio", 51, 14), ("junho", 48, 13),
+              ("julho", 44, 12), ("agosto", 43, 12), ("setembro", 49, 8),
+              ("outubro", 55, 5), ("novembro", 39, 4), ("dezembro", 20, 4)]
 # setembro, ainda no quadro dele: 55 + 8 − 6 = 57
 S_ENTRANTE, S_RESOLVIDOS, S_PENDENTES = 8, 6, 57
 # set–dez do quadro dele
@@ -75,6 +83,10 @@ Q_ENTRANTE = [8, 9, 5, 1]
 Q_RESOLVIDOS = [6, 6, 22, 20]
 Q_PENDENTES = [57, 60, 43, 24]
 MESES_Q = ["setembro", "outubro", "novembro", "dezembro"]
+CARTEIRA16 = os.path.join(RAIZ, "data", "raw", "EQUIPAMENTOS_INDISPONIVEIS_ATUALIZADA16.xlsx")
+CRITS = ["Muito Alta", "Alta", "Média", "Baixa", "A definir"]
+COR_CRIT = {"Muito Alta": "8C2D04", "Alta": LARANJA, "Média": "C98A3A",
+            "Baixa": VERDE, "A definir": NEUTRO}
 # taxa de SUBSTITUIÇÃO — a que gera demanda de peça grande (taxa_falha.json)
 TAXA_SUB = {"RL": 3.1, "RT": 6.0}
 PARQUE_AGO = {"RL": 1294, "RT": 190}
@@ -109,50 +121,102 @@ def universo():
     return ss, itens, ativos, posicao
 
 
-def selecionar(itens, posicao):
-    """Escolhe do universo quem reproduz o quadro do gestor. A regra está no cabeçalho."""
-    ini = [dt.date(2026, m, 1) for m in range(1, 9)]
-    fim = [dt.date(2026, m + 1, 1) - D if m < 8 else posicao for m in range(1, 9)]
+def selecionar(itens, posicao, crit=None):
+    """Escolhe do universo quem reproduz o quadro do gestor, mês a mês E por tipo.
+
+    As QUANTIDADES são dele — o quadro Waterf e a tabela RL/RT que mandou em 09/09. As
+    IDENTIDADES saem da base de SS/OS. A ordem de escolha é: primeiro quem JÁ TEM
+    CRITICIDADE definida na carteira ou na aba Gestão, que é o que ele acompanha; depois
+    o mais antigo.
+
+    Como o mês fecha: para cada mês e cada tipo, o entrante é `Δestoque + resolvidos`, e
+    os resolvidos por tipo são escolhidos dentro da faixa que mantém os dois entrantes
+    não negativos — daí a conta fecha em RL, em RT e no total, sem sobra."""
+    crit = crit or {}
+    ordem = lambda d: (0 if d["ativo"] in crit else 1, d["abertura"])
+    ini_m = [dt.date(2026, m, 1) for m in range(1, 9)]
+    fim_m = [dt.date(2026, m + 1, 1) - D if m < 8 else posicao for m in range(1, 9)]
     virada = dt.date(2025, 12, 31)
     mes_de = lambda x: x.month - 1 if x.year == 2026 and x.month <= 8 else None
+    alvo = {"RL": [a[1] for a in ALVO_RL_RT], "RT": [a[2] for a in ALVO_RL_RT]}
 
-    res, usados = {}, set()
+    # 1) resolvidos de cada mês, por tipo, dentro da faixa que deixa o entrante viável
+    res, usados, res_t = {}, set(), []
     for m in range(8):
-        cand = sorted([d for d in itens if ini[m] <= d["fim"] <= fim[m] and id(d) not in usados],
-                      key=lambda d: d["abertura"])
-        assert len(cand) >= W_RESOLVIDOS[m], ("resolvidos", m + 1, len(cand))
-        for d in cand[:W_RESOLVIDOS[m]]:
-            res[id(d)] = m
-            usados.add(id(d))
+        d_t = {t: alvo[t][m + 1] - alvo[t][m] for t in ("RL", "RT")}
+        minimo = {t: max(0, -d_t[t]) for t in ("RL", "RT")}
+        # quem abriu ANTES do mês vem primeiro: assim o resolvido não força um entrante
+        # no próprio mês, que é o que estoura a cota de entrada
+        # o resolvido vai pelo MAIS ANTIGO, e a criticidade só desempata: escolher por
+        # criticidade aqui puxa demanda nova para dentro do mês e estoura a cota de entrada
+        ordem_res = lambda d: (d["abertura"], 0 if d["ativo"] in crit else 1)
+        cand = {t: sorted([x for x in itens if ini_m[m] <= x["fim"] <= fim_m[m]
+                           and id(x) not in usados and x["tipo_eq"] == t], key=ordem_res)
+                for t in ("RL", "RT")}
+        # o resolvido que abriu no PRÓPRIO mês obriga um entrante naquele mês; se obrigar
+        # mais do que a cota, a divisão RL/RT tem de mudar. Procura a primeira que fecha.
+        def viavel(n_rl, n_rt):
+            if n_rl > len(cand["RL"]) or n_rt > len(cand["RT"]) or n_rl < 0 or n_rt < 0:
+                return False
+            for t, n in (("RL", n_rl), ("RT", n_rt)):
+                forcados = sum(1 for d in cand[t][:n] if mes_de(d["abertura"]) == m)
+                if d_t[t] + n < forcados:
+                    return False
+            return True
 
+        faixa = range(max(minimo["RT"], W_RESOLVIDOS[m] - len(cand["RL"])),
+                      min(len(cand["RT"]), W_RESOLVIDOS[m] - minimo["RL"]) + 1)
+        escolha = next((k for k in faixa if viavel(W_RESOLVIDOS[m] - k, k)), None)
+        assert escolha is not None, ("nenhuma divisão RL/RT fecha no mês", m + 1,
+                                     list(faixa), len(cand["RL"]), len(cand["RT"]))
+        n_rt, n_rl = escolha, W_RESOLVIDOS[m] - escolha
+        res_t.append({"RL": n_rl, "RT": n_rt})
+        for t, n in (("RL", n_rl), ("RT", n_rt)):
+            for d in cand[t][:n]:
+                res[id(d)] = m
+                usados.add(id(d))
+
+    # 2) o backlog, por tipo: primeiro quem foi resolvido no ano, depois o mais antigo
     conta, entrada, completados = {}, {}, 0
-    for d in [x for x in itens if id(x) in res and x["abertura"] < ini[0]]:
+    for d in [x for x in itens if id(x) in res and x["abertura"] < ini_m[0]]:
         conta[id(d)] = d
         entrada[id(d)] = "backlog"
-    sobra = sorted([d for d in itens if d["abertura"] <= virada < d["fim"] and id(d) not in conta],
-                   key=lambda d: d["abertura"])
-    for d in sobra[:W_BACKLOG - len(conta)]:
-        conta[id(d)] = d
-        entrada[id(d)] = "backlog"
+    for t in ("RL", "RT"):
+        falta = alvo[t][0] - sum(1 for d in conta.values() if d["tipo_eq"] == t)
+        assert falta >= 0, ("backlog estourou", t, falta)
+        sobra = sorted([d for d in itens if d["abertura"] <= virada < d["fim"]
+                        and id(d) not in conta and d["tipo_eq"] == t], key=ordem)
+        assert len(sobra) >= falta, ("backlog", t, falta, len(sobra))
+        for d in sobra[:falta]:
+            conta[id(d)] = d
+            entrada[id(d)] = "backlog"
     assert len(conta) == W_BACKLOG, len(conta)
 
+    # 3) os entrantes de cada mês, por tipo: Δestoque + resolvidos daquele tipo
     for m in range(8):
         for d in [x for x in itens if id(x) in res and mes_de(x["abertura"]) == m]:
             conta[id(d)] = d
             entrada[id(d)] = m
-        falta = W_ENTRANTE[m] - sum(1 for v in entrada.values() if v == m)
-        cand = sorted([d for d in itens if mes_de(d["abertura"]) == m and id(d) not in conta],
-                      key=lambda d: d["abertura"])
-        if len(cand) < falta:      # janeiro: completa com quem abriu no fim de 2025
-            extra = sorted([d for d in itens if d["abertura"] <= virada < d["fim"]
-                            and id(d) not in conta], key=lambda d: -d["abertura"].toordinal())
-            completados += min(falta - len(cand), len(extra))
-            cand = cand + extra
-        assert len(cand) >= falta, ("entrantes", m + 1, falta, len(cand))
-        for d in cand[:falta]:
-            conta[id(d)] = d
-            entrada[id(d)] = m
+        for t in ("RL", "RT"):
+            alvo_t = alvo[t][m + 1] - alvo[t][m] + res_t[m][t]
+            falta = alvo_t - sum(1 for k, v in entrada.items() if v == m
+                                 and conta[k]["tipo_eq"] == t)
+            assert falta >= 0, ("entrante negativo", m + 1, t, falta)
+            cand = sorted([d for d in itens if mes_de(d["abertura"]) == m
+                           and id(d) not in conta and d["tipo_eq"] == t], key=ordem)
+            if len(cand) < falta:   # completa com quem abriu no fim de 2025
+                extra = sorted([d for d in itens if d["abertura"] <= virada < d["fim"]
+                                and id(d) not in conta and d["tipo_eq"] == t],
+                               key=lambda d: (0 if d["ativo"] in crit else 1,
+                                              -d["abertura"].toordinal()))
+                completados += min(falta - len(cand), len(extra))
+                cand = cand + extra
+            assert len(cand) >= falta, ("entrantes", m + 1, t, falta, len(cand))
+            for d in cand[:falta]:
+                conta[id(d)] = d
+                entrada[id(d)] = m
 
+    # 4) confere: total, por tipo, mês a mês
     linhas, saldo = [], W_BACKLOG
     for m in range(8):
         ent = [d for d in conta.values() if entrada[id(d)] == m]
@@ -160,6 +224,12 @@ def selecionar(itens, posicao):
         i = saldo
         saldo += len(ent) - len(sai)
         assert saldo == W_PENDENTES[m], (m + 1, saldo, W_PENDENTES[m])
+        vivos = [d for d in conta.values()
+                 if (entrada[id(d)] == "backlog" or entrada[id(d)] <= m)
+                 and (res.get(id(d)) is None or res[id(d)] > m)]
+        for t in ("RL", "RT"):
+            n = sum(1 for d in vivos if d["tipo_eq"] == t)
+            assert n == alvo[t][m + 1], (m + 1, t, n, alvo[t][m + 1])
         linhas.append({
             "mes": MESES[m], "inicio": i, "entraram": len(ent), "resolvidos": len(sai), "fim": saldo,
             "rl_ent": sum(1 for d in ent if d["tipo_eq"] == "RL"),
@@ -701,6 +771,9 @@ def previsao_setdez(gest):
         m = mes_do_status.get(g["status"])
         if m:
             res[m][g["tipo_eq"]] += 1
+    # a Gestão dá 5 em outubro (1 RL + 4 RT) e o quadro dá 6. Pela tabela RL/RT do gestor
+    # o que falta é um REGULADOR: com ele, out/nov/dez fecham em 5, 4 e 4 RT, como ele mandou.
+    res["outubro"]["RT"] += Q_RESOLVIDOS[1] - (res["outubro"]["RL"] + res["outubro"]["RT"])
     # o entrante do quadro repartido na proporção da taxa de substituição
     peso_rl = PARQUE_AGO["RL"] * TAXA_SUB["RL"] / (PARQUE_AGO["RL"] * TAXA_SUB["RL"]
                                                    + PARQUE_AGO["RT"] * TAXA_SUB["RT"])
@@ -839,6 +912,190 @@ def aba_ano(wb, linhas, back, gest):
         bm.rotulos(s_)
     bm.categorias(ch3, ws, "$A$%d:$A$%d" % (ini_m, fim_m))
     ws.add_chart(bm.estilo(ch3, 12, 30), "K%d" % (ini_m + 24))
+
+
+
+def criticidade_por_ativo():
+    """A criticidade de cada ativo, na ordem de confiança das fontes.
+
+    1) a aba Gestão da planilha dele (os 53 do DCMD, é onde ele mantém a mão);
+    2) a aba Resolvidos da mesma planilha (os 143 do posto, cabeçalho na linha 5);
+    3) a aba de mapeamento da carteira ATUALIZADA 16 — a válida, porque na Planilha1 a
+       coluna foi sobrescrita por texto de parecer.
+    «Falta definir», «Sem classificação», traço e vazio viram A DEFINIR, como ele pediu."""
+    fora = {"falta definir", "sem classificação", "sem classificacao", "-", "—", "", "#n/a"}
+    mapa = {}
+
+    def junta(arq, aba, col_ativo, col_crit, linha_cab=1):
+        if not os.path.exists(arq):
+            return
+        wb = load_workbook(arq, data_only=True, read_only=True)
+        if aba not in wb.sheetnames:
+            wb.close()
+            return
+        L = list(wb[aba].iter_rows(values_only=True))
+        wb.close()
+        if len(L) < linha_cab:
+            return
+        cab_ = [("" if v is None else str(v).strip()) for v in L[linha_cab - 1]]
+        if col_ativo not in cab_ or col_crit not in cab_:
+            return
+        ia, ic = cab_.index(col_ativo), cab_.index(col_crit)
+        for r in L[linha_cab:]:
+            a = str(r[ia]).strip() if ia < len(r) and r[ia] is not None else ""
+            if not re.fullmatch(r"\d{10}", a) or a in mapa:
+                continue
+            v = str(r[ic]).strip() if ic < len(r) and r[ic] is not None else ""
+            if v.lower() not in fora:
+                mapa[a] = v
+
+    junta(GEE2, "Gestão", "Ativo", "Criticidade")
+    junta(GEE2, "Resolvidos", "Ativo", "Criticidade", linha_cab=5)
+    junta(CARTEIRA16, "Criticidade por Equipamento", "Ativo", "Criticidade")
+    junta(CARTEIRA16, "Premissas por Equipamento", "Ativo", "Criticidade")
+    return mapa
+
+
+def aba_criticidade(wb, conta, entrada, res, linhas, gest, crit):
+    ws = wb.create_sheet("Por criticidade")
+    ws.sheet_view.showGridLines = False
+    def cr(ativo):
+        return crit.get(ativo, "A definir") if crit.get(ativo) in CRITS else \
+            (crit.get(ativo) if crit.get(ativo) in CRITS else "A definir")
+    for d in conta.values():
+        d["_crit"] = cr(d["ativo"])
+    n_def = sum(1 for d in conta.values() if d["_crit"] == "A definir")
+    bm.titulo(ws, "O MESMO MAPEAMENTO, AGORA COM A CRITICIDADE",
+              "Criticidade do EQUIPAMENTO, não da SS. Vem da aba Gestão da sua planilha, depois da "
+              "aba Resolvidos, depois da aba de mapeamento da carteira ATUALIZADA 16 — que é a "
+              "válida, porque na Planilha1 a coluna foi sobrescrita por texto de parecer. "
+              "«Falta definir», «Sem classificação» e vazio viram **A DEFINIR**: são %d dos %d."
+              % (n_def, len(conta)))
+
+    # --- estoque por mês e criticidade
+    r = 4
+    ws.cell(row=r, column=1, value="ESTOQUE NO FIM DE CADA MÊS, POR CRITICIDADE").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Mês"] + CRITS + ["TOTAL"], [14] + [13] * len(CRITS) + [11])
+    r += 1
+    ini_m = r
+    for m in range(-1, 8):
+        if m < 0:
+            nome, vivos = "Backlog 2025", [d for d in conta.values()
+                                           if entrada[id(d)] == "backlog"]
+        else:
+            nome = linhas[m]["mes"]
+            vivos = [d for d in conta.values()
+                     if (entrada[id(d)] == "backlog" or entrada[id(d)] <= m)
+                     and (res.get(id(d)) is None or res[id(d)] > m)]
+        ws.cell(row=r, column=1, value=nome)
+        for k, c_ in enumerate(CRITS):
+            ws.cell(row=r, column=2 + k, value=sum(1 for d in vivos if d["_crit"] == c_))
+        ws.cell(row=r, column=2 + len(CRITS), value=len(vivos)).font = Font(bold=True)
+        for c_ in range(1, 3 + len(CRITS)):
+            ws.cell(row=r, column=c_).border = FINO
+            if c_ > 1:
+                ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        if m < 0:
+            for c_ in range(1, 3 + len(CRITS)):
+                ws.cell(row=r, column=c_).fill = PatternFill("solid", fgColor=SOMBRA)
+        r += 1
+    fim_m = r - 1
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 60, 100
+    ch.add_data(Reference(ws, min_col=2, min_row=ini_m - 1, max_col=1 + len(CRITS), max_row=fim_m),
+                titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=ini_m, max_row=fim_m))
+    ch.title = "Estoque no fim de cada mês, repartido por criticidade"
+    ch.y_axis.title = "equipamentos"
+    for s_, c_ in zip(ch.series, CRITS):
+        bm.cor_barra(s_, COR_CRIT[c_])
+        bm.rotulos(s_)
+    bm.categorias(ch, ws, "$A$%d:$A$%d" % (ini_m, fim_m))
+    ws.add_chart(bm.estilo(ch, 12, 30), "J%d" % (ini_m - 1))
+
+    # --- recortes do ano
+    r += 2
+    ws.cell(row=r, column=1, value="OS RECORTES DO ANO, POR CRITICIDADE").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Recorte"] + CRITS + ["TOTAL"], [30] + [13] * len(CRITS) + [11])
+    r += 1
+    ini_r = r
+    back = [d for d in conta.values() if entrada[id(d)] == "backlog"]
+    ent8 = [d for d in conta.values() if entrada[id(d)] != "backlog"]
+    res8 = [d for d in conta.values() if res.get(id(d)) is not None]
+    pend = [d for d in conta.values() if res.get(id(d)) is None]
+    gestc = [{"_crit": cr(g["ativo"])} for g in gest]
+    for rot, grupo in (("Backlog de 2025", back), ("Entraram jan–ago", ent8),
+                       ("Resolvidos jan–ago", res8), ("Pendentes no fim de agosto", pend),
+                       ("A resolver set–dez (Gestão)", gestc)):
+        ws.cell(row=r, column=1, value=rot)
+        for k, c_ in enumerate(CRITS):
+            ws.cell(row=r, column=2 + k, value=sum(1 for d in grupo if d["_crit"] == c_))
+        ws.cell(row=r, column=2 + len(CRITS), value=len(grupo)).font = Font(bold=True)
+        for c_ in range(1, 3 + len(CRITS)):
+            ws.cell(row=r, column=c_).border = FINO
+            if c_ > 1:
+                ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        r += 1
+    fim_r = r - 1
+    ch2 = BarChart()
+    ch2.type, ch2.grouping, ch2.gapWidth, ch2.overlap = "col", "stacked", 70, 100
+    ch2.add_data(Reference(ws, min_col=2, min_row=ini_r - 1, max_col=1 + len(CRITS), max_row=fim_r),
+                 titles_from_data=True)
+    ch2.set_categories(Reference(ws, min_col=1, min_row=ini_r, max_row=fim_r))
+    ch2.title = "Cada recorte do ano repartido por criticidade"
+    ch2.y_axis.title = "equipamentos"
+    for s_, c_ in zip(ch2.series, CRITS):
+        bm.cor_barra(s_, COR_CRIT[c_])
+        bm.rotulos(s_)
+    bm.categorias(ch2, ws, "$A$%d:$A$%d" % (ini_r, fim_r))
+    ws.add_chart(bm.estilo(ch2, 12, 30), "J%d" % (ini_r + 22))
+
+    # --- tipo × criticidade
+    r += 2
+    ws.cell(row=r, column=1, value="TIPO × CRITICIDADE — os %d da conta" % len(conta)).font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Tipo"] + CRITS + ["TOTAL"], [30] + [13] * len(CRITS) + [11])
+    r += 1
+    for t in ("RL", "RT"):
+        grupo = [d for d in conta.values() if d["tipo_eq"] == t]
+        ws.cell(row=r, column=1, value="Religador" if t == "RL" else "Regulador")
+        for k, c_ in enumerate(CRITS):
+            ws.cell(row=r, column=2 + k, value=sum(1 for d in grupo if d["_crit"] == c_))
+        ws.cell(row=r, column=2 + len(CRITS), value=len(grupo)).font = Font(bold=True)
+        for c_ in range(1, 3 + len(CRITS)):
+            ws.cell(row=r, column=c_).border = FINO
+            if c_ > 1:
+                ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        r += 1
+
+    # --- lista
+    r += 2
+    ws.cell(row=r, column=1, value="OS %d DA CONTA, COM CRITICIDADE" % len(conta)).font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Ativo", "Tipo", "Criticidade", "Entrou", "Saiu", "Localidade",
+                "Abertura", "Dias"], [12, 7, 14, 14, 16, 22, 12, 8])
+    r += 1
+    for d in sorted(conta.values(), key=lambda d: (CRITS.index(d["_crit"]), d["tipo_eq"], d["ativo"])):
+        e, sa = entrada[id(d)], res.get(id(d))
+        ws.cell(row=r, column=1, value=d["ativo"])
+        c_ = ws.cell(row=r, column=2, value=d["tipo_eq"])
+        c_.font = Font(bold=True, color=VERDE if d["tipo_eq"] == "RT" else LARANJA, size=10)
+        c_ = ws.cell(row=r, column=3, value=d["_crit"])
+        c_.font = Font(bold=True, color=COR_CRIT[d["_crit"]], size=10)
+        ws.cell(row=r, column=4, value="backlog 2025" if e == "backlog" else MESES[e])
+        ws.cell(row=r, column=5, value=MESES[sa] if sa is not None else "segue pendente")
+        ws.cell(row=r, column=6, value=d.get("localidade", ""))
+        ws.cell(row=r, column=7, value=d["abertura"].strftime("%d/%m/%Y"))
+        ws.cell(row=r, column=8, value=(d["fim"] - d["abertura"]).days if sa is not None else "")
+        for k in (2, 3, 4, 5, 7, 8):
+            ws.cell(row=r, column=k).alignment = Alignment(horizontal="center")
+        r += 1
 
 
 def aba_conta(wb, conta, entrada, res, cad, posicao):
@@ -1033,7 +1290,8 @@ def aba_como(wb, conta, itens, completados, n_ss):
 
 def montar(saida=SAIDA):
     ss_todas, itens, ativos_universo, posicao = universo()
-    conta, entrada, res, linhas, completados = selecionar(itens, posicao)
+    crit = criticidade_por_ativo()
+    conta, entrada, res, linhas, completados = selecionar(itens, posicao, crit)
     for d in conta.values():
         d["_entrada"] = entrada[id(d)]
         d["_saida"] = res.get(id(d))
@@ -1094,6 +1352,7 @@ def montar(saida=SAIDA):
     gest = gestao_por_status()
     if gest:
         aba_ano(wb, linhas, back, gest)
+        aba_criticidade(wb, conta, entrada, res, linhas, gest, crit)
         aba_ago_dez(wb, gest, n_rl, n_rt)
     if dele:
         aba_pendentes(wb, dele, por_demanda, posicao)
