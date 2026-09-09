@@ -480,6 +480,29 @@ diferente de «Sem classificação».
   **É outro recorte**: aqui o ano abre em 59 e resolve 32 de jan a ago; na visão DCMD abre em 50 e
   resolve 71. Não é erro de nenhum dos dois — mas dizer qual é qual antes de pôr os dois juntos.
 
+- **Ficha por ativo — o 5800440256 de Mateiros** (`ficha_5800440256.py` →
+  `dist/FICHA_5800440256.xlsx`, 09/09). Pedido do gestor: linha do tempo de manutenção do ativo,
+  com as datas de repasse entre postos e de cancelamento. Seis abas: linha do tempo (6 eventos),
+  passagem pelos postos (as 24 SS com entrada, saída, dias e destino, mais um **Gantt**), tempos,
+  pareceres na íntegra, ficha de cadastro e método.
+  **A régua da saída, nesta ordem**: término → conclusão (atendida ou cancelada); `SS PENDENTE` →
+  segue no posto; repassada → a saída é a **abertura da SS seguinte** e o posto dela é o destino;
+  sem seguinte → segue no posto. Sem o degrau do `SS PENDENTE` a SS do COEP virava «repassada em
+  0 dias» para a TELE do mesmo dia.
+  **O caso**: 24 SS em 974 dias, RT de 200 kVAr em 34,5 (célula 690240, R$ 132.024,25 com MO).
+  O defeito só muda de fase — C em 2024, A em 2026, célula vazando em nov/2025, **B agora** — e a
+  única troca confirmada foi a fase C pelo COCM, num serviço que terminou com «equipamento ficou em
+  operação? Não». **Aterramento aberto desde jan/2024.** **Nenhuma obra no AIC** — a visão
+  orçamentária cai no médio de RT por falta de obra própria. Tempos: SS atendida n=5, média 107 e
+  mediana 27 dias (sem os dois casos de 2024, **14 dias**); canceladas n=12, e **9 delas morreram
+  no mesmo dia, 30/03/2026**, em cinco postos — cancelamento em bloco, sem motivo exportado.
+  Cadeias: 811 dias (morreu em cancelamento) · 47 dias (atendida) · a atual aberta.
+  **Gantt no openpyxl**: `BarChart` com `type="bar"` + série-base `noFill`. Em barra horizontal os
+  papéis dos eixos **trocam** — `x_axis` continua sendo a categoria e `y_axis` o valor, então o
+  título do tempo vai no `y_axis`, o `scaling.orientation = "maxMin"` vai no `x_axis` (para a
+  primeira linha ficar no topo) e o `axPos` correto é `x="l"`, `y="b"` — o contrário do que
+  `bm.estilo` deixa para gráfico de coluna.
+
 ## Artifacts vivos
 
 | Página | URL |
