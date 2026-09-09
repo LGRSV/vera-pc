@@ -524,6 +524,15 @@ diferente de «Sem classificação».
   bloco de Resolvidos jan–abr. E a base natural batia quase exato até abril (64×65, **71×71**,
   74×76, 78×80) e só abria a partir de **maio**, que é onde o bloco começa. Como os pendentes saem
   do entrante pela fórmula, a série inteira de maio em diante herda o problema.
+  **Os 55 pendentes NOMEADOS** estão na aba **BASE SS_OS da GESTAO_EQUIPAMENTOS_ESPECIAIS_COEP_2**
+  (`data/raw/`): 55 SS, todas SS PENDENTE, aberturas até 01/09/2026, **42 RL + 13 RT** — e o total
+  bate com os 55 de agosto do Waterf. É a única lista nomeada do estoque, e a âncora mais forte
+  que existe. **E ela derruba a coluna Entrante por si só**: pela abertura da DEMANDA (não da SS),
+  **9 desses pendentes vieram de junho** contra um limite de 2 no quadro, e 2 de agosto contra 1.
+  São duas abas da planilha DELE discordando — independente da minha base.
+  **Agosto→setembro**: o quadro dá 57 com 8 entrantes e 6 resolvidos; a base nomeia **1** entrante
+  (ETO-COEP 00194/2026, 7929376022, Babaçulândia, aberta em 01/09) e **nenhum** resolvido, porque
+  `BASE_SS_OS_20082026` fecha em 21/08. O resto vai marcado «a nomear» — só um export novo resolve.
   **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
   posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
 

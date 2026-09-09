@@ -55,6 +55,7 @@ import backlog_mensal as bm  # noqa: E402
 
 SAIDA = os.path.join(RAIZ, "dist", "BASE_WATERF_RL_RT.xlsx")
 GESTAO = os.path.join(RAIZ, "data", "raw", "GESTAO_DE_EQUIPAMENTOS.xlsx")
+GEE2 = os.path.join(RAIZ, "data", "raw", "GESTAO_EQUIPAMENTOS_ESPECIAIS_COEP_2.xlsx")
 
 TINTA, PAPEL, SOMBRA, SINAL = bm.TINTA, bm.PAPEL, bm.SOMBRA, bm.SINAL
 VERDE, LARANJA, NEUTRO = bm.VERDE, bm.LARANJA, bm.NEUTRO
@@ -67,6 +68,8 @@ W_BACKLOG = 59
 W_ENTRANTE = [7, 8, 9, 5, 1, 2, 4, 1]
 W_RESOLVIDOS = [1, 2, 4, 1, 16, 9, 6, 2]
 W_PENDENTES = [65, 71, 76, 80, 65, 58, 56, 55]
+# setembro, ainda no quadro dele: 55 + 8 − 6 = 57
+S_ENTRANTE, S_RESOLVIDOS, S_PENDENTES = 8, 6, 57
 
 
 def tipo(cod):
@@ -153,6 +156,31 @@ def selecionar(itens, posicao):
             "rl_res": sum(1 for d in sai if d["tipo_eq"] == "RL"),
             "rt_res": sum(1 for d in sai if d["tipo_eq"] == "RT")})
     return conta, entrada, res, linhas, completados
+
+
+def pendentes_do_gestor():
+    """Os pendentes nomeados na aba BASE SS_OS da planilha que ele mandou (GEE2).
+
+    São 55 SS, todas SS PENDENTE — exatamente o número de agosto do Waterf —, com
+    aberturas até 01/09/2026. É a única lista NOMEADA que existe do estoque."""
+    if not os.path.exists(GEE2):
+        return []
+    ws = load_workbook(GEE2, data_only=True)["BASE SS_OS"]
+    L = list(ws.iter_rows(values_only=True))
+    cab_ = [("" if v is None else str(v).strip()) for v in L[0]]
+    ix = {n: k for k, n in enumerate(cab_) if n}
+    out = []
+    for r in L[1:]:
+        if not r[ix["NUMERO_SS"]]:
+            continue
+        a = r[ix["DATA_ABERTURA_SS"]]
+        cod = str(r[ix["NUM_TRAFO"]]).strip()
+        out.append({"ss": r[ix["NUMERO_SS"]], "ativo": cod, "tipo_eq": tipo(cod),
+                    "posto": r[ix["COD_EQUIPE"]], "situacao": r[ix["SITUACAO_SS"]],
+                    "tiposs": r[ix["TIPOSS"]], "criticidade": r[ix["CRITICIDADE_SS"]],
+                    "localidade": r[ix["LOCALIDADE"]],
+                    "abertura_ss": a.date() if hasattr(a, "date") else None})
+    return out
 
 
 def cadastro():
@@ -314,6 +342,133 @@ def aba_resumo(wb, conta, linhas, universo_n, ss_n):
             if c > 1:
                 cel.alignment = Alignment(horizontal="center")
         ws.cell(row=r, column=8).font = Font(bold=True)
+        r += 1
+
+
+
+def aba_periodo(wb, nome, titulo_, sub, linhas_periodo, com_setembro=False):
+    """Um recorte de período com a contagem RL/RT e o gráfico empilhado."""
+    ws = wb.create_sheet(nome)
+    ws.sheet_view.showGridLines = False
+    bm.titulo(ws, titulo_, sub)
+    cab(ws, 4, ["Recorte", "RL", "RT", "TOTAL", "% RL", "% RT"], [42, 10, 10, 12, 10, 10])
+    r = 5
+    for rot, a, b in linhas_periodo:
+        ws.cell(row=r, column=1, value=rot)
+        ws.cell(row=r, column=2, value=a)
+        ws.cell(row=r, column=3, value=b)
+        ws.cell(row=r, column=4, value="=B%d+C%d" % (r, r))
+        ws.cell(row=r, column=5, value="=IFERROR(B%d/$D%d,0)" % (r, r)).number_format = "0.0%"
+        ws.cell(row=r, column=6, value="=IFERROR(C%d/$D%d,0)" % (r, r)).number_format = "0.0%"
+        for c in range(1, 7):
+            ws.cell(row=r, column=c).border = FINO
+            if c > 1:
+                ws.cell(row=r, column=c).alignment = Alignment(horizontal="center")
+        r += 1
+    fim = r - 1
+    ch = BarChart()
+    ch.type, ch.grouping, ch.gapWidth, ch.overlap = "col", "stacked", 70, 100
+    ch.add_data(Reference(ws, min_col=2, min_row=4, max_col=3, max_row=fim), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=5, max_row=fim))
+    ch.title = "Religador e regulador em cada recorte"
+    ch.y_axis.title = "equipamentos"
+    bm.cor_barra(ch.series[0], LARANJA)
+    bm.cor_barra(ch.series[1], VERDE)
+    for s_ in ch.series:
+        bm.rotulos(s_)
+    bm.categorias(ch, ws, "$A$5:$A$%d" % fim)
+    ws.add_chart(bm.estilo(ch, 12, 28), "H4")
+    return ws, r
+
+
+def aba_pendentes(wb, dele, por_demanda, posicao):
+    ws = wb.create_sheet("Os 55 pendentes")
+    ws.sheet_view.showGridLines = False
+    rl = sum(1 for x in dele if x["tipo_eq"] == "RL")
+    bm.titulo(ws, "OS %d PENDENTES, NOMEADOS — a aba BASE SS_OS que você mandou" % len(dele),
+              "Todas SS PENDENTE, com aberturas até 01/09/2026. São **%d religadores e %d "
+              "reguladores** — e o total bate com os 55 de agosto do Waterf. Esta é a única lista "
+              "NOMEADA do estoque, e por isso é a âncora mais forte que existe. «Demanda abriu em» "
+              "é a abertura da PRIMEIRA SS da cadeia, não a desta SS." % (rl, len(dele) - rl))
+    colunas = ["Ativo", "Tipo", "SS atual", "Posto", "Tipo da SS", "Criticidade", "Localidade",
+               "Abertura desta SS", "Demanda abriu em", "Entrou como", "Dias na fila"]
+    cab(ws, 4, colunas, [12, 7, 22, 12, 32, 14, 22, 17, 17, 16, 12])
+    r = 5
+    for x in sorted(dele, key=lambda x: (x["tipo_eq"], x["ativo"])):
+        d = por_demanda.get(x["ativo"])
+        ws.cell(row=r, column=1, value=x["ativo"])
+        c = ws.cell(row=r, column=2, value=x["tipo_eq"])
+        c.font = Font(bold=True, color=VERDE if x["tipo_eq"] == "RT" else LARANJA, size=10)
+        ws.cell(row=r, column=3, value=x["ss"])
+        ws.cell(row=r, column=4, value=x["posto"])
+        ws.cell(row=r, column=5, value=x["tiposs"])
+        ws.cell(row=r, column=6, value=x["criticidade"])
+        ws.cell(row=r, column=7, value=x["localidade"])
+        ws.cell(row=r, column=8, value=x["abertura_ss"].strftime("%d/%m/%Y") if x["abertura_ss"] else "")
+        if d:
+            ws.cell(row=r, column=9, value=d["abertura"].strftime("%d/%m/%Y"))
+            ws.cell(row=r, column=10, value="backlog 2025" if d["abertura"].year < 2026
+                    else MESES[d["abertura"].month - 1] if d["abertura"].month <= 8 else "setembro")
+            ws.cell(row=r, column=11, value=(posicao - d["abertura"]).days)
+        else:
+            ws.cell(row=r, column=9, value="—")
+            ws.cell(row=r, column=10, value="(sem demanda na base)")
+        for c_ in (2, 8, 9, 10, 11):
+            ws.cell(row=r, column=c_).alignment = Alignment(horizontal="center")
+        r += 1
+    tab = Table(displayName="Pendentes55", ref="A4:%s%d" % (get_column_letter(len(colunas)), r - 1))
+    tab.tableStyleInfo = TableStyleInfo(name="TableStyleLight1", showRowStripes=True)
+    ws.add_table(tab)
+    ws.freeze_panes = "A5"
+
+    r += 1
+    ws.cell(row=r, column=1, value="O QUE ESTA LISTA PROVA SOBRE A COLUNA ENTRANTE").font = \
+        Font(bold=True, size=11, color=SINAL)
+    r += 1
+    cab(ws, r, ["Mês em que a demanda abriu", "Pendentes que vieram desse mês",
+                "Entrante do Waterf", "Cabe?"], [30, 26, 18, 34])
+    r += 1
+    c = Counter()
+    for x in dele:
+        d = por_demanda.get(x["ativo"])
+        if not d:
+            continue
+        c["backlog" if d["abertura"].year < 2026 else d["abertura"].month] += 1
+    limites = {"backlog": W_BACKLOG}
+    for m in range(8):
+        limites[m + 1] = W_ENTRANTE[m]
+    for k in ["backlog"] + list(range(1, 10)):
+        if not c.get(k):
+            continue
+        lim = limites.get(k)
+        ws.cell(row=r, column=1, value="backlog de 2025" if k == "backlog" else MESES[k - 1]
+                if k <= 8 else "setembro")
+        ws.cell(row=r, column=2, value=c[k])
+        ws.cell(row=r, column=3, value=lim if lim is not None else "—")
+        if lim is not None and c[k] > lim:
+            cel = ws.cell(row=r, column=4, value="NÃO — estoura em %d" % (c[k] - lim))
+            cel.font = Font(bold=True, color=SINAL, size=10)
+            for cc in range(1, 5):
+                ws.cell(row=r, column=cc).fill = PatternFill("solid", fgColor="FFF6E2D5")
+        else:
+            ws.cell(row=r, column=4, value="cabe")
+        for cc in range(1, 5):
+            ws.cell(row=r, column=cc).border = FINO
+            if cc > 1:
+                ws.cell(row=r, column=cc).alignment = Alignment(horizontal="center")
+        ws.cell(row=r, column=4).alignment = Alignment(horizontal="left")
+        r += 1
+    r += 1
+    for t in ["Leitura: dos %d pendentes que a base encontra, %d têm a demanda aberta em JUNHO — "
+              "mas o Waterf só admite 2 entrantes em junho. Em agosto são 2 contra 1. Ou seja, a "
+              "sua própria lista de pendentes não cabe na sua coluna Entrante."
+              % (sum(c.values()), c.get(6, 0)),
+              "Isso é independente da minha base: são duas abas da SUA planilha discordando entre "
+              "si. É o mesmo problema dos blocos repetidos, visto por outro lado."]:
+        cel = ws.cell(row=r, column=1, value=t)
+        cel.alignment = Alignment(wrap_text=True, vertical="top")
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=7)
+        ws.row_dimensions[r].height = 30
         r += 1
 
 
@@ -516,9 +671,59 @@ def montar(saida=SAIDA):
     cad = cadastro()
     ativos_conta = {d["ativo"] for d in conta.values()}
 
+    dele = pendentes_do_gestor()
+    por_demanda = {}
+    for d in itens:
+        if d["ativo"] in {x["ativo"] for x in dele} and d["fim"] > posicao:
+            if d["ativo"] not in por_demanda or d["abertura"] < por_demanda[d["ativo"]]["abertura"]:
+                por_demanda[d["ativo"]] = d
+
+    back = [d for d in conta.values() if d["_entrada"] == "backlog"]
+    pend_rl = sum(1 for d in conta.values() if d["tipo_eq"] == "RL" and d["_saida"] is None)
+    pend_rt = sum(1 for d in conta.values() if d["tipo_eq"] == "RT" and d["_saida"] is None)
+    jan_ago = [
+        ("Na conta do Waterf", sum(1 for d in conta.values() if d["tipo_eq"] == "RL"),
+         sum(1 for d in conta.values() if d["tipo_eq"] == "RT")),
+        ("Backlog de 2025", sum(1 for d in back if d["tipo_eq"] == "RL"),
+         sum(1 for d in back if d["tipo_eq"] == "RT")),
+        ("Entraram de janeiro a agosto", sum(L["rl_ent"] for L in linhas),
+         sum(L["rt_ent"] for L in linhas)),
+        ("Resolvidos de janeiro a agosto", sum(L["rl_res"] for L in linhas),
+         sum(L["rt_res"] for L in linhas)),
+        ("Pendentes no fim de agosto", pend_rl, pend_rt)]
+
+    # agosto → setembro: a base do estoque é a lista NOMEADA dele; o movimento é do quadro
+    n_rl = sum(1 for x in dele if x["tipo_eq"] == "RL") or pend_rl
+    n_rt = sum(1 for x in dele if x["tipo_eq"] == "RT") or pend_rt
+    novos = [x for x in dele if x["abertura_ss"] and x["abertura_ss"] >= dt.date(2026, 9, 1)]
+    ago_set = [
+        ("Pendentes no fim de agosto (lista dele)", n_rl, n_rt),
+        ("Entraram em setembro — nomeados na base", sum(1 for x in novos if x["tipo_eq"] == "RL"),
+         sum(1 for x in novos if x["tipo_eq"] == "RT")),
+        ("Entraram em setembro — a nomear", S_ENTRANTE - len(novos), 0),
+        ("Resolvidos em setembro — a nomear", S_RESOLVIDOS, 0),
+        ("Pendentes no fim de setembro (quadro)", S_PENDENTES - n_rt, n_rt)]
+
     wb = Workbook()
     wb.remove(wb.active)
     aba_confere(wb, linhas)
+    aba_periodo(wb, "Janeiro a agosto",
+                "JANEIRO A AGOSTO — religador e regulador em cada recorte",
+                "Os %d equipamentos que reproduzem o Waterf de janeiro a agosto: %d religadores e "
+                "%d reguladores. O backlog de 2025, os entrantes e os resolvidos aparecem "
+                "separados, e a soma fecha com o quadro no número exato."
+                % (len(conta), jan_ago[0][1], jan_ago[0][2]), jan_ago)
+    aba_periodo(wb, "Agosto a setembro",
+                "AGOSTO A SETEMBRO — o que a base alcança e o que falta",
+                "O estoque de agosto é a lista NOMEADA da sua aba BASE SS_OS: %d equipamentos, "
+                "%d RL e %d RT — e bate com os 55 do quadro. Setembro o quadro dá em %d, com %d "
+                "entrantes e %d resolvidos: desses, a base nomeia %d entrante (a SS aberta em "
+                "01/09) e nenhum resolvido, porque BASE_SS_OS_20082026 fecha em 21/08. O resto "
+                "está marcado «a nomear» — com um export novo eu preencho."
+                % (n_rl + n_rt, n_rl, n_rt, S_PENDENTES, S_ENTRANTE, S_RESOLVIDOS, len(novos)),
+                ago_set)
+    if dele:
+        aba_pendentes(wb, dele, por_demanda, posicao)
     aba_resumo(wb, conta, linhas, len({d["ativo"] for d in itens}), 0)
     aba_conta(wb, conta, entrada, res, cad, posicao)
     aba_universo(wb, itens, conta, cad, posicao)
