@@ -584,6 +584,37 @@ diferente de «Sem classificação».
   **O «1582» do gestor é esta base**: as SS de RL/RT vivas em 2026 dos 269 ativos que passaram pelo
   posto — **1.586** na posição de 20/08, e a diferença é só a data de corte.
 
+- **Cartão de reporte de campo no padrão Energisa** (`reporte_5800440256.py` +
+  `imagem_reporte.js` → `dist/REPORTE_5800440256.png` e `.pdf`, 10/09). Pedido do gestor:
+  «um reporte que nem o da segunda foto, só que para esse ativo». O modelo é o cartão
+  institucional azul (1024 × 1280) — **não** é o Prontuário Industrial dos reportes
+  antigos (`dist/reporte-7929376022.html`), que continua valendo para a ficha em papel.
+  **O chrome da marca é recortado do próprio modelo** que ele mandou e guardado em
+  `assets/reportes/` (`energisa_logo.png`, `energisa_rodape_valores.png`) — não há
+  logotipo redesenhado. Paleta amostrada pixel a pixel: navy `#012350`, ciano `#1da0e6`,
+  círculo do ícone `#0a3f79`, filete entre campos `#1c3e6b`. Fonte: Barlow Condensed nos
+  títulos e **Montserrat** no texto (`assets/css/fontes_energisa.css`, aproximação da
+  Gotham da marca), tudo embutido como data URI.
+  **A diagonal da faixa de fotos é 4,8°** (a borda esquerda sai de x=487 no topo e chega a
+  391 embaixo). **Não inclinar a foto**: contra-skew numa coluna estreita e alta exige
+  ampliar a imagem em ~60% e espicha tudo. O certo é foto reta + `clip-path` de
+  paralelogramo. **A terceira tira sangra para fora da tela** — só os ~65% da esquerda dela
+  aparecem, então o `object-position` tem de jogar o assunto para lá (na placa, 48%).
+  **As fotos do celular vêm com carimbo**: a tarja de data/coordenada embaixo (~148 px) e
+  a marca «Conota» no alto (~55 px) são cortadas antes de entrar no cartão.
+  **O caso**: a célula do 5800440256 (Mateiros) **foi trocada em 09/09/2026** — as fotos
+  provam. A placa do equipamento instalado (ITB RAV-2, 200 kVA, 19,92 kV, série 48580,
+  fabricação 03/2026) traz **CÓDIGO ENERGISA 690240**, que é exatamente a célula de
+  200 kVA / 34,5 kV orçada na aba Gestão (MAT R$ 51.705,75 + MO R$ 80.318,50). A execução
+  é **posterior ao fecho da base** (`BASE_SS_OS_20082026`), então a SS ETO-COEP 00169/2026
+  ainda consta PENDENTE — o cartão é a prova que falta no SGM, como foi com o 7929376022.
+  Números do cartão, todos lidos da aba Gestão: **10 dias no DCMD · 9 dias fora do prazo ·
+  SLA 12 · executado em 34 dias** da abertura (06/08) à troca. **A equipe não está em base
+  nenhuma** — o que existe é o posto (`COD_EQUIPE`); ETO-RD-PO (Porto Nacional) é quem
+  carrega o ativo na cadeia (4 SS + a nota de linha viva DG-RD-PO 00432/2026), e é o que
+  o cartão nomeia. **Confirmar com o gestor.**
+
+
 ## Artifacts vivos
 
 | Página | URL |
