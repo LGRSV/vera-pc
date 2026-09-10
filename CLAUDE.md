@@ -608,9 +608,13 @@ diferente de «Sem classificação».
   200 kVA / 34,5 kV orçada na aba Gestão (MAT R$ 51.705,75 + MO R$ 80.318,50). A execução
   é **posterior ao fecho da base** (`BASE_SS_OS_20082026`), então a SS ETO-COEP 00169/2026
   ainda consta PENDENTE — o cartão é a prova que falta no SGM, como foi com o 7929376022.
-  Números do cartão, todos lidos da aba Gestão: **10 dias no DCMD · 9 dias fora do prazo ·
-  SLA 12 · executado em 34 dias** da abertura (06/08) à troca. **A equipe não está em base
-  nenhuma** — o que existe é o posto (`COD_EQUIPE`); ETO-RD-PO (Porto Nacional) é quem
+  **As colunas «Status Atendimento» e «Status Prazo» da aba Gestão são FOTO PARADA**, não
+  fórmula: os valores estão digitados na posição de 27/08 (Dias Pendente 21 = 27/08 − 06/08),
+  e no 5800440256 o «10 - DIAS AGUARDANDO DCMD» nem sequer bate com essa data. **A régua é a
+  vida inteira da demanda no DCMD** — da abertura da SS até o campo executar (gestor, 10/09:
+  «na verdade foram 34 dias no DCMD»). O script conta das datas: **34 dias no DCMD, SLA 12,
+  22 dias fora do prazo** (06/08 → 09/09). Nunca copiar essas duas colunas para reporte de
+  data diferente da foto. **A equipe não está em base nenhuma** — o que existe é o posto (`COD_EQUIPE`); ETO-RD-PO (Porto Nacional) é quem
   carrega o ativo na cadeia (4 SS + a nota de linha viva DG-RD-PO 00432/2026), e é o que
   o cartão nomeia. **Confirmar com o gestor.**
 

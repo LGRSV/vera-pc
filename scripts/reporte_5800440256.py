@@ -198,9 +198,14 @@ def main():
     ss = da_base_ss()
     atual = [x for x in ss if x["ss"] == str(g["SS SGM"]).strip()][0]
     abertura = atual["abertura"]
-    dias_ate_servico = (SERVICO - abertura).days
-    dias_dcmd = int(re.match(r"\d+", str(g["Status Atendimento"])).group(0))
-    fora_prazo = int(re.match(r"\d+", str(g["Status Prazo"])).group(0))
+    # As colunas «Status Atendimento» e «Status Prazo» da aba Gestão são FOTO PARADA,
+    # digitada na posição de 27/08 (Dias Pendente 21 = 27/08 − 06/08) — não são fórmula.
+    # A régua do gestor é a vida inteira da demanda no DCMD: da abertura da SS até o campo
+    # executar. Por isso os dois números do cartão são contados aqui, das datas.
+    sla = int(g["SLA_Total"])
+    dias_dcmd = (SERVICO - abertura).days
+    fora_prazo = dias_dcmd - sla
+    congelado = int(re.match(r"\d+", str(g["Status Atendimento"])).group(0))
     dmsl = parecer_dmsl(atual["desc"])
     if "fase b" not in dmsl.lower():
         raise SystemExit("o parecer da DMSL não fala mais em fase B — revisar o objetivo:\n  %s"
@@ -332,9 +337,9 @@ h1 em{display:block;color:%(ciano)s;font-style:normal}
                          ATIVO,
                          "Regulador de tensão 34,5 kV · três células"),
         "c_status": campo("relogio", "Status / pendência",
-                          "%d dias no DCMD · %d dias fora do prazo" % (dias_dcmd, fora_prazo),
-                          "Executado em %d dias, contra SLA de %d" % (dias_ate_servico,
-                                                                      int(g["SLA_Total"]))),
+                          "%d dias no DCMD · SLA de %d dias" % (dias_dcmd, sla),
+                          "%d dias fora do prazo · aberta em %s"
+                          % (fora_prazo, abertura.strftime("%d/%m"))),
         "c_material": campo("placa", "Material aplicado",
                             "Célula 200 kVA / 34,5 kV · código 690240",
                             "ITB RAV-2 · série 48580 · fab. 03/2026",
@@ -350,9 +355,10 @@ h1 em{display:block;color:%(ciano)s;font-style:normal}
     with open(SAIDA, "w", encoding="utf-8") as fh:
         fh.write(html)
     print("OK — %s (%.1f MB)" % (SAIDA, os.path.getsize(SAIDA) / 1e6))
-    print("   SS %s · aberta %s · %d dias até a execução · %d dias no DCMD · %s"
-          % (g["SS SGM"], abertura.strftime("%d/%m/%Y"), dias_ate_servico, dias_dcmd,
-             reais(total)))
+    print("   SS %s · aberta %s · %d dias no DCMD · %d fora do prazo · %s"
+          % (g["SS SGM"], abertura.strftime("%d/%m/%Y"), dias_dcmd, fora_prazo, reais(total)))
+    print("   (a aba Gestão traz %d dias congelados na posição de 27/08 — não é fórmula)"
+          % congelado)
 
 
 if __name__ == "__main__":
