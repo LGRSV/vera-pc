@@ -185,31 +185,53 @@ def fecha(ws, linha, n):
 def planilha(novos, descartados, entrada, parque, meses, inicio):
     wb = Workbook()
 
-    # 1 — a série mensal
+    # 1 — a série mensal, com o crescimento de cada mês
     ws = wb.active
     ws.title = "Parque mensal"
     r0 = cabeca(ws, 1,
-                "Entrada de equipamento e parque no fim de cada mês",
-                ["Mês", "Entrada RL", "Parque RL", "Entrada RT", "Parque RT",
-                 "Entrada total", "Parque total"],
-                [12, 12, 12, 12, 12, 13, 13])
-    for mes in meses:
-        ws.append([mes, entrada[mes]["RL"], parque[mes]["RL"],
-                   entrada[mes]["RT"], parque[mes]["RT"],
-                   entrada[mes]["RL"] + entrada[mes]["RT"],
-                   parque[mes]["RL"] + parque[mes]["RT"]])
+                "Entrada de equipamento, parque e crescimento em cada mês",
+                ["Mês", "Entrada RL", "Parque RL", "Cresce RL",
+                 "Entrada RT", "Parque RT", "Cresce RT",
+                 "Entrada total", "Parque total", "Cresce total",
+                 "Acumulado desde jan/24"],
+                [12, 11, 11, 10, 11, 11, 10, 12, 12, 11, 20])
+    for i, mes in enumerate(meses):
+        ant = parque[meses[i - 1]] if i else inicio
+        e_rl, e_rt = entrada[mes]["RL"], entrada[mes]["RT"]
+        p_rl, p_rt = parque[mes]["RL"], parque[mes]["RT"]
+        ws.append([
+            mes,
+            e_rl, p_rl, (e_rl / ant["RL"]) if ant["RL"] else 0,
+            e_rt, p_rt, (e_rt / ant["RT"]) if ant["RT"] else 0,
+            e_rl + e_rt, p_rl + p_rt,
+            ((e_rl + e_rt) / (ant["RL"] + ant["RT"])) if (ant["RL"] + ant["RT"]) else 0,
+            ((p_rl + p_rt) / (inicio["RL"] + inicio["RT"]) - 1),
+        ])
+        for col in (4, 7, 10, 11):
+            ws.cell(row=ws.max_row, column=col).number_format = "0.0%"
     ws.append(["TOTAL", sum(entrada[m]["RL"] for m in meses), "",
+               (parque[FIM]["RL"] / inicio["RL"] - 1) if inicio["RL"] else 0,
                sum(entrada[m]["RT"] for m in meses), "",
-               sum(entrada[m]["RL"] + entrada[m]["RT"] for m in meses), ""])
-    fecha(ws, ws.max_row, 7)
+               (parque[FIM]["RT"] / inicio["RT"] - 1) if inicio["RT"] else 0,
+               sum(entrada[m]["RL"] + entrada[m]["RT"] for m in meses), "",
+               ((parque[FIM]["RL"] + parque[FIM]["RT"]) /
+                (inicio["RL"] + inicio["RT"]) - 1), ""])
+    for col in (4, 7, 10):
+        ws.cell(row=ws.max_row, column=col).number_format = "0.0%"
+    fecha(ws, ws.max_row, 11)
     r1 = ws.max_row - 1
     ws.freeze_panes = f"A{r0}"
+    ws.append([])
+    ws.append([f"Ponto de partida — parque no início de janeiro de 2024: "
+               f"RL {inicio['RL']} · RT {inicio['RT']} · "
+               f"total {inicio['RL'] + inicio['RT']}"])
+    ws.cell(row=ws.max_row, column=1).font = Font(bold=True, size=11, color=SINAL)
 
     g = BarChart()
     g.type, g.grouping, g.overlap = "col", "stacked", 100
     g.title = "Entrada de equipamento por mês"
     g.height, g.width, g.gapWidth = 8, 24, 60
-    for col, cor in ((2, COR_A), (4, COR_B)):
+    for col, cor in ((2, COR_A), (5, COR_B)):
         s = Series(Reference(ws, min_col=col, min_row=r0 - 1, max_row=r1),
                    title_from_data=True)
         s.graphicalProperties.solidFill = ColorChoice(srgbClr=cor)
@@ -225,7 +247,7 @@ def planilha(novos, descartados, entrada, parque, meses, inicio):
     g2 = LineChart()
     g2.title = "Parque acumulado"
     g2.height, g2.width = 8, 24
-    for col, cor in ((3, COR_A), (5, COR_B)):
+    for col, cor in ((3, COR_A), (6, COR_B)):
         s = Series(Reference(ws, min_col=col, min_row=r0 - 1, max_row=r1),
                    title_from_data=True)
         s.graphicalProperties.line.solidFill = ColorChoice(srgbClr=cor)
@@ -238,7 +260,53 @@ def planilha(novos, descartados, entrada, parque, meses, inicio):
     g2.x_axis.delete = g2.y_axis.delete = False
     ws.add_chart(g2, "I20")
 
-    # 2 — os ativos que entraram, um por linha
+    # 2 — o crescimento fechado por ano
+    wsa = wb.create_sheet("Crescimento por ano")
+    r0 = cabeca(wsa, 1, "Quanto o parque cresceu em cada ano",
+                ["Ano", "Tipo", "Parque no início", "Entrou", "Parque no fim",
+                 "Cresceu", "Média por mês", "Meses"],
+                [10, 8, 15, 10, 14, 11, 14, 8])
+    anos = [("2024", "2024-01", "2024-12"), ("2025", "2025-01", "2025-12"),
+            ("2026 (até ago)", "2026-01", "2026-08")]
+    for rot, ini, fim in anos:
+        do_ano = [m for m in meses if ini <= m <= fim]
+        n_meses = len(do_ano)
+        anterior = inicio if ini == "2024-01" else parque[
+            meses[meses.index(do_ano[0]) - 1]]
+        for tipo in ("RL", "RT", "total"):
+            if tipo == "total":
+                p_ini = anterior["RL"] + anterior["RT"]
+                p_fim = parque[do_ano[-1]]["RL"] + parque[do_ano[-1]]["RT"]
+                ent = sum(entrada[m]["RL"] + entrada[m]["RT"] for m in do_ano)
+            else:
+                p_ini, p_fim = anterior[tipo], parque[do_ano[-1]][tipo]
+                ent = sum(entrada[m][tipo] for m in do_ano)
+            wsa.append([rot if tipo == "RL" else "", tipo.upper(), p_ini, ent,
+                        p_fim, (p_fim / p_ini - 1) if p_ini else 0,
+                        round(ent / n_meses, 1), n_meses])
+            wsa.cell(row=wsa.max_row, column=6).number_format = "0.0%"
+            if tipo == "total":
+                for c in range(1, 9):
+                    wsa.cell(row=wsa.max_row, column=c).font = Font(bold=True)
+    fecha(wsa, wsa.max_row, 8)
+
+    wsa.append([])
+    wsa.append(["O período inteiro, de janeiro de 2024 a agosto de 2026:"])
+    wsa.cell(row=wsa.max_row, column=1).font = Font(bold=True, size=11)
+    for tipo in ("RL", "RT", "total"):
+        if tipo == "total":
+            p_ini, p_fim = inicio["RL"] + inicio["RT"], \
+                parque[FIM]["RL"] + parque[FIM]["RT"]
+            ent = sum(entrada[m]["RL"] + entrada[m]["RT"] for m in meses)
+        else:
+            p_ini, p_fim, ent = inicio[tipo], parque[FIM][tipo], \
+                sum(entrada[m][tipo] for m in meses)
+        wsa.append(["32 meses", tipo.upper(), p_ini, ent, p_fim,
+                    (p_fim / p_ini - 1) if p_ini else 0,
+                    round(ent / len(meses), 1), len(meses)])
+        wsa.cell(row=wsa.max_row, column=6).number_format = "0.0%"
+
+    # 3 — os ativos que entraram, um por linha
     ws2 = wb.create_sheet("Ativos que entraram")
     cabeca(ws2, 1, f"Os {len(novos)} ativos contados como entrada",
            ["Ativo", "Tipo", "Mês", "Data do cadastro (DTA_ORIG)",
