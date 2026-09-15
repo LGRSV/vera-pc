@@ -36,6 +36,7 @@ import falha_dcmd_mae as fm  # noqa: E402
 
 CAT_DCMD = os.path.join(RAIZ, "data", "analise_ia", "categoria_dcmd")
 FORA = os.path.join(RAIZ, "data", "analise_ia", "falha_fora_dcmd")
+VERIF = os.path.join(RAIZ, "data", "analise_ia", "verificacao_peca_grande")
 SAIDA = os.path.join(RAIZ, "data", "missao", "falha_completa.json")
 
 PENDENCIA_FALHA = {"INDISPONIBILIDADE PARA OPERAÇÃO", "EM OPERAÇÃO COM ANOMALIA",
@@ -76,6 +77,27 @@ def _le(pasta, padrao="*.json"):
     for f in sorted(glob.glob(os.path.join(pasta, padrao))):
         with open(f) as fh:
             fora += json.load(fh)
+    return fora
+
+
+def veredito(pasta=VERIF):
+    """A verificação adversarial sobre a peça grande de fora do DCMD.
+
+    A primeira leitura tratou SINTOMA NO ARMÁRIO como TROCA DE PEÇA, e um dos leitores
+    disse por escrito que copiou a convenção dos outros («disjuntor em curto → tanque,
+    para ficar consistente com os arquivos irmãos»), então o erro se propagou entre
+    lotes. Seis céticos isolados revisaram as 194, com uma pergunta só: a citação nomeia
+    a PEÇA ou só o sintoma? Quem não sustentou cai para o rótulo que o cético indicou.
+
+    Devolve {cadeia: categoria_final} apenas para o que foi DERRUBADO.
+    """
+    fora = {}
+    for o in _le(pasta):
+        if not o.get("mantem"):
+            fora[o.get("cadeia")] = (o.get("categoria_final") or "nao identificado",
+                                     o.get("porque") or "")
+        elif o.get("categoria_final"):
+            fora[o.get("cadeia")] = (o["categoria_final"], o.get("porque") or "")
     return fora
 
 
@@ -123,6 +145,8 @@ def monta():
 
     # --- 3: as 1.137 de fora --------------------------------------------------
     vistos = {l["cadeia"] for l in linhas}
+    corrigido = veredito()
+    derrubados = 0
     for o in _le(FORA):
         cad = cabeca.get(o.get("cadeia"))
         if not cad or cad[0] in vistos:
@@ -131,8 +155,20 @@ def monta():
         d = reg[cad[0]]
         fam = fm.familia(d["tipo"], d["cod_ele"])
         cat = normaliza_cat(o.get("categoria"), fam)
-        linhas.append(_linha(d, cad, reg, fam, cat, o.get("item") or "", o, False, marca, praca))
+        item = o.get("item") or ""
+        if cad[0] in corrigido:
+            novo, porque = corrigido[cad[0]]
+            novo = normaliza_cat(novo, fam)
+            if novo != cat:
+                derrubados += 1
+                o = {**o, "motivo": "[cético] %s · antes: %s · %s"
+                     % (porque, ROTULO.get(cat, cat), o.get("motivo") or "")}
+                cat = novo
+        linhas.append(_linha(d, cad, reg, fam, cat, item, o, False, marca, praca))
 
+    if corrigido:
+        print("  verificação adversarial: %d de %d rótulos de peça grande derrubados"
+              % (derrubados, len(corrigido)))
     return linhas, reg, todas
 
 
