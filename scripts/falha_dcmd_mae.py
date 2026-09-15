@@ -42,6 +42,8 @@ from openpyxl.utils import get_column_letter
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAE = os.path.join(RAIZ, "data", "raw", "RELIGA_REGULA_2025.xlsx")
+LOTES = os.path.join(RAIZ, "scratchpad", "mae_lotes")
+CACHE = os.path.join(RAIZ, "data", "analise_ia", "falha_dcmd_mae")   # o que os leitores devolveram
 LEITURA = os.path.join(RAIZ, "data", "analise_ia", "falha_dcmd_mae.json")
 SAIDA = os.path.join(RAIZ, "dist", "FALHA_DCMD_MAE.xlsx")
 
@@ -198,7 +200,7 @@ def lotes(destino=None):
     for c in cads:
         por_ativo[reg[c[0]]["ativo"]].append(c)
 
-    destino = destino or os.path.join(RAIZ, "scratchpad", "mae_lotes")
+    destino = destino or LOTES
     os.makedirs(destino, exist_ok=True)
     ativos = sorted(por_ativo)
     tam = -(-len(ativos) // N_LOTES)
@@ -208,23 +210,24 @@ def lotes(destino=None):
             continue
         linhas = []
         for a in fatia:
-            linhas.append("=" * 78)
-            linhas.append("ATIVO %s (%s)" % (a, reg[por_ativo[a][0][0]]["tipo"]))
+            linhas.append("ATIVO %s  (%s)" % (a, reg[por_ativo[a][0][0]]["tipo"]))
+            linhas.append("#" * 92)
             for i, cad in enumerate(por_ativo[a], 1):
                 p = reg[cad[0]]
                 linhas.append("")
                 linhas.append(
-                    ">>> CADEIA %d — primeira SS %s aberta em %s (ocorrência %s), %d SS, postos: %s"
+                    "  >>> CADEIA %d — primeira SS %s aberta em %s (ocorrência %s), %d SS, postos: %s"
                     % (i, cad[0], p["abert"], p["ocor"], len(cad),
                        " -> ".join(reg[s]["posto"] for s in cad)))
+                linhas.append("")
                 for s in cad:
                     d = reg[s]
-                    linhas.append("  [%s] posto %s · %s · pendência: %s" % (s, d["posto"], d["status"], d["pend"]))
-                    linhas.append("      abertura %s · conclusão %s" % (d["abert"], d["concl"]))
+                    linhas.append("    --- %s | %s | %s | %s" % (s, d["posto"], d["status"], d["pend"]))
+                    linhas.append("        aberta %s  concluída %s" % (d["abert"], d["concl"]))
                     t = d["desc"]
                     if len(t) > CORTE_TEXTO:
                         t = t[:CORTE_TEXTO] + " …[texto cortado]"
-                    linhas.append("      " + (t or "(sem descrição)").replace("\n", "\n      "))
+                    linhas.append("        " + (t or "(sem descrição)").replace("\n", "\n        "))
                     linhas.append("")
         with open(os.path.join(destino, "lote%d.txt" % (n + 1)), "w") as f:
             f.write("\n".join(linhas))
@@ -235,18 +238,30 @@ def lotes(destino=None):
 
 
 # ------------------------------------------------------------------ passo 3: junta
-def junta(pasta=None):
-    pasta = pasta or os.path.join(RAIZ, "scratchpad", "mae_lotes", "out")
-    saida, vistos = [], set()
+def junta(pasta=None, cads=None):
+    """Junta os lotes lidos. Se a leitura apontou uma SS do MEIO da cadeia em vez da
+    primeira, remapeia para a cabeça — aconteceu uma vez e o veredito não muda."""
+    pasta = pasta or CACHE
+    cabeca = {}
+    for c in (cads or []):
+        for ss in c:
+            cabeca[ss] = c[0]
+    saida, vistos, remap = [], set(), []
     for f in sorted(glob.glob(os.path.join(pasta, "lote*.json")),
                     key=lambda p: int("".join(c for c in os.path.basename(p) if c.isdigit()))):
         with open(f) as fh:
             for o in json.load(fh):
+                ss = o.get("cadeia")
+                if cabeca and ss in cabeca and cabeca[ss] != ss:
+                    remap.append((ss, cabeca[ss]))
+                    o["cadeia"] = cabeca[ss]
                 chave = (o.get("ativo"), o.get("cadeia"))
                 if chave in vistos:
                     continue
                 vistos.add(chave)
                 saida.append(o)
+    for de, para in remap:
+        print("  cadeia remapeada: %s -> %s (SS do meio apontada como cabeça)" % (de, para))
     return saida
 
 
@@ -472,7 +487,7 @@ def consolida():
     reg, prox, comeco = ler()
     cads = recorte(reg, prox, comeco)
     por_primeira = {c[0]: c for c in cads}
-    leitura = junta()
+    leitura = junta(cads=cads)
     faltando, sobrando = confere(leitura, reg, cads)
 
     linhas = []
