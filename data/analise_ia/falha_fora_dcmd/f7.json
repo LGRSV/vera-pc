@@ -794,7 +794,7 @@
     "tambem": [],
     "data_primeira_ss": "2024-10-25",
     "executada": true,
-    "evidencia": "O mesmo não esta falha na comunicação... Equipamento foi bay passado, pois temos equipes em trabalho em lançamento de cabo no 138 KV que vai para Ponte Alta.",
+    "evidencia": "O mesmo não esta falha na comunicação. Enviar equipe do DMSL para verficar Equipamento foi bay passado, pois temos equipes em trabalho em lançamento de cabo no 138 KV que vai para Ponte Alta.",
     "confianca": "baixa",
     "motivo": "Texto afirma explicitamente que não havia falha de comunicação; equipamento foi bypassado por obra de terceiros (lançamento de cabo), não por defeito próprio."
   },
@@ -914,9 +914,9 @@
     ],
     "data_primeira_ss": "2024-04-11",
     "executada": true,
-    "evidencia": "Equipe DMSL esteve no equipamento RLG 7926439110 dia 10/04/2024 e após testes, foi confirmado que o tanque do religador está com defeito, sendo necessária a substituição. Além disso, solicito a adequação do aterramento que está fora do nível aceitável. (...) RELIGADOR SUBSTITUIDO EM CAMPO FAVOR COMISSIONAR",
+    "evidencia": "foi confirmado que o tanque do religador está com defeito, sendo necessária a substituição. Além disso, solicito a adequação do aterramento que está fora do nível aceitável.",
     "confianca": "alta",
-    "motivo": "Parecer da DMSL confirma defeito no tanque do religador com necessidade de substituição; parecer mais recente da cadeia confirma que o religador foi substituído em campo, restando comissionamento e ajuste de aterramento."
+    "motivo": "Parecer da DMSL confirma defeito no tanque do religador com necessidade de substituição. O parecer mais recente da cadeia (ETO-TELE 01003/2024) acrescenta 'RELIGADOR SUBSTITUIDO EM CAMPO FAVOR COMISSIONAR' e pareceres da proteção pedindo comissionamento — tanque já trocado, restando comissionamento e ajuste de aterramento."
   },
   {
     "ativo": "7926439110",
@@ -1165,7 +1165,7 @@
     ],
     "data_primeira_ss": "2025-07-08",
     "executada": false,
-    "evidencia": "Placa de alimentação danificada, devido a curto, não temos material sobressalente para manutenção! Favor substituir o equipamento completo. Equipamento ficou em operação?: Não Pendência: Sim, substituir equipamento completo.",
+    "evidencia": "Placa de alimentação danificada, devido a curto, não temos material sobressalente para manutenção! Favor substituir o equipamento completo. Obs.: O rádio ficou dentro do controle, favor orientar a equipe que for substituir colocar dentro do controle novo. Equipamento ficou em operação?: Não Pendência: Sim, substituir equipamento completo.",
     "confianca": "alta",
     "motivo": "Parecer DMSL confirma placa de alimentação (peça de controle) danificada por curto, sem material sobressalente — pede substituição do equipamento COMPLETO; equipamento não ficou em operação e pendência segue aberta."
   },
@@ -1180,7 +1180,7 @@
     ],
     "data_primeira_ss": "2025-07-08",
     "executada": false,
-    "evidencia": "Placa de alimentação danificada, devido a curto, não temos material sobressalente para manutenção! Favor substituir o equipamento completo. Equipamento ficou em operação?: Não Pendência: Sim, substituir equipamento completo.",
+    "evidencia": "Placa de alimentação danificada, devido a curto, não temos material sobressalente para manutenção! Favor substituir o equipamento completo. Obs.: O rádio ficou dentro do controle, favor orientar a equipe que for substituir colocar dentro do controle novo. Equipamento ficou em operação?: Não Pendência: Sim, substituir equipamento completo.",
     "confianca": "alta",
     "motivo": "SS irmã do mesmo evento (mesmo ativo, mesma data, mesmo parecer DMSL): placa de alimentação danificada por curto, sem material sobressalente, pede substituição do equipamento completo; segue pendente."
   },
@@ -1234,7 +1234,7 @@
     "tambem": [],
     "data_primeira_ss": "2025-02-05",
     "executada": true,
-    "evidencia": "FEITO PRIMEIRO ATAQUE COM EQUIPE LOCAL E RL NÃO VOLTOU A COMUNICAR QUANDO A LINHA FICOU SEM ENERGIA. OBS. : PAINEL NÃO ASCENDEU",
+    "evidencia": "FEITO PRIMEIRO ATAQUE COM EQUIPE LOCAL E RL NÃO VOLTOU A COMUNICAR QUANDO A LINHA FICOU SEM ENERGIA. RL 7927712032 OBS. : PAINEL NÃO ASCENDEU",
     "confianca": "baixa",
     "motivo": "Painel não ligou quando a linha perdeu energia — sintoma de falta de energia de reserva no painel; texto não nomeia a peça causadora."
   },
