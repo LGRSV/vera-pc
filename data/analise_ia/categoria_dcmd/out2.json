@@ -1,0 +1,803 @@
+[
+  {
+    "cadeia": "ETO-RD-AR 00821/2024",
+    "ativo": "7903690004",
+    "categoria": "aterramento",
+    "item": "malha de aterramento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 01161/2024",
+    "ativo": "7907257059",
+    "categoria": "chave faca",
+    "item": "chave de saída",
+    "tambem": [
+      "poda"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 01553/2024",
+    "ativo": "7907258122",
+    "categoria": "aterramento",
+    "item": "malha de aterramento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00738/2024",
+    "ativo": "7907570122",
+    "categoria": "aterramento",
+    "item": "malha de aterramento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00505/2025",
+    "ativo": "7908195042",
+    "categoria": "nao identificado",
+    "item": "comando mecânico (argola)",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00988/2024",
+    "ativo": "7908200059",
+    "categoria": "cabo",
+    "item": "conector (ponto quente)",
+    "tambem": [
+      "chave faca"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00830/2023",
+    "ativo": "7908209074",
+    "categoria": "sem defeito",
+    "item": "equipamento completo",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00185/2024",
+    "ativo": "7908253086",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PS 00268/2024",
+    "ativo": "7908253086",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00186/2024",
+    "ativo": "7908256086",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DG-RD-PO 00685/2024",
+    "ativo": "7908300096",
+    "categoria": "poda",
+    "item": "árvore",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GR 00657/2025",
+    "ativo": "7908418023",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01492/2024",
+    "ativo": "7908689014",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00541/2024",
+    "ativo": "7908706027",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00705/2024",
+    "ativo": "7908708116",
+    "categoria": "fusivel",
+    "item": "elo fusível",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00885/2024",
+    "ativo": "7908710028",
+    "categoria": "sem defeito",
+    "item": "equipamento completo",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00442/2024",
+    "ativo": "7908715091",
+    "categoria": "chave faca",
+    "item": "chave de saída",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00504/2025",
+    "ativo": "7909579077",
+    "categoria": "poste",
+    "item": "poste/cruzeta",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00505/2025",
+    "ativo": "7909579077",
+    "categoria": "poste",
+    "item": "poste/cruzeta",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 02089/2024",
+    "ativo": "7909599004",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01012/2024",
+    "ativo": "7910027196",
+    "categoria": "chave faca",
+    "item": "chave bypass",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00820/2024",
+    "ativo": "7910039265",
+    "categoria": "aterramento",
+    "item": "malha de aterramento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00857/2024",
+    "ativo": "7910039265",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 01046/2024",
+    "ativo": "7910269094",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00483/2024",
+    "ativo": "7910410013",
+    "categoria": "fusivel",
+    "item": "elo fusível/cartucho",
+    "tambem": [
+      "chave faca",
+      "trafo auxiliar"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-PO 00046/2025",
+    "ativo": "7910410013",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00432/2025",
+    "ativo": "7910504007",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00941/2024",
+    "ativo": "7910504007",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01114/2024",
+    "ativo": "7910504007",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01835/2024",
+    "ativo": "7913348136",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00540/2024",
+    "ativo": "7913666038",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00910/2024",
+    "ativo": "7913666038",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00004/2024",
+    "ativo": "7913667006",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00123/2025",
+    "ativo": "7915028003",
+    "categoria": "telecom",
+    "item": "automação/antena",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00066/2025",
+    "ativo": "7915030003",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 01387/2024",
+    "ativo": "7915030003",
+    "categoria": "poste",
+    "item": "isolador",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-GR 00778/2024",
+    "ativo": "7921021048",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00532/2024",
+    "ativo": "7922965090",
+    "categoria": "aterramento",
+    "item": "malha de aterramento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00475/2025",
+    "ativo": "7923106107",
+    "categoria": "chave faca",
+    "item": "chave faca (bypass)",
+    "tambem": [
+      "trafo auxiliar",
+      "para-raio"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 01431/2024",
+    "ativo": "7924268059",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00229/2025",
+    "ativo": "7924268059",
+    "categoria": "cabo",
+    "item": "cabo",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00395/2024",
+    "ativo": "7924700007",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01164/2024",
+    "ativo": "7924844060",
+    "categoria": "chave faca",
+    "item": "chave de bypass",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00007/2024",
+    "ativo": "7924850004",
+    "categoria": "trafo auxiliar",
+    "item": "transformador auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01914/2024",
+    "ativo": "7924850004",
+    "categoria": "furto",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00671/2024",
+    "ativo": "7924850004",
+    "categoria": "furto",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00171/2024",
+    "ativo": "7924895077",
+    "categoria": "furto",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00725/2024",
+    "ativo": "7924895077",
+    "categoria": "furto",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00534/2025",
+    "ativo": "7924920068",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [
+      "cabo",
+      "chave faca"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00440/2024",
+    "ativo": "7925081028",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01112/2024",
+    "ativo": "7925563149",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00162/2024",
+    "ativo": "7925573007",
+    "categoria": "chave faca",
+    "item": "chave de bypass",
+    "tambem": [
+      "ajuste de protecao"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00528/2024",
+    "ativo": "7925573007",
+    "categoria": "chave faca",
+    "item": "chave de bypass",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00418/2024",
+    "ativo": "7925731057",
+    "categoria": "nao identificado",
+    "item": "bucha",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00180/2025",
+    "ativo": "7925736080",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00381/2025",
+    "ativo": "7925853004",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 01532/2024",
+    "ativo": "7925873193",
+    "categoria": "telecom",
+    "item": "comunicação/rádio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01199/2024",
+    "ativo": "7925897004",
+    "categoria": "chave faca",
+    "item": "chave",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00542/2024",
+    "ativo": "7926201190",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00591/2024",
+    "ativo": "7926201190",
+    "categoria": "aterramento",
+    "item": "aterramento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00630/2024",
+    "ativo": "7926201190",
+    "categoria": "sem defeito",
+    "item": "controle",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00527/2025",
+    "ativo": "7926246032",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00145/2024",
+    "ativo": "7926645073",
+    "categoria": "sem defeito",
+    "item": "controle",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00075/2025",
+    "ativo": "7926645073",
+    "categoria": "melhoria",
+    "item": "rebaixamento do controle",
+    "tambem": [
+      "comissionamento",
+      "telecom"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00432/2025",
+    "ativo": "7926656122",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00708/2024",
+    "ativo": "7926753122",
+    "categoria": "telecom",
+    "item": "automação",
+    "tambem": [
+      "aterramento"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-GR 00304/2025",
+    "ativo": "7927000155",
+    "categoria": "furto",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00186/2024",
+    "ativo": "7927661026",
+    "categoria": "obra nova",
+    "item": "remanejamento",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00001/2024",
+    "ativo": "7927712032",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00282/2025",
+    "ativo": "7927712032",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01616/2024",
+    "ativo": "7927795004",
+    "categoria": "nao identificado",
+    "item": "configuração",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00305/2025",
+    "ativo": "7928151001",
+    "categoria": "trafo auxiliar",
+    "item": "transformador auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00456/2024",
+    "ativo": "7928457040",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00494/2024",
+    "ativo": "7928457040",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00587/2024",
+    "ativo": "7928462040",
+    "categoria": "chave faca",
+    "item": "chave de saída",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00677/2024",
+    "ativo": "7928466004",
+    "categoria": "cabo",
+    "item": "cabo de alimentação",
+    "tambem": [
+      "comissionamento"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00234/2024",
+    "ativo": "7929663074",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01578/2024",
+    "ativo": "7930263058",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GR 01161/2024",
+    "ativo": "7930265153",
+    "categoria": "chave faca",
+    "item": "chave de entrada",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00391/2024",
+    "ativo": "7930269058",
+    "categoria": "obra nova",
+    "item": "desativação",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-GR 00535/2024",
+    "ativo": "7930287154",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00197/2024",
+    "ativo": "7930359149",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00752/2024",
+    "ativo": "7930911039",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GR 00539/2024",
+    "ativo": "7931243015",
+    "categoria": "telecom",
+    "item": "automação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00398/2024",
+    "ativo": "7931382084",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00222/2025",
+    "ativo": "7931609122",
+    "categoria": "poda",
+    "item": "vegetação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00805/2024",
+    "ativo": "7931613122",
+    "categoria": "chave faca",
+    "item": "chave de entrada/saída",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00239/2024",
+    "ativo": "7932030072",
+    "categoria": "telecom",
+    "item": "SCADA",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00496/2024",
+    "ativo": "7932030072",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00262/2024",
+    "ativo": "7932030072",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00467/2025",
+    "ativo": "7932450001",
+    "categoria": "telecom",
+    "item": "rádio",
+    "tambem": [
+      "bateria",
+      "trafo auxiliar"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DG-RD-PO 00519/2024",
+    "ativo": "7932926001",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00396/2024",
+    "ativo": "7933526003",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [
+      "chave faca"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00025/2025",
+    "ativo": "7933694038",
+    "categoria": "nao identificado",
+    "item": "interligações",
+    "tambem": [],
+    "confianca": "baixa"
+  }
+]
