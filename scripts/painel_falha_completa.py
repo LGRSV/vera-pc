@@ -347,7 +347,7 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
       <thead><tr>
         <th>Ativo</th><th>Tipo</th><th>Praça</th><th class="num">Mês</th>
         <th>Item</th><th>Nome no parecer</th><th>Marca</th><th>Feito</th>
-        <th class="num">Cadeias</th><th>Primeira SS</th><th>Caminho no SGM</th>
+        <th class="num">Cadeias</th><th>Volta?</th><th>Primeira SS</th><th>Caminho no SGM</th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -591,11 +591,19 @@ function desenha(){
         background:${TOM[k]}"></span></td></tr>`;
   }).join("");
 
+  const rein=eq.filter(e=>e.reincidente&&e.classe==="grande");
+  const reinAtivos=[...new Set(rein.map(e=>e.ativo))];
   const poste=eq.filter(e=>e.classe==="meio").length;
   document.getElementById("aviso-objeto").innerHTML = `<b>O objeto do fato.</b> São
     <b>${poste}</b> fatos rotulados como poste, cruzeta, estrutura ou vegetação. A SS pendurou
     no código do religador porque ele é o marco do trecho, mas o equipamento não tinha defeito.
-    Sem separar isso, a taxa do ativo vira taxa do alimentador.`;
+    Sem separar isso, a taxa do ativo vira taxa do alimentador.
+    <br><br><b>A peça que volta.</b> ${reinAtivos.length} ativos perderam a MESMA peça grande
+    em dois anos seguidos (${rein.length} fatos). Pela régua contam duas vezes, e está certo —
+    mas na leitura do parque é um equipamento dois anos com o mesmo defeito, não dois
+    equipamentos falhando. É o sinal mais direto de demanda cancelada sem resolver: no
+    7908206074 a SS de 2024 pediu troca completa, foi cancelada, e em 2025 o mesmo tanque
+    queimou de novo. A coluna <b>Volta?</b> na lista marca cada um.`;
 })();
 
 /* ------------------------------------------------------------------ marcas */
@@ -663,6 +671,7 @@ function pinta(){
       <td class="cod">${e.marca_bruta||e.marca}</td>
       <td>${e.executada?'<span class="sim">sim</span>':'<span class="nao">não</span>'}</td>
       <td class="num">${e.cadeias}</td>
+      <td>${e.reincidente?`<span class="nao">${e.reincidencia}</span>`:'<span style="color:var(--tinta-3)">—</span>'}</td>
       <td class="cod">${e.cadeia}<br><span class="marca-dcmd">${e.dcmd?"passou pelo DCMD":"não passou"}</span></td>
       <td style="font-size:12px; color:var(--tinta-2)">${e.postos}</td>
     </tr>`).join("");

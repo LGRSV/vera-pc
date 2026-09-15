@@ -171,6 +171,25 @@ def equipamento_ano(linhas):
     return fora
 
 
+def reincidencia(eqs):
+    """Marca o ativo que perdeu a MESMA peça em dois anos seguidos.
+
+    Achado do 7908206074: em 2024 a SS pediu troca completa por «tanque em curto e
+    controle com defeito» e foi CANCELADA sem execução; em 2025 o mesmo tanque queimou
+    de novo. Pela régua do gestor são dois fatos e contam duas vezes, e está certo — mas
+    na leitura do parque é UM equipamento dois anos com o mesmo defeito, não dois
+    equipamentos falhando. É o sinal mais direto de demanda cancelada sem resolver.
+    """
+    tem = {(e["ativo"], e["categoria"], e["ano"]) for e in eqs}
+    for e in eqs:
+        antes = (e["ativo"], e["categoria"], e["ano"] - 1) in tem
+        depois = (e["ativo"], e["categoria"], e["ano"] + 1) in tem
+        e["reincidente"] = antes or depois
+        e["reincidencia"] = "volta de %d" % (e["ano"] - 1) if antes else (
+            "volta em %d" % (e["ano"] + 1) if depois else "")
+    return eqs
+
+
 def grava(linhas, eqs, reg, todas, saida=SAIDA):
     universo = [c for c in todas if reg[c[0]]["abert"] and reg[c[0]]["abert"].year in (2024, 2025)]
     fora_dcmd = [c for c in universo if not fm.do_dcmd(c, reg)]
@@ -192,7 +211,7 @@ def grava(linhas, eqs, reg, todas, saida=SAIDA):
 
 if __name__ == "__main__":
     linhas, reg, todas = monta()
-    eqs = equipamento_ano(linhas)
+    eqs = reincidencia(equipamento_ano(linhas))
     p = grava(linhas, eqs, reg, todas)
     print("universo 2024-2025: %d cadeias · %d passaram pelo DCMD · %d não"
           % (p["universo"], p["no_dcmd"], p["fora_dcmd"]))
@@ -214,4 +233,8 @@ if __name__ == "__main__":
             print("  %d %s: %d equipamentos com falha (%d no DCMD, %d fora)"
                   % (ano, fam, len(sub), sum(1 for e in sub if e["dcmd"]),
                      sum(1 for e in sub if not e["dcmd"])))
+    rein = [e for e in eqs if e["reincidente"] and e["classe"] == "grande"]
+    print()
+    print("  reincidentes de peça grande (mesma peça em dois anos): %d fatos em %d ativos"
+          % (len(rein), len({e["ativo"] for e in rein})))
     print(SAIDA)
