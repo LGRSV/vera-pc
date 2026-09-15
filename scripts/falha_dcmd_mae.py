@@ -142,6 +142,47 @@ def recorte(reg, prox, comeco, anos=ANOS):
     return fora
 
 
+# ------------------------------------------------------------------ marca do ativo
+AJUSTES = os.path.join(RAIZ, "data", "raw", "GESTAO_DE_EQUIPAMENTOS.xlsx")
+
+
+def marcas(caminho=AJUSTES):
+    """A marca não está em base de SS nenhuma — só nos cadastros de ajuste da proteção.
+
+    Religador: aba «Ajustes RL Poste», coluna RELE (NOJA RC10, COOPER F6, TAVRIDA…) —
+    é o relé que identifica o modelo do equipamento. Regulador: aba «Ajustes Reguladores
+    de Tensão», coluna PARTE ATIVA (o fabricante da célula: ITB, TOSHIBA…) e CONTROLADOR
+    (o modelo do controle: CTR3, RUA…).
+    """
+    wb = load_workbook(caminho, read_only=True, data_only=True)
+    fora = {}
+    ws = wb["Ajustes RL Poste"]
+    it = ws.iter_rows(values_only=True)
+    cab = [str(c or "").strip().upper() for c in next(it)]
+    i_eq, i_rele = cab.index("EQUIPAMENTO"), cab.index("RELE")
+    i_tensao, i_loc = cab.index("TENSÃO"), cab.index("LOCALIDADE")
+    for r in it:
+        cod = _limpa(r[i_eq])
+        if cod:
+            fora[cod] = {"marca": _limpa(r[i_rele]).upper() or "SEM CADASTRO",
+                         "tensao": _limpa(r[i_tensao]), "controlador": "",
+                         "loc": _limpa(r[i_loc]).title()}
+    ws = wb["Ajustes Reguladores de Tensão"]
+    it = ws.iter_rows(values_only=True)
+    cab = [str(c or "").strip().upper() for c in next(it)]
+    i_cod, i_pa = cab.index("CÓDIGO"), cab.index("PARTE ATIVA")
+    i_ctr, i_pot = cab.index("CONTROLADOR"), cab.index("POTÊNCIA [KVAR]")
+    i_loc2 = cab.index("LOCALIDADE")
+    for r in it:
+        cod = _limpa(r[i_cod])
+        if cod:
+            fora[cod] = {"marca": _limpa(r[i_pa]).upper() or "SEM CADASTRO",
+                         "tensao": _limpa(r[i_pot]), "controlador": _limpa(r[i_ctr]).upper(),
+                         "loc": _limpa(r[i_loc2]).title()}
+    wb.close()
+    return fora
+
+
 # ------------------------------------------------------------------ o que o leitor recebe
 PROMPT = """Você lê pareceres técnicos de SS (Solicitações de Serviço) da Energisa Tocantins para decidir se cada equipamento teve FALHA no sentido estrito que o gestor do posto ETO-COEP definiu, e QUAL PEÇA precisava ser trocada.
 
@@ -489,6 +530,8 @@ def consolida():
     por_primeira = {c[0]: c for c in cads}
     leitura = junta(cads=cads)
     faltando, sobrando = confere(leitura, reg, cads)
+    marca = marcas()
+    praca = localidades()
 
     linhas = []
     for o in leitura:
@@ -509,9 +552,15 @@ def consolida():
             "ocor": d["ocor"],
             "n_ss": len(cad),
             "postos": " -> ".join(reg[s]["posto"] for s in cad),
-            "loc": d["loc"],
+            "loc": (marca.get(d["ativo"], {}).get("loc")
+                    or praca.get(d["ativo"]) or d["loc"]),
             "alimentador": d["alimentador"],
             "pend": d["pend"],
+            "mes": d["abert"].month,
+            "marca": marca_limpa(marca.get(d["ativo"], {}).get("marca")),
+            "marca_bruta": marca.get(d["ativo"], {}).get("marca", ""),
+            "controlador": marca.get(d["ativo"], {}).get("controlador", ""),
+            "classe": marca.get(d["ativo"], {}).get("tensao", ""),
             "confianca": o.get("confianca") or "",
             "evidencia": (o.get("evidencia") or "")[:400],
             "motivo": o.get("motivo") or "",
@@ -524,6 +573,7 @@ def consolida():
                   f, ensure_ascii=False, indent=1)
 
     saida = monta(linhas, faltando, sobrando)
+    dados_artifact(linhas)
 
     print("cadeias no recorte: %d · lidas: %d · sem leitura: %d · sobrando: %d"
           % (len(cads), len(linhas), len(faltando), len(sobrando)))
@@ -535,6 +585,93 @@ def consolida():
                      dict(Counter(l["peca"] for l in fal))))
     print(saida)
     return linhas
+
+
+
+
+# ------------------------------------------------------------------ dados do artifact
+PARQUE_JSON = os.path.join(RAIZ, "data", "missao", "falha_dcmd_artifact.json")
+MESES_NOME = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
+              "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+
+
+def localidades():
+    """O nome da praça não está na planilha mãe (só o COD_LOC de 3 dígitos). Vem do
+    cadastro de ajuste e, para quem não está lá, do recorte local de SS/OS."""
+    fora = {}
+    caminho = os.path.join(RAIZ, "data", "missao", "ssos_min.json")
+    if os.path.exists(caminho):
+        with open(caminho) as f:
+            for x in json.load(f):
+                cod, nome = x.get("NUM_TRAFO"), (x.get("LOCALIDADE") or "").strip()
+                if cod and nome:
+                    fora.setdefault(cod, nome.title())
+    return fora
+
+
+def marca_limpa(bruta):
+    """O regulador é banco de TRÊS células e o cadastro escreve as três quando elas
+    divergem («TOSHIBA/ITB/ITB», «ITB E TOSHIBA»). Para contar por marca isso vira
+    MISTO — o texto cru fica na linha do ativo."""
+    b = (bruta or "").strip().upper()
+    if not b:
+        return "SEM CADASTRO"
+    partes = {x.strip() for x in b.replace(" E ", "/").replace(",", "/").split("/") if x.strip()}
+    if len(partes) > 1:
+        return "MISTO"
+    return partes.pop()
+
+
+def parque_por_marca():
+    """O denominador honesto da marca é o parque DESSES CADASTROS, não o parque oficial:
+    a marca só existe no cadastro de ajuste (1.292 RL e 190 RT), não nos 1.307/207."""
+    mk = marcas()
+    fora = {"RL": Counter(), "RT": Counter()}
+    for cod, d in mk.items():
+        fam = "RT" if cod.startswith("58") else "RL"
+        fora[fam][marca_limpa(d["marca"])] += 1
+    return {f: dict(c) for f, c in fora.items()}
+
+
+def dados_artifact(linhas, saida=PARQUE_JSON):
+    """Uma linha por EQUIPAMENTO-ANO (a régua do gestor), não por cadeia.
+
+    Quando o mesmo ativo falha duas vezes no ano, vale a falha MAIS ANTIGA para datar
+    (é ela que abre o problema) e a peça da que tiver troca confirmada; se nenhuma teve,
+    a da mais antiga. As duas aparecem na contagem por peça da aba de detalhe."""
+    falhas = [l for l in linhas if l["falha"]]
+    por_eq = defaultdict(list)
+    for l in falhas:
+        por_eq[(l["ativo"], l["ano"])].append(l)
+
+    equipamentos = []
+    for (ativo, ano), grupo in sorted(por_eq.items()):
+        grupo.sort(key=lambda x: x["abert"])
+        escolhido = next((g for g in grupo if g["executada"]), grupo[0])
+        equipamentos.append({
+            "ativo": ativo, "ano": ano, "fam": grupo[0]["fam"],
+            "mes": grupo[0]["mes"], "mes_nome": MESES_NOME[grupo[0]["mes"] - 1],
+            "peca": escolhido["peca"], "marca": grupo[0]["marca"],
+            "controlador": grupo[0]["controlador"], "classe": grupo[0]["classe"],
+            "loc": grupo[0]["loc"], "cadeias": len(grupo),
+            "executada": any(g["executada"] for g in grupo),
+            "pecas_todas": sorted({g["peca"] for g in grupo}),
+            "primeira_ss": grupo[0]["cadeia"], "abert": str(grupo[0]["abert"]),
+            "postos": grupo[0]["postos"], "confianca": grupo[0]["confianca"],
+            "evidencia": grupo[0]["evidencia"], "motivo": grupo[0]["motivo"],
+        })
+
+    pacote = {
+        "equipamentos": equipamentos,
+        "parque_marca": parque_por_marca(),
+        "cadeias_lidas": len(linhas),
+        "cadeias_com_falha": len(falhas),
+        "meses": MESES_NOME,
+    }
+    os.makedirs(os.path.dirname(saida), exist_ok=True)
+    with open(saida, "w") as f:
+        json.dump(pacote, f, ensure_ascii=False, indent=1)
+    return pacote
 
 
 if __name__ == "__main__":
