@@ -652,6 +652,7 @@ def dados_artifact(linhas, saida=PARQUE_JSON):
             "ativo": ativo, "ano": ano, "fam": grupo[0]["fam"],
             "mes": grupo[0]["mes"], "mes_nome": MESES_NOME[grupo[0]["mes"] - 1],
             "peca": escolhido["peca"], "marca": grupo[0]["marca"],
+            "marca_bruta": grupo[0]["marca_bruta"] or grupo[0]["marca"],
             "controlador": grupo[0]["controlador"], "classe": grupo[0]["classe"],
             "loc": grupo[0]["loc"], "cadeias": len(grupo),
             "executada": any(g["executada"] for g in grupo),
