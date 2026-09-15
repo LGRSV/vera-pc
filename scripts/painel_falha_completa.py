@@ -41,18 +41,19 @@ ULTIMO = 19   # jul/2025 é o último mês que a planilha mãe alcança
 
 def monta(saida=SAIDA):
     d = json.load(open(DADOS))
-    magro = [{k: v for k, v in l.items() if k not in ("evidencia", "motivo")}
-             for l in d["linhas"]]
+    # a página só usa a CONTAGEM das cadeias lidas; mandar as 1.634 linhas cruas
+    # junto triplicava o peso do arquivo sem acrescentar nada na tela
+    n_lidas = len(d["linhas"])
     payload = {
         "equipamentos": d["equipamentos"],
-        "linhas": magro,
+        "n_lidas": n_lidas,
         "categorias": d["categorias"],
         "parque_marca": d["parque_marca"],
         "universo": d["universo"], "no_dcmd": d["no_dcmd"],
         "fora_dcmd": d["fora_dcmd"], "fora_sem_falha": d["fora_sem_falha"],
         "eixo": [list(k) for k in EIXO], "ultimo": ULTIMO, "corte": d["corte"],
     }
-    html = MOLDE.replace("/*DADOS*/", json.dumps(payload, ensure_ascii=False))
+    html = MOLDE.replace("D.linhas.length", "D.n_lidas").replace("/*DADOS*/", json.dumps(payload, ensure_ascii=False))
     os.makedirs(os.path.dirname(saida), exist_ok=True)
     with open(saida, "w") as f:
         f.write(html)
