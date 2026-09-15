@@ -24,7 +24,7 @@
     ],
     "data_primeira_ss": "2024-01-29",
     "executada": false,
-    "evidencia": "o disjuntor de alimentação esta desarmado, não aceitando fechamento, algo em curto no Painel. não foi identificado falha visualmente.",
+    "evidencia": "o disjuntor de alimentação esta desarmado , não aceitando fechamento , algo em curto no Painel . não foi identificado falha visualmente .",
     "confianca": "alta",
     "motivo": "A queixa original e falha de comunicacao, mas a inspecao achou disjuntor desarmado/painel em curto sem confirmar visualmente o defeito; o proprio texto diz que nao foi identificado."
   },
@@ -145,7 +145,7 @@
     "tambem": [],
     "data_primeira_ss": "2024-08-23",
     "executada": true,
-    "evidencia": "constatou que o mesmo (radio) esta queimado",
+    "evidencia": "constatou que  o mesmo ( radio ) esta queimado",
     "confianca": "alta",
     "motivo": "Radio do religador constatado queimado pelo DMSL, sem automacao ate normalizar."
   },
@@ -378,7 +378,7 @@
     ],
     "data_primeira_ss": "2024-02-08",
     "executada": false,
-    "evidencia": "falha comandos via remoto e local, feito primeiro ataque com apoio do Edicleber DMSL, aparentemente Modulo sim esta com avaria",
+    "evidencia": "falha comandos via remoto e local , feito primeiro ataque com apoio do Edicleber  DMSL , aparentemente Modulo sim esta com avaria .",
     "confianca": "baixa",
     "motivo": "Falha em comandos remoto E local aponta para o modulo de comando do religador, nao so para telecom; texto ambiguo sobre a peca exata ('Modulo sim')."
   },
