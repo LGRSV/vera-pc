@@ -1,0 +1,266 @@
+[
+  {
+    "cadeia": "ETO-TELE 00038/2024",
+    "ativo": "7905363122",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "DJ CA e disjuntor de alimentacao - a regua diz que disjuntor nao e nem controle nem tanque; nenhuma peca de controle e nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01124/2024",
+    "ativo": "7908246250",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Nao responde aos comando' e sintoma puro sem peca nomeada; o texto ainda diz comunicacao normal, o que afasta telecom tambem.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00579/2024",
+    "ativo": "7908256086",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Nota de despacho a partir de alarme, 'sem primeiro ataque'; 'levar placa COOPER' e instrucao previa, nao confirma defeito nem troca da peca.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 01092/2024",
+    "ativo": "7909577092",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao esta fechando remoto somente local' e o proprio exemplo de telecom dado pela regua - remoto e comunicacao, nao peca de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00442/2024",
+    "ativo": "7913328113",
+    "mantem": false,
+    "categoria_final": "cabo",
+    "porque": "'Nao aceita comando' e sintoma listado (cai); o achado concreto do texto e cabo rompido a jusante do religador, causa real do desarme.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01066/2024",
+    "ativo": "7913328113",
+    "mantem": false,
+    "categoria_final": "cabo",
+    "porque": "Mesmo texto do caso paralelo em ETO-PROT: cabo rompido a jusante e o achado concreto, sem peca de controle nomeada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01151/2024",
+    "ativo": "7913341063",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao aceita comando de fechar em remoto, somente em local' e sintoma de comunicacao, sem qualquer peca nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00494/2024",
+    "ativo": "7913341063",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Mesmo texto do caso paralelo em ETO-TELE: falha de comando remoto e telecom, nao controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00782/2024",
+    "ativo": "7913348136",
+    "mantem": false,
+    "categoria_final": "ajuste de protecao",
+    "porque": "'Painel apagado' e bypass sao sintomas listados; o pedido concreto do texto e so verificar ajustes e reles de protecao, sem troca de peca.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-DEOP 00019/2024",
+    "ativo": "7913659027",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao responde comandos (remotos/local)' e bypass sao sintomas; o termo remoto aponta telecom, nenhuma peca nomeada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00184/2024",
+    "ativo": "7919270014",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao aceita comando remoto' com bypass e sintoma de comunicacao, sem peca nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00157/2024",
+    "ativo": "7920080052",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Texto nomeia curto no controle e confirma 'substituicao completa do controle' executada em 28/02/2024 - peca e troca explicitas.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00384/2024",
+    "ativo": "7921202014",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Estado de transicao invalido e nao resposta a comandos e sintoma operacional/logico, sem peca nomeada nem troca confirmada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00596/2025",
+    "ativo": "7921205014",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Fechamento automatico indevido e falha de logica sem peca nomeada; o cabo rompido e dano colateral na linha (LD), nao o alvo do reparo do religador.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00624/2025",
+    "ativo": "7921205014",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Fechando abrindo e fechando aleatorio, sem nenhum comando' e sintoma de operacao, nenhuma peca citada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00060/2024",
+    "ativo": "7922502271",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Rele esta apagado' e textualmente o exemplo de sintoma que a regua lista como nao-peca-grande.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00322/2024",
+    "ativo": "7922502271",
+    "mantem": false,
+    "categoria_final": "bateria",
+    "porque": "Disjuntor auxiliar nao conta e 'placa queimada' e vaga demais (a palavra placa nao decide); o unico item concreto e mapeavel e a substituicao de bateria pedida no texto.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00335/2024",
+    "ativo": "7924614139",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Infiltracao no gabinete e painel/rele apagado e molhado sao achados sem troca confirmada; comunicacao intermitente e sintoma adicional, mas nada foi substituido no texto.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00435/2024",
+    "ativo": "7924616076",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Painel apagado' e bypass sao sintomas listados como nao-peca-grande; nenhuma substituicao e descrita.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00005/2025",
+    "ativo": "7924840155",
+    "mantem": false,
+    "categoria_final": "cabo",
+    "porque": "'Fiacao do quadro de comando danificada' e fiacao, nao o armario/controle inteiro nem placa nomeada; o pedido e so regularizar a fiacao.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00332/2024",
+    "ativo": "7924850004",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Nao fecha' e 'nao aceita nenhum comando' sao sintomas listados; o pedido e ajustar, nao substituir peca.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00521/2025",
+    "ativo": "7924896193",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Rele de protecao 'nao responde' aos comandos explicitamente 'via comando remoto' - sintoma funcional via remoto, sem substituicao nomeada.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00330/2024",
+    "ativo": "7925081028",
+    "mantem": false,
+    "categoria_final": "cabo",
+    "porque": "'Fiacao CA em curto' e o defeito nomeado (fiacao/cabo); nao carregar a bateria e so consequencia, nao ha peca de controle trocada no texto.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00315/2025",
+    "ativo": "7925704079",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "O pedido dominante e atualizar/checar o SCADA (fase C nao sobe); 'alterar base do rele' nao e substituicao de peca confirmada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00682/2025",
+    "ativo": "7925725002",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Sem comunicacao' + 'nao aceita comando de fechamento local' repete o padrao sintoma+telecom ja invalidado pela regua.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00240/2025",
+    "ativo": "7925727002",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao bloqueia remotamente' com reset sem efeito e sintoma de comunicacao/logica, nenhuma peca nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00790/2025",
+    "ativo": "7925729023",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao fecha via comando remoto e nem comando local', despachado para TELE-ETO - sintoma de comunicacao, sem peca.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00242/2025",
+    "ativo": "7925734195",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Sem comunicacao' + 'display ... com defeito' repete quase ao pe da letra o exemplo de erro conhecido (sintoma + telecom).",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00632/2024",
+    "ativo": "7926059013",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Falha no rele' que fica travado 'em processamento' foi contornada com reset, nao com substituicao de peca.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01185/2024",
+    "ativo": "7926442035",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Nao responde comando de fechamento local e remoto' com bypass e sintoma de comunicacao, nenhuma peca nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00176/2024",
+    "ativo": "7927661026",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Sem comunicacao' e 'nao aceita comando de fechar local' repete o padrao sintoma+telecom, sem peca nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00532/2025",
+    "ativo": "7927765019",
+    "mantem": false,
+    "categoria_final": "sem defeito",
+    "porque": "Ninho de formiga dentro do armario e limpeza, nao troca de peca - e o proprio exemplo de erro conhecido citado pela regua; SS foi cancelada sem reparo confirmado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00195/2025",
+    "ativo": "7929376022",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Fica sem comunicacao quando perde fonte CA' e o exemplo literal de telecom dado pela propria regua.",
+    "confianca": "alta"
+  }
+]
