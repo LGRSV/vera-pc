@@ -228,7 +228,8 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
   <div class="carimbo">ETO-COEP · leitura integral da planilha mãe</div>
   <h1>Prontuário de Falhas de RL e RT</h1>
   <p class="subtitulo">
-    Todas as demandas de religador e regulador de <em>2024 e 2025</em>, lidas parecer a
+    Todas as demandas de religador e regulador de <em>2024 e 2025</em> — o alcance do
+    parecer na base —, lidas parecer a
     parecer e rotuladas pelo <em>item que deu problema</em> — do tanque ao para-raio, da
     chave faca ao furto. Cada demanda é datada pela abertura da primeira SS, e a cadeia
     inteira conta como um fato só.
@@ -478,7 +479,13 @@ const TOM = {};
     ${D.no_dcmd} que passaram por um posto do DCMD, mais as que nunca passaram mas são de
     indisponibilidade ou anomalia. Ficaram de fora <b>${naoLidas}</b> cadeias que nunca tocaram
     o DCMD e cuja pendência é ajuste de proteção, obra de equipamento novo, comissionamento ou
-    cadastro — por definição não são falha.`;
+    cadastro — por definição não são falha.
+    <br><br><b>Por que não tem 2026.</b> A planilha mãe é a única base com o PARECER da SS, e ela
+    fecha em <b>11/07/2025</b>. A base local de SS/OS alcança <b>20/08/2026</b> e tem 1.664 SS de
+    RL e RT em 2026 — mas <b>sem a coluna de descrição</b>, e sem parecer não há como dizer qual
+    peça deu problema. O texto de 2026 só existe para os <b>60</b> ativos que ainda estão na
+    carteira. Para 2026 entrar aqui é preciso um export novo da mesma consulta que gerou a
+    planilha mãe, estendido até hoje.`;
   document.getElementById("aviso-escopo").innerHTML = txt;
   document.getElementById("metodo-escopo").innerHTML = `O primeiro recorte era só o que passou
     pelo DCMD — <b>${D.no_dcmd} cadeias, 21% do universo</b>. As outras ${D.fora_dcmd} morreram
