@@ -110,17 +110,43 @@ def ler(caminho=MAE):
     return reg, prox, comeco
 
 
+_MINIMA = dt.date(1900, 1, 1)
+
+
 def monta_cadeias(reg, prox, comeco):
-    """Do começo até o fim do elo, sem repetir SS (guarda contra ciclo)."""
+    """Do começo até o fim do elo, sem repetir SS (guarda contra ciclo).
+
+    **O repasse bifurca.** Na base nova a mesma SS aparece repetida, cada linha com um
+    `SS_APOS_REPASSE` diferente: o SGM abriu duas notas de campo para o mesmo despacho.
+    São 15 SS assim, 18 ramos. Guardar só um ramo deixava o outro órfão, e como ninguém
+    mais o apontava ele virava cabeça de cadeia própria — a MESMA falha contada duas
+    vezes, às vezes em anos diferentes (o 5863887001 contou célula em 2025 e de novo em
+    2026, com o parecer idêntico palavra por palavra).
+
+    Por isso `prox` aceita uma lista de sucessores, e a cadeia varre todos os ramos.
+    A ordem é a da abertura, para a cabeça continuar sendo a SS mais antiga.
+    """
     cadeias = []
     for ss in comeco:
         if ss not in reg:
             continue
-        cad, visto, atual = [], set(), ss
-        while atual and atual in reg and atual not in visto:
-            visto.add(atual)
+        cad, visto, fila = [], {ss}, [ss]
+        while fila:
+            atual = fila.pop(0)
             cad.append(atual)
-            atual = prox.get(atual)
+            seg = prox.get(atual)
+            if seg is None:
+                seg = []
+            elif isinstance(seg, str):
+                seg = [seg]
+            for nx in seg:
+                if nx in reg and nx not in visto:
+                    visto.add(nx)
+                    fila.append(nx)
+        # o resto em ordem de abertura, mas a CABEÇA não se move: ela é a SS que
+        # ninguém aponta, e é ela que dá a chave e a data da demanda. Ordenar o
+        # conjunto inteiro trocava a cabeça quando dois ramos abriam no mesmo dia.
+        cad[1:] = sorted(cad[1:], key=lambda s: (reg[s]["abert"] or _MINIMA, s))
         cadeias.append(cad)
     return cadeias
 

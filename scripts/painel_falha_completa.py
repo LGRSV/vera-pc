@@ -368,8 +368,8 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 <div class="metodo">
   <h3>A fonte</h3>
   <p>
-    <b>EQP_JOAO_19082026.xlsx</b>, aba «Exportar Planilha»: 10.386 SS, 10.377 com parecer, de
-    01/08/2020 a 19/08/2026. É a única base que traz o texto técnico junto da cadeia — o recorte local de SS/OS
+    <b>EQP_JOAO_19082026.xlsx</b>, aba «Exportar Planilha»: 10.386 linhas para <b>10.368 SS</b>
+    distintas — 15 SS vêm repetidas —, 10.377 linhas com parecer, de 01/08/2020 a 19/08/2026. É a única base que traz o texto técnico junto da cadeia — o recorte local de SS/OS
     não tem descrição e a base crua de 36 MB está fora do repositório.
   </p>
 
@@ -384,9 +384,9 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
   <p>
     O ano é o da <b>abertura da primeira SS da cadeia</b> — a original, antes de a cadeia de
     repasse começar. O SGM abre SS nova a cada passagem de posto e a data vai andando; só a
-    primeira marca quando a demanda nasceu. Conferido nas 4.418 cadeias do recorte: a cabeça da
-    cadeia é <b>sempre</b> a abertura mais antiga, sem exceção. A <b>ocorrência</b> fica ao lado
-    na lista — divergem em 63 fatos, 23 deles de peça grande.
+    primeira marca quando a demanda nasceu. Conferido nas 7.563 cadeias da base inteira: a cabeça
+    da cadeia é <b>sempre</b> a abertura mais antiga, sem exceção. A <b>ocorrência</b> fica ao
+    lado na lista — divergem em 59 fatos, 22 deles de peça grande.
   </p>
 
   <h3>O escopo — e por que ele mudou</h3>
@@ -415,6 +415,16 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
     das 21 falhas conhecidas de 2025, 29% de fuga.
   </p>
 
+  <h3>O repasse que bifurca</h3>
+  <p>
+    A mesma SS aparece repetida na base, cada linha com um <code>SS_APOS_REPASSE</code>
+    diferente: o SGM abriu <b>duas notas de campo para o mesmo despacho</b>. São 15 SS
+    assim, 18 ramos. Seguir só um ramo deixava o outro órfão — e como ninguém mais o
+    apontava, ele virava cabeça de cadeia própria e a <b>mesma falha contava duas
+    vezes</b>. No 5863887001 ela contou célula em 2025 e de novo em 2026, com o parecer
+    idêntico palavra por palavra. Aqui a cadeia varre todos os ramos.
+  </p>
+
   <h3>As quatro armadilhas</h3>
   <p>
     <b>1.</b> A descrição é cumulativa — o SGM cola parecer novo por cima do antigo, sem
@@ -441,6 +451,7 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 
 <script>
 const D = /*DADOS*/;
+const NUM = v => typeof v==="number" ? v.toLocaleString("pt-BR") : v;
 const MES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const MESL=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto",
             "setembro","outubro","novembro","dezembro"];
@@ -483,7 +494,7 @@ const TOM = {};
     ["Fora do DCMD", eq.filter(e=>!e.dcmd).length, "de "+eq.length],
   ];
   document.getElementById("placa").innerHTML = itens.map(([t,v,s])=>
-    `<div><dt>${t}</dt><dd>${v}${s?`<small>${s}</small>`:""}</dd></div>`).join("");
+    `<div><dt>${t}</dt><dd>${NUM(v)}${s?`<small>${s.replace(/\d+/,m=>NUM(+m))}</small>`:""}</dd></div>`).join("");
 
   const naoLidas = D.fora_sem_falha;
   const txt = `<b>O que está aqui e o que não está.</b> O universo de 2024 a 2026 na base é de
@@ -504,10 +515,15 @@ const TOM = {};
     rótulos. O padrão da duplicata é sempre o mesmo: <b>a SS que o RD abre para executar,
     contada à parte da cadeia que pediu o serviço</b>. A base não liga as duas, porque a SS do
     RD não é repasse, é nota nova.
-    <br><br>A duplicata se concentra onde o mecanismo prevê: quase uma a cada dois ativos com
-    peça grande, e <b>zero</b> em mais de 400 ativos sem peça grande — onde não há troca, não há
-    execução de campo separada. A revisão ainda não cobriu todos os ativos, então o número
-    abaixo deve cair mais um pouco.`;
+    <br><br>A duplicata se concentra onde o mecanismo prevê: <b>0,42 por ativo</b> entre os 171
+    com peça grande em aberto, e <b>zero</b> nos <b>494</b> sem peça grande — onde não há troca,
+    não há execução de campo separada. <b>A revisão fechou: ${D.revisao_ativos} de
+    ${D.revisao_ativos} ativos, nada em aberto.</b>
+    <br><br><b>E o próprio SGM duplica.</b> Achado ao conferir o painel: 15 SS vêm repetidas na
+    base, cada linha com um repasse <em>diferente</em> — duas notas de campo para o mesmo
+    despacho. Seguir um ramo só deixava o outro órfão, e ele virava demanda própria. No
+    5863887001 a mesma célula contou em 2025 e de novo em 2026, com o parecer idêntico palavra
+    por palavra. Corrigido: a cadeia varre todos os ramos.`;
   document.getElementById("aviso-escopo").innerHTML = txt;
   document.getElementById("metodo-escopo").innerHTML = `O primeiro recorte era só o que passou
     pelo DCMD — <b>${D.no_dcmd} cadeias</b>, uma fração do universo. As outras ${D.fora_dcmd}
@@ -679,7 +695,7 @@ function opcoes(id,vals,rot){
   document.getElementById(id).innerHTML = `<option value="">todos</option>` +
     vals.map(v=>`<option value="${v}">${rot?rot(v):v}</option>`).join("");
 }
-opcoes("f-ano",[2024,2025]);
+opcoes("f-ano",[...new Set(eq.map(e=>e.ano))].sort());
 opcoes("f-tipo",["RL","RT"],v=>v==="RL"?"RL · religador":"RT · regulador");
 opcoes("f-cat",[...new Set(eq.map(e=>e.categoria))].sort((a,b)=>ORD[a]-ORD[b]),v=>ROT[v]);
 opcoes("f-marca",[...new Set(eq.map(e=>e.marca))].sort());
@@ -702,7 +718,7 @@ function pinta(){
       <td style="font-size:13px; color:var(--tinta-2)">${e.item||"—"}</td>
       <td class="cod">${e.marca_bruta||e.marca}</td>
       <td>${e.executada?'<span class="sim">sim</span>':'<span class="nao">não</span>'}</td>
-      <td class="num">${e.cadeias}</td>
+      <td class="num">${e.demandas}</td>
       <td>${e.reincidente?`<span class="nao">${e.reincidencia}</span>`:'<span style="color:var(--tinta-3)">—</span>'}</td>
       <td class="cod">${e.cadeia}<br><span class="marca-dcmd">${e.dcmd?"passou pelo DCMD":"não passou"}</span></td>
       <td style="font-size:12px; color:var(--tinta-2)">${e.postos}</td>

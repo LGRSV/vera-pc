@@ -64,6 +64,11 @@ def monta():
     reg, prox, comeco = be.ler()
     todas = fm.monta_cadeias(reg, prox, comeco)
     cabeca = {c[0]: c for c in todas}
+    # Depois que a cadeia passou a seguir os ramos do repasse bifurcado, uma SS que ERA
+    # cabeça virou elo do meio de outra cadeia. A leitura dela está guardada por aquela
+    # chave — resolver só por cabeça a jogaria fora (75 leituras sumiam). `dono` acha a
+    # cadeia por QUALQUER SS dela; a preferência pela cabeça fica na ordem do despacho.
+    dono = {s: c for c in todas for s in c}
     marca, praca = fm.marcas(), fm.localidades()
 
     corrigido = {}
@@ -72,8 +77,14 @@ def monta():
 
     linhas, vistos, derrubados = [], set(), []
 
+    pedidos = []
+
     def poe(o, cat_bruta, item, dcmd_flag=None):
-        cad = cabeca.get(o.get("cadeia"))
+        """Só enfileira. O despacho vem depois, com a cabeça na frente."""
+        pedidos.append((o, cat_bruta, item, dcmd_flag))
+
+    def emite(o, cat_bruta, item, dcmd_flag=None):
+        cad = cabeca.get(o.get("cadeia")) or dono.get(o.get("cadeia"))
         if not cad or cad[0] in vistos:
             return
         d = reg[cad[0]]
@@ -95,9 +106,9 @@ def monta():
             # **O ano é o da ABERTURA DA PRIMEIRA SS** — a original, antes de a cadeia de
             # repasse começar (gestor, 16/09). O SGM abre SS nova a cada passagem de posto
             # e a data vai andando; só a primeira marca quando a demanda nasceu.
-            # Conferido nas 4.418 cadeias do recorte: a cabeça da cadeia é SEMPRE a
+            # Conferido nas 7.563 cadeias da base: a cabeça da cadeia é SEMPRE a
             # abertura mais antiga, zero exceção — então `cad[0]` é a original.
-            # A ocorrência fica ao lado: divergem em 63 fatos, 23 de peça grande (10%,
+            # A ocorrência fica ao lado: divergem em 59 fatos, 22 de peça grande (10%,
             # batendo com os 9,8% já registrados).
             "ano": d["abert"].year, "mes": d["abert"].month,
             "ocor": str(d["ocor"]) if d["ocor"] else "",
@@ -137,6 +148,13 @@ def monta():
     # 3) a base nova — 2026 e o que a mãe não alcançava
     for o in _le("leitura_2026", "n*.json"):
         poe(o, o.get("categoria"), o.get("item"))
+
+    # Despacho: primeiro quem foi lido PELA CABEÇA da cadeia — é quem viu o parecer
+    # original —, depois quem foi lido por um elo do meio. `sorted` é estável, então a
+    # ordem das três fontes se mantém dentro de cada grupo.
+    for o, cb, it, df in sorted(pedidos,
+                                key=lambda x: 0 if x[0].get("cadeia") in cabeca else 1):
+        emite(o, cb, it, df)
 
     return linhas, derrubados, reg, todas
 

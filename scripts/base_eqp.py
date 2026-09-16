@@ -73,13 +73,18 @@ def ler(caminho=BASE):
             "pend": _limpa(r[col["PENDENCIA_DO_ATIVO"]]),
             "desc": _limpa(r[col["DESCRIÇÃO"]]),
         }
+        # a MESMA SS aparece repetida com elos diferentes — o repasse bifurcou em duas
+        # notas de campo. Guardar só a última perdia um ramo, que virava cadeia própria e
+        # contava a falha de novo. Guarda todos, na ordem em que vieram.
         nx = _limpa(r[col["SS_APOS_REPASSE"]])
         if nx:
-            prox[ss] = nx
+            ramos = prox.setdefault(ss, [])
+            if nx not in ramos:
+                ramos.append(nx)
     wb.close()
     # a cabeça é quem ninguém aponta; SS que se apontam em ciclo ficariam de fora, então
     # o que sobrar sem cabeça entra pela própria SS (monta_cadeias já barra repetição)
-    alvo = set(prox.values())
+    alvo = {x for v in prox.values() for x in v}
     comeco = [s for s in reg if s not in alvo]
     return reg, prox, comeco
 

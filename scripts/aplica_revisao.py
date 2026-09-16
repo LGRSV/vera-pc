@@ -20,7 +20,7 @@ Rodar: python3 scripts/aplica_revisao.py
 import json
 import os
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
@@ -72,6 +72,39 @@ def aplica(pacote, rev):
     return linhas, dup, mudou, exe
 
 
+def reconsolida(linhas):
+    """Refaz «um fato por ativo + ano + item» DEPOIS do rótulo novo.
+
+    A consolidação de `falha_total.equipamento_ano` roda antes da revisão. Quando o
+    revisor muda o rótulo de uma cadeia para um item que o ativo JÁ tinha naquele ano,
+    nascem duas linhas da mesma chave — e o mesmo equipamento passa a contar duas vezes,
+    que é exatamente o que a régua do gestor proíbe. Achado no 5863887001 (célula duas
+    vezes em 2025, uma delas peça grande) e em mais quatro chaves de apoio.
+
+    `demandas` aqui SOMA, não conta linhas: cada linha já é um grupo de demandas.
+    A reincidência também se refaz — ela depende do rótulo, e 80 rótulos mudaram.
+    """
+    por = defaultdict(list)
+    for l in linhas:
+        por[(l["ativo"], l["ano"], l["categoria"])].append(l)
+    fora, juntadas = [], []
+    for (ativo, ano, cat), g in sorted(por.items()):
+        if len(g) == 1:
+            fora.append(g[0])
+            continue
+        g.sort(key=lambda x: x["abert"])
+        esc = next((x for x in g if x["executada"]), g[0])
+        juntadas.append({"ativo": ativo, "ano": ano, "categoria": cat,
+                         "cadeias": [x["cadeia"] for x in g],
+                         "classe": g[0]["classe"]})
+        fora.append({**g[0],
+                     "demandas": sum(x.get("demandas", 1) for x in g),
+                     "item": esc["item"],
+                     "executada": any(x["executada"] for x in g),
+                     "dcmd": any(x["dcmd"] for x in g)})
+    return fc.reincidencia(fora), juntadas
+
+
 if __name__ == "__main__":
     with open(BASE) as f:
         pacote = json.load(f)
@@ -81,11 +114,13 @@ if __name__ == "__main__":
 
     antes = pacote["equipamentos"]
     depois, dup, mudou, exe = aplica(pacote, rev)
+    depois, juntadas = reconsolida(depois)
 
     pacote["equipamentos"] = depois
     pacote["duplicatas"] = dup
     pacote["mudados_na_revisao"] = mudou
     pacote["revisao_ativos"] = n_ativos
+    pacote["juntadas_na_revisao"] = juntadas
     with open(SAIDA, "w") as f:
         json.dump(pacote, f, ensure_ascii=False, indent=1)
 
@@ -95,6 +130,8 @@ if __name__ == "__main__":
           % (n_ativos, len(rev)))
     print("  duplicatas removidas: %d · rótulos mudados: %d · executada corrigida: %d"
           % (len(dup), len(mudou), exe))
+    print("  fatos juntados por virarem a mesma chave: %d (%d de peça grande)"
+          % (len(juntadas), sum(1 for j in juntadas if j["classe"] == "grande")))
     print()
     print("PEÇA GRANDE: %d → %d  (%+d)" % (len(ga), len(gd), len(gd) - len(ga)))
     for ano in (2024, 2025, 2026):

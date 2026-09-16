@@ -159,6 +159,18 @@ comissionamento e obra de equipamento novo.
   linhas. Diz quando a SS chegou, não quando saiu.
 - **A data do repasse é a abertura da SS seguinte** (campo `SS_APOS_REPASSE`). O
   tempo parado no posto é a diferença entre as duas aberturas.
+- **O repasse BIFURCA, e a mesma SS vem repetida** (16/09). Na `EQP_JOAO_19082026.xlsx`
+  são 10.386 linhas para **10.368 SS distintas**: 15 SS aparecem 2 a 4 vezes, cada linha
+  com um `SS_APOS_REPASSE` **diferente** — o SGM abriu duas notas de campo para o mesmo
+  despacho (18 ramos ao todo). Indexar por SS guarda só o último ramo; o outro fica órfão
+  e, como ninguém mais o aponta, **vira cabeça de cadeia própria e a mesma falha conta
+  duas vezes**. No 5863887001 contou célula em 2025 e de novo em 2026 com o parecer
+  idêntico palavra por palavra; no 7910410013 inventou um tanque de 2024 numa demanda que
+  nasceu em nov/2023. A cadeia tem de varrer **todos** os ramos (`prox` vira lista em
+  `base_eqp.ler`, `falha_dcmd_mae.monta_cadeias` faz a varredura) — e a **cabeça não se
+  move**: ordenar a cadeia inteira por abertura troca a cabeça quando dois ramos abrem no
+  mesmo dia. Depois do conserto, «a cabeça é a abertura mais antiga» vale em **todas** as
+  7.563 cadeias, sem exceção (antes tinha 2).
 - **SS repassada não tem data de conclusão** — sai vazia. Tratar «sem conclusão» como
   «ainda no posto» arrasta SS de 2020 para dentro de 2026.
 - **A descrição da SS é cumulativa**: o SGM cola parecer novo por cima do antigo, sem
