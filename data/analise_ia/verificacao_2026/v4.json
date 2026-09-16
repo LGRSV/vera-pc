@@ -1,0 +1,226 @@
+[
+  {
+    "cadeia": "00132/2026",
+    "ativo": "7950387026",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Cita relé em curto no religador; relé de proteção do religador conta como controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00940/2026",
+    "ativo": "7953211079",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve só que o ciclo de religamento não executa (comportamento), sem afirmar dano físico no relé; SS cancelada sem confirmação de troca.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01006/2026",
+    "ativo": "7953211079",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Pede substituir relé avariado do religador — peça e defeito nomeados explicitamente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00347/2026",
+    "ativo": "7955686076",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Pede só refixar o controle no poste após batida de caminhão; é remontagem mecânica, não troca de peça defeituosa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01526/2025",
+    "ativo": "7955804021",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Infiltração de água no painel de controle é condição concreta e nomeada, e levou o religador a ser bypassado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00396/2026",
+    "ativo": "7955832052",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Equipe constatou painel (de controle) em curto — achado físico concreto, não sintoma vago.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00341/2026",
+    "ativo": "7955946007",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Placa de alimentação CA em curto, pede substituição — sinônimo explícito de controle na régua.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00134/2026",
+    "ativo": "7955946007",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Parecer COEP pede substituir o controle diretamente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PS 00162/2026",
+    "ativo": "7955986084",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Placa de alimentação CA em curto, pede substituição — sinônimo explícito de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00133/2026",
+    "ativo": "7955986084",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Pede substituir controle completo — controle nomeado diretamente, 'completo' aqui só qualifica o controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00780/2026",
+    "ativo": "7956939122",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Curto no relé confirmado, e o defeito persiste ao religar o disjuntor — achado concreto, não só sintoma.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00331/2026",
+    "ativo": "7963661046",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Display queimado (dano físico, não apenas ilegível) do armário de controle, substituição atendida pela OS.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00770/2026",
+    "ativo": "5836786094",
+    "mantem": true,
+    "categoria_final": "furto",
+    "porque": "Regulador de tensão foi furtado em campo — equipamento completo levado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00154/2025",
+    "ativo": "5841308190",
+    "mantem": false,
+    "categoria_final": "completo",
+    "porque": "Citação diz só 'REGULADOR SUBSTITUIDO' com fotos; não menciona furto, então vale como troca do banco completo, não furto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00188/2026",
+    "ativo": "5841308190",
+    "mantem": true,
+    "categoria_final": "furto",
+    "porque": "Texto confirma furto do regulador com número de B.O. e pede obra de furto para baixa cadastral.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01398/2025",
+    "ativo": "5847506122",
+    "mantem": false,
+    "categoria_final": "aterramento",
+    "porque": "O item furtado é a malha de aterramento, não célula/relé/banco do regulador — aterramento não é peça grande mesmo com furto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00153/2025",
+    "ativo": "5856070091",
+    "mantem": true,
+    "categoria_final": "furto",
+    "porque": "Solicitação de reposição de equipamentos furtados, ligada ao regulador do posto.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00120/2026",
+    "ativo": "5856070091",
+    "mantem": true,
+    "categoria_final": "furto",
+    "porque": "Texto afirma furto das 3 fases do regulador — banco completo levado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00198/2025",
+    "ativo": "5856156091",
+    "mantem": true,
+    "categoria_final": "furto",
+    "porque": "Parecer da proteção confirma equipamentos furtados e pede aquisição de células de reposição.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00191/2026",
+    "ativo": "7901151022",
+    "mantem": false,
+    "categoria_final": "trafo auxiliar",
+    "porque": "O item furtado é o trafo auxiliar do religador; furto de trafo auxiliar não conta como peça grande.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01042/2026",
+    "ativo": "7901151022",
+    "mantem": false,
+    "categoria_final": "trafo auxiliar",
+    "porque": "Novo furto de trafo auxiliar do mesmo religador; trafo auxiliar não conta mesmo com furto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DG-RD-PO 00444/2026",
+    "ativo": "7911120026",
+    "mantem": false,
+    "categoria_final": "aterramento",
+    "porque": "O furto é de cabos/malha de aterramento, não de peça do religador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00175/2026",
+    "ativo": "7925732016",
+    "mantem": false,
+    "categoria_final": "trafo auxiliar",
+    "porque": "Furto de trafo auxiliar constatado pelo DMSL; não conta como peça grande.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01269/2026",
+    "ativo": "7954491004",
+    "mantem": false,
+    "categoria_final": "trafo auxiliar",
+    "porque": "Furto de trafo auxiliar do religador; excluído pela régua mesmo sendo furto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00391/2025",
+    "ativo": "7962635060",
+    "mantem": false,
+    "categoria_final": "trafo auxiliar",
+    "porque": "Trafo (auxiliar) furtado já foi instalado, restando só comissionamento — nem furto de trafo auxiliar nem comissionamento contam.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00219/2026",
+    "ativo": "5800366016",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Texto nomeia diretamente o relé do regulador com falha.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00350/2026",
+    "ativo": "5800366016",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Parecer DMSL recomenda substituição do controle/RUA completo do regulador — equivalente ao relé do regulador.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00375/2026",
+    "ativo": "5800366016",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação só descreve tensões oscilando e bypass, sem nomear peça; a recomendação de trocar o controle RUA está em outra SS.",
+    "confianca": "alta"
+  }
+]

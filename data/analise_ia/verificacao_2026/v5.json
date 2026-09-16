@@ -1,0 +1,226 @@
+[
+  {
+    "cadeia": "00935/2025",
+    "ativo": "5800371025",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Citação nomeia diretamente defeito nos relés da fase A e B (Toshiba TBR1000) do regulador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00869/2026",
+    "ativo": "5800859011",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação só confirma instalação de 'controle e antena' no regulador; controle não é peça válida para REGULADOR (só célula/relé/completo/furto) e relé não é citado neste texto.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00216/2025",
+    "ativo": "5827102054",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Pede 'controle completo' por infiltração de água e chamado no SCADA; controle não vale para REGULADOR e relé não é nomeado no texto.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00164/2026",
+    "ativo": "5827102054",
+    "mantem": false,
+    "categoria_final": "completo",
+    "porque": "Parecer diz apenas 'foi substituído os equipamento' (equipamento trocado por inteiro) e melhoria de aterramento; não nomeia relé.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "00850/2025",
+    "ativo": "5840203077",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "DMSL nomeia 'controle danificado', não relé; controle é peça inválida para REGULADOR nesta régua.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00007/2026",
+    "ativo": "5843767129",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Citação nomeia 'falha no rele' diretamente, com sintoma específico (comando de auto-zero não recebido).",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00810/2025",
+    "ativo": "5850308009",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação só diz que o equipamento ficou disponível para retirada no depósito; não nomeia relé nem qualquer peça.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00895/2025",
+    "ativo": "5851504001",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "O defeito descrito é não receber comandos e não refletir 'as solicitações via remoto' — sintoma de comunicação/remoto, não peça física do relé nomeada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01423/2025",
+    "ativo": "5851752014",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve taps das três fases divergindo em modo automático e terminando 'bay passado isolado'; é sintoma/bypass, não nomeia relé.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01073/2025",
+    "ativo": "5854492004",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Técnico do DMSL nomeia explicitamente 'placa e rele danificado' como causa da falha de comutação nas fases A e B.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00852/2026",
+    "ativo": "5854782001",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Citação nomeia diretamente 'relé danificado queimado' como causa do regulador fora de operação.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01082/2025",
+    "ativo": "5855411017",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Pendência registrada é 'controle COMPLETO para trocar'; controle não vale para REGULADOR e relé não é citado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00881/2025",
+    "ativo": "5855962013",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Parecer DMSL confirma explicitamente 'substituição do rele rua e da placa', equipamento voltou a operar.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00316/2026",
+    "ativo": "7900448083",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Pede diretamente 'substituir tanque do RL' e cita problema na parte ativa do religador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00431/2026",
+    "ativo": "7900525015",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Nomeia buchas de entrada danificadas e deixa em aberto se substitui o religador ou as buchas; tanque/parte ativa não é citado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01495/2025",
+    "ativo": "7901110084",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "DMSL nomeia 'parte ativa do equipamento com defeito' e diz ser necessário substituir.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01133/2025",
+    "ativo": "7901179122",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Texto nomeia 'parte ativa esta com defeito, necessário realizar a substituição', além de buchas queimadas e aterramento.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00404/2026",
+    "ativo": "7908302256",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação nomeia diretamente 'tanque do religador com passagem na fase B'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00071/2026",
+    "ativo": "7908302256",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "DMSL confirma 'parte ativa com defeito, será necessário fazer a substituição da mesma'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-DEOP 00023/2026",
+    "ativo": "7908302256",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Pede diretamente 'substituir a parte ativa'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00175/2026",
+    "ativo": "7908302256",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Mesma citação da SS anterior na cadeia: pede diretamente 'substituir a parte ativa'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00485/2026",
+    "ativo": "7908708116",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "COCM confirma 'parte ativa do religador foi substituída', pedindo comissionamento.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00491/2026",
+    "ativo": "7908708116",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Registro do COCM confirma 'substituído parte ativa do religador Cooper'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00048/2024",
+    "ativo": "7910410013",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Pede diretamente substituir o tanque por defeito no mecanismo, e distingue que o controle está em bom estado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00604/2026",
+    "ativo": "7913662076",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parecer COEP nomeia diretamente 'tanque danificado da 13,5'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01523/2025",
+    "ativo": "7921040031",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "DMSL nomeia diretamente 'defeito no tanque', religador em bypass.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00109/2026",
+    "ativo": "7921202014",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "COEP registra que 'deveria ser substituído parte ativa'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00222/2025",
+    "ativo": "7925087021",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parecer do COEP pede diretamente 'realizar a substituição do tanque do equipamento'.",
+    "confianca": "alta"
+  }
+]
