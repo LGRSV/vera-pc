@@ -217,7 +217,7 @@
     "tambem": [
       "rele"
     ],
-    "data_primeira_ss": "2025-08-23",
+    "data_primeira_ss": "2026-07-30",
     "executada": true,
     "evidencia": "Parecer DCMD: foi substituido célula 30/07/2026. o mesmo está liberado para ser colocado em operação",
     "confianca": "baixa",
@@ -232,7 +232,7 @@
     "tambem": [
       "rele"
     ],
-    "data_primeira_ss": "2025-07-18",
+    "data_primeira_ss": "2025-08-19",
     "executada": true,
     "evidencia": "constatando que o mercanismo da chave reversoura polaridade está com defeito. Número de série fase B EI7030 e Número de série fase C EI7040. Substituir as fases B e C.\nFoi constatado que a placa F do controle está com defeito.",
     "confianca": "alta",
@@ -250,7 +250,7 @@
     ],
     "data_primeira_ss": "2025-04-23",
     "executada": false,
-    "evidencia": "a fase A esta com isolação muito baixa( necessário realizar a substituição da mesma as fase B e C estão com isolação boas, feito a medição da malha de terra a mesma está com a resistência ruim, deve ser feito melhorias!\n\nPendência: Sim. É necessário fazer melhorias na malha de aterramento, e substituir células fase A",
+    "evidencia": "a fase A esta com isolação muito baixa( necessário realizar a substituição da mesma as fase B e C estão com isolação boas, feito a medição da malha de terra a mesma está com a resistência ruim, deve ser feito melhorias!\nEquipamento ficou em operação? Não \n\nPendência: Sim. É necessário fazer melhorias na malha de aterramento, e substituir células fase A",
     "confianca": "baixa",
     "motivo": "SS cumulativa cancelada em bloco (30/03/2026, 9 SS no mesmo dia). Fase C já foi substituída pelo COCM, mas a célula fase A (isolação baixa) e a malha de aterramento seguem como pendência explícita; nobreak trocado à parte."
   },
@@ -278,7 +278,7 @@
     ],
     "data_primeira_ss": "2026-03-18",
     "executada": false,
-    "evidencia": "Realizada medição da malha de aterramento: precisa fazer melhoria\n- Comissionamento da célula da fase A: comunicação restaurada\n- Troca do nobreak danificado\n...\nPendência: Sim - Fazer melhoria na malha de aterramento",
+    "evidencia": "Serviço Executado:\n- Realizada medição da malha de aterramento: precisa fazer melhoria\n- Comissionamento da célula da fase A: comunicação restaurada\n- Troca do nobreak danificado",
     "confianca": "media",
     "motivo": "Nesta visita a célula fase A teve só a comunicação restaurada (sem defeito de peça) e o nobreak foi trocado; a única pendência nomeada é a malha de aterramento."
   },
@@ -304,7 +304,7 @@
     "tambem": [
       "cabo"
     ],
-    "data_primeira_ss": "2026-06-24",
+    "data_primeira_ss": "2026-06-25",
     "executada": false,
     "evidencia": "segue nota para linha viva retirar pendencias do RT 5800440256 TROCA DAS 3 CHAVES DE ENTRADA COM PONTO QUENTE TENSÃO 34,5KV VERIFICAR CONEXÕES",
     "confianca": "alta",
@@ -433,7 +433,7 @@
     "tambem": [],
     "data_primeira_ss": "2025-08-04",
     "executada": true,
-    "evidencia": "O RT 5800880014 FOI FEITO A SUBSTITUIÇÃO DAS CÉLULAS DAS FASES A E C, E TBM FOI SUBSTITUIDO O CONTROLE RUA.\n...\nPARECER DO DCMD: JÁ FOI SUBSTITUIDO TODAS AS TRÊS CÉLULAS.",
+    "evidencia": "PARECER DO DCMD: JÁ FOI SUBSTITUIDO TODAS AS TRÊS CÉLULAS.",
     "confianca": "alta",
     "motivo": "Proteção recomendou trocar todo o conjunto (3 fases e controle) por equipamento completo com relé RUA; DCMD confirma as três células e o controle substituídos."
   },
@@ -548,7 +548,7 @@
     ],
     "data_primeira_ss": "2025-09-04",
     "executada": false,
-    "evidencia": "*Equipamento foi remanejado, 7 km da sua localização sentido Palmas necessário comissionamento completo\n*Equipamento com um dos cabos umbilicais danificado.\n* aterramento bucha FC não esta interligada corretamente \n...\nPendência: sim, precisa comissionar completo",
+    "evidencia": "*Equipamento foi remanejado, 7 km da sua localização sentido Palmas necessário comissionamento completo\n*Equipamento com um dos cabos umbilicais danificado.\n* aterramento bucha FC não esta interligada corretamente ",
     "confianca": "media",
     "motivo": "Origem da demanda é o remanejamento do equipamento (7km), exigindo comissionamento completo; cabo umbilical, aterramento e 'instalar controle completo' aparecem como pendências do recomissionamento. Último parecer da COEP (01/07/2026) ainda pede confirmação de que o equipamento está operando -- sem fechamento explícito."
   },
@@ -820,7 +820,7 @@
     "categoria": "aterramento",
     "item": "malha de terra",
     "tambem": [],
-    "data_primeira_ss": "2025-12-02",
+    "data_primeira_ss": "2026-04-24",
     "executada": false,
     "evidencia": "Foi feito os ensaios de isolação nas 3 células do banco, as três células estão com isolação boas, feito a medição da malha de terra a mesma está com a resistência ruim, deve ser feito melhorias!",
     "confianca": "alta",
