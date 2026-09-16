@@ -11,3 +11,6 @@ data/raw/BASE_SS_OS_20082026.txt
 
 # saida de trabalho dos scripts (lotes de leitura, HTML do painel)
 scratchpad/
+
+# arquivo temporario do gravador da revisao (um por put, sem valor historico)
+.analise/*/ferramentas/_put.json
