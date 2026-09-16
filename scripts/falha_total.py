@@ -92,15 +92,17 @@ def monta():
                 cat, fonte = novo, "verificacao"
         linhas.append({
             "ativo": d["ativo"], "fam": fam,
-            # **O ano é o da OCORRÊNCIA** — régua do gestor, confirmada em 16/09: «pode
-            # datar pela ocorrência sim». A abertura fica ao lado, porque foi por ela que
-            # a cadeia entrou no recorte e é ela que diz quando a demanda chegou ao posto.
-            # Divergem em 63 fatos, 23 deles de peça grande — 10%, que bate com os 9,8%
-            # já registrados. Quando não há ocorrência, vale a abertura.
-            "ano": (d["ocor"] or d["abert"]).year,
-            "mes": (d["ocor"] or d["abert"]).month,
+            # **O ano é o da ABERTURA DA PRIMEIRA SS** — a original, antes de a cadeia de
+            # repasse começar (gestor, 16/09). O SGM abre SS nova a cada passagem de posto
+            # e a data vai andando; só a primeira marca quando a demanda nasceu.
+            # Conferido nas 4.418 cadeias do recorte: a cabeça da cadeia é SEMPRE a
+            # abertura mais antiga, zero exceção — então `cad[0]` é a original.
+            # A ocorrência fica ao lado: divergem em 63 fatos, 23 de peça grande (10%,
+            # batendo com os 9,8% já registrados).
+            "ano": d["abert"].year, "mes": d["abert"].month,
             "ocor": str(d["ocor"]) if d["ocor"] else "",
-            "ano_abert": d["abert"].year, "mes_abert": d["abert"].month,
+            "ano_ocor": d["ocor"].year if d["ocor"] else d["abert"].year,
+            "mes_ocor": d["ocor"].month if d["ocor"] else d["abert"].month,
             "ano_diverge": bool(d["ocor"] and d["ocor"].year != d["abert"].year),
             "cadeia": cad[0], "abert": str(d["abert"]), "n_ss": len(cad),
             "postos": " -> ".join(reg[s]["posto"] for s in cad),
@@ -176,11 +178,9 @@ if __name__ == "__main__":
         json.dump(pacote, f, ensure_ascii=False, indent=1)
 
     div = [e for e in eqs if e.get("ano_diverge")]
-    velho = [e for e in eqs if e["ano"] not in ANOS]
-    print("datado pela OCORRÊNCIA · diverge da abertura em %d fatos (%d de peça grande)"
+    print("datado pela ABERTURA DA PRIMEIRA SS (a original, antes do repasse)")
+    print("  diverge da ocorrência em %d fatos (%d de peça grande)"
           % (len(div), sum(1 for e in div if e["classe"] == "grande")))
-    print("  fatos cuja ocorrência cai antes de 2024: %d (%d de peça grande) — a demanda "
-          "só foi aberta depois" % (len(velho), sum(1 for e in velho if e["classe"] == "grande")))
     print("universo 2024-2026: %d cadeias · lidas %d · fatos %d"
           % (len(universo), len(linhas), len(eqs)))
     print("derrubados pela verificação: %d" % len(derrubados))

@@ -242,7 +242,7 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 <section>
   <h2><span class="ordem">01</span>A mensalização</h2>
   <p class="lede">
-    Fatos por mês de <strong>ocorrência</strong>, de janeiro de 2024 a agosto
+    Fatos por mês de <strong>abertura da primeira SS</strong>, de janeiro de 2024 a agosto
     de 2026. O eixo corre contínuo pelos três anos: é assim que se vê onde a série
     <strong>acaba</strong>, em vez de parecer que a fila cedeu. Os botões trocam o que divide
     as barras.
@@ -349,7 +349,7 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
   <div class="rolo">
     <table id="t-lista">
       <thead><tr>
-        <th>Ativo</th><th>Tipo</th><th>Praça</th><th class="num">Ocorrência</th>
+        <th>Ativo</th><th>Tipo</th><th>Praça</th><th class="num">Abertura</th>
         <th>Item</th><th>Nome no parecer</th><th>Marca</th><th>Feito</th>
         <th class="num">Cadeias</th><th>Volta?</th><th>Primeira SS</th><th>Caminho no SGM</th>
       </tr></thead>
@@ -375,10 +375,11 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 
   <h3>A data</h3>
   <p>
-    O ano é o da <b>ocorrência</b>, não o da abertura da SS — régua do gestor. A abertura vem em
-    média 39 dias depois do fato e em cerca de 10% dos casos cai em outro ano: aqui divergem em
-    63 fatos, 23 deles de peça grande. A coluna <b>Aberta em</b> na lista guarda a outra data,
-    porque é ela que diz quando a demanda chegou ao posto.
+    O ano é o da <b>abertura da primeira SS da cadeia</b> — a original, antes de a cadeia de
+    repasse começar. O SGM abre SS nova a cada passagem de posto e a data vai andando; só a
+    primeira marca quando a demanda nasceu. Conferido nas 4.418 cadeias do recorte: a cabeça da
+    cadeia é <b>sempre</b> a abertura mais antiga, sem exceção. A <b>ocorrência</b> fica ao lado
+    na lista — divergem em 63 fatos, 23 deles de peça grande.
   </p>
 
   <h3>O escopo — e por que ele mudou</h3>
@@ -684,7 +685,7 @@ function pinta(){
       <td><span class="tipo ${e.fam}">${e.fam}</span></td>
       <td>${e.loc}</td>
       <td class="num">${MES[e.mes-1]}/${String(e.ano).slice(2)}${
-          e.ano_diverge?`<br><span class="marca-dcmd">SS: ${MES[e.mes_abert-1]}/${String(e.ano_abert).slice(2)}</span>`:""}</td>
+          e.ano_diverge?`<br><span class="marca-dcmd">ocor: ${MES[e.mes_ocor-1]}/${String(e.ano_ocor).slice(2)}</span>`:""}</td>
       <td><span class="pill ${e.classe}">${ROT[e.categoria]}</span></td>
       <td style="font-size:13px; color:var(--tinta-2)">${e.item||"—"}</td>
       <td class="cod">${e.marca_bruta||e.marca}</td>
