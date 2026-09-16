@@ -1,0 +1,2 @@
+
+{"ativo": "7932401256", "demandas": [{"cadeia": "ETO-TELE 01194/2024", "mantem": true, "categoria_final": "telecom", "duplicata_de": null, "aberta_por_engano": false, "executada": false, "porque": "nota coletiva de comunicação/automação para 10 religadores, sem diagnóstico individual do 7932401256 — telecom sustentado, sem confirmação de execução", "confianca": "baixa", "categoria_anterior": "telecom", "fonte_anterior": "fora"}], "tier": "D", "_chave": "7932401256", "_etapa": "revisao", "_em": "2026-09-16T01:25:26"}
