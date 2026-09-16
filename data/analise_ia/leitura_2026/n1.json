@@ -1,0 +1,883 @@
+[
+  {
+    "ativo": "5800090147",
+    "cadeia": "00438/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase C",
+    "tambem": [],
+    "data_primeira_ss": "2026-06-15",
+    "executada": false,
+    "evidencia": "Favor, substituir a célula da fase C do RT 5800090147 pois o microswitch que renconhece o neutro do regulador está com defeito. Equipamento ficou operando devido ser possível manobrar de forma manual.",
+    "confianca": "alta",
+    "motivo": "DMSL nomeia célula da fase C (microswitch do neutro); sintoma inicial 'sem comunicação' foi descartado pelo diagnóstico técnico. SS cancelada, sem confirmação de troca, equipamento seguiu em manobra manual."
+  },
+  {
+    "ativo": "5800291035",
+    "cadeia": "00113/2026",
+    "familia": "regulador",
+    "categoria": "aterramento",
+    "item": "resistência de aterramento",
+    "tambem": [
+      "melhoria"
+    ],
+    "data_primeira_ss": "2026-01-27",
+    "executada": true,
+    "evidencia": "FAVOR FASER MELHORIA NO REGULADOR 5800291035 POIS O MESMO ESTA COM A RESISTENCIA MUITO ALTA.",
+    "confianca": "media",
+    "motivo": "Texto pede melhoria por 'resistência muito alta', termo padrão para resistência de aterramento; SS atendida no mesmo dia. Não nomeia peça grande."
+  },
+  {
+    "ativo": "5800291035",
+    "cadeia": "00097/2026",
+    "familia": "regulador",
+    "categoria": "aterramento",
+    "item": "malha de terra",
+    "tambem": [
+      "chave faca",
+      "bateria",
+      "rele"
+    ],
+    "data_primeira_ss": "2026-07-27",
+    "executada": false,
+    "evidencia": "Será necessário fazer a correção da malha de terra, baixar o banco completo pois está muito alto dificultando as atividades da equipe, substituir as 3 chaves facas do lado Fonte e as 3 do lado Carga instalar suporte inclinado das chaves para facilitar as manobras.",
+    "confianca": "media",
+    "motivo": "Células testadas OK (sem defeito). Pendência central é a malha de terra ('não está dentro do aceitável, favor corrigir'); chaves faca, controle/relé e baterias aparecem como itens acessórios não confirmados."
+  },
+  {
+    "ativo": "5800291035",
+    "cadeia": "00174/2026",
+    "familia": "regulador",
+    "categoria": "aterramento",
+    "item": "malha de terra",
+    "tambem": [
+      "chave faca"
+    ],
+    "data_primeira_ss": "2026-08-11",
+    "executada": false,
+    "evidencia": "ETO-TELE ABRIU ERRADO , MELHORIA DE ATERRAMENTO DEVERA SER ABERTO DIRETO PARA OS COCM´S ASSIM COMO AS DA CHAVE FACA",
+    "confianca": "media",
+    "motivo": "Continuação do mesmo problema de aterramento/chave faca da cadeia anterior; COEP confirma que são duas frentes (aterramento e chave) e pede reabertura correta direto aos COCMs. SS segue pendente."
+  },
+  {
+    "ativo": "5800291077",
+    "cadeia": "01017/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula (vazamento de óleo)",
+    "tambem": [],
+    "data_primeira_ss": "2025-08-27",
+    "executada": true,
+    "evidencia": "REGULADOR DE TENSÃO COM VAZAMENTO DE ÓLEO E SEM COMUTAÇÃO.",
+    "confianca": "media",
+    "motivo": "Vazamento de óleo e falha de comutação apontam para a célula (tanque de uma fase); fase não é especificada no texto. SS atendida, concluída sem nova reclamação."
+  },
+  {
+    "ativo": "5800291077",
+    "cadeia": "00283/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase B",
+    "tambem": [
+      "para-raio"
+    ],
+    "data_primeira_ss": "2026-02-10",
+    "executada": true,
+    "evidencia": "Substituir para raios estourados do e cedula fase B do regulador de tensão 5800291077 o mesmo está com vazamento de óleo e  danificada (fase b)",
+    "confianca": "alta",
+    "motivo": "Parecer final DCMD confirma 'FOI SUBSTITUIDO A CELULA FASE B'; para-raios estourados citados junto, mas sem confirmação de troca."
+  },
+  {
+    "ativo": "5800291077",
+    "cadeia": "00523/2026",
+    "familia": "regulador",
+    "categoria": "obra nova",
+    "item": "instalação",
+    "tambem": [],
+    "data_primeira_ss": "2026-03-19",
+    "executada": true,
+    "evidencia": "Favor dar apoio na instalação do regulador 5800291077.",
+    "confianca": "alta",
+    "motivo": "Nota de serviço de linha viva pedindo apoio na instalação do equipamento; não é reparo de defeito."
+  },
+  {
+    "ativo": "5800291077",
+    "cadeia": "00498/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase B",
+    "tambem": [],
+    "data_primeira_ss": "2026-04-08",
+    "executada": true,
+    "evidencia": "identificado fase B em curto\n*FICOU EM OPERAÇÃO?:* Não\n*PENDÊNCIA:* SIM\n*EQUIPE:* Adeilton e Edicleber\nRealizar substituição da célula da fase B\nEm curto.",
+    "confianca": "alta",
+    "motivo": "DMSL identifica célula fase B em curto e recomenda substituição; SS seguinte confirma 'PARECER DCMD: EQUIPAMENTO SUBSTITUIDO NO DIA 14/05/2026'."
+  },
+  {
+    "ativo": "5800291077",
+    "cadeia": "00841/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase B",
+    "tambem": [],
+    "data_primeira_ss": "2026-05-12",
+    "executada": true,
+    "evidencia": "Substituir fase B regulador 5800291077",
+    "confianca": "media",
+    "motivo": "Pedido direto de substituição da fase B (célula); SS atendida em 1 dia, padrão de execução rápida via linha viva neste conjunto de dados."
+  },
+  {
+    "ativo": "5800366016",
+    "cadeia": "00931/2025",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "data_primeira_ss": "2025-08-22",
+    "executada": false,
+    "evidencia": "Enviar equipe do DMSL, devido  o RT com falha de comunicação, \nFeito o prmeiro ataque  e conjunto com o Sr. Edicleber, e a mesma não retornou",
+    "confianca": "baixa",
+    "motivo": "Falha de comunicação é o único item nomeado; o primeiro ataque não retornou resultado conclusivo, sem confirmação de reparo."
+  },
+  {
+    "ativo": "5800366016",
+    "cadeia": "00219/2026",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "relé",
+    "tambem": [],
+    "data_primeira_ss": "2026-01-24",
+    "executada": false,
+    "evidencia": "Favor enviar equipe pra verificar o rele do regulador de tensão 5800366016, pois o mesmo está com falha no rele.",
+    "confianca": "alta",
+    "motivo": "Texto nomeia diretamente o relé como defeituoso ('falha no rele'); SS cancelada sem confirmação de troca."
+  },
+  {
+    "ativo": "5800366016",
+    "cadeia": "00275/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase A",
+    "tambem": [],
+    "data_primeira_ss": "2026-02-09",
+    "executada": true,
+    "evidencia": "CELULAR QUEIMADA REGULADOR DE TENSÃO.\nSUBSTITUIR CELULA REGULADOR DE TENSÃO 5800366016 FASE A.",
+    "confianca": "alta",
+    "motivo": "Pedido direto e específico de substituição da célula fase A ('celular' é grafia de 'célula'); SS atendida."
+  },
+  {
+    "ativo": "5800366016",
+    "cadeia": "00350/2026",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "controle RUA (completo)",
+    "tambem": [
+      "telecom"
+    ],
+    "data_primeira_ss": "2026-03-24",
+    "executada": false,
+    "evidencia": "PARECER DMSL: Realizar substituição do controle completo (RUA01).\nEquipe: Adeilton e Edicleber - Data: 18/03/2026",
+    "confianca": "media",
+    "motivo": "DMSL recomenda troca do controle/RUA completo do regulador (equivalente ao relé/controlador); sintoma de SCADA citado como 'como se estivesse sem comunicação', sem confirmação de execução."
+  },
+  {
+    "ativo": "5800366016",
+    "cadeia": "00375/2026",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "controle RUA (completo)",
+    "tambem": [],
+    "data_primeira_ss": "2026-03-20",
+    "executada": false,
+    "evidencia": "Regulador 5800366016, com tensões oscilando, sem referencia, Foi by passado, enviar equipe para verificar oque esta ocorrendo.",
+    "confianca": "media",
+    "motivo": "Mesma recomendação de troca do controle RUA citada no parecer DMSL cumulativo; SS cancelada, tensões oscilando sem referência, sem confirmação de troca."
+  },
+  {
+    "ativo": "5800371025",
+    "cadeia": "00935/2025",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "relés fase A/B (Toshiba TBR1000) / controle RUA",
+    "tambem": [
+      "telecom"
+    ],
+    "data_primeira_ss": "2025-09-05",
+    "executada": false,
+    "evidencia": "Após testes foi constatado defeito nos relés da fase A e B, Modelo Toshiba TBR 1000. Se possível, substituir os relés das 3 fases por controle RUA, disponibilizar os cabos de ligação entre o tanque e o controle para possibilitar a compatibilização do equipamento. Fornecer kit de comunicação, rádio, antena, etc.",
+    "confianca": "media",
+    "motivo": "Diagnóstico técnico detalhado aponta relés Toshiba defeituosos nas fases A e B, a substituir por controle RUA; SS cancelada antes da chegada dos cabos compatibilizadores (previstos para 16/08), sem confirmação de troca nesta cadeia."
+  },
+  {
+    "ativo": "5800371025",
+    "cadeia": "01169/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula (fase A/B)",
+    "tambem": [
+      "rele"
+    ],
+    "data_primeira_ss": "2025-08-23",
+    "executada": true,
+    "evidencia": "Parecer DCMD: foi substituido célula 30/07/2026. o mesmo está liberado para ser colocado em operação",
+    "confianca": "baixa",
+    "motivo": "Texto mais recente confirma troca de 'célula' e libera o equipamento, mas todo o diagnóstico técnico anterior (repetido na mesma cumulativa) fala em relés Toshiba e controle RUA -- conflito de nomenclatura na base, sem OS para desempatar."
+  },
+  {
+    "ativo": "5800438116",
+    "cadeia": "00831/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fases B e C (mecanismo reversor de polaridade)",
+    "tambem": [
+      "rele"
+    ],
+    "data_primeira_ss": "2025-07-18",
+    "executada": true,
+    "evidencia": "constatando que o mercanismo da chave reversoura polaridade está com defeito. Número de série fase B EI7030 e Número de série fase C EI7040. Substituir as fases B e C.\nFoi constatado que a placa F do controle está com defeito.",
+    "confianca": "alta",
+    "motivo": "Diagnóstico nomeia diretamente as células das fases B e C (mecanismo reversor de polaridade, com números de série) e a placa F do controle; texto final indica ajustes verificados e encaminhamento a comissionamento, sinal de troca concluída."
+  },
+  {
+    "ativo": "5800440256",
+    "cadeia": "00158/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase A (isolação baixa)",
+    "tambem": [
+      "aterramento",
+      "bateria"
+    ],
+    "data_primeira_ss": "2025-04-23",
+    "executada": false,
+    "evidencia": "a fase A esta com isolação muito baixa( necessário realizar a substituição da mesma as fase B e C estão com isolação boas, feito a medição da malha de terra a mesma está com a resistência ruim, deve ser feito melhorias!\n\nPendência: Sim. É necessário fazer melhorias na malha de aterramento, e substituir células fase A",
+    "confianca": "baixa",
+    "motivo": "SS cumulativa cancelada em bloco (30/03/2026, 9 SS no mesmo dia). Fase C já foi substituída pelo COCM, mas a célula fase A (isolação baixa) e a malha de aterramento seguem como pendência explícita; nobreak trocado à parte."
+  },
+  {
+    "ativo": "5800440256",
+    "cadeia": "01431/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula (vazamento)",
+    "tambem": [],
+    "data_primeira_ss": "2025-11-30",
+    "executada": false,
+    "evidencia": "o mesmo esta com uma das celulas apresentando vazamento , o equipamento ficou bypassado , por motivo de ele ter causado o  desarme da LD PONTE ALTA a MATEIROS .",
+    "confianca": "media",
+    "motivo": "Vazamento em célula (fase não especificada); SS cancelada sem confirmação de reparo."
+  },
+  {
+    "ativo": "5800440256",
+    "cadeia": "00190/2026",
+    "familia": "regulador",
+    "categoria": "aterramento",
+    "item": "malha de terra",
+    "tambem": [
+      "bateria"
+    ],
+    "data_primeira_ss": "2026-03-18",
+    "executada": false,
+    "evidencia": "Realizada medição da malha de aterramento: precisa fazer melhoria\n- Comissionamento da célula da fase A: comunicação restaurada\n- Troca do nobreak danificado\n...\nPendência: Sim - Fazer melhoria na malha de aterramento",
+    "confianca": "media",
+    "motivo": "Nesta visita a célula fase A teve só a comunicação restaurada (sem defeito de peça) e o nobreak foi trocado; a única pendência nomeada é a malha de aterramento."
+  },
+  {
+    "ativo": "5800440256",
+    "cadeia": "00947/2026",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação intermitente",
+    "tambem": [],
+    "data_primeira_ss": "2026-06-19",
+    "executada": true,
+    "evidencia": "favor enviar equipe no Regulador 5800440256, o mesmo esta travado e com a comunicaçao intermitente",
+    "confianca": "baixa",
+    "motivo": "Sintoma de comunicação intermitente é o item nomeado com mais especificidade; 'travado' não indica peça. SS atendida em 7 dias, sem detalhe do serviço executado."
+  },
+  {
+    "ativo": "5800440256",
+    "cadeia": "00432/2026",
+    "familia": "regulador",
+    "categoria": "chave faca",
+    "item": "3 chaves de entrada",
+    "tambem": [
+      "cabo"
+    ],
+    "data_primeira_ss": "2026-06-24",
+    "executada": false,
+    "evidencia": "segue nota para linha viva retirar pendencias do RT 5800440256 TROCA DAS 3 CHAVES DE ENTRADA COM PONTO QUENTE TENSÃO 34,5KV VERIFICAR CONEXÕES",
+    "confianca": "alta",
+    "motivo": "Pedido explícito de troca de 3 chaves de entrada com ponto quente; SS repassada para linha viva, sem confirmação de execução."
+  },
+  {
+    "ativo": "5800440256",
+    "cadeia": "01034/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase B",
+    "tambem": [
+      "aterramento"
+    ],
+    "data_primeira_ss": "2026-08-06",
+    "executada": false,
+    "evidencia": "PARECER DMSL 06/08: Substituir célula da Fase B do banco de Regulador de tensão e realizar melhorias na malha de aterramento do Regulador",
+    "confianca": "alta",
+    "motivo": "Pedido direto de troca da célula fase B; SS ETO-COEP 00169/2026 segue PENDENTE no corte da base (a troca real ocorreu em 09/09/2026, já fora do período coberto por este texto)."
+  },
+  {
+    "ativo": "5800566084",
+    "cadeia": "00830/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase A (comutação)",
+    "tambem": [
+      "telecom"
+    ],
+    "data_primeira_ss": "2026-05-08",
+    "executada": false,
+    "evidencia": "Segue nota para verificar falha de comutação no regulador 5800566084 fase A , Reg 1- Rural -Divinópolis .\nobs: regulador está com a fase A travada , verificar a possibilidade de instalar comunicação no mesmo e inserir no SCADA !",
+    "confianca": "alta",
+    "motivo": "Falha de comutação com fase A travada aponta para a célula (mecanismo de comutação); pedido de instalar comunicação/SCADA é item à parte. SS cancelada sem confirmação de troca."
+  },
+  {
+    "ativo": "5800586084",
+    "cadeia": "00361/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase A",
+    "tambem": [],
+    "data_primeira_ss": "2025-12-02",
+    "executada": true,
+    "evidencia": "Serviço Executado: Célula da fase A com problemas no comutador impossibilitando a comutação, será necessário substituir a mesma! \nObs:. Quando for fazer a substituição a célula q deve ser substituída é a do lado de paraíso do lado do controle.",
+    "confianca": "alta",
+    "motivo": "Célula da fase A com defeito no comutador; a cadeia seguinte (comissionamento) confirma que a troca desta SS foi realizada."
+  },
+  {
+    "ativo": "5800586084",
+    "cadeia": "00813/2026",
+    "familia": "regulador",
+    "categoria": "comissionamento",
+    "item": "comissionamento pós-troca de célula",
+    "tambem": [
+      "celula"
+    ],
+    "data_primeira_ss": "2026-04-30",
+    "executada": true,
+    "evidencia": "SS aberta para comissionamento do RT 5800586084, devido substituição da célula danificada ter sido realizada através da SS ETO-RD-PS 361/2025",
+    "confianca": "alta",
+    "motivo": "SS aberta especificamente para comissionar o equipamento após a troca de célula já realizada em outra SS; não é um novo defeito."
+  },
+  {
+    "ativo": "5800657026",
+    "cadeia": "00147/2026",
+    "familia": "regulador",
+    "categoria": "ajuste de protecao",
+    "item": "ajuste de tap/tensão",
+    "tambem": [],
+    "data_primeira_ss": "2026-07-13",
+    "executada": false,
+    "evidencia": "Foi feito testes reguladores comutou normal , porém não ficou no nível ideal !\n\nParecer da proteção:\n\nQualquer alteração no Regulador de Tensão (RT) da SE Ponte Alta impactará diretamente o barramento de 13,8 kV.",
+    "confianca": "media",
+    "motivo": "Discussão de engenharia sobre ajuste de TAP/tensão de referência por reclamações de tensão baixa; a proteção recomenda levantamento amostral e reunião técnica, sem confirmar mudança de ajuste nem troca de peça."
+  },
+  {
+    "ativo": "5800765149",
+    "cadeia": "00265/2026",
+    "familia": "regulador",
+    "categoria": "nao identificado",
+    "item": "placas eletrônicas apagadas (sem diagnóstico)",
+    "tambem": [],
+    "data_primeira_ss": "2026-02-04",
+    "executada": false,
+    "evidencia": "nota para RT 5800765149 COM 2 placa eletronica apagada O MESMO FICOU BY-PASSADO EM CAMPO",
+    "confianca": "media",
+    "motivo": "Placas 'apagadas' é sintoma (possível falta de alimentação), sem diagnóstico técnico que confirme peça defeituosa nem substituição -- mesmo padrão do erro já registrado com 'relé apagado'."
+  },
+  {
+    "ativo": "5800843075",
+    "cadeia": "00886/2025",
+    "familia": "regulador",
+    "categoria": "chave faca",
+    "item": "chave faca de saída",
+    "tambem": [
+      "celula"
+    ],
+    "data_primeira_ss": "2025-08-27",
+    "executada": true,
+    "evidencia": "PARECER DCMD: ATIVIDADE DE SUBSTITUIÇÃO DE CH FACA E INCLINAÇÃO DAS CHAVES JÁ FOI EXECUTADA PELA EQUIPE DE LINHA-VIVA.",
+    "confianca": "media",
+    "motivo": "DCMD confirma troca da chave faca de saída com vazamento; a fase C do próprio equipamento também aparece com vazamento (célula), sem confirmação de troca. O trecho sobre 'RLG 7955430075 RDR Dois Irmãos... sensor do tanque' é texto de terceiro (religador 7955430075), descartado."
+  },
+  {
+    "ativo": "5800859011",
+    "cadeia": "00869/2026",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "relé fase C / controle RUA (retrofit)",
+    "tambem": [
+      "telecom"
+    ],
+    "data_primeira_ss": "2026-06-12",
+    "executada": true,
+    "evidencia": "28-07-2026 PARECER DCMD: FOI INSTALADO O CONTROLE E A ANTENA NO REGULADOR CONFORME SOLICITADO. FOI ANEXADO AS FOTOS NA SS",
+    "confianca": "alta",
+    "motivo": "Relé da fase C defeituoso, retrofit para controle RUA solicitado e DCMD confirma instalação do controle e da antena com fotos anexadas."
+  },
+  {
+    "ativo": "5800880014",
+    "cadeia": "00243/2025",
+    "familia": "regulador",
+    "categoria": "completo",
+    "item": "banco completo (3 células) + controle RUA",
+    "tambem": [],
+    "data_primeira_ss": "2025-08-04",
+    "executada": true,
+    "evidencia": "O RT 5800880014 FOI FEITO A SUBSTITUIÇÃO DAS CÉLULAS DAS FASES A E C, E TBM FOI SUBSTITUIDO O CONTROLE RUA.\n...\nPARECER DO DCMD: JÁ FOI SUBSTITUIDO TODAS AS TRÊS CÉLULAS.",
+    "confianca": "alta",
+    "motivo": "Proteção recomendou trocar todo o conjunto (3 fases e controle) por equipamento completo com relé RUA; DCMD confirma as três células e o controle substituídos."
+  },
+  {
+    "ativo": "5800880014",
+    "cadeia": "00242/2025",
+    "familia": "regulador",
+    "categoria": "completo",
+    "item": "banco completo (3 células) + controle RUA",
+    "tambem": [],
+    "data_primeira_ss": "2025-08-04",
+    "executada": true,
+    "evidencia": "O RT 5800880014 FOI FEITO A SUBSTITUIÇÃO DAS CÉLULAS DAS FASES A E C, E TBM FOI SUBSTITUIDO O CONTROLE RUA.\nNECESSITA-SE A SUBSTITUIÇÃO DA CÉLULA DA FASE B E APROVEITA-LA EM OUTRO LOCAL",
+    "confianca": "alta",
+    "motivo": "SS duplicada da mesma data/evento da cadeia 1 (mesmo texto): troca do banco completo (3 células) e controle RUA."
+  },
+  {
+    "ativo": "5800880014",
+    "cadeia": "00217/2025",
+    "familia": "regulador",
+    "categoria": "completo",
+    "item": "células A e C + controle RUA (célula B pendente)",
+    "tambem": [],
+    "data_primeira_ss": "2025-07-17",
+    "executada": true,
+    "evidencia": "O RT 5800880014 FOI FEITO A SUBSTITUIÇÃO DAS CÉLULAS DAS FASES A E C, E TBM FOI SUBSTITUIDO O CONTROLE RUA.\nNECESSITA-SE A SUBSTITUIÇÃO DA CÉLULA DA FASE B E APROVEITA-LA EM OUTRO LOCAL JÁ QUE A MESMA É INCOMPATIVEL",
+    "confianca": "alta",
+    "motivo": "Mesmo evento de troca do conjunto completo (células + controle); nesta SS (mais antiga) a fase B ainda não havia sido trocada, mas o pedido original já era do equipamento completo."
+  },
+  {
+    "ativo": "5800961074",
+    "cadeia": "01271/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula queimada (fase não identificada)",
+    "tambem": [],
+    "data_primeira_ss": "2025-11-01",
+    "executada": false,
+    "evidencia": "segue SS para as devidas tratativas, defeito no regulador 5800961074 LD Dianópolis / Gerais o mesmo ficou By passado em campo pois esta com célula queimada equipe não conseguiu identificar qual célula,",
+    "confianca": "media",
+    "motivo": "Célula queimada é o item nomeado, mas a equipe não conseguiu identificar qual fase; sem confirmação de troca nesta cadeia."
+  },
+  {
+    "ativo": "5800961074",
+    "cadeia": "00221/2025",
+    "familia": "regulador",
+    "categoria": "completo",
+    "item": "banco completo (3 células)",
+    "tambem": [
+      "aterramento",
+      "cabo"
+    ],
+    "data_primeira_ss": "2025-12-05",
+    "executada": false,
+    "evidencia": "PARECER COEP: EQUIPAMENTO SELECIONADO PARA COMPRA\n\nSubstituir as 3 células\n\n- Melhoria na malha de aterramento \n\n- Melhoria no circuito de aterramento qua aterra as células\n.\n- Substituir conectores paralelos",
+    "confianca": "alta",
+    "motivo": "Pedido explícito de substituir as 3 células do banco (equipamento selecionado para compra); aterramento e conectores paralelos são itens acessórios. SS pendente, aquisição em andamento."
+  },
+  {
+    "ativo": "5801866013",
+    "cadeia": "00299/2026",
+    "familia": "regulador",
+    "categoria": "nao identificado",
+    "item": "comutação (modo automático indisponível)",
+    "tambem": [],
+    "data_primeira_ss": "2026-02-18",
+    "executada": false,
+    "evidencia": "regulador 5801866013 RDU de Paraiso AL 03 não tem a opção de comutação  ( AUTOMATICO) somente manual e bloqueado.",
+    "confianca": "media",
+    "motivo": "Falta de modo automático/bloqueado é sintoma sem peça nomeada, mesmo padrão de 'bloqueado' sem defeito de componente especificado."
+  },
+  {
+    "ativo": "5801866013",
+    "cadeia": "00339/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase C",
+    "tambem": [
+      "aterramento"
+    ],
+    "data_primeira_ss": "2026-04-14",
+    "executada": true,
+    "evidencia": "Identificado infiltração na caixa de passagem da célula da fase C do banco regulador de tensão, será necessário fazer a substituição da mesma! Ficar atento na hora da substituição, deverá ser substituída a célula do lado da BR.",
+    "confianca": "media",
+    "motivo": "Infiltração identificada na célula fase C, com necessidade de baixar o banco; SS final atendida após passar por COCMs (confirmado indiretamente pela cadeia seguinte, que registra atendimento por OS/obra)."
+  },
+  {
+    "ativo": "5801866013",
+    "cadeia": "00151/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase C",
+    "tambem": [
+      "aterramento"
+    ],
+    "data_primeira_ss": "2026-07-17",
+    "executada": true,
+    "evidencia": "15/07 PARECER COCM, FOI ATENDIDA PELA OS ETO-RD-PS 1616/2026 OBRA-0212600539",
+    "confianca": "alta",
+    "motivo": "COCM confirma atendimento via OS/obra específica para a mesma célula fase C com infiltração descrita no parecer DMSL cumulativo."
+  },
+  {
+    "ativo": "5803327001",
+    "cadeia": "00014/2025",
+    "familia": "regulador",
+    "categoria": "obra nova",
+    "item": "remanejamento (comissionamento completo)",
+    "tambem": [
+      "cabo",
+      "aterramento",
+      "rele"
+    ],
+    "data_primeira_ss": "2025-09-04",
+    "executada": false,
+    "evidencia": "*Equipamento foi remanejado, 7 km da sua localização sentido Palmas necessário comissionamento completo\n*Equipamento com um dos cabos umbilicais danificado.\n* aterramento bucha FC não esta interligada corretamente \n...\nPendência: sim, precisa comissionar completo",
+    "confianca": "media",
+    "motivo": "Origem da demanda é o remanejamento do equipamento (7km), exigindo comissionamento completo; cabo umbilical, aterramento e 'instalar controle completo' aparecem como pendências do recomissionamento. Último parecer da COEP (01/07/2026) ainda pede confirmação de que o equipamento está operando -- sem fechamento explícito."
+  },
+  {
+    "ativo": "5804170122",
+    "cadeia": "01177/2025",
+    "familia": "regulador",
+    "categoria": "nao identificado",
+    "item": "painel de controle não responde a comandos",
+    "tambem": [],
+    "data_primeira_ss": "2025-10-06",
+    "executada": false,
+    "evidencia": "regulador de tensão 5804170122 não está comutando em campo pelo comando remota e nem local pelo comando da equipe,\nobs: segundo equipe operacional o mesmo está comutando automático o painel de controle de elevar e baixar  não responde os comando.",
+    "confianca": "media",
+    "motivo": "Painel não aceita comando local nem remoto, sem peça nomeada como defeituosa -- mesmo padrão de 'não aceita comando' sem componente identificado."
+  },
+  {
+    "ativo": "5820044123",
+    "cadeia": "01034/2025",
+    "familia": "regulador",
+    "categoria": "aterramento",
+    "item": "malha de aterramento (emendas/cordoalha)",
+    "tambem": [
+      "para-raio"
+    ],
+    "data_primeira_ss": "2025-10-01",
+    "executada": true,
+    "evidencia": "Segue nota para equipe de manutenção realizar melhoria (refazer) aterramento no regulador de tensão 5820044123, aterramento possui emendas e dois dos aterramentos não são de cordoalha cobreada também o cabo de descida do para raio de um equipamento oxidado conforme a foto.",
+    "confianca": "media",
+    "motivo": "Pedido nomeia diretamente falhas na malha de aterramento (emendas, cordoalha) e cabo de descida do para-raio oxidado; SS atendida rapidamente (3 dias)."
+  },
+  {
+    "ativo": "5820044123",
+    "cadeia": "01596/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula 03 (fase C)",
+    "tambem": [],
+    "data_primeira_ss": "2025-10-24",
+    "executada": true,
+    "evidencia": "FAVOR ENVIAR EQUIPE DE LINHA VIVA PARA SUBSTITUIR CÉLULA 03 DO RT COM DEFEITO -RT 5820044123 - AL02055123 - FASE C",
+    "confianca": "alta",
+    "motivo": "Pedido direto e específico de substituição da célula 03 (fase C) via linha viva; SS atendida no dia seguinte."
+  },
+  {
+    "ativo": "5820790038",
+    "cadeia": "00134/2026",
+    "familia": "regulador",
+    "categoria": "ajuste de protecao",
+    "item": "tensão de referência",
+    "tambem": [],
+    "data_primeira_ss": "2026-06-27",
+    "executada": true,
+    "evidencia": "Parecer da proteção:\n\nAlterado a tensão de referência de 20.120 para 21.000.\n\nEng° Irlley Castelo Branco.",
+    "confianca": "alta",
+    "motivo": "Ação da proteção foi alterar a tensão de referência do ajuste; não houve troca de peça, apenas parametrização."
+  },
+  {
+    "ativo": "5823916001",
+    "cadeia": "01001/2025",
+    "familia": "regulador",
+    "categoria": "obra nova",
+    "item": "remanejamento (comissionamento pendente)",
+    "tambem": [
+      "telecom",
+      "aterramento",
+      "rele"
+    ],
+    "data_primeira_ss": "2025-10-07",
+    "executada": false,
+    "evidencia": "*Equipamento foi remanejado, para 3km da sua localização atual, fica na estrada\ndo club BELCAR.\n*Equipamento esta sem antena, radio, suporte e cabos.\n* aterramento bucha FC não esta interligada.\n* para-raios estão no mesmo aterramento da bucha FC\n* não porteira para acessar equipamento.",
+    "confianca": "media",
+    "motivo": "Equipamento remanejado 3km, ainda sem antena/rádio/suporte/cabos e com pendências de aterramento; acesso ao local também está bloqueado (sem porteira). SS cancelada sem confirmação de conclusão. Pedido inicial sobre 'tampa do relé' é item menor frente ao quadro geral de recomissionamento."
+  },
+  {
+    "ativo": "5825703064",
+    "cadeia": "00948/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase A (curto)",
+    "tambem": [
+      "rele",
+      "cabo"
+    ],
+    "data_primeira_ss": "2026-07-21",
+    "executada": false,
+    "evidencia": "Foi identificado que a fase A esta em curto (892Kbps) no teste de Megometro, o curto afetou o rele RUA 01 e rompeu o jamper da chave faca para a linha de distribuição.",
+    "confianca": "alta",
+    "motivo": "Curto na fase A (célula) é a causa raiz, identificada por teste de megômetro; o curto afetou o relé RUA e rompeu o jumper da chave faca como consequências. SS pendente, manutenção ainda a providenciar."
+  },
+  {
+    "ativo": "5826303015",
+    "cadeia": "01055/2025",
+    "familia": "regulador",
+    "categoria": "chave faca",
+    "item": "chave de entrada fase B",
+    "tambem": [
+      "rele"
+    ],
+    "data_primeira_ss": "2025-10-06",
+    "executada": true,
+    "evidencia": "PARECER DMSL: Substituir chave de entrada da fase B do RT 5826303015 e colocar o equipamento em operação pois da parte do DMSL não há pendências.",
+    "confianca": "media",
+    "motivo": "DMSL nomeia diretamente a chave de entrada da fase B como a peça a substituir; a reclamação original de 'relé com display apagado' foi reclassificada pelo próprio DMSL para a chave. SS atendida em 11 dias."
+  },
+  {
+    "ativo": "5827102054",
+    "cadeia": "00216/2025",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "controle completo (infiltração de água)",
+    "tambem": [
+      "bateria",
+      "cabo",
+      "aterramento",
+      "telecom"
+    ],
+    "data_primeira_ss": "2026-06-29",
+    "executada": false,
+    "evidencia": "Se possível retornar com controle completo pq o q está em campo teve infiltração de água, abrir chamado no scada para atualizar base do equipamento pois o mesmo está com a base antiga, fazer correção da malha de aterramento.\n\nEquipamento ficou em operação?: Não \nPendência: sim, levar controle novo",
+    "confianca": "media",
+    "motivo": "Nobreak, relé e cabo de comunicação já foram trocados/reparados nesta visita; a pendência central e destacada ('SOLICITAMOS CONTROLE COMPLETO') é um controle novo por infiltração de água no atual."
+  },
+  {
+    "ativo": "5827102054",
+    "cadeia": "01018/2025",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "data_primeira_ss": "2025-08-27",
+    "executada": false,
+    "evidencia": "REGULADOR SEM COMUNICAÇÃO, REALIZADO PRIMEIRO ATAQUE SEM SUCESSO.",
+    "confianca": "media",
+    "motivo": "Falta de comunicação é o único item nomeado; primeiro ataque explicitamente sem sucesso."
+  },
+  {
+    "ativo": "5827102054",
+    "cadeia": "01246/2025",
+    "familia": "regulador",
+    "categoria": "nao identificado",
+    "item": "relé apagado (sem diagnóstico confirmado)",
+    "tambem": [],
+    "data_primeira_ss": "2025-10-26",
+    "executada": false,
+    "evidencia": "Aberto nota para RT 5827102054, devido o mesmo esta com o relé apagado - proximo a Pugmil",
+    "confianca": "media",
+    "motivo": "Relé 'apagado' é sintoma que pode ser apenas falta de alimentação, sem diagnóstico técnico que confirme peça defeituosa; SS cancelada."
+  },
+  {
+    "ativo": "5827102054",
+    "cadeia": "00164/2026",
+    "familia": "regulador",
+    "categoria": "rele",
+    "item": "controle completo",
+    "tambem": [
+      "aterramento"
+    ],
+    "data_primeira_ss": "2026-08-11",
+    "executada": true,
+    "evidencia": "PARECER COCM: \nFOI SUBSTITUÍDO OS EQUIPAMENTO FEITO A MELHORIA DO ATERRAMENTO ATENDIDO PELA OBRA N-0212600609",
+    "confianca": "alta",
+    "motivo": "COCM confirma substituição do controle completo pendente desde a cadeia anterior (infiltração de água) e melhoria do aterramento, via obra específica."
+  },
+  {
+    "ativo": "5827277123",
+    "cadeia": "01047/2026",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase A (tap travado)",
+    "tambem": [],
+    "data_primeira_ss": "2026-08-03",
+    "executada": false,
+    "evidencia": "SEGUES SS PARA REGULARIZAR REGULADOR DE TENSÃO COM TAP TRAVADO FASE A (O MESMO NÃO COMUTA)",
+    "confianca": "alta",
+    "motivo": "TAP travado na fase A aponta para o mecanismo de comutação da célula; equipamento permaneceu em operação, mas SS segue pendente sem confirmação de reparo."
+  },
+  {
+    "ativo": "5833578028",
+    "cadeia": "00829/2026",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação (reset sem sucesso)",
+    "tambem": [],
+    "data_primeira_ss": "2026-05-08",
+    "executada": false,
+    "evidencia": "equipe operacional foi no local, feito reset , porém não conseguiram normalizar sua comunicação .",
+    "confianca": "alta",
+    "motivo": "Falha de comunicação é o item nomeado; texto confirma explicitamente que o reset não normalizou a comunicação."
+  },
+  {
+    "ativo": "5833723026",
+    "cadeia": "00269/2026",
+    "familia": "regulador",
+    "categoria": "obra nova",
+    "item": "retirada (remanejamento por local de comunicação ruim)",
+    "tambem": [
+      "telecom"
+    ],
+    "data_primeira_ss": "2026-03-18",
+    "executada": true,
+    "evidencia": "Segue SS para retirada do regulador de tensão 5833723026, da ld03046026, o mesmo foi removido devido estar em um local ruim de comunicação.",
+    "confianca": "alta",
+    "motivo": "Texto confirma, no passado, que o equipamento foi removido (retirada/remanejamento) por problema de local de comunicação; não é reparo de defeito."
+  },
+  {
+    "ativo": "5835587001",
+    "cadeia": "01074/2025",
+    "familia": "regulador",
+    "categoria": "celula",
+    "item": "célula fase B (+ controle)",
+    "tambem": [
+      "rele",
+      "aterramento",
+      "telecom",
+      "bateria"
+    ],
+    "data_primeira_ss": "2025-10-21",
+    "executada": true,
+    "evidencia": "BOM DIA.\n*FOI SUBSTITUIDA A CELULA FASE B\n*FOI SUBSTITUIDO CONTROLE\n*FOI FEITO MELHORIA NA MALHA DE ATERRAMENTO.\n*FOI FEITO POÇO PARA MELHORAR O ATERRAMENTO.",
+    "confianca": "alta",
+    "motivo": "Confirmação explícita de troca da célula fase B e do controle, além de melhoria/poço de aterramento; rádio/antena/SCADA e baterias novas também foram citados no pedido original do DMSL."
+  },
+  {
+    "ativo": "5836448001",
+    "cadeia": "01095/2025",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação SCADA",
+    "tambem": [],
+    "data_primeira_ss": "2025-09-08",
+    "executada": false,
+    "evidencia": "REGULADOR 5864480001 SEM COMUNICAÇÃO SCADA.\nFEITO PRIMEIRO ATAQUE COM A EQUIPE 271OP05 E O MESMO NÃO VOLTOU A CONUNICAÇÃO.",
+    "confianca": "media",
+    "motivo": "Sem comunicação SCADA é o item nomeado, com dois primeiros ataques sem sucesso em restaurar a comunicação. Nota: o texto cita o código '5864480001' (dígitos trocados em relação ao ativo '5836448001' deste bloco) -- provável erro de digitação no parecer, não um segundo ativo com contexto próprio, mas registrado por cautela."
+  },
+  {
+    "ativo": "5836764032",
+    "cadeia": "00836/2025",
+    "familia": "regulador",
+    "categoria": "chave faca",
+    "item": "chaves de entrada/saída/bypass",
+    "tambem": [
+      "aterramento"
+    ],
+    "data_primeira_ss": "2025-07-31",
+    "executada": true,
+    "evidencia": "DCMD 28/04/2026 - Foi realizado a melhoria de aterramento e manutenção em todas as chaves conforme solicitado.",
+    "confianca": "alta",
+    "motivo": "DMSL pediu manutenção em todas as chaves (entrada, saída, bypass) e melhoria de aterramento; DCMD confirma execução de ambos. 'Falha constatada fase B' é mencionada sem peça específica adicional."
+  },
+  {
+    "ativo": "5836786094",
+    "cadeia": "00770/2026",
+    "familia": "regulador",
+    "categoria": "furto",
+    "item": "regulador de tensão (equipamento completo)",
+    "tambem": [],
+    "data_primeira_ss": "2026-05-18",
+    "executada": false,
+    "evidencia": "Favor levar outro regulador de tensão, pois o mesmo foi furtado em campo.",
+    "confianca": "alta",
+    "motivo": "Furto do equipamento completo em campo; SS pendente, com equipamento em logística de entrega para reposição."
+  },
+  {
+    "ativo": "5837543086",
+    "cadeia": "00195/2026",
+    "familia": "regulador",
+    "categoria": "aterramento",
+    "item": "malha de terra",
+    "tambem": [],
+    "data_primeira_ss": "2025-12-02",
+    "executada": false,
+    "evidencia": "Foi feito os ensaios de isolação nas 3 células do banco, as três células estão com isolação boas, feito a medição da malha de terra a mesma está com a resistência ruim, deve ser feito melhorias!",
+    "confianca": "alta",
+    "motivo": "As três células foram testadas e estão boas (defeito descartado); a única falha real encontrada é a resistência ruim da malha de terra. SS cancelada sem confirmação de melhoria."
+  },
+  {
+    "ativo": "5837543086",
+    "cadeia": "00818/2026",
+    "familia": "regulador",
+    "categoria": "nao identificado",
+    "item": "relé apagado (não resolvido)",
+    "tambem": [],
+    "data_primeira_ss": "2026-05-04",
+    "executada": false,
+    "evidencia": "REGULADOR COM RELÉ APAGADO - REALIZADO PRIMEIRO ATAQUE COORDENADO COM DMSL, PORÉM NÃO FOI POSSÍVEL RESOLVER PROBLEMA.",
+    "confianca": "media",
+    "motivo": "Relé 'apagado' é sintoma sem diagnóstico técnico de peça; texto confirma que não foi possível resolver, sem apontar componente substituído."
+  },
+  {
+    "ativo": "5837543086",
+    "cadeia": "00497/2026",
+    "familia": "regulador",
+    "categoria": "chave faca",
+    "item": "chave faca fase C + para-raio fase C",
+    "tambem": [
+      "para-raio"
+    ],
+    "data_primeira_ss": "2026-05-04",
+    "executada": false,
+    "evidencia": "CHAVE FACA RT 5837543086 \nFASE C ESTA DANIFICADA NECESSARIO SUBSTITUIÇAÕ COM EQUIPE DE LINHA VIVA \nNECESSARIO TAMBEM,TROCA DO  PARA REAIO FASE C QUE ESTA QUEIMADO .",
+    "confianca": "alta",
+    "motivo": "Chave faca fase C danificada é o item principal nomeado, com necessidade também de trocar o para-raio fase C queimado; SS atendida em 2 dias, mas o texto não confirma explicitamente a execução das trocas."
+  },
+  {
+    "ativo": "5838014063",
+    "cadeia": "00811/2026",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação SCADA",
+    "tambem": [],
+    "data_primeira_ss": "2026-04-29",
+    "executada": false,
+    "evidencia": "PROVIDENCIAR A MANUTENÇÃO POIS NÃO TEM COMUNICAÇÃO NO SCADA ( SEM SUPERVISORIO ) \n\nSEM POSSIBILIDADE DE CONTROLE PELO OPERADOR.",
+    "confianca": "alta",
+    "motivo": "Falta de comunicação SCADA/supervisório é o item nomeado; SS cancelada sem confirmação de reparo."
+  },
+  {
+    "ativo": "5838020063",
+    "cadeia": "00812/2026",
+    "familia": "regulador",
+    "categoria": "telecom",
+    "item": "comunicação SCADA",
+    "tambem": [],
+    "data_primeira_ss": "2026-04-29",
+    "executada": false,
+    "evidencia": "PROVIDENCIAR A MANUTENÇÃO POIS NÃO TEM COMUNICAÇÃO NO SCADA ( SEM SUPERVISORIO ) \n\nSEM POSSIBILIDADE DE CONTROLE PELO OPERADOR.",
+    "confianca": "alta",
+    "motivo": "Falta de comunicação SCADA/supervisório é o item nomeado (mesmo texto-padrão do ativo anterior, para ativo distinto); SS cancelada sem confirmação de reparo."
+  }
+]
