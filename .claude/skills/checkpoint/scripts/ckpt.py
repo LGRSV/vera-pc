@@ -53,6 +53,7 @@ Exemplo de uso por um agente:
 
 import argparse
 import datetime as dt
+import glob
 import json
 import os
 import sys
@@ -69,35 +70,59 @@ def _jsonl(run, etapa, parte):
     return _dir(run, "dados", etapa, "%s.jsonl" % parte)
 
 
+def _nome_seguro(rotulo, valor):
+    """Nome de etapa ou parte vira caminho de arquivo. Sem isto, `--etapas ../../escapou`
+    e `--parte ../../../pwn` gravavam fora do run."""
+    v = str(valor).strip()
+    if not v or "/" in v or "\\" in v or v in (".", ".."):
+        raise SystemExit("erro: %s inválido: %r — sem barra, sem '..', não pode ser vazio"
+                         % (rotulo, valor))
+    return v
+
+
+def _confere(man, etapa=None, parte=None):
+    if etapa is not None and etapa not in man["etapas"]:
+        raise SystemExit("erro: etapa '%s' não está no manifesto (%s)"
+                         % (etapa, ", ".join(man["etapas"])))
+    if parte is not None and str(parte) not in man["partes"]:
+        raise SystemExit("erro: parte '%s' não existe neste run (partes: %s)"
+                         % (parte, ", ".join(sorted(man["partes"], key=lambda x: int(x)))))
+
+
 def _manifesto(run):
     cam = _dir(run, "manifesto.json")
     if not os.path.exists(cam):
         raise SystemExit("erro: %s não existe — rode `init` primeiro" % cam)
-    with open(cam) as f:
+    with open(cam, encoding="utf-8") as f:
         return json.load(f)
 
 
 # ------------------------------------------------------------------ escrita
 def _append(cam, linha):
-    """Um write(), O_APPEND, fsync. É aqui que mora a garantia.
+    """Grava um registro. Duas lições que custaram caro na auditoria adversarial:
 
-    E um detalhe que já custou um registro no teste: se o processo anterior morreu no meio
-    de uma gravação, o arquivo termina **sem `\n`** — a última linha ficou pela metade. Sem
-    fechar essa linha primeiro, o registro novo cola nela e os DOIS viram lixo: perde-se o
-    fragmento *e* o dado bom que acabou de chegar. Então, antes de escrever, se o arquivo
-    não termina em `\n`, põe-se um."""
+    **Sempre escrever `\n` ANTES da linha**, em vez de checar se o arquivo termina em
+    `\n` e emendar. A checagem parecia mais limpa, mas é um ler-depois-escrever: entre a
+    leitura do último byte e o `write()`, outro processo na mesma parte pode gravar um
+    fragmento, e aí a nossa linha cola nele — destruindo um registro que JÁ tinha sido
+    confirmado ao chamador. O `\n` incondicional custa um byte e mata a corrida; o leitor
+    já pula linha vazia.
+
+    **`os.write` pode gravar só um pedaço e não levantar erro** — disco cheio, `ulimit -f`.
+    Sem conferir o retorno, o `put` respondia «gravado» com rc 0 e o registro não estava
+    lá. Justamente o cenário que um checkpoint existe para sobreviver.
+    """
     os.makedirs(os.path.dirname(cam), exist_ok=True)
-    fd = os.open(cam, os.O_RDWR | os.O_CREAT | os.O_APPEND, 0o644)
+    buf = ("\n" + linha).encode("utf-8")
+    fd = os.open(cam, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o644)
     try:
-        tam = os.lseek(fd, 0, os.SEEK_END)
-        if tam:
-            os.lseek(fd, tam - 1, os.SEEK_SET)
-            if os.read(fd, 1) != b"\n":
-                linha = "\n" + linha      # fecha a linha quebrada de quem morreu antes
-        os.write(fd, linha.encode("utf-8"))   # O_APPEND: vai para o fim, sem corrida
+        n = os.write(fd, buf)          # O_APPEND: vai para o fim, sem corrida de offset
         os.fsync(fd)
     finally:
         os.close(fd)
+    if n != len(buf):
+        raise SystemExit("erro: gravação parcial em %s (%d de %d bytes) — disco cheio ou "
+                         "limite de arquivo. O registro NÃO foi salvo." % (cam, n, len(buf)))
 
 
 def _ler_jsonl(cam):
@@ -108,7 +133,7 @@ def _ler_jsonl(cam):
     fora, ruins = {}, 0
     if not os.path.exists(cam):
         return fora, ruins
-    with open(cam, errors="replace") as f:
+    with open(cam, encoding="utf-8", errors="replace") as f:
         for linha in f:
             linha = linha.strip()
             if not linha:
@@ -118,9 +143,13 @@ def _ler_jsonl(cam):
             except json.JSONDecodeError:
                 ruins += 1
                 continue
-            k = o.get("_chave")
-            if k is not None:
-                fora[k] = o          # último vence
+            # JSON válido que não é objeto (`null`, `[1,2]`, `42`) derrubava a leitura
+            # inteira com traceback. Não nasce de queda — prefixo de `{…}` nunca é JSON
+            # válido —, mas nasce de edição manual, e é o `sweep` que existe para isso.
+            if not isinstance(o, dict) or not isinstance(o.get("_chave"), str):
+                ruins += 1
+                continue
+            fora[o["_chave"]] = o          # último vence
     return fora, ruins
 
 
@@ -133,7 +162,13 @@ def _todos_registros(run, etapa):
         if not nome.endswith(".jsonl"):
             continue
         r, b = _ler_jsonl(os.path.join(d, nome))
-        fora.update(r)
+        # «último vence» tem de ser o mais RECENTE, não o de nome alfabeticamente maior:
+        # com 11 partes, "2.jsonl" > "10.jsonl", e um item regravado na parte 10 perdia
+        # para a versão velha da parte 2. Desempata pelo carimbo.
+        for k, o in r.items():
+            antigo = fora.get(k)
+            if antigo is None or (o.get("_em") or "") >= (antigo.get("_em") or ""):
+                fora[k] = o
         ruins += b
     return fora, ruins
 
@@ -144,10 +179,10 @@ def cmd_init(a):
     if a.itens:
         itens = [x.strip() for x in a.itens.split(",") if x.strip()]
     elif a.itens_de:
-        with open(a.itens_de) as f:
+        with open(a.itens_de, encoding="utf-8-sig") as f:
             itens = [x.strip() for x in f if x.strip()]
     elif a.itens_json:
-        with open(a.itens_json) as f:
+        with open(a.itens_json, encoding="utf-8-sig") as f:
             d = json.load(f)
         itens = [str(x) for x in (d if isinstance(d, list) else d.get("itens", []))]
     if not itens:
@@ -158,7 +193,10 @@ def cmd_init(a):
             (dup if i in vistos else vistos).add(i)
         raise SystemExit("erro: itens repetidos no manifesto: %s" % ", ".join(sorted(dup)[:5]))
 
-    etapas = [x.strip() for x in (a.etapas or ",".join(ETAPAS_PADRAO)).split(",") if x.strip()]
+    etapas = [_nome_seguro("nome de etapa", x)
+              for x in (a.etapas or ",".join(ETAPAS_PADRAO)).split(",") if x.strip()]
+    if not etapas:
+        raise SystemExit("erro: nenhuma etapa válida em --etapas")
     partes = max(1, a.partes)
     tam = -(-len(itens) // partes)
     reparte = {}
@@ -167,13 +205,19 @@ def cmd_init(a):
         if fatia:
             reparte[str(n + 1)] = fatia
 
-    os.makedirs(run_dir := a.run, exist_ok=True)
+    run_dir = a.run
+    ja = glob.glob(os.path.join(run_dir, "dados", "*", "*.jsonl"))
+    if ja and not a.forcar:
+        raise SystemExit("erro: %s já tem %d arquivo(s) de dados. Um init novo reparte as "
+                         "partes e o `todo` passa a comparar com a lista errada. Use "
+                         "--forcar se é mesmo isso que você quer." % (run_dir, len(ja)))
+    os.makedirs(run_dir, exist_ok=True)
     man = {"criado": dt.datetime.now().isoformat(timespec="seconds"),
            "itens": itens, "etapas": etapas, "partes": reparte,
            "descricao": a.descricao or ""}
     cam = _dir(run_dir, "manifesto.json")
     tmp = cam + ".tmp"
-    with open(tmp, "w") as f:
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(man, f, ensure_ascii=False, indent=1)
         f.flush()
         os.fsync(f.fileno())
@@ -189,12 +233,10 @@ def cmd_init(a):
 
 def cmd_put(a):
     man = _manifesto(a.run)
-    if a.etapa not in man["etapas"]:
-        raise SystemExit("erro: etapa '%s' não está no manifesto (%s)"
-                         % (a.etapa, ", ".join(man["etapas"])))
+    _confere(man, a.etapa)
     bruto = a.dados
     if a.de_arquivo:
-        with open(a.de_arquivo) as f:
+        with open(a.de_arquivo, encoding="utf-8-sig") as f:
             bruto = f.read()
     if bruto is None:
         bruto = sys.stdin.read()
@@ -215,6 +257,7 @@ def cmd_put(a):
 
     parte = str(a.parte) if a.parte else next(
         (p for p, f in man["partes"].items() if chave in f), "1")
+    _confere(man, parte=parte)
     o["_chave"] = chave
     o["_etapa"] = a.etapa
     o["_em"] = dt.datetime.now().isoformat(timespec="seconds")
@@ -227,6 +270,9 @@ def cmd_put(a):
 
 def cmd_todo(a):
     man = _manifesto(a.run)
+    _confere(man, a.etapa)
+    if a.parte:
+        _confere(man, parte=a.parte)
     partes = [str(a.parte)] if a.parte else sorted(man["partes"], key=lambda x: int(x))
     total_falta = []
     for p in partes:
@@ -273,6 +319,8 @@ def cmd_status(a):
 
 
 def cmd_nota(a):
+    man = _manifesto(a.run)
+    _confere(man, a.etapa, a.parte)
     cam = _dir(a.run, "notas", a.etapa, "%s.log" % (a.parte or "geral"))
     _append(cam, "%s  %s\n" % (dt.datetime.now().isoformat(timespec="seconds"),
                                " ".join(a.texto)))
@@ -280,6 +328,7 @@ def cmd_nota(a):
 
 
 def cmd_ler(a):
+    _confere(_manifesto(a.run), a.etapa)
     feitos, _ = _todos_registros(a.run, a.etapa)
     o = feitos.get(str(a.chave))
     if not o:
@@ -290,6 +339,7 @@ def cmd_ler(a):
 
 def cmd_fecha(a):
     man = _manifesto(a.run)
+    _confere(man, a.etapa)
     feitos, ruins = _todos_registros(a.run, a.etapa)
     faltam = [i for i in man["itens"] if i not in feitos]
     if faltam and not a.parcial:
@@ -298,7 +348,7 @@ def cmd_fecha(a):
     saida = a.saida or _dir(a.run, "%s.json" % a.etapa)
     ordenado = [feitos[i] for i in man["itens"] if i in feitos]
     tmp = saida + ".tmp"
-    with open(tmp, "w") as f:
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(ordenado, f, ensure_ascii=False, indent=1)
         f.flush()
         os.fsync(f.fileno())
@@ -342,6 +392,7 @@ def main():
     p.add_argument("--etapas")
     p.add_argument("--partes", type=int, default=1)
     p.add_argument("--descricao")
+    p.add_argument("--forcar", action="store_true")
     p.set_defaults(fn=cmd_init)
 
     p = sub.add_parser("put", help="grava o resultado de um item")
@@ -377,7 +428,10 @@ def main():
     p.set_defaults(fn=cmd_sweep)
 
     a = ap.parse_args()
-    a.fn(a)
+    fora = a.fn(a)
+    # `todo` sai com rc 1 quando falta item, para o agente poder encadear com &&
+    if a.cmd == "todo" and fora:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

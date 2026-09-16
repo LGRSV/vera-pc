@@ -36,14 +36,24 @@ run/
 
 ### As garantias, e por que valem
 
+Todas foram atacadas por uma auditoria adversarial — truncamento byte a byte, `kill -9`
+no meio da gravação, disco cheio, concorrência real, registros hostis. O que quebrou
+está consertado; o que sobrou de pé está medido.
+
 | garantia | como |
 | --- | --- |
-| **Nada se perde no meio** | cada `put` é um `write()` único com `O_APPEND` + `fsync`. Está no disco antes de a ferramenta responder. |
-| **Queda no meio da linha não contamina** | se o arquivo terminou sem `\n`, o `put` seguinte fecha a linha quebrada antes de escrever. Sem isso, o registro novo colaria no fragmento e os **dois** se perderiam — foi um bug real, achado no teste. |
-| **Linha quebrada é ignorada, não fatal** | a leitura descarta a linha inválida e segue. O item dela volta a aparecer em `todo`. |
-| **Refazer é seguro** | a chave manda; regravar a mesma chave substitui. Item refeito não vira dois. |
-| **Paralelo é seguro** | cada trabalhador escreve na sua própria **parte**. Duas partes nunca disputam o mesmo arquivo. |
-| **O escopo não escorrega** | o `put` recusa chave que não está no manifesto. Item novo exige `init` novo, de propósito. |
+| **Nada se perde em silêncio** | cada `put` é um `write()` único com `O_APPEND` + `fsync`, **e confere quantos bytes entraram**. Gravação parcial (disco cheio, `ulimit -f`) falha alto com rc 1, em vez de responder «gravado» com o dado perdido. |
+| **Queda no meio da linha não contamina** | o `put` escreve `\n` **antes** da linha, sempre. A linha quebrada de quem morreu fica isolada; o registro novo entra inteiro. |
+| **Linha quebrada é ignorada, não fatal** | a leitura descarta linha inválida — truncada, ou JSON válido que não é objeto — e segue. O item dela volta a aparecer em `todo`. |
+| **Refazer é seguro** | a chave manda, e «último vence» é o **mais recente pelo carimbo**, não o de nome alfabeticamente maior. Item refeito não vira dois nem volta para a versão velha. |
+| **Paralelo é seguro** | cada trabalhador na sua **parte**. Medido: 4 processos × 150 registros de 50 KB simultâneos, 600 de 600 íntegros. |
+| **O escopo não escorrega** | `put` recusa chave fora do manifesto, etapa fora do manifesto e parte que não existe. Nome de etapa ou parte com `/` ou `..` é recusado — sem isso dava para gravar fora do run. |
+| **O run não é reaberto por engano** | `init` sobre um run que já tem dados é recusado (salvo `--forcar`): repartir de novo faria o `todo` comparar com a lista errada. |
+| **`todo` serve de condição** | sai com rc 1 quando falta item, então dá para encadear `todo … && fecha …`. |
+
+**O que ainda NÃO está coberto, e você precisa saber:** dois trabalhadores na **mesma
+parte** continuam desaconselhados. O dano catastrófico foi consertado, mas a disciplina
+de uma parte por trabalhador é o que torna o paralelo previsível.
 
 ## Uso
 
@@ -83,6 +93,7 @@ manifesto**, não na ordem em que foi gravada.
 python3 $S ler   .analise/run1 leitura --chave 7926089013   # o que já gravei disto?
 python3 $S nota  .analise/run1 leitura --parte 3 "parei no 40, textos longos"
 python3 $S sweep .analise/run1                              # há linha corrompida?
+python3 $S init  .analise/run1 --itens … --forcar            # repartir um run já iniciado
 ```
 
 ## A disciplina que o agente precisa seguir
