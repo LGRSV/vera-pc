@@ -37790,7 +37790,7 @@
    "categoria_fonte": "leitura",
    "classe": "apoio",
    "item": "bateria",
-   "executada": false,
+   "executada": true,
    "marca": "NOJA RC10",
    "marca_bruta": "NOJA RC10",
    "loc": "Sao Bento Do Tocantins",
@@ -38480,7 +38480,7 @@
    "categoria_fonte": "leitura",
    "classe": "apoio",
    "item": "bateria",
-   "executada": false,
+   "executada": true,
    "marca": "NOJA RC10",
    "marca_bruta": "NOJA RC10",
    "loc": "Gurupi",
@@ -38536,8 +38536,8 @@
    "postos": "ETO-TELE",
    "pend": "INDISPONIBILIDADE PARA OPERAÇÃO",
    "dcmd": false,
-   "categoria": "telecom",
-   "categoria_fonte": "leitura",
+   "categoria": "bateria",
+   "categoria_fonte": "revisao",
    "classe": "apoio",
    "item": "comunicação (perde com falta de CA)",
    "executada": false,
@@ -39350,7 +39350,7 @@
    "categoria_fonte": "leitura",
    "classe": "apoio",
    "item": "chave bypass",
-   "executada": false,
+   "executada": true,
    "marca": "SCHNEIDER ADVC",
    "marca_bruta": "SCHNEIDER ADVC",
    "loc": "Gurupi",
@@ -39410,7 +39410,7 @@
    "categoria_fonte": "leitura",
    "classe": "apoio",
    "item": "banda morta (parâmetro)",
-   "executada": false,
+   "executada": true,
    "marca": "SCHNEIDER ADVC",
    "marca_bruta": "SCHNEIDER ADVC",
    "loc": "Gurupi",
@@ -40040,7 +40040,7 @@
    "categoria_fonte": "leitura",
    "classe": "apoio",
    "item": "cabo",
-   "executada": false,
+   "executada": true,
    "marca": "SCHNEIDER ADVC",
    "marca_bruta": "SCHNEIDER ADVC",
    "loc": "Paraiso Do Tocantins",
@@ -55441,6 +55441,13 @@
    "porque": "'realizar instalação de um novo mestre 4RF' é obra de infraestrutura (instalação), não telecom — mesmo texto do 7933640003 (lido como obra nova) e do 7938920003; harmonizando o rótulo pela régua (instalação = obra nova)"
   },
   {
+   "ativo": "7936031003",
+   "cadeia": "ETO-TELE 01293/2025",
+   "de": "telecom",
+   "para": "bateria",
+   "porque": "Perde comunicação com falta de CA, equipamento bypassado; texto acrescenta informação nova — a substituição de bateria que se acreditava feita 'não se comprovou' — não é duplicata da 01268/2025, é o desfecho de que aquela não resolveu."
+  },
+  {
    "ativo": "7937105148",
    "cadeia": "ETO-RD-GU 01090/2025",
    "de": "nao identificado",
@@ -55532,5 +55539,5 @@
    "porque": "Furto é decidido pela peça, não pela causa: o item furtado e reinstalado é o cabo do trafo auxiliar ('cabo ja foi instalado pela manutenção enecol'), não peça grande. Rótulo correto é cabo, não furto. Cadeia segue para comissionamento e conferência de aterramento e termina atendida."
   }
  ],
- "revisao_ativos": 887
+ "revisao_ativos": 894
 }
