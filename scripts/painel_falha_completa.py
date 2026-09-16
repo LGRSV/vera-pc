@@ -32,18 +32,18 @@ import sys
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 
-DADOS = os.path.join(RAIZ, "data", "missao", "falha_completa.json")
+DADOS = os.path.join(RAIZ, "data", "missao", "falha_total.json")
 SAIDA = os.path.join(RAIZ, "scratchpad", "painel_falha_completa.html")
 
-EIXO = [(2024, m) for m in range(1, 13)] + [(2025, m) for m in range(1, 13)]
-ULTIMO = 19   # jul/2025 é o último mês que a planilha mãe alcança
+EIXO = [(a, m) for a in (2024, 2025, 2026) for m in range(1, 13)]
+ULTIMO = 32   # ago/2026 é o último mês que a base alcança (aberturas até 19/08)
 
 
 def monta(saida=SAIDA):
     d = json.load(open(DADOS))
     # a página só usa a CONTAGEM das cadeias lidas; mandar as 1.634 linhas cruas
     # junto triplicava o peso do arquivo sem acrescentar nada na tela
-    n_lidas = len(d["linhas"])
+    n_lidas = d["linhas_n"]
     payload = {
         "equipamentos": d["equipamentos"],
         "n_lidas": n_lidas,
@@ -51,6 +51,7 @@ def monta(saida=SAIDA):
         "parque_marca": d["parque_marca"],
         "universo": d["universo"], "no_dcmd": d["no_dcmd"],
         "fora_dcmd": d["fora_dcmd"], "fora_sem_falha": d["fora_sem_falha"],
+        "derrubados_n": len(d.get("derrubados") or []),
         "eixo": [list(k) for k in EIXO], "ultimo": ULTIMO, "corte": d["corte"],
     }
     html = MOLDE.replace("D.linhas.length", "D.n_lidas").replace("/*DADOS*/", json.dumps(payload, ensure_ascii=False))
@@ -225,10 +226,10 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 <div class="folha">
 
 <header class="masthead">
-  <div class="carimbo">ETO-COEP · leitura integral da planilha mãe</div>
+  <div class="carimbo">ETO-COEP · leitura integral da base de SS</div>
   <h1>Prontuário de Falhas de RL e RT</h1>
   <p class="subtitulo">
-    Todas as demandas de religador e regulador de <em>2024 e 2025</em> — o alcance do
+    Todas as demandas de religador e regulador de <em>2024, 2025 e 2026</em> — o alcance do
     parecer na base —, lidas parecer a
     parecer e rotuladas pelo <em>item que deu problema</em> — do tanque ao para-raio, da
     chave faca ao furto. Cada demanda é datada pela abertura da primeira SS, e a cadeia
@@ -241,9 +242,10 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 <section>
   <h2><span class="ordem">01</span>A mensalização</h2>
   <p class="lede">
-    Demandas por mês de <strong>abertura da primeira SS</strong>, de janeiro de 2024 a julho
-    de 2025. O eixo corre contínuo pelos dois anos: é assim que se vê que a série não cai em
-    agosto de 2025 — ela <strong>acaba</strong>. Os botões trocam o que divide as barras.
+    Demandas por mês de <strong>abertura da primeira SS</strong>, de janeiro de 2024 a agosto
+    de 2026. O eixo corre contínuo pelos três anos: é assim que se vê onde a série
+    <strong>acaba</strong>, em vez de parecer que a fila cedeu. Os botões trocam o que divide
+    as barras.
   </p>
 
   <div class="quadro">
@@ -265,8 +267,8 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
         <option value="tudo">tudo, inclusive obra e comissionamento</option>
       </select>
     </div>
-    <svg id="g-falhas" viewBox="0 0 1000 310" role="img"
-         aria-label="Demandas por mês, janeiro de 2024 a dezembro de 2025"></svg>
+    <svg id="g-falhas" viewBox="0 0 1000 330" role="img"
+         aria-label="Demandas por mês, janeiro de 2024 a agosto de 2026"></svg>
     <div class="legenda" id="leg-falhas"></div>
   </div>
 </section>
@@ -359,15 +361,15 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 <div class="metodo">
   <h3>A fonte</h3>
   <p>
-    <b>Religa_Regula_2025.xlsx</b>, aba «Exportar Planilha»: 7.638 SS, 7.634 com parecer. É a
-    única base que traz o texto técnico junto da cadeia já montada — o recorte local de SS/OS
+    <b>EQP_JOAO_19082026.xlsx</b>, aba «Exportar Planilha»: 10.386 SS, 10.377 com parecer, de
+    01/08/2020 a 19/08/2026. É a única base que traz o texto técnico junto da cadeia — o recorte local de SS/OS
     não tem descrição e a base crua de 36 MB está fora do repositório.
   </p>
 
   <h3>A cadeia</h3>
   <p>
-    A coluna <code>Primeiro</code> marca o começo e a coluna <code>hierarquia</code> dá o elo
-    seguinte. O SGM abre SS nova a cada passagem de posto, mas repasse não é fato novo:
+    A cadeia se remonta pelo elo <code>SS_APOS_REPASSE</code>, e a cabeça é a SS que ninguém
+    aponta. O SGM abre SS nova a cada passagem de posto, mas repasse não é fato novo:
     <b>a cadeia inteira conta como uma demanda só</b>.
   </p>
 
@@ -413,16 +415,16 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 
   <h3>O horizonte</h3>
   <p>
-    A planilha mãe fecha em <b>11/07/2025</b>. Não há uma SS sequer depois dessa data, então
-    julho de 2025 é mês parcial e agosto em diante não existe na base. A faixa hachurada marca
+    A base fecha em <b>19/08/2026</b>. Agosto de 2026 é mês parcial, e setembro em diante não
+    existe nela. A faixa hachurada marca
     esse limite: <b>a queda não é melhora do parque, é o fim do dado</b>.
   </p>
 </div>
 
 <div class="rodape">
-  <span>Fonte: Religa_Regula_2025.xlsx · aba Exportar Planilha</span>
+  <span>Fonte: EQP_JOAO_19082026.xlsx · aba Exportar Planilha</span>
   <span>Marca: GESTÃO DE EQUIPAMENTOS · abas de ajuste da proteção</span>
-  <span>Posição: 11/07/2025</span>
+  <span>Posição: 19/08/2026</span>
 </div>
 
 </div>
@@ -464,7 +466,7 @@ const TOM = {};
   const fa = eq.filter(e=>e.classe==="grande"||e.classe==="apoio");
   const itens = [
     ["Cadeias lidas", D.linhas.length, ""],
-    ["Universo 2024-25", D.universo, "cadeias"],
+    ["Universo 2024-26", D.universo, "cadeias"],
     ["Fatos apurados", eq.length, ""],
     ["Falha do equipamento", fa.length, ""],
     ["Peça grande", g.length, ""],
@@ -474,24 +476,29 @@ const TOM = {};
     `<div><dt>${t}</dt><dd>${v}${s?`<small>${s}</small>`:""}</dd></div>`).join("");
 
   const naoLidas = D.fora_sem_falha;
-  const txt = `<b>O que está aqui e o que não está.</b> O universo de 2024–2025 na planilha mãe
-    é de <b>${D.universo} cadeias</b> de RL e RT. Foram lidas <b>${D.linhas.length}</b>: as
-    ${D.no_dcmd} que passaram por um posto do DCMD, mais as que nunca passaram mas são de
-    indisponibilidade ou anomalia. Ficaram de fora <b>${naoLidas}</b> cadeias que nunca tocaram
-    o DCMD e cuja pendência é ajuste de proteção, obra de equipamento novo, comissionamento ou
-    cadastro — por definição não são falha.
-    <br><br><b>Por que não tem 2026.</b> A planilha mãe é a única base com o PARECER da SS, e ela
-    fecha em <b>11/07/2025</b>. A base local de SS/OS alcança <b>20/08/2026</b> e tem 1.664 SS de
-    RL e RT em 2026 — mas <b>sem a coluna de descrição</b>, e sem parecer não há como dizer qual
-    peça deu problema. O texto de 2026 só existe para os <b>60</b> ativos que ainda estão na
-    carteira. Para 2026 entrar aqui é preciso um export novo da mesma consulta que gerou a
-    planilha mãe, estendido até hoje.`;
+  const txt = `<b>O que está aqui e o que não está.</b> O universo de 2024 a 2026 na base é de
+    <b>${D.universo} cadeias</b> de RL e RT. Foram lidas <b>${D.n_lidas}</b>: as que passaram por
+    um posto do DCMD, mais as que nunca passaram mas são de indisponibilidade ou anomalia.
+    Ficaram de fora <b>${D.fora_sem_falha}</b> cadeias que nunca tocaram o DCMD e cuja pendência
+    é ajuste de proteção, obra de equipamento novo, comissionamento ou cadastro — por definição
+    não são falha.
+    <br><br><b>Duas passadas por cima da leitura.</b> Uma verificação adversarial revisou cada
+    classificação de peça grande com a pergunta invertida — <em>a citação nomeia a peça, ou só o
+    sintoma?</em> — e <b>derrubou ${D.derrubados_n}</b>. Na primeira rodada a queda foi de 66%; depois de
+    reescrever a régua dos leitores com os anti-exemplos, caiu para 26%. O que cai agora é
+    fronteira de régua, não engano: furto de trafo auxiliar (que não conta pela peça), «a placa»
+    sem dizer qual, «base do relé» que é soquete.
+    <br><br><b>O que ainda não está corrigido aqui.</b> Uma revisão de 61 ativos achou que
+    <b>24% das cadeias de peça grande são a mesma falha contada de novo</b> — quase sempre a SS
+    que o RD abre para executar, contada à parte da cadeia que pediu o serviço. A base não liga
+    as duas (a SS do RD não é repasse, é nota nova), então o número abaixo ainda conta as duas.
+    A revisão cobriu 61 de 937 ativos; o resto está na fila.`;
   document.getElementById("aviso-escopo").innerHTML = txt;
   document.getElementById("metodo-escopo").innerHTML = `O primeiro recorte era só o que passou
-    pelo DCMD — <b>${D.no_dcmd} cadeias, 21% do universo</b>. As outras ${D.fora_dcmd} morreram
-    na TELE ou na PROT, e entre elas há falha de equipamento de verdade, resolvida sem a demanda
-    chegar ao posto. A coluna <b>Posto</b> na lista guarda a diferença, para as duas leituras
-    nunca virarem uma só por acidente.`;
+    pelo DCMD — <b>${D.no_dcmd} cadeias</b>, uma fração do universo. As outras ${D.fora_dcmd}
+    morreram na TELE ou na PROT, e entre elas há falha de equipamento de verdade, resolvida sem a
+    demanda chegar ao posto. A coluna <b>Posto</b> na lista guarda a diferença, para as duas
+    leituras nunca virarem uma só por acidente.`;
 })();
 
 /* ------------------------------------------------------------------ séries */
@@ -512,7 +519,7 @@ function serie(chave, dados){
 }
 
 /* ------------------------------------------------------------------ gráfico */
-const W=1000,H=310,ML=34,MR=8,MT=14,MB=46;
+const W=1000,H=330,ML=34,MR=8,MT=14,MB=50;
 const IW=W-ML-MR, IH=H-MT-MB, passo=IW/N, larg=Math.min(passo-6,34);
 
 function desenha(){
@@ -547,17 +554,18 @@ function desenha(){
             <title>${MESL[m-1]} de ${a} — ${g.rot}: ${v}</title></rect>`;
       acc+=v;
     });
-    if(totais[i]) s+=`<text class="vnum" x="${x+larg/2}" y="${y(acc)-5}" text-anchor="middle">${totais[i]}</text>`;
-    s+=`<text class="gx" x="${x+larg/2}" y="${MT+IH+14}" text-anchor="middle">${MES[m-1]}</text>`;
+    if(totais[i] && (N<=24 || totais[i]>=Math.max(4, pico*0.12)))
+      s+=`<text class="vnum" x="${x+larg/2}" y="${y(acc)-5}" text-anchor="middle">${totais[i]}</text>`;
+    if(m%2===1) s+=`<text class="gx" x="${x+larg/2}" y="${MT+IH+14}" text-anchor="middle">${MES[m-1]}</text>`;
   });
-  [[0,12,"2024"],[12,24,"2025"]].forEach(([a,b,rot])=>{
+  [[0,12,"2024"],[12,24,"2025"],[24,36,"2026"]].forEach(([a,b,rot])=>{
     const x1=ML+a*passo+3, x2=ML+b*passo-3;
     s+=`<line class="eixo" x1="${x1}" y1="${MT+IH+24}" x2="${x2}" y2="${MT+IH+24}"/>`;
     s+=`<text class="anolab" x="${(x1+x2)/2}" y="${MT+IH+38}" text-anchor="middle">${rot}</text>`;
   });
   const xm=(xFim+ML+N*passo)/2;
-  s+=`<text class="anolab" x="${xm}" y="${MT+IH/2-6}" text-anchor="middle" fill="${cor("--tinta-3")}">a base acaba</text>`;
-  s+=`<text class="anolab" x="${xm}" y="${MT+IH/2+10}" text-anchor="middle" fill="${cor("--tinta-3")}">em 11/07/2025</text>`;
+  s+=`<text class="anolab" x="${xm}" y="${MT+IH/2-6}" text-anchor="middle" fill="${cor("--tinta-3")}">a base</text>`;
+  s+=`<text class="anolab" x="${xm}" y="${MT+IH/2+10}" text-anchor="middle" fill="${cor("--tinta-3")}">vai até 19/08/2026</text>`;
 
   document.getElementById("g-falhas").innerHTML=s;
   document.getElementById("leg-falhas").innerHTML=gs.map(g=>

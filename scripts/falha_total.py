@@ -93,6 +93,13 @@ def monta():
         linhas.append({
             "ativo": d["ativo"], "fam": fam,
             "ano": d["abert"].year, "mes": d["abert"].month,
+            # A regra do gestor diz que o ano é o da OCORRÊNCIA, nunca o da abertura. Mas
+            # o pedido foi datar pela abertura da PRIMEIRA SS, antes de a demanda chegar
+            # ao posto. Os dois convivem: `ano` é o pedido, `ano_ocor` é a régua, e
+            # `ano_diverge` marca onde discordam — a revisão achou 4 casos, um com SS
+            # aberta em 2025 e ocorrência em 2023.
+            "ano_ocor": d["ocor"].year if d["ocor"] else d["abert"].year,
+            "ano_diverge": bool(d["ocor"] and d["ocor"].year != d["abert"].year),
             "cadeia": cad[0], "abert": str(d["abert"]), "n_ss": len(cad),
             "postos": " -> ".join(reg[s]["posto"] for s in cad),
             "pend": d["pend"],
@@ -166,6 +173,9 @@ if __name__ == "__main__":
     with open(SAIDA, "w") as f:
         json.dump(pacote, f, ensure_ascii=False, indent=1)
 
+    div = [e for e in eqs if e.get("ano_diverge")]
+    print("ano de abertura != ano de ocorrência em %d fatos (%d de peça grande)"
+          % (len(div), sum(1 for e in div if e["classe"] == "grande")))
     print("universo 2024-2026: %d cadeias · lidas %d · fatos %d"
           % (len(universo), len(linhas), len(eqs)))
     print("derrubados pela verificação: %d" % len(derrubados))
