@@ -517,7 +517,7 @@
     ],
     "data_primeira_ss": "2025-09-05",
     "executada": false,
-    "evidencia": "REALIZADO O PRIMEIRO ATAQUE E VERIFICADO QUE O RELÉ DA FASE B EM ALGUM MOMENTO FICA DESINCRONIZADO COM O MOSTRADOR SUPERIOR. FOI OBSERVADO TAMBÉM QUE A SUPERVISÃO NO SCADA NÃO CONDIZ COM A NUMERAÇÃO DO EQUIPAMENTO, DEVE-SE REALIZAR NOVAMENTE O COMISSIONAMENTO JUNTO COM O TIME SCADA.",
+    "evidencia": "REALIZADO O PRIMEIRO ATAQUE E VERIFICADO QUE O RELÉ DA FASE B EM ALGUM MOMENTO FICA DESINCRONIZADO COM O MOSTRADO SUPERIOR. FOI OBSERVADO TAMBÉM QUE A SUPERVISÃO NO SCADA NÃO CONDIZ COM A NUMERAÇÃO DO EQUIPAMENTO, DEVE-SE REALIZAR NOVAMENTE O COMISSIONAMENTO JUNTO COM O TIME SCADA.",
     "confianca": "baixa",
     "motivo": "Reclamação de tensão alta leva a achado de dessincronismo do relé da fase B e numeração divergente no SCADA; a proteção conclui pedindo novo comissionamento junto ao time SCADA, sem confirmar execução. SS fechou ATENDIDA mas sem detalhe do desfecho."
   },
