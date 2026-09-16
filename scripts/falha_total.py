@@ -92,13 +92,15 @@ def monta():
                 cat, fonte = novo, "verificacao"
         linhas.append({
             "ativo": d["ativo"], "fam": fam,
-            "ano": d["abert"].year, "mes": d["abert"].month,
-            # A regra do gestor diz que o ano é o da OCORRÊNCIA, nunca o da abertura. Mas
-            # o pedido foi datar pela abertura da PRIMEIRA SS, antes de a demanda chegar
-            # ao posto. Os dois convivem: `ano` é o pedido, `ano_ocor` é a régua, e
-            # `ano_diverge` marca onde discordam — a revisão achou 4 casos, um com SS
-            # aberta em 2025 e ocorrência em 2023.
-            "ano_ocor": d["ocor"].year if d["ocor"] else d["abert"].year,
+            # **O ano é o da OCORRÊNCIA** — régua do gestor, confirmada em 16/09: «pode
+            # datar pela ocorrência sim». A abertura fica ao lado, porque foi por ela que
+            # a cadeia entrou no recorte e é ela que diz quando a demanda chegou ao posto.
+            # Divergem em 63 fatos, 23 deles de peça grande — 10%, que bate com os 9,8%
+            # já registrados. Quando não há ocorrência, vale a abertura.
+            "ano": (d["ocor"] or d["abert"]).year,
+            "mes": (d["ocor"] or d["abert"]).month,
+            "ocor": str(d["ocor"]) if d["ocor"] else "",
+            "ano_abert": d["abert"].year, "mes_abert": d["abert"].month,
             "ano_diverge": bool(d["ocor"] and d["ocor"].year != d["abert"].year),
             "cadeia": cad[0], "abert": str(d["abert"]), "n_ss": len(cad),
             "postos": " -> ".join(reg[s]["posto"] for s in cad),
@@ -174,8 +176,11 @@ if __name__ == "__main__":
         json.dump(pacote, f, ensure_ascii=False, indent=1)
 
     div = [e for e in eqs if e.get("ano_diverge")]
-    print("ano de abertura != ano de ocorrência em %d fatos (%d de peça grande)"
+    velho = [e for e in eqs if e["ano"] not in ANOS]
+    print("datado pela OCORRÊNCIA · diverge da abertura em %d fatos (%d de peça grande)"
           % (len(div), sum(1 for e in div if e["classe"] == "grande")))
+    print("  fatos cuja ocorrência cai antes de 2024: %d (%d de peça grande) — a demanda "
+          "só foi aberta depois" % (len(velho), sum(1 for e in velho if e["classe"] == "grande")))
     print("universo 2024-2026: %d cadeias · lidas %d · fatos %d"
           % (len(universo), len(linhas), len(eqs)))
     print("derrubados pela verificação: %d" % len(derrubados))

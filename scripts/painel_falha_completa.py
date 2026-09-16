@@ -242,7 +242,7 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 <section>
   <h2><span class="ordem">01</span>A mensalização</h2>
   <p class="lede">
-    Demandas por mês de <strong>abertura da primeira SS</strong>, de janeiro de 2024 a agosto
+    Fatos por mês de <strong>ocorrência</strong>, de janeiro de 2024 a agosto
     de 2026. O eixo corre contínuo pelos três anos: é assim que se vê onde a série
     <strong>acaba</strong>, em vez de parecer que a fila cedeu. Os botões trocam o que divide
     as barras.
@@ -349,7 +349,7 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
   <div class="rolo">
     <table id="t-lista">
       <thead><tr>
-        <th>Ativo</th><th>Tipo</th><th>Praça</th><th class="num">Mês</th>
+        <th>Ativo</th><th>Tipo</th><th>Praça</th><th class="num">Ocorrência</th>
         <th>Item</th><th>Nome no parecer</th><th>Marca</th><th>Feito</th>
         <th class="num">Cadeias</th><th>Volta?</th><th>Primeira SS</th><th>Caminho no SGM</th>
       </tr></thead>
@@ -375,8 +375,10 @@ select:focus-visible,input:focus-visible{outline:2px solid var(--sinal); outline
 
   <h3>A data</h3>
   <p>
-    Cada demanda é datada pela <b>abertura da primeira SS da cadeia</b>, antes de ela chegar a
-    qualquer posto de execução. Datar pela SS do posto joga o fato meses para a frente.
+    O ano é o da <b>ocorrência</b>, não o da abertura da SS — régua do gestor. A abertura vem em
+    média 39 dias depois do fato e em cerca de 10% dos casos cai em outro ano: aqui divergem em
+    63 fatos, 23 deles de peça grande. A coluna <b>Aberta em</b> na lista guarda a outra data,
+    porque é ela que diz quando a demanda chegou ao posto.
   </p>
 
   <h3>O escopo — e por que ele mudou</h3>
@@ -681,7 +683,8 @@ function pinta(){
       <td class="cod">${e.ativo}</td>
       <td><span class="tipo ${e.fam}">${e.fam}</span></td>
       <td>${e.loc}</td>
-      <td class="num">${MES[e.mes-1]}/${String(e.ano).slice(2)}</td>
+      <td class="num">${MES[e.mes-1]}/${String(e.ano).slice(2)}${
+          e.ano_diverge?`<br><span class="marca-dcmd">SS: ${MES[e.mes_abert-1]}/${String(e.ano_abert).slice(2)}</span>`:""}</td>
       <td><span class="pill ${e.classe}">${ROT[e.categoria]}</span></td>
       <td style="font-size:13px; color:var(--tinta-2)">${e.item||"—"}</td>
       <td class="cod">${e.marca_bruta||e.marca}</td>
