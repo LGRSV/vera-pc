@@ -7112,7 +7112,6 @@
  },
  {
   "ativo": "7949587113",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 01211/2025",
@@ -7121,8 +7120,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Concordo com a verificação anterior: relé foi retirado de propósito para reforçar outro ponto (RDU Couto), não é defeito deste ativo.",
-    "confianca": "media",
+    "porque": "Relé do 7949587113 foi retirado de propósito em 22/05/2025 para reforçar o DJ 214R da RDU de Couto; a SS só pede a reinstalação, não há defeito no próprio ativo. Vigente 'sem defeito' já corrigido da leitura 'controle' e confirmado por verificação anterior (mantém=False sobre 'controle') — mantenho.",
+    "confianca": "alta",
     "categoria_anterior": "sem defeito",
     "fonte_anterior": "n26"
    },
@@ -7132,8 +7131,9 @@
     "categoria_final": "sem defeito",
     "duplicata_de": "ETO-TELE 01211/2025",
     "aberta_por_engano": false,
-    "porque": "A leitura anterior já apontava 'provável duplicidade da cadeia anterior' no motivo — formalizo com duplicata_de: mesmo relé retirado para o mesmo DJ 214R RDU de Couto, 2 dias depois.",
-    "confianca": "media",
+    "executada": false,
+    "porque": "Duplicata: mesmo evento físico da 01211/2025 (relé retirado do 7949587113 e instalado no DJ 214R da RDU de Couto, SID 2730/25), texto repete a mesma informação 2 dias depois. A 01211/2025 tem a reinstalação atendida; esta foi cancelada sem execução própria. Também cita furto de trafo auxiliar já resolvido, que não conta pela régua (apoio, e furto de trafo auxiliar não conta).",
+    "confianca": "alta",
     "categoria_anterior": "sem defeito",
     "fonte_anterior": "n26"
    }
@@ -7141,11 +7141,10 @@
   "tier": "A",
   "_chave": "7949587113",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:54:46"
+  "_em": "2026-09-16T02:01:17"
  },
  {
   "ativo": "7949644098",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 00096/2024",
@@ -7154,8 +7153,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Aviso conjunto de vários religadores intermitentes, sem peça causadora indicada.",
-    "confianca": "baixa",
+    "porque": "Aviso conjunto de 4 religadores 'intermitente', sem nomear peça neste ativo — sintoma sem peça é 'nao identificado'.",
+    "confianca": "media",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
    },
@@ -7166,8 +7165,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "'Fica sempre intermitente' — sem peça causadora indicada.",
-    "confianca": "baixa",
+    "porque": "Mesmo padrão: 'fica sempre intermitente', sem apontar peça causadora. Não é duplicata da 00096/2024 — 85 dias de distância, ocorrência distinta de um problema recorrente ainda não resolvido, não o mesmo evento físico.",
+    "confianca": "media",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
    },
@@ -7178,29 +7177,31 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Placa fonte do relé danificada, sem peças de reposição para o modelo tavrida, levando à troca do conjunto completo; 'FOI EXECUTADO SUBSTITUÍDO O RELIG. COMPLETO EM CAMPO DIA 17/03/2025' confirma com data.",
+    "porque": "Parecer DMSL nomeia placa fonte do relé danificada e pede substituição do conjunto controle+parte ativa por falta de peça de reposição do modelo tavrida; texto confirma execução: 'FOI EXECUTADO SUBSTITUÍDO O RELIG.-7949644098 COMPLETO EM CAMPO DIA 17/03/2025'. Cadeia mãe do grupo (com 00281 e 00328/2025 como apoio).",
     "confianca": "alta",
     "categoria_anterior": "completo",
     "fonte_anterior": "mae"
    },
    {
     "cadeia": "ETO-RD-AG 00281/2025",
-    "mantem": false,
-    "categoria_final": "completo",
-    "duplicata_de": "ETO-TELE 00125/2025",
+    "mantem": true,
+    "categoria_final": "cabo",
+    "duplicata_de": null,
     "aberta_por_engano": false,
-    "porque": "'Desconectar jumpers de entrada e saída' em 06/03/2025, antes da troca confirmada em 17/03/2025 na ETO-TELE 00125/2025 — é a manobra de abertura da mesma troca, já reconhecida como apoio a ela no motivo anterior; formalizo com duplicata_de.",
+    "executada": false,
+    "porque": "Linha viva desconectando os 6 jumpers do religador para permitir a troca do conjunto tratada na 00125/2025 — apoio (cabo/jumper), não é peça grande por si; não é duplicata da 00125, é etapa distinta (desenergização) do mesmo serviço.",
     "confianca": "alta",
     "categoria_anterior": "cabo",
     "fonte_anterior": "mae"
    },
    {
     "cadeia": "ETO-RD-AG 00328/2025",
-    "mantem": false,
-    "categoria_final": "completo",
-    "duplicata_de": "ETO-TELE 00125/2025",
+    "mantem": true,
+    "categoria_final": "cabo",
+    "duplicata_de": null,
     "aberta_por_engano": false,
-    "porque": "'Fechar jumpers de entrada e saída' em 18/03/2025, um dia após a troca confirmada (17/03/2025) na ETO-TELE 00125/2025 e antes do comissionamento formal (20-21/03) — é a manobra de fechamento da mesma troca.",
+    "executada": false,
+    "porque": "Linha viva reconectando os 6 jumpers após a troca já registrada na 00125/2025 — apoio (cabo/jumper), etapa distinta (reenergização), não duplicata.",
     "confianca": "alta",
     "categoria_anterior": "cabo",
     "fonte_anterior": "mae"
@@ -7212,7 +7213,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Concordo com a verificação anterior: disjuntor em curto não é peça de controle.",
+    "porque": "'Disjuntor não aceitou, curto circuito' — disjuntor não é peça de controle nem de tanque pela régua; já corrigido de 'controle' para 'nao identificado', confirmado por verificação anterior. Mantenho.",
     "confianca": "media",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
@@ -7221,11 +7222,10 @@
   "tier": "A",
   "_chave": "7949644098",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:54:46"
+  "_em": "2026-09-16T02:01:17"
  },
  {
   "ativo": "7949647081",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 00351/2024",
@@ -7234,7 +7234,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Sem comunicação, impossibilita transferência remota.",
+    "porque": "Sem comunicação, impossibilita transferência remota — telecom.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -7246,7 +7246,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Primeiro ataque, não retornou comunicação.",
+    "porque": "Primeiro ataque sem retorno de comunicação — telecom. Evento distinto do de maio (3 meses de distância), não duplicata.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -7258,7 +7258,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Sem comunicação, primeiro ataque sem sucesso.",
+    "porque": "Sem comunicação, primeiro ataque sem sucesso — telecom, evento novo (8 meses após o de 2024).",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -7270,7 +7270,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Pedido direto de substituição do religador completo, atendida no mesmo dia.",
+    "porque": "Pedido direto de substituição do religador completo, já confirmado por verificação anterior. Nota: mesmo texto padrão e mesma data (10/06/2025) aparecem também em 7949648145 e 7949649145, possível campanha no alimentador AL01043081 — mas o TIPOSS é EM OPERAÇÃO COM ANOMALIA (não obra nova/comissionamento), então mantenho como falha.",
     "confianca": "alta",
     "categoria_anterior": "completo",
     "fonte_anterior": "fora"
@@ -7282,7 +7282,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Substituir 6 para-raios queimados nas 3 fases — fora da taxa.",
+    "porque": "Substituição de 6 para-raios queimados em 3 fases — apoio, fora da taxa. SS cancelada mas com defeito real descrito, não é engano (fila abandonada, executada=false mantido).",
     "confianca": "alta",
     "categoria_anterior": "para-raio",
     "fonte_anterior": "mae"
@@ -7291,11 +7291,10 @@
   "tier": "A",
   "_chave": "7949647081",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:54:46"
+  "_em": "2026-09-16T02:01:17"
  },
  {
   "ativo": "7949648145",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-PROT 00506/2024",
@@ -7304,7 +7303,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "RL não religou porque quem abriu foi outro religador a jusante (código citado é de coordenação, não texto de terceiro colado por engano); pede coleta de base de ajustes do relé — ajuste de proteção.",
+    "porque": "Trata da coordenação de proteção do próprio 7949648145 (não abriu diante de defeito a jusante quando deveria; quem abriu foi o 7930877081); pede coleta de base de ajustes e logs — é análise/ajuste de proteção do ativo do bloco, não texto de terceiro colado por engano, e não é peça grande.",
     "confianca": "alta",
     "categoria_anterior": "ajuste de protecao",
     "fonte_anterior": "fora"
@@ -7316,7 +7315,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Pedido direto de substituição do religador completo, atendida no mesmo dia.",
+    "porque": "Pedido direto de substituição do religador completo, já confirmado por verificação anterior. Mesmo padrão de data/texto de 7949647081 e 7949649145 (10/06/2025) — TIPOSS é EM OPERAÇÃO COM ANOMALIA, mantenho como falha.",
     "confianca": "alta",
     "categoria_anterior": "completo",
     "fonte_anterior": "fora"
@@ -7328,7 +7327,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Perde a comunicação quando falta CA — padrão telecom.",
+    "porque": "Perde comunicação quando falta CA — padrão telecom.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "n26"
@@ -7337,11 +7336,10 @@
   "tier": "A",
   "_chave": "7949648145",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:54:46"
+  "_em": "2026-09-16T02:01:17"
  },
  {
   "ativo": "7949649145",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-PROT 00507/2024",
@@ -7350,7 +7348,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Desarme por desbalanceamento de corrente motivou revisão dos ajustes do relé.",
+    "porque": "Desarme por desbalanceamento de corrente motivou revisão dos ajustes do relé de proteção; código '7549649145' citado no texto é erro de digitação do próprio ativo (mesmos 8 dígitos finais, 2 primeiros trocados), não é texto de terceiro. Não é peça grande.",
     "confianca": "alta",
     "categoria_anterior": "ajuste de protecao",
     "fonte_anterior": "fora"
@@ -7362,7 +7360,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Pedido direto de substituição do religador completo, atendida no mesmo dia.",
+    "porque": "Pedido direto de substituição do religador completo, já confirmado por verificação anterior. Mesmo padrão de data/texto de 7949647081 e 7949648145 (10/06/2025).",
     "confianca": "alta",
     "categoria_anterior": "completo",
     "fonte_anterior": "fora"
@@ -7374,8 +7372,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Pedido direto de substituição de bateria, mesmo dia da troca do religador completo — item distinto, tratado junto.",
-    "confianca": "alta",
+    "porque": "Pedido direto de substituição de bateria — apoio, fora da taxa. Aberta e atendida no mesmo dia (10/06/2025) que a 00631/2025 (religador completo) do mesmo ativo; não há texto cruzado ligando as duas ao mesmo item, então mantenho como demanda distinta (bateria não conta na taxa de qualquer forma, não altera a contagem de falha).",
+    "confianca": "media",
     "categoria_anterior": "bateria",
     "fonte_anterior": "fora"
    }
@@ -7383,11 +7381,10 @@
   "tier": "A",
   "_chave": "7949649145",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:54:46"
+  "_em": "2026-09-16T02:01:17"
  },
  {
   "ativo": "7949660066",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 00317/2025",
@@ -7396,8 +7393,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Concordo com a verificação anterior: sensor de corrente não nomeia tanque/parte ativa, mas o texto pede explicitamente 'substituir o equipamento' — completo, não tanque. As 2 SS foram canceladas com defeito real confirmado pelo suporte Tavrida — fila abandonada, não engano.",
-    "confianca": "media",
+    "porque": "Equipamento Tavrida não mede corretamente corrente das fases B/C (sensor interno); suporte técnico não resolveu; parecer pede explicitamente 'substituir o equipamento' — completo, não tanque isolado. Vigente já corrigido de 'tanque' para 'completo' e confirmado por verificação anterior. Cancelamento em bloco (2 SS) mas com defeito real descrito — não é engano, é fila abandonada (equipamento ficou em operação por decisão do operador); mantenho executada=false.",
+    "confianca": "alta",
     "categoria_anterior": "completo",
     "fonte_anterior": "fora"
    },
@@ -7408,7 +7405,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Perde a comunicação quando falta CA/tensão na LD — padrão telecom.",
+    "porque": "Perde comunicação quando falta CA/tensão na LD — padrão telecom.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "n26"
@@ -7417,11 +7414,10 @@
   "tier": "A",
   "_chave": "7949660066",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:54:46"
+  "_em": "2026-09-16T02:01:48"
  },
  {
   "ativo": "7950078122",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 00027/2025",
@@ -7430,8 +7426,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Concordo com a verificação anterior: defeito na parte ativa fase C com necessidade explícita de substituição. O DPS em curto foi só isolado/reconectado (item separado, resolvido); a troca da parte ativa segue pendente, SS cancelada sem confirmação.",
-    "confianca": "media",
+    "porque": "Parecer DMSL nomeia defeito na parte ativa fase C com necessidade explícita de substituição — tanque/parte ativa, já confirmado por verificação anterior. DPS em curto foi só isolado (apoio, não muda o rótulo). SS cancelada sem confirmação de troca da parte ativa — executada=false mantido.",
+    "confianca": "alta",
     "categoria_anterior": "tanque",
     "fonte_anterior": "fora"
    }
@@ -7439,11 +7435,10 @@
   "tier": "A",
   "_chave": "7950078122",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:55:40"
+  "_em": "2026-09-16T02:01:48"
  },
  {
   "ativo": "7950387026",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-PROT 00112/2023",
@@ -7452,7 +7447,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Interferência eletromagnética do transformador durante comissionamento; pede instalar poste para reposicionar antena e concluir o comissionamento — fora da régua de falha.",
+    "porque": "Cadeia inteira (5 SS) trata do comissionamento do religador novo: interferência eletromagnética do transformador exige poste novo para a antena finalizar a comunicação — comissionamento/obra nova, fora da régua de falha. Sem texto confirmando a instalação do poste, mantenho executada=false.",
     "confianca": "alta",
     "categoria_anterior": "comissionamento",
     "fonte_anterior": "mae"
@@ -7464,7 +7459,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "'Sanar pendência de comunicação e colocar equipamento em operação' — sem peça nomeada; pode estar ligado ao mesmo episódio de antena/comissionamento da cadeia 1 (ocorrência cai dentro da janela dela), mas sem citação cruzada explícita para tratar como duplicata.",
+    "porque": "'Sanar pendência de comunicação e colocar equipamento em operação' — telecom, sem peça nomeada.",
     "confianca": "baixa",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -7476,7 +7471,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Substituir 2 cruzetas queimadas e cabos de conexão da estrutura — cruzeta é 'poste' pela régua, não peça do religador.",
+    "porque": "Troca de 2 cruzetas queimadas na estrutura e cabos de conexão — fato de terceiro (estrutura/poste), não é peça grande do religador. Evento distinto do comissionamento de 2023/2024 (mais de 8 meses depois, causa diferente).",
     "confianca": "alta",
     "categoria_anterior": "poste",
     "fonte_anterior": "mae"
@@ -7488,7 +7483,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Concordo com a verificação anterior: curto-circuito no painel é defeito concreto de controle, equipamento ficou by-passado por causa disso.",
+    "porque": "Curto-circuito no painel de controle, equipamento ficou by-passado — controle, já confirmado por verificação anterior.",
     "confianca": "media",
     "categoria_anterior": "controle",
     "fonte_anterior": "fora"
@@ -7497,11 +7492,10 @@
   "tier": "A",
   "_chave": "7950387026",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:55:40"
+  "_em": "2026-09-16T02:01:48"
  },
  {
   "ativo": "7950870127",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 00131/2024",
@@ -7510,7 +7504,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Aviso conjunto para 4 religadores perdendo comunicação ao faltar CA — sem diagnóstico individual deste ativo.",
+    "porque": "Aviso conjunto para 4 religadores diferentes (7925854127, 7925860127, 7930566127, 7950870127) sobre perda de comunicação quando falta CA — telecom, sem diagnóstico individual. Mesma data de abertura E de conclusão da 00132/2024 (12/02 a 05/03/2024), mas texto e natureza são diferentes (aviso genérico de 4 ativos x achado específico de relé em curto neste ativo) e não há citação cruzada entre as duas — mantenho como demanda distinta, não duplicata; de qualquer forma telecom não conta na taxa.",
     "confianca": "baixa",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -7522,7 +7516,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Concordo com a verificação anterior: relé em curto é controle; disjuntor é achado paralelo que não anula isso. Mesmo dia da ETO-TELE 00131/2024 (aviso em lote sobre outro sintoma, perda de CA), mas descreve item concreto distinto — mantenho separadas.",
+    "porque": "Relé do religador em curto, confirmado por equipe de campo — controle, já validado por verificação anterior (disjuntor citado a mais não anula o achado do relé).",
     "confianca": "alta",
     "categoria_anterior": "controle",
     "fonte_anterior": "fora"
@@ -7531,11 +7525,10 @@
   "tier": "A",
   "_chave": "7950870127",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:55:40"
+  "_em": "2026-09-16T02:01:48"
  },
  {
   "ativo": "7951449253",
-  "familia": "religador",
   "demandas": [
    {
     "cadeia": "ETO-TELE 00188/2024",
@@ -7544,7 +7537,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Concordo com a verificação anterior: controlador em curto é defeito concreto de controle; DPS em curto é achado adicional (isolado, não substituído) que não anula isso.",
+    "porque": "Controlador em curto, identificado durante atendimento de falha de comunicação; DPS em curto foi isolado mas 'persiste o defeito' e o religador segue by-passado — controle confirmado, mas sem confirmação de substituição (SS atendida não é prova de conserto quando o texto diz que o defeito persiste); executada=false mantido, já confirmado por verificação anterior.",
     "confianca": "alta",
     "categoria_anterior": "controle",
     "fonte_anterior": "fora"
@@ -7556,7 +7549,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Pedido de priorização sem descrever qual item falhou.",
+    "porque": "'Verificação de falha', primeiro ataque sem sucesso, sem apontar item — nao identificado. 7 meses depois do controlador em curto de março; pode ser o mesmo defeito nunca resolvido, mas o texto não nomeia peça nem faz referência cruzada à SS anterior, então não assumo duplicata (e de qualquer forma, pela régua, o mesmo equipamento só contaria uma falha em 2024, já coberta pela 00188/2024).",
     "confianca": "baixa",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
@@ -7565,7 +7558,7 @@
   "tier": "A",
   "_chave": "7951449253",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:55:40"
+  "_em": "2026-09-16T02:01:48"
  },
  {
   "ativo": "7952534136",
@@ -10074,6 +10067,1125 @@
   "_chave": "7901195014",
   "_etapa": "revisao",
   "_em": "2026-09-16T01:55:18"
+ },
+ {
+  "ativo": "7902097003",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00024/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Intermitência de comunicação na RDU de Gurupi persiste após primeiro ataque; SS cancelada sem correção confirmada.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00070/2024",
+    "mantem": true,
+    "categoria_final": "obra nova",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Instalação de novo mestre de rádio 4RF e reapontamento dos religadores da RDU — instalação de infraestrutura nova, não peça grande; atendida no mesmo dia.",
+    "confianca": "alta",
+    "categoria_anterior": "obra nova",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7902097003",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:02"
+ },
+ {
+  "ativo": "7902218004",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00062/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Comunicação não retornou após primeiro ataque, sem confirmação de reparo apesar do fechamento em 3 semanas.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00123/2024",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "A verificação anterior tirou 'controle' corretamente, mas 'Módulo SIM' é peça de comunicação celular (equivalente a placa 3G da régua), não peça genérica de controle nem sintoma indefinido — telecom é mais preciso que nao identificado, mesmo com o diagnóstico hedged ('aparentemente').",
+    "confianca": "media",
+    "categoria_anterior": "nao identificado",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00558/2024",
+    "mantem": true,
+    "categoria_final": "melhoria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Pedido simples de atualização de firmware — melhoria, não troca de peça por defeito.",
+    "confianca": "alta",
+    "categoria_anterior": "melhoria",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7902218004",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:02"
+ },
+ {
+  "ativo": "7902736014",
+  "demandas": [
+   {
+    "cadeia": "ENC-RD-PS 00033/2024",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Troca de 5 para-raios do religador e 1 do trafo auxiliar por linha viva — item de apoio; SS atendida em 3 dias.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00658/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha de comunicação, primeiro ataque com DEOP sem sucesso.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ENC-RD-PS 00881/2024",
+    "mantem": true,
+    "categoria_final": "sem defeito",
+    "duplicata_de": null,
+    "aberta_por_engano": true,
+    "executada": false,
+    "porque": "Texto diz explicitamente 'OS gerada em duplicidade' nas duas SS da cadeia — aberta por engano administrativo, sem defeito de equipamento.",
+    "confianca": "alta",
+    "categoria_anterior": "sem defeito",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00927/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Sem comunicação há bastante tempo, religador by-passado, pedido de priorização — crônico sem confirmação de reparo.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01428/2025",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Sem veredito anterior. Texto é investigação extensa (disjuntor não aceita, DPS testado e não aceitou, painel e lataria normais) que termina explicitamente 'equipe não conseguiu localizar o defeito' — nenhuma peça confirmada, mais amplo que telecom puro.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7902736014",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:02"
+ },
+ {
+  "ativo": "7903112004",
+  "demandas": [
+   {
+    "cadeia": "ETO-RD-AR 00259/2024",
+    "mantem": true,
+    "categoria_final": "sem defeito",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Pedido é só identificação/placa do equipamento, não defeito de peça.",
+    "confianca": "alta",
+    "categoria_anterior": "sem defeito",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00451/2024",
+    "mantem": true,
+    "categoria_final": "sem defeito",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Abelhas na placa do relé causando intermitência é infestação/limpeza, não troca de peça — confirma a verificação anterior que corrigiu de controle para sem defeito.",
+    "confianca": "alta",
+    "categoria_anterior": "sem defeito",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01072/2025",
+    "mantem": true,
+    "categoria_final": "nao identificado",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Anomalia de comando (fechou sozinho sem ordem) sem peça nomeada; SS cancelada sem diagnóstico confirmado.",
+    "confianca": "media",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   },
+   {
+    "cadeia": "ETO-TELE 01083/2025",
+    "mantem": true,
+    "categoria_final": "completo",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Teste em campo constatou COOPER FORM6 obsoleto sem peça sobressalente, pede substituição completa; equipamento selecionado para compra, ainda pendente.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7903112004",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:25"
+ },
+ {
+  "ativo": "7905359122",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 01031/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "SS em lote para reabilitar comunicação SCADA de vários religadores; este está com comunicação intermitente.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01133/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Comunicação segue intermitente após primeiro ataque.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01158/2024",
+    "mantem": true,
+    "categoria_final": "nao identificado",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Texto de terceiro: o parecer cita o código 7909593122, nunca o próprio 7905359122 — não dá para atribuir o defeito a este ativo.",
+    "confianca": "alta",
+    "categoria_anterior": "nao identificado",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7905359122",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:25"
+ },
+ {
+  "ativo": "7905362122",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 01173/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Regularização de intermitência na comunicação com o SCADA.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-PROT 00511/2024",
+    "mantem": false,
+    "categoria_final": "sem defeito",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "O parecer mais recente (mais de um ano depois) diz que não será feita intervenção porque o religador está atuando normalmente desde a ocorrência — não houve ajuste executado, só constatação de operação normal; 'ajuste de proteção' não se sustenta sem ajuste feito.",
+    "confianca": "media",
+    "categoria_anterior": "ajuste de protecao",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00023/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha de comunicação, primeiro ataque não restabeleceu; SS cancelada.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01302/2025",
+    "mantem": true,
+    "categoria_final": "controle",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Equipe identificou a fonte queimada — fonte é sinônimo de controle na régua; SS atendida em 5 dias.",
+    "confianca": "media",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7905362122",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:25"
+ },
+ {
+  "ativo": "7907467059",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00260/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Pedido explícito de troca de bateria por perda de comunicação na falta de CA.",
+    "confianca": "alta",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00291/2025",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Lista em lote de religadores com sinalização de bateria para substituição, incluindo este ativo.",
+    "confianca": "alta",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00452/2025",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Anomalia de bateria que causa perda de automação quando falta tensão.",
+    "confianca": "alta",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00839/2025",
+    "mantem": true,
+    "categoria_final": "nao identificado",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Primeiro ataque sem sucesso, sem peça nomeada.",
+    "confianca": "media",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7907467059",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:25"
+ },
+ {
+  "ativo": "7908209074",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00185/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha de automação, primeiro ataque sem êxito; SS cancelada.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00830/2023",
+    "mantem": true,
+    "categoria_final": "sem defeito",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Pedido antigo era substituir tanque e controle, mas o parecer mais recente diz que a equipe foi ao local e o equipamento já estava em operação normal (Mapa TS) — o código '7908206074' num parecer intermediário é erro de digitação dentro da mesma cadeia/repasse, não texto de terceiro.",
+    "confianca": "alta",
+    "categoria_anterior": "sem defeito",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00607/2024",
+    "mantem": true,
+    "categoria_final": "ajuste de protecao",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Pedido explícito de alteração de ajustes de proteção conforme estudo, não é defeito de peça.",
+    "confianca": "alta",
+    "categoria_anterior": "ajuste de protecao",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7908209074",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:58:25"
+ },
+ {
+  "ativo": "7908300096",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00280/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Sinalização de falha de bateria com pedido de substituição; SS atendida (fechamento tardio, quase 1 ano).",
+    "confianca": "alta",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00711/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Combina ajuste de proteção com anomalia de bateria atuada; a bateria é o item corretivo.",
+    "confianca": "alta",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00954/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Rádio constatado danificado pela equipe de campo — item de comunicação.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "DG-RD-PO 00685/2024",
+    "mantem": true,
+    "categoria_final": "poda",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Poda de árvore (pé de manga) na estrutura após o religador — fato de terceiro; SS de linha viva atendida em 4 dias.",
+    "confianca": "alta",
+    "categoria_anterior": "poda",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 01196/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "SS em lote de falha de comunicação/automação para dez religadores, incluindo este; atendida em 8 dias.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7908300096",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7908308006",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00223/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Religador (e o vizinho 7908309006) sem comunicação; nem foi possível enviar equipe por contingência regional.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00256/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha ocorreu com falta de CA, provável (hedged, não confirmado) falha na bateria; SS cancelada.",
+    "confianca": "media",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7908308006",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7908689014",
+  "demandas": [
+   {
+    "cadeia": "ENC-RD-PS 01492/2024",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Troca de para-raios deste religador incluída na mesma visita de linha viva de outro ativo (7902701014) — item de apoio; atendida em 2 dias.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00033/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Religador sem comunicação; SS atendida em 1 mês.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01081/2025",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Sem veredito anterior. 'Ponto de transferência de linha com intermitência' não especifica se é comunicação ou outra causa, sem peça nomeada; só pede verificação.",
+    "confianca": "media",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7908689014",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7908706027",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00571/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha de automação/enlace SCADA pendente de instalação de poste para nova master; nada executado conforme texto.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-RD-DP 00541/2024",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Troca de para-raios de linha e do trafo auxiliar (fase A queimado) por linha viva — item de apoio; SS atendida no dia seguinte.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00676/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Sinalização de falha de bateria com substituição tratada; SS atendida em 4 dias.",
+    "confianca": "media",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7908706027",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7908710028",
+  "demandas": [
+   {
+    "cadeia": "ETO-RD-DP 00885/2024",
+    "mantem": true,
+    "categoria_final": "sem defeito",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Texto só descreve manobra de jumper para 'substituição de religador', sem nomear defeito (controle/tanque/completo) nem parecer confirmando o que se fez; SS cancelada 2 dias depois sem cadeia irmã que confirme o serviço — não sustenta peça grande com segurança.",
+    "confianca": "baixa",
+    "categoria_anterior": "sem defeito",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-PROT 00486/2024",
+    "mantem": true,
+    "categoria_final": "ajuste de protecao",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Novo estudo de proteção com 4 grupos, ajuste colocado em operação em 03/12 para eliminar desarmes por alarme indevido — ajuste de parametrização, não peça grande.",
+    "confianca": "alta",
+    "categoria_anterior": "ajuste de protecao",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7908710028",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7909579077",
+  "demandas": [
+   {
+    "cadeia": "ETO-RD-AR 00504/2025",
+    "mantem": true,
+    "categoria_final": "poste",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Substituição de postes inclinados, cruzetas e isoladores em duas estruturas — fato de terceiro; SS atendida em 2 meses, trabalho estrutural concreto.",
+    "confianca": "alta",
+    "categoria_anterior": "poste",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-RD-AR 00505/2025",
+    "mantem": false,
+    "categoria_final": "poste",
+    "duplicata_de": "ETO-RD-AR 00504/2025",
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Texto idêntico à cadeia ETO-RD-AR 00504/2025 (mesmo dia, mesmas estruturas N1 ID69187994 e N1/U3 ID46636588, mesmas datas de abertura e conclusão) — mesma nota duplicada em dois números de SS.",
+    "confianca": "alta",
+    "categoria_anterior": "poste",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-RD-AR 01813/2025",
+    "mantem": false,
+    "categoria_final": "poste",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Sem veredito anterior. Poste quebrado logo após o religador, estrutura N-1 — fato de terceiro, distinto (estrutura e data diferentes) dos postes de março; SS de linha viva atendida em 3 dias.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7909579077",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7910016021",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00668/2024",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "duplicata_de": "ETO-TELE 00667/2024",
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Mesma ocorrência (19/08/2024, mesma data desta cadeia e da 'ocorrência' registrada na cadeia ETO-TELE 00667/2024) de intermitência crônica de comunicação — esta é o registro inicial, cancelado no mesmo dia, enquanto a outra cadeia (aberta 18 dias depois, citando a mesma data) traz a investigação técnica detalhada (antena, testes de pacote, SCADA).",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00667/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Investigação técnica detalhada (antena rebaixada, testes de pacote, SCADA identificado como causa) sem solução nesta cadeia — redirecionada para chamado via PRATICA, fora do fluxo desta SS.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7910016021",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7910269094",
+  "demandas": [
+   {
+    "cadeia": "ETO-RD-GU 01046/2024",
+    "mantem": true,
+    "categoria_final": "cabo",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Jumper rompido fase A, reparo de linha viva — item de apoio; atendida em 2 dias.",
+    "confianca": "alta",
+    "categoria_anterior": "cabo",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00771/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Não voltou a comunicar no SCADA após primeiro ataque; pede manutenção, sem confirmação de execução no texto.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00449/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha de comunicação, primeiro ataque sem sucesso, sem reparo descrito.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7910269094",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:59:55"
+ },
+ {
+  "ativo": "7910410013",
+  "demandas": [
+   {
+    "cadeia": "ETO-COEP 00048/2024",
+    "mantem": false,
+    "categoria_final": "tanque",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Sem veredito anterior. Cadeia longa (13 SS) inteiramente sobre o tanque: pedido original explícito 'substituir o tanque do RLG... o controle se encontra em BOM ESTADO' (controle nunca é apontado com defeito, em nenhuma das 3 rodadas). Três diagnósticos DMSL sucessivos ('o tanque está com defeito, favor realizar substituição' / 'realizar novamente a substituição') e confirmação textual explícita: 'EQUIPAMENTO JÁ SUBSTITUÍDO PELA 3ª VEZ'. A troca de marca (Schneider para Noja RC10) é o tanque de reposição vindo de outro fabricante, não indício de troca de controle. Ocorrência calculada em 27/10/2023 (reincide com ETO-TELE 00734/2023).",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   },
+   {
+    "cadeia": "ETO-RD-PA 00483/2024",
+    "mantem": true,
+    "categoria_final": "fusivel",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Chave do transformador sem cartucho e elo fusível — item de apoio; SS atendida em 15 dias, pendência simples de sanar.",
+    "confianca": "alta",
+    "categoria_anterior": "fusivel",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-RD-PO 00046/2025",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Troca de quatro para-raios e jumper — item de apoio; SS cancelada no mesmo dia apesar da urgência, sem confirmação de execução.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00437/2025",
+    "mantem": true,
+    "categoria_final": "comissionamento",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Base nova do NOJA instalada, aguardando comissionamento — provavelmente o fecho tardio da 3ª substituição confirmada na cadeia ETO-COEP 00048/2024 (concluída em fevereiro), não uma falha nova; de qualquer forma comissionamento não conta pela régua.",
+    "confianca": "media",
+    "categoria_anterior": "comissionamento",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00762/2025",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Pedido direto de substituição de bateria, atendida no mesmo dia.",
+    "confianca": "media",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7910410013",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
+ },
+ {
+  "ativo": "7910504007",
+  "demandas": [
+   {
+    "cadeia": "ENC-RD-PS 00941/2024",
+    "mantem": true,
+    "categoria_final": "poste",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Substituição de poste deteriorado — fato de terceiro; atendida em 2 dias.",
+    "confianca": "alta",
+    "categoria_anterior": "poste",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ENC-RD-PS 01114/2024",
+    "mantem": true,
+    "categoria_final": "poste",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Substituição de poste quebrado; cancelada em bloco 9 meses depois sem confirmação — fila abandonada, defeito real descrito.",
+    "confianca": "alta",
+    "categoria_anterior": "poste",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ENC-RD-PS 00432/2025",
+    "mantem": true,
+    "categoria_final": "poste",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Poste abalroado próximo ao ativo — fato de terceiro; atendida no mesmo dia.",
+    "confianca": "alta",
+    "categoria_anterior": "poste",
+    "fonte_anterior": "mae"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7910504007",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
+ },
+ {
+  "ativo": "7911120026",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00278/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Nota genérica de falha de bateria com substituição condicional ('se possível'), sem confirmação explícita de execução.",
+    "confianca": "media",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00999/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Pedido específico e direto de substituição de bateria deste ativo; SS atendida em 6 dias.",
+    "confianca": "alta",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01180/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Nota compartilhada entre 4 equipamentos com o mesmo padrão de perda de automação após falta de CA (bateria de backup); sem confirmação específica.",
+    "confianca": "media",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-PROT 00514/2024",
+    "mantem": true,
+    "categoria_final": "ajuste de protecao",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "O parecer da proteção confirma explicitamente: 'revisado os ajustes de proteção e realizado testes funcionais com corrente com o time do DMSL' — ação executada, não apenas pedida.",
+    "confianca": "alta",
+    "categoria_anterior": "ajuste de protecao",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01190/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Nota compartilhada entre dez equipamentos sobre falha de comunicação/automação; sem detalhe específico deste ativo nem confirmação de reparo.",
+    "confianca": "baixa",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 01377/2025",
+    "mantem": false,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Sem veredito anterior. Mesmo padrão da cadeia ETO-TELE 01180/2024 (perde automação quando falta CA, em lote com outros religadores) — sintoma de bateria/backup, não telecom puro; sem confirmação específica.",
+    "confianca": "media",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7911120026",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
+ },
+ {
+  "ativo": "7913346060",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00049/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Comunicação muito intermitente via ramal Embratel; pedido de verificação, sem confirmação de correção apesar do fechamento no mesmo dia.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00050/2024",
+    "mantem": true,
+    "categoria_final": "bateria",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Instrução de instalar bateria de lítio (com atualização de firmware à parte); SS atendida no mesmo dia. Tarefa distinta da cadeia de comunicação Embratel aberta no mesmo dia, sem texto compartilhado.",
+    "confianca": "media",
+    "categoria_anterior": "bateria",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7913346060",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
+ },
+ {
+  "ativo": "7913348136",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00782/2024",
+    "mantem": true,
+    "categoria_final": "ajuste de protecao",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Verificação anterior já corrigiu de controle para ajuste de proteção: painel apagado e bypass são sintomas, o pedido concreto é só verificar ajustes/relés de proteção e mecanismo, sem confirmação de troca de peça.",
+    "confianca": "baixa",
+    "categoria_anterior": "ajuste de protecao",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-RD-AR 01835/2024",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Troca de para-raio numa estrutura ANTES do religador (objeto do fato é a estrutura vizinha, não o próprio ativo) — de qualquer forma item de apoio; SS cancelada 9 meses depois sem confirmação.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-TELE 00439/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Sem comunicação, primeiro ataque sem sucesso, sem reparo adicional descrito.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7913348136",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
+ },
+ {
+  "ativo": "7913666038",
+  "demandas": [
+   {
+    "cadeia": "ETO-RD-DP 00540/2024",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Substituição de para-raios de proteção fase C por linha viva — item de apoio; SS atendida em 2,5 meses.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-RD-DP 00910/2024",
+    "mantem": true,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Substituição de 5 para-raios queimados (religador e trafo auxiliar) — nenhum é peça grande; cancelada em bloco 6 meses depois sem confirmação.",
+    "confianca": "alta",
+    "categoria_anterior": "para-raio",
+    "fonte_anterior": "mae"
+   },
+   {
+    "cadeia": "ETO-RD-DP 00736/2025",
+    "mantem": false,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Sem veredito anterior. Para-raios do religador, do trafo auxiliar e do bypass queimados, mais troca de chave faca — item de apoio (para-raio como motivo principal). Apesar de SS atendida em 27 dias, a MESMA descrição reaparece palavra por palavra na cadeia de contexto ETO-RD-DP 00031/2026 (09/01/2026, fora do escopo) — sinal de que o serviço não foi de fato concluído aqui.",
+    "confianca": "media",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   },
+   {
+    "cadeia": "ETO-RD-DP 00786/2025",
+    "mantem": false,
+    "categoria_final": "para-raio",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Sem veredito anterior. Substituição de 4 para-raios da linha de Taguatinga — item de apoio, escopo distinto da cadeia anterior (sem sobreposição de itens); SS atendida em 12 dias.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "B",
+  "_chave": "7913666038",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
+ },
+ {
+  "ativo": "7915029003",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 00019/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Intermitência de comunicação na RDU de Gurupi persiste após primeiro ataque; SS cancelada no mesmo dia.",
+    "confianca": "alta",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   },
+   {
+    "cadeia": "ETO-TELE 00074/2024",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Instalação de novo mestre de rádio 4RF e reapontamento dos religadores da RDU de Gurupi (mesma nota regional aplicada a outros religadores da área); SS atendida no mesmo dia.",
+    "confianca": "media",
+    "categoria_anterior": "telecom",
+    "fonte_anterior": "fora"
+   }
+  ],
+  "tier": "B",
+  "_chave": "7915029003",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T02:03:18"
  },
  {
   "ativo": "7915030003",
@@ -13484,7 +14596,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Pedido para verificar intermitência compartilhada entre 3 religadores da RDU Araguaína; sem confirmação de conserto.",
+    "porque": "Pedido para verificar intermitência de comunicação em três religadores da RDU de Araguaína (7934682004, 7935704004, 7935863004); sintoma de comunicação, sem peça do equipamento nomeada — telecom, fora da taxa. Sem confirmação de conserto no texto.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13496,7 +14608,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Primeiro ataque feito, comunicação não retornou.",
+    "porque": "Primeiro ataque feito e a comunicação 'nao retornou'; sintoma de comunicação, sem peça nomeada — telecom, fora da taxa.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13508,7 +14620,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Comunicação não voltou após primeiro ataque; evento distinto do de janeiro (4 meses depois).",
+    "porque": "Mesmo padrão: primeiro ataque feito, comunicação não voltou, pede equipe da TELE. Telecom, fora da taxa, sem confirmação de conserto — evento distinto dos outros dois (mais de um mês de cada), não duplicata.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13517,7 +14629,7 @@
   "tier": "B",
   "_chave": "7934682004",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:51:11"
+  "_em": "2026-09-16T02:01:39"
  },
  {
   "ativo": "7934846119",
@@ -13529,7 +14641,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Conflito de IP entre rádio e relé de comunicação, encaminhado para análise; sem confirmação de correção.",
+    "porque": "Conflito de IP entre rádio e relé de comunicação (parâmetro de rede) — não é troca de peça do religador, é telecom, fora da taxa. Sem confirmação de correção no texto.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13541,7 +14653,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Mesmo padrão de conflito de IP, mas endereços e ocorrência (fevereiro, não janeiro) diferentes da 00521/2024 — incidente distinto processado no mesmo lote administrativo de 30/07.",
+    "porque": "Mesmo padrão de conflito de IP do 00521/2024, mas com pares de IP diferentes (19.63.10.20/21 e 19.63.8.79/80, contra 19.63.32.119/120 e 19.63.43.39/40) e ocorrência em mês distinto (22/02 contra 22/01) — fato diferente, não duplicata. Telecom, fora da taxa.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13552,8 +14664,8 @@
     "categoria_final": "bateria",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Pedido direto de substituição de bateria, SS atendida no mesmo dia. Corrigindo executada para true por consistência com o mesmo padrão tratado como executado em dezenas de casos idênticos neste lote.",
+    "executada": false,
+    "porque": "Pedido de substituição de bateria — apoio, fora da taxa. Texto só registra o pedido, sem confirmar a troca.",
     "confianca": "alta",
     "categoria_anterior": "bateria",
     "fonte_anterior": "fora"
@@ -13562,7 +14674,7 @@
   "tier": "B",
   "_chave": "7934846119",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:39"
  },
  {
   "ativo": "7935866004",
@@ -13574,7 +14686,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Intermitência de comunicação compartilhada com outro ativo; sem confirmação de conserto.",
+    "porque": "Intermitência de comunicação relatada junto com o RL 7935865004; sintoma de comunicação, sem peça nomeada — telecom, fora da taxa.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13586,7 +14698,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Equipamento sem comunicação; sem confirmação de conserto.",
+    "porque": "'Equipamento sem comunicação' — telecom, fora da taxa, sem confirmação de conserto.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13598,7 +14710,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Religador abre indevidamente no grupo de ajuste 2; Proteção decide revisar toda a RDU — ação futura, sem confirmação de conclusão no texto.",
+    "porque": "Religador abrindo no grupo de ajuste 2; parecer da proteção decide revisar toda a RDU de Araguaína — ação de ajuste, não falha de peça, fora da taxa (não é manutenção corretiva). Texto fala em ação futura ('será revisado'), sem confirmação de execução.",
     "confianca": "alta",
     "categoria_anterior": "ajuste de protecao",
     "fonte_anterior": "fora"
@@ -13610,7 +14722,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Intermitência de comunicação na divisa de alimentadores; sem confirmação de conserto.",
+    "porque": "Intermitência de comunicação na divisa de alimentadores; telecom, fora da taxa.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13618,12 +14730,12 @@
    {
     "cadeia": "ETO-TELE 00879/2025",
     "mantem": true,
-    "categoria_final": "telecom",
+    "categoria_final": "nao identificado",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Não fecha em campo via remoto (ficou bypassado); sintoma do canal remoto. SS atendida em 15 dias.",
-    "confianca": "media",
+    "executada": false,
+    "porque": "Sem veredito anterior. Texto: 'NÃO ESTÁ FECHANDO EM CAMPO VIA REMOTO, ficou by passado em campo' + alarme de sobrecorrente 50/51 fases A e B — sintoma de comando/bypass sem peça nomeada (régua: 'não fecha'/'em bypass' → nao identificado); não é queda pura de comunicação (o comando chega, o equipamento não fecha) nem peça grande. Fora da taxa.",
+    "confianca": "alta",
     "categoria_anterior": null,
     "fonte_anterior": null
    },
@@ -13633,9 +14745,9 @@
     "categoria_final": "telecom",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Intermitente, fica a maioria do tempo sem comunicação; evento distinto do de agosto/03 (sem sobreposição). SS atendida ~11 dias depois.",
-    "confianca": "media",
+    "executada": false,
+    "porque": "Sem veredito anterior. 'Religador intermitente, fica na maioria do tempo sem comunicação' — mesmo padrão crônico de intermitência já visto neste ativo (00090/2024, 00619/2024, 00081/2025); telecom, fora da taxa. Aberta 4 dias após o fechamento da 00879/2025, mas descreve sintoma diferente (intermitência de comunicação, não bypass/sobrecorrente) — não é o mesmo fato já contado, mantida como demanda própria, não duplicata.",
+    "confianca": "alta",
     "categoria_anterior": null,
     "fonte_anterior": null
    }
@@ -13643,7 +14755,7 @@
   "tier": "B",
   "_chave": "7935866004",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:40"
  },
  {
   "ativo": "7936029003",
@@ -13655,7 +14767,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Intermitência de comunicação nos religadores da RDU de Gurupi, primeiro ataque não resolveu; SS cancelada.",
+    "porque": "SS cancelada, mas com defeito real descrito (intermitência de comunicação que persiste após o primeiro ataque) — cancelamento em bloco na RDU de Gurupi (mesmo texto do 7936503003 00027/2024, mesmo dia); não é abertura por engano, é fila abandonada. Telecom, fora da taxa.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13667,7 +14779,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Instalação de novo mestre de rádio 4RF compartilhada entre religadores da RDU Gurupi; não descreve defeito específico deste ativo.",
+    "porque": "Instalação de novo mestre de rádio 4RF na SE Gurupi Industrial, com reapontamento de todos os religadores da RDU — nota de infraestrutura de telecom compartilhada (mesmo texto em 7936031003 00084/2024 e 7936503003 00085/2024), não é defeito específico deste ativo. Fora da taxa.",
     "confianca": "baixa",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13676,7 +14788,7 @@
   "tier": "B",
   "_chave": "7936029003",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:40"
  },
  {
   "ativo": "7936031003",
@@ -13688,7 +14800,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Instalação de novo mestre de rádio 4RF compartilhada entre religadores da RDU Gurupi; não é defeito específico deste ativo.",
+    "porque": "Mesma nota de infraestrutura do novo mestre de rádio 4RF da RDU de Gurupi (também em 7936029003 00082/2024 e 7936503003 00085/2024), não é defeito específico deste ativo. Telecom, fora da taxa.",
     "confianca": "baixa",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13700,7 +14812,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Disjuntor CA desarmando por curto-circuito; disjuntor não conta como controle.",
+    "porque": "Já verificado (mantém=False sobre a leitura original 'controle'): disjuntor CA desarmando por curto-circuito é disjuntor, que a régua exclui de controle. Concordo com o vigente 'nao identificado' — texto só pede 'verificar o motivo do defeito', sem diagnóstico fechado.",
     "confianca": "alta",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
@@ -13711,8 +14823,8 @@
     "categoria_final": "bateria",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Pedido explícito de verificar bateria; perde comunicação e não fecha ao transferir cargas. SS atendida em 4 dias.",
+    "executada": false,
+    "porque": "Sem veredito anterior. Pedido para o DMSL verificar a bateria do religador: toda vez que há transferência de carga do AL 254R o RL perde comunicação e não fecha — a bateria é a peça apontada e o que se pede para verificar; comunicação/fechamento são o sintoma. Apoio (bateria), fora da taxa.",
     "confianca": "media",
     "categoria_anterior": null,
     "fonte_anterior": null
@@ -13724,7 +14836,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Perde comunicação com falta de CA, equipamento bypassado; texto acrescenta informação nova — a substituição de bateria que se acreditava feita 'não se comprovou' — não é duplicata da 01268/2025, é o desfecho de que aquela não resolveu.",
+    "porque": "Sem veredito anterior. Perda de comunicação com falta de CA, primeiro ataque sem sucesso; o texto registra que a informação de bateria já substituída 'não se comprovou' — bateria segue como a peça em aberto, equipamento ficou bypassado. Ligada à 01268/2025 (11 dias antes, mesmo padrão de bateria/perda de comunicação em transferência de carga na RDU de Gurupi), mas descreve um evento novo (nova falta de CA, nova tentativa, datas de abertura e conclusão distintas e não sobrepostas) — não é o mesmo fato já contado, mantida como demanda própria, não duplicata. Apoio (bateria), fora da taxa.",
     "confianca": "media",
     "categoria_anterior": null,
     "fonte_anterior": null
@@ -13733,7 +14845,7 @@
   "tier": "B",
   "_chave": "7936031003",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:40"
  },
  {
   "ativo": "7936503003",
@@ -13745,7 +14857,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Intermitência de comunicação nos religadores da RDU de Gurupi, primeiro ataque não resolveu; SS cancelada.",
+    "porque": "Mesmo texto e mesmo dia do 7936029003 00022/2024 — cancelamento em bloco na RDU de Gurupi, mas com defeito real descrito (intermitência que persiste); não é engano. Telecom, fora da taxa.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13757,7 +14869,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Instalação de novo mestre de rádio 4RF compartilhada entre religadores da RDU Gurupi; não é defeito específico deste ativo.",
+    "porque": "Mesma nota de infraestrutura do novo mestre de rádio 4RF da RDU de Gurupi (também em 7936029003 00082/2024 e 7936031003 00084/2024), não é defeito específico deste ativo. Telecom, fora da taxa.",
     "confianca": "baixa",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13769,7 +14881,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Suspeita não confirmada de disjuntor queimado ('provavelmente'); disjuntor não conta como controle.",
+    "porque": "Já verificado (mantém=False sobre a leitura original 'controle'): 'provavelmente disjuntor queimado' é suspeita não confirmada, e disjuntor não conta como controle. Concordo com o vigente 'nao identificado'. (a ocorrência registrada, 19/01/2023, é um ano anterior à abertura, 31/01/2024 — divergência de data que não muda o rótulo.)",
     "confianca": "media",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
@@ -13778,7 +14890,7 @@
   "tier": "B",
   "_chave": "7936503003",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:40"
  },
  {
   "ativo": "7937109003",
@@ -13789,8 +14901,8 @@
     "categoria_final": "chave faca",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Troca da chave fase B do bypass, emperrada na abertura; chave não é peça grande. Corrigindo executada para true: pedido específico e concreto, SS atendida no dia seguinte.",
+    "executada": false,
+    "porque": "Chave fase B do bypass emperrada na abertura, após manutenção do DMSL — é a chave, não o religador. Chave faca, apoio, fora da taxa. Ficou bypassado até regularização com equipe de linha viva, sem confirmação de execução no texto.",
     "confianca": "alta",
     "categoria_anterior": "chave faca",
     "fonte_anterior": "mae"
@@ -13802,7 +14914,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Intermitência de comunicação nos religadores da RDU de Gurupi, persiste após primeiro ataque.",
+    "porque": "Mesmo texto de cancelamento em bloco da RDU de Gurupi usado em 7936029003/7936503003 (10/01/2024), aqui com SS atendida em vez de cancelada — mas o próprio parecer diz que a intermitência 'ainda persiste'; status atendida não é prova de conserto. Telecom, fora da taxa, executada=false.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13814,7 +14926,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Perda de comunicação sempre que falta tensão; fora da régua de falha.",
+    "porque": "Perda de comunicação sempre que falta tensão; telecom, fora da taxa. Cadeia com repasse (SS REPASSADA sem data de conclusão, como esperado) para ETO-TELE 00109/2024, mesmo texto, sem informação nova. Sem confirmação de conserto.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "mae"
@@ -13825,8 +14937,8 @@
     "categoria_final": "telecom",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Alterar banda morta para valores definidos pela equipe de TELECOM. Corrigindo executada para true: instrução direta + SS atendida no mesmo dia, mesmo padrão tratado como executado em casos idênticos deste lote.",
+    "executada": false,
+    "porque": "Ajuste de parâmetro de banda morta 'definidos pela equipe da TELECOM' — parâmetro de telemetria, telecom, fora da taxa. Só a instrução, sem confirmação de execução.",
     "confianca": "media",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -13835,7 +14947,7 @@
   "tier": "B",
   "_chave": "7937109003",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:40"
  },
  {
   "ativo": "7938139013",
@@ -13846,9 +14958,9 @@
     "categoria_final": "cabo",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Cabo rompido na conexão fase B, deixando 19 clientes sem energia; a urgência de uma interrupção ativa implica reparo rápido mesmo com o fechamento administrativo da SS quase um ano depois.",
-    "confianca": "media",
+    "executada": false,
+    "porque": "Cabo rompido na conexão fase B da estrutura do religador — cabo, apoio, fora da taxa. Nota para equipe de linha viva; SS só fecha quase um ano depois (16/01/2026) e o texto não confirma explicitamente a normalização — mantido executada=false por falta de confirmação textual.",
+    "confianca": "alta",
     "categoria_anterior": "cabo",
     "fonte_anterior": "mae"
    },
@@ -13859,7 +14971,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Nota conjunta de baixa prioridade pedindo substituição de baterias sinalizadas em 10 religadores; sem confirmação de execução para este ativo especificamente, SS levou mais de um ano para fechar.",
+    "porque": "Nota de substituição de baterias sinalizadas (B) numa lista de dez religadores, incluindo este — bateria, apoio, fora da taxa. Texto só registra o pedido, sem confirmar a troca.",
     "confianca": "media",
     "categoria_anterior": "bateria",
     "fonte_anterior": "fora"
@@ -13868,7 +14980,7 @@
   "tier": "B",
   "_chave": "7938139013",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:53:14"
+  "_em": "2026-09-16T02:01:40"
  },
  {
   "ativo": "7941432077",
@@ -17338,9 +18450,9 @@
     "categoria_final": "nao identificado",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Confirmo a verificação anterior: 'não comuta automático' é sintoma, sem célula nomeada como defeituosa — carga foi só transferida para outro alimentador como paliativo. O código citado (5900559153) difere do ativo (5800559153) em 1 só dígito, mais provável erro de digitação do que outro ativo, mas isso não muda a conclusão: sem peça confirmada.",
-    "confianca": "media",
+    "executada": false,
+    "porque": "Texto descreve sintoma (nao comuta automatico, ficou zerado) e uma acao paliativa (transferencia de carga para outro alimentador), sem nomear celula nem confirmar troca; o proprio parecer diz que a tensao no cliente nao melhorou. Codigo citado no texto (5900559153) diverge do ativo do bloco em 1 digito, provavel erro de digitacao — nao muda o rotulo, pois nenhuma peca foi nomeada de qualquer forma. Confirma o rebaixamento ja vigente de celula para nao identificado.",
+    "confianca": "alta",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
    }
@@ -17348,7 +18460,7 @@
   "tier": "D",
   "_chave": "5800559153",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:52:00"
+  "_em": "2026-09-16T01:59:32"
  },
  {
   "ativo": "5800566084",
@@ -17360,8 +18472,8 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": false,
-    "porque": "Confirmo a verificação anterior: regulador travado, bypassado; tentativas via relé e chave interna sem sucesso — troubleshooting sem diagnóstico de célula confirmado.",
-    "confianca": "media",
+    "porque": "Regulador travado e colocado em bypass; tentativas de destravar via face do rele e via chave interna, sem sucesso. 'Travado'/'em bypass' e sintoma, sem celula nomeada, e a tentativa de reparo falhou (SS fecha sem confirmar o que resolveu). Confirma o rebaixamento ja vigente de celula para nao identificado.",
+    "confianca": "alta",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
    }
@@ -17369,7 +18481,7 @@
   "tier": "D",
   "_chave": "5800566084",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:52:00"
+  "_em": "2026-09-16T01:59:32"
  },
  {
   "ativo": "5800765149",
@@ -17380,9 +18492,9 @@
     "categoria_final": "nao identificado",
     "duplicata_de": null,
     "aberta_por_engano": false,
-    "executada": true,
-    "porque": "Confirmo a verificação anterior: 'relé apagado' é o exemplo clássico de sintoma sem peça nomeada (pode ser só falta de alimentação); fusíveis já descartados sem achar causa confirmada.",
-    "confianca": "media",
+    "executada": false,
+    "porque": "'Rele apagado' descreve status/sintoma, nao confirma que o rele em si estava defeituoso nem que foi trocado; fusiveis so foram verificados, sem diagnostico fechado. O contexto ETO-PROT 00047/2024 (52 dias antes, fora do escopo) e remanejamento do equipamento para novo ponto com comissionamento — evento fisico distinto, nao e duplicata. Confirma o rebaixamento ja vigente de rele para nao identificado.",
+    "confianca": "alta",
     "categoria_anterior": "nao identificado",
     "fonte_anterior": "fora"
    }
@@ -17390,7 +18502,7 @@
   "tier": "D",
   "_chave": "5800765149",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:52:00"
+  "_em": "2026-09-16T01:59:32"
  },
  {
   "ativo": "5801773013",
@@ -17402,7 +18514,7 @@
     "duplicata_de": null,
     "aberta_por_engano": false,
     "executada": true,
-    "porque": "Equipamento em falha de comunicação — telecom. Mesma data/texto do evento sistêmico de 28-29/04/2025 visto em vários outros RTs da base.",
+    "porque": "Texto direto: 'equipamento em falha de comunicacao' — caso claro de telecom (perda de comunicacao), fora da taxa de peca grande, sem ambiguidade com celula/rele. SS atendida e concluida em 10 dias, sem sinal de reabertura na mesma linha do historico do ativo.",
     "confianca": "alta",
     "categoria_anterior": "telecom",
     "fonte_anterior": "fora"
@@ -17411,7 +18523,7 @@
   "tier": "D",
   "_chave": "5801773013",
   "_etapa": "revisao",
-  "_em": "2026-09-16T01:52:00"
+  "_em": "2026-09-16T01:59:32"
  },
  {
   "ativo": "5801843038",
