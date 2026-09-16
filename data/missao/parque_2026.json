@@ -1,0 +1,481 @@
+{
+ "gerado_em": "2026-08-24",
+ "meses": [
+  "2026-01",
+  "2026-02",
+  "2026-03",
+  "2026-04",
+  "2026-05",
+  "2026-06",
+  "2026-07",
+  "2026-08"
+ ],
+ "rotulos": [
+  "jan",
+  "fev",
+  "mar",
+  "abr",
+  "mai",
+  "jun",
+  "jul",
+  "ago"
+ ],
+ "regua": {
+  "parque": "base de janeiro do gestor (RL 1.281 · RT 180) mais a expansão realizada, somada no próprio mês; agosto repete julho porque a expansão de agosto ainda não fechou",
+  "entrantes": "equipamento com SS de indisponibilidade para operação, pela data de OCORRÊNCIA, contado uma vez por mês",
+  "realizado": "concluído pelo DCMD: equipe de campo na cadeia e demanda fechada com SS atendida, pelo mês do fechamento",
+  "taxa": "equipamentos que falharam no mês (peça grande) ÷ parque do mês; no ano, ativo que falha duas vezes conta uma vez, então a soma dos meses passa do total anual"
+ },
+ "base_janeiro": {
+  "RL": 1281,
+  "RT": 180
+ },
+ "expansao": {
+  "RL": [
+   2,
+   0,
+   2,
+   2,
+   3,
+   1,
+   3
+  ],
+  "RT": [
+   0,
+   3,
+   3,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ "series": {
+  "RL": [
+   {
+    "mes": "2026-01",
+    "rotulo": "jan",
+    "parque": 1283,
+    "expansao": 2,
+    "expansao_conhecida": true,
+    "entrantes": 38,
+    "realizado": 1,
+    "falhas": 6,
+    "falhas_pela_leitura": 5,
+    "falhas_por_obra_direta": 1,
+    "taxa_mes_pct": 0.468
+   },
+   {
+    "mes": "2026-02",
+    "rotulo": "fev",
+    "parque": 1283,
+    "expansao": 0,
+    "expansao_conhecida": true,
+    "entrantes": 27,
+    "realizado": 0,
+    "falhas": 7,
+    "falhas_pela_leitura": 7,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.546
+   },
+   {
+    "mes": "2026-03",
+    "rotulo": "mar",
+    "parque": 1285,
+    "expansao": 2,
+    "expansao_conhecida": true,
+    "entrantes": 53,
+    "realizado": 1,
+    "falhas": 8,
+    "falhas_pela_leitura": 8,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.623
+   },
+   {
+    "mes": "2026-04",
+    "rotulo": "abr",
+    "parque": 1287,
+    "expansao": 2,
+    "expansao_conhecida": true,
+    "entrantes": 46,
+    "realizado": 1,
+    "falhas": 3,
+    "falhas_pela_leitura": 3,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.233
+   },
+   {
+    "mes": "2026-05",
+    "rotulo": "mai",
+    "parque": 1290,
+    "expansao": 3,
+    "expansao_conhecida": true,
+    "entrantes": 20,
+    "realizado": 1,
+    "falhas": 0,
+    "falhas_pela_leitura": 0,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.0
+   },
+   {
+    "mes": "2026-06",
+    "rotulo": "jun",
+    "parque": 1291,
+    "expansao": 1,
+    "expansao_conhecida": true,
+    "entrantes": 15,
+    "realizado": 4,
+    "falhas": 1,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.077
+   },
+   {
+    "mes": "2026-07",
+    "rotulo": "jul",
+    "parque": 1294,
+    "expansao": 3,
+    "expansao_conhecida": true,
+    "entrantes": 21,
+    "realizado": 1,
+    "falhas": 6,
+    "falhas_pela_leitura": 3,
+    "falhas_por_obra_direta": 3,
+    "taxa_mes_pct": 0.464
+   },
+   {
+    "mes": "2026-08",
+    "rotulo": "ago",
+    "parque": 1294,
+    "expansao": 0,
+    "expansao_conhecida": false,
+    "entrantes": 19,
+    "realizado": 3,
+    "falhas": 0,
+    "falhas_pela_leitura": 0,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.0
+   }
+  ],
+  "RT": [
+   {
+    "mes": "2026-01",
+    "rotulo": "jan",
+    "parque": 180,
+    "expansao": 0,
+    "expansao_conhecida": true,
+    "entrantes": 3,
+    "realizado": 0,
+    "falhas": 1,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.556
+   },
+   {
+    "mes": "2026-02",
+    "rotulo": "fev",
+    "parque": 183,
+    "expansao": 3,
+    "expansao_conhecida": true,
+    "entrantes": 3,
+    "realizado": 0,
+    "falhas": 1,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.546
+   },
+   {
+    "mes": "2026-03",
+    "rotulo": "mar",
+    "parque": 186,
+    "expansao": 3,
+    "expansao_conhecida": true,
+    "entrantes": 6,
+    "realizado": 0,
+    "falhas": 2,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 1,
+    "taxa_mes_pct": 1.075
+   },
+   {
+    "mes": "2026-04",
+    "rotulo": "abr",
+    "parque": 187,
+    "expansao": 1,
+    "expansao_conhecida": true,
+    "entrantes": 6,
+    "realizado": 0,
+    "falhas": 2,
+    "falhas_pela_leitura": 2,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 1.07
+   },
+   {
+    "mes": "2026-05",
+    "rotulo": "mai",
+    "parque": 188,
+    "expansao": 1,
+    "expansao_conhecida": true,
+    "entrantes": 9,
+    "realizado": 1,
+    "falhas": 2,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 1,
+    "taxa_mes_pct": 1.064
+   },
+   {
+    "mes": "2026-06",
+    "rotulo": "jun",
+    "parque": 189,
+    "expansao": 1,
+    "expansao_conhecida": true,
+    "entrantes": 3,
+    "realizado": 0,
+    "falhas": 1,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.529
+   },
+   {
+    "mes": "2026-07",
+    "rotulo": "jul",
+    "parque": 190,
+    "expansao": 1,
+    "expansao_conhecida": true,
+    "entrantes": 6,
+    "realizado": 3,
+    "falhas": 2,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 1,
+    "taxa_mes_pct": 1.053
+   },
+   {
+    "mes": "2026-08",
+    "rotulo": "ago",
+    "parque": 190,
+    "expansao": 0,
+    "expansao_conhecida": false,
+    "entrantes": 3,
+    "realizado": 2,
+    "falhas": 1,
+    "falhas_pela_leitura": 1,
+    "falhas_por_obra_direta": 0,
+    "taxa_mes_pct": 0.526
+   }
+  ]
+ },
+ "cumulativo": {
+  "RL": {
+   "acervo_em_janeiro": 123,
+   "entraram_no_ano": 236,
+   "resolvidos_no_ano": 201,
+   "fila_em_agosto": 158,
+   "abertas_hoje": 158,
+   "meses": [
+    {
+     "mes": "2026-01",
+     "rotulo": "jan",
+     "entraram_no_mes": 35,
+     "resolvidos_no_mes": 23,
+     "entraram_acumulado": 158,
+     "resolvidos_acumulado": 23,
+     "fila": 135,
+     "resolvidos_coep_no_mes": 4,
+     "resolvidos_coep_acumulado": 4
+    },
+    {
+     "mes": "2026-02",
+     "rotulo": "fev",
+     "entraram_no_mes": 26,
+     "resolvidos_no_mes": 29,
+     "entraram_acumulado": 184,
+     "resolvidos_acumulado": 52,
+     "fila": 132,
+     "resolvidos_coep_no_mes": 1,
+     "resolvidos_coep_acumulado": 5
+    },
+    {
+     "mes": "2026-03",
+     "rotulo": "mar",
+     "entraram_no_mes": 53,
+     "resolvidos_no_mes": 37,
+     "entraram_acumulado": 237,
+     "resolvidos_acumulado": 89,
+     "fila": 148,
+     "resolvidos_coep_no_mes": 3,
+     "resolvidos_coep_acumulado": 8
+    },
+    {
+     "mes": "2026-04",
+     "rotulo": "abr",
+     "entraram_no_mes": 49,
+     "resolvidos_no_mes": 42,
+     "entraram_acumulado": 286,
+     "resolvidos_acumulado": 131,
+     "fila": 155,
+     "resolvidos_coep_no_mes": 3,
+     "resolvidos_coep_acumulado": 11
+    },
+    {
+     "mes": "2026-05",
+     "rotulo": "mai",
+     "entraram_no_mes": 13,
+     "resolvidos_no_mes": 25,
+     "entraram_acumulado": 299,
+     "resolvidos_acumulado": 156,
+     "fila": 143,
+     "resolvidos_coep_no_mes": 7,
+     "resolvidos_coep_acumulado": 18
+    },
+    {
+     "mes": "2026-06",
+     "rotulo": "jun",
+     "entraram_no_mes": 28,
+     "resolvidos_no_mes": 20,
+     "entraram_acumulado": 327,
+     "resolvidos_acumulado": 176,
+     "fila": 151,
+     "resolvidos_coep_no_mes": 20,
+     "resolvidos_coep_acumulado": 38
+    },
+    {
+     "mes": "2026-07",
+     "rotulo": "jul",
+     "entraram_no_mes": 16,
+     "resolvidos_no_mes": 14,
+     "entraram_acumulado": 343,
+     "resolvidos_acumulado": 190,
+     "fila": 153,
+     "resolvidos_coep_no_mes": 12,
+     "resolvidos_coep_acumulado": 50
+    },
+    {
+     "mes": "2026-08",
+     "rotulo": "ago",
+     "entraram_no_mes": 16,
+     "resolvidos_no_mes": 11,
+     "entraram_acumulado": 359,
+     "resolvidos_acumulado": 201,
+     "fila": 158,
+     "resolvidos_coep_no_mes": 5,
+     "resolvidos_coep_acumulado": 55
+    }
+   ],
+   "resolvidos_coep_no_ano": 55
+  },
+  "RT": {
+   "acervo_em_janeiro": 32,
+   "entraram_no_ano": 48,
+   "resolvidos_no_ano": 31,
+   "fila_em_agosto": 49,
+   "abertas_hoje": 49,
+   "meses": [
+    {
+     "mes": "2026-01",
+     "rotulo": "jan",
+     "entraram_no_mes": 4,
+     "resolvidos_no_mes": 3,
+     "entraram_acumulado": 36,
+     "resolvidos_acumulado": 3,
+     "fila": 33,
+     "resolvidos_coep_no_mes": 0,
+     "resolvidos_coep_acumulado": 0
+    },
+    {
+     "mes": "2026-02",
+     "rotulo": "fev",
+     "entraram_no_mes": 3,
+     "resolvidos_no_mes": 1,
+     "entraram_acumulado": 39,
+     "resolvidos_acumulado": 4,
+     "fila": 35,
+     "resolvidos_coep_no_mes": 0,
+     "resolvidos_coep_acumulado": 0
+    },
+    {
+     "mes": "2026-03",
+     "rotulo": "mar",
+     "entraram_no_mes": 7,
+     "resolvidos_no_mes": 6,
+     "entraram_acumulado": 46,
+     "resolvidos_acumulado": 10,
+     "fila": 36,
+     "resolvidos_coep_no_mes": 4,
+     "resolvidos_coep_acumulado": 4
+    },
+    {
+     "mes": "2026-04",
+     "rotulo": "abr",
+     "entraram_no_mes": 5,
+     "resolvidos_no_mes": 3,
+     "entraram_acumulado": 51,
+     "resolvidos_acumulado": 13,
+     "fila": 38,
+     "resolvidos_coep_no_mes": 0,
+     "resolvidos_coep_acumulado": 4
+    },
+    {
+     "mes": "2026-05",
+     "rotulo": "mai",
+     "entraram_no_mes": 9,
+     "resolvidos_no_mes": 4,
+     "entraram_acumulado": 60,
+     "resolvidos_acumulado": 17,
+     "fila": 43,
+     "resolvidos_coep_no_mes": 4,
+     "resolvidos_coep_acumulado": 8
+    },
+    {
+     "mes": "2026-06",
+     "rotulo": "jun",
+     "entraram_no_mes": 7,
+     "resolvidos_no_mes": 7,
+     "entraram_acumulado": 67,
+     "resolvidos_acumulado": 24,
+     "fila": 43,
+     "resolvidos_coep_no_mes": 12,
+     "resolvidos_coep_acumulado": 20
+    },
+    {
+     "mes": "2026-07",
+     "rotulo": "jul",
+     "entraram_no_mes": 11,
+     "resolvidos_no_mes": 5,
+     "entraram_acumulado": 78,
+     "resolvidos_acumulado": 29,
+     "fila": 49,
+     "resolvidos_coep_no_mes": 5,
+     "resolvidos_coep_acumulado": 25
+    },
+    {
+     "mes": "2026-08",
+     "rotulo": "ago",
+     "entraram_no_mes": 2,
+     "resolvidos_no_mes": 2,
+     "entraram_acumulado": 80,
+     "resolvidos_acumulado": 31,
+     "fila": 49,
+     "resolvidos_coep_no_mes": 2,
+     "resolvidos_coep_acumulado": 27
+    }
+   ],
+   "resolvidos_coep_no_ano": 27
+  }
+ },
+ "totais": {
+  "RL": {
+   "parque_final": 1294,
+   "expansao_no_ano": 13,
+   "entrantes": 239,
+   "realizado": 12,
+   "falhas_somadas": 31
+  },
+  "RT": {
+   "parque_final": 190,
+   "expansao_no_ano": 10,
+   "entrantes": 39,
+   "realizado": 6,
+   "falhas_somadas": 12
+  }
+ }
+}

@@ -1,0 +1,266 @@
+[
+  {
+    "cadeia": "ETO-TELE 00868/2024",
+    "ativo": "7930265153",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "So descreve sintoma (nao aceita comando local/remoto, ficou by-passado); nao nomeia controle, armario, placa CA, fonte, rele de sincronismo nem retrofit.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01177/2024",
+    "ativo": "7930265153",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Texto e o exemplo literal da regra: 'perde a comunicacao quando falta CA' e telecom, nao controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00010/2024",
+    "ativo": "7930287154",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Texto confuso fala de disjuntor do rele desarmando e diz que o defeito persiste; nao confirma troca de peca de controle, e disjuntor nao conta.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00298/2025",
+    "ativo": "7930287154",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Disjuntor de alimentacao em curto e exatamente o erro conhecido listado no prompt; disjuntor nao e controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00055/2024",
+    "ativo": "7930359149",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Rele esta apagado' e sintoma listado explicitamente como nao peca grande; sem confirmacao de troca.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00443/2024",
+    "ativo": "7930430075",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "So diz que o comando fechar nao normalizou no primeiro ataque; nao nomeia nenhuma peca de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00264/2024",
+    "ativo": "7930524036",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Perda de comunicacao ao dar comando, so volta com ciclo do disjuntor: sintoma de comunicacao, nao peca de controle trocada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00130/2024",
+    "ativo": "7930566127",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Nota em lote repete o exemplo literal da regra: perde comunicacao quando falta CA e telecom.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00500/2024",
+    "ativo": "7930871103",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Nao aceitar comando de fechamento remoto e local e sintoma sem peca de controle nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00107/2025",
+    "ativo": "7930942025",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve disjuntor danificado com curto interno; disjuntor nao e peca de controle pela regra.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00376/2025",
+    "ativo": "7931219078",
+    "mantem": false,
+    "categoria_final": "cabo",
+    "porque": "'Possivel falha de conexao do umbilical/placa' e especulacao ('possivel'), sem nomear a placa de alimentacao CA; aponta para conexao/cabo umbilical.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00694/2025",
+    "ativo": "7931219078",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Chave mudando sozinha para local e sintoma de comportamento, sem confirmar peca de controle defeituosa trocada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00383/2024",
+    "ativo": "7931604122",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Disjuntor nao segura armado' e disjuntor, item que a regra exclui explicitamente de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01132/2024",
+    "ativo": "7933960094",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "'Curto no painel de comando' nomeia o armario/painel de controle com um defeito eletrico concreto, nao apenas um sintoma vago como 'apagado' ou 'nao aceita comando'.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00772/2024",
+    "ativo": "7933992003",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Display apagado' e sintoma neutro, mas 'esta sem automacao' entra na categoria comunicacao/automacao (telecom) da regra, nao controle.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00960/2024",
+    "ativo": "7936030003",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Display apagado e equipamento by-passado e sintoma, sem nomear peca de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00267/2025",
+    "ativo": "7936031003",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Disjuntor CA desarmando por curto e disjuntor, que a regra exclui de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00074/2025",
+    "ativo": "7936038076",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Display do rele apagado' e a propria frase listada como sintoma nao peca grande; alimentacao CA foi descartada como causa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00354/2025",
+    "ativo": "7936038076",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "E troca de disjuntor bipolar de 4A; disjuntor nao e peca de controle pela regra, mesmo com substituicao confirmada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00105/2024",
+    "ativo": "7936503003",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Provavelmente disjuntor queimado' e suspeita nao confirmada e, alem disso, disjuntor nao conta como controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00244/2024",
+    "ativo": "7937111036",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Falha de automacao ligada a falta de CA repete o padrao de telecom da regra, apesar do texto malescrito.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00232/2025",
+    "ativo": "7937111036",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Nao aceitar comando remoto nem local e sintoma sem peca nomeada; comunicacao normal so descarta telecom, nao confirma controle.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00395/2024",
+    "ativo": "7937181030",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "'Painel do religador esta em curto' nomeia o painel/armario de controle com defeito concreto; o transformador ja substituido e item separado (trafo auxiliar), corretamente descartado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00961/2024",
+    "ativo": "7937505059",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve estado/sintoma (sinalizando em transicao, protecoes bloqueadas) sem nomear nenhuma peca de controle.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-PROT 00354/2024",
+    "ativo": "7942300004",
+    "mantem": false,
+    "categoria_final": "ajuste de protecao",
+    "porque": "'Nao esta religando, esta abrindo a montante' e sintoma classico de coordenacao/seletividade de protecao, nao peca de controle nomeada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01059/2024",
+    "ativo": "7942509028",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Disjuntor em curto' constatado; disjuntor e explicitamente excluido de controle pela regra.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00055/2025",
+    "ativo": "7943460003",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Nao aceitou a energizacao' e sintoma, sem nomear peca de controle.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00286/2025",
+    "ativo": "7946687086",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Disjuntor de alimentacao CA com provavel curto interno; disjuntor nao e peca de controle pela regra.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00802/2025",
+    "ativo": "7949644098",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Disjuntor nao aceitou, curto circuito' e disjuntor, item excluido de controle pela regra.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00807/2024",
+    "ativo": "7950260038",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Display apagado e equipamento nao liga sao sintomas listados como nao peca grande; nenhuma peca de controle e nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00103/2025",
+    "ativo": "7950387026",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "'Curto circuito no painel' nomeia o painel/armario de controle com defeito concreto (curto), mesmo formulado como pedido de verificacao, e o equipamento ficou by-passado por causa disso.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00132/2024",
+    "ativo": "7950870127",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "'O rele esta em curto' e defeito concreto confirmado num rele de protecao do religador, que pela regra 4 conta como controle; o disjuntor mencionado a mais e achado paralelo que nao anula isso.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00188/2024",
+    "ativo": "7951449253",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "'Controlador em curto' nomeia diretamente o controle com defeito concreto confirmado; o DPS em curto e achado adicional (isolado, nao substituido) que nao anula o achado do controlador.",
+    "confianca": "media"
+  }
+]

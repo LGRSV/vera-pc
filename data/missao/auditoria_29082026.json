@@ -1,0 +1,74 @@
+{
+ "regua": "auditoria de 29/08/2026 — cinco agentes leram a descrição de todas as SS da cadeia dos 143, com a régua da PEÇA do gestor por cima do rótulo TIPOSS. As citações de obra do AIC foram conferidas uma a uma contra data de conclusão física e valor realizado.",
+ "achado_central": "o TIPOSS não serve sozinho como régua: erra excluindo (falha de peça grande rotulada como comissionamento ou obra nova) e erra incluindo (aterramento e trafo auxiliar rotulados como indisponibilidade). O que decide é a PEÇA no texto.",
+ "voltam_para_a_conta": [
+  {"ativo":"7900001227","praca":"RECURSOLANDIA","tiposs":"AVISO PROTEÇÃO & SELETIVIDADE","peca":"equipamento completo","prova":"sensor interno de corrente com defeito, Cooper Form6 de 2009, obsoleto, substituição pedida ao DCMD"},
+  {"ativo":"5820044123","praca":"AGUIARNOPOLIS","tiposs":"AJUSTES DE PROTEÇÃO","peca":"relé/célula","prova":"medidor da célula 3 não condiz com o relé; DMSL devolve por não fazer esse serviço"},
+  {"ativo":"7905357122","praca":"PALMAS","tiposs":"AJUSTES DE PROTEÇÃO","peca":"equipamento completo","prova":"relé com limitação de ajuste, NOJA RC01 obsoleto, substituir por RC10"},
+  {"ativo":"5835587001","praca":"PORTO NACIONAL","tiposs":"COMISSIONAMENTO","peca":"célula + controle","prova":"FOI SUBSTITUIDA A CELULA FASE B / FOI SUBSTITUIDO CONTROLE"},
+  {"ativo":"5856825025","praca":"ARAPOEMA","tiposs":"COMISSIONAMENTO","peca":"controle","prova":"não entrou em operação por defeito no controle; substituição pedida"},
+  {"ativo":"5860500009","praca":"GUARAI","tiposs":"COMISSIONAMENTO","peca":"relé","prova":"portas RS232 e Ethernet do relé com defeito, fornecer relé novo"},
+  {"ativo":"5862464001","praca":"PORTO NACIONAL","tiposs":"COMISSIONAMENTO","peca":"célula","prova":"RT 5862464001 - Substituído célula da fase A"},
+  {"ativo":"7902314013","praca":"PARAISO DO TOCANTINS","tiposs":"COMISSIONAMENTO","peca":"parte ativa","prova":"parte ativa não aceita comandos, substituir a parte ativa (disjuntor)"},
+  {"ativo":"7963661046","praca":"NOVA ROSALANDIA","tiposs":"COMISSIONAMENTO","peca":"controle","prova":"substituição completa do controle, equipamento danificado - NOJA"},
+  {"ativo":"5855606027","praca":"PONTE ALTA DO BOM JESUS","tiposs":"OBRAS (NOVOS EQUIPAMENTOS)","peca":"célula","prova":"curto elétrico na caixa de comando da fase B; células boas retiradas para outra obra"},
+  {"ativo":"5862546023","praca":"COLINAS DO TOCANTINS","tiposs":"OBRAS (NOVOS EQUIPAMENTOS)","peca":"controle","prova":"o controle apresenta defeito, substituir controle"},
+  {"ativo":"7936753097","praca":"TALISMA","tiposs":"OBRAS (NOVOS EQUIPAMENTOS)","peca":"equipamento completo","prova":"curto interno, bucha estourada na fase C, substituir por NOJA RC10"}
+ ],
+ "saem_por_nao_ser_peca": [
+  {"ativo":"5846328094","praca":"PEIXE","balde":"despachados","peca_real":"aterramento e conectores","prova":"COEP: MELHORIA DE ATERRAMENTO É COCM'S, FAVOR ENCAMINHAR DIRETAMENTE PARA ELES"},
+  {"ativo":"7942572059","praca":"TAQUARALTO","balde":"despachados","peca_real":"aterramento + primeiro ataque","prova":"COEP: NÃO PASSA PELO FLUXO DE AQUISIÇÃO DO COEP"},
+  {"ativo":"5800291035","praca":"MONTE DO CARMO","balde":"fila","peca_real":"aterramento e chave faca","prova":"3 células passaram nos testes; COEP: ETO-TELE ABRIU ERRADO"},
+  {"ativo":"7938137007","praca":"MIRACEMA","balde":"fila","peca_real":"trafo auxiliar, bateria, rádio, bucha","prova":"a SS que pedia equipamento completo foi cancelada; a viva pede trafo auxiliar"},
+  {"ativo":"5803327001","praca":"PORTO NACIONAL","balde":"fila","peca_real":"comissionamento","prova":"equipamento remanejado 7 km, necessário comissionamento completo"},
+  {"ativo":"5856156091","praca":"ALMAS","balde":"fila","peca_real":"obra nova furtada antes de operar","prova":"instalado na obra 0502400526, furtado antes do comissionamento"},
+  {"ativo":"5836764032","praca":"ARAGUACU","balde":"encerrados","peca_real":"aterramento e chaves","prova":"melhoria de aterramento e manutenção em todas as chaves"},
+  {"ativo":"5851753086","praca":"MARIANOPOLIS","balde":"encerrados","peca_real":"aterramento","prova":"células ensaiadas e boas; PARECER DCMD: melhoria da malha de aterramento"},
+  {"ativo":"5855643052","praca":"FORMOSO DO ARAGUAIA","balde":"encerrados","peca_real":"aterramento","prova":"malha alta causando desequilíbrio; sem parecer de execução"},
+  {"ativo":"5855776094","praca":"PEIXE","balde":"encerrados","peca_real":"aterramento","prova":"refazer aterramento, exposto"},
+  {"ativo":"7900275024","praca":"ITAPORA DO TOCANTINS","balde":"encerrados","peca_real":"obsolescência sem defeito","prova":"trocar NOJA RC01 obsoleto por RC10 para manter qualidade"},
+  {"ativo":"7901216032","praca":"ARAGUACU","balde":"encerrados","peca_real":"obsolescência sem defeito","prova":"idem, sem defeito relatado"},
+  {"ativo":"7900790075","praca":"DOIS IRMAOS DO TOCANTINS","balde":"encerrados","peca_real":"reposição de estoque de obra nova","prova":"relé e módulo SIM queimados no comissionamento da obra ETO-COEP 139/2024"},
+  {"ativo":"7901151022","praca":"BABACULANDIA","balde":"encerrados","peca_real":"trafo auxiliar furtado","prova":"COEP: DMSL ABRIU NOTA ERRADO PARA O COEP; trafo 5101151022"},
+  {"ativo":"7913667006","praca":"TOCANTINIA","balde":"encerrados","peca_real":"para-raio","prova":"substituição do para-raio da fase A queimado"},
+  {"ativo":"7925737080","praca":"DARCINOPOLIS","balde":"encerrados","peca_real":"para-raios","prova":"2 FASE PARA RESTAURAR B e C (Trocar 2 Para-Raios)"},
+  {"ativo":"7931219078","praca":"ITACAJA","balde":"encerrados","peca_real":"trafo auxiliar","prova":"COEP: NÃO TEM COMPRA DE EQUIPAMENTO ESPECIAL"},
+  {"ativo":"7944319149","praca":"CASEARA","balde":"encerrados","peca_real":"cabo e conector, em 2025","prova":"laudo colado é do 7955430075; o real foi solda de cabo RG 213 em 2025"},
+  {"ativo":"7955430075","praca":"DOIS IRMAOS DO TOCANTINS","balde":"encerrados","peca_real":"ajuste de proteção","prova":"verificar ativação da função 27 (subtensão) na base de ajuste"},
+  {"ativo":"7962635060","praca":"ARAGUAINA","balde":"encerrados","peca_real":"trafo auxiliar + comissionamento","prova":"religador novo da obra 0602401143, concluída 07/10/2025"},
+  {"ativo":"7967181127","praca":"PALMEIRAS DO TOCANTINS","balde":"encerrados","peca_real":"chave faca","prova":"substituído chave faca fase C em 01/07/2026"}
+ ],
+ "voltam_para_a_fila": {
+  "dos_encerrados": ["5800090147","5833723026","7900532053","7908206074","7925573007","7925704079","7949660066","7950310122","7957126085","5801866013","5827102054","5863887001","7900505026"],
+  "dos_despachados": ["7900573047","7925087021","7900230155"],
+  "motivo": "peça grande pedida e não trocada — SS cancelada sobre parecer vivo, ou obra do AIC aberta sem realizado"
+ },
+ "mudam_de_ano": [
+  {"ativo":"7900930040","praca":"ARAGOMINAS","ano":2025,"prova":"AIC 0612500816, tanque substituído, conclusão física 04/08/2025, R$ 86.762 realizados"},
+  {"ativo":"7944319149","praca":"CASEARA","ano":2025,"prova":"cabo RG 213 refeito em 09/2025; em 2026 só limparam a fila"}
+ ],
+ "em_suspenso": [
+  {"ativo":"7908708116","praca":"CHAPADA DA NATIVIDADE","questao":"campo pediu peça, COEP disse que operava, revisita voltou com EQUIPAMENTO ESTA OPERACIONAL, sem consumo de peça nem obra no AIC"},
+  {"ativo":"7936038076","praca":"DUERE","questao":"idem"},
+  {"ativo":"7955520116","praca":"CHAPADA DA NATIVIDADE","questao":"idem; COEP registrou que o pedido não especifica defeito nem marca e modelo"}
+ ],
+ "precisa_do_gestor": [
+  {"ativo":"7919270014","praca":"PIUM","questao":"em 13/07 o COEP escreveu SUBSTITUIÇÃO REALIZADA, FAVOR COMISSIONAR; em 27/07 escreveu EM PROCESSO DE AQUISIÇÃO, COMPLETO. Trocou ou não?"}
+ ],
+ "sem_lastro": [
+  {"ativo":"7915029003","praca":"GURUPI","dias":1299,"questao":"ETO-COEP 00013/2023 e 00063/2023 não existem na base; as vizinhas 00014 e 00064 existem"},
+  {"ativo":"7923674004","praca":"ARAGUAINA","dias":1301,"questao":"ETO-COEP 00011/2023 não existe na base"}
+ ],
+ "defeito_da_minha_regua": {
+  "o_que": "a régua da SS mais pesada olha todas as SS do ativo, inclusive fechadas de anos anteriores, e classifica a demanda de hoje pelo passado",
+  "tamanho": 6,
+  "ativos": ["5800291035","7900594026","7900930040","7905357122","7908302256","7954668084"]
+ },
+ "erro_meu_no_insumo": "o primeiro dossiê dos 48 encerrados levou só as SS do COEP; em 30 dos 48 a SS que fechou a cadeia ficou de fora. O primeiro laudo (27 não encerrados) foi descartado e refeito com a cadeia completa.",
+ "conta_pela_peca": {
+  "encerrada_em_2026_com_peca_grande": 16,
+  "despachados_com_peca_trocada": 9,
+  "trabalho_do_coep_com_peca": 25,
+  "contra_o_que_eu_dizia": {"trabalho_do_coep_concluido": 62, "troca_confirmada": 40}
+ }
+}

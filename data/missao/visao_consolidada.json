@@ -1,0 +1,1572 @@
+{
+ "gerado_em": "2026-08-26",
+ "fonte": "SS de indisponibilidade pendentes na base de SS/OS com aberturas até 20/08/2026 + mapeamento por criticidade da ATUALIZADA 16 como anotação + cadeia de repasse + plano de compras de 17/07 + leitura da taxa de falha",
+ "visao_eto": {
+  "total": 93,
+  "posicao": "base de SS/OS com aberturas até 20/08/2026",
+  "fora_da_carteira": 18,
+  "nota": "régua do gestor (22/08): a visão são os ativos 58/79 com SS de indisponibilidade para operação pendente na base — o balde sai do posto onde a SS está (PROT = ajuste; TELE/SE com criticidade definida na aba de mapeamento = comissionamento, sem criticidade definida = 1º ataque do DMSL; RD = execução; COEP = aquisição, salvo «Em logística» da carteira). Por cima da esteira entram as decisões pontuais do gestor, com motivo e data — hoje, três voltas para aquisição (26/08). 18 não estão na carteira.",
+  "baldes": {
+   "ajuste_de_protecao": {
+    "qtd": 11,
+    "ativos": [
+     {
+      "ativo": "5801866013",
+      "tipo": "RT",
+      "localidade": "PARAISO DO TOCANTINS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-PROT 00151/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "5827102054",
+      "tipo": "RT",
+      "localidade": "PUGMIL",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-PROT 00164/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Aguardando comissionamento"
+     },
+     {
+      "ativo": "5854566043",
+      "tipo": "RT",
+      "localidade": "SILVANOPOLIS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-PROT 00158/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Concluído"
+     },
+     {
+      "ativo": "7900117013",
+      "tipo": "RL",
+      "localidade": "PARAISO DO TOCANTINS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-PROT 00154/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7900573047",
+      "tipo": "RL",
+      "localidade": "FIGUEIROPOLIS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-PROT 00153/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7908686014",
+      "tipo": "RL",
+      "localidade": "PIUM",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-PROT 00159/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Concluído"
+     },
+     {
+      "ativo": "7908708116",
+      "tipo": "RL",
+      "localidade": "CHAPADA DA NATIVIDADE",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-PROT 00165/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Travado"
+     },
+     {
+      "ativo": "7925087021",
+      "tipo": "RL",
+      "localidade": "PARANA",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-PROT 00152/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7927169001",
+      "tipo": "RL",
+      "localidade": "PORTO NACIONAL",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-PROT 00156/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7942572059",
+      "tipo": "RL",
+      "localidade": "TAQUARALTO",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-PROT 00155/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Aguardando comissionamento"
+     },
+     {
+      "ativo": "7953610256",
+      "tipo": "RL",
+      "localidade": "MATEIROS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-PROT 00157/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Concluído"
+     }
+    ]
+   },
+   "comissionamento": {
+    "qtd": 9,
+    "ativos": [
+     {
+      "ativo": "5800371025",
+      "tipo": "RT",
+      "localidade": "ARAPOEMA",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-TELE 01040/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Aguardando comissionamento"
+     },
+     {
+      "ativo": "5844630060",
+      "tipo": "RT",
+      "localidade": "NOVA OLINDA",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-TELE 01102/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Entregue ao COCM"
+     },
+     {
+      "ativo": "5846328094",
+      "tipo": "RT",
+      "localidade": "PEIXE",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-TELE 00986/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Aguardando comissionamento"
+     },
+     {
+      "ativo": "5865120195",
+      "tipo": "RT",
+      "localidade": "CENTENARIO",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-SE-PCM 00091/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7900230155",
+      "tipo": "RL",
+      "localidade": "PALMEIRANTE",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-SE-PCM 00090/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7900594026",
+      "tipo": "RL",
+      "localidade": "PONTE ALTA TOCANTINS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-SE-PA 00107/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Aguardando comissionamento"
+     },
+     {
+      "ativo": "7929376022",
+      "tipo": "RL",
+      "localidade": "BABACULANDIA",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-TELE 01107/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Concluído"
+     },
+     {
+      "ativo": "7933726256",
+      "tipo": "RL",
+      "localidade": "MATEIROS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-SE-PCM 00092/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em ajustes"
+     },
+     {
+      "ativo": "7943790134",
+      "tipo": "RL",
+      "localidade": "ESPERANTINA",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-TELE 00896/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Aguardando comissionamento"
+     }
+    ]
+   },
+   "dcmd_execucao": {
+    "qtd": 3,
+    "ativos": [
+     {
+      "ativo": "5853360007",
+      "tipo": "RT",
+      "localidade": "MIRACEMA DO TOCANTINS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-RD-PS 00323/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Travado"
+     },
+     {
+      "ativo": "5856070091",
+      "tipo": "RT",
+      "localidade": "ALMAS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-RD-DP 00479/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Entregue ao COCM"
+     },
+     {
+      "ativo": "7931219078",
+      "tipo": "RL",
+      "localidade": "ITACAJA",
+      "criticidade": "",
+      "ss_pendente": "ETO-RD-PO 00183/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     }
+    ]
+   },
+   "dcmd_logistica": {
+    "qtd": 1,
+    "ativos": [
+     {
+      "ativo": "5803327001",
+      "tipo": "RT",
+      "localidade": "PORTO NACIONAL",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-COEP 00149/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em logística"
+     }
+    ]
+   },
+   "dcmd_aquisicao": {
+    "qtd": 49,
+    "ativos": [
+     {
+      "ativo": "5800440256",
+      "tipo": "RT",
+      "localidade": "MATEIROS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00169/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Cancelada em operação",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5800961074",
+      "tipo": "RT",
+      "localidade": "DIANOPOLIS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00221/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em logística",
+      "balde_pela_esteira": "dcmd_logistica",
+      "decisao_do_gestor": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — as peças que estavam separadas para este ativo foram realocadas para atender os de criticidade Muito Alta. Ele volta para a fila de compra.",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5825703064",
+      "tipo": "RT",
+      "localidade": "BRASILANDIA DO TOCANTINS",
+      "criticidade": "",
+      "ss_pendente": "ETO-COEP 00153/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5836786094",
+      "tipo": "RT",
+      "localidade": "PEIXE",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00095/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em logística",
+      "balde_pela_esteira": "dcmd_logistica",
+      "decisao_do_gestor": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — a célula enviada é de 200 kVA e o regulador é de 400 kVA. Material incompatível com o equipamento; a compra volta para a mesa.",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5840227063",
+      "tipo": "RT",
+      "localidade": "BANDEIRANTES DO TOCANTINS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00151/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5855411017",
+      "tipo": "RT",
+      "localidade": "BARROLANDIA",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00156/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5856156091",
+      "tipo": "RT",
+      "localidade": "ALMAS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00160/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5858783119",
+      "tipo": "RT",
+      "localidade": "SAO BENTO DO TOCANTINS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00164/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Com o DMSL",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "5862236091",
+      "tipo": "RT",
+      "localidade": "ALMAS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00158/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7900453110",
+      "tipo": "RL",
+      "localidade": "SANTA RITA DO TOCANTINS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00087/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7900525015",
+      "tipo": "RL",
+      "localidade": "PEDRO AFONSO",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00125/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7900535058",
+      "tipo": "RL",
+      "localidade": "SANTA FE DO ARAGUAIA",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00173/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7901110084",
+      "tipo": "RL",
+      "localidade": "DIVINOPOLIS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00061/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7903112004",
+      "tipo": "RL",
+      "localidade": "ARAGUAINA",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-COEP 00184/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Concluído",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7903569004",
+      "tipo": "RL",
+      "localidade": "ARAGUAINA",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00152/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Cancelada em operação",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7908196047",
+      "tipo": "RL",
+      "localidade": "FIGUEIROPOLIS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00168/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7908249152",
+      "tipo": "RL",
+      "localidade": "SANTA ROSA DO TOCANTINS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00038/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7908705049",
+      "tipo": "RL",
+      "localidade": "AURORA DO TOCANTINS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-RD-DP 00409/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Entregue ao COCM",
+      "balde_pela_esteira": "dcmd_execucao",
+      "decisao_do_gestor": "Decisão do gestor (26/08): volta da execução para a aquisição por problema no envio do material — o modelo enviado foi um religador ARTECH sem suporte para instalação, então o que chegou não tem como ser instalado. Fica em aquisição até ser enviado equipamento compatível.",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7910027196",
+      "tipo": "RL",
+      "localidade": "LAGOA DO TOCANTINS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00154/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7913662076",
+      "tipo": "RL",
+      "localidade": "DUERE",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00114/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7919270014",
+      "tipo": "RL",
+      "localidade": "PIUM",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00159/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7920024127",
+      "tipo": "RL",
+      "localidade": "PALMEIRAS DO TOCANTINS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-COEP 00120/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7921202014",
+      "tipo": "RL",
+      "localidade": "PIUM",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00132/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7923673004",
+      "tipo": "RL",
+      "localidade": "ARAGUAINA",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00124/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7923927122",
+      "tipo": "RL",
+      "localidade": "PALMAS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00148/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7925733015",
+      "tipo": "RL",
+      "localidade": "PEDRO AFONSO",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00058/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7925744087",
+      "tipo": "RL",
+      "localidade": "GOIANORTE",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00059/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7925871077",
+      "tipo": "RL",
+      "localidade": "GOIATINS",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00048/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7926089013",
+      "tipo": "RL",
+      "localidade": "PARAISO DO TOCANTINS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-COEP 00078/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7926442035",
+      "tipo": "RL",
+      "localidade": "MONTE DO CARMO",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00051/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7927396052",
+      "tipo": "RL",
+      "localidade": "FORMOSO DO ARAGUAIA",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00045/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7927413001",
+      "tipo": "RL",
+      "localidade": "PORTO NACIONAL",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00141/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7927446001",
+      "tipo": "RL",
+      "localidade": "PORTO NACIONAL",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00143/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7927646026",
+      "tipo": "RL",
+      "localidade": "PONTE ALTA TOCANTINS",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-COEP 00029/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7927713200",
+      "tipo": "RL",
+      "localidade": "SAO SALVADOR DO TOCANTINS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00157/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7928241200",
+      "tipo": "RL",
+      "localidade": "SAO SALVADOR DO TOCANTINS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00128/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7928564039",
+      "tipo": "RL",
+      "localidade": "ARAGUATINS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00123/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7930359149",
+      "tipo": "RL",
+      "localidade": "CASEARA",
+      "criticidade": "Sem classificação",
+      "ss_pendente": "ETO-COEP 00138/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Concluído",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7930428001",
+      "tipo": "RL",
+      "localidade": "PORTO NACIONAL",
+      "criticidade": "Alta",
+      "ss_pendente": "ETO-COEP 00150/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7931608059",
+      "tipo": "RL",
+      "localidade": "TAQUARALTO",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00040/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7933585074",
+      "tipo": "RL",
+      "localidade": "DIANOPOLIS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00024/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7937102148",
+      "tipo": "RL",
+      "localidade": "SAO VALERIO DA NATIVIDADE",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00129/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7938137007",
+      "tipo": "RL",
+      "localidade": "MIRACEMA DO TOCANTINS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00144/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7942485096",
+      "tipo": "RL",
+      "localidade": "PINDORAMA DO TOCANTINS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00158/2025",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7944559149",
+      "tipo": "RL",
+      "localidade": "CASEARA",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00063/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7947203070",
+      "tipo": "RL",
+      "localidade": "RIO SONO",
+      "criticidade": "Muito Alta",
+      "ss_pendente": "ETO-COEP 00131/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": true
+     },
+     {
+      "ativo": "7953211079",
+      "tipo": "RL",
+      "localidade": "ITAPIRATINS",
+      "criticidade": "Sem classificação",
+      "ss_pendente": "ETO-COEP 00147/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em análise",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7955946007",
+      "tipo": "RL",
+      "localidade": "MIRACEMA DO TOCANTINS",
+      "criticidade": "Baixa",
+      "ss_pendente": "ETO-COEP 00134/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     },
+     {
+      "ativo": "7955986084",
+      "tipo": "RL",
+      "localidade": "DIVINOPOLIS",
+      "criticidade": "Média",
+      "ss_pendente": "ETO-COEP 00133/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Em compra",
+      "no_plano_de_compras": false
+     }
+    ]
+   },
+   "dmsl_novos": {
+    "qtd": 20,
+    "ativos": [
+     {
+      "ativo": "5839141113",
+      "tipo": "RT",
+      "localidade": "COUTO MAGALHAES",
+      "criticidade": "Sem classificação",
+      "ss_pendente": "ETO-TELE 00985/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Primeiro ataque do DMSL"
+     },
+     {
+      "ativo": "5851752014",
+      "tipo": "RT",
+      "localidade": "PIUM",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01121/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "5854766001",
+      "tipo": "RT",
+      "localidade": "PORTO NACIONAL",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01097/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7902702257",
+      "tipo": "RL",
+      "localidade": "SAO FELIX DO TOCANTINS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01105/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7905320122",
+      "tipo": "RL",
+      "localidade": "PALMAS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01110/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7908300096",
+      "tipo": "RL",
+      "localidade": "PINDORAMA DO TOCANTINS",
+      "criticidade": "Sem classificação",
+      "ss_pendente": "ETO-TELE 00938/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Primeiro ataque do DMSL"
+     },
+     {
+      "ativo": "7908693026",
+      "tipo": "RL",
+      "localidade": "PONTE ALTA DO TOCANTINS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01055/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7908709122",
+      "tipo": "RL",
+      "localidade": "PALMAS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01100/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7923110021",
+      "tipo": "RL",
+      "localidade": "PARANA",
+      "criticidade": "Sem classificação",
+      "ss_pendente": "ETO-TELE 01027/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Primeiro ataque do DMSL"
+     },
+     {
+      "ativo": "7925126060",
+      "tipo": "RL",
+      "localidade": "NOVA OLINDA",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01111/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7925727002",
+      "tipo": "RL",
+      "localidade": "TOCANTINOPOLIS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01052/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7926242029",
+      "tipo": "RL",
+      "localidade": "PALMEIROPOLIS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01059/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7938048113",
+      "tipo": "RL",
+      "localidade": "COUTO MAGALHAES",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01098/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7940201060",
+      "tipo": "RL",
+      "localidade": "NOVA OLINDA",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01120/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7944353028",
+      "tipo": "RL",
+      "localidade": "NATIVIDADE",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01051/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7946713015",
+      "tipo": "RL",
+      "localidade": "PEDRO AFONSO",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01099/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7949648145",
+      "tipo": "RL",
+      "localidade": "MAURILANDIA DO TOCANTINS",
+      "criticidade": "Sem classificação",
+      "ss_pendente": "ETO-TELE 00929/2026",
+      "na_carteira": true,
+      "etapa_da_planilha": "Primeiro ataque do DMSL"
+     },
+     {
+      "ativo": "7949656024",
+      "tipo": "RL",
+      "localidade": "ITAPORA DO TOCANTINS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELEAR 00008/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7950296049",
+      "tipo": "RL",
+      "localidade": "AURORA DO TOCANTINS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01058/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     },
+     {
+      "ativo": "7961515047",
+      "tipo": "RL",
+      "localidade": "FIGUEIROPOLIS",
+      "criticidade": "",
+      "ss_pendente": "ETO-TELE 01048/2026",
+      "na_carteira": false,
+      "etapa_da_planilha": "(fora da carteira)"
+     }
+    ]
+   }
+  },
+  "decisoes_do_gestor": {
+   "data": "26/08",
+   "itens": [
+    {
+     "ativo": "5800961074",
+     "localidade": "DIANOPOLIS",
+     "tipo": "RT",
+     "de": "DCMD — em logística",
+     "motivo": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — as peças que estavam separadas para este ativo foram realocadas para atender os de criticidade Muito Alta. Ele volta para a fila de compra."
+    },
+    {
+     "ativo": "5836786094",
+     "localidade": "PEIXE",
+     "tipo": "RT",
+     "de": "DCMD — em logística",
+     "motivo": "Decisão do gestor (26/08): sai de «Em logística» e volta para a aquisição — a célula enviada é de 200 kVA e o regulador é de 400 kVA. Material incompatível com o equipamento; a compra volta para a mesa."
+    },
+    {
+     "ativo": "7908705049",
+     "localidade": "AURORA DO TOCANTINS",
+     "tipo": "RL",
+     "de": "DCMD — em execução (COCM's)",
+     "motivo": "Decisão do gestor (26/08): volta da execução para a aquisição por problema no envio do material — o modelo enviado foi um religador ARTECH sem suporte para instalação, então o que chegou não tem como ser instalado. Fica em aquisição até ser enviado equipamento compatível."
+    }
+   ]
+  }
+ },
+ "concluidos_dcmd_2026": {
+  "qtd": 63,
+  "regra": "SS atendida com equipe de campo na cadeia, OU cancelada que ficou de pé — sem nota nova no posto do COEP depois (gestor, 26/08). Nota pendente em outro posto não derruba: é outra frente.",
+  "atendidas_com_campo": 18,
+  "canceladas_de_pe": 45,
+  "canceladas_com_volta_confirmada": 9,
+  "canceladas_no_lote_de_junho": 20,
+  "fechadas_no_proprio_campo": 13,
+  "ativos": [
+   {
+    "ativo": "7967181127",
+    "tipo": "religador",
+    "localidade": "PALMEIRAS DO TOCANTINS",
+    "fechou_em": "01/07/2026",
+    "posto": "ETO-RD-AG",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7933766059",
+    "tipo": "religador",
+    "localidade": "TAQUARALTO",
+    "fechou_em": "03/08/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7931610122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "fechou_em": "04/08/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7900236054",
+    "tipo": "religador",
+    "localidade": "PUGMIL",
+    "fechou_em": "07/01/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900790075",
+    "tipo": "religador",
+    "localidade": "DOIS IRMAOS DO TOCANTINS",
+    "fechou_em": "07/01/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7931383086",
+    "tipo": "religador",
+    "localidade": "MARIANOPOLIS",
+    "fechou_em": "08/04/2026",
+    "posto": "ETO-PROT",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7931219078",
+    "tipo": "religador",
+    "localidade": "ITACAJA",
+    "fechou_em": "08/07/2026",
+    "posto": "ETO-RD-PO",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7965032004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "fechou_em": "10/03/2026",
+    "posto": "ETO-RD-AR",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5863887001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "fechou_em": "11/03/2026",
+    "posto": "ETO-TELE",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900453110",
+    "tipo": "religador",
+    "localidade": "SANTA RITA DO TOCANTINS",
+    "fechou_em": "11/08/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7957620015",
+    "tipo": "religador",
+    "localidade": "PEDRO AFONSO",
+    "fechou_em": "12/06/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7901151022",
+    "tipo": "religador",
+    "localidade": "BABACULANDIA",
+    "fechou_em": "12/08/2026",
+    "posto": "ETO-RD-AR",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7925737080",
+    "tipo": "religador",
+    "localidade": "DARCINOPOLIS",
+    "fechou_em": "13/05/2026",
+    "posto": "ETO-RD-AR",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5800090147",
+    "tipo": "regulador",
+    "localidade": "TAIPAS DO TOCANTINS",
+    "fechou_em": "13/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5850308009",
+    "tipo": "regulador",
+    "localidade": "GUARAI",
+    "fechou_em": "13/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900532053",
+    "tipo": "religador",
+    "localidade": "PIRAQUE",
+    "fechou_em": "13/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5800438116",
+    "tipo": "regulador",
+    "localidade": "CHAPADA DA NATIVIDADE",
+    "fechou_em": "13/08/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5800859011",
+    "tipo": "regulador",
+    "localidade": "TUPIRAMA",
+    "fechou_em": "13/08/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7955825037",
+    "tipo": "religador",
+    "localidade": "ALIANCA DO TOCANTINS",
+    "fechou_em": "14/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5801866013",
+    "tipo": "regulador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "fechou_em": "14/07/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7900505026",
+    "tipo": "religador",
+    "localidade": "PONTE ALTA TOCANTINS",
+    "fechou_em": "14/07/2026",
+    "posto": "ETO-PROT",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7950310122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "fechou_em": "14/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7926089013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "fechou_em": "16/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7925733015",
+    "tipo": "religador",
+    "localidade": "PEDRO AFONSO",
+    "fechou_em": "17/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7931608059",
+    "tipo": "religador",
+    "localidade": "TAQUARALTO",
+    "fechou_em": "17/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7956063152",
+    "tipo": "religador",
+    "localidade": "SANTA ROSA DO TOCANTINS",
+    "fechou_em": "19/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7902314013",
+    "tipo": "religador",
+    "localidade": "PARAISO DO TOCANTINS",
+    "fechou_em": "19/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5836764032",
+    "tipo": "regulador",
+    "localidade": "ARAGUACU",
+    "fechou_em": "20/05/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7957126085",
+    "tipo": "religador",
+    "localidade": "MONTE SANTO DO TOCANTINS",
+    "fechou_em": "20/07/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7965164065",
+    "tipo": "religador",
+    "localidade": "AXIXA DO TOCANTINS",
+    "fechou_em": "21/01/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7955175004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "fechou_em": "21/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7913667006",
+    "tipo": "religador",
+    "localidade": "TOCANTINIA",
+    "fechou_em": "22/01/2026",
+    "posto": "ETO-RD-PA",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5833723026",
+    "tipo": "regulador",
+    "localidade": "PONTE ALTA DO TOCANTINS",
+    "fechou_em": "22/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7956117005",
+    "tipo": "religador",
+    "localidade": "ARRAIAS",
+    "fechou_em": "22/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7959990070",
+    "tipo": "religador",
+    "localidade": "RIO SONO",
+    "fechou_em": "22/05/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7957163122",
+    "tipo": "religador",
+    "localidade": "PALMAS",
+    "fechou_em": "22/06/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7944319149",
+    "tipo": "religador",
+    "localidade": "CASEARA",
+    "fechou_em": "22/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900018004",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "fechou_em": "23/06/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5844630060",
+    "tipo": "regulador",
+    "localidade": "NOVA OLINDA",
+    "fechou_em": "24/07/2026",
+    "posto": "ETO-RD-AR",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5851753086",
+    "tipo": "regulador",
+    "localidade": "MARIANOPOLIS",
+    "fechou_em": "25/06/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5827102054",
+    "tipo": "regulador",
+    "localidade": "PUGMIL",
+    "fechou_em": "28/07/2026",
+    "posto": "ETO-RD-PS",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "7962635060",
+    "tipo": "religador",
+    "localidade": "ARAGUAINA",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-TELE",
+    "como": "SS ATENDIDA"
+   },
+   {
+    "ativo": "5854681071",
+    "tipo": "regulador",
+    "localidade": "BREJINHO DE NAZARE",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5855776094",
+    "tipo": "regulador",
+    "localidade": "PEIXE",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7908206074",
+    "tipo": "religador",
+    "localidade": "DIANOPOLIS",
+    "fechou_em": "29/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900930040",
+    "tipo": "religador",
+    "localidade": "ARAGOMINAS",
+    "fechou_em": "30/04/2026",
+    "posto": "ETO-RD-AR",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5820044123",
+    "tipo": "regulador",
+    "localidade": "AGUIARNOPOLIS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5835587001",
+    "tipo": "regulador",
+    "localidade": "PORTO NACIONAL",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5852775092",
+    "tipo": "regulador",
+    "localidade": "NOVO ACORDO",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5855606027",
+    "tipo": "regulador",
+    "localidade": "PONTE ALTA DO BOM JESUS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5855643052",
+    "tipo": "regulador",
+    "localidade": "FORMOSO DO ARAGUAIA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5856825025",
+    "tipo": "regulador",
+    "localidade": "ARAPOEMA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5860500009",
+    "tipo": "regulador",
+    "localidade": "GUARAI",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5862546023",
+    "tipo": "regulador",
+    "localidade": "COLINAS DO TOCANTINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "5863381155",
+    "tipo": "regulador",
+    "localidade": "PALMEIRANTE",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900001227",
+    "tipo": "religador",
+    "localidade": "RECURSOLANDIA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7900275024",
+    "tipo": "religador",
+    "localidade": "ITAPORA DO TOCANTINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7901216032",
+    "tipo": "religador",
+    "localidade": "ARAGUACU",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7925573007",
+    "tipo": "religador",
+    "localidade": "MIRACEMA DO TOCANTINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7925704079",
+    "tipo": "religador",
+    "localidade": "ITAPIRATINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7936753097",
+    "tipo": "religador",
+    "localidade": "TALISMA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7949660066",
+    "tipo": "religador",
+    "localidade": "TUPIRATINS",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   },
+   {
+    "ativo": "7963661046",
+    "tipo": "religador",
+    "localidade": "NOVA ROSALANDIA",
+    "fechou_em": "30/06/2026",
+    "posto": "ETO-COEP",
+    "como": "SS CANCELADA"
+   }
+  ]
+ },
+ "alerta_acumulado": {
+  "entraram": 136,
+  "resolvidos": 82,
+  "pendentes": 54,
+  "curva": [
+   {
+    "mes": "2026-01",
+    "rotulo": "jan/2026",
+    "chegaram": 7,
+    "resolvidos": 4,
+    "no_posto": 49,
+    "estiveram": 56,
+    "conta_gestor": 53
+   },
+   {
+    "mes": "2026-02",
+    "rotulo": "fev/2026",
+    "chegaram": 5,
+    "resolvidos": 1,
+    "no_posto": 53,
+    "estiveram": 61,
+    "conta_gestor": 58
+   },
+   {
+    "mes": "2026-03",
+    "rotulo": "mar/2026",
+    "chegaram": 11,
+    "resolvidos": 7,
+    "no_posto": 53,
+    "estiveram": 72,
+    "conta_gestor": 65
+   },
+   {
+    "mes": "2026-04",
+    "rotulo": "abr/2026",
+    "chegaram": 13,
+    "resolvidos": 3,
+    "no_posto": 54,
+    "estiveram": 84,
+    "conta_gestor": 69
+   },
+   {
+    "mes": "2026-05",
+    "rotulo": "mai/2026",
+    "chegaram": 7,
+    "resolvidos": 11,
+    "no_posto": 49,
+    "estiveram": 90,
+    "conta_gestor": 75
+   },
+   {
+    "mes": "2026-06",
+    "rotulo": "jun/2026",
+    "chegaram": 35,
+    "resolvidos": 32,
+    "no_posto": 42,
+    "estiveram": 121,
+    "conta_gestor": 100
+   },
+   {
+    "mes": "2026-07",
+    "rotulo": "jul/2026",
+    "chegaram": 21,
+    "resolvidos": 17,
+    "no_posto": 51,
+    "estiveram": 142,
+    "conta_gestor": 126
+   },
+   {
+    "mes": "2026-08",
+    "rotulo": "ago/2026",
+    "chegaram": 2,
+    "resolvidos": 7,
+    "no_posto": 54,
+    "estiveram": 143,
+    "conta_gestor": 136
+   }
+  ]
+ },
+ "pendentes_dcmd": {
+  "execucao": 3,
+  "logistica": 1,
+  "aquisicao": 49,
+  "aquisicao_no_plano": 12,
+  "aquisicao_fora_do_plano": 37
+ },
+ "taxa_2026": {
+  "religador": {
+   "falharam": 31,
+   "parque": 1307
+  },
+  "regulador": {
+   "falharam": 12,
+   "parque": 207
+  },
+  "regua": "peça grande — controle, tanque ou completo no RL; célula, relé, completo ou furto no RT"
+ }
+}

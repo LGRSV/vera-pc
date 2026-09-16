@@ -1,0 +1,1717 @@
+{
+ "premissas": [
+  "DATA DE REFERENCIA: 2026-08-12. 'Hoje' = essa data; dias_parado = hoje menos a data do ultimo movimento estruturado.",
+  "Foram lidas as 1.090 SS dos 124 ativos (2022-2026). Como o texto DESCRIPTION_SS e cumulativo (a mesma descricao se repete nas SS seguintes), cada fato foi datado pela PRIMEIRA SS em que aparece; as repeticoes posteriores foram descartadas na leitura.",
+  "ultimo_movimento usa apenas datas estruturadas (DATA_ABERTURA_SS / DATA_TERMINO_SS). Datas citadas dentro do texto livre (ex.: '24/07 PARECER COEP') nao foram usadas para datar movimentos porque em geral vem sem o ano.",
+  "SS aberta = situacao 'SS REPASSADA' ou 'SS PENDENTE' sem data de termino. Uma SS aberta cujo objeto tenha registro de execucao posterior por outra SS/OS/obra foi tratada como ja superada (baixa administrativa nao feita) e nao conta para o veredito nem para a escolha do posto.",
+  "Ordem de decisao do veredito (aplicada nesta sequencia): 1) reincidiu - o defeito foi dado por resolvido (execucao descrita) OU a SS foi cancelada e o MESMO defeito reabriu depois, sem nada aberto no intervalo e com mais de 30 dias de intervalo; 2) virou_outro_defeito - o problema de 2025 foi resolvido e o ativo voltou por defeito diferente que segue aberto hoje; 3) em_aberto - ha SS repassada/pendente sem sucessora; 4) resolvido_confirmado - execucao descrita (ou obra encerrada no AIC) e nada aberto depois; 5) resolvido_aparente - nada relevante aberto e o ultimo movimento indica solucao, mas sem descricao de execucao; 6) indefinido.",
+  "Encerramento por CANCELAMENTO nao foi tratado como evidencia de solucao. Quando a demanda que levou o ativo ao COEP foi encerrada por cancelamento sem execucao: se o equipamento ficou comprovadamente sem operar/comissionar, o veredito e 'indefinido'; se ha registro posterior de equipamento operando, e 'resolvido_aparente' - em ambos os casos o cancelamento sem execucao esta descrito na historia.",
+  "Ha cancelamentos em massa concentrados em poucas datas (29 e 30/06/2026, 13/07/2026, 07/01/2026, 22/06/2026, 19/05/2026 e 21/05/2026), atingindo SS de varios ativos e postos ao mesmo tempo, sem descricao de execucao. Foram lidos como limpeza de carteira, nao como conclusao tecnica.",
+  "posto_hoje = posto da SS aberta mais recente cujo objeto ainda nao tem execucao registrada, pelo mapeamento pedido: RD/ENC/DOLP/DG/TRPR=DCMD, TELE/SE=DMSL, PROT/DEOP/COI/OP/ASPO=DEOP, COEP=COEP, CADTOC=Cadastro. Em empate de data, prevaleceu o posto indicado pelo teor do ultimo parecer.",
+  "por_posto_dos_em_aberto conta apenas os ativos com veredito 'em_aberto'. Os ativos com veredito 'reincidiu' ou 'virou_outro_defeito' que tambem seguem com SS aberta tem posto_hoje preenchido e aparecem em por_posto_todos_com_ss_aberta.",
+  "dias_parado so foi calculado para ativos com posto_hoje preenchido (em_aberto, reincidiu ou virou_outro_defeito ainda abertos); para os demais e null.",
+  "conflito_com_site foi preenchido em tres situacoes: (a) divergencia entre contexto.realizada e o veredito reconstruido; (b) obra citada encerrada no AIC com SS do ativo ainda aberta; (c) obra encerrada em SIGCO fora do padrao do projeto (8481 regulador / 8495 religador).",
+  "A base tem textos trocados entre ativos (pareceres do RLG 7955430075 colados nas SS de 5800843075 e 7944319149; SS do 7901216032 com descricao do 7900275024; parecer do 7956220007 na SS do 7954748001). Nesses casos o veredito seguiu o restante do historico do proprio ativo e a troca foi apontada.",
+  "Ha SS com DATA_TERMINO anterior a DATA_ABERTURA (ex.: 7944319149, 7900236054, 7913667006, 5858330039). O ultimo movimento usa o maior valor entre abertura e termino, e a inconsistencia nao foi corrigida.",
+  "Nao foi consultada nenhuma fonte alem de coorte_coep2025.json; o que nao esta no texto das SS/OS ou no contexto (AIC/planilha COEP) ficou como nao identificado."
+ ],
+ "resumo": {
+  "total": 124,
+  "na_carteira": 25,
+  "por_veredito": {
+   "resolvido_confirmado": 52,
+   "em_aberto": 31,
+   "resolvido_aparente": 14,
+   "reincidiu": 13,
+   "indefinido": 11,
+   "virou_outro_defeito": 3
+  },
+  "por_veredito_carteira_x_fora": {
+   "na_carteira": {
+    "em_aberto": 15,
+    "virou_outro_defeito": 1,
+    "reincidiu": 6,
+    "resolvido_aparente": 2,
+    "resolvido_confirmado": 1
+   },
+   "fora_da_carteira": {
+    "resolvido_confirmado": 51,
+    "reincidiu": 7,
+    "resolvido_aparente": 12,
+    "em_aberto": 16,
+    "indefinido": 11,
+    "virou_outro_defeito": 2
+   }
+  },
+  "por_posto_dos_em_aberto": {
+   "COEP": 15,
+   "DMSL": 9,
+   "DCMD": 3,
+   "DEOP": 3,
+   "Cadastro": 1
+  },
+  "por_posto_todos_com_ss_aberta": {
+   "COEP": 21,
+   "DMSL": 11,
+   "DCMD": 4,
+   "DEOP": 4,
+   "Cadastro": 1
+  },
+  "reincidencias": 13,
+  "conflitos_com_site": 32,
+  "mediana_dias_parado_em_aberto": 82
+ },
+ "ativos": {
+  "5800291035": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DCMD",
+   "historia": "RT travado, sem comutar TAP, zerado e desligado desde 23/05/2025; DMSL aprovou as 3 celulas mas listou pendencias (malha de terra, baixar o banco, trocar as 6 chaves facas, cinta no controle RUA) e o caso foi ao COEP em 03/07/2025. A melhoria de aterramento so foi feita em jan/2026 (18,8/19,5/16,6 ohm) e reavaliada em 05/06/2026. Em 06/08/2026 o DMSL registrou que a malha continua fora do aceitavel e as demais pendencias seguem, com o equipamento fora de operacao.",
+   "ultimo_movimento": {
+    "data": "2026-08-06",
+    "o_que": "ETO-TELE 01033/2026 atendida: malha medida de novo, ainda fora do aceitavel, equipamento nao ficou em operacao; SS ETO-RD-PO 00097/2026 segue repassada no DCMD."
+   },
+   "dias_parado": 6,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "5800299073": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT com vazamento de oleo e para-raio estourado na fase C (2024); tanque da fase C substituido na obra 0202400822 e comissionamento cancelado/reaberto em 07/04/2025. Em 29/04/2025 o DMSL ensaiou o tanque substituido, testou com SCADA e colocou em operacao. OBS: 10 SS (entre elas ETO-COEP 00024/2025 e ETO-PROT 00144/2025) seguem repassadas no sistema apesar da execucao de 29/04/2025 - baixa administrativa nao feita.",
+   "ultimo_movimento": {
+    "data": "2025-04-29",
+    "o_que": "ETO-TELE 00345/2025 atendida: tanque substituido ensaiado, testado com SCADA e equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5800778005": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Tanque da fase B com vazamento e para-raio de bypass a trocar (jul/2024); tanque substituido e controle RUA instalado em 19/12/2024. No comissionamento (jan/2025) as chaves de bypass estavam todas emperradas, impedindo a entrada em operacao; a linha viva fez a manutencao das chaves em 28/01/2025 e a SS do COEP foi cancelada em 22/01/2025. OBS: Nao ha registro de comissionamento final apos a regulagem das chaves (o ultimo laudo DMSL dizia \"equipamento nao ficou em operacao\"); 4 SS seguem repassadas, 2 delas no COEP.",
+   "ultimo_movimento": {
+    "data": "2025-01-28",
+    "o_que": "ETO-RD-DP 00064/2025 atendida: manutencao/regulagem das chaves facas do regulador."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5800843075": {
+   "veredito": "reincidiu",
+   "posto_hoje": "COEP",
+   "historia": "Em 2024 o banco teve 3 tanques rebaixados e 4 chaves facas com vazamento substituidas (09/02/2024) e a fase A foi trocada e comissionada em operacao (06/03/2024). Em 27/08/2025 o mesmo tipo de defeito voltou: RT dando passagem/vazamento na fase C e na chave faca de saida. A linha viva refez chaves e inclinacao, mas em 21/10/2025 o DMSL pediu substituicao da parte ativa (defeito no sensor do tanque, sem leitura de tensao na fase B) e o caso parou no COEP em 11/11/2025.",
+   "ultimo_movimento": {
+    "data": "2025-11-11",
+    "o_que": "ETO-RD-PS 00342/2025 atendida (11/11/2025) sem descricao de execucao; ETO-COEP 00212/2025 aberta no mesmo dia segue repassada."
+   },
+   "dias_parado": 274,
+   "reincidencia": {
+    "resolvido_em": "2024-02-09",
+    "voltou_em": "2025-08-27"
+   },
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5800880014": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Banco com motor queimado na fase A e motor + vazamento na fase C (2023/2025); o COEP recomendou trocar o conjunto completo. As celulas A e C e o controle RUA foram substituidos e, em 29/07/2025, a celula da fase B foi trocada (obra 0212500626). Em 04/08/2025 o DCMD confirmou \"ja foi substituido todas as tres celulas\".",
+   "ultimo_movimento": {
+    "data": "2025-08-04",
+    "o_que": "ETO-PROT 00242 e 00243/2025 atendidas com parecer do DCMD confirmando a substituicao das tres celulas."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0212500626 encerrada no AIC (mas classificada no SIGCO 8495 = religador, sendo um regulador) enquanto 5 SS, entre elas ETO-COEP 00081/2023 e ETO-TELE 00545/2025, seguem repassadas.",
+   "na_carteira": false
+  },
+  "5800961074": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Regulador ficou bypassado em campo em 01/11/2025 com celula queimada que a equipe nao conseguiu identificar; o DMSL atendeu em 03/12/2025 e o caso subiu ao COEP em 05/12/2025, que registrou \"equipamento selecionado para compra\" com escopo de substituir as 3 celulas, melhorar a malha e o circuito de aterramento e trocar conectores paralelos.",
+   "ultimo_movimento": {
+    "data": "2025-12-05",
+    "o_que": "Abertura da ETO-COEP 00221/2025 (pendente) com o parecer de selecao para compra."
+   },
+   "dias_parado": 250,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "5804170122": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Fase A danificada e cabo de aterramento da fase B rompido (mar/2024); aterramento corrigido em 04/03/2025 (obra 0112500155) e celula da fase A substituida em 28/03/2025 (obra 0112500304). As chaves do lado carga falharam, foram trocadas as 6 chaves e o RT foi comissionado e colocado em operacao em 29/05/2025. Em out/2025 voltou por rele travado (nao comutava), normalizado em 23/10/2025.",
+   "ultimo_movimento": {
+    "data": "2025-10-23",
+    "o_que": "ETO-TELE 01177/2025 atendida: rele destravado, antena trocada, equipamento em operacao (pendencia de apontar para o mestre III)."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "As duas obras estao encerradas no AIC (0112500304 em SIGCO 8389, fora do padrao 8481) e ainda assim 9 SS seguem repassadas, incluindo ETO-COEP 00034/2024.",
+   "na_carteira": false
+  },
+  "5820044123": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RT da Bonasa/Aguiarnopolis com historico de aterramento e conexoes; em 08/04/2025 o \"travamento\" foi diagnosticado como tensao de referencia baixa (equipamento OK). Em 03/10/2025 o DMSL pediu substituicao do medidor da celula 3 (leitura divergente do rele) e a SS foi ao COEP. Em 24/10/2025 a linha viva foi acionada para substituir a celula 3, mas a OS registra apenas \"refeito conexoes MT\". As SS do COEP e do DMSL foram canceladas em 30/06/2026. OBS: Duas obras encerradas no AIC (0662500365 e 0662500590) em SIGCO 8389, fora do padrao 8481; a substituicao do medidor da celula 3 nunca teve registro de execucao e a SS foi encerrada por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa das SS ETO-COEP 00202/2025 e ETO-TELE 01168/2025 em 30/06/2026."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5826303015": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "Bucha F.C do tanque da fase A queimada nos ensaios de 27/03/2025, RT fora de operacao; a fase A foi substituida e o equipamento comissionado em 28/08/2025 (malha 10,7 ohm, em operacao). Em 06/10/2025 o DMSL pediu troca da chave de entrada da fase B e relatou o rele com display apagado; a chave foi trocada em 17/10/2025 pelo DCMD, mas nao ha registro de tratativa do rele nem de novo comissionamento.",
+   "ultimo_movimento": {
+    "data": "2025-10-17",
+    "o_que": "ETO-RD-GR 00915/2025 atendida: troca da chave faca de entrada do regulador."
+   },
+   "dias_parado": 299,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5835587001": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Primeira celula sem comutar, equipamento zerado e manual desde set/2024; remanejado na obra 0302400526, o DMSL pediu (23/09/2025) substituicao da celula da fase B, placa E, melhoria de malha e comunicacao. Em 23/12/2025 o DCMD registrou celula B e controle substituidos, malha refeita com poco (ainda 60 ohm, tratado no comite de aterramento) e em 29/12/2025 o DMSL ensaiou as 3 celulas, testou com SCADA e deixou em operacao. OBS: Aterramento permanece em 60 ohm, fora do aceitavel, e 3 SS (DMSL, DCMD e DEOP) seguem repassadas apesar de o equipamento estar em operacao.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das SS ETO-PROT 00269/2025, ETO-TELE 01119/2025 e ETO-COEP 00198/2025, ja superadas pela execucao de 29/12/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5836786094": {
+   "veredito": "virou_outro_defeito",
+   "posto_hoje": "COEP",
+   "historia": "Para-raios quebrados trocados em 2024; em jan/2025 a inspecao achou vazamento de oleo e o COEP cobrou a especificacao das celulas. O RT foi substituido (laudo na obra 0412500199) e comissionado em 09/04/2025, em operacao. Em 18/05/2026 o ativo voltou por motivo totalmente diferente: foi FURTADO em campo, e o COEP registrou em 24/07 que o equipamento de reposicao esta em logistica de entrega.",
+   "ultimo_movimento": {
+    "data": "2026-05-18",
+    "o_que": "Abertura de ETO-TELE 00770/2026 (repassada) e ETO-COEP 00095/2026 (pendente) por furto do equipamento."
+   },
+   "dias_parado": 86,
+   "reincidencia": null,
+   "conflito_com_site": "Contexto marca aic=obra_em_andamento, mas a obra citada 0412500059 esta ENCERRADA no AIC (e no SIGCO 8889, fora do padrao 8481) enquanto 7 SS seguem abertas.",
+   "na_carteira": true
+  },
+  "5837992077": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Para-raios das 3 fases queimados e celula da fase B com vazamento (fev/2024). O tanque da fase B foi substituido, mas em 29/04/2025 as celulas 02 e 03 estavam sem rele interno e faltava o controle RUA - o equipamento ficou fora de operacao esperando logistica (o COEP so liberou a retirada no polo Guarai em 25/07/2025). Em 11-12/08/2025 o DMSL instalou o controle RUA, fez retrofit e o equipamento entrou no SEP. OBS: 16 SS deste ativo seguem repassadas no sistema (5 delas no COEP) apesar da execucao concluida em 18/08/2025.",
+   "ultimo_movimento": {
+    "data": "2025-08-18",
+    "o_que": "ETO-TELE 00883/2025 atendida: controle RUA instalado, retrofit feito, equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5837995077": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Retirado de operacao em 04/12/2024 por vazamento de oleo na fase C; a celula da fase C foi substituida em 28/01/2025, mas no comissionamento de 24/03/2025 o motor de acionamento do tanque NOVO nao funcionava, exigindo nova substituicao. A troca foi refeita e o RT foi ensaiado e inserido no SEP em 13/08/2025. OBS: Peca de reposicao entregue com defeito (motor do comutador) obrigou a segunda troca; 10 SS seguem repassadas, 3 delas no COEP.",
+   "ultimo_movimento": {
+    "data": "2025-08-18",
+    "o_que": "ETO-TELE 00865/2025 atendida: ensaio na celula substituida e equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5840203077": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Regulador sem automacao/comunicacao (jul/2025) por controle danificado; as SS foram canceladas em 01/10/2025 e reabertas dois dias depois. Instalado o controle novo, o equipamento parou de comutar TAPs e a fase A teve de ser trocada - executada em 27/10/2025 (200 kVA por 400 kVA). Em 11/11/2025 o controle foi substituido, a celula ensaiada e o equipamento inserido no sistema. OBS: ETO-COEP 00203/2025 (28/10/2025) e ETO-TELE 01076/2025 seguem repassadas apesar da execucao de 18/11/2025.",
+   "ultimo_movimento": {
+    "data": "2025-11-18",
+    "o_que": "ETO-TELE 01251/2025 atendida: controle substituido, ensaio eletrico e teste com o COS."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5840261097": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Fase A quase sem oleo isolante (ago/2024) - tanque trocado e comissionado em 03/09/2024. Em abr/2025 o rele RUA foi recalibrado. Em 04/09/2025 a fase C reprovou no megometro (regulador queimado, contatos de elevar/abaixar sem resposta) e o COCM substituiu o regulador (ETO-COEP 00186/2025 atendida em 26/09/2025, laudo enviado), com manutencao final pelo DEOP/DMSL em 18/11/2025. OBS: Nao ha registro explicito de comissionamento com \"equipamento em operacao\" apos a troca da fase C; 7 SS seguem repassadas, 2 no COEP.",
+   "ultimo_movimento": {
+    "data": "2025-11-18",
+    "o_que": "ETO-TELE 01272/2025 atendida: manutencao no equipamento pela equipe DEOP (SID 5932-5933/2025)."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5841308190": {
+   "veredito": "em_aberto",
+   "posto_hoje": "Cadastro",
+   "historia": "Regulador ja tinha sido normalizado em 2024 (rele e radio trocados). Em 21/08/2025 entrou como reposicao de equipamento furtado e, em 29/09/2025, o DMSL constatou que as 3 fases estavam sem oleo - novamente furto. O COEP decidiu (set/2025) DESMOBILIZAR o RT por furtos recorrentes e limitacao orcamentaria; a desmobilizacao foi concluida em 18/03/2026 e falta a baixa cadastral (abertura de obra de furto e retirada do GIS EO), com B.O. 59909/2025 e 99604/2025.",
+   "ultimo_movimento": {
+    "data": "2026-03-18",
+    "o_que": "ETO-COEP 00197/2025 atendida (18/03/2026) formalizando a desmobilizacao; ETO-CADTOC 00058/2026 e ETO-RD-DP 00188/2026 seguem sem baixa desde 17/03/2026."
+   },
+   "dias_parado": 147,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "5841467200": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Fase A sem comutar, para-raios curto-circuitados, controle RUA e chave de bypass com defeito (mai/2024). O regulador foi substituido na obra 0412500148 e, em 06/05/2025, o DMSL instalou a caixa de controle, ensaiou a fase A, comissionou com o SCADA e entregou a operacao. Em ago/2025 voltou sem comunicacao: porta serial COM2 do rele queimada, resolvida migrando para a COM1 em 08/10/2025. OBS: ETO-COEP 00079/2024 e outras 3 SS seguem repassadas apesar da execucao concluida.",
+   "ultimo_movimento": {
+    "data": "2025-10-08",
+    "o_que": "ETO-TELE 01056/2025 atendida: reconfiguracao da porta serial do rele, comunicacao normalizada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5842740080": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DCMD",
+   "historia": "RT remanejado pela obra 0602300869 com a fase C travada (2024). Em 13/09/2024 o DMSL listou duas pendencias que impedem o comissionamento: numero operacional divergente (cadastro antigo do local anterior) e malha de aterramento com resistencia alta. Em 11/04/2025 registrou-se apenas que o equipamento ja tem comunicacao em campo; as duas pendencias nunca tiveram registro de execucao.",
+   "ultimo_movimento": {
+    "data": "2025-04-11",
+    "o_que": "ETO-TELE 00323/2025 atendida (comunicacao) e abertura de ETO-RD-AR 00648/2025, que segue repassada no DCMD."
+   },
+   "dias_parado": 488,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5843649091": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Controle RUA instalado em 27/01/2025 para comissionamento; nos ensaios de 20/02/2025 o DMSL identificou a fase B queimada. O tanque da fase B foi substituido em 24/03/2025 e o RT foi comissionado (ensaios, configuracao de rele e radio) e colocado em operacao em 02/04/2025. OBS: ETO-COEP 00028/2025 e outras 3 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2025-04-02",
+    "o_que": "ETO-TELE 00299/2025 atendida: comissionamento da fase B e entrega a operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5844296001": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT removido do local e reinstalado em outro ponto sem ser colocado em operacao (abr/2025), com pendencias construtivas e malha de aterramento acima de 20 ohm. Foram tres intervencoes de aterramento (27/05, 27/06 e 14/07/2025, obras 0112500521, 0112500622 e 0112500688) e em 22/07/2025 o DMSL comissionou com o SCADA e inseriu o equipamento no SEP.",
+   "ultimo_movimento": {
+    "data": "2025-07-22",
+    "o_que": "ETO-TELE 00822/2025 atendida: comissionamento concluido, equipamento em operacao sem pendencia."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "As tres obras estao encerradas no AIC porem em SIGCO 8389 (aterramento), fora do padrao 8481; 9 SS seguem repassadas, 2 delas no COEP.",
+   "na_carteira": false
+  },
+  "5850308009": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "RT remanejado e comissionado em 2024. Em ago/2025 perdeu comunicacao (corrigido em 14/08) e passou a deixar fases com tensao muito desequilibrada; o DMSL diagnosticou controle danificado e o controle foi substituido por completo em 12/09/2025. A SS do COEP aberta em 23/09/2025 nunca foi baixada e, entre 29/06 e 07/07/2026, tres novas SS de indisponibilidade foram abertas e canceladas em bloco em 13/07/2026 sem descricao de execucao.",
+   "ultimo_movimento": {
+    "data": "2026-07-13",
+    "o_que": "Cancelamento em 13/07/2026 das SS ETO-COEP 00180/2025, ETO-TELE 00958/2026 e ETO-COEP 00127/2026, abertas dias antes e encerradas sem execucao."
+   },
+   "dias_parado": 30,
+   "reincidencia": null,
+   "conflito_com_site": "Contexto marca aic=obra_indeferida; nao ha obra que sustente conclusao e a SS ETO-COEP 00185/2025 segue repassada ha quase um ano.",
+   "na_carteira": true
+  },
+  "5851857001": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Em 25/09/2025 o DMSL substituiu o rele (porta serial queimada), achou divergencia de slave no SCADA e apontou que a celula do regulador 2 nao comutava. A celula da fase B foi substituida em 11/10/2025 (obra 0112500913, SIGCO 8481 correto) e o RT foi comissionado com atualizacao do slave em 29/10/2025. Em jul/2026 voltou apenas para ensaio de malha de aterramento (criticidade muito alta), atendido em 24/07/2026.",
+   "ultimo_movimento": {
+    "data": "2026-07-24",
+    "o_que": "ETO-TELE 00989/2026 atendida: ensaio de malha de aterramento no RT."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0112500913 encerrada no AIC e ainda assim 5 SS, entre elas ETO-COEP 00195/2025, seguem repassadas.",
+   "na_carteira": false
+  },
+  "5852775092": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "Equipamento instalado na obra 0102301329 (o texto o trata como religador, embora o ativo seja 58xxx = regulador) e nunca comissionado: em 10/03/2025 o DMSL nao conseguiu coloca-lo em operacao por necessidade de melhoria na malha de aterramento e, em 13/05/2026, nova medicao deu resultado fora do padrao tecnico. Todas as 6 SS - incluindo a ETO-COEP 00038/2025 - foram canceladas em 30/06/2026 sem qualquer registro de execucao. OBS: Nao ha SS aberta hoje, mas tambem nao ha evidencia de que o equipamento tenha sido comissionado; a pendencia de aterramento foi encerrada por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das 6 SS do ativo, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5853032090": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Regulador instalado na obra 0652300536 nao pode ser colocado em operacao porque o rele estava com defeito (parecer DMSL de 15/08/2024), pendencia que ficou parada ate 2025. Em 06/06/2025 o rele foi substituido e reconfigurado, voltando a computar normalmente. OBS: Nao ha registro explicito de \"equipamento em operacao\" apos a troca do rele; ETO-COEP 00100/2024 e outras 3 SS seguem repassadas.",
+   "ultimo_movimento": {
+    "data": "2025-06-06",
+    "o_que": "ETO-TELE 00533/2025 atendida: rele substituido e reconfigurado."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5853359076": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Regulador da obra 0202200815 com malha de 120 ohm, jumpers partidos e sem comunicacao; nos ensaios de abr/2025 a fase B reprovou no TTR e a fase A no microhmimetro. As celulas A e B foram substituidas, a malha melhorada e a fase C (montada invertida) girada 180 graus; comissionado em 13/04/2025 com validacao da qualidade junto ao cliente e, em 18/07/2025, registrado \"em operacao, comunicando e com o aterramento nos conformes\". OBS: ETO-COEP 00061/2025 e outras 5 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2025-07-18",
+    "o_que": "ETO-TELE 00808/2025 atendida: equipamento em operacao, comunicando e aterramento conforme."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5853770152": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT (topologia corrigida de 5853769152 para 5853770152) teve o comissionamento reprovado porque o tanque da fase C foi danificado numa tentativa de furto, com derramamento total de oleo e contaminacao do solo. O DEOP mandou aproveitar celula sadia do RT 5854566043; a substituicao foi feita (OS ETO-RD-PO 254 e 334/2025, obras 0312500184 e 0312500253) e o equipamento foi comissionado e entrou em operacao em 09/04/2025. Em mai/2025 resolveu-se ainda uma falha de comunicacao (cabo RG213 e radio). OBS: A retirada do solo contaminado pelo oleo nunca teve registro de execucao e ETO-COEP 00019/2025 e 00044/2025 seguem repassadas.",
+   "ultimo_movimento": {
+    "data": "2025-05-05",
+    "o_que": "ETO-TELE 00474/2025 atendida: cabo RG213 substituido e radio reconfigurado, equipamento comunicando."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5854492004": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Regulador da obra 0602400101 comissionado em 2024 mas sem entrar em operacao por aterramento de resistencia muito alta; a melhoria com poco foi feita e o equipamento entrou em operacao (informado em 21/03/2025). Em set/2025 nao comutava as fases A e B (placa e rele danificados) e o DMSL identificou microswitch da celula 1 defeituoso, resolvido por bypass, com comissionamento junto ao SCADA em 22/09/2025. OBS: A correcao final foi um bypass (paliativo) do microswitch, nao a substituicao do componente; ETO-COEP 00130/2024 segue repassada.",
+   "ultimo_movimento": {
+    "data": "2025-09-29",
+    "o_que": "ETO-TELE 00496/2025 e 01073/2025 atendidas: bypass do microswitch da celula 1 e entrega a operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5854566043": {
+   "veredito": "reincidiu",
+   "posto_hoje": "DEOP",
+   "historia": "RT remanejado e comissionado em 14/01/2025. Em 21/03/2025 a fase C foi danificada por descarga atmosferica (oleo vazado e escuro) e o DEOP mandou canibalizar as celulas sadias A e B para socorrer os RT 5854771001 e 5853769152; o banco foi recomposto e voltou a operar em 17/04/2025. Em 24/07/2025 a celula da fase C queimou DE NOVO e em 25/07 o DMSL apontou tambem a fase B danificada. Em 24/04/2026 a celula A foi retirada para outra obra e so em 24/07/2026 o COCM registrou o equipamento substituido (obra 0312600352).",
+   "ultimo_movimento": {
+    "data": "2026-07-28",
+    "o_que": "Abertura de ETO-PROT 00158/2026 (pendente) e ETO-RD-PO 00213/2026 em 28/07/2026 para elaboracao de ajuste e comissionamento apos a substituicao."
+   },
+   "dias_parado": 15,
+   "reincidencia": {
+    "resolvido_em": "2025-04-17",
+    "voltou_em": "2025-07-24"
+   },
+   "conflito_com_site": "Planilha COEP registra \"Concluido DCMD 24/07\" e ha parecer COCM de substituicao em 24/07/2026 (obra 0312600352), mas o site calcula realizada=false e o AIC aponta conclusao fisica sem encerramento; as SS de comissionamento seguem abertas.",
+   "na_carteira": true
+  },
+  "5854681071": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "Regulador instalado na obra 0302100570 nunca comissionado: em 18/02/2025 o DMSL encontrou as fases A e B com ligacao carga/fase invertidas, sem antena, sem suporte de antena e sem radio GE. A propria Protecao registrou que a SS nao seguiu o fluxo e que nao havia descritivo das pendencias sanadas. Todas as 7 SS, incluindo tres do COEP, foram canceladas em 29/06/2026. OBS: Sem SS aberta hoje e sem qualquer evidencia de que as pendencias construtivas tenham sido sanadas - encerramento por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-29",
+    "o_que": "Cancelamento em massa (29/06/2026) das 7 SS do ativo, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5854767035": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "RT da obra 0302400109 nunca conseguiu ser comissionado por aterramento altissimo (155 ohm em 23/09/2024); apos melhoria, o rele foi trocado e o equipamento foi colocado em operacao em 07/11/2024. Em 25/09/2025 voltou bypassado: a malha alta queimou componentes e causou vazamento na carcaca do controle, a placa E foi substituida e o RT ficou sem referencia de terra e fora de operacao, com pendencia de nova melhoria de malha e comissionamento. A SS de comunicacao/aterramento foi atendida em 07/11/2025, mas nao ha registro de novo comissionamento.",
+   "ultimo_movimento": {
+    "data": "2025-11-07",
+    "o_que": "ETO-RD-PO 00239/2025 atendida (aterramento/comunicacao), sem descricao de execucao nova; ETO-COEP 00118/2024 segue repassada desde 10/04/2025."
+   },
+   "dias_parado": 278,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5854771001": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT da obra 0302400054 nao comissionado por aterramento alto; em dez/2024 uma celula foi retirada para socorrer o RT 5851752014 (obra 0212401258). Em abr/2025 a malha foi refeita (11 hastes concretadas com terra gel) e o DMSL registrou o equipamento travado no TAP 16, malha em 187 ohm, tanque da fase B sem comutar e fuga de corrente para o poste. O tanque foi substituido (OS ETO-RD-PO 335/2025, obra 0312500254) e em 08/04/2025 o RT foi comissionado, ensaiado e colocado em operacao sem pendencia.",
+   "ultimo_movimento": {
+    "data": "2025-04-16",
+    "o_que": "ETO-PROT 00152/2025 atendida com o feedback do DMSL de comissionamento e entrada em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0212401258 encerrada no AIC em SIGCO 8495 (religador) para um regulador; 4 SS seguem repassadas, 2 delas no COEP.",
+   "na_carteira": false
+  },
+  "5854977104": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT com painel apagado, sem comutar e bypassado (fev/2025); o DMSL achou infiltracao de agua na caixa de passagem da celula 03 danificando o contador de operacao e pediu troca do tanque 3. A celula 03 foi substituida e o equipamento foi comissionado e inserido no SEP em 23/05/2025. Em jul/2026 voltou apenas para medicao de aterramento (criticidade muito alta), atendida em 21/07/2026. OBS: ETO-COEP 00030/2025 e outras 3 SS seguem repassadas apesar da execucao de mai/2025.",
+   "ultimo_movimento": {
+    "data": "2026-07-21",
+    "o_que": "ETO-TELE 00994/2026 atendida: medicao de malha de aterramento."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5855063080": {
+   "veredito": "virou_outro_defeito",
+   "posto_hoje": "DMSL",
+   "historia": "RT da obra 0602300869 com aterramento fora do aceitavel e comunicacao normalizada em 07/03/2025. Em 29/06/2025 a celula da fase A entrou em curto interno e o equipamento ficou bypassado; a fase A foi substituida em 03/07/2025 (obra 0612500702, SIGCO 8481 correto) e comissionada em 04/07/2025. Em 31/07/2026 o ativo voltou por defeito diferente - reclamacoes de tensao baixa apesar de \"normal\" para o COI - e em 04/08/2026 o DMSL registrou que a melhoria de aterramento feita continua dando medicao muito alta.",
+   "ultimo_movimento": {
+    "data": "2026-08-04",
+    "o_que": "Abertura de ETO-RD-AR 01202/2026 (pendente) e ETO-TELE 00995/2026 (repassada) em 04/08/2026 para nova medicao de aterramento, criticidade Muito Alta."
+   },
+   "dias_parado": 8,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5855606027": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RT remanejado do posto 5838182027 (obra 0502500015); no comissionamento as fases A e C passaram mas a fase B apresentou curto eletrico na caixa de comando. Em vez de reparo, o COEP removeu as celulas boas para uso em obra regulada e, em 05/05/2026, o DCMD retirou de campo as celulas das fases A e C para reinstalacao em obra de construcao, deixando o banco bypassado (obra 0512600155). As SS foram canceladas em 30/06/2026. OBS: O caso foi encerrado por desativacao/canibalizacao, nao por reparo: o banco esta bypassado e sem duas celulas, com a obra 0512600155 marcada como fiscalizacao aprovada no AIC.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento (30/06/2026) das SS ETO-PROT 00137/2025, ETO-TELE 00353/2025 e ETO-COEP 00106/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5855634038": {
+   "veredito": "virou_outro_defeito",
+   "posto_hoje": "DMSL",
+   "historia": "RT instalado na obra 0502400080 teve o comissionamento barrado em jan/2025 por pendencias construtivas (topologia errada, fibra tensionada no para-raio, cabo do FC inadequado, cabo solto da chave de saida e controle sem aterramento). Em 11/04/2025 o DCMD registrou \"pendencia corrigida, regulador ja esta em operacao\". Em 28/04/2026 o ativo voltou por outro motivo: ajuste com tensao alta na configuracao normal, sentido Taguatinga.",
+   "ultimo_movimento": {
+    "data": "2026-04-28",
+    "o_que": "Abertura de ETO-SE-GU 00031/2026 (pendente) no DMSL para verificar o ajuste de tensao do RT 01."
+   },
+   "dias_parado": 106,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5855643052": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT da obra 0402400145 comissionado em 19/11/2024. Passou por travamento da fase C no TAP 16 (auto zero em jun/2025) e alteracao de ajuste (jul/2025). Em 23/08/2025 o DMSL atribuiu as reclamacoes de desequilibrio e tensao alta a malha de aterramento alta e pediu melhoria; em 20/10/2025 o rele foi substituido, calibrado, o aterramento medido e o equipamento recolocado em operacao. OBS: A melhoria de malha pedida em 23/08/2025 nao tem registro proprio de execucao e as SS correspondentes (2 delas do COEP) foram encerradas por cancelamento em 30/06/2026.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) de 4 SS de 2025 ja superadas pela execucao de 20/10/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5855776094": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RT remanejado na obra 0402400522; no comissionamento de 15/05/2025 nao foi possivel fechar enlace com o mestre e o DMSL registrou que a malha precisava de mais melhoria. A SS do COEP para refazer o aterramento exposto (26/05/2025) foi cancelada em 29/06/2026 sem execucao; a unica atividade concluida depois foi a alteracao da banda morta em 03/06/2025. OBS: Nada aberto hoje, mas o comissionamento nunca foi confirmado (enlace nao fechado) e a demanda de aterramento foi encerrada por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-29",
+    "o_que": "Cancelamento (29/06/2026) da ETO-COEP 00101/2025 sobre o aterramento exposto, sem execucao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5856070091": {
+   "veredito": "reincidiu",
+   "posto_hoje": "COEP",
+   "historia": "RT da obra 0502400245 comissionado e entregue a operacao em 07/03/2025. Em 31/07/2025 entrou como reposicao de equipamento FURTADO; o COCM substituiu em 14/08/2025, mas em 23/09/2025 o DMSL constatou que o regulador foi instalado invertido (carga do lado da fonte). Em 26/01/2026 o ativo foi furtado outra vez, agora nas 3 fases, e desde entao o ciclo se repete: o COCM informa nao ter pecas em estoque (26/03/2026), o DMSL confirma em 07/07/2026 que a instalacao continua irregular e o COEP segue com a SS aberta.",
+   "ultimo_movimento": {
+    "data": "2026-07-27",
+    "o_que": "Abertura de ETO-RD-DP 00479/2026 (pendente) e ETO-COEP 00130/2026 (repassada) em 27/07/2026."
+   },
+   "dias_parado": 16,
+   "reincidencia": {
+    "resolvido_em": "2025-08-14",
+    "voltou_em": "2026-01-26"
+   },
+   "conflito_com_site": "Contexto marca aic=obra_em_andamento; alem da reincidencia de furto, a instalacao invertida apontada em 23/09/2025 continua sem regularizacao quase um ano depois.",
+   "na_carteira": true
+  },
+  "5856156091": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "RT instalado na obra 0502400526 nunca comissionado: a Protecao registrou em 07/07/2025 que os equipamentos foram FURTADOS e pediu consulta dos dados de placa para aquisicao das celulas de reposicao. Desde entao o caso faz ping-pong entre COEP e DCMD - o COEP diz ter fornecido ao COCM-S (31/07/2025 e 29/06/2026), o DCMD responde que nao tem material em estoque (26/03/2026) e em 27/07/2026 o COEP registra \"equipamento selecionado para compra, porem podemos desativar de acordo com a ASPO\".",
+   "ultimo_movimento": {
+    "data": "2026-07-27",
+    "o_que": "Abertura de ETO-COEP 00160/2026 (pendente) e de duas SS do DCMD em 27/07/2026, com o parecer do COEP sobre compra ou desativacao."
+   },
+   "dias_parado": 16,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "5856661005": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT remanejado na obra 0502400440; no comissionamento o DMSL constatou que a fonte foi ligada como Taguatinga quando o correto era Arraias. O COCM refez a instalacao conforme a fonte de Arraias (20/08/2025) e em 18/09/2025 o DMSL realizou todos os ensaios, mediu o aterramento e colocou o equipamento em operacao, normalizando a tensao na cidade de Combinado. OBS: ETO-COEP 00155/2025 e outras 2 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2025-09-18",
+    "o_que": "ETO-TELE 00922/2025 atendida: comissionamento concluido e equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5856825025": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RT instalado na obra 0602400710 nunca comissionado: em 10/06/2025 o DMSL nao conseguiu coloca-lo em operacao por defeito no controle e pediu substituicao do controle e fornecimento de radio e centelhador. As tres SS de 2025 (incluindo ETO-COEP 00112/2025) foram canceladas em 30/06/2026 e uma nova SS de 29/04/2026, alertando que o equipamento nao tem supervisorio e gera HH sempre que ha reclamacao de tensao, foi cancelada seis dias depois. OBS: Nenhuma SS aberta hoje, mas o controle nunca foi substituido e o equipamento segue sem supervisao - encerramento apenas por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das SS de comissionamento, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5858227036": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RT remanejado na obra 0402400529; nos ensaios de 08/01/2025 o tanque da fase C apresentou baixa isolacao. A fase C foi substituida em 15/02/2025 pelo DCMD e o RT foi comissionado em 10/03/2025 (ensaios na fase C, correcoes de ajuste conforme a placa) e colocado em operacao. OBS: ETO-COEP 00004/2025 e outras 3 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2025-03-10",
+    "o_que": "ETO-TELE 00212/2025 atendida: comissionamento da fase C e entrega a operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5858330039": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RT da obra 0652400141 com aterramento de 357 ohm (depois 162 ohm) impedindo o comissionamento; em fev/2025 somaram-se para-raios queimados e vazamento de oleo na fase A. A melhoria de aterramento foi executada em 07/04/2025 e os para-raios trocados em 18/06/2025, com jumper recuperado em 01/07/2025 (obra 0662500388). Em 29/05/2026 o DMSL registrou que ainda falta instalar radio e comissionar com o SCADA.",
+   "ultimo_movimento": {
+    "data": "2026-05-29",
+    "o_que": "Abertura da ETO-TELE 00874/2026 (pendente) pedindo comunicacao/radio e comissionamento com o SCADA."
+   },
+   "dias_parado": 75,
+   "reincidencia": null,
+   "conflito_com_site": "O parecer que dava o equipamento por substituido (OS ETO-RD-PO 255/2025, obra 0312500185) foi desmentido pela Protecao em 28/03/2025 - \"segundo o COCM-N o equipamento nao foi substituido em campo, a nota foi repassada errada\"; 13 SS seguem abertas, 5 delas no COEP.",
+   "na_carteira": false
+  },
+  "5860500009": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RT instalado na obra 0702300578 nunca comissionado: as portas RS232 e ETHERNET do rele estavam com defeito e o DMSL pediu o fornecimento de um rele novo (jul/2025). O rele nunca foi fornecido e as tres SS - incluindo a ETO-COEP 00176/2025 - foram canceladas em 30/06/2026. OBS: Sem SS aberta e sem evidencia de solucao: a demanda de rele novo foi encerrada por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das 3 SS de comissionamento, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5861441256": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DCMD",
+   "historia": "RT (numero anterior 5833723026) da obra 0312500363 aguardando comissionamento, com resistencia de malha tao alta que as manobras exigiam a rede desligada; a melhoria de aterramento foi programada entre 29/07 e 01/08/2025. Em 13/08/2025 o Cadastro renumerou o ativo de 5861441256 para 5861441026 e, uma semana depois, quatro SS (entre elas a ETO-COEP 00161/2025) foram canceladas, deixando duas SS orfas sob o numero antigo e nenhum registro de comissionamento concluido. OBS: A renumeracao do ativo (13/08/2025) deixou ETO-TELE 00795/2025 e ETO-RD-PO 00168/2025 abertas sob o codigo antigo, sem comissionamento registrado.",
+   "ultimo_movimento": {
+    "data": "2025-08-20",
+    "o_que": "Cancelamento em 20/08/2025 das SS ETO-PROT 00211/2025, ETO-COEP 00161/2025, ETO-RD-PO 00187/2025 e ETO-TELE 00890/2025."
+   },
+   "dias_parado": 357,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5862546023": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RT instalado na obra 0702500104 nunca comissionado: nos testes o controle apresentou defeito e o DMSL pediu substituicao do controle RUA. As SS de comissionamento foram canceladas em 03/11/2025 e as SS seguintes, incluindo a ETO-COEP 00217/2025, foram canceladas em 30/06/2026 sem qualquer execucao. OBS: Sem SS aberta e sem evidencia de solucao: a troca do controle RUA foi encerrada por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das SS ETO-TELE 01275/2025 e ETO-COEP 00217/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5863381155": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RT instalado na obra 0702500302 nunca comissionado: o DMSL mediu 738 ohm na malha de aterramento, muito acima do aceitavel para operacao, e pediu melhoria. As tres SS - incluindo a ETO-COEP 00170/2025 - foram canceladas em 30/06/2026 sem registro de qualquer melhoria. OBS: Sem SS aberta e sem evidencia de solucao para uma malha de 738 ohm; encerramento por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das 3 SS de comissionamento, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "5863887001": {
+   "veredito": "reincidiu",
+   "posto_hoje": null,
+   "historia": "Em 19/11/2025 o DMSL constatou defeito no tanque da fase A (acionar garantia ou substituir) e a obra 0312500655 foi encerrada. Em 10/02/2026 o RT foi normalizado por reset apos nao sinalizar neutro, com equipamento em operacao. Em 04/05/2026 voltou travando constantemente - o mesmo sintoma - e foi preciso substituir o rele (19/05/2026), com a Protecao confirmando em 12/06/2026 que o rele estava queimado. Ainda houve falha de comunicacao restabelecida em 16/07/2026.",
+   "ultimo_movimento": {
+    "data": "2026-07-13",
+    "o_que": "ETO-TELE 00983/2026 atendida (13/07/2026): comunicacao do regulador restabelecida."
+   },
+   "dias_parado": null,
+   "reincidencia": {
+    "resolvido_em": "2026-02-10",
+    "voltou_em": "2026-05-04"
+   },
+   "conflito_com_site": "Obra 0312500655 encerrada no AIC (em SIGCO 8495, religador, para um regulador) enquanto a ETO-COEP 00219/2025 sobre o tanque da fase A segue repassada no COEP desde 19/11/2025.",
+   "na_carteira": false
+  },
+  "7900001227": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL Cooper Form6 de 2009 com sensor interno de corrente defeituoso (medicao variando a cada 5 min); em mar/2025 o DMSL classificou o equipamento como obsoleto e solicitou ao DCMD a substituicao completa. A substituicao nunca ocorreu: as SS, incluindo a ETO-COEP 00100/2025, foram canceladas em 30/06/2026. O equipamento seguiu operando com manutencoes menores (bateria em jan/2026, conectores oxidados substituidos em 21/01/2026). OBS: O religador continua em operacao medindo correntes incorretamente: a demanda de substituicao por obsolescencia foi encerrada por cancelamento, sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) das SS ETO-PROT 00069/2025, ETO-COEP 00100/2025 e ETO-TELE 00230/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7900002088": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DEOP",
+   "historia": "RL da SE Sitio Novo abriu sem sinalizar protecoes e sem ciclo de religamentos (abr/2025); a base do rele estava obsoleta. O rele SEL 751 foi comissionado com base atualizada e entregue a operacao em 03/07/2025 e o controle foi rebaixado em 03/06/2025 (obra 0662500325). Segue pendente, desde 02/04/2025, o estudo de balanceamento de fase do alimentador solicitado ao ASPO/DEOP.",
+   "ultimo_movimento": {
+    "data": "2026-05-18",
+    "o_que": "ETO-TELE 01421/2025 atendida (18/05/2026): conferencia de ajuste e envio da base a Protecao."
+   },
+   "dias_parado": 86,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0662500325 encerrada no AIC (SIGCO 8389, fora do padrao 8495) e a SS ETO-COEP 00042/2024, cujo objeto ja foi executado, segue repassada.",
+   "na_carteira": false
+  },
+  "7900003157": {
+   "veredito": "reincidiu",
+   "posto_hoje": null,
+   "historia": "Curto no cabo umbilical danificou tanque e controle (dez/2024); o religador completo foi substituido em jan/2025 (obra 0612500053) e comissionado em 27/03/2025. Depois disso a falta de comunicacao voltou tres vezes: disjuntor substituido em 24/04/2025, a SS foi encerrada e o defeito voltou em 07/05/2025 (novo disjuntor em 06/06/2025) e voltou outra vez em 08/07/2025 - \"foi encerrada a nota ETO-TELE 519/2025 mas o religador desde entao esta sem comunicacao\" - so estabilizando com a troca do Orbcomm por antena Telespazio em 22/07/2025.",
+   "ultimo_movimento": {
+    "data": "2025-07-22",
+    "o_que": "ETO-TELE 00811/2025 atendida: retirada do Orbcomm, instalacao de antena Telespazio e comissionamento com SCADA e COS."
+   },
+   "dias_parado": null,
+   "reincidencia": {
+    "resolvido_em": "2025-06-06",
+    "voltou_em": "2025-07-08"
+   },
+   "conflito_com_site": "Obra 0612500053 encerrada no AIC e a ETO-COEP 00158/2024 segue repassada, junto com outras 2 SS.",
+   "na_carteira": false
+  },
+  "7900045001": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em 10/06/2025 um passaro fechou curto na bucha de entrada e o DMSL concluiu que as buchas e a parte ativa foram danificadas, exigindo a substituicao completa do equipamento (controle + parte ativa) e o rebaixamento da estrutura. O caso subiu ao COEP em 21/08/2025 e ate hoje nao ha registro de substituicao: no periodo so foram feitos o jumper da chave de saida (06/10/2025), a correcao de inversao de fases (01/12/2025) e a troca de bateria (22/01/2026).",
+   "ultimo_movimento": {
+    "data": "2026-01-23",
+    "o_que": "ETO-TELE 00062/2026 atendida (23/01/2026): troca de bateria, conferencia de ajuste e atualizacao de banda morta."
+   },
+   "dias_parado": 201,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7900230155": {
+   "veredito": "reincidiu",
+   "posto_hoje": "DCMD",
+   "historia": "RL com tanque danificado e sinal de curto-circuito, sem responder comandos, para-raio do trafo queimado e olhal da chave de saida quebrado - bypassado em campo desde 04/04/2025, com pedido de substituicao completa por NOJA RC10. As SS foram CANCELADAS em 17/09/2025 sem qualquer execucao e o mesmo defeito foi reaberto em 27/05/2026. O COEP relatou problema no envio do material em 01/07/2026 e material enviado em 07/07/2026; em 25/06/2026 a equipe sanou as pendencias, faltando so conectar o cabo do trafo.",
+   "ultimo_movimento": {
+    "data": "2026-07-08",
+    "o_que": "Abertura de ETO-PROT 00143/2026 (pendente) e ETO-RD-GR 00685/2026 em 08/07/2026, com o RL declarado pronto para comissionamento."
+   },
+   "dias_parado": 35,
+   "reincidencia": {
+    "resolvido_em": "2025-09-17",
+    "voltou_em": "2026-05-27"
+   },
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7900236054": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL com falha de comunicacao em jan/2024 resolvida com troca de fusivel da placa de alimentacao. A demanda pendente era instalar os conectores da rede BT 220 VCA de fase e neutro (SS de 2023/2024): as tres SS, incluindo a ETO-COEP 00072/2024, foram canceladas em 07/01/2026 sem registro de execucao. Depois disso o equipamento so recebeu trocas de bateria (abr/2026). OBS: A demanda do COEP (conectores de BT) foi encerrada por cancelamento em 07/01/2026, sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-04-14",
+    "o_que": "Abertura da ETO-TELE 00909/2026 (10/06/2026) para troca de bateria, ja atendida."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7900275024": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL modelo NOJA RC01 obsoleto: em 23/06/2025 o COEP registrou a solicitacao de substituicao por um NOJA RC10 para manter a confiabilidade do sistema. A SS foi cancelada em 30/06/2026 sem execucao. Em 10/08/2026 abriu-se nova SS de parametrizacao (correntes das fases e do neutro e temporizacao do Keep Alive). OBS: A substituicao do religador obsoleto solicitada pelo COEP foi encerrada por cancelamento em 30/06/2026, sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-08-10",
+    "o_que": "Abertura da ETO-TELE 01093/2026 (pendente) com a lista de ajustes de parametrizacao a aplicar."
+   },
+   "dias_parado": 2,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7900385081": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL com rele Tavrida avariado e equipamento em curto, bypassado desde nov/2024; substituido por NOJA RC-10ES em 26/12/2024 (obra 0662400713), com o cabo coaxial - que veio faltando - instalado em 19/03/2025 e comissionamento concluido em 24/04/2025. Em 2026 os ajustes foram corrigidos duas vezes (o DMSL apontou valores de corrente inconsistentes em 19/01/2026), com correcao final em 23/07/2026.",
+   "ultimo_movimento": {
+    "data": "2026-07-23",
+    "o_que": "ETO-TELE 00981/2026 atendida: correcao dos ajustes de protecao, equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0662400713 encerrada no AIC e a ETO-COEP 00143/2024 segue repassada desde 08/01/2025.",
+   "na_carteira": false
+  },
+  "7900532053": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "Em 07/05/2025 foi removido um ninho de abelhas do controle. Em 26/05/2025 o COEP recebeu o pedido de substituicao completa do RLG por entrada de agua no cordao umbilical e danos causados por abelhas, incluindo fornecimento de radio novo. A substituicao nunca foi executada: em 30/06 registrou-se \"equipamento em operacao no SCADA, aguardando resposta do DMSL\" e a SS foi CANCELADA em 13/07/2026.",
+   "ultimo_movimento": {
+    "data": "2026-07-13",
+    "o_que": "Cancelamento (13/07/2026) da ETO-COEP 00102/2025, sem execucao da substituicao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Site marca realizada=true, mas nao ha obra no AIC nem OS de substituicao: o \"realizado\" decorre do cancelamento da SS com a observacao de que o equipamento estaria operando no SCADA.",
+   "na_carteira": true
+  },
+  "7900535058": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em 25/08/2025 o RL foi encontrado com o rele travado e fora de operacao (abelhas na caixa do painel); o DMSL constatou rele danificado com firmware corrompido e, sem pecas de reposicao para religador Cooper, pediu a substituicao de todo o conjunto por um NOJA RC10. O COEP registrou \"equipamento selecionado para compra\" e desde entao so houve troca de bateria (jan/2026) e um pedido de migracao de Orbcomm para antena Telespazio (abr/2026).",
+   "ultimo_movimento": {
+    "data": "2026-04-02",
+    "o_que": "Abertura da ETO-TELE 00469/2026 (pendente, 02/04/2026) para alterar o meio de comunicacao; a ETO-COEP 00173/2025 segue pendente desde 25/08/2025."
+   },
+   "dias_parado": 132,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7900552010": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL nao aceitava fechamento e desarmava mesmo a vazio (dez/2024) por defeito mecanico no tanque; o tanque foi substituido em 30/01/2025 (obra 0112500044) e o equipamento foi comissionado, testado com SCADA e COS e inserido no SEP em 03/02/2025. Em 2026 recebeu apenas troca de bateria.",
+   "ultimo_movimento": {
+    "data": "2026-07-15",
+    "o_que": "ETO-TELE 00693/2026 atendida (15/07/2026): substituicao da bateria do religador."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0112500044 encerrada no AIC e 3 SS, entre elas a ETO-COEP 00160/2024, seguem repassadas.",
+   "na_carteira": false
+  },
+  "7900594026": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL Cooper Form 6 da SE Ponte Alta com falhas cronicas de comunicacao e de medicao; em 03/10/2025 o DMSL pediu a substituicao do rele (porta serial RS232 com defeito) e em 20/10/2025 abriu-se a SS do COEP. Essa SS ficou parada oito meses e foi cancelada em 10/06/2026, quando o DMSL registrou \"tem uma nota aberta solicitando a substituicao desde 20/10/2025, como a nota nao foi atendida estamos repassando\". O equipamento foi finalmente substituido em 15/07/2026 (OS ETO-RD-PO 1860, obra 0312600354) e os ajustes disponibilizados em 16/07/2026, mas em 07/08/2026 surgiu nova falha de comunicacao por provavel rompimento do cabeamento de fibra.",
+   "ultimo_movimento": {
+    "data": "2026-08-07",
+    "o_que": "Abertura da ETO-SE-PA 00115/2026 (pendente) para refazer o cabeamento de fibra, provavelmente rompido em campo."
+   },
+   "dias_parado": 5,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7900696029": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL em curto interno por enxame de abelhas, com mel nos terminais fazendo o disjuntor desarmar (dez/2024), com pedido de substituicao do controle. O religador foi substituido (laudo anexado a SS, mar/2025) e comissionado em 27/03/2025, com cabos confeccionados, base e ajustes inseridos e entrega ao COS. Em 2026 recebeu apenas troca de bateria. OBS: ETO-COEP 00171/2024 e outras 3 SS seguem repassadas apesar da execucao de mar/2025.",
+   "ultimo_movimento": {
+    "data": "2026-05-29",
+    "o_que": "ETO-TELE 00663/2026 atendida (29/05/2026): substituicao da bateria."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7900757013": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL fechou curto danificando buchas de entrada e tanque (nov/2024) e ficou isolado; foi substituido em campo, mas o comissionamento foi reprovado em jan/2025 porque o controle tambem estava em curto e a nota de origem nao havia sinalizado essa necessidade. O controle foi substituido e o RL foi comissionado e colocado em operacao em 07/03/2025. OBS: 7 SS seguem repassadas, 3 delas no COEP (ETO-COEP 00141/2024, 00006/2025 e 00031/2025), apesar da execucao de mar/2025.",
+   "ultimo_movimento": {
+    "data": "2026-06-01",
+    "o_que": "ETO-TELE 00698/2026 atendida (01/06/2026): substituicao de bateria."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7900790075": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Parte ativa com defeitos mecanicos (nov/2024) exigiu troca do tanque; apos a substituicao o aterramento ficou em 259 e 236 ohm e a SS de melhoria da malha foi CANCELADA em 26/12/2024 sem execucao. O RL foi comissionado em 19/02/2025 usando rele e modulo SIM do estoque de manutencao, porque os que vieram estavam com defeito; a SS que pedia a reposicao desse material ao COEP foi cancelada em 07/01/2026. A melhoria de aterramento nunca teve registro de execucao.",
+   "ultimo_movimento": {
+    "data": "2026-02-26",
+    "o_que": "ETO-TELE 00223/2026 atendida (26/02/2026): atualizacao de ajustes e versao do rele."
+   },
+   "dias_parado": 167,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7901179122": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Em 19/09/2025 a linha viva trocou para-raio e chave da fase C (obra 0112500887). Em 25/09/2025 o DMSL encontrou buchas com sinais de queimado, aterramento quase rompido e parte ativa com defeito; o religador foi substituido em 08/10/2025 (obra 0112500930) e comissionado, testado e colocado em operacao em 14/10/2025. Os ajustes de protecao (SEF e 46) foram revisados em out/2025.",
+   "ultimo_movimento": {
+    "data": "2026-05-22",
+    "o_que": "ETO-PROT 00280/2025 atendida (22/05/2026) com o parecer de inclusao dos ajustes de SEF e 46."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Duas obras encerradas no AIC (0112500887 em SIGCO 8889, fora do padrao) e 4 SS, entre elas a ETO-COEP 00196/2025, seguem repassadas.",
+   "na_carteira": false
+  },
+  "7901216032": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL modelo NOJA RC01 obsoleto: em 23/06/2025 o COEP recebeu o pedido de substituicao por um RC10, mas a SS foi cancelada em 30/06/2026 sem execucao. Em paralelo o equipamento foi remanejado na obra 0402200525 e comissionado com o COS em 28/01/2026, seguindo em operacao com o mesmo modelo. OBS: O pedido de substituicao por obsolescencia foi encerrado por cancelamento; alem disso a SS ETO-TELE 00695/2025 deste ativo traz descricao de outro religador (7900275024), erro de digitacao/copia.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento (30/06/2026) da ETO-COEP 00115/2025 sobre a substituicao por obsolescencia."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7902314013": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0202400623 nunca comissionado: em 28/05/2025 o DMSL constatou que a parte ativa (disjuntor) nao aceita comandos de abertura e fechamento e que faltava o radio GE, pedindo a substituicao da parte ativa. Nenhuma substituicao foi executada - as SS de comissionamento, incluindo a ETO-COEP 00152/2025, foram canceladas em 19/06/2026 e outras duas em 03/02/2026. A unica execucao registrada foi o reparo de conexoes da chave de entrada em 12/01/2026. OBS: Sem SS relevante aberta e sem evidencia de comissionamento: a substituicao da parte ativa foi encerrada por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-06-19",
+    "o_que": "Cancelamento (19/06/2026) das SS ETO-PROT 00076/2025, ETO-COEP 00152/2025 e ETO-TELE 00384/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7902701014": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL sem comunicacao e sem automacao (jan/2025); o DMSL apontou tanque com defeito sem aceitar comandos. Houve confusao de ativos - a nota citava 7908686014 e 7902701014 - e o COEP devolveu a SS a Protecao para esclarecer qual equipamento tratar. Definido o ativo, o COEP entregou o equipamento ao COCM (06/05/2025), a substituicao foi feita (instalado alguns postes a frente por causa do acesso) e em 04/08/2025 a inspecao registrou o equipamento comissionado e em operacao. OBS: O religador foi reinstalado em local diferente do original (\"alguns postes a frente\"), sem registro de atualizacao cadastral; 5 SS seguem repassadas, 2 delas no COEP.",
+   "ultimo_movimento": {
+    "data": "2025-08-04",
+    "o_que": "ETO-TELE 00840/2025 atendida: inspecao confirmando equipamento comissionado e em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7903112004": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em 01/09/2025 o RL sinalizou aberto pelo SCADA e fechou sozinho sem comando, com risco de acidente; a SS foi cancelada em 22/09/2025 e reaberta em 03/09/2025 com o parecer do DMSL: equipamento Cooper Form6 obsoleto, sem pecas sobressalentes, exigindo substituicao completa por NOJA RC10. O COEP registrou \"equipamento selecionado para compra\" (20/07) e desde entao so houve troca de bateria em jan/2026.",
+   "ultimo_movimento": {
+    "data": "2026-01-15",
+    "o_que": "ETO-TELE 01343/2025 atendida (15/01/2026): substituicao de bateria."
+   },
+   "dias_parado": 209,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7905356122": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL com falha de bateria e sincronismo de fase corrigidos em 2024. A demanda pendente era substituir o cabo de alimentacao CA com isolacao comprometida, que causava desarme do disjuntor - as SS, incluindo a ETO-COEP 00073/2024, foram canceladas em 09/06/2025 sem execucao. Em jan/2025 o radio danificado e o rele foram substituidos, restabelecendo a comunicacao, e os ajustes foram atualizados em fev/2025. OBS: A substituicao do cabo CA com isolacao ressecada foi encerrada por cancelamento em 09/06/2025, sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-06-01",
+    "o_que": "ETO-TELE 00758/2026 atendida (01/06/2026): substituicao de bateria."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7905357122": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "RL NOJA RC01 que ja falhou duas vezes em atuar com poste abalroado e cabos ao solo pegando fogo - a Protecao registrou \"reincidente em nao abrir\". Desde 16/08/2024 o DMSL alinhou que o equipamento precisa ser substituido por um NOJA RC10 (rele com limitacoes de ajuste, sem acesso a eventos, modelo obsoleto), permanecendo em operacao ate a troca. A SS do COEP para a substituicao foi cancelada em 12/03/2026 e o assunto voltou ao COEP em 22/05/2026.",
+   "ultimo_movimento": {
+    "data": "2026-05-22",
+    "o_que": "Abertura de ETO-COEP 00188/2025 (repassada) e ETO-RD-PA 00352/2026 (pendente) em 22/05/2026, ambas de ajustes de protecao."
+   },
+   "dias_parado": 82,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7908196047": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Falhas repetidas de comunicacao resolvidas por reset em 2024/2025; em 11/08/2025 o DMSL concluiu \"trocar o equipamento completo, equipamento antigo e sem supervisao\" e em 29/10/2025 registrou curto-circuito no tanque impedindo abertura e fechamento, pedindo substituicao de tanque e controle. As SS de 2025 foram canceladas em 18/06/2026 e reabertas no mesmo dia. Em 13/07/2026 o COEP afirmou \"equipamento remanejado, favor fazer o comissionamento\", mas em 03/08/2026 o DMSL registrou que o DCMD confirmou que o equipamento AINDA NAO FOI SUBSTITUIDO. OBS: Contradicao entre pareceres: o COEP deu o equipamento por remanejado/pronto para comissionamento em 13/07/2026 e o DMSL/DCMD negaram a substituicao em 03/08/2026.",
+   "ultimo_movimento": {
+    "data": "2026-08-03",
+    "o_que": "Abertura de ETO-TELE 01002/2026 e ETO-COEP 00168/2026 (pendente) em 03/08/2026, com o desmentido do DCMD sobre a substituicao."
+   },
+   "dias_parado": 9,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7908206074": {
+   "veredito": "reincidiu",
+   "posto_hoje": "COEP",
+   "historia": "Tanque em curto e controle com defeito desde mar/2024, com pedido de substituicao completa do RLG; em mai/2024 o DCMD registrou que \"religador nao foi entregue ao COCMS\". Em 25/11/2024 o caso foi dado por resolvido - a equipe do COCM foi ao local para substituir e encontrou o equipamento ja em operacao, e a Protecao baixou a nota com \"equipamento em operacao\". Em 15/04/2025 a equipe identificou de novo o TANQUE QUEIMADO e solicitou a substituicao; essa SS do COEP foi cancelada em 29/06/2026 sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-06-29",
+    "o_que": "Cancelamento (29/06/2026) da ETO-COEP 00063/2025 que pedia a substituicao do tanque queimado."
+   },
+   "dias_parado": 44,
+   "reincidencia": {
+    "resolvido_em": "2024-11-25",
+    "voltou_em": "2025-04-15"
+   },
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7908309006": {
+   "veredito": "reincidiu",
+   "posto_hoje": null,
+   "historia": "Tanque do religador com defeito e aterramento fora do aceitavel (abr/2024); o equipamento foi substituido em 05/11/2024 (obra 0112401134) e comissionado. Em 03/02/2025 o mesmo tipo de defeito voltou - vazamento na fase C, com tensao passando mesmo com o trecho desligado - exigindo NOVA substituicao em 13/03/2025 (obra 0112500114). Depois disso houve duas falhas de comunicacao resolvidas (set/2025 e mar/2026, esta ultima por curto na alimentacao do rele).",
+   "ultimo_movimento": {
+    "data": "2026-03-25",
+    "o_que": "ETO-TELE 00345/2026 atendida (25/03/2026): placa de alimentacao CA recuperada, equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": {
+    "resolvido_em": "2024-11-05",
+    "voltou_em": "2025-02-03"
+   },
+   "conflito_com_site": "As duas obras estao encerradas no AIC (0112401134 em SIGCO 8481, de regulador, para um religador) e 6 SS, 2 delas no COEP, seguem repassadas.",
+   "na_carteira": false
+  },
+  "7910063075": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL nao aceitava comando local nem comunicava (jan/2025); o DMSL constatou tanque e controle sem responder e pediu substituicao completa por NOJA RC10, executada ate 19/02/2025. Em 02/04/2025 o DMSL fixou e apontou a antena, instalou cabos e centelhador e configurou o rele, mas NAO colocou o equipamento em operacao por falta de radio e cabo de rede - pendencia que nunca teve registro de atendimento. Em 2026 houve troca de bateria e atualizacao de base/ajustes.",
+   "ultimo_movimento": {
+    "data": "2026-06-01",
+    "o_que": "ETO-TELE 00690/2026 atendida (01/06/2026): substituicao de bateria."
+   },
+   "dias_parado": 72,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7910410013": {
+   "veredito": "reincidiu",
+   "posto_hoje": null,
+   "historia": "Tanque Schneider com defeito no mecanismo (mar/2024); o equipamento foi substituido em 28/05/2024. Em 13/12/2024 o DMSL constatou que o tanque estava com defeito de novo e pediu nova substituicao - em 07/02/2025 o registro do COEP e explicito: \"equipamento ja substituido pela 3a vez\". So entao o RL foi comissionado e colocado em operacao (21/02/2025), seguido de intercorrencias de CA/bateria resolvidas em abr/2025 e abr/2026. OBS: 15 SS deste ativo seguem repassadas no sistema, 4 delas no COEP, apesar de o equipamento estar em operacao desde fev/2025.",
+   "ultimo_movimento": {
+    "data": "2026-04-27",
+    "o_que": "ETO-TELE 00765/2026 atendida (27/04/2026): disjuntor CA religado, cordao umbilical reposicionado, equipamento normalizado."
+   },
+   "dias_parado": null,
+   "reincidencia": {
+    "resolvido_em": "2024-05-28",
+    "voltou_em": "2024-12-13"
+   },
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7913328113": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Rele e parte ativa com defeito (nov/2024) exigiram substituicao completa por NOJA RC10, feita em 09/01/2025. O comissionamento foi reprovado em 17/01/2025 porque o equipamento chegou sem fonte, sem cabos do rele/modulo SIM e do display, sem radio, sem antena e com o cabo de CA curto; sanadas as pendencias, o RL foi comissionado, testado com SCADA e COS e inserido no SEP em 03/04/2025. OBS: ETO-COEP 00011/2025 e outras 5 SS seguem repassadas apesar da execucao de abr/2025.",
+   "ultimo_movimento": {
+    "data": "2026-02-09",
+    "o_que": "ETO-TELE 01401/2025 atendida (09/02/2026): conferencia de ajustes e atualizacao de base, com pendencia de alteracao de mestre por instabilidade de comunicacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7913341063": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL com bucha do tanque da fase B danificada, bypassado em campo (fev/2025); a parte ativa foi substituida pelo DCMD em abr/2025 e o comissionamento foi realizado em 13/06/2025 - mas o proprio feedback registra \"ficou em operacao: Nao\" sem declarar pendencia, o que deixa o estado ambiguo. Em 01/07/2026 abriu-se nova demanda para alterar as bases junto ao SCADA e incluir as protecoes SEF e 46. OBS: O feedback de comissionamento de 13/06/2025 e internamente contraditorio (equipamento nao ficou em operacao, mas sem pendencia declarada); 5 SS seguem abertas, 1 delas no COEP.",
+   "ultimo_movimento": {
+    "data": "2026-07-01",
+    "o_que": "Abertura da ETO-SE-AR 00064/2026 (pendente) para alteracao de bases no SCADA e inclusao das protecoes SEF e 46."
+   },
+   "dias_parado": 42,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7913655100": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL Cooper Form6 obsoleto da RDU de Taquarucu: em 10/03/2025 o COEP recebeu pedido de substituicao completa por NOJA RC10 com urgencia; a troca (religador, controle e radio) foi executada ate 28/05/2025 na obra 0112500255. Em 2026 o equipamento so recebeu trocas de bateria, inclusive a migracao para bateria de litio em 03/06/2026.",
+   "ultimo_movimento": {
+    "data": "2026-07-15",
+    "o_que": "ETO-TELE 00071/2026 atendida (15/07/2026): substituicao de bateria do religador."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0112500255 encerrada no AIC e a ETO-COEP 00018/2025 segue repassada, junto com outras 2 SS.",
+   "na_carteira": false
+  },
+  "7913667006": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL que em 2024 nao abriu para defeito a jusante, com ajuste revisado. A demanda registrada no COEP era substituir o para-raio da fase A do lado fonte, queimado - a SS ETO-COEP 00004/2024 foi cancelada em 22/01/2026 sem execucao. Em 2026 o equipamento recebeu verificacao de sinalizacoes indevidas (aberto/fechado) e trocas de bateria, permanecendo em operacao. OBS: A substituicao do para-raio queimado solicitada ao COEP foi encerrada por cancelamento em 22/01/2026, sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-05-07",
+    "o_que": "Abertura da ETO-TELE 00918/2026 (10/06/2026) para troca de bateria, ja atendida."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7920024127": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em 01/07/2025 o RL estava desarmando em campo enquanto o SCADA o mostrava fechado, so sinalizando abertura apos reset local. O DMSL concluiu que rele e parte ativa estao com defeito e pediu substituicao completa por NOJA RC10, alem da chave de saida da fase A com anel de abertura quebrado. O COEP respondeu (30/06) que aguarda o retorno do DMSL para saber se o problema e de comunicacao ou de parte ativa, ja que o equipamento segue comunicando; duas SS paralelas foram canceladas em 05/08/2025.",
+   "ultimo_movimento": {
+    "data": "2025-11-26",
+    "o_que": "ETO-TELE 01334/2025 atendida (26/11/2025): substituicao de bateria."
+   },
+   "dias_parado": 259,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7920080052": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Historico longo de falhas de comunicacao; em fev/2025 o trafo auxiliar queimado foi substituido sem resolver e o DMSL constatou tanque com defeito num Cooper descontinuado, pedindo troca completa por NOJA RC10. O religador foi substituido (laudo na obra 0412500201) e comissionado em 09/04/2025, com base e ajustes inseridos e entrega ao COS. Em 21/01/2026 aplicou-se a nova base NOJA junto ao SCADA. OBS: ETO-COEP 00027/2025 e outras 7 SS seguem repassadas apesar da execucao de abr/2025.",
+   "ultimo_movimento": {
+    "data": "2026-01-21",
+    "o_que": "ETO-TELE 01103/2025 atendida (21/01/2026): manutencao com aplicacao da nova base e comissionamento SCADA."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7921039031": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL danificado por curto-circuito, intermitente e depois sem comunicacao e sem aceitar comando local (jan/2025); o equipamento foi substituido por completo e comissionado em 18/03/2025 (antena fixada e apontada, cabos, centelhador, radio e rele configurados). Em dez/2025 tratou-se a perda de comunicacao na falta de CA e em 18/04/2026 a bateria foi substituida com teste de ausencia de CA. OBS: ETO-COEP 00007/2025 e outras 2 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2026-04-18",
+    "o_que": "ETO-TELE 00739/2026 atendida (18/04/2026): bateria substituida, testes de ausencia de CA, equipamento em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7923664004": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL sem comunicacao e fora de operacao com a parte ativa danificada (jan/2025), com pedido de substituicao. Em 17/03/2025 o COEP registrou \"equipamento ja substituido\" e, ao chegar ao local em 21/03/2025, a equipe do DMSL encontrou o religador ja em operacao. OBS: ETO-COEP 00009/2025 e ETO-TELE 00011/2025 seguem repassadas apesar de o equipamento estar em operacao desde mar/2025.",
+   "ultimo_movimento": {
+    "data": "2025-03-24",
+    "o_que": "ETO-TELE 00266/2025 atendida: equipe encontrou o equipamento ja em operacao apos a substituicao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7925573007": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DEOP",
+   "historia": "RL com erro de medicao de neutro (corrente alta com sistema equilibrado) desde 2024 e chave de bypass da fase B sem lamina. Em 24/06/2025, apos testes com mala de corrente fisica e virtual, o DMSL concluiu que a PARTE ATIVA esta com problema (inducao no neutro) e que era necessario substitui-la - o equipamento ficou operando apenas como seccionalizador a pedido da Protecao. Essa pendencia nunca foi executada: as SS, incluindo a ETO-COEP 00119/2025, foram canceladas em 30/06/2026. Tres dias antes, em 27/06/2026, o religador desarmou por rele 50/51 no grupo 2. OBS: A substituicao da parte ativa foi encerrada por cancelamento em 30/06/2026 sem execucao, com o equipamento operando em modo seccionalizador e ja com desarme indevido registrado em 27/06/2026.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento em massa (30/06/2026) de 5 SS, entre elas a ETO-COEP 00119/2025 que pedia a substituicao da parte ativa."
+   },
+   "dias_parado": 43,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7925704079": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "Em 15/09/2025 o DMSL constatou defeito no tanque do RLG e solicitou a substituicao; a SS do COEP foi cancelada em 30/06/2026 sem execucao. Em 10/12/2025 o equipamento recebeu atualizacao de base e ajustes com comissionamento SCADA, ficando em operacao (com registro de que a bateria precisa ser substituida por nao aceitar carga). OBS: A substituicao do tanque solicitada ao COEP foi encerrada por cancelamento em 30/06/2026 sem execucao; permanece tambem a pendencia de bateria registrada em dez/2025.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento (30/06/2026) das SS ETO-TELE 00849/2025 e ETO-COEP 00189/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7925898004": {
+   "veredito": "reincidiu",
+   "posto_hoje": null,
+   "historia": "RL com tanque estourado e aterramento em 99/102/72 ohm (fev/2025); o tanque foi substituido em 11/03/2025 e tres chaves seccionadoras trocadas em 26/03/2025 (obra 0612500378). Em 29/03/2025 apareceu o defeito de perder comunicacao na falta de CA, tratado em 01/04/2025 com a religacao do conector do fusivel da bateria. O MESMO defeito voltou em 16/05/2026 e foi atendido em 25/05/2026.",
+   "ultimo_movimento": {
+    "data": "2026-05-25",
+    "o_que": "ETO-TELE 00855/2026 atendida (25/05/2026): manutencao no religador por perda de comunicacao na falta de CA."
+   },
+   "dias_parado": null,
+   "reincidencia": {
+    "resolvido_em": "2025-04-01",
+    "voltou_em": "2026-05-16"
+   },
+   "conflito_com_site": "Obra 0612500378 encerrada no AIC em SIGCO 8889 (fora do padrao 8495) e a ETO-COEP 00023/2025 segue repassada; a melhoria da malha de aterramento medida em 99/102/72 ohm nunca teve registro de execucao.",
+   "na_carteira": false
+  },
+  "7926439110": {
+   "veredito": "reincidiu",
+   "posto_hoje": "COEP",
+   "historia": "Tanque com defeito e aterramento fora do nivel aceitavel (abr/2024); o religador foi substituido em campo e comissionado em 06/12/2024 com troca do rele. Em 23/01/2025 apareceu vazamento na saida da fase A causando desarme e, em 25/02/2025, o DMSL constatou DE NOVO defeito no tanque, pedindo substituicao da parte ativa. O COEP entregou o equipamento ao COCM em 06/05/2025 e a Protecao declarou em 30/10/2025 que o equipamento ja estava comissionado e em operacao. OBS: 11 SS seguem repassadas, 3 delas no COEP (00034/2025, 00086/2025 e 00159/2025), apesar do parecer da Protecao de que o equipamento esta em operacao.",
+   "ultimo_movimento": {
+    "data": "2026-03-03",
+    "o_que": "ETO-PROT 00333/2025 atendida (03/03/2026) com o parecer de que o equipamento ja se encontra comissionado e em operacao."
+   },
+   "dias_parado": 162,
+   "reincidencia": {
+    "resolvido_em": "2024-12-06",
+    "voltou_em": "2025-02-25"
+   },
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7926645073": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Controle danificado por abelhas e pedido de rebaixamento da parte ativa (jan/2025); numa primeira ida a equipe encontrou o equipamento funcionando e a nota foi baixada. Em fev/2025 o DMSL insistiu no rebaixamento do controle e no fornecimento de radio; o DCMD respondeu que o rebaixamento e inviavel sem refazer toda a estrutura com poste de maior bitola. Em 20/03/2025 o RL foi comissionado com o SCADA e colocado em operacao com o COS. OBS: O rebaixamento da parte ativa foi declarado inviavel pelo DCMD e nunca resolvido; 5 SS seguem repassadas, 1 delas no COEP.",
+   "ultimo_movimento": {
+    "data": "2025-03-20",
+    "o_que": "ETO-TELE 00247/2025 atendida: comissionamento concluido e equipamento colocado em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7927446001": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em 08/07/2025 o RL ficou sem comunicacao e o DMSL constatou a placa de alimentacao danificada por curto, sem material sobressalente, concluindo \"favor substituir o equipamento completo\" - o equipamento nao ficou em operacao. O COEP registrou (30/06) \"equipamento completo\" e duas SS paralelas foram canceladas em 29/07/2025. Em dez/2025 a chave de bypass quebrada da fase B foi substituida pela linha viva, mas a substituicao do religador segue sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-05-21",
+    "o_que": "ETO-RD-PO 00270/2025 atendida (29/12/2025): substituicao da chave de bypass da fase B pela linha viva."
+   },
+   "dias_parado": 83,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7927711107": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Tanque deteriorado identificado durante ocorrencia (mar/2025); o COEP forneceu o equipamento ao COCM Sul e a substituicao foi feita, com nova calibracao conforme o numero de serie do tanque, conferencia de ajuste e entrada em operacao com o COS em 09/07/2025. Em 2026 resolveu-se falha de comunicacao por disjuntor desarmado (substituido por um de 10 A) e trocou-se a bateria. OBS: ETO-COEP 00041/2025 e outras 4 SS seguem repassadas apesar da execucao de jul/2025.",
+   "ultimo_movimento": {
+    "data": "2026-05-07",
+    "o_que": "ETO-TELE 00502/2026 e 00622/2026 atendidas (07/05/2026): disjuntor substituido, comunicacao normalizada e bateria trocada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7927712032": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Pendencia registrada desde jan/2023: para-raio do trafo auxiliar queimado, apos a substituicao de uma fonte tambem queimada. As SS originais (incluindo a ETO-COEP 00014/2023) foram canceladas em 03/06/2025 sem execucao, mas o servico acabou sendo executado por outras SS do DCMD em 24/09/2025. Em 2026 houve troca de bateria. OBS: A mesma pendencia (para-raio do trafo auxiliar) ficou aberta por dois anos e oito meses e teve suas SS originais canceladas antes da execucao; ETO-COEP 00001/2024 e outras 2 SS seguem repassadas.",
+   "ultimo_movimento": {
+    "data": "2026-05-19",
+    "o_que": "ETO-TELE 00624/2026 atendida (19/05/2026): bateria substituida conforme solicitado."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7927765019": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL sem comunicacao com ninho de formiga no controle (mai/2025); em 24/06/2025 o DMSL instalou antena Telespazio, trocou o modulo SIM em curto e concluiu que a PARTE ATIVA estava em curto, pedindo substituicao - essas SS foram canceladas em 25/08/2025. Ainda assim, em 05/09/2025 o equipamento foi comissionado e entregue a operacao. Em jan/2026 identificou-se bateria afundada pelo skyedge ligado direto e em 09/03/2026 a bateria foi trocada e o circuito segregado. OBS: Inconsistencia: a substituicao da parte ativa em curto (24/06/2025) foi cancelada em 25/08/2025 e, dez dias depois, o mesmo equipamento foi comissionado e entregue a operacao sem registro de troca.",
+   "ultimo_movimento": {
+    "data": "2026-03-09",
+    "o_que": "ETO-TELE 00336/2026 atendida (09/03/2026): bateria substituida e circuito de alimentacao do skyedge segregado."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7928244032": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL com painel apagado, sem possibilidade de manobra e com bypass fechado (fev/2025); o DMSL constatou defeito no tanque e pediu a troca apenas do tanque, mantendo o controle. O tanque foi substituido e em 09/04/2025 o DMSL fez a calibracao e a atualizacao do ajuste, comissionando o equipamento. Em 2026 houve troca de bateria. OBS: ETO-COEP 00025/2025 e outras 2 SS seguem repassadas apesar da execucao de abr/2025.",
+   "ultimo_movimento": {
+    "data": "2026-05-19",
+    "o_que": "ETO-TELE 00621/2026 atendida (19/05/2026): bateria substituida conforme solicitado."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7930424008": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL com tanque danificado, causa do desarme do DJ 424R da SE Miranorte em 13/12/2024; o servico foi executado em campo e o equipamento foi comissionado em 17/02/2025 com alteracao de ajuste, banda morta e calibracao, entrando em operacao. Em 04/03/2026 a base do rele foi atualizada para a versao atual. OBS: ETO-COEP 00172/2024 e outras 2 SS seguem repassadas apesar da execucao de fev/2025.",
+   "ultimo_movimento": {
+    "data": "2026-03-04",
+    "o_que": "ETO-TELE 00222/2026 atendida (04/03/2026): atualizacao de base e ajustes de protecao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7930428001": {
+   "veredito": "reincidiu",
+   "posto_hoje": "COEP",
+   "historia": "RL dando passagem na fase A foi retirado de operacao em out/2024; a bucha da fase A estava comprometida por curto e a parte ativa foi substituida pela obra 0312400657, com comissionamento e entrada em operacao em 31/01/2025. Em 16/07/2025 o MESMO defeito voltou - \"equipamento dando passagem na fase A, ficou bypassado ate substituicao\". Em 29/06/2026 o COEP pediu reavaliacao alegando que o equipamento funciona no SCADA e, em 16/07/2026, o DMSL reafirmou que sera necessario substituir a parte ativa.",
+   "ultimo_movimento": {
+    "data": "2026-07-20",
+    "o_que": "Abertura de ETO-TELE 00965/2026 e ETO-COEP 00150/2026 (pendente) em 20/07/2026, com o parecer do DMSL reafirmando a necessidade de substituicao."
+   },
+   "dias_parado": 23,
+   "reincidencia": {
+    "resolvido_em": "2025-01-31",
+    "voltou_em": "2025-07-16"
+   },
+   "conflito_com_site": "Contexto marca aic=confirmado_aic (obra de substituicao encerrada) mas realizada=false; a obra de 2024/2025 de fato ocorreu e o mesmo defeito retornou em 16/07/2025, com o ativo hoje aguardando nova substituicao no COEP.",
+   "na_carteira": true
+  },
+  "7931609122": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL com tanque danificado em campo e indisponivel para operacao (abr/2025); a parte ativa foi substituida em 05/04/2025 (obra 0112500349) e em 22/04/2025 o DMSL comissionou, calibrou, atualizou ajustes e inseriu o equipamento no SEP com o COS. Em 2026 houve troca de bateria.",
+   "ultimo_movimento": {
+    "data": "2026-07-15",
+    "o_que": "ETO-TELE 00746/2026 atendida (15/07/2026): substituicao de bateria do religador."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0112500349 encerrada no AIC e a ETO-COEP 00049/2025 segue repassada, junto com outras 2 SS.",
+   "na_carteira": false
+  },
+  "7933766059": {
+   "veredito": "reincidiu",
+   "posto_hoje": null,
+   "historia": "Buchas comprometidas por curto (out/2024): o tanque foi substituido em 07/11/2024 (obra 0112401177) e o RL comissionado e colocado em operacao em 29/11/2024. Em 15/10/2025 houve NOVO curto na parte ativa danificando o tanque - equipamento fora de operacao com pendencia de substituicao. A SS do COEP foi cancelada em 22/10/2025 e o caso so andou em 2026: equipamento entregue pelo COEP em 01/07/2026, substituido em campo em 14/07/2026 (OS DLP-MPPA01 244/2026) e recomissionado em 03/08/2026.",
+   "ultimo_movimento": {
+    "data": "2026-08-03",
+    "o_que": "ETO-TELE 01024/2026 atendida (03/08/2026): comissionamento do religador com dados de telecom e chamado SCADA."
+   },
+   "dias_parado": null,
+   "reincidencia": {
+    "resolvido_em": "2024-11-29",
+    "voltou_em": "2025-10-15"
+   },
+   "conflito_com_site": "Site marca realizada=false e aic=obra_em_andamento, mas ha substituicao executada em 14/07/2026 e comissionamento concluido em 03/08/2026; a obra citada 0112401177 (do ciclo de 2024) esta encerrada no AIC com 10 SS ainda abertas.",
+   "na_carteira": true
+  },
+  "7934698002": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Caixa de controle do RL destruida em campo (mai/2025), com fotos da carcaca anexadas. A substituicao foi executada pelo COCM (ETO-COEP 00094/2025 atendida em 30/05/2026, obra 0662600265) e o comissionamento foi concluido em 10/06/2026, com o DCMD pedindo que o DMSL levasse radio e cabo de antena.",
+   "ultimo_movimento": {
+    "data": "2026-06-10",
+    "o_que": "ETO-TELE 00882/2026 atendida (10/06/2026): comissionamento do religador apos a substituicao da caixa de controle."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0662600265 encerrada no AIC e 4 SS de mai/2025 seguem repassadas apesar da conclusao.",
+   "na_carteira": true
+  },
+  "7938137007": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em abr/2025 registrou-se a necessidade de substituir todo o equipamento e solicitar novo ajuste NOJA; as SS foram canceladas em 12/03/2026 sem execucao. Em 13/02/2026 o DMSL apontou bucha da fase A solta e trafo do servico auxiliar vazando oleo. Em 03/06/2026 o COEP repassou para comissionar, mas em 09/07/2026 o DMSL registrou que a equipe voltou a campo e o servico nao havia sido realizado; em 15/07/2026 o DCMD confirmou que \"o material ainda nao foi entregue para substituicao\", e a OS de 09/07/2026 conclui que sera necessario substituir o equipamento completo por problema na parte ativa.",
+   "ultimo_movimento": {
+    "data": "2026-07-15",
+    "o_que": "Abertura de ETO-RD-PS 00307/2026 e ETO-COEP 00144/2026 (pendente) em 15/07/2026, com o registro de material nao entregue."
+   },
+   "dias_parado": 28,
+   "reincidencia": null,
+   "conflito_com_site": "Contexto marca aic=obra_em_andamento, mas nao ha obra citada nas SS; a demanda de substituicao ja foi cancelada uma vez (12/03/2026) e reaberta sem execucao.",
+   "na_carteira": true
+  },
+  "7941708059": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Camara do religador danificada (dez/2024); o equipamento foi substituido em 21/01/2025 e comissionado em 10/02/2025. Em mar/2025 corrigiu-se inversao de fase identificada num fechamento em anel entre os alimentadores 8 e 6. OBS: ETO-COEP 00163/2024 e outras 3 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2025-03-24",
+    "o_que": "ETO-RD-PA 00217/2025 atendida (24/03/2025): correcao da inversao de fase no religador."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7942300004": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Parte ativa danificada com entrada de agua nas buchas, sem aceitar comando local nem remoto (dez/2024); o religador foi substituido em 12/02/2025 (obra 0612500054) e comissionado em 18/02/2025 com testes junto ao COD, entrando em operacao. Em fev/2026 o transformador do equipamento foi furtado e, apos a reinstalacao, a antena foi reconectada e o RL devolvido a operacao em 23/02/2026.",
+   "ultimo_movimento": {
+    "data": "2026-03-09",
+    "o_que": "ETO-TELE 00291/2026 atendida (09/03/2026): trafo reinstalado apos furto, antena reconectada e equipamento entregue em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0612500054 encerrada no AIC e a ETO-COEP 00175/2024 segue repassada.",
+   "na_carteira": false
+  },
+  "7942485096": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "Em 31/03/2025 o RL foi encontrado dando passagem mesmo estando aberto e sem aceitar comandos, ficando bypassado em campo; o DMSL testou o tanque, constatou que esta danificado e foi explicito ao pedir a substituicao apenas do tanque, sem necessidade de trocar o controle. Desde 23/07/2025 o caso esta no COEP com o parecer \"equipamento selecionado para compra\" e nao houve nenhum movimento posterior.",
+   "ultimo_movimento": {
+    "data": "2025-07-23",
+    "o_que": "Abertura da ETO-COEP 00158/2025 (pendente) e da ETO-RD-PO 00087/2025 em 23/07/2025, com o parecer de selecao para compra."
+   },
+   "dias_parado": 385,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7943790134": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL com vazamento interno na fase C, isolado e bypassado (mai/2025); o DMSL diagnosticou falha no TC interno da fase C exigindo substituicao da parte ativa. As primeiras SS foram canceladas em 22/10/2025, mas o caso foi retomado e a substituicao foi executada em 06/06/2026 com apoio da linha viva (obras 0662600266 e 0662600364). Desde 10/06/2026 o DCMD registra \"servico realizado, favor realizar comissionamento\" e o equipamento aguarda o DMSL.",
+   "ultimo_movimento": {
+    "data": "2026-06-10",
+    "o_que": "Abertura da ETO-TELE 00896/2026 (pendente) com o parecer do DCMD pedindo o comissionamento apos a substituicao."
+   },
+   "dias_parado": 63,
+   "reincidencia": null,
+   "conflito_com_site": "Site marca realizada=false, mas a substituicao da parte ativa foi executada em 06/06/2026 e as duas obras estao encerradas no AIC (0662600364 em SIGCO 8389, fora do padrao); falta apenas o comissionamento.",
+   "na_carteira": true
+  },
+  "7944319149": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "Em 03-04/09/2025 o RL nao voltou a comunicar apos o primeiro ataque; o servico executado foi a recuperacao do cabo RG-213 que havia saido do conector (solda refeita), com o equipamento devolvido a operacao. As SS abertas em 01/10/2025 no COEP e no DCMD foram canceladas em 22/06/2026 sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-06-22",
+    "o_que": "Cancelamento (22/06/2026) das SS ETO-RD-PS 00297/2025 e ETO-COEP 00201/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Site marca realizada=true sem obra no AIC: a unica execucao registrada foi o reparo do cabo RG-213 e as SS do COEP/DCMD foram encerradas por cancelamento. O parecer DMSL colado nesta SS refere-se a outro ativo (RLG 7955430075).",
+   "na_carteira": true
+  },
+  "7947668005": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL instalado com controle incompativel (2024), depois com o controle danificado, exigindo troca do conjunto por NOJA RC10 - substituido em 09/01/2025 (obra 0512400504) e comissionado em 21/02/2025. Em mai/2025 tratou-se a perda de comunicacao na falta de CA (bateria trocada) e em dez/2025 o enlace foi corrigido para o mestre 02 de Taguatinga, com atualizacao da base NOJA.",
+   "ultimo_movimento": {
+    "data": "2025-12-10",
+    "o_que": "ETO-TELE 01123/2025 atendida (10/12/2025): base NOJA atualizada junto ao SCADA e ajustes de protecao alterados."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0512400504 encerrada no AIC e a ETO-COEP 00165/2024 segue repassada, junto com outras 3 SS.",
+   "na_carteira": false
+  },
+  "7947962110": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "Controle do RLG danificado, rele apagado e equipamento sem comunicacao (nov/2024); o DMSL sugeriu aproveitar um controle em estoque no DCMD Palmas. O equipamento foi atendido pela OS ETO-RD-PO 3698/2024 (obra 0312400658) e comissionado em 07/03/2025, com radio e rele configurados e entrega em operacao ao COI. OBS: ETO-COEP 00147/2024 e outras 3 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2025-03-07",
+    "o_que": "ETO-TELE 00044/2025 atendida: comissionamento com SCADA e entrada em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7949315055": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL Tavrida descontinuado que nao aceitava comando remoto nem local (jan/2025); sem possibilidade de manutencao, o DMSL pediu substituicao completa por NOJA RC10, executada e comissionada em 23/04/2025. Em jul/2026 o disjuntor entrou em curto e o DPS queimado foi substituido, normalizando a falta de CA em 20/07/2026. OBS: ETO-COEP 00016/2025 e outras 2 SS seguem repassadas apesar da execucao de abr/2025.",
+   "ultimo_movimento": {
+    "data": "2026-07-24",
+    "o_que": "ETO-TELE 01009/2026 atendida (24/07/2026): DPS queimado substituido, equipamento testado e em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7949644098": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL Tavrida com placa fonte do rele danificada e sem pecas de reposicao (fev/2025); o conjunto foi substituido em 17/03/2025 e comissionado em 02/06/2025. Em jul/2025 a fonte entrou em curto e foi substituida, com o equipamento voltando a funcionar, e em abr/2026 a bateria foi trocada. Em 10/08/2026 abriu-se nova demanda de parametrizacao (correntes das fases e neutro e temporizacao do Keep Alive).",
+   "ultimo_movimento": {
+    "data": "2026-08-10",
+    "o_que": "Abertura da ETO-TELE 01092/2026 (pendente) com a lista de ajustes de parametrizacao."
+   },
+   "dias_parado": 2,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0612500296 encerrada no AIC em SIGCO 8805 (fora dos padroes 8481/8495) e a ETO-COEP 00033/2025 segue repassada.",
+   "na_carteira": false
+  },
+  "7949660066": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL Tavrida que nao reflete no SCADA as correntes reais do sistema; em 22/05/2025 o DMSL testou o cordao umbilical, consultou o suporte tecnico da Tavrida e concluiu que a medicao continua incorreta, pedindo ao DCMD a substituicao do equipamento - o operador pediu para mante-lo em operacao para manobras futuras. As SS, incluindo a ETO-COEP 00099/2025, foram canceladas em 30/06/2026 sem execucao. Em jan/2026 tratou-se a perda de comunicacao na falta de CA com troca de bateria. OBS: O religador segue em operacao medindo correntes incorretamente: a substituicao pedida pelo DMSL foi encerrada por cancelamento, sem execucao.",
+   "ultimo_movimento": {
+    "data": "2026-06-30",
+    "o_que": "Cancelamento (30/06/2026) das SS ETO-COEP 00099/2025 e ETO-TELE 00317/2025."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7950078122": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "Em 17/01/2025 o RL foi encontrado com os DPS em curto (apenas isolado e disjuntor religado em campo) e o DMSL registrou defeito na parte ativa da fase C, exigindo substituicao. As duas SS - ETO-COEP 00008/2025 e ETO-TELE 00027/2025 - foram CANCELADAS tres dias depois, em 20/01/2025, e nao ha nenhum registro posterior sobre este ativo. OBS: Sem SS aberta e sem qualquer registro em 19 meses: a substituicao da parte ativa da fase C nunca foi executada nem reaberta.",
+   "ultimo_movimento": {
+    "data": "2025-01-20",
+    "o_que": "Cancelamento (20/01/2025) das SS ETO-COEP 00008/2025 e ETO-TELE 00027/2025, tres dias apos a abertura."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7951445073": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0202200619 e comissionado em 02/07/2024, com uma unica pendencia: o controle nao estava fixado corretamente, faltando a cinta. A pendencia ficou aberta e so foi executada em 18/01/2026. No caminho houve ainda a substituicao de um poste quebrado da estrutura (obra 0212400625).",
+   "ultimo_movimento": {
+    "data": "2026-01-18",
+    "o_que": "ETO-RD-PS 00116/2025 atendida (18/01/2026): instalacao da cinta de fixacao do controle."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "ETO-COEP 00084/2024 segue repassada apesar de a pendencia da cinta ja ter sido executada; obra 0212400625 encerrada no AIC em SIGCO 8805, fora do padrao.",
+   "na_carteira": false
+  },
+  "7954050193": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL comissionado em 2024; em jan/2025 o trafo de servico auxiliar foi furtado e o COEP forneceu o equipamento ao COCM para regularizacao - em 17/02/2025 registrou-se \"equipamento esta em operacao\" e a normalizacao foi concluida em 25/02/2025. Em 2026 tratou-se falha de comunicacao (mar) e migrou-se o meio de comunicacao de Orbcomm para antena Telespazio, com comissionamento SCADA em 07/05/2026. OBS: ETO-COEP 00001/2025 e outras 3 SS seguem repassadas apesar da execucao.",
+   "ultimo_movimento": {
+    "data": "2026-05-07",
+    "o_que": "ETO-TELE 00479/2026 atendida (07/05/2026): antena Telespazio instalada, base atualizada e comissionamento com o SCADA."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7954560043": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0302400186 aguardando comissionamento; em 06/02/2025 o DMSL registrou que faltava a alimentacao do controle, ausente em campo. Nao ha registro de execucao dessa alimentacao, mas em 12/09/2025 a Protecao encerrou a nota com o parecer \"equipamento em operacao\". OBS: A pendencia de alimentacao do controle nunca teve OS de execucao; o encerramento se baseia apenas no parecer da Protecao. ETO-COEP 00021/2025 e outras 2 SS seguem repassadas.",
+   "ultimo_movimento": {
+    "data": "2025-09-12",
+    "o_que": "ETO-PROT 00175/2025 atendida (12/09/2025) com o parecer da Protecao de que o equipamento esta em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7954704001": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0302400107 e comissionado em 04/11/2024. As chaves de entrada e saida foram fechadas em 16/01/2025 (obra 0112500073) e o aterramento do controle foi conectado a malha em 05/06/2025. Em ago/2025 a falha de comunicacao foi resolvida com reset do modulo SIM que estava em modo bootload.",
+   "ultimo_movimento": {
+    "data": "2025-08-12",
+    "o_que": "ETO-TELE 00871/2025 atendida (12/08/2025): reset do modulo SIM e comunicacao normalizada com o COS."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": "Obra 0112500073 encerrada no AIC em SIGCO 8389 (fora do padrao 8495) e a ETO-COEP 00142/2024 segue repassada.",
+   "na_carteira": false
+  },
+  "7954748001": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0302300533 e comissionado em 24/10/2024. Em dez/2024 registraram-se divergencias no ajuste de protecao (SST desativado, curva e multiplicador errados, perfil de carga e qualidade divergentes); os ajustes foram refeitos em 17/02/2025 e em 02/05/2025 o DCMD confirmou \"equipamento ja em operacao\". OBS: O parecer DMSL de 11/12/2024 registrado nesta SS descreve outro ativo (RL 7956220007), erro de anotacao; ETO-COEP 00164/2024 e ETO-TELE 01084/2024 seguem repassadas.",
+   "ultimo_movimento": {
+    "data": "2025-05-02",
+    "o_que": "ETO-RD-PO 00094/2025 atendida (02/05/2025): inspecao confirmando o equipamento ja em operacao."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7955175004": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0602300755 sem o cabo umbilical, impedindo o comissionamento (set/2024); em out/2024 o equipamento foi substituido por um RC10 e em nov/2024 registrou-se controle e parte ativa danificados (SS canceladas em 26/11/2024). Em jan/2025 tratou-se possivel inversao de fase, com servico executado em 23/01/2025. As SS de comissionamento de 2024, incluindo a ETO-COEP 00125/2024, foram canceladas em 21/05/2026. OBS: Nao ha registro de comissionamento concluido; ETO-COEP 00014/2025 e outras 2 SS seguem repassadas e as SS originais foram encerradas por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-05-21",
+    "o_que": "Cancelamento (21/05/2026) das SS ETO-PROT 00266/2024, ETO-TELE 00746/2024 e ETO-COEP 00125/2024."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7955395085": {
+   "veredito": "resolvido_aparente",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0202300702; em 30/07/2024 o DMSL nao pode comissionar porque a alimentacao BT nao estava conectada. Nao ha OS registrando a conexao, mas em 25/06/2025 a Protecao encerrou a nota informando que o religador ja se encontra em operacao com carga e comunicando. OBS: A pendencia de alimentacao BT nunca teve registro de execucao; ETO-COEP 00094/2024 e outras 2 SS seguem repassadas.",
+   "ultimo_movimento": {
+    "data": "2025-06-25",
+    "o_que": "ETO-PROT 00176/2025 atendida (25/06/2025) com o parecer de que o religador ja opera com carga e comunicando."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7955430075": {
+   "veredito": "em_aberto",
+   "posto_hoje": "COEP",
+   "historia": "RL instalado na obra 0202400083 e comissionado em 06/11/2024. Em 14/03/2025 a Protecao registrou \"equipamento retirado de campo, favor retirar do cadastro\" e abriu SS de Cadastro que segue PENDENTE ate hoje. Em 03/09/2025 o equipamento apareceu bypassado por falha na parte ativa - defeito no sensor do tanque, sem leitura de tensao na fase B - com pendencia de substituicao da parte ativa. As SS foram canceladas em 22/10/2025 e o assunto voltou ao COEP em 29/06/2026, que pediu reavaliacao alegando que o equipamento se encontra em operacao no SCADA e que precisa do modelo a ser substituido. OBS: Contradicao aberta: a Protecao mandou retirar o ativo do cadastro em 14/03/2025 (ETO-CADTOC 00104/2025 pendente ha 516 dias) enquanto o COEP afirma em 29/06/2026 que o equipamento opera no SCADA. O parecer DMSL deste ativo foi copiado para as SS de 5800843075 e 7944319149.",
+   "ultimo_movimento": {
+    "data": "2026-06-29",
+    "o_que": "Abertura da ETO-COEP 00208/2025 (repassada) em 29/06/2026 pedindo reavaliacao da substituicao."
+   },
+   "dias_parado": 44,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": true
+  },
+  "7955681036": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL remanejado na obra 0402300716 (topologia antiga 7923718036) apresentou defeitos na fonte, no controle e na bateria, confirmados pelo suporte NOJA; por ser um RC01 obsoleto, o DMSL recomendou a troca completa por um RC10. O equipamento acabou sendo comissionado e entregue em 20/12/2024, a chave da fase A torta foi trocada em 24/12/2024 e em 09/01/2025 o COEP e a Protecao registraram \"equipamento em operacao\". Em mai/2026 resolveu-se uma falha de comunicacao. OBS: A troca por RC10 recomendada por obsolescencia nunca foi executada - o equipamento foi comissionado como estava; 5 SS seguem repassadas, 2 delas no COEP.",
+   "ultimo_movimento": {
+    "data": "2026-05-18",
+    "o_que": "ETO-TELE 00827/2026 atendida (18/05/2026): manutencao por falta de comunicacao apos primeiro ataque."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7955711003": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DEOP",
+   "historia": "RL comissionado em 30/09/2024 ja com pendencia de placa de identificacao divergente (campo 7955712003 x SCADA 7955711003). Em fev/2025 a trava do cordao umbilical quebrada foi substituida; em 12/05/2025 o DMSL pediu substituicao da parte ativa (tanque) e correcao da topologia. Em 22/09/2025 a equipe recalibrou o tanque, mas o COS RECUSOU colocar o equipamento em operacao porque no SCADA ele consta como religador e em campo o ajuste esta como chave de manobra; foi aberto o chamado SCADA 30397279 e nao ha registro de retorno. OBS: O bloqueio efetivo esta na correcao do cadastro no SCADA (chamado 30397279) e no novo comissionamento pelo DMSL; ETO-COEP 00092/2025 segue repassada desde 25/08/2025.",
+   "ultimo_movimento": {
+    "data": "2025-09-22",
+    "o_que": "ETO-TELE 01102/2025 atendida (22/09/2025): calibracao do tanque, mas equipamento nao entrou em operacao por divergencia de cadastro no SCADA."
+   },
+   "dias_parado": 324,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7956039101": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RL instalado na obra 0502400067 nunca comissionado: em out/2024 o DMSL listou faltas no controle - cabo RG-213, conectores, radio GE e alimentacao do trafo auxiliar ao controle. Nenhuma pendencia teve registro de execucao e as quatro SS, incluindo a ETO-COEP 00136/2024, foram canceladas em 23/06/2025. OBS: Sem SS aberta e sem evidencia de comissionamento; as pendencias construtivas foram encerradas por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2025-06-23",
+    "o_que": "Cancelamento em massa (23/06/2025) das 4 SS do ativo, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7956063152": {
+   "veredito": "indefinido",
+   "posto_hoje": null,
+   "historia": "RL sem cordao umbilical, sem radio e conexoes e sem alimentacao do trafo (set/2024), impedindo o comissionamento apesar de a parte construtiva constar como fiscalizada. Nenhuma pendencia teve registro de execucao e as cinco SS, incluindo duas do COEP (00166/2024 e 00091/2025), foram canceladas em 19/05/2026. OBS: Sem SS aberta e sem evidencia de comissionamento; as pendencias foram encerradas por cancelamento.",
+   "ultimo_movimento": {
+    "data": "2026-05-19",
+    "o_que": "Cancelamento em massa (19/05/2026) das 5 SS do ativo, sem execucao registrada."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7957019003": {
+   "veredito": "em_aberto",
+   "posto_hoje": "DMSL",
+   "historia": "RL instalado na obra 0402300985 foi montado com fonte e carga invertidas - operava, mas era preciso mudar a alimentacao do trafo auxiliar para o lado fonte. Em 08/04/2025 o DCMD contestou (\"esta instalado corretamente, trafo auxiliar lado da fonte\") e a Protecao encerrou em 23/04/2025 com \"equipamento em operacao\". Em jan/2026 foram instalados clusters e em 10/08/2026 abriu-se nova demanda de parametrizacao (correntes das fases e neutro e Keep Alive). OBS: ETO-COEP 00150/2024 e ETO-TELE 01002/2024 seguem repassadas desde 2024/2025, apesar do parecer de equipamento em operacao.",
+   "ultimo_movimento": {
+    "data": "2026-08-10",
+    "o_que": "Abertura da ETO-TELE 01082/2026 (pendente) com a lista de ajustes de parametrizacao."
+   },
+   "dias_parado": 2,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  },
+  "7957163122": {
+   "veredito": "resolvido_confirmado",
+   "posto_hoje": null,
+   "historia": "RL da entrada da UFV Parque do Povo (obra 0102301030) estava sem alimentacao CA e sem malha de aterramento; apos a alimentacao do controle e o fornecimento do radio, foi comissionado e colocado em operacao em 14/03/2025. Seguiram-se jumper partido recuperado (jul/2025), ajustes refeitos (out/2025), disjuntor e DPS em curto verificados (fev/2026), novo comissionamento em 22/06/2026 e retirada de ponto quente na chave de entrada em 23/06/2026. OBS: 7 SS seguem repassadas, entre elas a ETO-COEP 00013/2025, apesar das execucoes concluidas.",
+   "ultimo_movimento": {
+    "data": "2026-06-23",
+    "o_que": "ETO-RD-PA 00398/2026 atendida (23/06/2026): retirada do ponto quente na chave de entrada do religador."
+   },
+   "dias_parado": null,
+   "reincidencia": null,
+   "conflito_com_site": null,
+   "na_carteira": false
+  }
+ }
+}

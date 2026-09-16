@@ -1,0 +1,234 @@
+[
+  {
+    "cadeia": "ETO-TELE 00536/2025",
+    "ativo": "7924612052",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação só nomeia 'djuntor em curto'; disjuntor não é tanque nem parte ativa do religador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01149/2024",
+    "ativo": "7924625186",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Curto interno' é vago e o único componente nomeado é o disjuntor que desarma ao ligar; não cita tanque/parte ativa.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00835/2024",
+    "ativo": "7924844060",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parecer DMSL pede explicitamente substituir a parte ativa do religador por curto-circuito.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00417/2024",
+    "ativo": "7925081028",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Cita DJ (disjuntor) desarmando por 'algum curto interno'; não nomeia tanque/parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00631/2024",
+    "ativo": "7925088027",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Só descreve disjuntor desligado e em curto; não há menção a tanque ou parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00105/2024",
+    "ativo": "7925088027",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação nomeia parte ativa com defeito e substituição do tanque, e confirma religador substituído.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00538/2024",
+    "ativo": "7925146040",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação nomeia o tanque diretamente, com defeito descrito ('dando passagem mesmo aberto').",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00177/2024",
+    "ativo": "7925737080",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Cita apenas disjuntor em curto que não arma; nenhuma peça grande do religador é nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00242/2024",
+    "ativo": "7926439110",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação confirma tanque do religador com defeito e necessidade de substituição.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00139/2025",
+    "ativo": "7928241200",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Ensaios elétricos constatam tanque em curto, encaminhado para substituição pelo Dcmd.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00146/2025",
+    "ativo": "7928244032",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação afirma diretamente 'tanque do religador substituído'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00035/2025",
+    "ativo": "7928462040",
+    "mantem": false,
+    "categoria_final": "para-raio",
+    "porque": "Cita DJ em curto (sem categoria própria) e DPS queimado; DPS é para-raio, nenhum é tanque/parte ativa.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00657/2025",
+    "ativo": "7929657074",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Só cita disjuntor em curto e perda de comunicação; nenhuma peça grande do religador nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00825/2024",
+    "ativo": "7930262058",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Cita disjuntor em curto junto com sem comunicação; não nomeia tanque/parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00101/2025",
+    "ativo": "7930274063",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Não aceita comando de abertura pela argola' é sintoma sem peça nomeada, não tanque/parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00158/2024",
+    "ativo": "7930287154",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Só identifica disjuntor geral em curto; não há menção a tanque ou parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00261/2025",
+    "ativo": "7930287154",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Texto curto cita só disjuntor desarmando e sem comunicação; próprio leitor admite falta de confirmação.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00134/2024",
+    "ativo": "7930428001",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Dando passagem fase A' é sintoma; a citação não nomeia tanque, parte ativa ou câmara de interrupção.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-PROT 00146/2025",
+    "ativo": "7931609122",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação confirma tanque substituído de forma emergencial, com laudo em anexo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00402/2024",
+    "ativo": "7932030072",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque queimado confirmado por testes do DMSL e religador substituído conforme solicitado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00039/2024",
+    "ativo": "7933585074",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque queimado, enviado à sucata, e citação confirma tanque substituído pelo COCM.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00051/2024",
+    "ativo": "7941971014",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação afirma diretamente 'o tanque está para substituição', apesar de misturado com itens de telecom/bateria.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00175/2025",
+    "ativo": "7942300004",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parte ativa danificada (água nas buchas) com substituição confirmada pelo DCMD em 12/02.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00317/2025",
+    "ativo": "7949660066",
+    "mantem": false,
+    "categoria_final": "completo",
+    "porque": "Citação não nomeia tanque/parte ativa; pede explicitamente 'substituir o equipamento', que é completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00027/2025",
+    "ativo": "7950078122",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação nomeia defeito na parte ativa fase C com necessidade explícita de substituição.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00149/2025",
+    "ativo": "7955520116",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Solicitação de serviço explícita para substituição de parte ativa danificada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00167/2024",
+    "ativo": "7955521116",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Citação confirma tanque substituído e nomeia defeito constatado pela equipe DMSL.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00766/2025",
+    "ativo": "7955677003",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Só cita disjuntor do religador queimado com indício de curto; não nomeia tanque/parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00454/2025",
+    "ativo": "7955711003",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parecer DMSL pede explicitamente substituição de parte ativa (tanque).",
+    "confianca": "alta"
+  }
+]
