@@ -32,7 +32,11 @@ import sys
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 
-DADOS = os.path.join(RAIZ, "data", "missao", "falha_total.json")
+# A base já revisada manda quando existe: a revisão é a segunda opinião item a item,
+# e é ela que tira a duplicata — duas cadeias contando o mesmo conserto.
+DADOS = os.path.join(RAIZ, "data", "missao", "falha_revisada.json")
+if not os.path.exists(DADOS):
+    DADOS = os.path.join(RAIZ, "data", "missao", "falha_total.json")
 SAIDA = os.path.join(RAIZ, "scratchpad", "painel_falha_completa.html")
 
 EIXO = [(a, m) for a in (2024, 2025, 2026) for m in range(1, 13)]
@@ -52,6 +56,9 @@ def monta(saida=SAIDA):
         "universo": d["universo"], "no_dcmd": d["no_dcmd"],
         "fora_dcmd": d["fora_dcmd"], "fora_sem_falha": d["fora_sem_falha"],
         "derrubados_n": len(d.get("derrubados") or []),
+        "duplicatas_n": len(d.get("duplicatas") or []),
+        "revisao_ativos": d.get("revisao_ativos", 0),
+        "mudados_n": len(d.get("mudados_na_revisao") or []),
         "eixo": [list(k) for k in EIXO], "ultimo": ULTIMO, "corte": d["corte"],
     }
     html = MOLDE.replace("D.linhas.length", "D.n_lidas").replace("/*DADOS*/", json.dumps(payload, ensure_ascii=False))
@@ -491,11 +498,16 @@ const TOM = {};
     reescrever a régua dos leitores com os anti-exemplos, caiu para 26%. O que cai agora é
     fronteira de régua, não engano: furto de trafo auxiliar (que não conta pela peça), «a placa»
     sem dizer qual, «base do relé» que é soquete.
-    <br><br><b>O que ainda não está corrigido aqui.</b> Uma revisão de 61 ativos achou que
-    <b>24% das cadeias de peça grande são a mesma falha contada de novo</b> — quase sempre a SS
-    que o RD abre para executar, contada à parte da cadeia que pediu o serviço. A base não liga
-    as duas (a SS do RD não é repasse, é nota nova), então o número abaixo ainda conta as duas.
-    A revisão cobriu 61 de 937 ativos; o resto está na fila.`;
+    <br><br><b>A terceira passada: a revisão.</b> ${D.revisao_ativos} ativos já passaram por uma
+    segunda opinião, com o histórico inteiro do ativo à vista. Ela tirou <b>${D.duplicatas_n}
+    duplicatas</b> — duas cadeias contando o mesmo conserto — e mudou <b>${D.mudados_n}</b>
+    rótulos. O padrão da duplicata é sempre o mesmo: <b>a SS que o RD abre para executar,
+    contada à parte da cadeia que pediu o serviço</b>. A base não liga as duas, porque a SS do
+    RD não é repasse, é nota nova.
+    <br><br>A duplicata se concentra onde o mecanismo prevê: quase uma a cada dois ativos com
+    peça grande, e <b>zero</b> em mais de 400 ativos sem peça grande — onde não há troca, não há
+    execução de campo separada. A revisão ainda não cobriu todos os ativos, então o número
+    abaixo deve cair mais um pouco.`;
   document.getElementById("aviso-escopo").innerHTML = txt;
   document.getElementById("metodo-escopo").innerHTML = `O primeiro recorte era só o que passou
     pelo DCMD — <b>${D.no_dcmd} cadeias</b>, uma fração do universo. As outras ${D.fora_dcmd}
