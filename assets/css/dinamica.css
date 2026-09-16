@@ -1,0 +1,76 @@
+/* Dinâmica do posto — recorte de uma página só, no mesmo Prontuário Industrial. */
+
+.folha { max-width: 1180px; margin: 0 auto; padding: clamp(28px, 5vh, 56px) clamp(20px, 4vw, 44px) 90px; }
+
+.folha > header { border-bottom: 2px solid var(--tinta); padding-bottom: 14px; margin-bottom: 30px; }
+.folha > header h1 {
+  margin: 0;
+  font: 700 clamp(34px, 5.4vw, 52px)/0.98 var(--cond);
+  letter-spacing: .015em;
+  text-transform: uppercase;
+}
+.folha > header .sub { margin: 8px 0 0; max-width: 720px; color: var(--tinta-2); font-size: 15px; }
+.folha > header .carimbo {
+  display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px;
+  font: 400 12px var(--mono); color: var(--tinta-3);
+}
+
+/* Barra da dinâmica: cada etapa é uma faixa proporcional ao que representa. */
+.escada { display: flex; flex-direction: column; gap: 2px; margin: 26px 0 8px; }
+.degrau {
+  display: grid;
+  grid-template-columns: minmax(190px, 240px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 9px 10px;
+  border-bottom: 1px dotted var(--filete-2);
+}
+.degrau:hover { background: var(--papel-2); }
+.degrau > .nome { font: 600 13.5px var(--cond); letter-spacing: .08em; text-transform: uppercase; }
+.degrau > .barra { height: 15px; background: var(--papel-3); position: relative; }
+.degrau > .barra i { display: block; height: 100%; background: var(--sem-classe); }
+.degrau.bom > .barra i { background: var(--baixa); }
+.degrau.atento > .barra i { background: var(--alta); }
+.degrau.critico > .barra i { background: var(--muito-alta); }
+.degrau > .lado { text-align: right; white-space: nowrap; font: 400 12px var(--mono); color: var(--tinta-3); }
+.degrau > .lado b { font-size: 15px; color: var(--tinta); margin-right: 8px; }
+
+.matriz-etapa td.zero { color: var(--tinta-3); }
+.matriz-etapa th:first-child, .matriz-etapa td:first-child { text-align: left; }
+
+.rol .nota-campo { display: block; margin-top: 3px; color: var(--tinta-3); font-size: 12.5px; font-style: italic; }
+
+/* A planilha pede «Construir Reporte» em vários ativos; este selo diz quem já tem. */
+.reporte-selo {
+  display: inline-block; margin-top: 4px; padding: 2px 7px;
+  border: 1px solid var(--baixa); color: var(--baixa);
+  font: 600 10px var(--cond); letter-spacing: .1em; text-transform: uppercase;
+}
+
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+
+/* O que o gestor decidiu nesta rodada, antes da tabela que a decisão mudou. */
+.decisoes { display: grid; gap: 8px; margin: 0 0 18px; }
+@media (min-width: 900px) { .decisoes { grid-template-columns: repeat(3, 1fr); } }
+
+/* Tabela dos cancelados: peça, material e mão de obra em colunas; a leitura da
+   SS desce para uma linha própria, senão a coluna da peça vira um cordão. */
+.matriz.economia { min-width: 900px; }
+.matriz.economia td { text-align: left; vertical-align: top; }
+.matriz.economia td.num, .matriz.economia th.num { text-align: right; white-space: nowrap; }
+.matriz.economia tr.cabeca td { border-bottom: none; padding-bottom: 4px; }
+.matriz.economia tr.rodape-linha td {
+  padding: 0 8px 10px;
+  font: italic 400 12px/1.45 var(--leitura);
+  color: var(--tinta-3);
+  text-align: left;
+}
+
+/* Vermelho: dinheiro que NÃO foi gasto. Aparece, mas não soma em lugar nenhum. */
+.evitado { color: var(--muito-alta); font-style: normal; }
+.numero.evitado b { color: var(--muito-alta); }
+.degrau .lado .evitado { font-size: 12px; }
+
+/* linha filha dentro da matriz — o "dos quais" recuado */
+.matriz td.recuo { padding-left: 22px; color: var(--tinta-2); font-size: .93em; }
+.matriz td.recuo::before { content: "└ "; color: var(--tinta-3); }

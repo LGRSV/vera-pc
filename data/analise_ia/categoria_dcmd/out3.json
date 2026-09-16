@@ -1,0 +1,807 @@
+[
+  {
+    "cadeia": "ETO-RD-GU 01127/2024",
+    "ativo": "7934500003",
+    "categoria": "chave faca",
+    "item": "chave bypass",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00478/2025",
+    "ativo": "7935860004",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GR 01146/2024",
+    "ativo": "7936096015",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00107/2024",
+    "ativo": "7937105148",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00051/2024",
+    "ativo": "7937109003",
+    "categoria": "chave faca",
+    "item": "chave bypass",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00095/2024",
+    "ativo": "7937109003",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PS 00054/2025",
+    "ativo": "7938139013",
+    "categoria": "cabo",
+    "item": "cabo",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00295/2024",
+    "ativo": "7938920003",
+    "categoria": "comissionamento",
+    "item": "comissionamento",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00993/2025",
+    "ativo": "7939300004",
+    "categoria": "nao identificado",
+    "item": "fazeamento",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-PS 00102/2024",
+    "ativo": "7941657013",
+    "categoria": "sem defeito",
+    "item": "faseamento",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00217/2025",
+    "ativo": "7941708059",
+    "categoria": "nao identificado",
+    "item": "fazeamento",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00571/2024",
+    "ativo": "7942038091",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00590/2024",
+    "ativo": "7942038091",
+    "categoria": "aterramento",
+    "item": "aterramento",
+    "tambem": [
+      "trafo auxiliar"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-PS 00031/2024",
+    "ativo": "7942191013",
+    "categoria": "sem defeito",
+    "item": "faseamento",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01941/2024",
+    "ativo": "7942299030",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "chave faca"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DG-RD-PO 00748/2024",
+    "ativo": "7942482096",
+    "categoria": "chave faca",
+    "item": "seccionadora",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00152/2025",
+    "ativo": "7942509028",
+    "categoria": "chave faca",
+    "item": "bypass",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00811/2024",
+    "ativo": "7942707040",
+    "categoria": "melhoria",
+    "item": "melhoria",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00819/2024",
+    "ativo": "7942707040",
+    "categoria": "melhoria",
+    "item": "aterramento",
+    "tambem": [
+      "aterramento"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01299/2024",
+    "ativo": "7942707040",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 02143/2024",
+    "ativo": "7942707040",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00525/2025",
+    "ativo": "7943023122",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-LD-AR 00001/2024",
+    "ativo": "7943314023",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [
+      "aterramento"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00906/2024",
+    "ativo": "7943788039",
+    "categoria": "telecom",
+    "item": "comunicação",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00109/2024",
+    "ativo": "7944210122",
+    "categoria": "chave faca",
+    "item": "chave de saída",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00534/2024",
+    "ativo": "7944996027",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00570/2024",
+    "ativo": "7944996027",
+    "categoria": "chave faca",
+    "item": "chave bypass",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00639/2024",
+    "ativo": "7944996027",
+    "categoria": "chave faca",
+    "item": "chave bypass",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00434/2025",
+    "ativo": "7945470059",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00435/2025",
+    "ativo": "7945470059",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00118/2025",
+    "ativo": "7946037077",
+    "categoria": "chave faca",
+    "item": "chave",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00216/2025",
+    "ativo": "7946460007",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00370/2024",
+    "ativo": "7946460007",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00550/2024",
+    "ativo": "7946460007",
+    "categoria": "poste",
+    "item": "estrutura",
+    "tambem": [
+      "chave faca"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00904/2024",
+    "ativo": "7946460007",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01021/2024",
+    "ativo": "7946460007",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00605/2023",
+    "ativo": "7946687086",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00195/2025",
+    "ativo": "7946963052",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 01344/2024",
+    "ativo": "7946963052",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00195/2024",
+    "ativo": "7947024076",
+    "categoria": "cabo",
+    "item": "condutor",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00906/2024",
+    "ativo": "7947548073",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00913/2024",
+    "ativo": "7947548073",
+    "categoria": "poste",
+    "item": "cruzeta",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00914/2024",
+    "ativo": "7947548073",
+    "categoria": "poste",
+    "item": "cruzeta",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PS 00043/2024",
+    "ativo": "7947548073",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00017/2025",
+    "ativo": "7947668005",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00065/2025",
+    "ativo": "7947668005",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00589/2024",
+    "ativo": "7947668005",
+    "categoria": "chave faca",
+    "item": "chave",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00666/2024",
+    "ativo": "7947668005",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00424/2024",
+    "ativo": "7947761063",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00217/2025",
+    "ativo": "7948105221",
+    "categoria": "cabo",
+    "item": "conector",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00667/2024",
+    "ativo": "7948112088",
+    "categoria": "cabo",
+    "item": "conector",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00058/2025",
+    "ativo": "7948517004",
+    "categoria": "poda",
+    "item": "poda",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00079/2025",
+    "ativo": "7948631032",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00059/2024",
+    "ativo": "7948786263",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01882/2024",
+    "ativo": "7949042019",
+    "categoria": "poda",
+    "item": "poda",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00281/2025",
+    "ativo": "7949644098",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00328/2025",
+    "ativo": "7949644098",
+    "categoria": "cabo",
+    "item": "jumper",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AG 00713/2025",
+    "ativo": "7949647081",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00943/2025",
+    "ativo": "7949808058",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 01862/2024",
+    "ativo": "7949808058",
+    "categoria": "para-raio",
+    "item": "para-raio",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00420/2024",
+    "ativo": "7949829058",
+    "categoria": "cabo",
+    "item": "cabo",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PO 00100/2024",
+    "ativo": "7949914001",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00149/2025",
+    "ativo": "7950261190",
+    "categoria": "poste",
+    "item": "cruzeta",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00167/2025",
+    "ativo": "7950261190",
+    "categoria": "cabo",
+    "item": "cabo",
+    "tambem": [
+      "poste"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00191/2025",
+    "ativo": "7950261190",
+    "categoria": "poste",
+    "item": "cruzeta",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00026/2025",
+    "ativo": "7950291049",
+    "categoria": "sem defeito",
+    "item": "faseamento",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00797/2024",
+    "ativo": "7950291049",
+    "categoria": "nao identificado",
+    "item": "faseamento",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-DP 00024/2025",
+    "ativo": "7950298038",
+    "categoria": "sem defeito",
+    "item": "faseamento",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DG-RD-PO 00013/2025",
+    "ativo": "7950387026",
+    "categoria": "poste",
+    "item": "cruzeta",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-PROT 00112/2023",
+    "ativo": "7950387026",
+    "categoria": "comissionamento",
+    "item": "comissionamento",
+    "tambem": [
+      "poste",
+      "telecom"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00783/2024",
+    "ativo": "7950592046",
+    "categoria": "trafo auxiliar",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01182/2024",
+    "ativo": "7950592046",
+    "categoria": "trafo auxiliar",
+    "item": "trafo auxiliar",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00637/2024",
+    "ativo": "7951445073",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00683/2024",
+    "ativo": "7951445073",
+    "categoria": "chave faca",
+    "item": "chave faca",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00084/2024",
+    "ativo": "7951445073",
+    "categoria": "obra nova",
+    "item": "controle",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00599/2024",
+    "ativo": "7951760055",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 00787/2024",
+    "ativo": "7951760055",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01161/2024",
+    "ativo": "7951760055",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01162/2024",
+    "ativo": "7951760055",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01163/2024",
+    "ativo": "7951760055",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [
+      "cabo"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ENC-RD-PS 01190/2024",
+    "ativo": "7951760055",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PO 00184/2024",
+    "ativo": "7951766110",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00235/2025",
+    "ativo": "7951919036",
+    "categoria": "poda",
+    "item": "poda",
+    "tambem": [],
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-RD-GU 00860/2024",
+    "ativo": "7951956094",
+    "categoria": "poste",
+    "item": "poste",
+    "tambem": [],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-GU 01062/2024",
+    "ativo": "7951956094",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00241/2025",
+    "ativo": "7952416122",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00243/2025",
+    "ativo": "7952416122",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00244/2025",
+    "ativo": "7952416122",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00245/2025",
+    "ativo": "7952416122",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-PA 00465/2024",
+    "ativo": "7952416122",
+    "categoria": "melhoria",
+    "item": "cluster",
+    "tambem": [
+      "obra nova"
+    ],
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00437/2024",
+    "ativo": "7952505080",
+    "categoria": "chave faca",
+    "item": "GLV",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00710/2024",
+    "ativo": "7952505080",
+    "categoria": "sem defeito",
+    "item": "sem defeito",
+    "tambem": [],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-PROT 00073/2024",
+    "ativo": "7952613004",
+    "categoria": "comissionamento",
+    "item": "comissionamento",
+    "tambem": [
+      "fusivel"
+    ],
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00313/2024",
+    "ativo": "7952853030",
+    "categoria": "fusivel",
+    "item": "fusível",
+    "tambem": [],
+    "confianca": "alta"
+  }
+]

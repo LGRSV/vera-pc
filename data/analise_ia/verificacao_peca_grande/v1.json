@@ -1,0 +1,266 @@
+[
+  {
+    "cadeia": "ETO-TELE 00836/2024",
+    "ativo": "5800291077",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "So descreve sintoma ('nao comuta na fase C, valor -15'), sem nomear celula ou tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00731/2024",
+    "ativo": "5800440256",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Tensoes discrepantes entre fases e sintoma; o proprio motivo admite que a peca nao e nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00732/2024",
+    "ativo": "5800440256",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Mesma citacao do caso anterior (SS paralela no mesmo dia), sem peca nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00064/2025",
+    "ativo": "5800559153",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Nao comuta automatico' e sintoma, sem celula nomeada; motivo ainda aponta codigo 5900559153, divergente do ativo do bloco.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00047/2024",
+    "ativo": "5800566084",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Bypass por falha (travado) e sintoma; tentativa via rele/chave interna e troubleshooting, nao diagnostico de celula.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00641/2024",
+    "ativo": "5800705023",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia 'Celula da fase C' explicitamente, travando no tap -16.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00350/2025",
+    "ativo": "5820044123",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Esta travado' e sintoma generico; o proprio motivo admite que nao ha indicacao do componente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00998/2024",
+    "ativo": "5820143038",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'REG.3 esta travado' e 'nao conseguiu zerar' sao sintoma (equipamento bloqueado), sem nomear celula/tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00499/2024",
+    "ativo": "5820790038",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia explicitamente 'o tanque da fase B... queimado. Favor substituir'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00940/2024",
+    "ativo": "5825743016",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "LED nao sinaliza e bypass frustrado sao sintomas nos REG2/REG3, sem nomear celula.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00749/2024",
+    "ativo": "5833723026",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Vazamento de oleo e dano fisico confirmado nas unidades de fase A e C, com pedido explicito de substituicao.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00725/2024",
+    "ativo": "5835587001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia explicitamente 'a primeira celula nao esta comutando'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00451/2025",
+    "ativo": "5836764032",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Fala em divergencia comutador/controle de forma hedged ('pode indicar'), sem nomear celula; 'controle' nao cabe na familia regulador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00160/2024",
+    "ativo": "5837992077",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia explicitamente 'a celula da fase B esta com vazamento de oleo'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00194/2024",
+    "ativo": "5844577073",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Tap nao abaixa' e sintoma funcional, sem nomear celula ou tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00363/2024",
+    "ativo": "5848685005",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'REG 3 com tap travado' e sintoma (nao comutando), sem nomear celula/tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00382/2024",
+    "ativo": "5850308009",
+    "mantem": false,
+    "categoria_final": "aterramento",
+    "porque": "Texto nomeia perda de referencia de terra na fase A, nao celula/tanque; tap fixo e bloqueado e sintoma.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00444/2024",
+    "ativo": "5851857001",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Pedido e so 'verificar' por estar travado; motivo admite que o texto nao descreve troca.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00061/2025",
+    "ativo": "5853359076",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Confirma explicitamente 'Substituido celulas fases AB'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00117/2024",
+    "ativo": "5854771001",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "O proprio motivo do leitor admite mistura de codigos de outros ativos (5854566043/5851752014) e texto de terceiro colado na descricao — nao da para confirmar que o tanque da fase B e deste ativo.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00135/2025",
+    "ativo": "5854977104",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Confirma explicitamente 'foi feita a substituicao da celula 03'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00038/2025",
+    "ativo": "5854999043",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Curto na fase C e bypass, mas sem celula/tanque nomeado nem substituicao confirmada; SS cancelada sem reparo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00922/2024",
+    "ativo": "5855165193",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Dificuldade para zerar o tap no REG2 e sintoma; motivo admite que nao ha reparo confirmado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00680/2025",
+    "ativo": "5855189265",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Comutador da fase A nao comutando, mas o pedido e so 'inspecao e manutencao', nao substituicao.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-SE-GU 00139/2024",
+    "ativo": "5800778005",
+    "mantem": false,
+    "categoria_final": "celula",
+    "porque": "E regulador: o texto fala em fase B isolada substituida, nao no banco completo; 'controle' nao cabe na familia regulador, entao vira celula, nao completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00040/2025",
+    "ativo": "5843649091",
+    "mantem": false,
+    "categoria_final": "celula",
+    "porque": "E regulador: nomeia 'substituicao do tanque da fase B', nao o banco completo; controle instalado nao conta pois nao cabe na familia regulador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00614/2025",
+    "ativo": "7900045001",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede explicitamente 'substituir o equipamento completo, incluindo o controle e a parte ativa'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00301/2024",
+    "ativo": "7900136134",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede explicitamente 'substituir equipamento completo' (parte ativa e controle danificados).",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00367/2024",
+    "ativo": "7900136134",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Confirma 'substituir equipamento completo... SUBSTITUIDO DIA 26/10'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00307/2025",
+    "ativo": "7900230155",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Nomeia tanque danificado e pede explicitamente 'necessario trocar o equipamento'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00688/2024",
+    "ativo": "7900303013",
+    "mantem": false,
+    "categoria_final": "melhoria",
+    "porque": "Pedido e substituicao por modelo obsoleto (upgrade de NOJA RC01 para RC10); a citacao nao descreve defeito, e melhoria/upgrade, nao falha.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-PROT 00115/2025",
+    "ativo": "7900385081",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Confirma 'controle + parte ativa' substituidos juntos no mesmo religador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00102/2025",
+    "ativo": "7900532053",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede explicitamente 'realizar substituicao completa do RLG 7900532053'.",
+    "confianca": "alta"
+  }
+]

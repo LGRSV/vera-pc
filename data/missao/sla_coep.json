@@ -1,0 +1,401 @@
+{
+ "regua": {
+  "Muito Alta": 11,
+  "Alta": 20,
+  "Média": 40,
+  "Baixa": 60,
+  "Falta definir": 60
+ },
+ "total": {
+  "entregas": 131,
+  "no_prazo": 98,
+  "estourou": 33,
+  "em_curso": 5,
+  "cumprimento": 0.7481,
+  "mediana": 5,
+  "indice": 0.8132,
+  "pior": 434
+ },
+ "por_ano": {
+  "2025": {
+   "entregas": 60,
+   "no_prazo": 48,
+   "estourou": 12,
+   "em_curso": 1,
+   "cumprimento": 0.8,
+   "mediana": 6,
+   "indice": 0.8209,
+   "pior": 434
+  },
+  "2026": {
+   "entregas": 71,
+   "no_prazo": 50,
+   "estourou": 21,
+   "em_curso": 4,
+   "cumprimento": 0.7042,
+   "mediana": 4,
+   "indice": 0.8009,
+   "pior": 84
+  }
+ },
+ "por_equipe": {
+  "DG-RD-PO": {
+   "entregas": 1,
+   "no_prazo": 1,
+   "estourou": 0,
+   "em_curso": 0,
+   "cumprimento": 1.0,
+   "mediana": 14,
+   "indice": 0.2333,
+   "pior": 0
+  },
+  "DOLP-RD-PA": {
+   "entregas": 6,
+   "no_prazo": 6,
+   "estourou": 0,
+   "em_curso": 0,
+   "cumprimento": 1.0,
+   "mediana": 13,
+   "indice": 0.2194,
+   "pior": 0
+  },
+  "ENC-RD-PS": {
+   "entregas": 1,
+   "no_prazo": 1,
+   "estourou": 0,
+   "em_curso": 0,
+   "cumprimento": 1.0,
+   "mediana": 1,
+   "indice": 0.0167,
+   "pior": 0
+  },
+  "ETO-RD-AG": {
+   "entregas": 12,
+   "no_prazo": 12,
+   "estourou": 0,
+   "em_curso": 0,
+   "cumprimento": 1.0,
+   "mediana": 1,
+   "indice": 0.1194,
+   "pior": 0
+  },
+  "ETO-RD-AR": {
+   "entregas": 19,
+   "no_prazo": 17,
+   "estourou": 2,
+   "em_curso": 1,
+   "cumprimento": 0.8947,
+   "mediana": 1,
+   "indice": 0.7693,
+   "pior": 434
+  },
+  "ETO-RD-DP": {
+   "entregas": 11,
+   "no_prazo": 3,
+   "estourou": 8,
+   "em_curso": 2,
+   "cumprimento": 0.2727,
+   "mediana": 67,
+   "indice": 2.235,
+   "pior": 305
+  },
+  "ETO-RD-GR": {
+   "entregas": 12,
+   "no_prazo": 8,
+   "estourou": 4,
+   "em_curso": 0,
+   "cumprimento": 0.6667,
+   "mediana": 23,
+   "indice": 0.6711,
+   "pior": 29
+  },
+  "ETO-RD-GU": {
+   "entregas": 9,
+   "no_prazo": 7,
+   "estourou": 2,
+   "em_curso": 0,
+   "cumprimento": 0.7778,
+   "mediana": 4,
+   "indice": 0.5033,
+   "pior": 67
+  },
+  "ETO-RD-PA": {
+   "entregas": 17,
+   "no_prazo": 11,
+   "estourou": 6,
+   "em_curso": 1,
+   "cumprimento": 0.6471,
+   "mediana": 1,
+   "indice": 1.058,
+   "pior": 202
+  },
+  "ETO-RD-PO": {
+   "entregas": 23,
+   "no_prazo": 18,
+   "estourou": 5,
+   "em_curso": 1,
+   "cumprimento": 0.7826,
+   "mediana": 9,
+   "indice": 0.6663,
+   "pior": 114
+  },
+  "ETO-RD-PS": {
+   "entregas": 20,
+   "no_prazo": 14,
+   "estourou": 6,
+   "em_curso": 0,
+   "cumprimento": 0.7,
+   "mediana": 1,
+   "indice": 1.3139,
+   "pior": 198
+  }
+ },
+ "por_equipe_ano": {
+  "2025": {
+   "DOLP-RD-PA": {
+    "entregas": 6,
+    "no_prazo": 6,
+    "estourou": 0,
+    "em_curso": 0,
+    "cumprimento": 1.0,
+    "mediana": 13,
+    "indice": 0.2194,
+    "pior": 0
+   },
+   "ENC-RD-PS": {
+    "entregas": 1,
+    "no_prazo": 1,
+    "estourou": 0,
+    "em_curso": 0,
+    "cumprimento": 1.0,
+    "mediana": 1,
+    "indice": 0.0167,
+    "pior": 0
+   },
+   "ETO-RD-AG": {
+    "entregas": 7,
+    "no_prazo": 7,
+    "estourou": 0,
+    "em_curso": 0,
+    "cumprimento": 1.0,
+    "mediana": 0,
+    "indice": 0.1071,
+    "pior": 0
+   },
+   "ETO-RD-AR": {
+    "entregas": 6,
+    "no_prazo": 5,
+    "estourou": 1,
+    "em_curso": 1,
+    "cumprimento": 0.8333,
+    "mediana": 2,
+    "indice": 1.4194,
+    "pior": 434
+   },
+   "ETO-RD-DP": {
+    "entregas": 3,
+    "no_prazo": 1,
+    "estourou": 2,
+    "em_curso": 0,
+    "cumprimento": 0.3333,
+    "mediana": 74,
+    "indice": 2.9847,
+    "pior": 305
+   },
+   "ETO-RD-GR": {
+    "entregas": 6,
+    "no_prazo": 5,
+    "estourou": 1,
+    "em_curso": 0,
+    "cumprimento": 0.8333,
+    "mediana": 23,
+    "indice": 0.4694,
+    "pior": 25
+   },
+   "ETO-RD-GU": {
+    "entregas": 7,
+    "no_prazo": 6,
+    "estourou": 1,
+    "em_curso": 0,
+    "cumprimento": 0.8571,
+    "mediana": 4,
+    "indice": 0.3333,
+    "pior": 19
+   },
+   "ETO-RD-PA": {
+    "entregas": 6,
+    "no_prazo": 4,
+    "estourou": 2,
+    "em_curso": 0,
+    "cumprimento": 0.6667,
+    "mediana": 35,
+    "indice": 1.0583,
+    "pior": 202
+   },
+   "ETO-RD-PO": {
+    "entregas": 11,
+    "no_prazo": 9,
+    "estourou": 2,
+    "em_curso": 0,
+    "cumprimento": 0.8182,
+    "mediana": 7,
+    "indice": 0.6532,
+    "pior": 114
+   },
+   "ETO-RD-PS": {
+    "entregas": 7,
+    "no_prazo": 4,
+    "estourou": 3,
+    "em_curso": 0,
+    "cumprimento": 0.5714,
+    "mediana": 0,
+    "indice": 1.7905,
+    "pior": 198
+   }
+  },
+  "2026": {
+   "DG-RD-PO": {
+    "entregas": 1,
+    "no_prazo": 1,
+    "estourou": 0,
+    "em_curso": 0,
+    "cumprimento": 1.0,
+    "mediana": 14,
+    "indice": 0.2333,
+    "pior": 0
+   },
+   "ETO-RD-AG": {
+    "entregas": 5,
+    "no_prazo": 5,
+    "estourou": 0,
+    "em_curso": 0,
+    "cumprimento": 1.0,
+    "mediana": 8,
+    "indice": 0.145,
+    "pior": 0
+   },
+   "ETO-RD-AR": {
+    "entregas": 13,
+    "no_prazo": 12,
+    "estourou": 1,
+    "em_curso": 0,
+    "cumprimento": 0.9231,
+    "mediana": 1,
+    "indice": 0.2549,
+    "pior": 33
+   },
+   "ETO-RD-DP": {
+    "entregas": 8,
+    "no_prazo": 2,
+    "estourou": 6,
+    "em_curso": 2,
+    "cumprimento": 0.25,
+    "mediana": 67,
+    "indice": 1.817,
+    "pior": 81
+   },
+   "ETO-RD-GR": {
+    "entregas": 6,
+    "no_prazo": 3,
+    "estourou": 3,
+    "em_curso": 0,
+    "cumprimento": 0.5,
+    "mediana": 38,
+    "indice": 1.4516,
+    "pior": 29
+   },
+   "ETO-RD-GU": {
+    "entregas": 2,
+    "no_prazo": 1,
+    "estourou": 1,
+    "em_curso": 0,
+    "cumprimento": 0.5,
+    "mediana": 87,
+    "indice": 2.8065,
+    "pior": 67
+   },
+   "ETO-RD-PA": {
+    "entregas": 11,
+    "no_prazo": 7,
+    "estourou": 4,
+    "em_curso": 1,
+    "cumprimento": 0.6364,
+    "mediana": 1,
+    "indice": 1.0577,
+    "pior": 73
+   },
+   "ETO-RD-PO": {
+    "entregas": 12,
+    "no_prazo": 9,
+    "estourou": 3,
+    "em_curso": 1,
+    "cumprimento": 0.75,
+    "mediana": 10,
+    "indice": 0.6879,
+    "pior": 56
+   },
+   "ETO-RD-PS": {
+    "entregas": 13,
+    "no_prazo": 10,
+    "estourou": 3,
+    "em_curso": 0,
+    "cumprimento": 0.7692,
+    "mediana": 1,
+    "indice": 0.7953,
+    "pior": 84
+   }
+  }
+ },
+ "por_criticidade": {
+  "Muito Alta": {
+   "entregas": 32,
+   "no_prazo": 17,
+   "estourou": 15,
+   "em_curso": 2,
+   "cumprimento": 0.5312,
+   "mediana": 10,
+   "indice": 3.4915,
+   "pior": 305
+  },
+  "Alta": {
+   "entregas": 12,
+   "no_prazo": 10,
+   "estourou": 2,
+   "em_curso": 0,
+   "cumprimento": 0.8333,
+   "mediana": 7,
+   "indice": 0.7292,
+   "pior": 67
+  },
+  "Média": {
+   "entregas": 9,
+   "no_prazo": 8,
+   "estourou": 1,
+   "em_curso": 0,
+   "cumprimento": 0.8889,
+   "mediana": 8,
+   "indice": 0.3389,
+   "pior": 2
+  },
+  "Baixa": {
+   "entregas": 8,
+   "no_prazo": 6,
+   "estourou": 2,
+   "em_curso": 0,
+   "cumprimento": 0.75,
+   "mediana": 1,
+   "indice": 0.4375,
+   "pior": 63
+  },
+  "Sem classificação": {
+   "entregas": 70,
+   "no_prazo": 57,
+   "estourou": 13,
+   "em_curso": 3,
+   "cumprimento": 0.8143,
+   "mediana": 4,
+   "indice": 0.6771,
+   "pior": 434
+  }
+ }
+}
