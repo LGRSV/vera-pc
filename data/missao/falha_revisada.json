@@ -52700,7 +52700,7 @@
    "categoria_fonte": "leitura",
    "classe": "fora",
    "item": "comissionamento",
-   "executada": false,
+   "executada": true,
    "marca": "SEM CADASTRO",
    "marca_bruta": "",
    "loc": "Axixa Do Tocantins",
@@ -55452,5 +55452,5 @@
    "porque": "Furto é decidido pela peça, não pela causa: o item furtado e reinstalado é o cabo do trafo auxiliar ('cabo ja foi instalado pela manutenção enecol'), não peça grande. Rótulo correto é cabo, não furto. Cadeia segue para comissionamento e conferência de aterramento e termina atendida."
   }
  ],
- "revisao_ativos": 779
+ "revisao_ativos": 784
 }

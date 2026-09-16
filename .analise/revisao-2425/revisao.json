@@ -25853,5 +25853,122 @@
   "_chave": "7961785122",
   "_etapa": "revisao",
   "_em": "2026-09-16T01:44:20"
+ },
+ {
+  "ativo": "7962016046",
+  "demandas": [
+   {
+    "cadeia": "ETO-TELE 01540/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Falha de comunicação, primeiro ataque sem sucesso — telecom.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "E",
+  "_chave": "7962016046",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:45:21"
+ },
+ {
+  "ativo": "7962052017",
+  "demandas": [
+   {
+    "cadeia": "ETO-PROT 00181/2025",
+    "mantem": true,
+    "categoria_final": "comissionamento",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Comissionamento de religador novo (obra 0202400803); equipe de comissionamento constatou que o equipamento ainda não tinha controle instalado (deficiência da obra de instalação, não falha de equipamento em operação); parecer DCMD confirma que o controle foi instalado em campo pela obra — comissionamento, não falha corretiva.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "E",
+  "_chave": "7962052017",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:45:21"
+ },
+ {
+  "ativo": "7962837017",
+  "demandas": [
+   {
+    "cadeia": "ETO-PROT 00362/2025",
+    "mantem": true,
+    "categoria_final": "comissionamento",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Comissionamento de religador novo (obra 0202300388); DMSL testou e entregou ao operador, mas 'equipamento ficou em operação? não' porque a rede está desenergizada — pendência é energizar a rede, não defeito do equipamento. As 4 SS foram canceladas em bloco (mesma data, junto de outras) — fila abandonada, não engano, há trabalho real descrito.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   },
+   {
+    "cadeia": "ENC-RD-PS 01423/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Instalação de poste auxiliar para viabilizar antena e fechar comunicação do religador (mesmo padrão de outras SS de poste+antena) — telecom; cancelada em bloco junto com a cadeia de comissionamento do mesmo ativo, sem confirmação de execução.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "E",
+  "_chave": "7962837017",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:45:21"
+ },
+ {
+  "ativo": "7965032004",
+  "demandas": [
+   {
+    "cadeia": "ETO-RD-AR 01930/2025",
+    "mantem": true,
+    "categoria_final": "telecom",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": false,
+    "porque": "Instalação de poste de 12 m ao lado do religador para viabilizar antena e comunicação (equipamento recém-instalado, ainda em comissionamento) — telecom; SS cancelada sem confirmação de execução.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "E",
+  "_chave": "7965032004",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:45:21"
+ },
+ {
+  "ativo": "7965164065",
+  "demandas": [
+   {
+    "cadeia": "ETO-PROT 00346/2025",
+    "mantem": true,
+    "categoria_final": "comissionamento",
+    "duplicata_de": null,
+    "aberta_por_engano": false,
+    "executada": true,
+    "porque": "Comissionamento de religador novo (obra 0652400771) atrasado porque o local de instalação alagava; DCMD mudou o religador de lugar conforme solicitado, já cadastrado no novo local — comissionamento, não falha; SS atendida.",
+    "confianca": "alta",
+    "categoria_anterior": null,
+    "fonte_anterior": null
+   }
+  ],
+  "tier": "E",
+  "_chave": "7965164065",
+  "_etapa": "revisao",
+  "_em": "2026-09-16T01:45:21"
  }
 ]
