@@ -24993,8 +24993,12 @@
 "evidencia": "PARECER DO DCMD: JÁ FOI SUBSTITUIDO TODAS AS TRÊS CÉLULAS.",
 "motivo": "Proteção recomendou trocar todo o conjunto (3 fases e controle) por equipamento completo com relé RUA; DCMD confirma as três células e o controle substituídos.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "completo"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Confirma substituicao das celulas A e C, do controle RUA, e parecer do DCMD confirma as tres celulas trocadas - banco completo.",
+"ver_confianca": "alta"
 },
 "ETO-PROT 00242/2025": {
 "ativo": "5800880014",
@@ -25008,8 +25012,12 @@
 "evidencia": "O RT 5800880014 FOI FEITO A SUBSTITUIÇÃO DAS CÉLULAS DAS FASES A E C, E TBM FOI SUBSTITUIDO O CONTROLE RUA.\nNECESSITA-SE A SUBSTITUIÇÃO DA CÉLULA DA FASE B E APROVEITA-LA EM OUTRO LOCAL",
 "motivo": "SS duplicada da mesma data/evento da cadeia 1 (mesmo texto): troca do banco completo (3 células) e controle RUA.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "completo"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Celulas A e C e controle RUA ja substituidos, celula B explicitamente pendente do mesmo plano - escopo e' o banco completo de 3 celulas.",
+"ver_confianca": "alta"
 },
 "ETO-PROT 00437/2024": {
 "ativo": "5854681071",
@@ -25038,8 +25046,12 @@
 "evidencia": "a fase A esta com isolação muito baixa( necessário realizar a substituição da mesma as fase B e C estão com isolação boas, feito a medição da malha de terra a mesma está com a resistência ruim, deve ser feito melhorias!\nEquipamento ficou em operação? Não \n\nPendência: Sim. É necessário fazer melhorias na malha de aterramento, e substituir células fase A",
 "motivo": "SS cumulativa cancelada em bloco (30/03/2026, 9 SS no mesmo dia). Fase C já foi substituída pelo COCM, mas a célula fase A (isolação baixa) e a malha de aterramento seguem como pendência explícita; nobreak trocado à parte.",
 "confianca": "baixa",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Pede explicitamente 'substituir células fase A' por isolação baixa.",
+"ver_confianca": "alta"
 },
 "ETO-PROT 00204/2025": {
 "ativo": "7929777147",
@@ -25098,8 +25110,12 @@
 "evidencia": "COM PAINEL DANIFICADO EM CAMPO SEM COMUNICAÇÃO NO SISTEMA ESCADA",
 "motivo": "Pedido inicial relata painel danificado (não apenas apagado/sem sinal) e perda de comunicação SCADA; SS atendida em 9 dias, sem confirmação textual do reparo.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "controle"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Citação nomeia apenas 'painel' danificado, sem qualificá-lo como painel de controle/comando, concorrendo com perda de comunicação SCADA; ambíguo demais entre controle e telecom.",
+"ver_confianca": "media"
 },
 "ETO-PROT 00224/2025": {
 "ativo": "7955886193",
@@ -25143,8 +25159,12 @@
 "evidencia": "O RT 5800880014 FOI FEITO A SUBSTITUIÇÃO DAS CÉLULAS DAS FASES A E C, E TBM FOI SUBSTITUIDO O CONTROLE RUA.\nNECESSITA-SE A SUBSTITUIÇÃO DA CÉLULA DA FASE B E APROVEITA-LA EM OUTRO LOCAL JÁ QUE A MESMA É INCOMPATIVEL",
 "motivo": "Mesmo evento de troca do conjunto completo (células + controle); nesta SS (mais antiga) a fase B ainda não havia sido trocada, mas o pedido original já era do equipamento completo.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "completo"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Mesmo evento: A e C substituidas, controle RUA substituido, celula B pendente do mesmo plano - banco completo.",
+"ver_confianca": "alta"
 },
 "ETO-RD-AG 00792/2025": {
 "ativo": "7948112088",
@@ -25173,8 +25193,12 @@
 "evidencia": "COCMS - \n        REGULADOR SUBSTITUIDO\n        FOTOS EQUIPAMENTO INSTALADO EM ANEXO",
 "motivo": "Furto do regulador (3 fases sem óleo, 'provavelmente foram roubados'); texto confirma 'REGULADOR SUBSTITUIDO' com fotos em anexo, mas furtos recorrentes na região levaram, ao final da cadeia, à decisão do COEP de desmobilizar o ativo.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "furto"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Citação diz só 'REGULADOR SUBSTITUIDO' com fotos; não menciona furto, então vale como troca do banco completo, não furto.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 00831/2025": {
 "ativo": "5800438116",
@@ -25188,8 +25212,12 @@
 "evidencia": "constatando que o mercanismo da chave reversoura polaridade está com defeito. Número de série fase B EI7030 e Número de série fase C EI7040. Substituir as fases B e C.\nFoi constatado que a placa F do controle está com defeito.",
 "motivo": "Diagnóstico nomeia diretamente as células das fases B e C (mecanismo reversor de polaridade, com números de série) e a placa F do controle; texto final indica ajustes verificados e encaminhamento a comissionamento, sinal de troca concluída.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Nomeia o mecanismo reversor de polaridade das fases B e C com números de série e manda 'substituir as fases B e C'; a menção a 'controle' não conta para regulador mas não invalida a célula.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 00833/2025": {
 "ativo": "7930912039",
@@ -25278,8 +25306,12 @@
 "evidencia": "24/07/2026 - PARECE COCM: EQUIPAMENTO SUBSTITUIDO NA OBRA 0312600352 OS: ETO-RD-PO 1873/2026",
 "motivo": "Relato inicial apontava célula da fase C queimada, mas o ensaio do DMSL (inspeção visual, isolação, relação de transformação e resistência) achou a fase B danificada e mandou substituí-la; COCM confirma equipamento substituído com obra e OS.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Citacao so diz 'equipamento substituido' com obra/OS, sem nomear celula; pela regra 3 substituicao do equipamento mapeia para completo, nao celula.",
+"ver_confianca": "media"
 },
 "ETO-TELE 00846/2025": {
 "ativo": "7955789032",
@@ -25323,8 +25355,12 @@
 "evidencia": "PARECER DMSL: RT 5840203077 encontra-se com controle danificado, sendo necessário substituir o mesmo.",
 "motivo": "DMSL nomeia o controle do regulador como danificado e pede substituição, mas as 3 SS da cadeia (postos diferentes) foram todas canceladas sem confirmação de troca; equipamento ficou disponível para retirada no depósito mas nada confirma instalação.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "DMSL nomeia 'controle danificado', não relé; controle é peça inválida para REGULADOR nesta régua.",
+"ver_confianca": "media"
 },
 "ETO-TELE 00853/2025": {
 "ativo": "7900371104",
@@ -25428,8 +25464,12 @@
 "evidencia": "PARECER DMSL: Célula da fase A encontra-se com vazamento de óleo no pé da torneira. Necessário substituição da célula.",
 "motivo": "DMSL nomeia a célula da fase A com vazamento de óleo e pede substituição; última nota da cadeia ainda fala em aguardar previsão de substituição, mas a SS fechou ATENDIDA já depois da troca (confirmada na cadeia seguinte, em 23/07/2026).",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "'Célula da fase A... Necessário substituição da célula' é explícito.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 00886/2025": {
 "ativo": "7946963052",
@@ -25488,8 +25528,12 @@
 "evidencia": "Equipamento 7900535058 encontra-se com o relé danificado, firmware corrompido, o mesmo não inicia. Devido ao fato de não possuirmos mais peças de reposição para religador cooper, se faz necessário a  substituição de todo conjunto por um Noja RC10.",
 "motivo": "DMSL pede substituição de todo o conjunto por um Noja RC10; equipamento selecionado para compra, ainda pendente.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "completo"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Apesar de citar rele e firmware, o texto conclui pedindo 'substituicao de todo conjunto' por um Noja RC10.",
+"ver_confianca": "alta"
 },
 "ETO-RD-AR 01201/2025": {
 "ativo": "7954481004",
@@ -25518,8 +25562,12 @@
 "evidencia": "VERIFICAR RELE R.U.A O MESMO TEM SUPERVISÃO, PORÉM APARENTA NÃO ESTA RECENDO OS COMANDOS E NÃO REFLETINDO A REALIDADE DAS SOLICITAÇÕES VIA REMOTO.",
 "motivo": "Relé nomeado explicitamente como não recebendo comandos corretamente; SS fechou ATENDIDA sem detalhar a solução.",
 "confianca": "baixa",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "telecom",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "O defeito descrito é não receber comandos e não refletir 'as solicitações via remoto' — sintoma de comunicação/remoto, não peça física do relé nomeada.",
+"ver_confianca": "media"
 },
 "ETO-TELE 00903/2025": {
 "ativo": "7900367152",
@@ -25548,8 +25596,12 @@
 "evidencia": "PARECER DMSL(04/09/2025): Feito ensaios elétricos na fase C e foi constatado que o regulador está queimado, não passou no ensaio do megometrô, e também o contato de elevar e abaixar está com defeito, não aceita os comandos.",
 "motivo": "Ensaio elétrico do DMSL confirma célula da fase C queimada e contato de comando com defeito, com pedido explícito de substituição; SS fechou como ATENDIDA.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Atribui o defeito ao 'regulador' (não à célula) e usa linguagem de sintoma ('não aceita os comandos'); nenhuma substituição é pedida no texto.",
+"ver_confianca": "media"
 },
 "ETO-RD-GU 00940/2025": {
 "ativo": "7955790094",
@@ -25668,8 +25720,12 @@
 "evidencia": "Necessário substituir a parte ativa pois, após testes, foi constatado defeito no sensor do tanque. O mesmo não esta lendo tensão na fase B.\nEquipamento ficou em operação? NÃO. \nPendência: Substituir parte ativa.",
 "motivo": "DMSL diagnosticou defeito no sensor do tanque (parte ativa) na fase B, equipamento não ficou em operação. O parecer mais recente do COEP pede reavaliar a necessidade e o modelo a substituir, então a troca segue pendente.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "tanque"
+"verificada": true,
+"categoria_vigente": "tanque",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Substituir a parte ativa é pedido duas vezes, com defeito no sensor do tanque diagnosticado.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 00923/2025": {
 "ativo": "7900367152",
@@ -25728,8 +25784,12 @@
 "evidencia": "Após testes foi constatado defeito nos relés da fase A e B, Modelo Toshiba TBR 1000. Se possível, substituir os relés das 3 fases por controle RUA, disponibilizar os cabos de ligação entre o tanque e o controle para possibilitar a compatibilização do equipamento. Fornecer kit de comunicação, rádio, antena, etc.",
 "motivo": "Diagnóstico técnico detalhado aponta relés Toshiba defeituosos nas fases A e B, a substituir por controle RUA; SS cancelada antes da chegada dos cabos compatibilizadores (previstos para 16/08), sem confirmação de troca nesta cadeia.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "rele",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Citação nomeia diretamente defeito nos relés da fase A e B (Toshiba TBR1000) do regulador.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 00969/2025": {
 "ativo": "7900594026",
@@ -25818,8 +25878,12 @@
 "evidencia": "REGULADOR DE TENSÃO COM VAZAMENTO DE ÓLEO E SEM COMUTAÇÃO.",
 "motivo": "Vazamento de óleo e falha de comutação apontam para a célula (tanque de uma fase); fase não é especificada no texto. SS atendida, concluída sem nova reclamação.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Só descreve sintomas do regulador (vazamento de óleo, sem comutação) sem nomear célula nem fase.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01018/2025": {
 "ativo": "5827102054",
@@ -25968,8 +26032,12 @@
 "evidencia": "equipamento não esta comutando duas fases AB , devido placa e rele Danificado , conforme informação do técnico DMSL Bruno .",
 "motivo": "Técnico do DMSL nomeia explicitamente placa e relé danificados como causa da falha de comutação nas fases A e B; SS fechou ATENDIDA.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "rele",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Técnico do DMSL nomeia explicitamente 'placa e rele danificado' como causa da falha de comutação nas fases A e B.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01074/2025": {
 "ativo": "5835587001",
@@ -25983,8 +26051,12 @@
 "evidencia": "BOM DIA.\n*FOI SUBSTITUIDA A CELULA FASE B\n*FOI SUBSTITUIDO CONTROLE\n*FOI FEITO MELHORIA NA MALHA DE ATERRAMENTO.\n*FOI FEITO POÇO PARA MELHORAR O ATERRAMENTO.",
 "motivo": "Confirmação explícita de troca da célula fase B e do controle, além de melhoria/poço de aterramento; rádio/antena/SCADA e baterias novas também foram citados no pedido original do DMSL.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "'FOI SUBSTITUIDA A CELULA FASE B' confirma a troca; a menção a 'controle' não conta para regulador mas não invalida a célula.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01075/2025": {
 "ativo": "5847496001",
@@ -26028,8 +26100,12 @@
 "evidencia": "Equipamento ficou em operação? \n        Não \n        Pendência: sim. Equipamento ficou Bay passado levar controle  COMPLETO para trocar. ellisfran",
 "motivo": "Falha de comunicação e de alimentação leva a pendência explícita de troca completa do controle; nota mais recente (20/07) diz que o COCM não recebeu o material, e a SS final segue pendente — equipamento continua fora de operação.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Pendência registrada é 'controle COMPLETO para trocar'; controle não vale para REGULADOR e relé não é citado.",
+"ver_confianca": "media"
 },
 "ENC-RD-PS 00912/2025": {
 "ativo": "7955430075",
@@ -26043,8 +26119,12 @@
 "evidencia": "RL 7955430075\nEQUIPAMENTO BY-PASSADO EM CAMPO  DEVIDO FALHA NA PARTE ATIVA NECESSARIO TRATATIVA",
 "motivo": "Falha na parte ativa levou a bypass em campo; SS cancelada sem confirmação de substituição.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "tanque"
+"verificada": true,
+"categoria_vigente": "tanque",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Falha na parte ativa nomeada como causa do bypass em campo.",
+"ver_confianca": "media"
 },
 "ETO-RD-GR 00810/2025": {
 "ativo": "5850308009",
@@ -26058,8 +26138,12 @@
 "evidencia": "PARECER DCMD: Equipamento disponível para retirada no depósito da ENECOL em Guaraí.",
 "motivo": "Pedido de substituição do controle do RT, que não trabalha automaticamente; a nota mais recente disponível só informa que o equipamento de troca ficou disponível para retirada no depósito, sem confirmar a instalação.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Citação só diz que o equipamento ficou disponível para retirada no depósito; não nomeia relé nem qualquer peça.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01086/2025": {
 "ativo": "7941432077",
@@ -26343,8 +26427,12 @@
 "evidencia": "##Paracer do COCM CENTRO CELULAR FASE B SUBSTITUIDA NA DATA 11/10/2025 PELA SS DOLP RD PA 1368/2025 RELATORIO EM ANEXO DA ORDEM DE SERVIÇO EXERCUTADA.",
 "motivo": "DMSL já havia substituído no mesmo atendimento um relé com porta serial queimada; célula do regulador 2 (fase B), que não comutava, ficou como pendência e foi confirmadamente substituída depois via a SS da cadeia 2, com posterior comissionamento junto ao SCADA.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Parecer do COCM confirma 'CELULAR FASE B SUBSTITUIDA' com data e SS de referencia - nomeia a celula da fase B.",
+"ver_confianca": "alta"
 },
 "ETO-RD-AR 01410/2025": {
 "ativo": "7955859022",
@@ -26673,8 +26761,12 @@
 "evidencia": "Segue nota para substituir relé do religador 7900594026 S/E Ponte Alta . Motivo : constantes falha de comunicação , segundo técnico DMSL Elias o equipamento está com falha na porta de comunicação serial RS 232 , marca religador Cooper relé Form 6 .",
 "motivo": "Pedido explícito de substituição do relé do religador; relé de religador é controle. Sem confirmação de execução.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "controle"
+"verificada": true,
+"categoria_vigente": "controle",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Pedido explícito de substituir o relé (Cooper Form6) do religador, peça nomeada que mapeia para controle mesmo com causa ligada a falha de comunicação serial.",
+"ver_confianca": "media"
 },
 "ETO-TELE 01177/2025": {
 "ativo": "5804170122",
@@ -26718,8 +26810,12 @@
 "evidencia": "Foi constatado que o equipamento esta queimado na parte ativa placa, tanque e relé. Por favor fazer a substituição pelo Noja RC10.",
 "motivo": "Parte ativa, placa e relé queimados; pedido de substituição completa pelo Noja RC10, ainda aguardando COCM's gerarem obra para entregar material.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "completo"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Cita queima na parte ativa, placa e rele, com pedido de substituicao pelo Noja RC10 - tanque e controle juntos.",
+"ver_confianca": "alta"
 },
 "DOLP-RD-PA 01365/2025": {
 "ativo": "7951356092",
@@ -26763,8 +26859,12 @@
 "evidencia": "necessário substituir célula regulador 2 a mesma não comuta, na caixa de interligação, na placa E, e nem através do relé.",
 "motivo": "Esta é a SS pela qual, segundo a cadeia 1 do mesmo ativo, a célula da fase B foi de fato substituída em 11/10/2025; SS fechou ATENDIDA em 1 dia.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Texto pede diretamente 'necessario substituir celula regulador 2' por nao comutar - nomeia a peca.",
+"ver_confianca": "alta"
 },
 "DG-RD-PO 00613/2025": {
 "ativo": "7954762001",
@@ -26943,8 +27043,12 @@
 "evidencia": "por favor instalar rele do rl 7949587113 o mesmo foi retirado de operação no dia 22-05-2025  para ser instalado na rdu de couto dj 214R ACESSO BOM",
 "motivo": "Relé do religador havia sido retirado para instalação em outro ponto (RDU Couto); SS pede reinstalação e foi atendida.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "controle"
+"verificada": true,
+"categoria_vigente": "sem defeito",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Relé foi retirado propositalmente para reforçar outro ponto (RDU Couto); não há defeito relatado no ativo 7949587113.",
+"ver_confianca": "media"
 },
 "ETO-TELE 01213/2025": {
 "ativo": "7900594026",
@@ -26958,8 +27062,12 @@
 "evidencia": "PARECER DMSL: \nSegue nota para substituir relé do religador 7900594026 S/E Ponte Alta . Motivo : constantes falha de comunicação",
 "motivo": "Mesmo pedido de substituição de relé repetido nesta cadeia; SS cancelada.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "controle"
+"verificada": true,
+"categoria_vigente": "controle",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Repete pedido explícito de substituir o relé do religador; a peça é nomeada apesar do motivo mencionar falha de comunicação.",
+"ver_confianca": "media"
 },
 "DOLP-RD-PA 01398/2025": {
 "ativo": "5847506122",
@@ -26973,8 +27081,12 @@
 "evidencia": "Favor recupera a malha de aterramento fase b furtada.",
 "motivo": "Furto da malha de aterramento da fase B, decorrente da pendência da cadeia anterior; SS fechou ATENDIDA em 1 dia.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "furto"
+"verificada": true,
+"categoria_vigente": "aterramento",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "O item furtado é a malha de aterramento, não célula/relé/banco do regulador — aterramento não é peça grande mesmo com furto.",
+"ver_confianca": "alta"
 },
 "ETO-RD-GR 00946/2025": {
 "ativo": "7952841155",
@@ -27033,8 +27145,12 @@
 "evidencia": "tem informação no escada que o religador foi retirado Rele e instalado no DJ 214R RDU  de Couto SID 2730/25",
 "motivo": "Mesmo problema de relé retirado do religador (provável duplicidade da cadeia anterior); cita também furto já resolvido do trafo auxiliar. SS cancelada.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "controle"
+"verificada": true,
+"categoria_vigente": "sem defeito",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Mesma situação: relé retirado do religador para instalação em outro ponto, sem defeito relatado no próprio ativo.",
+"ver_confianca": "media"
 },
 "ETO-TELE 01227/2025": {
 "ativo": "7929377080",
@@ -27108,8 +27224,12 @@
 "evidencia": "SUBSTITUIR REGULADOR FASE A",
 "motivo": "Cadeia aberta logo após o cancelamento da anterior; pede e conclui em 4 dias (SS ATENDIDA) a substituição da unidade de fase A — provável continuação do controle danificado da cadeia 2.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "'Substituir regulador fase A' restringe o pedido a uma fase, ou seja, à célula daquela fase.",
+"ver_confianca": "media"
 },
 "ETO-RD-AR 01596/2025": {
 "ativo": "5820044123",
@@ -27123,8 +27243,12 @@
 "evidencia": "FAVOR ENVIAR EQUIPE DE LINHA VIVA PARA SUBSTITUIR CÉLULA 03 DO RT COM DEFEITO -RT 5820044123 - AL02055123 - FASE C",
 "motivo": "Pedido direto e específico de substituição da célula 03 (fase C) via linha viva; SS atendida no dia seguinte.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "'SUBSTITUIR CÉLULA 03... FASE C' nomeia a peça e a fase diretamente.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01243/2025": {
 "ativo": "7900594026",
@@ -27228,8 +27352,12 @@
 "evidencia": "segue SS para as devidas tratativas, defeito no regulador 5800961074 LD Dianópolis / Gerais o mesmo ficou By passado em campo pois esta com célula queimada equipe não conseguiu identificar qual célula,",
 "motivo": "Célula queimada é o item nomeado, mas a equipe não conseguiu identificar qual fase; sem confirmação de troca nesta cadeia.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Nomeia 'célula queimada', mesmo sem identificar a fase exata.",
+"ver_confianca": "media"
 },
 "ETO-RD-PA 00749/2025": {
 "ativo": "7900414059",
@@ -27348,8 +27476,12 @@
 "evidencia": "O MESMO ESTAVA COM OS TRAPS DOS RT2 E RT3 TRAVADOS NO TAP 16, FOI FEITO O PROMEIRO ATAQUE E NÃO ACITOU OS COMANDOS LOCAIS, O MESMO FICOU BY PASSADO",
 "motivo": "Duas unidades de fase (RT2 e RT3) travadas mecanicamente no mesmo tap, sem responder a comandos locais; único texto disponível não confirma o reparo, mas SS fechou ATENDIDA.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "'Não acitou os comandos locais' e 'ficou by passado' são sintomas da lista de exclusão, sem célula nomeada nem substituição pedida.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01307/2025": {
 "ativo": "7954583110",
@@ -27498,8 +27630,12 @@
 "evidencia": "APÓS COLOCAR NO AUTOMATICO UM TEMPO DEPOIS R1 TAP -14, RT2 TAP -6, RT3 TAP -16\n        \n        FICOU BAY PASSADO ISOLADO.",
 "motivo": "As 3 fases divergem de forma errática quando colocadas em modo automático (não é falha mecânica de uma fase só), indicando problema no comando automático do relé; texto termina com o equipamento isolado em bypass, sem confirmação de reparo.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "rele"
+"verificada": true,
+"categoria_vigente": "nao identificado",
+"ver_fonte": "verif2",
+"ver_mantem": false,
+"ver_porque": "Descreve taps das três fases divergindo em modo automático e terminando 'bay passado isolado'; é sintoma/bypass, não nomeia relé.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01427/2025": {
 "ativo": "7900618193",
@@ -27543,8 +27679,12 @@
 "evidencia": "o mesmo esta com uma das celulas apresentando vazamento , o equipamento ficou bypassado , por motivo de ele ter causado o  desarme da LD PONTE ALTA a MATEIROS .",
 "motivo": "Vazamento em célula (fase não especificada); SS cancelada sem confirmação de reparo.",
 "confianca": "media",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Nomeia 'uma das celulas' com vazamento, mas não diz qual fase nem confirma a troca.",
+"ver_confianca": "media"
 },
 "ETO-RD-PS 00361/2025": {
 "ativo": "5800586084",
@@ -27558,8 +27698,12 @@
 "evidencia": "Serviço Executado: Célula da fase A com problemas no comutador impossibilitando a comutação, será necessário substituir a mesma! \nObs:. Quando for fazer a substituição a célula q deve ser substituída é a do lado de paraíso do lado do controle.",
 "motivo": "Célula da fase A com defeito no comutador; a cadeia seguinte (comissionamento) confirma que a troca desta SS foi realizada.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "celula"
+"verificada": true,
+"categoria_vigente": "celula",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "'Célula da fase A com problemas no comutador... necessário substituir a mesma', peça nomeada com comando explícito.",
+"ver_confianca": "alta"
 },
 "ETO-RD-AR 01827/2025": {
 "ativo": "7942707040",
@@ -27663,8 +27807,12 @@
 "evidencia": "PARECER COEP: EQUIPAMENTO SELECIONADO PARA COMPRA\n\nSubstituir as 3 células\n\n- Melhoria na malha de aterramento \n\n- Melhoria no circuito de aterramento qua aterra as células\n.\n- Substituir conectores paralelos",
 "motivo": "Pedido explícito de substituir as 3 células do banco (equipamento selecionado para compra); aterramento e conectores paralelos são itens acessórios. SS pendente, aquisição em andamento.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "completo"
+"verificada": true,
+"categoria_vigente": "completo",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Pede explicitamente 'Substituir as 3 celulas' - banco completo; aterramento e conectores sao itens a parte que nao mudam a classificacao.",
+"ver_confianca": "alta"
 },
 "ETO-TELE 01462/2025": {
 "ativo": "7947203070",
@@ -27858,8 +28006,12 @@
 "evidencia": "Religador esta com infiltração de agua no painel de controle. O religador ficou bay passado em campo.",
 "motivo": "Infiltração de água no painel de controle é peça concretamente nomeada; equipamento ficou bypassado em campo, aguardando equipe.",
 "confianca": "alta",
-"verificada": false,
-"categoria_vigente": "controle"
+"verificada": true,
+"categoria_vigente": "controle",
+"ver_fonte": "verif2",
+"ver_mantem": true,
+"ver_porque": "Infiltração de água no painel de controle é condição concreta e nomeada, e levou o religador a ser bypassado.",
+"ver_confianca": "media"
 },
 "ETO-TELE 01529/2025": {
 "ativo": "7931104059",
