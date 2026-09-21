@@ -631,6 +631,38 @@ diferente de «Sem classificação».
   o cartão nomeia. **Confirmar com o gestor.**
 
 
+- **A aba Gestão da COEP 4 é uma TABELA do Excel** (`Table1`, A1:AG54, 53 ativos) —
+  `data/raw/GESTAO_EQUIPAMENTOS_ESPECIAIS_COEP_4.xlsx`, 21/09. **A régua do SLA saiu dela**:
+  `SLA_Total` é função só da criticidade — **Muito Alta 12 · Alta 26 · Média 86 · Baixa 134** —
+  e `Status Prazo = Dias Pendente − SLA`, no formato «N - DIAS FORA DO PRAZO». Os 4 ativos com
+  criticidade **«Falta definir»** (7930359149, 7953211079, 5825703064, 7931219078) ficam sem SLA
+  e sem Status Prazo **por consequência, não por esquecimento** — classificar a criticidade
+  preenche as 8 células sozinho. **`Potencia` é vazia nos 41 RL de propósito**: kVA só existe no
+  RT (os 12 preenchidos são todos tipo 58).
+  **Marca e Faixa de Tensão conferidas nas 53 linhas contra o cadastro de ajustes: zero
+  divergência** — o gestor transcreveu a tabela de 16/09 certo.
+  **Erro achado e corrigido em K44** (5862236091): o MAT estava `=90230*3` = R$ 270.690, mas o
+  Defeito diz «Célula 400 34,5» (UMA célula), o parecer diz «substituição da FASE B» e o Total da
+  própria linha já era 170.548,50 = 80.318,50 + 90.230. Virou **90.230**, e agora
+  `Total = MO + MAT` fecha nas 53 linhas.
+  **`LD02065015` não tem nome em fonte nenhuma** — aparece 23 vezes pelado nos três xlsx e nas
+  10.368 SS. É o alimentador de 7947203070 (Rio Sono), 7900525015 e 7925733015 (Pedro Afonso) —
+  LD é linha longa e cruza município, não é erro. Existe `LD01065015 - LD PEDRO AFONSO A
+  SANTA.MARIA`, mesmo sufixo e outro circuito: **pista, não cadastro** — gravado só o código.
+- **NUNCA regravar a COEP 4 com openpyxl**: ela tem **37 gráficos, 8 tabelas dinâmicas, 5
+  desenhos e 4 vínculos externos**, e um dos vínculos (`Taxa de Falha!B86` e `B93` →
+  `'[1]Expansão EE'!$E$51:$P$51`) só existe como **valor em cache** — o arquivo de origem não
+  está aqui. Salvar com openpyxl apaga o cache, o LibreOffice não resolve a referência e escreve
+  `#NAME?`. O caminho certo para edição pontual é **mexer no XML dentro do zip**: `unzip`,
+  editar `xl/worksheets/sheetN.xml` (a Gestão é a **sheet3**, pelo `r:id` em `workbook.xml`),
+  acrescentar texto novo em `xl/sharedStrings.xml` (e **subir o `uniqueCount`**), e `zip -X -D -r`
+  — o `-D` evita entradas de diretório, que o original não tem. **Célula «vazia» pode não estar
+  vazia**: AD7/AD26/AD30 apontavam para `si[33]`, que é `<t/>`, string vazia. Conferência que
+  vale a pena: comparar as duas versões célula a célula nas 13 abas, normalizando `ArrayFormula`
+  por `(ref, text)` — comparar o objeto direto acusa diferença falsa em toda fórmula matricial.
+  Resultado desta edição: **4 diferenças reais, 2 partes do zip alteradas**, gráficos, dinâmicas e
+  vínculos byte a byte idênticos.
+
 ## Artifacts vivos
 
 | Página | URL |
