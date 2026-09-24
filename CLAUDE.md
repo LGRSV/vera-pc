@@ -689,6 +689,10 @@ diferente de «Sem classificação».
   7944559149 e 7908249152 estão «Gerado PMA» e ficaram sem — acabou o controle de 34,5. Na conta
   das linhas 59–63 ele pôs 3 Completos de 34,5 para Muito Alta/Alta; a tabela tem 5 e mais o
   controle do 7926089013, então a sobra de 34,5 é 1 Completo + 3 Tanques, não 4 + 2.
+  **Confirmado pelo gestor (24/09)**: «depois de Muito Alta e Alta vou atacando um pouco da
+  Média» — a sobra segue o Índice, e o controle de RT que sobra **fica de reserva**. O gargalo da
+  Média é o controle de 34,5: sobram 4 tanques e 1 controle, que dão 4 equipamentos pelo Índice
+  (7900535058 leva o Completo) ou 5 se o controle for para o 7944559149 e o tanque para o 7927396052.
   **O que a base de 23/09 mostrava e ficou fora por ordem dele** (para não refazer a busca): o COEP
   confirmou com o COI em 18/09 que o 7937102148 está em operação; o 7900535058 está «em logística»
   com um controle de outra origem desde 16/09; o 7923673004 vai receber o controle do 7903569004;
