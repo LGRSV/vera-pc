@@ -663,6 +663,31 @@ diferente de «Sem classificação».
   Resultado desta edição: **4 diferenças reais, 2 partes do zip alteradas**, gráficos, dinâmicas e
   vínculos byte a byte idênticos.
 
+- **SLA de manutenção do DCMD — o quadro do gestor por localidade** (24/09). Ele monta a partir do
+  `v6_1.xlsx` (saída de `sla_por_equipe.py`) com abas próprias: **BASE** = a proposta DCMD
+  (Muito Alta 11 · Alta 20 · Média 40 · Baixa 60 · **Sem classificação 32,75**, a média das quatro —
+  o script ainda usa 60, vale o 32,75 dele); **PRAZO** = `XLOOKUP(Criticidade; BASE)`; **FORA PRAZO?**
+  = `IF(IF(R<>"";R-J;"")<=M;"Concluído no prazo";"Fora Prazo")` — com R vazio o texto `""` é maior
+  que número no Excel, então **em curso sempre dá «Fora Prazo»** (por isso ele tira em curso da lista).
+  O quadro é o pivô **«Equipe que devolveu» × FORA PRAZO × mês da entrega, ACUMULADO**, rebatizado
+  por cidade: PS=Paraíso · PA=Palmas · DG-RD-PO e ETO-RD-PO=Porto Nacional · AG=Augustinópolis ·
+  AR=Araguaína · **GR=Guaraí · GU=Gurupi** (conferido pelas cidades dos ativos: GR atende Guaraí,
+  Pedro Afonso, Bernardo Sayão; GU atende Gurupi, Araguaçu, Formoso).
+  **O recorte da lista dele** (48 de 71 em 2026 até 18/08): fica fora quem está **em curso** e quem
+  o campo **devolveu ao COEP** (16 das 19 fechadas excluídas). **Cancelada NÃO é critério** — ele
+  manteve 5 com a SS do COCM cancelada e tirou 3, todas de cancelamento em massa (30/03 com 11 no
+  dia, 30/06 com 50): é julgamento caso a caso, **não inventar regra** — mostrar o caso e deixar ele
+  decidir. **Ordem dele: não mexer nos meses anteriores**, só completar o mês novo.
+  **A base nova `data/raw/RELIGA_REGULA_23092026.xlsx`** (aberturas até 23/09, 10.705 SS) grava a
+  dimensão da aba como `A1:A1`: o openpyxl em `read_only=True` confia nela e lê **uma célula** —
+  `base_de_repasse` e `dados_do_ativo` voltam vazios sem erro. Ler com `read_only=False`.
+  Com ela o código reproduz as **60 entregas de 2025** da aba «2025 SLA» dele, exatas.
+  Recálculo de 24/09: agosto só muda em **Guaraí** (1→2 no prazo, pela `ETO-RD-PO 183/2026`, que é
+  **cancelada** — caso cinza); setembro até 23/09 entra 4, **todas no prazo** (Porto Nacional +2,
+  Araguaína +1, Palmas +1). Duas coisas do quadro dele em jan–jul, **não alteradas**: a 3ª linha
+  «Porto Nacional» é o **Fora Prazo de julho do ETO-RD-PO** posto como se fosse no prazo; e em
+  Dianópolis a entrega de janeiro está como no prazo, mas a Planilha1 dele a marca Fora Prazo.
+
 ## Artifacts vivos
 
 | Página | URL |
