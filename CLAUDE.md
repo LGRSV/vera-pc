@@ -662,6 +662,37 @@ diferente de «Sem classificação».
   por `(ref, text)` — comparar o objeto direto acusa diferença falsa em toda fórmula matricial.
   Resultado desta edição: **4 diferenças reais, 2 partes do zip alteradas**, gráficos, dinâmicas e
   vínculos byte a byte idênticos.
+  **Duas coisas que essa edição de 21/09 deixou para trás, consertadas em 24/09**: 1) virar
+  fórmula em valor (K44) deixa a célula listada no `xl/calcChain.xml`, e o Excel pede para
+  **reparar** o arquivo — tirar o `calcChain.xml` (parte, `Override` no `[Content_Types].xml` e
+  `Relationship` no `workbook.xml.rels`), que o Excel refaz ao abrir; 2) o `count` do
+  `sharedStrings` é o total de células `t="s"` e o Excel grava **exato** — contar nas abas depois
+  da edição, não somar à mão (tinha ficado 32 abaixo).
+
+- **A compra de 29/07 unidade por unidade** (`compra_2907_por_ativo.py`, 24/09). A aba **Estoque**
+  da COEP 4 é a lista da compra, **uma linha por peça** (`Tabela7`, A35:M75, 40 linhas: 38291 ×3 ·
+  38292 ×4 · 38294 ×8 · 38295 ×13 · 38296 ×5 · 38297 ×7), com a coluna **K = Ativo** para o gestor
+  dizer quem recebe; no topo ele começou um quadro «Status PMA» (A6:D7) e um «Saldo» (A1).
+  **Régua do gestor, com as palavras dele**: a compra foi feita para Muito Alta e Alta
+  (`Plano_Compras_MA_Alta.xlsx`, 16/07, 27 equipamentos), «resolvemos alguns casos antes, temos que
+  aproveitar o material», e **«desconsidere a base de SS, o intuito é só preencher a planilha»** —
+  então a divisão sai só da planilha: o que ele já digitou fica; Muito Alta e Alta primeiro; depois
+  a coluna **Índice**; só recebe quem a compra conserta inteiro (RL Completo = tanque + controle, RT
+  Completo = 3 células + controle); não recebe status «Em logistica (N1>N3)» nem «Realizado»; o
+  resto é «Reserva». **Ele pensa em kits**: «7 Completos + 6 Tanques de 34,5, 5 + 3 de 13,8» — e a
+  conta dele fica **embaixo da tabela da Gestão (linhas 59–63, e uma cópia do plano de 16/07 em
+  59–99)**: ler a Gestão só até o fim da `Table1`, senão os códigos repetidos ali apagam os dados.
+  Resultado: **34,5 = 6 Completos + 1 só controle (7926089013) + 7 só tanque** (os 13 e 7 fecham);
+  **13,8 = 5 Completos + 2 Tanques + 1 tanque de reserva**; **RT = 1 RT Completo (5856070091) + 1
+  célula (5862236091) + 1 controle (5825703064) + 1 controle de reserva**. Média com peça:
+  7927713200 e 7937102148 (escolha dele), 7900535058 (Completo, leva o último controle) e 7925733015;
+  7944559149 e 7908249152 estão «Gerado PMA» e ficaram sem — acabou o controle de 34,5. Na conta
+  das linhas 59–63 ele pôs 3 Completos de 34,5 para Muito Alta/Alta; a tabela tem 5 e mais o
+  controle do 7926089013, então a sobra de 34,5 é 1 Completo + 3 Tanques, não 4 + 2.
+  **O que a base de 23/09 mostrava e ficou fora por ordem dele** (para não refazer a busca): o COEP
+  confirmou com o COI em 18/09 que o 7937102148 está em operação; o 7900535058 está «em logística»
+  com um controle de outra origem desde 16/09; o 7923673004 vai receber o controle do 7903569004;
+  e a PROT recebeu pedido de ajuste para comissionar o 5856070091 em 21/09.
 
 - **SLA de manutenção do DCMD — o quadro do gestor por localidade** (24/09). Ele monta a partir do
   `v6_1.xlsx` (saída de `sla_por_equipe.py`) com abas próprias: **BASE** = a proposta DCMD
