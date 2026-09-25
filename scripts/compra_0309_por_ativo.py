@@ -15,8 +15,17 @@ Web Supply **29756055** de 03/09/2026:
 **A régua é a mesma da primeira compra** (`compra_2907_por_ativo.py`), e tudo sai da própria
 planilha: o que cada ativo já recebeu da primeira compra é lido da `Tabela7`; a segunda completa
 o que falta. Muito Alta e Alta primeiro, depois a ordem da coluna Índice; só recebe quem a compra
-conserta por inteiro; não recebe status «Em logistica (N1>N3)» nem «Realizado»; o que sobra fica
+conserta por inteiro; não recebe status «Em logistica (N1>N3)» nem «Realizado».
+
+**Depois, a peça que sobrou vai para quem ainda não tem PMA e precisa dela** (gestor, 25/09: «se
+tem ativo pra usar que já não tem PMA associado use, e que precisam dessa peça também; se não tem
+ativo pra usar realmente deixe como reserva»), mesmo que ainda falte outra peça do conserto — é o
+caso dos RL Completo de 34,5 que ficam com o tanque esperando o controle. O que ninguém usa fica
 como «Reserva».
+
+**Preço: o da primeira compra, por enquanto** (gestor, 25/09: «utilize o preço da compra anterior
+por enquanto»). O unitário de cada código sai das linhas 36–75 da própria `Tabela7`, e o total é
+qtd × unitário, como na primeira compra. O que a requisição trouxe fica registrado em `COMPRA2`.
 
 **Status: «Em aprovação corporativa»** nas 25 linhas novas e no quadro «Status PMA» (gestor, 25/09:
 «o status atual dela é que está em aprovação corporativo»). **Previsão de chegada em branco**:
@@ -55,7 +64,8 @@ TABELA = "xl/tables/table4.xml"                      # a Tabela7 (conferido pelo
 DATA_REQ = dt.date(2026, 9, 3)
 STATUS2 = "Em aprovação corporativa"                  # gestor, 25/09; previsão ainda não existe
 REQ_WEB = 29756055
-# (PMA, código, descrição, qtd, unitário, total). A foto corta em 45 caracteres o nome do 690001 e do
+# (PMA, código, descrição, qtd, unitário e total DA REQUISIÇÃO — não vão para a planilha, que usa o
+# preço da 1ª compra por ordem do gestor). A foto corta em 45 caracteres o nome do 690001 e do
 # 690916 («…12,5K», «…115V»); vai o nome de catálogo que a 1ª compra já usa para o mesmo código,
 # senão um filtro ou dinâmica por Descrição separa a mesma peça em duas (achado da verificação, 25/09).
 COMPRA2 = [
@@ -96,7 +106,14 @@ def ler(caminho):
     assert we.tables["Tabela7"].ref == "A35:M75", we.tables["Tabela7"].ref
     ja = [dict(linha=r, pma=_t(we.cell(row=r, column=1).value), ativo=_t(we.cell(row=r, column=11).value))
           for r in range(36, 76)]
-    return g, ja
+    precos = defaultdict(set)
+    for r in range(36, 76):
+        precos[we.cell(row=r, column=2).value].add(we.cell(row=r, column=6).value)
+    preco_1 = {}
+    for cod, v in precos.items():
+        assert len(v) == 1, (cod, v)                    # um preço só por código na 1ª compra
+        preco_1[cod] = v.pop()
+    return g, ja, preco_1
 
 
 def divide(g, ja):
@@ -127,20 +144,43 @@ def divide(g, ja):
                 novo[a][pma] += q
         else:
             sem[a] = sorted(p for p, q in falta.items() if estoque[pma_da_peca[p]] < q)
+    # a peça que sobrou vai para quem ainda NÃO tem PMA e precisa dela, na mesma ordem
+    parcial = {}
+    for x in fila:
+        a = x["ativo"]
+        if x["status"] in JA_TEM or not BOM.get(x["defeito"]):
+            continue
+        if recebido[a] or novo[a] or (x["pma"] and x["pma"] != "Sem PMA"):
+            continue                                            # já tem PMA associado
+        for p, q in Counter(BOM[x["defeito"]]).items():
+            pma = pma_da_peca.get(p)
+            if pma and estoque[pma]:
+                k = min(q, estoque[pma])
+                estoque[pma] -= k
+                lista[pma] += [a] * k
+                novo[a][pma] += k
+        if novo[a]:
+            ainda = Counter(BOM[x["defeito"]]) - Counter({PECA[p]: q for p, q in novo[a].items()})
+            parcial[a] = sorted(ainda)
+            sem.pop(a, None)
     for pma, q in estoque.items():
         lista[pma] += [RESERVA] * q
-    return lista, dict(novo), sem, recebido
+    return lista, {a: c for a, c in novo.items() if c}, sem, recebido, parcial
 
 
 def main():
-    g, ja = ler(BASE)
-    lista, novo, sem, recebido = divide(g, ja)
-    for pma, _, _, q, unit, tot in COMPRA2:              # a foto fecha: qtd × unitário = total
+    g, ja, preco_1 = ler(BASE)
+    lista, novo, sem, recebido, parcial = divide(g, ja)
+    for pma, cod, _, q, unit, tot in COMPRA2:            # a foto fecha: qtd × unitário = total
         assert round(q * unit, 2) == tot, pma
         assert len(lista[pma]) == q, pma
-    for a, c in novo.items():                            # quem recebe fica com o conserto inteiro
+        assert cod in preco_1, cod                      # todo código da 2ª compra existe na 1ª
+    for a, c in novo.items():
         tudo = recebido[a] + Counter({PECA[p]: q for p, q in c.items()})
-        assert tudo == Counter(BOM[g[a]["defeito"]]), (a, tudo)
+        if a in parcial:                                # peça que sobrou: parte do conserto, sem PMA antes
+            assert tudo < Counter(BOM[g[a]["defeito"]]) and not recebido[a] and g[a]["pma"] == "Sem PMA", a
+        else:                                           # quem recebe primeiro fica com o conserto inteiro
+            assert tudo == Counter(BOM[g[a]["defeito"]]), (a, tudo)
         assert g[a]["status"] not in JA_TEM
 
     # coluna M da Gestão: os PMAs das duas compras
@@ -164,7 +204,9 @@ def main():
     x = partes[ABA_ESTOQUE].decode("utf-8")
     linhas = []
     n = 76
-    for pma, cod, desc, q, unit, tot in COMPRA2:
+    for pma, cod, desc, q, _, _ in COMPRA2:
+        unit = preco_1[cod]                             # preço da 1ª compra, por enquanto
+        tot = round(q * unit, 2)
         for ativo in lista[pma]:
             c = (cel(f"A{n}", int(pma)) + cel(f"B{n}", cod) + cel(f"C{n}", desc, textos=textos)
                  + cel(f"D{n}", "UN", textos=textos) + cel(f"E{n}", q) + cel(f"F{n}", unit, s=38)
@@ -268,6 +310,10 @@ def main():
     assert all(len(v) == 1 for v in desc.values()), desc
     for r in range(13, 17):
         assert e.cell(row=r, column=4).value == STATUS2 and e.cell(row=r, column=5).value is None
+    for r in range(76, ULTIMA + 1):                      # preço = o da 1ª compra para o mesmo código
+        cod, qt = e.cell(row=r, column=2).value, e.cell(row=r, column=5).value
+        assert e.cell(row=r, column=6).value == preco_1[cod], r
+        assert e.cell(row=r, column=7).value == round(qt * preco_1[cod], 2), r
 
     # ---- relatório ----
     print(f"gravado {SAIDA}")
@@ -280,6 +326,12 @@ def main():
     print("\nGestão, coluna M:")
     for a, v in sorted(pma_novo.items(), key=lambda kv: g[kv[0]]["indice"]):
         print(f"   M{g[a]['linha']:<3} {a} {g[a]['crit']:<13} {g[a]['pma']:<10} -> {v}")
+    print("\nRecebem a peça que sobrou (não tinham PMA) e ainda esperam:")
+    for a, ps in parcial.items():
+        print(f"   {a} {g[a]['crit']:<13} Índice {g[a]['indice']:>3} {g[a]['defeito']:<22} falta {', '.join(ps)}")
+    print("\nPreço usado (1ª compra) x requisição:")
+    for pma, cod, _, q, unit, tot in COMPRA2:
+        print(f"   {pma} {cod}: {preco_1[cod]:>10.2f} x {q} = {round(q * preco_1[cod], 2):>11.2f}   (requisição {unit:.2f} = {tot:.2f})")
     print("\nContinuam sem peça (faltou):")
     for a, ps in sem.items():
         print(f"   {a} {g[a]['crit']:<13} Índice {g[a]['indice']:>3} {g[a]['defeito']:<22} faltou {', '.join(ps)}")

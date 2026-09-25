@@ -700,13 +700,23 @@ diferente de «Sem classificação».
   a **A35:M100**, o quadro «Status PMA» ganha as linhas 13–16 e o saldo em B1 soma H7:H16. **Cadeia
   dos arquivos**: `…_ENTREGUE_2109` → `compra_2907_por_ativo.py` → `…_ENTREGUE_2409` (o que foi
   entregue em 24/09) → `compra_0309_por_ativo.py` → `dist/`. Mesma régua, lendo da `Tabela7` o que a 1ª
-  compra já deu a cada ativo: recebem **12** (6 Média + 6 Baixa) e **sobram 11 peças** — 7 tanques de
-  34,5 e as 4 de 13,8, porque os RL 13,8 da Gestão já estão com a 1ª compra, que chega antes (15/11).
-  **O gargalo de novo é o controle de 34,5**: faltam 7 (4 RL Completo + 3 só controle) para zerar a
-  fila de 34,5 da Gestão, e os tanques desses 4 já estão entre as sobras. A foto corta o nome do 690001
-  e do 690916 em 45 caracteres — vai o nome de catálogo da 1ª compra, senão filtro por Descrição separa
-  a mesma peça. O tanque de 34,5 saiu a R$ 16.130 contra R$ 41.874 na 1ª compra (a foto confere:
-  qtd × unitário = total). Verificado por workflow (4 lentes independentes + 2 céticos por achado).
+  compra já deu a cada ativo: recebem **12** o conserto inteiro (6 Média + 6 Baixa). **Duas regras
+  que o gestor deu para a 2ª compra (25/09), e só para ela** («a primeira compra foi perfeita»):
+  1) **a peça que sobra vai para quem ainda não tem PMA e precisa dela**, mesmo sem fechar o conserto
+  («se tem ativo pra usar que já não tem PMA associado use, e que precisam dessa peça também; se não
+  tem ativo pra usar realmente deixe como reserva») — os 4 RL Completo de 34,5 sem PMA (7928564039,
+  7927446001, 7910027196, 7930359149) ficam com o tanque 38744 esperando o controle; 2) **preço da
+  1ª compra por enquanto** («utilize o preço da compra anterior por enquanto»): o unitário de cada código
+  sai das linhas 36–75 da `Tabela7` e o total é qtd × unitário; os valores da requisição (16.130,41 ·
+  11.990,27 · 29.851,96 · 39.741,39) ficam só registrados no script. Ele perguntou se a 1ª compra tinha
+  mão de obra junto — **não tem**: 690001 e 690916 saíram exatamente no preço de material da Gestão, e
+  nenhum item bate com material + MO. **Reserva**: 3 tanques de 34,5 e as 4 peças de 13,8 (os RL 13,8
+  da Gestão já estão com a 1ª compra) — saldo das duas compras **9**. **O gargalo é o controle de
+  34,5**: faltam 7 (os 4 Completos que já têm tanque + 3 só controle: 7955946007, 7919270014,
+  7953211079). A foto corta o nome do 690001 e do 690916 em 45 caracteres — vai o nome de catálogo da
+  1ª compra, senão filtro por Descrição separa a mesma peça. Verificado por workflow (4 lentes
+  independentes + 2 céticos por achado) antes das duas regras; depois delas, conferido por diferença
+  contra a cópia verificada — só mudaram preço, os 4 tanques e as 4 células de PMA.
   **O que a base de 23/09 mostrava e ficou fora por ordem dele** (para não refazer a busca): o COEP
   confirmou com o COI em 18/09 que o 7937102148 está em operação; o 7900535058 está «em logística»
   com um controle de outra origem desde 16/09; o 7923673004 vai receber o controle do 7903569004;
