@@ -693,6 +693,20 @@ diferente de «Sem classificação».
   Média» — a sobra segue o Índice, e o controle de RT que sobra **fica de reserva**. O gargalo da
   Média é o controle de 34,5: sobram 4 tanques e 1 controle, que dão 4 equipamentos pelo Índice
   (7900535058 leva o Completo) ou 5 se o controle for para o 7944559149 e o tanque para o 7927396052.
+  **A segunda compra de RL** (`compra_0309_por_ativo.py`, 25/09): requisição Web Supply **29756055**
+  de 03/09 — **38744** 17 tanques 34,5 (R$ 16.130,41) · **38745** 2 tanques 13,8 (R$ 11.990,27) ·
+  **38746** 2 controles 13,8 (R$ 29.851,96) · **38747** 4 controles 34,5 (R$ 39.741,39), R$ 516.866,99;
+  status **«Em aprovação corporativa»** e **sem previsão de chegada** (gestor, 25/09). A `Tabela7` vai
+  a **A35:M100**, o quadro «Status PMA» ganha as linhas 13–16 e o saldo em B1 soma H7:H16. **Cadeia
+  dos arquivos**: `…_ENTREGUE_2109` → `compra_2907_por_ativo.py` → `…_ENTREGUE_2409` (o que foi
+  entregue em 24/09) → `compra_0309_por_ativo.py` → `dist/`. Mesma régua, lendo da `Tabela7` o que a 1ª
+  compra já deu a cada ativo: recebem **12** (6 Média + 6 Baixa) e **sobram 11 peças** — 7 tanques de
+  34,5 e as 4 de 13,8, porque os RL 13,8 da Gestão já estão com a 1ª compra, que chega antes (15/11).
+  **O gargalo de novo é o controle de 34,5**: faltam 7 (4 RL Completo + 3 só controle) para zerar a
+  fila de 34,5 da Gestão, e os tanques desses 4 já estão entre as sobras. A foto corta o nome do 690001
+  e do 690916 em 45 caracteres — vai o nome de catálogo da 1ª compra, senão filtro por Descrição separa
+  a mesma peça. O tanque de 34,5 saiu a R$ 16.130 contra R$ 41.874 na 1ª compra (a foto confere:
+  qtd × unitário = total). Verificado por workflow (4 lentes independentes + 2 céticos por achado).
   **O que a base de 23/09 mostrava e ficou fora por ordem dele** (para não refazer a busca): o COEP
   confirmou com o COI em 18/09 que o 7937102148 está em operação; o 7900535058 está «em logística»
   com um controle de outra origem desde 16/09; o 7923673004 vai receber o controle do 7903569004;

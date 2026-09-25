@@ -55,11 +55,13 @@ TABELA = "xl/tables/table4.xml"                      # a Tabela7 (conferido pelo
 DATA_REQ = dt.date(2026, 9, 3)
 STATUS2 = "Em aprovação corporativa"                  # gestor, 25/09; previsão ainda não existe
 REQ_WEB = 29756055
-# (PMA, código, descrição como está na foto, qtd, unitário, total)
+# (PMA, código, descrição, qtd, unitário, total). A foto corta em 45 caracteres o nome do 690001 e do
+# 690916 («…12,5K», «…115V»); vai o nome de catálogo que a 1ª compra já usa para o mesmo código,
+# senão um filtro ou dinâmica por Descrição separa a mesma peça em duas (achado da verificação, 25/09).
 COMPRA2 = [
     ("38744", 690005, "RELIGADOR AUTO EXT 3F LIN VAC 38KV 630A 12,5KA 127VCA", 17, 16130.41, 274216.97),
-    ("38745", 690001, "RELIGADOR AUTO EXT 3F LIN VAC 15KV 630A 12,5K", 2, 11990.27, 23980.54),
-    ("38746", 690916, "CONTROLE P/ RELIGADOR LINHA DISTR 15,0KV 115V", 2, 29851.96, 59703.92),
+    ("38745", 690001, "RELIGADOR AUTO EXT 3F LIN VAC 15KV 630A 12,5KA 127VCA", 2, 11990.27, 23980.54),
+    ("38746", 690916, "CONTROLE P/ RELIGADOR LINHA DISTR 15,0KV 115VCA", 2, 29851.96, 59703.92),
     ("38747", 692263, "CONTROLE P/ RELIGADOR LINHA DISTR 36,2KV 115VCA", 4, 39741.39, 158965.56),
 ]
 # peça de cada PMA, das duas compras
@@ -168,7 +170,8 @@ def main():
                  + cel(f"D{n}", "UN", textos=textos) + cel(f"E{n}", q) + cel(f"F{n}", unit, s=38)
                  + cel(f"G{n}", tot, s=38) + cel(f"H{n}", "Material para Manutenção", textos=textos)
                  + cel(f"I{n}", excel_data(DATA_REQ), s=12) + cel(f"J{n}", REQ_WEB)
-                 + cel(f"K{n}", ativo, textos=textos) + cel(f"L{n}", STATUS2, textos=textos))
+                 + cel(f"K{n}", ativo, textos=textos) + cel(f"L{n}", STATUS2, textos=textos)
+                 + f'<c r="M{n}" s="12"/>')      # previsão vazia, já no formato de data
             linhas.append(f'<row r="{n}" spans="1:13" x14ac:dyDescent="0.25">{c}</row>')
             n += 1
     assert n - 1 == ULTIMA
@@ -232,7 +235,7 @@ def main():
     assert mexidas == {ABA_ESTOQUE, ABA_GESTAO, TABELA, "xl/sharedStrings.xml"}, mexidas
     antes, depois = todas_as_celulas(BASE), todas_as_celulas(SAIDA)
     dif = {k for k in set(antes) | set(depois) if antes.get(k) != depois.get(k)}
-    permitido = ({("Estoque", f"{c}{r}") for c in "ABCDEFGHIJKL" for r in range(76, ULTIMA + 1)}
+    permitido = ({("Estoque", f"{c}{r}") for c in "ABCDEFGHIJKLM" for r in range(76, ULTIMA + 1)}
                  | {("Estoque", f"{c}{r}") for c in "ABCDEFGH" for r in range(13, 17)}
                  | {("Estoque", f"{c}{r}") for c in "FG" for r in range(7, 13)}
                  | {("Estoque", "B1")}
@@ -259,6 +262,10 @@ def main():
     assert e["B1"].value == saldo
     for r in range(76, ULTIMA + 1):                      # status novo, previsão em branco
         assert e.cell(row=r, column=12).value == STATUS2 and e.cell(row=r, column=13).value is None
+    desc = defaultdict(set)
+    for r in range(36, ULTIMA + 1):
+        desc[e.cell(row=r, column=2).value].add(e.cell(row=r, column=3).value)
+    assert all(len(v) == 1 for v in desc.values()), desc
     for r in range(13, 17):
         assert e.cell(row=r, column=4).value == STATUS2 and e.cell(row=r, column=5).value is None
 
