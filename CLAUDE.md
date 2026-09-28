@@ -747,6 +747,31 @@ diferente de «Sem classificação».
   «Porto Nacional» é o **Fora Prazo de julho do ETO-RD-PO** posto como se fosse no prazo; e em
   Dianópolis a entrega de janeiro está como no prazo, mas a Planilha1 dele a marca Fora Prazo.
 
+- **COEP 5 (28/09): conferência e entrega** (`confere_coep5.py` → `dist/CONFERENCIA_COEP_5.xlsx`;
+  `entrega_coep5.py` → `dist/GESTAO_EQUIPAMENTOS_ESPECIAIS_COEP_5.xlsx`). A COEP 5 é a **cópia de
+  trabalho dele**, não a que entreguei: ele trouxe a `Tabela7` e a coluna PMA da «COEP_4 (3)» por
+  fórmula e colou. Ela tem **58 ativos** (5 novos) e duas colunas novas na Gestão, **G «Descrição»**
+  (PROCX na BASE SS_OS) e **K «Observação»**; a aba «SLA por equipe» virou **«SLA de Manutenção»**
+  + **«Base SLA de Manutenção»**. **O «Religa_regula.xlsx» de 28/09 é o de 23/09** (MD5 dd6bf179…):
+  conferir o hash antes de achar que a base é nova.
+  **O erro grave: ele reordenou a Gestão e as colunas MO/MAT/Total/PMA ficaram na ordem antiga** em 4
+  linhas (o RT 5800961074 e o RT 5853360007 com preço e PMA de RL Completo). A troca não muda o total
+  da coluna, então nenhuma soma denuncia: tem de casar **pelo ativo**, nunca pela linha.
+  **A BASE SS_OS é consulta do Power Query** (`L:\COEP\BASE SS_OS.txt`; 79/58, INDISPONIBILIDADE PARA
+  OPERAÇÃO, SS PENDENTE, posto COEP ou RD). Coluna nova sem atrapalhar a consulta = **coluna não
+  ligada à direita**: `queryTableField dataBound="0"` + `unboundColumnsRight` + `tableColumn` com
+  `calculatedColumnFormula`. Assim entraram **Faixa de Tensão · Potência · Marca**, por PROCX nas abas
+  **ocultas «Ajustes RL Poste» e «Ajustes Reguladores de Tensão»** (só valores, cadastro de 26/08;
+  texto inline para não inflar a lista de textos). Cobrem 52 de 53 SS — falta o 7930359149, que não
+  está no cadastro. **Peças de RT (decisão dele, 28/09)**: o 5856070091 recebeu em 27/07 as peças do
+  5862236091 e já foi instalado (PROT, 21/09); o 5862236091 não será mantido este ano (as células
+  foram para obra). Liberadas e redistribuídas pela régua: **1 célula → 5836786094; 3 células + 1
+  controle → 5856156091; 1 controle segue reserva**. As de RL de quem virou Realizado (38747 do
+  7955986084, 38295 do 7937102148) ficaram **só como sugestão** («só as de regulador»).
+  **Armadilha do XML achada aqui**: procurar célula por regex `<c r="X"[^>]*>.*?</c>` numa célula
+  vazia autofechada (`<c r="Z57" s="1"/>`) atravessa a linha e engole o começo da próxima — achar a
+  tag de abertura primeiro (`celula()` em `entrega_coep5.py`). A conferência pegou antes de gravar.
+
 ## Artifacts vivos
 
 | Página | URL |
