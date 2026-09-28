@@ -808,6 +808,27 @@ diferente de «Sem classificação».
   a cadeia só pela abertura deixava a cabeça ao acaso da rodada — o desempate é pelo repasse (quem
   repassou vem antes).
 
+- **2025 × 2026 — o que os dados provam** (`verdade_2025_2026.py` → `dist/VERDADE_2025_2026.xlsx` e
+  `data/missao/verdade_2025_2026.json`, 28/09). Pedido: «uma visão de verdade provando que em 2026 a
+  gente melhorou o tempo até a troca de RL e RT e ainda salvamos muito o backlog que 2025 deixou, se
+  isso for verdade». RL e RT juntos, em dias, sem prazo. **Três respostas**: 1) **tempo — melhorou
+  depois do primeiro mês; sinal forte, sem prova**: até 30 dias igual (10% × 11%; 7 das 9 trocas
+  rápidas fechadas pela TELE); das que passaram do 1º mês sem troca, do 2º ao 6º mês 2026 trocou 3 de
+  22 e 2025, 2 de 44 — **em 2025 nenhuma falha foi trocada entre o 39º e o 223º dia**; no ritmo de
+  2025, as falhas de 2026 teriam 5,9 trocas e tiveram 12; log-rank até 257 dias, p = 0,065. 2)
+  **backlog de 2025 — verdade**: 42 falhas de peça grande passaram para 2026 sem troca, 18 trocadas
+  (43%), 24 esperam (a mais velha há 558 dias); 18 das 30 trocas de 2026 foram em falha de 2025. 3)
+  **a fila não encolheu, e o herdado caiu no ritmo de 2025** (visão ETO refeita na base de repasse de
+  23/09, que vem desde 2020 — `PENDENCIA_DO_ATIVO` é o TIPOSS): herdadas 70, saíram 50 (71%) até 23/09;
+  em 2025, 66 e 49 (74%), com mais SS atendida (47 × 37; 11 canceladas em 2026 contra 2); fila 70 → 91
+  em 2026, 66 → 73 em 2025. **Armadilhas**: as contas fáceis enganam em sentidos opostos — a mediana
+  das trocadas (296 × 78) favorece 2026 e a média das trocas feitas no ano (14 × 243) o desfavorece
+  (é o resgate das velhas; e o rol não tem falha de 2024, então não há como dizer se 2025 resgatou mais
+  ou menos peça grande do que herdou). Na conta por fase, a base sai da **janela** da falha (até a
+  falha seguinte do mesmo ativo), nunca do desfecho: o 5854566043 trocou em 33 dias mas falhou de novo
+  aos 124, e não entra na fase que vai até 180. A base de SS/OS começar em 2024 não corta 2025: nenhuma
+  demanda de indisponibilidade aberta antes de 2024 passou aberta a virada de 2024.
+
 ## Artifacts vivos
 
 | Página | URL |

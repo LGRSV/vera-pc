@@ -1,0 +1,449 @@
+{
+ "posicao": "2026-09-23",
+ "tempo": {
+  "leituras": {
+   "2025": {
+    "falhas": 50,
+    "trocadas": 26,
+    "abertas": 24,
+    "rapidas_pela_tele": 4,
+    "vazio": [
+     39,
+     223
+    ],
+    "mediana_trocadas": 296.0,
+    "media_trocadas": 244.5,
+    "trocas_feitas_no_ano": 8,
+    "media_trocas_feitas_no_ano": 13.9,
+    "mediana_trocas_feitas_no_ano": 2.5
+   },
+   "2026": {
+    "falhas": 36,
+    "trocadas": 12,
+    "abertas": 24,
+    "rapidas_pela_tele": 3,
+    "vazio": [
+     95,
+     133
+    ],
+    "mediana_trocadas": 78.0,
+    "media_trocadas": 87.8,
+    "trocas_feitas_no_ano": 30,
+    "media_trocas_feitas_no_ano": 243.3,
+    "mediana_trocas_feitas_no_ano": 281.0
+   }
+  },
+  "fases": {
+   "2025 0 30": {
+    "trocadas": 5,
+    "base": 50,
+    "pct": 0.1
+   },
+   "2025 31 180": {
+    "trocadas": 2,
+    "base": 44,
+    "pct": 0.0455
+   },
+   "2025 181 240": {
+    "trocadas": 1,
+    "base": 41,
+    "pct": 0.0244
+   },
+   "2026 0 30": {
+    "trocadas": 4,
+    "base": 36,
+    "pct": 0.1111
+   },
+   "2026 31 180": {
+    "trocadas": 3,
+    "base": 22,
+    "pct": 0.1364
+   },
+   "2026 181 240": {
+    "trocadas": 2,
+    "base": 6,
+    "pct": 0.3333
+   }
+  },
+  "faixas": {
+   "2025 até 30 dias": 5,
+   "2025 31 a 90": 3,
+   "2025 91 a 180": 0,
+   "2025 181 a 270": 1,
+   "2025 271 a 365": 8,
+   "2025 mais de 365": 9,
+   "2026 até 30 dias": 4,
+   "2026 31 a 90": 2,
+   "2026 91 a 180": 4,
+   "2026 181 a 270": 2,
+   "2026 271 a 365": 0,
+   "2026 mais de 365": 0
+  },
+  "esperando": {
+   "2025 até 30 dias": 0,
+   "2025 31 a 90": 0,
+   "2025 91 a 180": 0,
+   "2025 181 a 270": 1,
+   "2025 271 a 365": 8,
+   "2025 mais de 365": 15,
+   "2026 até 30 dias": 0,
+   "2026 31 a 90": 3,
+   "2026 91 a 180": 4,
+   "2026 181 a 270": 17,
+   "2026 271 a 365": 0,
+   "2026 mais de 365": 0
+  },
+  "ritmo_2025": {
+   "trocas_2026": 12,
+   "esperadas_no_ritmo_2025": 5.9
+  },
+  "teste": {
+   "observadas": 12,
+   "esperadas_se_igual": 7.98,
+   "qui2": 3.4,
+   "p": 0.0654,
+   "ate_dias": 257
+  }
+ },
+ "backlog_do_rol": {
+  "falhas_2025": 50,
+  "trocadas_em_2025": 8,
+  "deixou": 42,
+  "trocadas_em_2026": 18,
+  "seguem": 24,
+  "mais_velha_esperando": 558,
+  "trocas_de_2026": 30,
+  "trocas_de_2026_em_falha_de_2025": 18,
+  "sem_troca_hoje": 48
+ },
+ "backlog_mensal_do_rol": [
+  {
+   "mes": "jan/25",
+   "fim_do_mes": "2025-01-31",
+   "sem_troca_2025": 0,
+   "trocas_2025": 0,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "fev/25",
+   "fim_do_mes": "2025-02-28",
+   "sem_troca_2025": 0,
+   "trocas_2025": 2,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "mar/25",
+   "fim_do_mes": "2025-03-31",
+   "sem_troca_2025": 4,
+   "trocas_2025": 0,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "abr/25",
+   "fim_do_mes": "2025-04-30",
+   "sem_troca_2025": 5,
+   "trocas_2025": 1,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "mai/25",
+   "fim_do_mes": "2025-05-31",
+   "sem_troca_2025": 12,
+   "trocas_2025": 0,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "jun/25",
+   "fim_do_mes": "2025-06-30",
+   "sem_troca_2025": 15,
+   "trocas_2025": 1,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "jul/25",
+   "fim_do_mes": "2025-07-31",
+   "sem_troca_2025": 22,
+   "trocas_2025": 1,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "ago/25",
+   "fim_do_mes": "2025-08-31",
+   "sem_troca_2025": 27,
+   "trocas_2025": 2,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "set/25",
+   "fim_do_mes": "2025-09-30",
+   "sem_troca_2025": 31,
+   "trocas_2025": 1,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "out/25",
+   "fim_do_mes": "2025-10-31",
+   "sem_troca_2025": 34,
+   "trocas_2025": 0,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "nov/25",
+   "fim_do_mes": "2025-11-30",
+   "sem_troca_2025": 35,
+   "trocas_2025": 0,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "dez/25",
+   "fim_do_mes": "2025-12-31",
+   "sem_troca_2025": 41,
+   "trocas_2025": 0,
+   "sem_troca_2026": 0,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "jan/26",
+   "fim_do_mes": "2026-01-31",
+   "sem_troca_2025": 42,
+   "trocas_2025": 0,
+   "sem_troca_2026": 7,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "fev/26",
+   "fim_do_mes": "2026-02-28",
+   "sem_troca_2025": 42,
+   "trocas_2025": 0,
+   "sem_troca_2026": 14,
+   "trocas_2026": 1
+  },
+  {
+   "mes": "mar/26",
+   "fim_do_mes": "2026-03-31",
+   "sem_troca_2025": 41,
+   "trocas_2025": 1,
+   "sem_troca_2026": 23,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "abr/26",
+   "fim_do_mes": "2026-04-30",
+   "sem_troca_2025": 41,
+   "trocas_2025": 0,
+   "sem_troca_2026": 26,
+   "trocas_2026": 1
+  },
+  {
+   "mes": "mai/26",
+   "fim_do_mes": "2026-05-31",
+   "sem_troca_2025": 39,
+   "trocas_2025": 2,
+   "sem_troca_2026": 27,
+   "trocas_2026": 0
+  },
+  {
+   "mes": "jun/26",
+   "fim_do_mes": "2026-06-30",
+   "sem_troca_2025": 36,
+   "trocas_2025": 3,
+   "sem_troca_2026": 28,
+   "trocas_2026": 1
+  },
+  {
+   "mes": "jul/26",
+   "fim_do_mes": "2026-07-31",
+   "sem_troca_2025": 26,
+   "trocas_2025": 10,
+   "sem_troca_2026": 26,
+   "trocas_2026": 6
+  },
+  {
+   "mes": "ago/26",
+   "fim_do_mes": "2026-08-31",
+   "sem_troca_2025": 25,
+   "trocas_2025": 1,
+   "sem_troca_2026": 26,
+   "trocas_2026": 1
+  },
+  {
+   "mes": "set/26",
+   "fim_do_mes": "2026-09-23",
+   "sem_troca_2025": 24,
+   "trocas_2025": 1,
+   "sem_troca_2026": 24,
+   "trocas_2026": 2
+  }
+ ],
+ "fila_eto": {
+  "2025": {
+   "virada": "2024-12-31",
+   "corte": "2025-09-23",
+   "herdadas": 66,
+   "sairam": 49,
+   "pct_sairam": 0.7424,
+   "por_atendida": 47,
+   "por_cancelada": 2,
+   "outras_saidas": 0,
+   "ficaram": 17,
+   "entraram": 346,
+   "saidas_no_ano": 339,
+   "fila_no_corte": 73,
+   "mais_antiga_herdada": "2024-02-07",
+   "herdadas_de_antes_de_2024": 0,
+   "mensal": [
+    {
+     "mes": "jan",
+     "fila": 74,
+     "herdadas_na_fila": 46
+    },
+    {
+     "mes": "fev",
+     "fila": 67,
+     "herdadas_na_fila": 36
+    },
+    {
+     "mes": "mar",
+     "fila": 70,
+     "herdadas_na_fila": 30
+    },
+    {
+     "mes": "abr",
+     "fila": 68,
+     "herdadas_na_fila": 27
+    },
+    {
+     "mes": "mai",
+     "fila": 64,
+     "herdadas_na_fila": 24
+    },
+    {
+     "mes": "jun",
+     "fila": 64,
+     "herdadas_na_fila": 22
+    },
+    {
+     "mes": "jul",
+     "fila": 65,
+     "herdadas_na_fila": 22
+    },
+    {
+     "mes": "ago",
+     "fila": 69,
+     "herdadas_na_fila": 18
+    },
+    {
+     "mes": "set",
+     "fila": 73,
+     "herdadas_na_fila": 17
+    }
+   ]
+  },
+  "2026": {
+   "virada": "2025-12-31",
+   "corte": "2026-09-23",
+   "herdadas": 70,
+   "sairam": 50,
+   "pct_sairam": 0.7143,
+   "por_atendida": 37,
+   "por_cancelada": 11,
+   "outras_saidas": 2,
+   "ficaram": 20,
+   "entraram": 298,
+   "saidas_no_ano": 277,
+   "fila_no_corte": 91,
+   "mais_antiga_herdada": "2024-02-28",
+   "herdadas_de_antes_de_2024": 0,
+   "mensal": [
+    {
+     "mes": "jan",
+     "fila": 83,
+     "herdadas_na_fila": 60
+    },
+    {
+     "mes": "fev",
+     "fila": 77,
+     "herdadas_na_fila": 53
+    },
+    {
+     "mes": "mar",
+     "fila": 85,
+     "herdadas_na_fila": 45
+    },
+    {
+     "mes": "abr",
+     "fila": 88,
+     "herdadas_na_fila": 43
+    },
+    {
+     "mes": "mai",
+     "fila": 80,
+     "herdadas_na_fila": 39
+    },
+    {
+     "mes": "jun",
+     "fila": 84,
+     "herdadas_na_fila": 29
+    },
+    {
+     "mes": "jul",
+     "fila": 86,
+     "herdadas_na_fila": 27
+    },
+    {
+     "mes": "ago",
+     "fila": 97,
+     "herdadas_na_fila": 23
+    },
+    {
+     "mes": "set",
+     "fila": 91,
+     "herdadas_na_fila": 20
+    }
+   ]
+  }
+ },
+ "fila_eto_em_21_08_2026": 92,
+ "veredito": [
+  {
+   "pergunta": "1. O tempo até a troca melhorou em 2026?",
+   "resposta": "MELHOROU DEPOIS DO PRIMEIRO MÊS — SINAL FORTE, PROVA AINDA ABERTA",
+   "provas": [
+    "No primeiro mês é igual: 10% das falhas de 2025 e 11% das de 2026 trocadas em até 30 dias — a troca rápida (7 das 9 fechadas pela TELE).",
+    "Das que passaram do primeiro mês sem troca, do 2º ao 6º mês 2026 trocou 3 de 22 (14%); 2025, 2 de 44 (5%). No 7º e 8º mês: 2 de 6 contra 1 de 41. Em 2025 nenhuma falha foi trocada entre o 39º e o 223º dia.",
+    "Somando tudo: as falhas de 2026 tiveram 12 trocas até hoje. No ritmo de 2025, na mesma idade, teriam 5,9 — o dobro.",
+    "Ainda não é prova: 24 das 36 falhas de 2026 esperam troca, e a conta estatística dá 6,5% de chance de a diferença ser acaso (o costume é exigir menos de 5%). Se as que esperam forem trocadas nos próximos meses, a diferença tende a virar prova; se esperarem como as de 2025, some."
+   ]
+  },
+  {
+   "pergunta": "2. 2026 salvou o backlog que 2025 deixou?",
+   "resposta": "VERDADE: TROCOU QUASE METADE",
+   "provas": [
+    "42 falhas de peça grande de 2025 passaram para 2026 sem troca. Em 2026 foram trocadas 18 (43%); 24 seguem esperando, a mais velha há 558 dias.",
+    "18 das 30 trocas feitas em 2026 foram em falha de 2025 — 6 em cada 10.",
+    "Por isso o tempo médio das trocas feitas no ano subiu de 14 para 243 dias: é o resgate das velhas, não lentidão."
+   ]
+  },
+  {
+   "pergunta": "3. A fila de indisponibilidade encolheu?",
+   "resposta": "NÃO — E O HERDADO CAIU NO MESMO RITMO DE 2025",
+   "provas": [
+    "Até 23/09/2026 saíram da fila 50 das 70 demandas herdadas de 2025 (71%). No mesmo dia de 2025 tinham saído 49 das 66 herdadas de 2024 (74%).",
+    "Em 2025, 47 dessas saídas foram por SS atendida; em 2026, 37 — e 11 por cancelamento, contra 2.",
+    "A fila foi de 70 para 91 em 2026 (em 2025, de 66 para 73): entraram 298 demandas e saíram 277.",
+    "Nas falhas de peça grande: 42 sem troca na virada do ano, 48 hoje."
+   ]
+  }
+ ]
+}
