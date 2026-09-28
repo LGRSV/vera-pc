@@ -792,6 +792,18 @@ diferente de «Sem classificação».
   precisando da parte ativa), frase antiga repetida no texto cumulativo, e **SS aberta depois do
   serviço** (conclusão antes da abertura — conta 0 dia). O rol leu até 19/08: troca posterior conta
   mesmo com «não» no rol.
+  **Quanto tempo levou para consertar** (aba «Tempo até consertar», 28/09): nas trocadas, mediana
+  **296 dias em 2025 × 78 em 2026** — e essa comparação engana, porque das falhas de 2026 só as
+  rápidas terminaram (24 seguem abertas, paradas há 69 a 257 dias). Se fossem trocadas hoje, a
+  mediana de 2026 já seria **184 dias** (2025, na mesma conta, 359). **Na mesma janela os dois anos
+  são iguais**: trocadas em até 30 dias 10% × 11%, em até 180 dias 16% × 17% — só entra a falha que
+  já teve os N dias. Das 26 trocadas de 2025, **8 foram no próprio ano, todas em até 38 dias** (5
+  fechadas pela própria TELE), e **18 só em 2026, de 224 a 506 dias**. A troca vem em leva: das 38
+  com data, **25 caíram de junho a setembro de 2026, 16 só em julho** — a falha de 2025 esperou mais
+  porque aconteceu antes da mesma leva. Em 2026 quem segura é o RL: 21 das 28 falhas sem troca (RT:
+  3 de 9). **Armadilha**: a SS repassada pode vir com a abertura no mesmo segundo da anterior; ordenar
+  a cadeia só pela abertura deixava a cabeça ao acaso da rodada — o desempate é pelo repasse (quem
+  repassou vem antes).
 
 ## Artifacts vivos
 

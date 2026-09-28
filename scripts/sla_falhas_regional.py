@@ -48,6 +48,12 @@ SLA       trocadas no prazo ÷ trocadas — a mesma conta do «% de substituiç�
           dele. Ao lado, a leitura que conta também quem está em aberto com o prazo estourado.
 REGIONAL  da carteira (ATUALIZADA 16), ativo a ativo; quem não está lá vai pela localidade do
           cadastro de ajustes.
+TEMPO     quanto levou da falha à troca, por ano da falha (aba «Tempo até consertar», pergunta de
+          28/09: «quanto tempo demorávamos pra consertar em 2025 e quanto tempo demoramos em
+          2026»). A mediana das trocadas sozinha engana: das falhas de 2026 só as rápidas já
+          terminaram, e as abertas ainda correm. Vão junto a mediana mínima (a que sairia se todas
+          as abertas fossem trocadas hoje) e a conta na mesma janela — trocadas em até 30, 60, 90,
+          180 e 365 dias, entrando só a falha que já teve esse tempo todo para ser trocada.
 
 Base de SS: RELIGA_REGULA de 23/09 (posição do «hoje» para quem está em aberto).
 Grava dist/SLA_FALHAS_REGIONAL.xlsx e data/missao/sla_falhas_regional.json.
@@ -189,7 +195,16 @@ def demanda(ss, por, antes):
         vis.add(x)
         fila.extend(d["_seg"] for d in por[x] if d["_seg"])
         fila.extend(antes.get(x, ()))
-    return sorted(vis, key=lambda x: por[x][0]["DTA_ABERTURA"])
+    # a SS repassada pode vir com a mesma abertura da anterior, no segundo: no empate, quem
+    # repassou vem antes de quem recebeu (sem isso a cabeça trocava de uma rodada para outra)
+    fundo = {}
+
+    def prof(x, caminho=()):
+        if x not in fundo:
+            ants = [a for a in antes.get(x, ()) if a in vis and a not in caminho]
+            fundo[x] = 1 + max((prof(a, caminho + (x,)) for a in ants), default=-1)
+        return fundo[x]
+    return sorted(vis, key=lambda x: (por[x][0]["DTA_ABERTURA"], prof(x), x))
 
 
 def saida(ss, por):
@@ -440,6 +455,65 @@ def resumo(itens, chave):
     return out
 
 
+# ------------------------------------------------------------------ tempo até consertar
+JANELAS = (30, 60, 90, 180, 365)
+MESES = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
+
+
+def _dia(s):
+    return dt.datetime.strptime(s, "%d/%m/%Y")
+
+
+def _trocada(x):
+    return x["situacao"].startswith("trocada ") and x["dias"] is not None
+
+
+def _bloco(xs):
+    dt_ = [x["dias"] for x in xs if _trocada(x)]
+    da = [x["dias"] for x in xs if x["situacao"].startswith("em aberto")]
+    return {"falhas": len(xs), "trocadas": len(dt_),
+            "mediana_trocadas": median(dt_) if dt_ else None,
+            "media_trocadas": round(sum(dt_) / len(dt_), 1) if dt_ else None,
+            "mais_rapida": min(dt_) if dt_ else None, "mais_lenta": max(dt_) if dt_ else None,
+            "abertas": len(da), "mediana_abertas": median(da) if da else None,
+            "mais_antiga_aberta": max(da) if da else None,
+            "mediana_minima": median(dt_ + da) if dt_ + da else None,
+            "fora_da_conta": len(xs) - len(dt_) - len(da)}
+
+
+def tempo(itens):
+    """Da falha à troca, por ano da falha. A trocada dá o tempo que terminou; a aberta, o que já
+    passou e ainda corre — por isso a mediana mínima (abertas trocadas hoje) e a mesma janela."""
+    out = {"por_ano": {}, "por_tipo": {}, "janela": {}, "ano_da_troca": {}, "mes_da_troca": {}}
+    mes = defaultdict(Counter)
+    for ano in ANOS:
+        xs = [x for x in itens if x["ano"] == ano]
+        out["por_ano"][ano] = _bloco(xs)
+        for tipo in ("RL", "RT"):
+            out["por_tipo"][(ano, tipo)] = _bloco([x for x in xs if x["tipo"] == tipo])
+        # mesma janela: só entra a falha que já teve N dias para ser trocada
+        for n in JANELAS:
+            base = [x for x in xs if (_trocada(x) and (HOJE - _dia(x["inicio"])).days >= n)
+                    or (x["situacao"].startswith("em aberto") and x["dias"] >= n)]
+            feitas = sum(1 for x in base if _trocada(x) and x["dias"] <= n)
+            out["janela"][(ano, n)] = {"trocadas": feitas, "base": len(base),
+                                       "pct": round(feitas / len(base), 4) if base else None}
+        mesmo, depois = [], []
+        for x in filter(_trocada, xs):
+            t = _dia(x["troca"])
+            mes[(t.year, t.month)][ano] += 1
+            (mesmo if t.year == ano else depois).append(x["dias"])
+        out["ano_da_troca"][ano] = {"mesmo_ano": len(mesmo), "depois": len(depois),
+                                    "faixa_mesmo": (min(mesmo), max(mesmo)) if mesmo else None,
+                                    "faixa_depois": (min(depois), max(depois)) if depois else None}
+    out["mes_da_troca"] = {k: dict(v) for k, v in sorted(mes.items())}
+    for ano in ANOS:                              # trocadas + abertas + fora da conta = falhas
+        s = out["por_ano"][ano]
+        assert s["trocadas"] + s["abertas"] + s["fora_da_conta"] == s["falhas"]
+        assert sum(v.get(ano, 0) for v in out["mes_da_troca"].values()) == s["trocadas"]
+    return out
+
+
 # ------------------------------------------------------------------ planilha
 TINTA, PAPEL, SINAL = "FF211D15", "FFF2EFE6", "FFBC4B0E"
 PAPEL2, FILETE = "FFE9E5D8", "FFC8C2AF"
@@ -476,7 +550,68 @@ def linhas(ws, r0, dados, formatos=None):
     return r0 + len(dados)
 
 
-def grava(itens, por_reg, por_reg_tipo, por_ano):
+def _faixa(f):
+    return "—" if not f else (f"{f[0]} dias" if f[0] == f[1] else f"{f[0]} a {f[1]} dias")
+
+
+def aba_tempo(ws, tmp):
+    negrito = Font(bold=True)
+    cols = ["Ano da falha", "Falhas", "Trocadas (com data)", "Mediana das trocadas (dias)",
+            "Média das trocadas (dias)", "Mais rápida (dias)", "Mais lenta (dias)", "Ainda sem troca",
+            "Dias parados nas abertas (mediana)", "A mais antiga aberta (dias)",
+            "Mediana mínima: se as abertas fossem trocadas hoje", "Fora da conta (sem data ou sem troca)"]
+    r = cabeca_aba(ws, "Quanto tempo levamos para consertar — falhas de 2025 × falhas de 2026",
+                   "Da data da falha até a peça trocada em campo, a mesma régua do SLA. A mediana das "
+                   "trocadas engana na comparação: das falhas de 2026 só as rápidas já terminaram, e as "
+                   "que seguem abertas vão puxar o número para cima. Por isso vão junto a mediana mínima "
+                   "— a que sairia se todas as abertas fossem trocadas hoje, 23/09 — e, no quadro de "
+                   "baixo, a comparação na mesma janela.",
+                   cols, [11, 8, 11, 12, 12, 10, 10, 10, 13, 12, 17, 13])
+    fim = linhas(ws, r, [[ano, s["falhas"], s["trocadas"], s["mediana_trocadas"], s["media_trocadas"],
+                          s["mais_rapida"], s["mais_lenta"], s["abertas"], s["mediana_abertas"],
+                          s["mais_antiga_aberta"], s["mediana_minima"], s["fora_da_conta"]]
+                         for ano, s in tmp["por_ano"].items()])
+
+    r = cabeca_aba(ws, "Na mesma janela — quantas foram trocadas em até N dias",
+                   "Só entra a falha que já teve os N dias para ser trocada: a de 2026 que aconteceu há "
+                   "60 dias não entra na janela de 90. Assim os dois anos são medidos pela mesma régua.",
+                   ["Em até", "2025 — trocadas", "2025 — base", "2025 — %",
+                    "2026 — trocadas", "2026 — base", "2026 — %"], [None] * 7, linha=fim + 2)
+    dados = []
+    for n in JANELAS:
+        l = [f"{n} dias"]
+        for ano in ANOS:
+            j = tmp["janela"][(ano, n)]
+            l += [j["trocadas"], j["base"], j["pct"]] if j["base"] else ["—", 0, "ainda não completou"]
+        dados.append(l)
+    fim = linhas(ws, r, dados, {4: "0%", 7: "0%"})
+
+    r = cabeca_aba(ws, "Religador e regulador", None,
+                   ["Ano da falha", "Tipo", "Falhas", "Trocadas (com data)", "Mediana das trocadas (dias)",
+                    "Ainda sem troca", "Dias parados nas abertas (mediana)",
+                    "Mediana mínima: se as abertas fossem trocadas hoje"], [None] * 8, linha=fim + 2)
+    fim = linhas(ws, r, [[ano, tipo, s["falhas"], s["trocadas"], s["mediana_trocadas"], s["abertas"],
+                          s["mediana_abertas"], s["mediana_minima"]]
+                         for (ano, tipo), s in tmp["por_tipo"].items()])
+
+    r = cabeca_aba(ws, "Trocada no próprio ano da falha ou só no ano seguinte", None,
+                   ["Ano da falha", "Trocadas no mesmo ano", "Levaram", "Trocadas só no ano seguinte",
+                    "Levaram"], [None] * 5, linha=fim + 2)
+    fim = linhas(ws, r, [[ano, a["mesmo_ano"], _faixa(a["faixa_mesmo"]), a["depois"], _faixa(a["faixa_depois"])]
+                         for ano, a in tmp["ano_da_troca"].items()])
+
+    r = cabeca_aba(ws, "Mês em que a peça foi trocada",
+                   "Cada troca com data, pelo mês em que aconteceu e pelo ano da falha que ela resolveu.",
+                   ["Mês da troca", "Falhas de 2025", "Falhas de 2026", "Total"], [None] * 4, linha=fim + 2)
+    dados = [[f"{MESES[m - 1]}/{a}", v.get(2025, 0), v.get(2026, 0), sum(v.values())]
+             for (a, m), v in tmp["mes_da_troca"].items()]
+    dados.append(["Total", sum(l[1] for l in dados), sum(l[2] for l in dados), sum(l[3] for l in dados)])
+    fim = linhas(ws, r, dados)
+    for c in range(1, 5):
+        ws.cell(row=fim - 1, column=c).font = negrito
+
+
+def grava(itens, por_reg, por_reg_tipo, por_ano, tmp):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Resumo"
@@ -522,6 +657,8 @@ def grava(itens, por_reg, por_reg_tipo, por_ano):
                                   s["aberto_estourado"]])
     linhas(ws, r, dados, {7: "0%"})
     ws.freeze_panes = "A5"
+
+    aba_tempo(wb.create_sheet("Tempo até consertar"), tmp)
 
     ws = wb.create_sheet("Por falha")
     cols = ["Ano", "Tipo", "Ativo", "Regional", "Polo", "Município", "Peça", "SS da falha", "Data da falha",
@@ -571,11 +708,17 @@ def main():
     por_ano = resumo(itens, lambda x: x["ano"])
     for ano in ANOS:                              # as regionais somam o ano
         assert sum(por_reg[(ano, r)]["falhas"] for r in REGIONAIS if (ano, r) in por_reg) == por_ano[ano]["falhas"]
-    grava(itens, por_reg, por_reg_tipo, por_ano)
+    tmp = tempo(itens)
+    grava(itens, por_reg, por_reg_tipo, por_ano, tmp)
     with open(JSON, "w", encoding="utf-8") as fh:
         json.dump({"posicao": HOJE.strftime("%Y-%m-%d"), "prazo": {**PRAZO, "Sem classificação": PRAZO_SEM},
                    "por_ano": {str(k): v for k, v in por_ano.items()},
                    "por_regional": {f"{k[0]} {k[1]}": v for k, v in por_reg.items()},
+                   "tempo": {"por_ano": {str(k): v for k, v in tmp["por_ano"].items()},
+                             "por_tipo": {f"{k[0]} {k[1]}": v for k, v in tmp["por_tipo"].items()},
+                             "janela": {f"{k[0]} em até {k[1]} dias": v for k, v in tmp["janela"].items()},
+                             "ano_da_troca": {str(k): v for k, v in tmp["ano_da_troca"].items()},
+                             "mes_da_troca": {f"{k[0]}-{k[1]:02d}": v for k, v in tmp["mes_da_troca"].items()}},
                    "itens": itens}, fh, ensure_ascii=False, indent=1, default=str)
     for ano in ANOS:
         for reg in REGIONAIS + ("Total",):
@@ -586,6 +729,11 @@ def main():
                       f"(pela SS {s['sla_pela_ss'] if s['sla_pela_ss'] is None else round(100 * s['sla_pela_ss'])}%) · "
                       f"aberto estourado {s['aberto_estourado']:2d} · aberto no prazo {s['aberto_no_prazo']} · "
                       f"sem troca {s['sem_troca']} · sem data {s['sem_data']} · mediana {s['mediana_dias']}")
+    for ano in ANOS:
+        s, j = tmp["por_ano"][ano], tmp["janela"]
+        print(f"{ano} tempo: trocadas {s['trocadas']} (mediana {s['mediana_trocadas']}) · abertas {s['abertas']} "
+              f"(paradas há {s['mediana_abertas']}) · mediana mínima {s['mediana_minima']} · janela " +
+              " · ".join(f"{n}d {j[(ano, n)]['trocadas']}/{j[(ano, n)]['base']}" for n in JANELAS))
     print(Counter(x["situacao"] for x in itens), Counter(str(x["regra"]) for x in itens if x["regra"]))
     print(Counter(x["fonte_criticidade"] for x in itens), Counter(x["fonte_regional"] for x in itens))
     return itens
