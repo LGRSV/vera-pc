@@ -772,6 +772,27 @@ diferente de «Sem classificação».
   vazia autofechada (`<c r="Z57" s="1"/>`) atravessa a linha e engole o começo da próxima — achar a
   tag de abertura primeiro (`celula()` em `entrega_coep5.py`). A conferência pegou antes de gravar.
 
+- **SLA das falhas da taxa por regional** (`sla_falhas_regional.py` → `dist/SLA_FALHAS_REGIONAL.xlsx`
+  e `data/missao/sla_falhas_regional.json`, 28/09). Pedido: «com base na taxa de falha o SLA do ano
+  passado e desse ano por regional»; entre três leituras ele escolheu **«da falha até a troca da
+  peça»**. Universo: as 90 linhas da «Falha Equipamentos» (53 de 2025, 37 de 2026); prazo da proposta
+  DCMD (11/20/40/60, sem classificação 32,75); SLA = trocadas no prazo ÷ trocadas. **Resultado**:
+  2025 **23%** (Norte 27 · Centro 0 · Sul 43) e 2026 **33%** (Norte 33 · Centro 17 · Sul 67), e **24
+  falhas de cada ano seguem sem troca com o prazo estourado** — contando esses, 12% e 11%. Mediana até
+  a troca: 296 dias em 2025, 78 em 2026. Amostra pequena por regional (2026 Norte = 3 trocas).
+  **O início é a data da falha do rol, não a abertura da SS**: em 12 das 90 a primeira SS vem mais de
+  90 dias depois (até 431), porque o COEP **recriou SS em lote em 29/06/2026 com número de 2025** — pela
+  SS, o 7925087021 parado desde dez/2025 saía «10 dias, no prazo». A leitura pela SS vai numa coluna.
+  **A data da troca não está guardada em lugar nenhum** (o rol só diz sim/não). O texto manda
+  («foi substituído…», com a data escrita junto; sem ano pega o da SS; com traço também); sem texto, a
+  cadeia (COCM depois do COEP saindo para PROT/TELE/SE; COEP → PROT; TELE atendida; COEP atendida).
+  **Muita troca de controle é da própria DMSL**, em SS da TELE, sem passar por COCM. Armadilhas:
+  frase em pergunta («conferir se a placa foi substituída»), frase só de acessório, troca que o
+  formulário fecha com **«ficou em operação? não»** (parcial — o 7953610256 trocou o relé e seguiu
+  precisando da parte ativa), frase antiga repetida no texto cumulativo, e **SS aberta depois do
+  serviço** (conclusão antes da abertura — conta 0 dia). O rol leu até 19/08: troca posterior conta
+  mesmo com «não» no rol.
+
 ## Artifacts vivos
 
 | Página | URL |
