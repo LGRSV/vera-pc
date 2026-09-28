@@ -778,7 +778,10 @@ diferente de «Sem classificação».
   peça»**. Universo: as 90 linhas da «Falha Equipamentos» (53 de 2025, 37 de 2026); prazo da proposta
   DCMD (11/20/40/60, sem classificação 32,75); SLA = trocadas no prazo ÷ trocadas. **Resultado**:
   2025 **23%** (Norte 27 · Centro 0 · Sul 43) e 2026 **33%** (Norte 33 · Centro 17 · Sul 67), e **24
-  falhas de cada ano seguem sem troca com o prazo estourado** — contando esses, 12% e 11%. Mediana até
+  falhas de cada ano seguem sem troca com o prazo estourado** — contando esses, 12% e 11%. **Esse é o
+  teto, não uma segunda leitura** («então em 2026 eu diminuí meu SLA?», 28/09): nenhuma aberta está
+  dentro do prazo (a menos atrasada de 2026 já passou 32 dias), então cada troca que vier entra fora
+  do prazo e o 33% só pode cair até 11% — empate com os 12% de 2025. Mediana até
   a troca: 296 dias em 2025, 78 em 2026. Amostra pequena por regional (2026 Norte = 3 trocas).
   **O início é a data da falha do rol, não a abertura da SS**: em 12 das 90 a primeira SS vem mais de
   90 dias depois (até 431), porque o COEP **recriou SS em lote em 29/06/2026 com número de 2025** — pela
