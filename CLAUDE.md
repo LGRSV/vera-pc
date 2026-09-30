@@ -181,7 +181,11 @@ comissionamento e obra de equipamento novo.
   ficou.
 - **Texto de terceiro**: laudo de outro ativo colado na descrição da SS. Conferir o
   código antes de acreditar.
-- **O SGM não exporta o motivo do cancelamento.** Lacuna conhecida.
+- **O SGM não exporta o motivo do cancelamento — nem quem cancelou.** Lacuna conhecida. A base de
+  repasses só traz `RESP_ABERTURA` (quem abriu, o `REQNAME` da consulta) e a de SS/OS, `SOLICITANTE`;
+  nenhuma das duas tem quem encerrou, e o texto das 154 canceladas de mai–jul/2026 não cita o
+  cancelamento. O que dá para saber é o **posto** onde a SS estava ao ser cancelada (o lote de 30/06:
+  50 SS — COEP 19, TELE 17, PROT 8, RDs 5, SE 1 — em 17 horários diferentes).
 - **O nome do arquivo não diz o horizonte do dado**: `EQP_SS_OCORRENCIA_11082026` tem registros
   até **19/08/2026**. Conferir a data máxima antes de fixar o corte.
 - **Códigos operativos, pela consulta SQL da base de repasses** (aba «SQL»): **79** e **78**
