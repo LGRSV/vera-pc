@@ -848,8 +848,12 @@ diferente de «Sem classificação».
   num dia só, 30/06**. Isso **não entra na virada da troca**: das 25 trocas lentas de mai–set, nenhuma
   foi provada por SS cancelada (15 por repasse do COCM para PROT/TELE, 9 por SS atendida, 1 por texto
   de SS pendente). **Entra no «resolvido» do posto**: dos 53 resolvidos de mai–jul (dos 71 do ano),
-  **36 foram por cancelamento** — junho 23 de 28, 20 no lote de 30/06. A leitura do texto confirma volta
-  à operação em só 7 dos 36; nos outros o SGM não diz o motivo. Então: troca de peça, a virada de maio
+  **36 foram por cancelamento** — junho 23 de 28, 20 no lote de 30/06 — e **33 dos 36 foram cancelados no
+  próprio posto do COEP** (1 RD-PS, 1 PROT, 1 RD-PO). O COEP cancelou **48 SS de RL/RT de mai a jul/2026,
+  contra 5 nos mesmos meses de 2025** (junho 33, 19 em 30/06; 13 de indisponibilidade, 14 de obra nova, 7
+  de anomalia, 6 de comissionamento). As 65 canceladas na TELE não entram no resolvido do posto. A leitura
+  do texto confirma volta à operação em só 7 dos 36; nos outros o SGM não diz o motivo — e **regex de «em
+  operação» não serve** para isso: pega «não foi possível colocar o equipamento em operação». Então: troca de peça, a virada de maio
   é real; «resolvido», dois terços dela é cancelamento.
 
 ## Artifacts vivos
