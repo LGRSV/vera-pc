@@ -838,6 +838,15 @@ diferente de «Sem classificação».
   maio (67 → 48). **Por isso comparar a falha de 2025 com a de 2026 embaralha**: a mudança é de
   calendário — de maio em diante as duas safras passaram a ser trocadas, e a de 2025 levou mais dias só
   porque esperou mais até maio.
+  **E maio também foi mês de cancelamento** (gestor, 30/09: «fiz um monte de cancelamentos em
+  maio/jun e julho porque eram equipamentos que tavam em operação»). Na base de repasse: **154 SS de
+  RL/RT canceladas de mai a jul/2026**, contra 85 no mesmo período de 2025; junho sozinho 89, e **50
+  num dia só, 30/06**. Isso **não entra na virada da troca**: das 25 trocas lentas de mai–set, nenhuma
+  foi provada por SS cancelada (15 por repasse do COCM para PROT/TELE, 9 por SS atendida, 1 por texto
+  de SS pendente). **Entra no «resolvido» do posto**: dos 53 resolvidos de mai–jul (dos 71 do ano),
+  **36 foram por cancelamento** — junho 23 de 28, 20 no lote de 30/06. A leitura do texto confirma volta
+  à operação em só 7 dos 36; nos outros o SGM não diz o motivo. Então: troca de peça, a virada de maio
+  é real; «resolvido», dois terços dela é cancelamento.
 
 ## Artifacts vivos
 
