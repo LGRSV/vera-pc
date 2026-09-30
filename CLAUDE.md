@@ -814,7 +814,7 @@ diferente de «Sem classificação».
   isso for verdade». RL e RT juntos, em dias, sem prazo. **Três respostas**: 1) **tempo — melhorou
   depois do primeiro mês; sinal forte, sem prova**: até 30 dias igual (10% × 11%; 7 das 9 trocas
   rápidas fechadas pela TELE); das que passaram do 1º mês sem troca, do 2º ao 6º mês 2026 trocou 3 de
-  22 e 2025, 2 de 44 — **em 2025 nenhuma falha foi trocada entre o 39º e o 223º dia**; no ritmo de
+  22 e 2025, 3 de 45 — **em 2025 nenhuma falha foi trocada entre o 39º e o 223º dia**; no ritmo de
   2025, as falhas de 2026 teriam 5,9 trocas e tiveram 12; log-rank até 257 dias, p = 0,065. 2)
   **backlog de 2025 — verdade**: 42 falhas de peça grande passaram para 2026 sem troca, 18 trocadas
   (43%), 24 esperam (a mais velha há 558 dias); 18 das 30 trocas de 2026 foram em falha de 2025. 3)
@@ -824,9 +824,11 @@ diferente de «Sem classificação».
   em 2026, 66 → 73 em 2025. **Armadilhas**: as contas fáceis enganam em sentidos opostos — a mediana
   das trocadas (296 × 78) favorece 2026 e a média das trocas feitas no ano (14 × 243) o desfavorece
   (é o resgate das velhas; e o rol não tem falha de 2024, então não há como dizer se 2025 resgatou mais
-  ou menos peça grande do que herdou). Na conta por fase, a base sai da **janela** da falha (até a
-  falha seguinte do mesmo ativo), nunca do desfecho: o 5854566043 trocou em 33 dias mas falhou de novo
-  aos 124, e não entra na fase que vai até 180. A base de SS/OS começar em 2024 não corta 2025: nenhuma
+  ou menos peça grande do que herdou). Na conta por fase, o tempo que a falha teve para ser trocada é o
+  do **calendário** (da falha até hoje); só a aberta que falhou de novo para na falha seguinte. **Corrigido
+  em 30/09**: a primeira versão cortava também a trocada na falha seguinte, e isso tirava da conta quem
+  foi trocado rápido e voltou a operar (o 5854566043, trocado em 33 dias, falhou de novo aos 124) — 2025
+  caía para 2 de 44. Cortar pelo desfecho é o erro; a trocada tem o desfecho visto. A base de SS/OS começar em 2024 não corta 2025: nenhuma
   demanda de indisponibilidade aberta antes de 2024 passou aberta a virada de 2024.
   **A virada é maio de 2026** (gestor, 30/09: «na verdade foi mais a partir de maio né?» — e é). Pelo
   calendário, não pelo ano da falha: as falhas que esperavam havia mais de 30 dias tiveram **4 trocas

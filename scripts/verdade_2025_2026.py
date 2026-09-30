@@ -24,7 +24,10 @@ as velhas de 2025 — e o rol não tem as falhas de 2024 que 2025 possa ter troc
 compara as duas na mesma idade da falha:
   · por fase: trocadas em até 30 dias; entre 31 e 180 dias, das que passaram de 30 sem troca;
     entre 181 e 240, das que passaram de 180 — e em cada fase só entra a falha que já teve o
-    tempo todo da fase (a de 2026 com 100 dias não conta na fase que vai até 180);
+    tempo todo da fase (a de 2026 com 100 dias não conta na fase que vai até 180). O tempo que a
+    falha teve é o do calendário, da falha até hoje; só a aberta que falhou de novo para na falha
+    seguinte. Cortar também a trocada na falha seguinte (primeira versão, 28/09) tirava da conta
+    quem foi trocado rápido e voltou a operar — o 5854566043, trocado em 33 dias — e baixava 2025;
   · no ritmo de 2025: se cada falha de 2026 tivesse, em cada idade, a chance de troca que a de
     2025 teve naquela idade (a curva acumulada de 2025, Nelson–Aalen), quantas trocas teria hoje;
   · o teste log-rank compara as duas curvas até a idade da falha mais velha de 2026 e dá a chance
@@ -88,13 +91,14 @@ def falhas():
             fora.append(x)
             continue
         ini = dia(x["inicio"])
-        # a janela da falha vai até a falha seguinte do mesmo ativo, como no SLA de falhas
-        seguintes = [dia(y["inicio"]) for y in itens if y["ativo"] == x["ativo"] and dia(y["inicio"]) > ini]
+        # quanto tempo a falha teve para ser trocada: da falha até hoje. A aberta que falhou de
+        # novo sai na falha seguinte (é o `dias` dela); a trocada conta o calendário inteiro — cortar
+        # a trocada na falha seguinte tiraria da conta justo quem foi trocado rápido e voltou a operar
         medir.append({"ativo": x["ativo"], "tipo": x["tipo"], "ano": x["ano"], "peca": x["peca"],
                       "ss": x["ss"], "municipio": x["municipio"], "regional": x["regional"],
                       "falha": ini, "troca": dia(x["troca"]) if trocada else None,
                       "dias": x["dias"], "trocada": trocada, "nota": x["nota"],
-                      "janela": (min(seguintes + [HOJE]) - ini).days, "regra": x["regra"]})
+                      "seguimento": (HOJE - ini).days if trocada else x["dias"], "regra": x["regra"]})
     return medir, fora
 
 
@@ -150,9 +154,8 @@ def tempo(fs):
             "trocas_feitas_no_ano": len(no_ano), "media_trocas_feitas_no_ano": round(sum(no_ano) / len(no_ano), 1),
             "mediana_trocas_feitas_no_ano": median(no_ano)}
         for ini, fim in FASES:
-            # entra quem chegou à fase sem troca e já teve a fase inteira para ser trocado — a
-            # janela não depende de ter sido trocada ou não, senão a conta puxa para as trocadas
-            base = [x for x in g[a] if not (x["trocada"] and x["dias"] < ini) and x["janela"] >= fim]
+            # entra quem chegou à fase sem troca e já teve a fase inteira para ser trocado
+            base = [x for x in g[a] if not (x["trocada"] and x["dias"] < ini) and x["seguimento"] >= fim]
             feitas = sum(1 for x in base if x["trocada"] and ini <= x["dias"] <= fim)
             out["fases"][(a, ini, fim)] = {"trocadas": feitas, "base": len(base),
                                           "pct": round(feitas / len(base), 4) if base else None}

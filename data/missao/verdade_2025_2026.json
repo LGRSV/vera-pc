@@ -40,9 +40,9 @@
     "pct": 0.1
    },
    "2025 31 180": {
-    "trocadas": 2,
-    "base": 44,
-    "pct": 0.0455
+    "trocadas": 3,
+    "base": 45,
+    "pct": 0.0667
    },
    "2025 181 240": {
     "trocadas": 1,
@@ -421,7 +421,7 @@
    "resposta": "MELHOROU DEPOIS DO PRIMEIRO MÊS — SINAL FORTE, PROVA AINDA ABERTA",
    "provas": [
     "No primeiro mês é igual: 10% das falhas de 2025 e 11% das de 2026 trocadas em até 30 dias — a troca rápida (7 das 9 fechadas pela TELE).",
-    "Das que passaram do primeiro mês sem troca, do 2º ao 6º mês 2026 trocou 3 de 22 (14%); 2025, 2 de 44 (5%). No 7º e 8º mês: 2 de 6 contra 1 de 41. Em 2025 nenhuma falha foi trocada entre o 39º e o 223º dia.",
+    "Das que passaram do primeiro mês sem troca, do 2º ao 6º mês 2026 trocou 3 de 22 (14%); 2025, 3 de 45 (7%). No 7º e 8º mês: 2 de 6 contra 1 de 41. Em 2025 nenhuma falha foi trocada entre o 39º e o 223º dia.",
     "Somando tudo: as falhas de 2026 tiveram 12 trocas até hoje. No ritmo de 2025, na mesma idade, teriam 5,9 — o dobro.",
     "Ainda não é prova: 24 das 36 falhas de 2026 esperam troca, e a conta estatística dá 6,5% de chance de a diferença ser acaso (o costume é exigir menos de 5%). Se as que esperam forem trocadas nos próximos meses, a diferença tende a virar prova; se esperarem como as de 2025, some."
    ]
