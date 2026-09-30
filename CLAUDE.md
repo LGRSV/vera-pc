@@ -828,6 +828,14 @@ diferente de «Sem classificação».
   falha seguinte do mesmo ativo), nunca do desfecho: o 5854566043 trocou em 33 dias mas falhou de novo
   aos 124, e não entra na fase que vai até 180. A base de SS/OS começar em 2024 não corta 2025: nenhuma
   demanda de indisponibilidade aberta antes de 2024 passou aberta a virada de 2024.
+  **A virada é maio de 2026** (gestor, 30/09: «na verdade foi mais a partir de maio né?» — e é). Pelo
+  calendário, não pelo ano da falha: as falhas que esperavam havia mais de 30 dias tiveram **4 trocas
+  de jan/2025 a abr/2026** (1,1% ao mês para cada falha esperando) e **25 de mai a set/2026** (9,0% ao
+  mês, oito vezes; pelo tempo de espera seriam 12,7 — p ≈ 3 × 10⁻⁶, isso é prova). Julho sozinho fez
+  15; sem ele, 4,6% ao mês. O estoque de falhas sem troca subiu todo mês até abril (0 → 67) e cai desde
+  maio (67 → 48). **Por isso comparar a falha de 2025 com a de 2026 embaralha**: a mudança é de
+  calendário — de maio em diante as duas safras passaram a ser trocadas, e a de 2025 levou mais dias só
+  porque esperou mais até maio.
 
 ## Artifacts vivos
 
