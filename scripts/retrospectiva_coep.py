@@ -691,6 +691,10 @@ def pauta(pas, acoes, linhas, novo, extra):
                                                  f"que o equipamento voltou a operar depois do serviço"
                                                  + (f"; em {R['nao_voltou']} diz que não voltou" if R["nao_voltou"] else "") + "."),
             ("Desfecho de todas em 23/09", lista(R["desfecho"]) + "."),
+            ("Feito, mas sem registro no SGM", f"Em {plural(len(R['gestao_sem_frase']), 'equipamento', 'equipamentos')} a Gestão marca "
+                                               f"«Realizado» e nenhuma SS da cadeia tem frase que prove o serviço ({', '.join(R['gestao_sem_frase'])}). "
+                                               f"Aqui a lacuna é de registro, não necessariamente de execução — mas, pela base, não dá para contar."
+             if R["gestao_sem_frase"] else "Nenhum equipamento com «Realizado» na Gestão ficou sem frase de serviço no SGM."),
             ("O que a verificação derrubou", f"O verificador adversarial mudou {rel['derrubadas']} das {rel['verificadas']} leituras do analista"
                                              + (": " + lista(Counter({k: v for k, v in rel["mudou_por_campo"].items() if v})) if rel["mudou_por_campo"] else "")
                                              + ". Status ATENDIDA sem texto, comissionamento sem texto e «favor substituir» não contam como serviço feito."),
@@ -890,6 +894,10 @@ def main():
     if os.path.exists(rcad.RETRO):
         R = rcad.carrega()
         cadeias = {"dem": R["demandas"], "rel": R["relatorio"], "pm": rcad.por_mes(R["demandas"]), "res": rcad.resumo(R["demandas"])}
+        # a Gestão do gestor marca «Realizado», mas o SGM não tem frase de serviço: lacuna de registro
+        gest = sf.gestao()
+        cadeias["res"]["gestao_sem_frase"] = sorted({r["ativo"] for r in R["demandas"] if "REALIZ" in gest.get(r["ativo"], {}).get("status", "").upper()
+                                                     and not any(x.get("executada") for x in R["demandas"] if x["ativo"] == r["ativo"])})
     cancel_3006_total = sum(1 for k, v in por.items() if ts.status(k, por) == "SS CANCELADA" and v[0]["DTA_CONCLUSAO"]
                             and v[0]["DTA_CONCLUSAO"].date() == dt.date(2026, 6, 30))
     extra = {"lote_2304": lote, "lote_trocados": trocados, "lote_volta": volta, "cadeias": cadeias,
