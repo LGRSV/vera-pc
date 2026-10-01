@@ -1,45 +1,39 @@
 """
 Retrospectiva do posto do COEP — o que mudou a partir de abril de 2026, mês a mês, contra 2025.
 
-Pedido do gestor (01/10): «perguntando como se fosse uma retrospectiva, coloque em pauta com base
-em dados o que melhorou a partir de abril de 2026 mês a mês e o que o COEP avançou que pela base
-não parece ter sido feito em 2025» — lendo a cadeia inteira, da chegada no COEP até o que
-aconteceu depois que saiu.
+Pedido do gestor (01/10): «coloque em pauta com base em dados o que melhorou a partir de abril de 2026
+mês a mês e o que o COEP avançou que pela base não parece ter sido feito em 2025»; e depois: «ler as SS e
+ver a cadeia real, verificar se o equipamento foi atendido mesmo», notando que muito do que andou em
+2026 era backlog de 2025 e que dá para rastrear quando as tratativas foram feitas.
 
-DUAS FONTES, AS DUAS DA BASE DE REPASSES DE 23/09 (RELIGA_REGULA_23092026)
-1. A PASSAGEM PELO COEP — cada SS do posto ETO-COEP é uma passagem: de onde veio (o posto da SS
-   anterior na cadeia), quando entrou (abertura), quando e para onde saiu (conclusão, ou a abertura
-   da SS seguinte e o posto dela) e o que aconteceu DEPOIS. Quem foi para um COCM é seguido na SS
-   seguinte: executou (fechou atendida ou passou para PROT/TELE/SE, a régua 1 do SLA de falhas),
-   devolveu ao COEP, cancelou ou segue com o COCM. Devolveu DEPOIS de executar conta como executado —
-   prova: troca do rol entre o despacho e a volta, parecer do COEP confirmando a troca, ou o texto da
-   volta («serviço realizado, favor comissionar»). Sem prova, «devolveu ao COEP».
-2. O PARECER DO COEP — o trecho que começa em «PARECER COEP», «PARECER DO COEP», «COEP:» ou, no
-   formato de 2023 a 2025, «COEP - Gerado a EMD…» e «COEP (25/07/25) - …», e vai até o próximo parecer
-   (de qualquer área), procurado no texto de TODAS as SS de RL/RT (o texto é cumulativo e o parecer do
-   COEP segue na cadeia). O trecho também acaba onde começa texto que já estava numa SS anterior do
-   mesmo ativo — a SS recriada no COEP traz colado o texto de quem abriu a nota, e ele não é do COEP.
-   O mesmo trecho em várias SS conta uma vez; no mesmo ativo, com outra digitação («ESTÁ» numa SS,
-   «ESTÃO» na outra, 90% iguais), também. A data é a escrita no trecho;
-   sem ano, vale o ano que cabe na janela de vida de todas as SS em que ele aparece (um «30/06» numa
-   SS de 2025 ainda aberta é de 2026 se ele também está numa SS aberta em 29/06/2026); sem data
-   nenhuma, a abertura da primeira SS em que ele aparece. «PARECER DCMD» não entra: aparece em SS de
-   TELE, RD e PROT e não dá para dizer que é do COEP. SS aberta direto no COEP também não conta como
-   texto do COEP: quem abre é, na maioria, gente que abre quase tudo na TELE.
-   Cada parecer é classificado pelo que ele faz (compra, logística, remanejamento, despacho, cobrança
-   de registro, confirmação, triagem, pergunta ao campo, SCADA, alinhamento, visita) — um parecer
-   pode fazer mais de uma coisa. «PARECER DCMD» é lido do mesmo jeito e contado à parte, só para
-   conferir se o que parece novo em 2026 já existia em 2025 com essa assinatura (logística: 2 em 2025).
+AS DATAS CERTAS (scripts/tempo_ss.py)
+  O export do SGM sobrescreve a abertura da SS no instante em que ela é repassada: para SS repassada, a
+  «abertura» é a SAÍDA do posto. Provado pelos exports de 11/07/2025, 19/08/2026 e 23/09/2026. A chegada
+  é o repasse da SS anterior; a saída é o repasse, a conclusão ou o cancelamento. Sem isso a fila do
+  COEP parecia igual no começo e no fim do ano e o despacho de 23/04 parecia entrada.
 
-3. O RITMO DE TROCA — do rol da taxa: trocas de falha parada há mais de 30 dias ÷ falha-mês parada
-   (dias depois do 30º, ÷ 30,4). O rol começa nas falhas de 2025: troca feita em 2025 de falha de 2024
-   não aparece, então a contagem de trocas de 2025 é piso; o ritmo por falha parada não depende disso.
-
-POR MÊS, 2025 INTEIRO E 2026 ATÉ 23/09
-  entradas no COEP (sem as SS de número 2025 recriadas em 2026, que vão à parte), devolvidas por um
-  COCM, saídas e para onde, cancelamentos, fila do COEP no fim do mês e a idade dela, tempo no
-  posto, o que o despacho para o COCM rendeu, pareceres do COEP por tipo, e — do rol da taxa — as
-  trocas de peça grande e o estoque de falhas sem troca.
+QUATRO FONTES, TODAS DA BASE DE REPASSES DE 23/09 (RELIGA_REGULA_23092026)
+1. A PASSAGEM PELO COEP — cada SS do posto: de onde veio, quando chegou e saiu, para onde, e o que o
+   COCM fez com a SS seguinte (executou, devolveu, cancelou). Devolveu DEPOIS de executar conta como
+   executado, com prova: troca do rol entre o despacho e a volta, parecer do COEP confirmando, ou o texto
+   da volta. Dá a fila mês a mês.
+2. A LEITURA DAS CADEIAS (skill analise-equipamento, .analise/retro2026) — toda demanda de RL/RT que
+   esteve no COEP ou andou depois dele de 01/04 a 23/09/2026: um analista por lote lê TODAS as SS da
+   cadeia (o texto que cada uma acrescentou, a chegada e a saída certas, cancelamentos com data e o que
+   mudou entre os exports) e monta a linha do tempo das tratativas, se era backlog de 2025, se houve
+   tratativa real em 2025 (o diagnóstico que abriu a demanda não conta), se o serviço foi feito (só com
+   frase literal) e o desfecho em 23/09. Um verificador adversarial por lote tenta derrubar cada leitura;
+   o que ele muda, vale (juntar_retro.py). Status ATENDIDA sem texto, comissionamento sem texto, «favor
+   substituir» e «material entregue» não são serviço feito.
+3. O PARECER DO COEP — o trecho assinado pelo COEP («PARECER COEP», «COEP:», e o formato antigo «COEP -
+   Gerado a EMD…», «COEP (25/07/25) - …»), procurado em todas as SS de RL/RT, sem o texto colado de quem
+   abriu a nota e sem repetição. Data escrita manda; sem ela, uma janela — da chegada à saída da SS em
+   que o trecho apareceu, apertada pelos exports (se já estava no de 11/07/2025, é de antes) — e o que
+   cruza a virada do ano fica fora das contas de 2025 e de 2026. Classificado pelo que faz. «PARECER
+   DCMD» vai à parte: os COCMs também assinam assim.
+4. O RITMO DE TROCA — do rol da taxa: trocas de falha parada há mais de 30 dias ÷ falha-mês parada. O
+   rol começa nas falhas de 2025: troca feita em 2025 de falha de 2024 não aparece, então a contagem de
+   2025 é piso; o ritmo por falha parada não depende disso.
 
 Grava dist/RETROSPECTIVA_COEP_2026.xlsx e data/missao/retrospectiva_coep.json.
 Rodar: python3 scripts/retrospectiva_coep.py
