@@ -24,7 +24,10 @@ QUATRO FONTES, TODAS DA BASE DE REPASSES DE 23/09 (RELIGA_REGULA_23092026)
    tratativa real em 2025 (o diagnóstico que abriu a demanda não conta), se o serviço foi feito (só com
    frase literal) e o desfecho em 23/09. Um verificador adversarial por lote tenta derrubar cada leitura;
    o que ele muda, vale (juntar_retro.py). Status ATENDIDA sem texto, comissionamento sem texto, «favor
-   substituir» e «material entregue» não são serviço feito.
+   substituir» e «material entregue» não são serviço feito. Depois, as SS IRMÃS: o serviço às vezes é
+   escrito numa SS fora da cadeia (a de comissionamento, a nota do COCM, uma cadeia paralela do mesmo
+   diagnóstico), que o dossiê mostrava cortada; irmas_retro.py acha a frase, ela é conferida no texto
+   inteiro e a correção entra com a frase literal (correcoes.json).
 3. O PARECER DO COEP — o trecho assinado pelo COEP («PARECER COEP», «COEP:», e o formato antigo «COEP -
    Gerado a EMD…», «COEP (25/07/25) - …»), procurado em todas as SS de RL/RT, sem o texto colado de quem
    abriu a nota e sem repetição. Data escrita manda; sem ela, uma janela — da chegada à saída da SS em
@@ -680,7 +683,13 @@ def pauta(pas, acoes, linhas, novo, extra):
         return (f" No posto: saíram {l['saidas']} SS ({destinos(l)}) e "
                 f"entraram {l['entradas']}; a fila fechou em {l['fila_no_fim']}. Trocas de peça grande no rol: {l['trocas']}.")
 
-    meses = [
+    meses = ([("Como as datas foram achadas",
+                f"Das {C['res']['tratativas']} tratativas de abril a setembro lidas nas cadeias, "
+                f"{sum(C['res']['datadas_por'][k] for k in ('repasse', 'cancelamento', 'conclusão'))} têm a data exata do SGM "
+                f"({C['res']['datadas_por']['repasse']} repasses, {C['res']['datadas_por']['cancelamento']} cancelamentos, "
+                f"{C['res']['datadas_por']['conclusão']} conclusões), {C['res']['datadas_por']['escrita no texto']} a data escrita no "
+                f"texto e {C['res']['datadas_por']['janela']} só a janela da SS em que o texto apareceu, apertada pelos exports de "
+                f"11/07/2025 e 19/08/2026 quando deu — essas levam o fim da janela, a data mais tardia possível.")] if C else []) + [
         ("Abril", f"Em 23/04 o COEP despachou {plural(len(lote), 'SS', 'SS')} para os COCMs, paradas no posto havia "
                   f"{X['lote_dias_parado']:.0f} dias (mediana), {X['lote_desde_2025']} delas desde 2025 ou antes."
                   + cadeias_no_mes(4) + posto_no_mes(abr)),
@@ -714,8 +723,12 @@ def pauta(pas, acoes, linhas, novo, extra):
                                    f"({R['ativos']} equipamentos), {R['backlog']} vinham de 2025 ou antes e seguiam abertas na virada do ano. "
                                    f"Outras {R['duplicadas']} cadeias eram a mesma demanda reaberta ou aberta por engano e não entram na conta."),
             ("Andou em 2025?", f"Em {R['backlog_sem_tratativa_em_2025']} dessas {R['backlog']}, nada foi feito em 2025 depois do diagnóstico "
-                               f"que abriu a demanda: a primeira tratativa veio em 2026. {R['backlog_com_tratativa_em_2026']} das "
-                               f"{R['backlog']} tiveram alguma tratativa em 2026."),
+                               f"que abriu a demanda. Dessas, {R['so_2026_tratadas_1o_tri'] + R['so_2026_tratadas_de_abril']} só foram "
+                               f"tratadas em 2026 — {R['so_2026_tratadas_1o_tri']} já de janeiro a março, "
+                               f"{R['so_2026_tratadas_de_abril']} só de abril em diante"
+                               + (f" — e {plural(len(R['so_2026_paradas']), 'segue parada', 'seguem paradas')} sem tratativa nenhuma "
+                                  f"({e_lista(a for a, _ in R['so_2026_paradas'])} — cadeias {e_lista(c for _, c in R['so_2026_paradas'])})"
+                                  if R["so_2026_paradas"] else "") + "."),
             ("Como o backlog estava em 23/09", lista(R["desfecho_backlog"]) + "."),
         ]
         verdade = [
@@ -724,12 +737,18 @@ def pauta(pas, acoes, linhas, novo, extra):
                                                  f"que o equipamento voltou a operar depois do serviço"
                                                  + (f"; em {R['nao_voltou']} diz que não voltou" if R["nao_voltou"] else "") + "."),
             ("Desfecho de todas em 23/09", lista(R["desfecho"]) + "."),
+            ("Cancelamento não é conserto", f"{plural(R['desfecho']['cancelado sem prova'], 'demanda terminou cancelada', 'demandas terminaram canceladas')} "
+                                            f"sem texto que prove serviço ou operação — "
+                                            f"{R['cancelado_sem_prova_por_dia'].get('30/06/2026', 0)} delas no dia 30/06/2026. Em outras "
+                                            f"{R['desfecho']['estava operando, sem troca']}, o texto prova que o equipamento estava "
+                                            f"operando e o cancelamento só fechou a nota."),
             ("Feito, mas sem registro no SGM", f"Em {plural(len(R['gestao_sem_frase']), 'equipamento', 'equipamentos')} a Gestão marca "
                                                f"«Realizado» e nenhuma SS da cadeia tem frase que prove o serviço ({e_lista(R['gestao_sem_frase'])}). "
                                                f"Aqui a lacuna é de registro, não necessariamente de execução — mas, pela base, não dá para contar."
                                                + "".join(f" No {a}, {FORA_DO_SGM[a]}." for a in R["gestao_sem_frase"] if a in FORA_DO_SGM)
              if R["gestao_sem_frase"] else "Nenhum equipamento com «Realizado» na Gestão ficou sem frase de serviço no SGM."),
-            ("O que a verificação derrubou", f"O verificador adversarial mudou {rel['derrubadas']} das {rel['verificadas']} leituras do analista"
+            ("O que a verificação derrubou", f"O verificador adversarial mudou a leitura do analista em {rel['derrubadas']} das "
+                                             f"{rel['verificadas']} demandas"
                                              + (": " + lista(Counter({CAMPO.get(k, k): v for k, v in rel["mudou_por_campo"].items()
                                                                       if v and k != "corrigidas pela SS irmã"})) if rel["mudou_por_campo"] else "")
                                              + ". Status ATENDIDA sem texto, comissionamento sem texto e «favor substituir» não contam como serviço feito."

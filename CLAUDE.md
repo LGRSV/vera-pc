@@ -874,41 +874,61 @@ diferente de «Sem classificação».
   é real; «resolvido», dois terços dela é cancelamento.
 
 - **Retrospectiva do COEP, abril a setembro de 2026** (`retrospectiva_coep.py` → `dist/RETROSPECTIVA_COEP_2026.xlsx`
-  e `data/missao/retrospectiva_coep.json`, 01/10). Pedido: «como se fosse uma retrospectiva, coloque em pauta com base
-  em dados o que melhorou a partir de abril de 2026 mês a mês e o que o COEP avançou que pela base não parece ter sido
-  feito em 2025», lendo **a cadeia inteira**: cada SS do COEP é uma passagem (de onde veio, para onde saiu, e o que o
-  COCM fez com a SS seguinte), mais os pareceres do COEP achados no texto de todas as SS de RL/RT. A pauta tem cinco
-  blocos, e todo número dela sai do script (nada digitado à mão). O principal: **trocas de peça grande 6 → 28**
-  (abr–set/2025 × 2026); **parecer do COEP 21 em 2025 inteiro (1 com data) → 135 em abr–set/2026 (80 com data)**;
-  **seleção e andamento de compra 0 → 22** e **cobrança de registro do campo 0 → 9**, as duas sem nada em 2025; em 16
-  das 28 trocas de 2026 o COEP tinha registrado antes a compra, a entrega, a logística ou o remanejamento, contra 1 das
-  6 em 2025. **O que não melhorou**: a fila do posto fechou 2025 em 53 e estava em 53 em 23/09 (a idade caiu de 191
-  para 78 dias); 20 perguntas ao campo, 19 delas em 29/06, das quais 12 pediam modelo ou tensão que o cadastro de
-  ajustes já tem, e em 23/09 11 desses 20 equipamentos seguiam abertos; 37 SS voltaram do COCM sem registro de
-  serviço, contra 14 em 2025.
-  **Armadilhas achadas na conferência** (cada uma mudava um item da pauta):
-  1) o COEP assinava **«COEP - Gerado a EMD…»** (2023–2024) e **«COEP (25/07/25) - …»** (2025) — sem esses formatos,
-  2025 aparecia com zero parecer datado e zero de logística;
-  2) a **SS recriada no COEP traz colado o texto de quem abriu a nota** («…REALIZAR SUBSTITUIÇÃO DO TANQUE»), e isso
-  classificava parecer como despacho. O trecho é cortado onde começa texto de uma SS anterior do mesmo ativo — mas só
-  se aquela SS não trazia o mesmo parecer com outra digitação («CURSINO» numa, «CURCINO» na outra). Janela curta de
-  comparação corta frase genérica («no regulador de tensão 5800366016»): exigir que o resto inteiro, ou 60
-  caracteres dele, já estivesse na SS velha;
-  3) **«PARECER DCMD» não é do COEP com certeza** (os COCMs usam para relatar serviço), então vai em coluna à parte. Mas
-  em 2025 há 2 de logística assim («equipamento disponível para retirada no depósito») — é por isso que logística está
-  em «já existia e cresceu», não em «novo»;
-  4) **«devolveu ao COEP» nem sempre é volta sem serviço**: em 2026, 6 voltaram com o serviço feito, para seguir ao
-  comissionamento. Conta como executado quando há troca no rol entre o despacho e a volta, parecer do COEP confirmando,
-  ou o texto «serviço realizado, favor comissionar»;
-  5) **o COEP → PROT de 2025 (20 SS) não era volta do COCM**: 14 vinham da TELE, 10 já com «substituído… realizar o
-  comissionamento» — o COEP era passagem entre a troca e a PROT. Em 2026 foram 2;
-  6) o rol começa nas falhas de 2025: **troca feita em 2025 de falha de 2024 não aparece**, e o 6 de abr–set/2025 é
-  piso. O ritmo por falha parada não depende disso: 4,3% ao mês em abr–set/2025 (só 3 trocas) e 7,4% em 2026. A
-  virada firme segue sendo maio: 1,1% → 9,0%;
-  7) **«as primeiras trocas lentas vieram em maio» é falso**: houve 1 de janeiro a abril.
-  `RESP_ABERTURA` não resolve quem moveu a SS de volta ao COEP: mais de oito pessoas diferentes abrem a SS do COCM nos
-  despachos do COEP. O exemplo de cada tipo na pauta é o texto que mais se repete entre equipamentos; quando dá, um sem
-  nome de pessoa e que não se repete entre os tipos.
+  e `data/missao/retrospectiva_coep.json`, 01/10). Dois pedidos no mesmo dia: «coloque em pauta com base em dados o que
+  melhorou a partir de abril de 2026 mês a mês e o que o COEP avançou que pela base não parece ter sido feito em 2025»;
+  e, depois da primeira versão, «o ideal seria ler as SS e ver a cadeia real, verificar se o equipamento foi atendido
+  mesmo… essas são do backlog do ano anterior… só foram dadas tratativas em 2026». **A primeira versão estava errada**
+  porque lia a abertura como chegada (ver «O export SOBRESCREVE» nas armadilhas): «fila 53 → 53», «lote de 23/04 entrou
+  no posto» e «SS de 2025 recriadas em 29/06» eram leitura da data sobrescrita.
+  **Com as datas certas** (`tempo_ss.py`): a fila do COEP foi de **54 (fim de 2024) → 91 (fim de 2025) → 119 no fim de
+  abril de 2026, o pico (idade mediana 211 dias) → 53 em 23/09 (78 dias)**. Em 2025 entraram 154 e saíram 117, e de
+  agosto a dezembro as saídas quase pararam (8·3·10·2·0). De abril a setembro de 2026 saíram 153 (54 ao COCM, 35 à TELE,
+  56 canceladas…) e entraram 94. Em 23/04 o COEP **despachou** 9 SS paradas havia 236 dias (mediana). Maio não teve
+  «cancelamento em lote»: 7 canceladas no COEP — 6 obra nova e 1 aviso, paradas de 372 a 582 dias — em 4 dias diferentes.
+  **A leitura das cadeias** (skill `analise-equipamento`, variante `referencia/retrospectiva.md`; dossiê
+  `dossie_retro.py` → `.analise/retro2026/`, 12 lotes; analista + verificador adversarial pelo `checkpoint`;
+  `juntar_retro.py` → `retro.json`; `retro_cadeias.py` conta): **160 cadeias em 139 ativos**, 14 duplicadas → **146
+  demandas**. **87 eram backlog de 2025, e em 78 nada foi feito em 2025 depois do diagnóstico** que abriu a demanda —
+  76 só foram tratadas em 2026 (8 de jan a mar, 68 de abril em diante) e 2 seguem paradas desde 2023 (7915029003,
+  7923674004). **Serviço feito com prova escrita: 32** (30 de abril em diante; 20 do backlog), e **só 1 com a volta à
+  operação provada** (7922995039, pela PROT em 17/08); 2 com «ficou em operação? não». Desfecho em 23/09: compra ou
+  material 48 · cancelado sem prova 33 (16 no dia 30/06) · executado sem prova de operação 18 · falta comissionar ou
+  ajustar 11 · estava operando, sem troca 10 · no campo 8 · repassada 6 · não identificado 6 · parada no COEP 3. **As
+  477 tratativas de abril a setembro foram datadas assim**: 261 pela data exata do SGM (188 repasses, 43 cancelamentos,
+  30 conclusões), 149 pela data escrita no texto e 67 pela janela da SS (o fim dela). Gestão «Realizado» sem frase de
+  serviço no SGM: 4 (5800440256 — que tem as fotos de 09/09 —, 7937102148, 7955946007, 7955986084).
+  **O que a verificação derrubou: 54 das 160.** Quase tudo (43) foi `tratada_em_2025`: **o analista contava o
+  diagnóstico da DMSL que abriu a demanda e o repasse sem texto como tratativa de 2025** — a regra agora diz que não
+  contam. Mais 6 execuções derrubadas (status ATENDIDA sem texto, OS e obra sem frase de troca, «Realizado» da Gestão,
+  frase de célula numa demanda de relé). **Comissionamento ATENDIDA sem texto não prova operação** — há caso de RL
+  comissionado que ficou fora de operação —, e é por isso que só 1 dos 32 fica «atendido».
+  **As SS irmãs** (`irmas_retro.py` → `.analise/retro2026/correcoes.json`, aplicado por `juntar_retro.py`): o serviço
+  às vezes é escrito FORA da cadeia — a SS de comissionamento aberta à parte, a nota do COCM, uma cadeia paralela do
+  mesmo diagnóstico — e o dossiê mostra essas cadeias numa linha só, com o **começo** do último texto. Três serviços
+  sumiram assim e voltaram com a frase literal: 5835587001 (célula e controle trocados entre 21/10 e 23/12/**2025** na
+  ETO-RD-PO 238/2025; a SS do COEP ficou aberta até o cancelamento em bloco de 30/06/2026 — feito em 2025, parecia
+  parado), 5844630060 (célula em 23/07/2026, na ETO-RD-AR 1168/2026) e 7967181127 (chave faca em 01/07/2026, na
+  ETO-TELE 1035/2026, que o verificador leu cortada como «sem parecer novo»). **O regex de serviço pega pedido**: «favor
+  descrever na SS o serviço realizado» não é serviço — ler o trecho antes de aceitar.
+  **Contra 2025** (o resto da pauta, das passagens e do rol): trocas de peça grande **6 → 28** (abr–set; o 6 é piso),
+  ritmo por falha parada 1,1% → 9,0% ao mês com a virada em maio; em 17 das 28 trocas de 2026 o COEP registrou antes o
+  material, contra 1 de 6; **parecer do COEP 11 em 2025 inteiro (1 com data) → 116 em abr–set/2026 (86 com data)**,
+  contando só os que caem com certeza no período (38 cruzam a virada ou abril e ficam fora); seleção de compra 0 → 22,
+  remanejamento 0 → 13, cobrança de registro 0 → 9, triagem 0 → 9, cobrança de prazo 0 → 14; logística 1 → 21 e despacho
+  10 → 50. **O que não melhorou**: SS que voltam do COCM sem registro de serviço 25 → 26 (com o despacho dobrando, 28 →
+  54; 22 sem motivo escrito); cancelamento no posto 9 → 56, só 7 dos 36 «resolvidos» por cancelamento de mai–jul com
+  prova de operação; 22 perguntas ao campo, 12 pedindo o que o cadastro de ajustes já tem.
+  **Armadilhas desta rodada**: 1) o diff de palavras entre exports acusa como novo o parecer que o SGM só mudou de
+  lugar (a busca por trecho em `pareceres()` não sofre disso; o dossiê sim); 2) o «¦» do dossiê junta fragmentos novos e
+  esconde as palavras iguais entre eles — o analista perdeu assim o parecer de seleção do 5800961074; 3) a **cabeça
+  cancelada também pode ter a abertura movida** (29 cabeças; a ETO-TELE 294/2025 «abria» em 2026) — `tempo_ss.chegada`
+  usa a ocorrência quando ela é anterior; 4) o analista lista só a última tratativa antes de abril, então «primeira
+  tratativa do ano» tem de contar as dele de 2026 marcadas «antes» (13 do backlog começaram em jan–mar); 5) as datas
+  do parecer sem data escrita são **janela**: só entra na conta do período a janela que cabe inteira nele.
+  Herança da primeira versão que segue valendo: o COEP assinava «COEP - Gerado a EMD…» (2023–2024) e «COEP (25/07/25) -
+  …» (2025); a SS do COEP traz colado o texto de quem abriu a nota (cortar onde começa texto de SS anterior do mesmo
+  ativo, exigindo 60 caracteres ou o resto inteiro); «PARECER DCMD» não é do COEP com certeza (os COCMs usam); «devolveu
+  ao COEP» às vezes vem com o serviço feito; o COEP → PROT de 2025 era passagem entre a troca e a PROT.
 
 ## Artifacts vivos
 

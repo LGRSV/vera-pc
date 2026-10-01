@@ -56,8 +56,18 @@ def no_periodo(t):
 
 
 def primeira_2026(r):
-    xs = [t["_dia"] for t in r["_trat"] if t["_dia"].year == 2026 and not t.get("antes")]
+    """A primeira tratativa do ano — inclusive a de janeiro a março que o analista marcou «antes» (ele lista só a última
+    antes de abril, então a primeira do ano pode ser ainda mais cedo; nunca mais tarde)."""
+    xs = [t["_dia"] for t in r["_trat"] if t["_dia"].year == 2026]
     return min(xs) if xs else None
+
+
+def como_datou(t):
+    c = (t.get("como_datou") or "").lower()
+    for chave, nome in (("repasse", "repasse"), ("cancel", "cancelamento"), ("conclus", "conclusão"), ("escrita", "escrita no texto")):
+        if chave in c:
+            return nome
+    return "janela"
 
 
 def duplicada(r):
@@ -90,9 +100,15 @@ def resumo(dem):
     back = [r for r in dem if r.get("backlog_2025")]
     so_2026 = [r for r in back if not r.get("tratada_em_2025")]
     ex = [r for r in dem if r.get("executada")]
+    tr = [t for r in dem for t in r["_trat"] if no_periodo(t)]
     return {"demandas": len(dem), "duplicadas": len(duplicadas), "ativos": len({r["ativo"] for r in dem}),
             "backlog": len(back), "backlog_sem_tratativa_em_2025": len(so_2026),
             "backlog_com_tratativa_em_2026": sum(1 for r in back if primeira_2026(r)),
+            "so_2026_tratadas_1o_tri": sum(1 for r in so_2026 if primeira_2026(r) and primeira_2026(r) < INICIO),
+            "so_2026_tratadas_de_abril": sum(1 for r in so_2026 if primeira_2026(r) and primeira_2026(r) >= INICIO),
+            "so_2026_paradas": sorted((r["ativo"], r["cadeia"]) for r in so_2026 if not primeira_2026(r)),
+            "tratativas": len(tr), "datadas_por": Counter(como_datou(t) for t in tr),
+            "cancelado_sem_prova_por_dia": Counter(r.get("data_desfecho") for r in dem if r.get("desfecho") == "cancelado sem prova"),
             "desfecho": Counter(r.get("desfecho") for r in dem),
             "desfecho_backlog": Counter(r.get("desfecho") for r in back),
             "executadas": len(ex), "executadas_backlog": sum(1 for r in ex if r.get("backlog_2025")),
