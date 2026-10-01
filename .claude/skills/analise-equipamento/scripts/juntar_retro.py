@@ -72,6 +72,21 @@ def junta(run):
                 r["tratativas"] = sorted(tr, key=lambda t: (dia(t.get("data")) or dt.date(1900, 1, 1)))
                 r["porque_verificacao"], r["confianca_verificacao"] = x.get("porque"), x.get("confianca")
             out.append(r)
+    # correções do orquestrador: prova de serviço numa SS irmã, fora da cadeia (irmas_retro.py), com a frase literal
+    cam = os.path.join(run, "correcoes.json")
+    if os.path.exists(cam):
+        corr = {(c["ativo"], c["cadeia"]): c for c in json.load(open(cam, encoding="utf-8"))}
+        for r in out:
+            c = corr.get((r["ativo"], r.get("cadeia")))
+            if not c:
+                continue
+            for campo in ("desfecho", "executada", "data_execucao", "voltou_a_operar"):
+                if campo in c and c[campo] != r.get(campo):
+                    r.setdefault(campo + "_verificador", r.get(campo))
+                    r[campo] = c[campo]
+            r["prova_execucao"] = c.get("prova", r.get("prova_execucao"))
+            r["correcao_irma"] = f"{c['ss_irma']}: {c['porque']}"
+            mudou["corrigidas pela SS irmã"] += 1
     sem_verif = sum(1 for r in out if not r["verificada"])
     rel = {"demandas": len(out), "ativos": len(an), "verificadas": len(out) - sem_verif,
            "mantidas": sum(1 for r in out if r["mantida"]), "derrubadas": sum(1 for r in out if r["mantida"] is False),
