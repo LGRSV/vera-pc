@@ -40,6 +40,7 @@ sys.path.insert(0, os.path.join(RAIZ, "scripts"))
 import base_eqp as be                # noqa: E402 — export de 19/08/2026
 import sla_falhas_regional as sf     # noqa: E402 — export de 23/09/2026, cadeia e saída
 import sla_manutencao as sm          # noqa: E402 — norm() do número da SS
+import tempo_ss as ts                # noqa: E402 — chegada e saída certas da SS
 
 INICIO = dt.datetime(2026, 4, 1)
 HOJE = sf.HOJE
@@ -127,53 +128,14 @@ def componentes(por):
 
 
 # ------------------------------------------------------------------ as datas certas
-# O export do SGM SOBRESCREVE a DTA_ABERTURA (e a DTA_REPASSE, que é cópia dela) da SS no momento em
-# que ela é repassada. Prova: as 63 SS pendentes no export de 11/07/2025 que foram repassadas depois
-# aparecem no de 23/09/2026 com a abertura igual ao instante do repasse; idem as 21 repassadas entre
-# 19/08 e 23/09/2026. Então, para SS REPASSADA, a «abertura» é a SAÍDA; a chegada é o repasse da SS
-# anterior (a abertura dela). Na cabeça repassada, a chegada é a DTA_OCORRENCIA, que o SGM copia
-# para a cadeia inteira e que nas cabeças não repassadas é igual à abertura.
-def status(k, por):
-    return txt(por[k][0]["STATUS"]).upper()
-
-
-def chegada(k, por, antes):
-    ants = [a for a in antes.get(k, ()) if a in por]
-    if ants:
-        return min(por[a][0]["DTA_ABERTURA"] for a in ants)
-    d0 = por[k][0]
-    if status(k, por) == "SS REPASSADA" and d0["DTA_OCORRENCIA"]:
-        return d0["DTA_OCORRENCIA"]
-    return d0["DTA_ABERTURA"]
-
-
-def saida(k, por):
-    """(data, como, destino). REPASSADA: a própria abertura é o instante do repasse."""
-    d0, st = por[k][0], status(k, por)
-    if st in ("SS ATENDIDA", "SS CANCELADA"):
-        return d0["DTA_CONCLUSAO"], st.split()[-1], ""
-    if st == "SS PENDENTE":
-        return None, "PENDENTE", ""
-    segs = sorted({txt(por[d["_seg"]][0]["POSTO_SGM"]) for d in por[k] if d["_seg"] and d["_seg"] in por})
-    return d0["DTA_ABERTURA"], "REPASSADA", " e ".join(segs) if segs else "(SS seguinte fora da base)"
+# O export sobrescreve a abertura da SS no repasse: a chegada e a saída certas vêm de scripts/tempo_ss.py.
+status, chegada, saida, ordena = ts.status, ts.chegada, ts.saida, ts.ordena
 
 
 def vida(k, por, antes):
     """(chegada, saída) da SS no posto; saída None = segue lá."""
     sai, como, _ = saida(k, por)
     return chegada(k, por, antes), (None if como == "PENDENTE" else sai)
-
-
-def ordena(cad, por, antes):
-    """A cadeia na ordem em que as SS chegaram; no empate, quem repassou antes de quem recebeu."""
-    fundo = {}
-
-    def prof(x, caminho=()):
-        if x not in fundo:
-            ants = [a for a in antes.get(x, ()) if a in cad and a not in caminho]
-            fundo[x] = 1 + max((prof(a, caminho + (x,)) for a in ants), default=-1)
-        return fundo[x]
-    return sorted(cad, key=lambda x: (prof(x), chegada(x, por, antes), x))
 
 
 def no_periodo(cad, por, antes):

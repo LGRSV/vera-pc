@@ -40,10 +40,10 @@ def chegada(k, por, antes):
     ants = [a for a in antes.get(k, ()) if a in por]
     if ants:
         return min(por[a][0]["DTA_ABERTURA"] for a in ants)
+    # cabeça: a abertura também se move quando a SS anda dentro do posto antes de ser cancelada (29 cabeças
+    # canceladas da retrospectiva têm a ocorrência dias antes da abertura; a ETO-TELE 294/2025, um ano antes)
     d0 = por[k][0]
-    if status(k, por) == "SS REPASSADA" and d0["DTA_OCORRENCIA"]:
-        return d0["DTA_OCORRENCIA"]
-    return d0["DTA_ABERTURA"]
+    return min(x for x in (d0["DTA_ABERTURA"], d0["DTA_OCORRENCIA"]) if x)
 
 
 def saida(k, por):
