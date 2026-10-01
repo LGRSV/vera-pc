@@ -61,6 +61,16 @@ diz o que muda.
 }
 ```
 
+**`tratada_em_2025`** é `true` só se, **depois do diagnóstico que abriu a demanda**, houve em 2025
+alguma ação para resolvê-la: parecer do COEP com decisão (compra, despacho com material,
+remanejamento), compra ou entrega de material, despacho ao campo pedindo a execução, nova ida a
+campo, ou a execução. **O diagnóstico da DMSL que gerou a demanda não conta, e repasse sem texto
+não conta.** É isso que separa o backlog que andou em 2025 do que só foi tratado em 2026.
+
+**Cadeia ainda aberta em 23/09**: se o serviço foi feito e a operação depois dele está provada,
+é `atendido` mesmo com SS administrativa aberta — escreva a SS aberta em `pendencia_restante`. Sem
+prova de operação e com SS aberta na PROT/TELE/SE, é `executado, falta comissionar ou ajustar`.
+
 **`acao`** — uma destas: `despacho ao campo` · `material: compra ou aquisição` ·
 `material: entrega ou logística` · `material: remanejamento` · `pergunta ao campo` ·
 `cobrança de prazo ou de registro` · `triagem: repasse ao posto certo` · `cancelamento` ·
