@@ -60,7 +60,8 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import backlog_mensal as bm  # noqa: E402 — estilo de gráfico e cabeçalho do projeto
-import sla_falhas_regional as sf  # noqa: E402 — base de repasses, saída de SS e cadeia
+import sla_falhas_regional as sf  # noqa: E402 — base de repasses e cadeia
+import tempo_ss as ts  # noqa: E402 — chegada e saída certas (o export sobrescreve a abertura no repasse)
 
 SAIDA = os.path.join(sf.RAIZ, "dist", "RETROSPECTIVA_COEP_2026.xlsx")
 JSON = os.path.join(sf.RAIZ, "data", "missao", "retrospectiva_coep.json")
@@ -95,19 +96,18 @@ def passagens(por, antes):
         if "COEP" not in txt(d0["POSTO_SGM"]):
             continue
         ants = [a for a in antes.get(k, ()) if a in por]
-        ant = min(ants, key=lambda a: por[a][0]["DTA_ABERTURA"]) if ants else None
-        sai, como, dest = sf.saida(k, por)
+        ant = min(ants, key=lambda a: ts.chegada(a, por, antes)) if ants else None
+        sai, como, dest = ts.saida(k, por)
         p = {"ss": k, "ativo": txt(d0["EQUIPAMENTO"]), "tipo": txt(d0["PENDENCIA_DO_ATIVO"]),
-             "entrada": d0["DTA_ABERTURA"], "origem": grupo(txt(por[ant][0]["POSTO_SGM"])) if ant else "aberta no COEP",
-             "saida": sai, "como": como, "destino": grupo(dest) if como == "REPASSADA" else como.lower(),
-             "recriada": k.endswith("/2025") and d0["DTA_ABERTURA"].year == 2026}
+             "entrada": ts.chegada(k, por, antes), "origem": grupo(txt(por[ant][0]["POSTO_SGM"])) if ant else "aberta no COEP",
+             "saida": sai, "como": como, "destino": grupo(dest) if como == "REPASSADA" else como.lower()}
         # depois do COEP: o que o COCM fez com a SS seguinte
         p["depois"], p["execucao"] = "", None
         if p["destino"] == "COCM":
-            segs = sorted((s for s in (d["_seg"] for d in v) if s and s in por), key=lambda s: por[s][0]["DTA_ABERTURA"])
+            segs = ts.seguintes(k, por)
             if segs:
                 s = segs[0]
-                s_sai, s_como, s_dest = sf.saida(s, por)
+                s_sai, s_como, s_dest = ts.saida(s, por)
                 if s_como == "ATENDIDA" or (s_como == "REPASSADA" and EXECUTA.search(s_dest)):
                     p["depois"], p["execucao"] = "executou", max(s_sai, sai)   # SS aberta depois do serviço: 0 dia
                 elif s_como == "REPASSADA" and "COEP" in s_dest:
@@ -199,7 +199,7 @@ def segmentos(t, marca=INI):
 def texto_novo(k, por, antes):
     """O que a SS acrescentou ao texto da anterior (o SGM cola o novo antes ou depois do antigo)."""
     t = txt(por[k][0]["DESCRIÇÃO"])
-    for a in sorted((a for a in antes.get(k, ()) if a in por), key=lambda a: por[a][0]["DTA_ABERTURA"]):
+    for a in sorted((a for a in antes.get(k, ()) if a in por), key=lambda a: ts.chegada(a, por, antes)):
         ta = txt(por[a][0]["DESCRIÇÃO"])
         if ta and ta in t:
             t = t.replace(ta, " ¦ ", 1)
@@ -226,17 +226,22 @@ def sem_texto_velho(corpo, velhos):
     return corpo
 
 
-def pareceres(por, antes, marca=INI):
+def pareceres(por, antes, marca=INI, t1908=None):
+    """Sem data escrita, o parecer é datado pela SAÍDA da primeira SS em que aparece — o parecer de repasse é
+    escrito no repasse, e o export grava esse instante. Se ele só está em SS ainda pendente: se entrou no texto
+    depois do export de 19/08/2026, vale 23/09 («entre 19/08 e 23/09»); senão, a chegada da SS (só o limite
+    de baixo — «janela»)."""
     acoes = {}
+    t1908 = t1908 or {}
     por_ativo = defaultdict(list)
     for k, v in por.items():
-        por_ativo[txt(v[0]["EQUIPAMENTO"])].append((v[0]["DTA_ABERTURA"], txt(v[0]["DESCRIÇÃO"])))
+        por_ativo[txt(v[0]["EQUIPAMENTO"])].append((ts.chegada(k, por, antes), txt(v[0]["DESCRIÇÃO"])))
     for k, v in por.items():
         t = texto_novo(k, por, antes)
         if not marca.search(t):
             continue
-        ini = v[0]["DTA_ABERTURA"]
-        fim = sf.saida(k, por)[0] or HOJE
+        ini = ts.chegada(k, por, antes)
+        fim = ts.saida(k, por)[0] or HOJE
         velhos = [tv for ab, tv in por_ativo[txt(v[0]["EQUIPAMENTO"])] if ab < ini]
         for corpo, data in segmentos(t, marca):
             corpo = sem_texto_velho(corpo, velhos)
@@ -253,12 +258,18 @@ def pareceres(por, antes, marca=INI):
                         continue
                     if aa or ini - dt.timedelta(days=3) <= x <= fim + dt.timedelta(days=3):
                         cand.add(x.date())
-            r = acoes.setdefault(chave, {"texto": corpo, "cands": [], "ss": set(), "ativos": set(), "primeira": ini})
+            r = acoes.setdefault(chave, {"texto": corpo, "cands": [], "ss": set(), "ativos": set(), "primeira": ini,
+                                         "saidas": [], "depois_1908": False})
             if cand:
                 r["cands"].append(cand)
             r["ss"].add(k)
             r["ativos"].add(txt(v[0]["EQUIPAMENTO"]))
             r["primeira"] = min(r["primeira"], ini)
+            sai = ts.saida(k, por)[0]
+            if sai:
+                r["saidas"].append(sai)
+            elif k in t1908 and corpo[:60] not in t1908[k]:
+                r["depois_1908"] = True
     # o mesmo parecer, no mesmo ativo, com outra digitação («ESTÁ» numa SS, «ESTÃO» na outra) conta uma vez
     chaves = sorted(acoes, key=lambda c: (c[1], -len(acoes[c]["ss"]), c[0]))
     for i, a in enumerate(chaves):
@@ -272,13 +283,22 @@ def pareceres(por, antes, marca=INI):
                 r["cands"] += x["cands"]
                 r["ss"] |= x["ss"]
                 r["primeira"] = min(r["primeira"], x["primeira"])
+                r["saidas"] += x["saidas"]
+                r["depois_1908"] |= x["depois_1908"]
     out = []
     for r in acoes.values():
         comum = set.intersection(*r["cands"]) if r["cands"] else set()
         escolha = comum or (set().union(*r["cands"]) if r["cands"] else set())
-        data = max(escolha) if escolha else r["primeira"].date()
+        if escolha:
+            data, como = max(escolha), "escrita no texto"
+        elif r["saidas"]:
+            data, como = min(r["saidas"]).date(), "saída da SS (repasse ou conclusão)"
+        elif r["depois_1908"]:
+            data, como = HOJE.date(), "entre 19/08 e 23/09 (exports)"
+        else:
+            data, como = r["primeira"].date(), "janela da SS (chegada)"
         tipos = [nome for nome, rx in TIPOS if re.search(rx, r["texto"][:240], re.I)]
-        out.append({"data": data, "datado": bool(escolha), "texto": r["texto"], "tipos": tipos,
+        out.append({"data": data, "datado": bool(escolha), "como_datou": como, "texto": r["texto"], "tipos": tipos,
                     "ativos": sorted(r["ativos"]), "ss": sorted(r["ss"])})
     return sorted(out, key=lambda a: a["data"])
 
@@ -314,7 +334,7 @@ def mensal(pas, acoes, rol):
         par = [x for x in acoes if ini.date() <= x["data"] <= fim.date()]
         tipos = Counter(t for x in par for t in x["tipos"])
         L = {"ano": a, "mes": m, "rotulo": f"{MES[m - 1]}/{str(a)[2:]}",
-             "entradas": sum(1 for p in ent if not p["recriada"]), "recriadas": sum(1 for p in ent if p["recriada"]),
+             "entradas": len(ent),
              "de_indisponibilidade": sum(1 for p in ent if p["tipo"] == "INDISPONIBILIDADE PARA OPERAÇÃO"),
              "devolvidas_pelo_cocm": sum(1 for p in ent if p["origem"] == "COCM"),
              "saidas": len(sai), "para_cocm": len(desp),
@@ -389,7 +409,7 @@ def aba_pauta(wb, pauta):
         r += 1
 
 
-COLS = [("Mês", "rotulo"), ("Entradas no COEP", "entradas"), ("SS de 2025 recriadas", "recriadas"),
+COLS = [("Mês", "rotulo"), ("Entradas no COEP", "entradas"),
         ("Devolvidas por um COCM", "devolvidas_pelo_cocm"), ("Saídas do COEP", "saidas"),
         ("Para o COCM", "para_cocm"), ("Para a TELE", "para_tele"), ("Para a PROT", "para_prot"),
         ("Canceladas no COEP", "canceladas"), ("Dias no COEP (mediana)", "dias_no_coep"),
@@ -404,8 +424,8 @@ COLS = [("Mês", "rotulo"), ("Entradas no COEP", "entradas"), ("SS de 2025 recri
 def aba_mensal(wb, linhas):
     ws = wb.create_sheet("Mês a mês")
     r = titulo(ws, 1, "O posto mês a mês — 2025 inteiro e 2026 até 23/09",
-               "Entrada e saída contam SS do posto ETO-COEP. Saída é a conclusão ou a abertura da SS seguinte. «SS de 2025 "
-               "recriadas» são SS com número de 2025 abertas em 2026 — regularização, ficam fora das entradas. «Despachos que o "
+               "Entrada e saída contam SS do posto ETO-COEP. Entrada é o repasse da SS anterior; saída é o repasse da própria SS "
+               "(o export grava o instante do repasse na abertura dela), a conclusão ou o cancelamento. «Despachos que o "
                "COCM já executou»: das SS que saíram do COEP para um COCM no mês, quantas o COCM fechou atendida ou passou para "
                "PROT/TELE/SE (a régua 1 do SLA de falhas). As três últimas colunas vêm do rol da taxa (falhas de peça grande).",
                len(COLS))
@@ -458,17 +478,17 @@ def aba_pareceres(wb, acoes):
 def aba_passagens(wb, pas):
     ws = wb.create_sheet("Passagens")
     bm.cabecalho(ws, 1, ["SS do COEP", "Ativo", "Tipo da SS", "Entrou", "Veio de", "Saiu", "Para onde",
-                         "Dias no COEP", "Depois, no COCM", "Executou em", "SS de 2025 recriada?"],
-                 [20, 12, 26, 11, 12, 11, 12, 9, 18, 11, 10])
+                         "Dias no COEP", "Depois, no COCM", "Executou em"],
+                 [20, 12, 26, 11, 12, 11, 12, 9, 18, 11])
     celulas(ws, 2, [[p["ss"], p["ativo"], p["tipo"], p["entrada"], p["origem"], p["saida"], p["destino"],
                      (p["saida"] - p["entrada"]).days if p["saida"] else (HOJE - p["entrada"]).days,
-                     p["depois"], p["execucao"], "sim" if p["recriada"] else ""]
+                     p["depois"], p["execucao"]]
                     for p in sorted(pas, key=lambda p: p["entrada"])])
     for col in ("D", "F", "J"):
         for c in ws[col][1:]:
             c.number_format = "DD/MM/YYYY"
     ws.freeze_panes = "A2"
-    ws.auto_filter.ref = f"A1:K{ws.max_row}"
+    ws.auto_filter.ref = f"A1:J{ws.max_row}"
 
 
 def aba_como(wb):
@@ -570,7 +590,6 @@ def pauta(pas, acoes, linhas, novo, extra):
     lote, trocados, volta = X["lote_2304"], X["lote_trocados"], X["lote_volta"]
     dez, abr, mai, jun, jul, ago, st = L[(2025, 12)], *(L[(2026, m)] for m in (4, 5, 6, 7, 8, 9))
     serie = [l for l in linhas if (l["ano"], l["mes"]) <= (2026, 9)]
-    n_desp = sum(p["destino"] == "COCM" for p in lote)
     feito_lote = sum(p["depois"].startswith("executou") for p in lote if p["destino"] == "COCM")
     lentas_antes = sum(L[(2026, m)]["trocas_lentas"] for m in (1, 2, 3, 4))
     subiu = all(L[(2026, m)]["sem_troca"] >= (L[(2026, m - 1)] if m > 1 else dez)["sem_troca"] for m in (1, 2, 3, 4))
@@ -582,21 +601,23 @@ def pauta(pas, acoes, linhas, novo, extra):
     reqs = lambda mes: [r for r in X["compras"] if r["data"] and (r["data"].year, r["data"].month) == (2026, mes)]
     datas = lambda rs: ", ".join(sorted({r["data"].strftime("%d/%m") for r in rs}))
     meses = [
-        ("Abril", f"O COEP começou a mexer na fila parada: em 23/04 entraram {len(lote)} SS no posto, {X['lote_numero_velho']} delas "
-                  f"com número de 2024 ou 2025, e {n_desp} foram para os COCMs nos dias seguintes — um COCM registrou «criado obra "
-                  f"para requisição de material». As {len(volta)} voltaram ao COEP ({sum(1 for d in volta if d.month in (6, 7))} em junho "
-                  f"e julho), {feito_lote} delas já com o serviço feito; {len(trocados)} desses equipamentos tiveram a peça trocada entre "
-                  f"{min(trocados.values()):%d/%m} e {max(trocados.values()):%d/%m}. A fila do posto estava em {abr['fila_no_fim']} SS, "
-                  f"com idade mediana de {abr['idade_da_fila']:.0f} dias."),
+        ("Abril", f"O COEP começou a mexer na fila parada: em 23/04 despachou {len(lote)} SS para os COCMs, paradas no posto havia "
+                  f"{X['lote_dias_parado']:.0f} dias (mediana), {X['lote_desde_2025']} delas desde 2025 ou antes — um COCM registrou "
+                  f"«criado obra para requisição de material». As {len(volta)} voltaram ao COEP "
+                  f"({sum(1 for d in volta if d.month in (6, 7))} em junho e julho), {feito_lote} delas já com o serviço feito; "
+                  f"{len(trocados)} desses equipamentos tiveram a peça trocada entre {min(trocados.values()):%d/%m} e "
+                  f"{max(trocados.values()):%d/%m}. A fila do posto chegou a {abr['fila_no_fim']} SS no fim de abril, o pico, com idade "
+                  f"mediana de {abr['idade_da_fila']:.0f} dias."),
         ("Maio", f"{mai['para_cocm']} SS foram para o COCM e {mai['cocm_executou']} já executaram; {mai['canceladas']} cancelamentos. "
                  f"{mai['trocas_lentas']} trocas de falha parada havia mais de 30 dias (de janeiro a abril tinha sido {lentas_antes}), e o "
                  f"estoque de falhas de peça grande sem troca "
                  + (f"parou de subir pela primeira vez em 2026 ({abr['sem_troca']} → {mai['sem_troca']})." if subiu and mai["sem_troca"] < abr["sem_troca"]
                     else f"foi de {abr['sem_troca']} para {mai['sem_troca']}.")),
-        ("Junho", f"Saneamento da fila: {jun['canceladas']} SS canceladas no posto ({X['cancel_3006']} só em 30/06), {jun['recriadas']} SS de "
-                  f"2025 recriadas e {jun['pareceres']} pareceres do COEP — {t(2026, 6, COMPRA)} de seleção para compra e "
-                  f"{X['perguntas_2906']} perguntas ou pedidos de reavaliação devolvidos ao campo em 29/06. A idade mediana da fila caiu "
-                  f"de {mai['idade_da_fila']:.0f} para {jun['idade_da_fila']:.0f} dias, por cancelamento e recriação, não por conserto: "
+        ("Junho", f"Saneamento da fila: {jun['saidas']} SS saíram do COEP — {jun['canceladas']} canceladas ({X['cancel_3006']} só em "
+                  f"30/06) e {jun['para_tele']} devolvidas à TELE, quase todas em 29/06 com pergunta ou pedido de reavaliação "
+                  f"({X['perguntas_2906']} pareceres naquele dia). {jun['pareceres']} pareceres do COEP no mês, {t(2026, 6, COMPRA)} de "
+                  f"seleção para compra. A fila caiu de {mai['fila_no_fim']} para {jun['fila_no_fim']} SS e a idade mediana de "
+                  f"{mai['idade_da_fila']:.0f} para {jun['idade_da_fila']:.0f} dias — por cancelamento e devolução, não por conserto: "
                   f"{jun['trocas']} trocas no mês."),
         ("Julho", f"O mês da execução: {jul['para_cocm']} SS foram para o COCM"
                   + (", o maior número da série" if mais_desp is jul else "")
@@ -671,9 +692,12 @@ def pauta(pas, acoes, linhas, novo, extra):
     P = X["perguntas"]
     V25, V26 = X["voltas_2025"], X["voltas_2026"]
     atencao = [
-        ("A fila do posto não encolheu", f"{dez['fila_no_fim']} SS no fim de 2025, {st['fila_no_fim']} em 23/09. O que caiu foi a idade "
-                                         f"(mediana de {dez['idade_da_fila']:.0f} para {st['idade_da_fila']:.0f} dias), e boa parte pelo "
-                                         f"saneamento de junho."),
+        ("A fila caiu, mas por cancelamento e devolução", f"{dez['fila_no_fim']} SS no fim de 2025, {abr['fila_no_fim']} no fim de abril, "
+                                         f"{st['fila_no_fim']} em 23/09 (idade mediana de {abr['idade_da_fila']:.0f} para "
+                                         f"{st['idade_da_fila']:.0f} dias). De abril a setembro saíram {sum(L[(2026, m)]['saidas'] for m in range(4, 10))} "
+                                         f"SS: {sum(L[(2026, m)]['canceladas'] for m in range(4, 10))} canceladas, "
+                                         f"{sum(L[(2026, m)]['para_tele'] for m in range(4, 10))} devolvidas à TELE e "
+                                         f"{sum(L[(2026, m)]['para_cocm'] for m in range(4, 10))} mandadas ao COCM."),
         ("Perguntas que o cadastro já respondia", f"{P['n']} pareceres de abr–set/2026 devolveram pergunta ao campo ou usaram o SCADA "
                                                   f"para questionar a troca, {P['em_2906']} deles em 29/06. {P['modelo']} pediam modelo, marca, "
                                                   f"tensão ou potência; {P['placa']} deles, o modelo ou o código da placa, que o cadastro não "
@@ -715,11 +739,11 @@ def ritmo(itens, a, b):
 def motivo_da_volta(p, por, antes, trocas, acoes):
     """Por que a SS voltou do COCM ao COEP, pelo que está escrito: serviço feito, faltou material ou sem motivo."""
     ants = [a for a in antes.get(p["ss"], ()) if a in por]
-    ant = min(ants, key=lambda a: por[a][0]["DTA_ABERTURA"])
+    ant = min(ants, key=lambda a: ts.chegada(a, por, antes))
     texto = texto_novo(p["ss"], por, antes) + " ¦ " + texto_novo(ant, por, antes)
     for corpo, _ in segmentos(texto):
         texto = texto.replace(corpo, " ")
-    folga, ini = dt.timedelta(days=3), por[ant][0]["DTA_ABERTURA"]
+    folga, ini = dt.timedelta(days=3), ts.chegada(ant, por, antes)
     tr = [x for x in trocas.get(p["ativo"], ()) if ini - folga <= x <= p["entrada"] + folga]
     conf = [y for y in acoes if p["ativo"] in y["ativos"] and TROCOU.search(y["texto"]) and ini.date() <= y["data"] <= (p["entrada"] + folga).date()]
     if tr or conf or SERVICO.search(texto):
@@ -730,8 +754,9 @@ def motivo_da_volta(p, por, antes, trocas, acoes):
 def main():
     por, antes, _ = sf.base()
     pas = passagens(por, antes)
-    acoes = pareceres(por, antes)
-    dcmd = pareceres(por, antes, DCMD)
+    t1908 = ts.textos_export_1908()
+    acoes = pareceres(por, antes, t1908=t1908)
+    dcmd = pareceres(por, antes, DCMD, t1908=t1908)
     with open(sf.JSON, encoding="utf-8") as fh:
         itens = json.load(fh)["itens"]
     dia = lambda s: dt.datetime.strptime(s, "%d/%m/%Y").date()
@@ -743,21 +768,20 @@ def main():
     rol = do_rol()
     linhas = mensal(pas, acoes, rol)
     novo = novidades(acoes, dcmd)
-    # a fila do posto fecha mês a mês: fim = anterior + entradas (com as recriadas) − saídas
+    # a fila do posto fecha mês a mês: fim = anterior + entradas − saídas
     anterior = sum(1 for p in pas if p["entrada"] < dt.datetime(2025, 1, 1) and (p["saida"] is None or p["saida"] >= dt.datetime(2025, 1, 1)))
     for l in linhas:
-        assert l["fila_no_fim"] == anterior + l["entradas"] + l["recriadas"] - l["saidas"], (l["rotulo"], anterior, l)
+        assert l["fila_no_fim"] == anterior + l["entradas"] - l["saidas"], (l["rotulo"], anterior, l)
         anterior = l["fila_no_fim"]
     # o que a pauta cita e não está na tabela do mês
     abr_set = lambda d, ano: d is not None and d.year == ano and 4 <= d.month <= 9
-    lote = [p for p in pas if p["entrada"].date() == dt.date(2026, 4, 23)]
+    lote = [p for p in pas if p["saida"] and p["saida"].date() == dt.date(2026, 4, 23) and p["destino"] == "COCM"]
     trocados = {x["ativo"]: dia(x["troca"]) for x in itens if x["troca"] and any(p["ativo"] == x["ativo"] and p["destino"] == "COCM" for p in lote)
                 and dia(x["troca"]) >= dt.date(2026, 4, 23)}
     volta = []
     for p in lote:
         if p["destino"] == "COCM":
-            seg = sorted((d["_seg"] for d in por[p["ss"]] if d["_seg"] in por), key=lambda s: por[s][0]["DTA_ABERTURA"])[0]
-            volta.append(sf.saida(seg, por)[0])
+            volta.append(ts.saida(ts.seguintes(p["ss"], por)[0], por)[0])
     # troca do rol com parecer do COEP sobre o material entre a falha e a troca
     def material_antes(ano):
         tr = [x for x in itens if x["troca"] and abr_set(dia(x["troca"]), ano)]
@@ -769,8 +793,7 @@ def main():
     jul_mat = [p for p in jul if any(p["ativo"] in y["ativos"] and set(y["tipos"]) & MATERIAL
                                      and dt.date(2026, 1, 1) <= y["data"] <= p["saida"].date() for y in acoes)]
     adiante = lambda ano: sum(1 for p in exe(ano) if p["depois"] == "executou" and p["execucao"] and
-                              sf.saida(sorted((d["_seg"] for d in por[p["ss"]] if d["_seg"] in por),
-                                              key=lambda s: por[s][0]["DTA_ABERTURA"])[0], por)[1] == "REPASSADA")
+                              ts.saida(ts.seguintes(p["ss"], por)[0], por)[1] == "REPASSADA")
     wa = openpyxl.load_workbook(sf.AJUSTES, read_only=True, data_only=True)
     # no cadastro de ajustes COM o dado preenchido: relé e tensão do RL; controlador e potência do RT
     cadastro = set()
@@ -804,12 +827,12 @@ def main():
                and (abr_set(p["entrada"], 2025) or abr_set(p["entrada"], 2026))}
     voltas = {ano: Counter(m for k, m in motivos.items() if abr_set(next(p for p in pas if p["ss"] == k)["entrada"], ano)) for ano in (2025, 2026)}
     # as SS da volta do lote de 23/04: a seguinte da SS do COCM
-    lote_cocm = [sorted((d["_seg"] for d in por[p["ss"]] if d["_seg"] in por), key=lambda s: por[s][0]["DTA_ABERTURA"])[0]
-                 for p in lote if p["destino"] == "COCM"]
+    lote_cocm = [ts.seguintes(p["ss"], por)[0] for p in lote]
     lote_volta_ss = {x for s in lote_cocm for x in (d["_seg"] for d in por[s]) if x in por and "COEP" in txt(por[x][0]["POSTO_SGM"])}
     req = compras()
     extra = {"lote_2304": lote, "lote_trocados": trocados, "lote_volta": volta,
-             "lote_numero_velho": sum(1 for p in lote if int(p["ss"].split("/")[-1]) < 2026),
+             "lote_desde_2025": sum(1 for p in lote if p["entrada"].year <= 2025),
+             "lote_dias_parado": median([(p["saida"] - p["entrada"]).days for p in lote]) if lote else 0,
              "jul_com_material": len(jul_mat), "mat_25": material_antes(2025), "mat_26": material_antes(2026),
              "ritmo_abr_set_25": ritmo(itens, dt.date(2025, 4, 1), dt.date(2025, 9, 30)),
              "ritmo_abr_set_26": ritmo(itens, dt.date(2026, 4, 1), HOJE.date()),

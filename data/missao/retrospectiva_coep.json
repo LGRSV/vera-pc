@@ -5,21 +5,20 @@
    "ano": 2025,
    "mes": 1,
    "rotulo": "jan/25",
-   "entradas": 15,
-   "recriadas": 0,
+   "entradas": 17,
    "de_indisponibilidade": 13,
-   "devolvidas_pelo_cocm": 2,
-   "saidas": 20,
-   "para_cocm": 11,
+   "devolvidas_pelo_cocm": 1,
+   "saidas": 16,
+   "para_cocm": 8,
    "para_tele": 2,
-   "para_prot": 4,
+   "para_prot": 3,
    "canceladas": 2,
-   "dias_no_coep": 1.0,
-   "fila_no_fim": 12,
-   "idade_da_fila": 208.5,
-   "cocm_executou": 9,
+   "dias_no_coep": 40.5,
+   "fila_no_fim": 54,
+   "idade_da_fila": 98.0,
+   "cocm_executou": 7,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 4,
+   "dias_ate_executar": 1,
    "pareceres": 8,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
@@ -43,21 +42,20 @@
    "ano": 2025,
    "mes": 2,
    "rotulo": "fev/25",
-   "entradas": 12,
-   "recriadas": 0,
-   "de_indisponibilidade": 12,
+   "entradas": 18,
+   "de_indisponibilidade": 16,
    "devolvidas_pelo_cocm": 1,
-   "saidas": 10,
-   "para_cocm": 4,
+   "saidas": 12,
+   "para_cocm": 5,
    "para_tele": 0,
-   "para_prot": 5,
+   "para_prot": 6,
    "canceladas": 0,
-   "dias_no_coep": 0.0,
-   "fila_no_fim": 14,
-   "idade_da_fila": 135.0,
-   "cocm_executou": 4,
+   "dias_no_coep": 43.5,
+   "fila_no_fim": 60,
+   "idade_da_fila": 89.5,
+   "cocm_executou": 5,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 10.5,
+   "dias_ate_executar": 20,
    "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
@@ -81,21 +79,20 @@
    "ano": 2025,
    "mes": 3,
    "rotulo": "mar/25",
-   "entradas": 16,
-   "recriadas": 0,
-   "de_indisponibilidade": 16,
-   "devolvidas_pelo_cocm": 1,
-   "saidas": 15,
+   "entradas": 6,
+   "de_indisponibilidade": 5,
+   "devolvidas_pelo_cocm": 0,
+   "saidas": 17,
    "para_cocm": 5,
    "para_tele": 2,
-   "para_prot": 7,
+   "para_prot": 9,
    "canceladas": 0,
-   "dias_no_coep": 0,
-   "fila_no_fim": 15,
-   "idade_da_fila": 126,
+   "dias_no_coep": 42,
+   "fila_no_fim": 49,
+   "idade_da_fila": 137,
    "cocm_executou": 4,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 2.0,
+   "dias_ate_executar": 0.0,
    "pareceres": 1,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
@@ -119,27 +116,26 @@
    "ano": 2025,
    "mes": 4,
    "rotulo": "abr/25",
-   "entradas": 25,
-   "recriadas": 0,
-   "de_indisponibilidade": 11,
-   "devolvidas_pelo_cocm": 2,
-   "saidas": 21,
-   "para_cocm": 10,
+   "entradas": 9,
+   "de_indisponibilidade": 8,
+   "devolvidas_pelo_cocm": 4,
+   "saidas": 20,
+   "para_cocm": 12,
    "para_tele": 0,
-   "para_prot": 11,
+   "para_prot": 8,
    "canceladas": 0,
-   "dias_no_coep": 0,
-   "fila_no_fim": 19,
-   "idade_da_fila": 142,
-   "cocm_executou": 9,
+   "dias_no_coep": 106.5,
+   "fila_no_fim": 38,
+   "idade_da_fila": 147.0,
+   "cocm_executou": 10,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 1,
-   "pareceres": 1,
+   "dias_ate_executar": 3.5,
+   "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
    "tipo:Entrega do material ao COCM": 0,
    "tipo:Acompanhamento da logística": 0,
-   "tipo:Remanejamento de peça": 1,
+   "tipo:Remanejamento de peça": 0,
    "tipo:Despacho para execução": 0,
    "tipo:Cobrança de registro do campo": 0,
    "tipo:Confirmação de execução ou operação": 0,
@@ -157,30 +153,29 @@
    "ano": 2025,
    "mes": 5,
    "rotulo": "mai/25",
-   "entradas": 26,
-   "recriadas": 0,
+   "entradas": 17,
    "de_indisponibilidade": 9,
-   "devolvidas_pelo_cocm": 3,
-   "saidas": 11,
-   "para_cocm": 6,
+   "devolvidas_pelo_cocm": 6,
+   "saidas": 13,
+   "para_cocm": 7,
    "para_tele": 0,
-   "para_prot": 5,
+   "para_prot": 6,
    "canceladas": 0,
-   "dias_no_coep": 0,
-   "fila_no_fim": 34,
-   "idade_da_fila": 48.5,
-   "cocm_executou": 4,
+   "dias_no_coep": 262,
+   "fila_no_fim": 42,
+   "idade_da_fila": 58.5,
+   "cocm_executou": 6,
    "cocm_devolveu": 1,
-   "dias_ate_executar": 38.0,
-   "pareceres": 4,
+   "dias_ate_executar": 45.0,
+   "pareceres": 3,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
-   "tipo:Entrega do material ao COCM": 4,
+   "tipo:Entrega do material ao COCM": 3,
    "tipo:Acompanhamento da logística": 0,
    "tipo:Remanejamento de peça": 0,
-   "tipo:Despacho para execução": 4,
+   "tipo:Despacho para execução": 3,
    "tipo:Cobrança de registro do campo": 0,
-   "tipo:Confirmação de execução ou operação": 1,
+   "tipo:Confirmação de execução ou operação": 0,
    "tipo:Triagem do que não é do COEP": 0,
    "tipo:Alinhamento e cobrança de prazo": 0,
    "tipo:Visita do COEP ao equipamento": 0,
@@ -195,8 +190,7 @@
    "ano": 2025,
    "mes": 6,
    "rotulo": "jun/25",
-   "entradas": 7,
-   "recriadas": 0,
+   "entradas": 8,
    "de_indisponibilidade": 3,
    "devolvidas_pelo_cocm": 2,
    "saidas": 6,
@@ -204,9 +198,9 @@
    "para_tele": 0,
    "para_prot": 0,
    "canceladas": 4,
-   "dias_no_coep": 54.0,
-   "fila_no_fim": 35,
-   "idade_da_fila": 56,
+   "dias_no_coep": 315.5,
+   "fila_no_fim": 44,
+   "idade_da_fila": 54.0,
    "cocm_executou": 2,
    "cocm_devolveu": 0,
    "dias_ate_executar": 0.0,
@@ -233,31 +227,30 @@
    "ano": 2025,
    "mes": 7,
    "rotulo": "jul/25",
-   "entradas": 16,
-   "recriadas": 0,
-   "de_indisponibilidade": 11,
-   "devolvidas_pelo_cocm": 4,
+   "entradas": 27,
+   "de_indisponibilidade": 21,
+   "devolvidas_pelo_cocm": 8,
    "saidas": 10,
    "para_cocm": 7,
    "para_tele": 1,
    "para_prot": 0,
    "canceladas": 1,
-   "dias_no_coep": 20.5,
-   "fila_no_fim": 41,
-   "idade_da_fila": 80,
-   "cocm_executou": 7,
-   "cocm_devolveu": 0,
-   "dias_ate_executar": 0,
-   "pareceres": 4,
+   "dias_no_coep": 29.0,
+   "fila_no_fim": 61,
+   "idade_da_fila": 64,
+   "cocm_executou": 5,
+   "cocm_devolveu": 1,
+   "dias_ate_executar": 3,
+   "pareceres": 3,
    "pareceres_datados": 1,
    "tipo:Compra ou reforma: seleção e andamento": 0,
    "tipo:Entrega do material ao COCM": 2,
    "tipo:Acompanhamento da logística": 1,
    "tipo:Remanejamento de peça": 0,
-   "tipo:Despacho para execução": 4,
+   "tipo:Despacho para execução": 3,
    "tipo:Cobrança de registro do campo": 0,
    "tipo:Confirmação de execução ou operação": 0,
-   "tipo:Triagem do que não é do COEP": 1,
+   "tipo:Triagem do que não é do COEP": 0,
    "tipo:Alinhamento e cobrança de prazo": 0,
    "tipo:Visita do COEP ao equipamento": 0,
    "tipo:Decisão de não manter ou desativar": 0,
@@ -271,21 +264,20 @@
    "ano": 2025,
    "mes": 8,
    "rotulo": "ago/25",
-   "entradas": 12,
-   "recriadas": 0,
+   "entradas": 11,
    "de_indisponibilidade": 7,
    "devolvidas_pelo_cocm": 1,
-   "saidas": 7,
-   "para_cocm": 1,
+   "saidas": 8,
+   "para_cocm": 0,
    "para_tele": 2,
-   "para_prot": 1,
+   "para_prot": 3,
    "canceladas": 3,
-   "dias_no_coep": 3,
-   "fila_no_fim": 46,
-   "idade_da_fila": 101.0,
-   "cocm_executou": 1,
+   "dias_no_coep": 34.0,
+   "fila_no_fim": 64,
+   "idade_da_fila": 72.0,
+   "cocm_executou": 0,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 11,
+   "dias_ate_executar": null,
    "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
@@ -309,22 +301,21 @@
    "ano": 2025,
    "mes": 9,
    "rotulo": "set/25",
-   "entradas": 11,
-   "recriadas": 0,
-   "de_indisponibilidade": 6,
-   "devolvidas_pelo_cocm": 3,
-   "saidas": 6,
+   "entradas": 19,
+   "de_indisponibilidade": 13,
+   "devolvidas_pelo_cocm": 5,
+   "saidas": 3,
    "para_cocm": 0,
    "para_tele": 1,
-   "para_prot": 3,
+   "para_prot": 0,
    "canceladas": 1,
-   "dias_no_coep": 22.0,
-   "fila_no_fim": 51,
-   "idade_da_fila": 124,
+   "dias_no_coep": 21,
+   "fila_no_fim": 80,
+   "idade_da_fila": 86.0,
    "cocm_executou": 0,
    "cocm_devolveu": 0,
    "dias_ate_executar": null,
-   "pareceres": 3,
+   "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
    "tipo:Entrega do material ao COCM": 0,
@@ -332,13 +323,13 @@
    "tipo:Remanejamento de peça": 0,
    "tipo:Despacho para execução": 0,
    "tipo:Cobrança de registro do campo": 0,
-   "tipo:Confirmação de execução ou operação": 1,
+   "tipo:Confirmação de execução ou operação": 0,
    "tipo:Triagem do que não é do COEP": 0,
-   "tipo:Alinhamento e cobrança de prazo": 1,
+   "tipo:Alinhamento e cobrança de prazo": 0,
    "tipo:Visita do COEP ao equipamento": 0,
-   "tipo:Decisão de não manter ou desativar": 1,
+   "tipo:Decisão de não manter ou desativar": 0,
    "tipo:Pergunta devolvida ao campo": 0,
-   "tipo:SCADA como argumento": 1,
+   "tipo:SCADA como argumento": 0,
    "trocas": 1,
    "trocas_lentas": 1,
    "sem_troca": 31
@@ -347,21 +338,20 @@
    "ano": 2025,
    "mes": 10,
    "rotulo": "out/25",
-   "entradas": 10,
-   "recriadas": 0,
-   "de_indisponibilidade": 5,
-   "devolvidas_pelo_cocm": 3,
-   "saidas": 9,
+   "entradas": 14,
+   "de_indisponibilidade": 9,
+   "devolvidas_pelo_cocm": 2,
+   "saidas": 10,
    "para_cocm": 2,
    "para_tele": 1,
-   "para_prot": 1,
+   "para_prot": 2,
    "canceladas": 5,
-   "dias_no_coep": 0,
-   "fila_no_fim": 52,
-   "idade_da_fila": 133.0,
+   "dias_no_coep": 20.5,
+   "fila_no_fim": 84,
+   "idade_da_fila": 106.0,
    "cocm_executou": 2,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 2.0,
+   "dias_ate_executar": 0.5,
    "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
@@ -385,21 +375,20 @@
    "ano": 2025,
    "mes": 11,
    "rotulo": "nov/25",
-   "entradas": 3,
-   "recriadas": 0,
-   "de_indisponibilidade": 1,
+   "entradas": 2,
+   "de_indisponibilidade": 0,
    "devolvidas_pelo_cocm": 0,
-   "saidas": 3,
+   "saidas": 2,
    "para_cocm": 2,
    "para_tele": 0,
-   "para_prot": 1,
+   "para_prot": 0,
    "canceladas": 0,
-   "dias_no_coep": 0,
-   "fila_no_fim": 52,
-   "idade_da_fila": 163.0,
-   "cocm_executou": 2,
+   "dias_no_coep": 10.0,
+   "fila_no_fim": 84,
+   "idade_da_fila": 136.0,
+   "cocm_executou": 1,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 0.0,
+   "dias_ate_executar": 0,
    "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
@@ -423,18 +412,17 @@
    "ano": 2025,
    "mes": 12,
    "rotulo": "dez/25",
-   "entradas": 1,
-   "recriadas": 0,
-   "de_indisponibilidade": 1,
-   "devolvidas_pelo_cocm": 0,
+   "entradas": 7,
+   "de_indisponibilidade": 6,
+   "devolvidas_pelo_cocm": 1,
    "saidas": 0,
    "para_cocm": 0,
    "para_tele": 0,
    "para_prot": 0,
    "canceladas": 0,
    "dias_no_coep": null,
-   "fila_no_fim": 53,
-   "idade_da_fila": 191,
+   "fila_no_fim": 91,
+   "idade_da_fila": 161,
    "cocm_executou": 0,
    "cocm_devolveu": 0,
    "dias_ate_executar": null,
@@ -461,30 +449,29 @@
    "ano": 2026,
    "mes": 1,
    "rotulo": "jan/26",
-   "entradas": 6,
-   "recriadas": 3,
-   "de_indisponibilidade": 4,
-   "devolvidas_pelo_cocm": 4,
+   "entradas": 13,
+   "de_indisponibilidade": 7,
+   "devolvidas_pelo_cocm": 7,
    "saidas": 7,
    "para_cocm": 3,
    "para_tele": 1,
    "para_prot": 0,
    "canceladas": 3,
-   "dias_no_coep": 208,
-   "fila_no_fim": 55,
-   "idade_da_fila": 214,
+   "dias_no_coep": 116,
+   "fila_no_fim": 97,
+   "idade_da_fila": 173,
    "cocm_executou": 0,
-   "cocm_devolveu": 2,
+   "cocm_devolveu": 3,
    "dias_ate_executar": null,
-   "pareceres": 1,
+   "pareceres": 2,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
-   "tipo:Entrega do material ao COCM": 0,
+   "tipo:Entrega do material ao COCM": 1,
    "tipo:Acompanhamento da logística": 0,
    "tipo:Remanejamento de peça": 0,
-   "tipo:Despacho para execução": 1,
+   "tipo:Despacho para execução": 2,
    "tipo:Cobrança de registro do campo": 0,
-   "tipo:Confirmação de execução ou operação": 0,
+   "tipo:Confirmação de execução ou operação": 1,
    "tipo:Triagem do que não é do COEP": 0,
    "tipo:Alinhamento e cobrança de prazo": 0,
    "tipo:Visita do COEP ao equipamento": 0,
@@ -499,21 +486,20 @@
    "ano": 2026,
    "mes": 2,
    "rotulo": "fev/26",
-   "entradas": 6,
-   "recriadas": 0,
-   "de_indisponibilidade": 5,
-   "devolvidas_pelo_cocm": 0,
+   "entradas": 9,
+   "de_indisponibilidade": 8,
+   "devolvidas_pelo_cocm": 2,
    "saidas": 1,
    "para_cocm": 1,
    "para_tele": 0,
    "para_prot": 0,
    "canceladas": 0,
-   "dias_no_coep": 0,
-   "fila_no_fim": 60,
-   "idade_da_fila": 222.5,
+   "dias_no_coep": 49,
+   "fila_no_fim": 105,
+   "idade_da_fila": 187,
    "cocm_executou": 1,
    "cocm_devolveu": 0,
-   "dias_ate_executar": 1,
+   "dias_ate_executar": 0,
    "pareceres": 3,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 2,
@@ -537,22 +523,21 @@
    "ano": 2026,
    "mes": 3,
    "rotulo": "mar/26",
-   "entradas": 12,
-   "recriadas": 1,
-   "de_indisponibilidade": 11,
-   "devolvidas_pelo_cocm": 5,
-   "saidas": 15,
-   "para_cocm": 6,
+   "entradas": 18,
+   "de_indisponibilidade": 16,
+   "devolvidas_pelo_cocm": 4,
+   "saidas": 12,
+   "para_cocm": 3,
    "para_tele": 0,
    "para_prot": 0,
    "canceladas": 8,
-   "dias_no_coep": 50,
-   "fila_no_fim": 58,
-   "idade_da_fila": 237.0,
-   "cocm_executou": 3,
-   "cocm_devolveu": 2,
-   "dias_ate_executar": 0,
-   "pareceres": 6,
+   "dias_no_coep": 58.0,
+   "fila_no_fim": 111,
+   "idade_da_fila": 210,
+   "cocm_executou": 2,
+   "cocm_devolveu": 0,
+   "dias_ate_executar": 2.5,
+   "pareceres": 7,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 5,
    "tipo:Entrega do material ao COCM": 0,
@@ -564,7 +549,7 @@
    "tipo:Triagem do que não é do COEP": 0,
    "tipo:Alinhamento e cobrança de prazo": 0,
    "tipo:Visita do COEP ao equipamento": 0,
-   "tipo:Decisão de não manter ou desativar": 0,
+   "tipo:Decisão de não manter ou desativar": 1,
    "tipo:Pergunta devolvida ao campo": 0,
    "tipo:SCADA como argumento": 0,
    "trocas": 1,
@@ -575,22 +560,21 @@
    "ano": 2026,
    "mes": 4,
    "rotulo": "abr/26",
-   "entradas": 8,
-   "recriadas": 10,
-   "de_indisponibilidade": 16,
-   "devolvidas_pelo_cocm": 6,
+   "entradas": 23,
+   "de_indisponibilidade": 22,
+   "devolvidas_pelo_cocm": 14,
    "saidas": 16,
    "para_cocm": 10,
    "para_tele": 2,
    "para_prot": 1,
    "canceladas": 3,
-   "dias_no_coep": 0.0,
-   "fila_no_fim": 60,
-   "idade_da_fila": 261.0,
-   "cocm_executou": 4,
-   "cocm_devolveu": 6,
-   "dias_ate_executar": 38.0,
-   "pareceres": 4,
+   "dias_no_coep": 195.0,
+   "fila_no_fim": 118,
+   "idade_da_fila": 211.5,
+   "cocm_executou": 3,
+   "cocm_devolveu": 7,
+   "dias_ate_executar": 0,
+   "pareceres": 5,
    "pareceres_datados": 1,
    "tipo:Compra ou reforma: seleção e andamento": 1,
    "tipo:Entrega do material ao COCM": 0,
@@ -598,9 +582,9 @@
    "tipo:Remanejamento de peça": 1,
    "tipo:Despacho para execução": 1,
    "tipo:Cobrança de registro do campo": 0,
-   "tipo:Confirmação de execução ou operação": 0,
+   "tipo:Confirmação de execução ou operação": 1,
    "tipo:Triagem do que não é do COEP": 1,
-   "tipo:Alinhamento e cobrança de prazo": 1,
+   "tipo:Alinhamento e cobrança de prazo": 2,
    "tipo:Visita do COEP ao equipamento": 0,
    "tipo:Decisão de não manter ou desativar": 0,
    "tipo:Pergunta devolvida ao campo": 0,
@@ -614,27 +598,26 @@
    "mes": 5,
    "rotulo": "mai/26",
    "entradas": 6,
-   "recriadas": 3,
-   "de_indisponibilidade": 7,
-   "devolvidas_pelo_cocm": 0,
-   "saidas": 14,
-   "para_cocm": 6,
+   "de_indisponibilidade": 6,
+   "devolvidas_pelo_cocm": 1,
+   "saidas": 15,
+   "para_cocm": 7,
    "para_tele": 0,
    "para_prot": 0,
    "canceladas": 7,
-   "dias_no_coep": 377.0,
-   "fila_no_fim": 55,
-   "idade_da_fila": 270,
-   "cocm_executou": 4,
+   "dias_no_coep": 382,
+   "fila_no_fim": 109,
+   "idade_da_fila": 181,
+   "cocm_executou": 5,
    "cocm_devolveu": 1,
-   "dias_ate_executar": 0.0,
-   "pareceres": 1,
+   "dias_ate_executar": 0,
+   "pareceres": 0,
    "pareceres_datados": 0,
    "tipo:Compra ou reforma: seleção e andamento": 0,
    "tipo:Entrega do material ao COCM": 0,
    "tipo:Acompanhamento da logística": 0,
    "tipo:Remanejamento de peça": 0,
-   "tipo:Despacho para execução": 1,
+   "tipo:Despacho para execução": 0,
    "tipo:Cobrança de registro do campo": 0,
    "tipo:Confirmação de execução ou operação": 0,
    "tipo:Triagem do que não é do COEP": 0,
@@ -651,28 +634,27 @@
    "ano": 2026,
    "mes": 6,
    "rotulo": "jun/26",
-   "entradas": 29,
-   "recriadas": 13,
-   "de_indisponibilidade": 37,
-   "devolvidas_pelo_cocm": 12,
-   "saidas": 53,
-   "para_cocm": 4,
-   "para_tele": 13,
+   "entradas": 13,
+   "de_indisponibilidade": 10,
+   "devolvidas_pelo_cocm": 2,
+   "saidas": 67,
+   "para_cocm": 6,
+   "para_tele": 25,
    "para_prot": 1,
    "canceladas": 33,
-   "dias_no_coep": 151,
-   "fila_no_fim": 44,
-   "idade_da_fila": 66.0,
+   "dias_no_coep": 233,
+   "fila_no_fim": 55,
+   "idade_da_fila": 126,
    "cocm_executou": 2,
-   "cocm_devolveu": 0,
-   "dias_ate_executar": 36.0,
-   "pareceres": 36,
+   "cocm_devolveu": 1,
+   "dias_ate_executar": 24.5,
+   "pareceres": 37,
    "pareceres_datados": 10,
    "tipo:Compra ou reforma: seleção e andamento": 2,
    "tipo:Entrega do material ao COCM": 1,
    "tipo:Acompanhamento da logística": 2,
-   "tipo:Remanejamento de peça": 2,
-   "tipo:Despacho para execução": 14,
+   "tipo:Remanejamento de peça": 3,
+   "tipo:Despacho para execução": 16,
    "tipo:Cobrança de registro do campo": 0,
    "tipo:Confirmação de execução ou operação": 2,
    "tipo:Triagem do que não é do COEP": 1,
@@ -680,7 +662,7 @@
    "tipo:Visita do COEP ao equipamento": 0,
    "tipo:Decisão de não manter ou desativar": 0,
    "tipo:Pergunta devolvida ao campo": 17,
-   "tipo:SCADA como argumento": 13,
+   "tipo:SCADA como argumento": 12,
    "trocas": 4,
    "trocas_lentas": 3,
    "sem_troca": 64
@@ -689,23 +671,22 @@
    "ano": 2026,
    "mes": 7,
    "rotulo": "jul/26",
-   "entradas": 50,
-   "recriadas": 10,
-   "de_indisponibilidade": 55,
-   "devolvidas_pelo_cocm": 22,
-   "saidas": 51,
-   "para_cocm": 26,
-   "para_tele": 15,
+   "entradas": 38,
+   "de_indisponibilidade": 33,
+   "devolvidas_pelo_cocm": 10,
+   "saidas": 38,
+   "para_cocm": 24,
+   "para_tele": 4,
    "para_prot": 0,
    "canceladas": 8,
-   "dias_no_coep": 8,
-   "fila_no_fim": 53,
+   "dias_no_coep": 76.5,
+   "fila_no_fim": 55,
    "idade_da_fila": 24,
-   "cocm_executou": 15,
-   "cocm_devolveu": 3,
-   "dias_ate_executar": 1,
-   "pareceres": 62,
-   "pareceres_datados": 40,
+   "cocm_executou": 13,
+   "cocm_devolveu": 4,
+   "dias_ate_executar": 8,
+   "pareceres": 65,
+   "pareceres_datados": 44,
    "tipo:Compra ou reforma: seleção e andamento": 15,
    "tipo:Entrega do material ao COCM": 12,
    "tipo:Acompanhamento da logística": 9,
@@ -713,12 +694,12 @@
    "tipo:Despacho para execução": 23,
    "tipo:Cobrança de registro do campo": 9,
    "tipo:Confirmação de execução ou operação": 1,
-   "tipo:Triagem do que não é do COEP": 0,
+   "tipo:Triagem do que não é do COEP": 1,
    "tipo:Alinhamento e cobrança de prazo": 7,
    "tipo:Visita do COEP ao equipamento": 1,
    "tipo:Decisão de não manter ou desativar": 1,
-   "tipo:Pergunta devolvida ao campo": 1,
-   "tipo:SCADA como argumento": 0,
+   "tipo:Pergunta devolvida ao campo": 2,
+   "tipo:SCADA como argumento": 2,
    "trocas": 16,
    "trocas_lentas": 15,
    "sem_troca": 52
@@ -727,28 +708,27 @@
    "ano": 2026,
    "mes": 8,
    "rotulo": "ago/26",
-   "entradas": 6,
-   "recriadas": 0,
-   "de_indisponibilidade": 4,
-   "devolvidas_pelo_cocm": 1,
+   "entradas": 8,
+   "de_indisponibilidade": 5,
+   "devolvidas_pelo_cocm": 0,
    "saidas": 4,
    "para_cocm": 1,
    "para_tele": 1,
    "para_prot": 0,
    "canceladas": 1,
-   "dias_no_coep": 24.0,
-   "fila_no_fim": 55,
+   "dias_no_coep": 28.0,
+   "fila_no_fim": 59,
    "idade_da_fila": 55,
    "cocm_executou": 1,
    "cocm_devolveu": 0,
    "dias_ate_executar": 0,
-   "pareceres": 6,
-   "pareceres_datados": 5,
-   "tipo:Compra ou reforma: seleção e andamento": 1,
+   "pareceres": 8,
+   "pareceres_datados": 7,
+   "tipo:Compra ou reforma: seleção e andamento": 2,
    "tipo:Entrega do material ao COCM": 0,
-   "tipo:Acompanhamento da logística": 1,
+   "tipo:Acompanhamento da logística": 2,
    "tipo:Remanejamento de peça": 0,
-   "tipo:Despacho para execução": 6,
+   "tipo:Despacho para execução": 7,
    "tipo:Cobrança de registro do campo": 0,
    "tipo:Confirmação de execução ou operação": 1,
    "tipo:Triagem do que não é do COEP": 2,
@@ -765,26 +745,25 @@
    "ano": 2026,
    "mes": 9,
    "rotulo": "set/26",
-   "entradas": 13,
-   "recriadas": 0,
-   "de_indisponibilidade": 12,
-   "devolvidas_pelo_cocm": 2,
-   "saidas": 15,
-   "para_cocm": 7,
-   "para_tele": 4,
+   "entradas": 7,
+   "de_indisponibilidade": 7,
+   "devolvidas_pelo_cocm": 1,
+   "saidas": 13,
+   "para_cocm": 6,
+   "para_tele": 3,
    "para_prot": 0,
    "canceladas": 4,
-   "dias_no_coep": 0,
+   "dias_no_coep": 36,
    "fila_no_fim": 53,
    "idade_da_fila": 78,
    "cocm_executou": 4,
-   "cocm_devolveu": 1,
-   "dias_ate_executar": 2.5,
-   "pareceres": 26,
+   "cocm_devolveu": 0,
+   "dias_ate_executar": 3.5,
+   "pareceres": 25,
    "pareceres_datados": 24,
-   "tipo:Compra ou reforma: seleção e andamento": 3,
+   "tipo:Compra ou reforma: seleção e andamento": 2,
    "tipo:Entrega do material ao COCM": 1,
-   "tipo:Acompanhamento da logística": 10,
+   "tipo:Acompanhamento da logística": 9,
    "tipo:Remanejamento de peça": 5,
    "tipo:Despacho para execução": 11,
    "tipo:Cobrança de registro do campo": 0,
@@ -814,12 +793,12 @@
   {
    "tipo": "Entrega do material ao COCM",
    "antes de 2025": 0,
-   "2025": 12,
-   "jan-mar/26": 0,
+   "2025": 11,
+   "jan-mar/26": 1,
    "abr-set/26": 14,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
-   "exemplo": "10/07: «EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO» (o mesmo texto aparece em 5 equipamentos)"
+   "exemplo": "10/07: «EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO» (o mesmo texto aparece em 6 equipamentos)"
   },
   {
    "tipo": "Acompanhamento da logística",
@@ -834,19 +813,19 @@
   {
    "tipo": "Remanejamento de peça",
    "antes de 2025": 1,
-   "2025": 1,
+   "2025": 0,
    "jan-mar/26": 0,
-   "abr-set/26": 13,
+   "abr-set/26": 14,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
    "exemplo": "11/09: «PRECISAREMOS DO RL DA 13 COMPLETO JÁ QUE USAREMOS O CONTROLE DESSE EQUIPAMENTO PARA CONSERTAR O 7923673004»"
   },
   {
    "tipo": "Despacho para execução",
-   "antes de 2025": 2,
-   "2025": 15,
-   "jan-mar/26": 3,
-   "abr-set/26": 56,
+   "antes de 2025": 1,
+   "2025": 13,
+   "jan-mar/26": 4,
+   "abr-set/26": 58,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 3,
    "exemplo": "18/09: «REPASSANDO PARA O POSTO DOS COCM´S PARA DEVIDA TRATATIVA , NECESSITA APENAS CONEXÃO MT»"
@@ -864,9 +843,9 @@
   {
    "tipo": "Confirmação de execução ou operação",
    "antes de 2025": 0,
-   "2025": 3,
-   "jan-mar/26": 0,
-   "abr-set/26": 7,
+   "2025": 1,
+   "jan-mar/26": 1,
+   "abr-set/26": 8,
    "dcmd 2025": 1,
    "dcmd abr-set/26": 2,
    "exemplo": "18/09: «FOI CONFIRMADO COMO COI QUE O EQUIPAMENTO ESTÁ EM OPERAÇÃO, E-MAIL COM ASSUNTO»"
@@ -874,9 +853,9 @@
   {
    "tipo": "Triagem do que não é do COEP",
    "antes de 2025": 0,
-   "2025": 1,
+   "2025": 0,
    "jan-mar/26": 0,
-   "abr-set/26": 8,
+   "abr-set/26": 9,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
    "exemplo": "18/09: «ABERTURA INCORRETA PARA O POSTO DO COEP POR PARTE DO COI , REPASSANDO AO DMSL PARA FAZER O PRIMEIRO ATAQUE»"
@@ -884,9 +863,9 @@
   {
    "tipo": "Alinhamento e cobrança de prazo",
    "antes de 2025": 0,
-   "2025": 1,
+   "2025": 0,
    "jan-mar/26": 0,
-   "abr-set/26": 15,
+   "abr-set/26": 16,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
    "exemplo": "13/07: «SUBSTITUIR CONTOLE OU MANDAR MANUTENCIONAR EM CASO DE PRIORIDADE ALTA»"
@@ -904,8 +883,8 @@
   {
    "tipo": "Decisão de não manter ou desativar",
    "antes de 2025": 0,
-   "2025": 1,
-   "jan-mar/26": 0,
+   "2025": 0,
+   "jan-mar/26": 1,
    "abr-set/26": 2,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
@@ -913,10 +892,10 @@
   },
   {
    "tipo": "Pergunta devolvida ao campo",
-   "antes de 2025": 1,
+   "antes de 2025": 0,
    "2025": 1,
    "jan-mar/26": 0,
-   "abr-set/26": 18,
+   "abr-set/26": 19,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
    "exemplo": "01/07: «FOI CONFIRMADO COM A OPERAÇÃO QUE O EQUIPAMENTO SEGUIU O FLUXO INTEIRO DE COMISSIONAMENTO, PROTEÇÃO, FAVOR EXPLICAR O QUE FOI REALIZADO E SE EQUIPAMENTO ESTÁ OPERANDO, SENÃO ESTIVER EXPLICAR O QUE FOI FEITO NELE»"
@@ -924,9 +903,9 @@
   {
    "tipo": "SCADA como argumento",
    "antes de 2025": 0,
-   "2025": 1,
+   "2025": 0,
    "jan-mar/26": 0,
-   "abr-set/26": 13,
+   "abr-set/26": 14,
    "dcmd 2025": 0,
    "dcmd abr-set/26": 0,
    "exemplo": ""
@@ -964,27 +943,27 @@
    "itens": [
     {
      "tema": "Abril",
-     "texto": "O COEP começou a mexer na fila parada: em 23/04 entraram 11 SS no posto, 9 delas com número de 2024 ou 2025, e 9 foram para os COCMs nos dias seguintes — um COCM registrou «criado obra para requisição de material». As 9 voltaram ao COEP (8 em junho e julho), 3 delas já com o serviço feito; 5 desses equipamentos tiveram a peça trocada entre 12/06 e 20/07. A fila do posto estava em 60 SS, com idade mediana de 261 dias."
+     "texto": "O COEP começou a mexer na fila parada: em 23/04 despachou 9 SS para os COCMs, paradas no posto havia 236 dias (mediana), 8 delas desde 2025 ou antes — um COCM registrou «criado obra para requisição de material». As 9 voltaram ao COEP (0 em junho e julho), 2 delas já com o serviço feito; 5 desses equipamentos tiveram a peça trocada entre 12/06 e 20/07. A fila do posto chegou a 118 SS no fim de abril, o pico, com idade mediana de 212 dias."
     },
     {
      "tema": "Maio",
-     "texto": "6 SS foram para o COCM e 4 já executaram; 7 cancelamentos. 2 trocas de falha parada havia mais de 30 dias (de janeiro a abril tinha sido 1), e o estoque de falhas de peça grande sem troca parou de subir pela primeira vez em 2026 (67 → 66)."
+     "texto": "7 SS foram para o COCM e 5 já executaram; 7 cancelamentos. 2 trocas de falha parada havia mais de 30 dias (de janeiro a abril tinha sido 1), e o estoque de falhas de peça grande sem troca parou de subir pela primeira vez em 2026 (67 → 66)."
     },
     {
      "tema": "Junho",
-     "texto": "Saneamento da fila: 33 SS canceladas no posto (19 só em 30/06), 13 SS de 2025 recriadas e 36 pareceres do COEP — 2 de seleção para compra e 19 perguntas ou pedidos de reavaliação devolvidos ao campo em 29/06. A idade mediana da fila caiu de 270 para 66 dias, por cancelamento e recriação, não por conserto: 4 trocas no mês."
+     "texto": "Saneamento da fila: 67 SS saíram do COEP — 33 canceladas (19 só em 30/06) e 25 devolvidas à TELE, quase todas em 29/06 com pergunta ou pedido de reavaliação (19 pareceres naquele dia). 37 pareceres do COEP no mês, 2 de seleção para compra. A fila caiu de 109 para 55 SS e a idade mediana de 181 para 126 dias — por cancelamento e devolução, não por conserto: 4 trocas no mês."
     },
     {
      "tema": "Julho",
-     "texto": "O mês da execução: 26 SS foram para o COCM, o maior número da série, e 15 já executaram, em mediana 1 dia depois do despacho. Em 12 dessas 15, o COEP tinha registrado antes, em 2026, a compra, a entrega, a logística ou o remanejamento do material. 62 pareceres do COEP, 40 com data: 21 de entrega e logística do material, 15 de compra (seleção ou andamento), 5 de remanejamento de peça, 9 cobrando o registro do serviço. 16 trocas de peça grande, o mês com mais trocas da série, e as falhas sem troca caíram de 64 para 52. Fora da base: 2 requisições de compra em julho (29/07)."
+     "texto": "O mês da execução: 24 SS foram para o COCM, o maior número da série, e 13 já executaram, em mediana 8 dia depois do despacho. Em 12 dessas 13, o COEP tinha registrado antes, em 2026, a compra, a entrega, a logística ou o remanejamento do material. 65 pareceres do COEP, 44 com data: 21 de entrega e logística do material, 15 de compra (seleção ou andamento), 5 de remanejamento de peça, 9 cobrando o registro do serviço. 16 trocas de peça grande, o mês com mais trocas da série, e as falhas sem troca caíram de 64 para 52. Fora da base: 2 requisições de compra em julho (29/07)."
     },
     {
      "tema": "Agosto",
-     "texto": "Pouca entrada (6 SS). 6 pareceres, 5 com data: 2 triagens de nota aberta no posto errado, 1 confirmação de troca, e o registro de um erro no envio de material — o controle enviado não era o do equipamento porque a SS não trazia o modelo. 2 trocas; falhas sem troca em 51."
+     "texto": "Pouca entrada (8 SS). 8 pareceres, 7 com data: 2 triagens de nota aberta no posto errado, 1 confirmação de troca, e o registro de um erro no envio de material — o controle enviado não era o do equipamento porque a SS não trazia o modelo. 2 trocas; falhas sem troca em 51."
     },
     {
      "tema": "Setembro (até 23/09)",
-     "texto": "26 pareceres, 24 com data (92,3%, a maior proporção do ano): 10 de logística (com previsão de troca e código de EMD), 5 de remanejamento (peça sobressalente do estoque, peça tirada de um equipamento para consertar outro), 6 alinhamentos e cobranças de prazo, 4 triagens, 3 confirmações e 1 decisão de não manter um regulador este ano. 7 SS para o COCM, 4 já executadas; 3 trocas; falhas sem troca em 48, o menor número desde dezembro de 2025. Fora da base: a requisição de compra de 03/09."
+     "texto": "25 pareceres, 24 com data (96,0%, a maior proporção do ano): 9 de logística (com previsão de troca e código de EMD), 5 de remanejamento (peça sobressalente do estoque, peça tirada de um equipamento para consertar outro), 6 alinhamentos e cobranças de prazo, 4 triagens, 3 confirmações e 1 decisão de não manter um regulador este ano. 6 SS para o COCM, 4 já executadas; 3 trocas; falhas sem troca em 48, o menor número desde dezembro de 2025. Fora da base: a requisição de compra de 03/09."
     }
    ]
   },
@@ -997,19 +976,19 @@
     },
     {
      "tema": "Material antes da troca",
-     "texto": "Das 28 trocas de abr–set/2026, 16 tiveram antes um parecer do COEP sobre o material (compra, entrega, logística ou remanejamento); das 6 de abr–set/2025, 1."
+     "texto": "Das 28 trocas de abr–set/2026, 17 tiveram antes um parecer do COEP sobre o material (compra, entrega, logística ou remanejamento); das 6 de abr–set/2025, 1."
     },
     {
      "tema": "Despacho que vira execução",
-     "texto": "Das SS que o COEP mandou ao COCM em abr–set, o COCM executou 23 em 2025 e 30 em 2026, contando quem executou e devolveu a SS ao COEP. A diferença está no que é: em 2026, 29 das 30 eram equipamento fora de operação; em 2025, 12 das 23 — o resto era obra nova (5), aviso (3), anomalia (2) e comissionamento (1)."
+     "texto": "Das SS que o COEP mandou ao COCM em abr–set, o COCM executou 23 em 2025 e 28 em 2026, contando quem executou e devolveu a SS ao COEP. A diferença está no que é: em 2026, 27 das 28 eram equipamento fora de operação; em 2025, 11 das 23 — o resto era obra nova (6), aviso (3), anomalia (2) e comissionamento (1)."
     },
     {
      "tema": "Parecer do COEP",
-     "texto": "21 em 2025 inteiro, 1 com data escrita → 135 em abr–set/2026, 80 com data."
+     "texto": "15 em 2025 inteiro, 1 com data escrita → 140 em abr–set/2026, 86 com data."
     },
     {
      "tema": "O caminho da SS mudou",
-     "texto": "Em abr–set/2025, 20 SS saíram do COEP direto para a PROT — 14 tinham chegado da TELE, e em 10 o texto já dizia que o equipamento foi trocado e pedia o comissionamento: o COEP era passagem entre a troca e a PROT. Em abr–set/2026, 2. Obra de equipamento novo entrando no posto: 22 → 2. Dos despachos do COEP ao COCM, os que o COCM levou direto para PROT, TELE ou SE foram 12 em 2025 e 18 em 2026."
+     "texto": "Em abr–set/2025, 17 SS saíram do COEP direto para a PROT — 11 tinham chegado da TELE, e em 7 o texto já dizia que o equipamento foi trocado e pedia o comissionamento: o COEP era passagem entre a troca e a PROT. Em abr–set/2026, 2. Obra de equipamento novo entrando no posto: 4 → 2. Dos despachos do COEP ao COCM, os que o COCM levou direto para PROT, TELE ou SE foram 12 em 2025 e 18 em 2026."
     }
    ]
   },
@@ -1021,8 +1000,20 @@
      "texto": "0 em 2025, 7 em jan–mar/2026 → 22 em abr–set/2026. Ex.: 30/06: «EQUIPAMENTO SELECIONADO PARA COMPRA» (o mesmo texto aparece em 5 equipamentos)"
     },
     {
+     "tema": "Remanejamento de peça",
+     "texto": "0 em 2025 → 14 em abr–set/2026. Antes de 2025, 1. Ex.: 11/09: «PRECISAREMOS DO RL DA 13 COMPLETO JÁ QUE USAREMOS O CONTROLE DESSE EQUIPAMENTO PARA CONSERTAR O 7923673004»"
+    },
+    {
      "tema": "Cobrança de registro do campo",
      "texto": "0 em 2025 → 9 em abr–set/2026. Ex.: 01/07: «FOI CONFIRMADO COM A OPERAÇÃO QUE O EQUIPAMENTO SEGUIU O FLUXO INTEIRO DE COMISSIONAMENTO, PROTEÇÃO, FAVOR EXPLICAR O QUE FOI REALIZADO E SE EQUIPAMENTO ESTÁ OPERANDO, SENÃO ESTIVER EXPLICAR O QUE FOI FEITO NELE»"
+    },
+    {
+     "tema": "Triagem do que não é do COEP",
+     "texto": "0 em 2025 → 9 em abr–set/2026. Ex.: 18/09: «ABERTURA INCORRETA PARA O POSTO DO COEP POR PARTE DO COI , REPASSANDO AO DMSL PARA FAZER O PRIMEIRO ATAQUE»"
+    },
+    {
+     "tema": "Alinhamento e cobrança de prazo",
+     "texto": "0 em 2025 → 16 em abr–set/2026. Ex.: 13/07: «SUBSTITUIR CONTOLE OU MANDAR MANUTENCIONAR EM CASO DE PRIORIDADE ALTA»"
     }
    ]
   },
@@ -1031,31 +1022,19 @@
    "itens": [
     {
      "tema": "Entrega do material ao COCM",
-     "texto": "12 em 2025 → 14 em abr–set/2026. Ex.: 10/07: «EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO» (o mesmo texto aparece em 5 equipamentos)"
+     "texto": "11 em 2025, 1 em jan–mar/2026 → 14 em abr–set/2026. Ex.: 10/07: «EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO» (o mesmo texto aparece em 6 equipamentos)"
     },
     {
      "tema": "Acompanhamento da logística",
      "texto": "1 em 2025 → 23 em abr–set/2026. Antes de 2025, 5. Em 2025 houve mais 2 com a assinatura «PARECER DCMD», que não dá para dizer se é do COEP. Ex.: 04/09: «EQUIPAMENTO EM LOGÍSTICA/ 1 Controle rua de são bento do Tocantins»"
     },
     {
-     "tema": "Remanejamento de peça",
-     "texto": "1 em 2025 → 13 em abr–set/2026. Antes de 2025, 1. Ex.: 11/09: «PRECISAREMOS DO RL DA 13 COMPLETO JÁ QUE USAREMOS O CONTROLE DESSE EQUIPAMENTO PARA CONSERTAR O 7923673004»"
-    },
-    {
      "tema": "Despacho para execução",
-     "texto": "15 em 2025, 3 em jan–mar/2026 → 56 em abr–set/2026. Antes de 2025, 2. Ex.: 18/09: «REPASSANDO PARA O POSTO DOS COCM´S PARA DEVIDA TRATATIVA , NECESSITA APENAS CONEXÃO MT»"
+     "texto": "13 em 2025, 4 em jan–mar/2026 → 58 em abr–set/2026. Antes de 2025, 1. Ex.: 18/09: «REPASSANDO PARA O POSTO DOS COCM´S PARA DEVIDA TRATATIVA , NECESSITA APENAS CONEXÃO MT»"
     },
     {
      "tema": "Confirmação de execução ou operação",
-     "texto": "3 em 2025 → 7 em abr–set/2026. Em 2025 houve mais 1 com a assinatura «PARECER DCMD», que não dá para dizer se é do COEP. Ex.: 18/09: «FOI CONFIRMADO COMO COI QUE O EQUIPAMENTO ESTÁ EM OPERAÇÃO, E-MAIL COM ASSUNTO»"
-    },
-    {
-     "tema": "Triagem do que não é do COEP",
-     "texto": "1 em 2025 → 8 em abr–set/2026. Ex.: 18/09: «ABERTURA INCORRETA PARA O POSTO DO COEP POR PARTE DO COI , REPASSANDO AO DMSL PARA FAZER O PRIMEIRO ATAQUE»"
-    },
-    {
-     "tema": "Alinhamento e cobrança de prazo",
-     "texto": "1 em 2025 → 15 em abr–set/2026. Ex.: 13/07: «SUBSTITUIR CONTOLE OU MANDAR MANUTENCIONAR EM CASO DE PRIORIDADE ALTA»"
+     "texto": "1 em 2025, 1 em jan–mar/2026 → 8 em abr–set/2026. Em 2025 houve mais 1 com a assinatura «PARECER DCMD», que não dá para dizer se é do COEP. Ex.: 18/09: «FOI CONFIRMADO COMO COI QUE O EQUIPAMENTO ESTÁ EM OPERAÇÃO, E-MAIL COM ASSUNTO»"
     }
    ]
   },
@@ -1063,16 +1042,16 @@
    "bloco": "O que não melhorou",
    "itens": [
     {
-     "tema": "A fila do posto não encolheu",
-     "texto": "53 SS no fim de 2025, 53 em 23/09. O que caiu foi a idade (mediana de 191 para 78 dias), e boa parte pelo saneamento de junho."
+     "tema": "A fila caiu, mas por cancelamento e devolução",
+     "texto": "91 SS no fim de 2025, 118 no fim de abril, 53 em 23/09 (idade mediana de 212 para 78 dias). De abril a setembro saíram 153 SS: 56 canceladas, 35 devolvidas à TELE e 54 mandadas ao COCM."
     },
     {
      "tema": "Perguntas que o cadastro já respondia",
-     "texto": "20 pareceres de abr–set/2026 devolveram pergunta ao campo ou usaram o SCADA para questionar a troca, 19 deles em 29/06. 16 pediam modelo, marca, tensão ou potência; 4 deles, o modelo ou o código da placa, que o cadastro não traz — os outros 12 pediam modelo ou tensão que o cadastro de ajustes da proteção já tem preenchido (relé e tensão do religador, controlador e potência do regulador) para 20 dos 20 equipamentos perguntados. Em 23/09, desses 20: 11 seguiam abertos no COEP, 5 tinham saído do COEP sem troca registrada, 2 tiveram a peça trocada e 2 foram cancelados."
+     "texto": "22 pareceres de abr–set/2026 devolveram pergunta ao campo ou usaram o SCADA para questionar a troca, 19 deles em 29/06. 16 pediam modelo, marca, tensão ou potência; 4 deles, o modelo ou o código da placa, que o cadastro não traz — os outros 12 pediam modelo ou tensão que o cadastro de ajustes da proteção já tem preenchido (relé e tensão do religador, controlador e potência do regulador) para 22 dos 22 equipamentos perguntados. Em 23/09, desses 22: 11 seguiam abertos no COEP, 5 tinham saído do COEP sem troca registrada, 2 tiveram a peça trocada e 4 foram cancelados."
     },
     {
      "tema": "SS que voltam do COCM sem serviço registrado",
-     "texto": "Voltaram do COCM para o COEP sem registro de serviço feito 14 SS em abr–set/2025 e 37 em 2026, com o despacho ao COCM indo de 26 para 54. O SGM não guarda o motivo da volta; pelo texto, em 2026, 6 foram por falta de material, material errado ou obra de requisição e 31 não têm motivo escrito (5 delas do lote de 23/04). Outras 6 voltaram com o serviço feito, para seguir ao comissionamento (1 em 2025)."
+     "texto": "Voltaram do COCM para o COEP sem registro de serviço feito 25 SS em abr–set/2025 e 26 em 2026, com o despacho ao COCM indo de 28 para 54. O SGM não guarda o motivo da volta; pelo texto, em 2026, 4 foram por falta de material, material errado ou obra de requisição e 22 não têm motivo escrito (6 delas do lote de 23/04). Outras 2 voltaram com o serviço feito, para seguir ao comissionamento (1 em 2025)."
     },
     {
      "tema": "Cancelamento sem motivo escrito",
@@ -1088,12 +1067,10 @@
    "ETO-COEP 104/2025",
    "ETO-COEP 122/2025",
    "ETO-COEP 177/2025",
-   "ETO-COEP 191/2025",
    "ETO-COEP 211/2025",
    "ETO-COEP 209/2025",
    "ETO-COEP 206/2025",
-   "ETO-COEP 34/2026",
-   "ETO-COEP 78/2026"
+   "ETO-COEP 34/2026"
   ],
   "trocados": {
    "7900573047": "2026-07-20",
@@ -1103,40 +1080,40 @@
    "7900117013": "2026-07-15"
   },
   "voltaram": [
-   "2026-07-10 11:31:39",
+   "2026-04-24 16:18:48",
    "2026-04-27 14:47:11",
-   "2026-06-01 13:46:42",
-   "2026-07-20 11:09:39",
-   "2026-07-06 17:25:18",
-   "2026-07-01 11:33:19",
-   "2026-07-10 11:38:07",
-   "2026-07-01 11:36:56",
-   "2026-06-03 14:40:44"
+   "2026-04-24 14:04:28",
+   "2026-04-24 16:16:24",
+   "2026-04-30 15:31:25",
+   "2026-04-24 14:31:39",
+   "2026-04-24 08:52:40",
+   "2026-04-24 14:32:01",
+   "2026-04-24 16:18:10"
   ]
  },
  "perguntas": {
-  "n": 20,
+  "n": 22,
   "em_2906": 19,
-  "ativos": 20,
-  "no_cadastro": 20,
+  "ativos": 22,
+  "no_cadastro": 22,
   "modelo": 16,
   "placa": 4,
   "desfecho": {
+   "cancelada": 4,
    "segue aberta no COEP": 11,
    "saiu do COEP sem troca no rol": 5,
-   "trocada depois": 2,
-   "cancelada": 2
+   "trocada depois": 2
   }
  },
  "voltas_do_cocm": {
   "2025": {
-   "sem motivo escrito": 14,
+   "sem motivo escrito": 25,
    "serviço feito": 1
   },
   "2026": {
-   "sem motivo escrito": 31,
-   "serviço feito": 6,
-   "faltou material": 6
+   "sem motivo escrito": 22,
+   "serviço feito": 2,
+   "faltou material": 4
   }
  },
  "ritmo_de_troca": {
@@ -1161,6 +1138,7 @@
   {
    "data": "2025-01-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE AO COCM-N PARA REGULARIZAÇÃO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1177,6 +1155,7 @@
   {
    "data": "2025-01-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento entregue ao COCM CENTRO para regularização",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1192,6 +1171,7 @@
   {
    "data": "2025-01-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento entregue ao COCM CENTRO para regularização",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1207,6 +1187,7 @@
   {
    "data": "2025-01-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE AO COCM-N PARA REGULARIZAÇÃO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1222,6 +1203,7 @@
   {
    "data": "2025-01-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE AO COCM-C PARA REGULARIZAÇÃO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1237,6 +1219,7 @@
   {
    "data": "2025-01-09",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento encontra-se em operação",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -1251,6 +1234,7 @@
   {
    "data": "2025-01-17",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "NÃO FOI ESPECIFICADO SE É APENAS UMA CÉLULA OU VÁRIAS E QUAIS, PARA QUE POSSAMOS ATENDER A DEMANDA",
    "tipos": [
     "Pergunta devolvida ao campo"
@@ -1265,6 +1249,7 @@
   {
    "data": "2025-01-17",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento fornecido ao COCM para regualização",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1280,6 +1265,7 @@
   {
    "data": "2025-03-21",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "repassado ao COCM para atendimento. Após testes, constatou-se que a fase C do regulador 5854566043 está danificada devido a uma descarga atmosférica. Vazou óleo e o mesmo está com coloração escura o que evidencia o seu comprometimento. Será necessário substituir a fase C. Esse RT se trata da antiga topologia 5854999043, NOTA 38/2025",
    "tipos": [
     "Despacho para execução"
@@ -1292,38 +1278,9 @@
    ]
   },
   {
-   "data": "2025-04-09",
-   "datado": false,
-   "texto": "REMOVEMOS AS CELULAS BOAS PARA UTILIZAR EM OBRA REGULADA, DE ACORDO COM ALINHAMENTO DA ANDRESA",
-   "tipos": [
-    "Remanejamento de peça"
-   ],
-   "ativos": [
-    "5855606027"
-   ],
-   "ss": [
-    "ETO-PROT 137/2025"
-   ]
-  },
-  {
-   "data": "2025-05-05",
-   "datado": false,
-   "texto": "Equipamento fornecido ao COCM. Equipe DMSL esteve no RLG 7900790075 dia 19/02/2025, para realizar o comissionamento, pois o equipamento foi substituído recentemente. Porém, ao reallizar testes, foi constatado que o relé e o módulo SIM estavam com defeito. A equipe teve que usar material do nosso estoque de manutenção para deixar o equipamento operando. Assim, solicito um módulo SIM e relé referente a obra de substituição. (ETO-COEP 139/2024)",
-   "tipos": [
-    "Entrega do material ao COCM",
-    "Despacho para execução",
-    "Confirmação de execução ou operação"
-   ],
-   "ativos": [
-    "7900790075"
-   ],
-   "ss": [
-    "ETO-COEP 32/2025"
-   ]
-  },
-  {
    "data": "2025-05-06",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE AO COCM",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1339,6 +1296,7 @@
   {
    "data": "2025-05-06",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE AO COCM",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1354,6 +1312,7 @@
   {
    "data": "2025-05-19",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento fornecido ao COCM Sul para regularização",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1369,6 +1328,7 @@
   {
    "data": "2025-07-25",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "Equipamento disponivel para retirada no Polo Guaraí (COCM-NORTE) no depósito 7902. Procurar técnico Kelliton Pereira Martins para apoio",
    "tipos": [
     "Acompanhamento da logística",
@@ -1382,24 +1342,9 @@
    ]
   },
   {
-   "data": "2025-07-29",
-   "datado": false,
-   "texto": "SUBSTITUIÇÃO DO TRAFO É DIRETO COM OS COCM'S, NÃO TEM COMPRA DE EQUIPAMENTO ESPECIAL",
-   "tipos": [
-    "Despacho para execução",
-    "Triagem do que não é do COEP"
-   ],
-   "ativos": [
-    "7931219078"
-   ],
-   "ss": [
-    "ETO-RD-PO 180/2026",
-    "ETO-TELE 694/2025"
-   ]
-  },
-  {
    "data": "2025-07-31",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento fornecido ao COCM-S para regularização",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1417,6 +1362,7 @@
   {
    "data": "2025-07-31",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento fornecido ao COCM-S para regularização",
    "tipos": [
     "Entrega do material ao COCM",
@@ -1430,51 +1376,26 @@
    ]
   },
   {
-   "data": "2025-09-02",
+   "data": "2026-01-07",
    "datado": false,
-   "texto": "Equipamento em operaçãpo no SCADA",
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Equipamento fornecido ao COCM. Equipe DMSL esteve no RLG 7900790075 dia 19/02/2025, para realizar o comissionamento, pois o equipamento foi substituído recentemente. Porém, ao reallizar testes, foi constatado que o relé e o módulo SIM estavam com defeito. A equipe teve que usar material do nosso estoque de manutenção para deixar o equipamento operando. Assim, solicito um módulo SIM e relé referente a obra de substituição. (ETO-COEP 139/2024)",
    "tipos": [
-    "SCADA como argumento"
+    "Entrega do material ao COCM",
+    "Despacho para execução",
+    "Confirmação de execução ou operação"
    ],
    "ativos": [
-    "5850308009"
+    "7900790075"
    ],
    "ss": [
-    "ETO-TELE 913/2025"
-   ]
-  },
-  {
-   "data": "2025-09-17",
-   "datado": false,
-   "texto": "Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação",
-   "tipos": [
-    "Confirmação de execução ou operação",
-    "Alinhamento e cobrança de prazo"
-   ],
-   "ativos": [
-    "7900930040"
-   ],
-   "ss": [
-    "ETO-RD-AR 1237/2025"
-   ]
-  },
-  {
-   "data": "2025-09-29",
-   "datado": false,
-   "texto": "Após análise do cenário de furtos recorrentes na região e das limitações orçamentárias, seguiremos com a desmobilização do RT 584130190 LD Dianópolis – Taguatinga",
-   "tipos": [
-    "Decisão de não manter ou desativar"
-   ],
-   "ativos": [
-    "5841308190"
-   ],
-   "ss": [
-    "ETO-COEP 197/2025"
+    "ETO-COEP 32/2025"
    ]
   },
   {
    "data": "2026-01-07",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Repassado ao posto do COCM-N para adequação",
    "tipos": [
     "Despacho para execução"
@@ -1489,6 +1410,7 @@
   {
    "data": "2026-02-04",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1503,6 +1425,7 @@
   {
    "data": "2026-02-24",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Realizar substituição do tanque",
    "tipos": [
     "Despacho para execução"
@@ -1517,6 +1440,7 @@
   {
    "data": "2026-02-24",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1531,6 +1455,7 @@
   {
    "data": "2026-03-02",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1545,6 +1470,7 @@
   {
    "data": "2026-03-18",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Favor, realizar substituição do PR da fase B e parte ativa do RL 7931383086",
    "tipos": [
     "Despacho para execução"
@@ -1559,6 +1485,22 @@
   {
    "data": "2026-03-18",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Após análise do cenário de furtos recorrentes na região e das limitações orçamentárias, seguiremos com a desmobilização do RT 584130190 LD Dianópolis – Taguatinga",
+   "tipos": [
+    "Decisão de não manter ou desativar"
+   ],
+   "ativos": [
+    "5841308190"
+   ],
+   "ss": [
+    "ETO-COEP 197/2025"
+   ]
+  },
+  {
+   "data": "2026-03-18",
+   "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1573,6 +1515,7 @@
   {
    "data": "2026-03-30",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1587,6 +1530,7 @@
   {
    "data": "2026-03-30",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1601,6 +1545,7 @@
   {
    "data": "2026-03-31",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1615,6 +1560,7 @@
   {
    "data": "2026-04-09",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Favor, realizar atendimento conforme alinhado com Julio",
    "tipos": [
     "Despacho para execução",
@@ -1630,6 +1576,7 @@
   {
    "data": "2026-04-23",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -1644,6 +1591,7 @@
   {
    "data": "2026-04-27",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "Aproveitar controle cooper se possível em outro local, previsão de chegada do material dia 01/07 para substituição",
    "tipos": [
     "Acompanhamento da logística",
@@ -1659,6 +1607,7 @@
   {
    "data": "2026-04-28",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "Enviar equipe da TELE no regulador de tensão 5800366016, pois o mesmo está em operação e está com duas SS em aberto",
    "tipos": [
     "Triagem do que não é do COEP"
@@ -1672,34 +1621,25 @@
    ]
   },
   {
-   "data": "2026-05-05",
+   "data": "2026-04-30",
    "datado": false,
-   "texto": "fAVOR REALIZAR MELHORIA DE ATERRMENTO",
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação",
    "tipos": [
-    "Despacho para execução"
+    "Confirmação de execução ou operação",
+    "Alinhamento e cobrança de prazo"
    ],
    "ativos": [
-    "5851753086"
+    "7900930040"
    ],
    "ss": [
-    "ETO-RD-PS 198/2026"
-   ]
-  },
-  {
-   "data": "2026-06-15",
-   "datado": false,
-   "texto": "AGUARDANDO RETORNO DO DMSL REGULADOR 5800090147 SEM COMUNICAÇÃO E TRAVANDO TAP´S - REALIZAO PRIMEIRO ATAQUE SEM SUCESSO",
-   "tipos": [],
-   "ativos": [
-    "5800090147"
-   ],
-   "ss": [
-    "ETO-TELE 438/2026"
+    "ETO-RD-AR 1237/2025"
    ]
   },
   {
    "data": "2026-06-17",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "TRAFO FURTADO JÁ INSTALADO, FAVOR REALIZAR COMISSIONAMENTO",
    "tipos": [
     "Despacho para execução",
@@ -1715,6 +1655,7 @@
   {
    "data": "2026-06-20",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EMD 510216 PREVISÃO DE CHEGADA COCM'S 01/07 RELIGADOR COM RELÉ QUEIMADO - EQUIPAMENTO BY PASSADO",
    "tipos": [
     "Acompanhamento da logística",
@@ -1728,8 +1669,40 @@
    ]
   },
   {
+   "data": "2026-06-25",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "fAVOR REALIZAR MELHORIA DE ATERRMENTO",
+   "tipos": [
+    "Despacho para execução"
+   ],
+   "ativos": [
+    "5851753086"
+   ],
+   "ss": [
+    "ETO-RD-PS 198/2026"
+   ]
+  },
+  {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "equipamentos fornecidos. Repasse ao COCM para correção. PARACER DA PROTEÇÃO: Recebemos a solicitação de elaboração de ajustes do RT 5854681071, nota repassada pelo COEP. Duvidas: As pendencias apontadas pelo DMSL foram sanadas? Pois não registro descritivo na SS. Se foram sanadas, a SS não seguiu o fluxo norma, pois não há repassa da nota para o COEP. Podemos seguir com os estudos e comissionamento do ativo?",
+   "tipos": [
+    "Despacho para execução",
+    "Pergunta devolvida ao campo"
+   ],
+   "ativos": [
+    "5854681071"
+   ],
+   "ss": [
+    "ETO-PROT 437/2024"
+   ]
+  },
+  {
+   "data": "2026-06-29",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FAVOR AVALIAR SE REALMENTE SERÁ A SUBSTITUIÇÃO DO EQUIPAMENTO COMPLETO JÁ QUE O PROBLEMA OCORRE NA FASE B E O EQUIPAMENTO PARECE ESTAR EM OPERAÇÃO E COMUNICANDO COM O SCADA",
    "tipos": [
     "SCADA como argumento"
@@ -1744,6 +1717,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento em operação, instalado com sucesso, segue para Proteção para ajustes",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -1758,6 +1732,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "QUAL O MODELO DO EQUIPAMENTO? QUAL A FAIXA DE TENSÃO ? O QUE SERIA SISTEMA DE COMUNICAÇÃO COMPLETO?",
    "tipos": [
     "Pergunta devolvida ao campo"
@@ -1772,6 +1747,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento Funcionando no SCADA , favor reavaliar a necessidade de substituição e se necessário mandar o modelo do equipamento",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1787,6 +1763,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FAVOR REAVALIAR DISPONIBILIDADE DO EQUIPAMENTO DO SCADA E DIZER MARCA ,MODELO E TENSÃO DO EQUIPAMENTO",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1802,6 +1779,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento em operação no Scada, além de não especificar o defeito, ainda não especificou marca e modelo para substituição",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1817,6 +1795,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Reavaliar a necessidade já que equipamento se encontra em operação no SCADA, ou.tro ponto é que necessitamos do modelo a ser substituido",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1832,6 +1811,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "NÃO É POSSÍVEL RETORNAR COM O CONTROLE COMPLETO , MAS DARIA PARA FAZER A MELHORIA NA MALHA DE ATERRAMENTO , ENCAMINHANDO PARA OS COCM'S PARA REALIZAREM A MELHORIA",
    "tipos": [
     "Despacho para execução"
@@ -1847,6 +1827,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "QUAL O MODELO DA PLACA OU CÓDIGO DO MATERIAL? EXISTE DIFERENÇA DE MODELO OU POTÊNCIA?",
    "tipos": [
     "Pergunta devolvida ao campo"
@@ -1861,6 +1842,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento em operação no SCADA, favor reavaliar necessidade de substituição ,assim como especificar modelo das peças a serem substituidas e os defeitos. REALIZAR SUBSTITUIÇÃO DO TANQUE",
    "tipos": [
     "Despacho para execução",
@@ -1877,6 +1859,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "REAVALIAR DISPONIBILIDADE DO EQUIPAMENTO NO SCADA ASSIM COMO , FORNECER MODELO DO EQUIPAMENTO E FAIXA DE TENSÃO PARA COMPRA / AQUISIÇÃO Tanque com defeito, realizar substituição do tanque",
    "tipos": [
     "Despacho para execução",
@@ -1893,6 +1876,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento em operação no SCADA, favor revisitar ou explicar defeito e modelo do equipamento. Substituição de tanque e controle, os mesmos estão com defeitos",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1908,6 +1892,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "PROBLEMA IDENTIFICADO É NA PARTE ATIVA? OU NO RELIGADOR? FAVOR VERIFICAR SE EQUIPAMENTO ESTÁ EM OPERAÇÃO NO SCADA, OU SE É NECESSARIO APENAS A MELHORIA DE ATERRAMENTO",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1923,21 +1908,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
-   "texto": "O Equipamento se encontra em operação no SCADA, favor verificar e reavaliar se existe pendência de substiuição",
-   "tipos": [
-    "Pergunta devolvida ao campo",
-    "SCADA como argumento"
-   ],
-   "ativos": [
-    "7900505026"
-   ],
-   "ss": [
-    "ETO-COEP 42/2026"
-   ]
-  },
-  {
-   "data": "2026-06-29",
-   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento em operação no SCADA, se for necessário , favor especificar peça e modelo para substituição Tanque do RLG 7936038076 queimado, favor substituir o mesmo. NS do tanque: 0320118112616",
    "tipos": [
     "Despacho para execução",
@@ -1954,6 +1925,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "QUAL O MODELO/ COGIDO DA PLACA DE ALIMENTAÇÃO PARA QUE POSSAMOS ENVIAR?",
    "tipos": [
     "Pergunta devolvida ao campo"
@@ -1968,6 +1940,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento está em operação no Scada, preciso da especificação do modelo do equipamento para realizar a compra",
    "tipos": [
     "Pergunta devolvida ao campo",
@@ -1983,6 +1956,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "ENVIAMOS O MATERIAL PARA OS COCM'S, AGUARDANDO SUBSTITUIÇÃO",
    "tipos": [
     "Despacho para execução"
@@ -1997,6 +1971,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Verificar Disponibilidade de equipamento no Scada e enviar modelo e tensão para a compra. RELIGADOR COM RELÉ DANIFICADO, REALIZAR SUBSTITUIÇÃO",
    "tipos": [
     "Despacho para execução",
@@ -2012,6 +1987,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "QUAL O MODELO / CODIGO DO MATERIAL DA PLACA DE ALIMENTAÇÃO, AGUARDO O RETORNO",
    "tipos": [
     "Pergunta devolvida ao campo"
@@ -2026,6 +2002,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "É A PARTE ATIVA OU A PLACA DE ALIMENTAÇÃO, O MODELO É NOJA OU COOPER? O RL É 13,8 OU 34,5? SABE ME DIZER O MODELO OU O CODIGO DA PLACA DE ALIMENTAÇÃO SE FOR NECESSÁRIA?",
    "tipos": [
     "Pergunta devolvida ao campo"
@@ -2040,6 +2017,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "É PARA REALIZAR A SUBSTITUIÇÃO DO RELIGADOR OU DAS BUCHAS, CASO SEJA BUCHAS , REPASSAR PARA OS COCM'S , CASO NÃO SEJA ESPECIFIQUE O MODELO , E A TENSÃO, FICO NO AGUARDO DO RETORNO",
    "tipos": [
     "Despacho para execução",
@@ -2055,6 +2033,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO COM MELHORIA DE ATERRAMENTO É COM A ETO-RD-PA , NÃO PASSA PELO FLUXO DE AQUISIÇÃO DO COEP, FAVOR REALIZAR MELHORIA DE ATERRAMENTO ETO-RD-PA",
    "tipos": [
     "Despacho para execução"
@@ -2069,6 +2048,7 @@
   {
    "data": "2026-06-29",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "MELHORIA DE ATERRAMENTO É COCM'S, FAVOR ENCAMINHAR DIRETAMENTE PARA ELES, COCM'S REALIZAR MELHORIA DE ATERRAMENTO POR FAVOR",
    "tipos": [
     "Despacho para execução"
@@ -2083,6 +2063,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2096,7 +2077,23 @@
   },
   {
    "data": "2026-06-30",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "REMOVEMOS AS CELULAS BOAS PARA UTILIZAR EM OBRA REGULADA, DE ACORDO COM ALINHAMENTO DA ANDRESA",
+   "tipos": [
+    "Remanejamento de peça"
+   ],
+   "ativos": [
+    "5855606027"
+   ],
+   "ss": [
+    "ETO-PROT 137/2025"
+   ]
+  },
+  {
+   "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "ALINHADO COM O ALLAN REMANEJAMOS PARTE ATIVA PARA ATENDER 7933726256",
    "tipos": [
     "Remanejamento de peça",
@@ -2112,6 +2109,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "AGUARDANDO O RETORNO DO DMSL , PARA ENTENDER SE O PROBLEMA É NA COMUNICAÇÃO OU PARTE ATIVA, JÁ QUE O EQUIPAMENTO EM QUESTÃO SEGUE COMUNICANDO",
    "tipos": [],
    "ativos": [
@@ -2124,6 +2122,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO COMPLETO",
    "tipos": [],
    "ativos": [
@@ -2136,6 +2135,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "AGUARDANDO COCM'S CRIAREM OBRA PARA ENTREGA DO MATERIAL",
    "tipos": [
     "Acompanhamento da logística",
@@ -2151,6 +2151,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "REPASSAR DIRETAMENTE PARA OS COCM'S",
    "tipos": [
     "Despacho para execução",
@@ -2167,6 +2168,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE",
    "tipos": [
     "Entrega do material ao COCM"
@@ -2182,6 +2184,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA REALIZAR SUBSTITUIÇÃO DO TANQUE, O MESMO ESTÁ COM DEFEITO",
    "tipos": [
     "Compra ou reforma: seleção e andamento",
@@ -2197,6 +2200,7 @@
   {
    "data": "2026-06-30",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "DEVIDO A ALINHAMENTO COM COI UTILIZAREMOS PARTE ATIVA QUE ORIGINALMENTE FOI ENCOMENDADA PARA 7933726256",
    "tipos": [
     "Remanejamento de peça"
@@ -2211,6 +2215,7 @@
   {
    "data": "2026-07-01",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "PROBLEMA NO ENVIO DO MATERIAL",
    "tipos": [
     "Acompanhamento da logística"
@@ -2225,6 +2230,7 @@
   {
    "data": "2026-07-01",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "DENER INFORMOU QUE TEM AS PEÇAS SOBRESSALENTES DE OBRA PARA UTILIZAR, REPASSEREI AO POSTO DO ETO-RD-DP PARA AS TRATATIVAS, FAVOR INFORMAR PREVISÃO DE SUBSTIUIÇÃO E PREENCHER A PLANILHA ASSIM COMO PREENCHER A DESCRIÃO ANTES DE PASSAR PARA PROTEÇÃO FAZER OS AJUSTES",
    "tipos": [
     "Remanejamento de peça",
@@ -2240,6 +2246,7 @@
   {
    "data": "2026-07-01",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FOI CONFIRMADO COM A OPERAÇÃO QUE O EQUIPAMENTO SEGUIU O FLUXO INTEIRO DE COMISSIONAMENTO, PROTEÇÃO, FAVOR EXPLICAR O QUE FOI REALIZADO E SE EQUIPAMENTO ESTÁ OPERANDO, SENÃO ESTIVER EXPLICAR O QUE FOI FEITO NELE",
    "tipos": [
     "Cobrança de registro do campo",
@@ -2257,6 +2264,7 @@
   {
    "data": "2026-07-01",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE",
    "tipos": [
     "Entrega do material ao COCM"
@@ -2272,6 +2280,7 @@
   {
    "data": "2026-07-01",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE",
    "tipos": [
     "Entrega do material ao COCM"
@@ -2287,6 +2296,7 @@
   {
    "data": "2026-07-01",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "REDIRECIONADO PARA O POSTO DO COCM´S EQUIPAMENTO CHEGOU NO LOCAL, FAVOR ENTRAR EM CONTATO COM O DMSL, DEVIDO A URGÊNCIA DO EQUIPAMENTO EM OPERAÇÃO",
    "tipos": [
     "Acompanhamento da logística",
@@ -2302,7 +2312,21 @@
   },
   {
    "data": "2026-07-06",
+   "datado": true,
+   "como_datou": "escrita no texto",
+   "texto": "PREVISÃO DE ENTREGA DE ACORDO COM CALENDÁRIO LOGISITCO NOVO 06/07",
+   "tipos": [],
+   "ativos": [
+    "7908686014"
+   ],
+   "ss": [
+    "ETO-COEP 86/2026"
+   ]
+  },
+  {
+   "data": "2026-07-06",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "PREVISÃO DE ENTREGA AOS COCM'S 01/07",
    "tipos": [
     "Despacho para execução"
@@ -2317,6 +2341,7 @@
   {
    "data": "2026-07-06",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "SUBSTIUIR CHAVE FACA COCM`S , DEPOIS PASSAR PARA PROTEÇÃO PARA AJUSTE",
    "tipos": [
     "Despacho para execução"
@@ -2332,6 +2357,7 @@
   {
    "data": "2026-07-07",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "MATERIAL ENVIADO , CONFORME ALINHANDO COM O WANDER REALIZAR SUBSTIUIÇÂO DO EQUIPAMENTO, FAVOR ESCREVER",
    "tipos": [
     "Acompanhamento da logística",
@@ -2347,6 +2373,7 @@
   {
    "data": "2026-07-07",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2361,6 +2388,7 @@
   {
    "data": "2026-07-07",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2373,22 +2401,26 @@
    ]
   },
   {
-   "data": "2026-07-07",
+   "data": "2026-07-08",
    "datado": false,
-   "texto": "SUBSTITUIR PARTE ATIVA",
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "SUBSTITUIÇÃO DO TRAFO É DIRETO COM OS COCM'S, NÃO TEM COMPRA DE EQUIPAMENTO ESPECIAL",
    "tipos": [
-    "Despacho para execução"
+    "Despacho para execução",
+    "Triagem do que não é do COEP"
    ],
    "ativos": [
-    "7900525015"
+    "7931219078"
    ],
    "ss": [
-    "ETO-COEP 125/2026"
+    "ETO-RD-PO 180/2026",
+    "ETO-TELE 694/2025"
    ]
   },
   {
    "data": "2026-07-08",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "SUBSTITUIÇÃO DE TRAFO AUXILIAR ENCAMINHADO PARA REALIZAR A TROCA , FAVOR COLOCAR O",
    "tipos": [],
    "ativos": [
@@ -2401,6 +2433,7 @@
   {
    "data": "2026-07-08",
    "datado": false,
+   "como_datou": "janela da SS (chegada)",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA , DEVERIA SER SUBSTITUIDO PARTE ATIVA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2415,6 +2448,7 @@
   {
    "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2430,19 +2464,8 @@
   },
   {
    "data": "2026-07-10",
-   "datado": false,
-   "texto": "PREVISÃO DE ENTREGA DE ACORDO COM CALENDÁRIO LOGISITCO NOVO 06/07",
-   "tipos": [],
-   "ativos": [
-    "7908686014"
-   ],
-   "ss": [
-    "ETO-COEP 86/2026"
-   ]
-  },
-  {
-   "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE , FAVOR REALIZAR SUBSTIUIÇÃO, DEPOIS ENCAMINHAR PARA PROTEÇÃO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO, FAVOR INFORMAR O PRAZO DA PREVISÃO DMSL PARA IREM JUNTOS",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2459,6 +2482,24 @@
   {
    "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
+   "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
+   "tipos": [
+    "Entrega do material ao COCM",
+    "Despacho para execução",
+    "Cobrança de registro do campo"
+   ],
+   "ativos": [
+    "7900117013"
+   ],
+   "ss": [
+    "ETO-COEP 84/2026"
+   ]
+  },
+  {
+   "data": "2026-07-10",
+   "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2475,6 +2516,7 @@
   {
    "data": "2026-07-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO EM ROTA DE ENTREGA",
    "tipos": [
     "Acompanhamento da logística"
@@ -2489,6 +2531,7 @@
   {
    "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2505,6 +2548,7 @@
   {
    "data": "2026-07-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "AGUARDANDO COCM'S GERAREM AS OBRAS PARA PODER ENTREGAR MATERIAL",
    "tipos": [
     "Acompanhamento da logística",
@@ -2520,6 +2564,7 @@
   {
    "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2536,6 +2581,7 @@
   {
    "data": "2026-07-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EM ROTA DE ENTREGA, VERIFICAR PREVISÃO DE CHEGADA Realizar a substituição do tanque do equipamento",
    "tipos": [
     "Acompanhamento da logística",
@@ -2551,6 +2597,7 @@
   {
    "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2568,6 +2615,7 @@
   {
    "data": "2026-07-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EM PROCESSO DE ENTREGA",
    "tipos": [],
    "ativos": [
@@ -2581,6 +2629,7 @@
   {
    "data": "2026-07-10",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO DESLOCADO QUE ESTAVA EM GUARAÍ FOI ALINHADO COM O VALMOR QUE SERIA SUBSTITUIDO DIA 07/07/2026 , FAVOR PASSAR PARA PROTEÇÃO 7900594026",
    "tipos": [
     "Alinhamento e cobrança de prazo"
@@ -2596,6 +2645,7 @@
   {
    "data": "2026-07-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "AGUARDANDO COCM'S PARA ABRIR REQUISIÇÃO",
    "tipos": [
     "Despacho para execução"
@@ -2610,7 +2660,23 @@
   },
   {
    "data": "2026-07-13",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Equipamento em operaçãpo no SCADA",
+   "tipos": [
+    "SCADA como argumento"
+   ],
+   "ativos": [
+    "5850308009"
+   ],
+   "ss": [
+    "ETO-TELE 913/2025"
+   ]
+  },
+  {
+   "data": "2026-07-13",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO REMANEJADO FAVOR FAZER O COMISSIONAMENTO",
    "tipos": [
     "Remanejamento de peça"
@@ -2625,6 +2691,7 @@
   {
    "data": "2026-07-13",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "SELECIONADO PARA COMPRA CONTROLE",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2639,6 +2706,7 @@
   {
    "data": "2026-07-13",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "SUBSTITUIÇÃO REALZIADA , FAVOR COMISSIONAR",
    "tipos": [],
    "ativos": [
@@ -2652,6 +2720,7 @@
   {
    "data": "2026-07-13",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "AGUARDANDO RETORNO DO DMSL, EQUIPAMENTO FOI INSTALADO NOVO NA OBRA 0212501060, ENTENDER O PORQUE NÃO FOI REALIZADO COMISSIONAMENTO",
    "tipos": [],
    "ativos": [
@@ -2664,7 +2733,21 @@
   },
   {
    "data": "2026-07-13",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "AGUARDANDO RETORNO DO DMSL REGULADOR 5800090147 SEM COMUNICAÇÃO E TRAVANDO TAP´S - REALIZAO PRIMEIRO ATAQUE SEM SUCESSO",
+   "tipos": [],
+   "ativos": [
+    "5800090147"
+   ],
+   "ss": [
+    "ETO-TELE 438/2026"
+   ]
+  },
+  {
+   "data": "2026-07-13",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "SUBSTITUIR CONTOLE OU MANDAR MANUTENCIONAR EM CASO DE PRIORIDADE ALTA",
    "tipos": [
     "Despacho para execução",
@@ -2680,6 +2763,7 @@
   {
    "data": "2026-07-13",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "NÃO FAZ SENTIDO FAZER A TROCA DE EQUIPAMENTO COMPLETO APENAS POR CAUSA DA FASE B , QUE PARECE SER UM ERRO DE CALIBRAÇÃO",
    "tipos": [],
    "ativos": [
@@ -2692,6 +2776,23 @@
   {
    "data": "2026-07-14",
    "datado": true,
+   "como_datou": "escrita no texto",
+   "texto": "EQUIPAMENTO EM ROTA DE ENTREGA",
+   "tipos": [
+    "Acompanhamento da logística"
+   ],
+   "ativos": [
+    "5844630060"
+   ],
+   "ss": [
+    "ETO-COEP 167/2025",
+    "ETO-RD-AR 1168/2026"
+   ]
+  },
+  {
+   "data": "2026-07-14",
+   "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "ALINHADO COM O WANDER REDIRECIONAR CONTROLE MANDADO PARA GUARAI 5850308009 REALIZAR SUBSTITUIÇÃO E DESCRECER O QUE FOI FEITO E DEPOIS PASSAR DIRETO DMSL",
    "tipos": [
     "Despacho para execução",
@@ -2707,6 +2808,7 @@
   {
    "data": "2026-07-14",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "AVALIAR COM O LEANDRO, PROVAVELMENTE SÓ COMPRA",
    "tipos": [],
    "ativos": [
@@ -2720,6 +2822,7 @@
   {
    "data": "2026-07-14",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2734,6 +2837,7 @@
   {
    "data": "2026-07-14",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "REALOCAR TANQUE 34,5 SOBRESSALENTE DE PARAÍSO PARA ATENDER",
    "tipos": [
     "Remanejamento de peça"
@@ -2747,7 +2851,24 @@
   },
   {
    "data": "2026-07-14",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "O Equipamento se encontra em operação no SCADA, favor verificar e reavaliar se existe pendência de substiuição",
+   "tipos": [
+    "Pergunta devolvida ao campo",
+    "SCADA como argumento"
+   ],
+   "ativos": [
+    "7900505026"
+   ],
+   "ss": [
+    "ETO-COEP 42/2026"
+   ]
+  },
+  {
+   "data": "2026-07-14",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2762,6 +2883,7 @@
   {
    "data": "2026-07-14",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "DE ACORDO COM O EDSON CURCINO FOI FEITA S SUBSTITUIÇÃO DO EQUIPAMENTO , SEGUE PARA PROTEÇÃO ELABORAR AJUSTE",
    "tipos": [],
    "ativos": [
@@ -2775,6 +2897,7 @@
   {
    "data": "2026-07-14",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "SUBSTIUIR CONTROLE COMPLETO",
    "tipos": [
     "Despacho para execução"
@@ -2789,6 +2912,7 @@
   {
    "data": "2026-07-14",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "INVESTIGAR COM O ALAN ANTES DE ABRIR PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2803,6 +2927,7 @@
   {
    "data": "2026-07-16",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "ALINHADO COM O KELLITON REALIZAR SUBSTITUIÇÃO DO CONTROLE DE TUPIRAMA, ALINHADO COM O JEAN QUE OS CABOS COMPATIBILIZADORES VÃO CHEGAR 16/08 , ATÉ ESSA DATA MANTER ESSA SS E CONTROLE RUA, DEPOIS REPASSAR PARA O DMSL",
    "tipos": [
     "Despacho para execução",
@@ -2818,6 +2943,7 @@
   {
    "data": "2026-07-16",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "ALINHADO COM O JEAN DO DMSL E O KELLITON , KELLITON IRÁ FAZER A INSTALAÇÃO DO CONTROLE RUA E O JEAN IRÁ REALIZAR O COMISSIONAMENTO , FAZENDO A COMPATIBILIZAÇÃO DOS CABOS ASSIM COMO FICARÁ UM CONTROLE RUA NO NOSSO ESTOQUE SOBRESSALENTE PARA ATENDER O DE ARAPOEMA, ATÉ A CHEGADA DOS CABOS QUE O JEAN ME DEU REPORTE DE QUE SERIA ATÉ O DIA 16/08 , FAVOR COCM'S REALIZAREM A INSTALAÇÃO E GUARDAR CONTROLE RUA SOBRESSALENTE PARA ARAPOEMA PEÇA ENVIADA: CONTROLE",
    "tipos": [
     "Remanejamento de peça",
@@ -2832,23 +2958,23 @@
   },
   {
    "data": "2026-07-20",
-   "datado": false,
-   "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO",
+   "datado": true,
+   "como_datou": "escrita no texto",
+   "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA , DEVIDO AO ERRO NA INSTALAÇÃO E O FURTO",
    "tipos": [
-    "Entrega do material ao COCM",
-    "Despacho para execução",
-    "Cobrança de registro do campo"
+    "Compra ou reforma: seleção e andamento"
    ],
    "ativos": [
-    "7900117013"
+    "5858783119"
    ],
    "ss": [
-    "ETO-COEP 84/2026"
+    "ETO-COEP 123/2025"
    ]
   },
   {
    "data": "2026-07-20",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "PREVISÃO DE ENTREGA AOS COCM'S 01/07",
    "tipos": [
     "Despacho para execução"
@@ -2862,22 +2988,8 @@
   },
   {
    "data": "2026-07-20",
-   "datado": false,
-   "texto": "EQUIPAMENTO EM ROTA DE ENTREGA",
-   "tipos": [
-    "Acompanhamento da logística"
-   ],
-   "ativos": [
-    "5844630060"
-   ],
-   "ss": [
-    "ETO-COEP 167/2025",
-    "ETO-RD-AR 1168/2026"
-   ]
-  },
-  {
-   "data": "2026-07-20",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2892,6 +3004,7 @@
   {
    "data": "2026-07-20",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE , FAVOR EDITAR A SS COM A DATA PREVISTA DE SUBSTITUIÇÃO NO",
    "tipos": [
     "Entrega do material ao COCM"
@@ -2906,6 +3019,7 @@
   {
    "data": "2026-07-20",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -2920,6 +3034,7 @@
   {
    "data": "2026-07-20",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "equipamento entre aos cocms. aguardando a previsão de substituição na planilha e substituição depois seguir com o fluxo. descreverr a atividade realizada e data passa para proteção com laaudo e depois comissicionar",
    "tipos": [
     "Acompanhamento da logística",
@@ -2936,6 +3051,7 @@
   {
    "data": "2026-07-22",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S PRAZO DE 7 DIAS CONTANDO O SLA",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2951,6 +3067,7 @@
   {
    "data": "2026-07-22",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR SUSBSTTUIR , E AGUARDO O PRAZO DE PREVISÃO DE SUBSTIUIÇÃO",
    "tipos": [
     "Entrega do material ao COCM",
@@ -2966,6 +3083,7 @@
   {
    "data": "2026-07-24",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGISTICA DE ENTREGA",
    "tipos": [
     "Acompanhamento da logística"
@@ -2980,6 +3098,7 @@
   {
    "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FIZEMOS UMA VISITA AO EQUIPAMENTO , EQUIPAMENTO SE ENCONTRA EM OPERAÇÃO E SEM SINAL DE AVARIA FAVOR AVALIAR",
    "tipos": [
     "Visita do COEP ao equipamento"
@@ -2993,21 +3112,8 @@
   },
   {
    "data": "2026-07-27",
-   "datado": false,
-   "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA , DEVIDO AO ERRO NA INSTALAÇÃO E O FURTO",
-   "tipos": [
-    "Compra ou reforma: seleção e andamento"
-   ],
-   "ativos": [
-    "5858783119"
-   ],
-   "ss": [
-    "ETO-COEP 123/2025"
-   ]
-  },
-  {
-   "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA , PORÉM PODEMOS DESATIVAR DE ACORDO COM A ASPO",
    "tipos": [
     "Compra ou reforma: seleção e andamento",
@@ -3024,6 +3130,7 @@
   {
    "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "PEÇAS REDIRECIONADAS 5856070091 PRIORIDADE MAIOR",
    "tipos": [
     "Remanejamento de peça",
@@ -3039,6 +3146,7 @@
   {
    "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EM PROCESSO DE AQUISIÇÃO",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -3053,6 +3161,7 @@
   {
    "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EM PROCESSO DE AQUISIÇÃO , COMPLETO",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -3067,6 +3176,7 @@
   {
    "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EM PROCESSO DE AQUISIÇÃO",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -3081,6 +3191,7 @@
   {
    "data": "2026-07-27",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "TANQUE DANIFICADO DA 13,5",
    "tipos": [],
    "ativos": [
@@ -3093,6 +3204,7 @@
   {
    "data": "2026-07-28",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA COMPRA Equipamento baypassado",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -3107,6 +3219,7 @@
   {
    "data": "2026-08-12",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "COCM´S ,FAVOR SUBSTITUIR TRANSFORMADOR FURTADO NOTA: DMSL ABRIU NOTA ERRADO PARA O COEP",
    "tipos": [
     "Despacho para execução",
@@ -3122,6 +3235,7 @@
   {
    "data": "2026-08-12",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "ETO-TELE ABRIU ERRADO , MELHORIA DE ATERRAMENTO DEVERA SER ABERTO DIRETO PARA OS COCM´S ASSIM COMO AS DA CHAVE FACA",
    "tipos": [
     "Despacho para execução",
@@ -3137,6 +3251,7 @@
   {
    "data": "2026-08-13",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO FOI TROCADO A PEÇA , CONFIRMAMOS COM O LEONARDO DE ARAGUAÍNA , LAUDO EM ANEXO , FAVOR REALIZAR COMISSIONAMENTO",
    "tipos": [
     "Despacho para execução",
@@ -3152,6 +3267,7 @@
   {
    "data": "2026-08-13",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "PROBLEMA NO ENVIO COCM'S CONTROLE ENVIADO FOI O NOJA , DEVIDO A FALTA DO MODELO NA SS (GRAVE)",
    "tipos": [
     "Acompanhamento da logística",
@@ -3167,6 +3283,23 @@
   {
    "data": "2026-08-24",
    "datado": true,
+   "como_datou": "escrita no texto",
+   "texto": "EQUIPAMETO SELECIONADO PARA COMPRA (POSSÍVEL REFORMA DO CONTROLE)",
+   "tipos": [
+    "Compra ou reforma: seleção e andamento"
+   ],
+   "ativos": [
+    "5803327001"
+   ],
+   "ss": [
+    "DOLP-RD-PA 971/2026",
+    "ETO-COEP 149/2026"
+   ]
+  },
+  {
+   "data": "2026-08-24",
+   "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA REFORMA Substituir as 3 células - Melhoria na malha de aterramento - Melhoria no circuito de aterramento qua aterra as células . - Substituir conectores paralelos",
    "tipos": [
     "Compra ou reforma: seleção e andamento",
@@ -3182,6 +3315,23 @@
   {
    "data": "2026-08-24",
    "datado": true,
+   "como_datou": "escrita no texto",
+   "texto": "EQUIPAMENTO EM LOGISTICA PENDENTE DE ABERTURA DE OBRA PARA REQUISIÇÃO DO MATERIAL POR PARTE DOS COCM´S",
+   "tipos": [
+    "Acompanhamento da logística",
+    "Despacho para execução"
+   ],
+   "ativos": [
+    "5800440256"
+   ],
+   "ss": [
+    "ETO-COEP 169/2026"
+   ]
+  },
+  {
+   "data": "2026-08-24",
+   "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "REPASSANDO PARA OS COCM´S PARA FAZEREM A MELHORIA DE ATERRAMENTO",
    "tipos": [
     "Despacho para execução"
@@ -3196,6 +3346,7 @@
   {
    "data": "2026-09-01",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "TROCA DE CHAVE FACA É DIRETAMENTE COM OS COCM´S",
    "tipos": [
     "Despacho para execução",
@@ -3211,6 +3362,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO SELECIONADO PARA REFORMA",
    "tipos": [
     "Compra ou reforma: seleção e andamento"
@@ -3225,6 +3377,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGÍSTICA/ 1 Controle rua de são bento do Tocantins",
    "tipos": [
     "Acompanhamento da logística"
@@ -3239,6 +3392,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGISTICA , UTILIZAREMOS 1/2 CÉLULAS QUE ESTAVAM COM DIONES",
    "tipos": [
     "Acompanhamento da logística",
@@ -3254,6 +3408,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGISTICA UTILIZAREMOS 1 DE 2 CELULAS QUE ESTÃO COM DIONES",
    "tipos": [
     "Acompanhamento da logística",
@@ -3269,6 +3424,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FEITO O REPASSE ERRADO SUBSTIUIR CHAVE FACA",
    "tipos": [
     "Despacho para execução",
@@ -3284,6 +3440,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGÍSTICA UTILIZAREMOS O CONTROLE QUE ESTÃO SOBRESSALENTES NO ESTOQUE DA DOLP , CONFIRMADO COM O LEANDRO E O MAURICIO SOUZA",
    "tipos": [
     "Acompanhamento da logística",
@@ -3300,6 +3457,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FOI CONFIRMADO COM A EDNA QUE O EQUIPAMENTO NÃO ESTÁ COMUNICANDO , CONFERIR SE REALMENTE A PLACA FOI SUBSTITUÍDA",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -3314,6 +3472,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "MELHORIA DE ATERRAMENTO É COM OS COCM´S /STATUS EM LOGISTICA/ REPASSANDO AOS COCM´S PARA QUE ELES POSSAM FAZER A MELHORIA DE ATERRAMENTO NOVAMENTE",
    "tipos": [
     "Acompanhamento da logística",
@@ -3330,6 +3489,7 @@
   {
    "data": "2026-09-04",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGISTICA , AGUARDANDO A GERAÇÃO DE OBRA EM ABERTURA CONTÁBIL PELO COCM",
    "tipos": [
     "Acompanhamento da logística",
@@ -3345,6 +3505,7 @@
   {
    "data": "2026-09-07",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FOI ALINHADO COM OS COCM´S , VOU REPASSAR A SS",
    "tipos": [
     "Despacho para execução",
@@ -3358,23 +3519,9 @@
    ]
   },
   {
-   "data": "2026-09-07",
-   "datado": false,
-   "texto": "EQUIPAMENTO EM LOGISTICA PENDENTE DE ABERTURA DE OBRA PARA REQUISIÇÃO DO MATERIAL POR PARTE DOS COCM´S",
-   "tipos": [
-    "Acompanhamento da logística",
-    "Despacho para execução"
-   ],
-   "ativos": [
-    "5800440256"
-   ],
-   "ss": [
-    "ETO-COEP 169/2026"
-   ]
-  },
-  {
    "data": "2026-09-11",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FOI ALINHADO COM O KELLITON QUE ESSA SS SERÁ ABERTA NO TRAFO AUXILIAR AO INVES DO RL E QUE SERÁ SUBSTITÍDO NO MÁXIMO ATÉ TERÇA FEIRA",
    "tipos": [
     "Alinhamento e cobrança de prazo"
@@ -3389,6 +3536,7 @@
   {
    "data": "2026-09-11",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FOI ALINHADO COM O LEANDRO QUE UTILIZAMOS AS DUAS CELULAS PRA OUTRA OBRA DE CONSTRUÇÃO LOGO NÃO VAMOS CONSEGUIR MANUTENCIONAR ESSE RT ESSE ANO",
    "tipos": [
     "Alinhamento e cobrança de prazo",
@@ -3404,6 +3552,7 @@
   {
    "data": "2026-09-11",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "CONFORME ALINHADO COM LEONARDO SANTOS DA SILVA 11/09/2026 PEGAREMOS O Controle do 7903569004 e colocar no 7923673004",
    "tipos": [
     "Remanejamento de peça",
@@ -3419,6 +3568,7 @@
   {
    "data": "2026-09-11",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "PRECISAREMOS DO RL DA 13 COMPLETO JÁ QUE USAREMOS O CONTROLE DESSE EQUIPAMENTO PARA CONSERTAR O 7923673004",
    "tipos": [
     "Remanejamento de peça"
@@ -3433,6 +3583,7 @@
   {
    "data": "2026-09-14",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "CONTROLE JÁ ENTREGUE , REPASSANDO PARA O COCM PARA FAZEREM A SUBSTITUIÇÃO EMD 520501",
    "tipos": [
     "Entrega do material ao COCM",
@@ -3448,23 +3599,9 @@
    ]
   },
   {
-   "data": "2026-09-14",
-   "datado": false,
-   "texto": "EQUIPAMETO SELECIONADO PARA COMPRA (POSSÍVEL REFORMA DO CONTROLE)",
-   "tipos": [
-    "Compra ou reforma: seleção e andamento"
-   ],
-   "ativos": [
-    "5803327001"
-   ],
-   "ss": [
-    "DOLP-RD-PA 971/2026",
-    "ETO-COEP 149/2026"
-   ]
-  },
-  {
    "data": "2026-09-16",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM LOGISTICA NOTA:SUBSTITUIR CONTROLE , CONFORME ALINHADO COM O LEANDRO , CONTROLE CÓDIGO 6900017",
    "tipos": [
     "Acompanhamento da logística",
@@ -3481,6 +3618,7 @@
   {
    "data": "2026-09-16",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "Substituir a parte ativa, equipe esteve no local dia 06/08/2026",
    "tipos": [
     "Despacho para execução"
@@ -3495,6 +3633,7 @@
   {
    "data": "2026-09-16",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "Necessita substituição do RL 7954668084 , equipe esteve em campo em 14/07/2026",
    "tipos": [],
    "ativos": [
@@ -3507,6 +3646,7 @@
   {
    "data": "2026-09-16",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO EM PROCESSO DE AQUISIÇÃO STATUS : PREVISÃO DE SUBSTITUIÇÃO ATÉ DIA 13/11/2026",
    "tipos": [
     "Compra ou reforma: seleção e andamento",
@@ -3522,6 +3662,7 @@
   {
    "data": "2026-09-17",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "EQUIPAMENTO JÁ ERA PRA TER SIDO RESOLVIDO PELOS COCM´S, NO ENTANTO ,ALINHAMOS DO DIA 11/09 COM KELLITON PARA REALIZAR A SUBSTITUIÇÃO DO TRAFO AUXILIAR",
    "tipos": [
     "Despacho para execução",
@@ -3537,6 +3678,7 @@
   {
    "data": "2026-09-18",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "FOI CONFIRMADO COMO COI QUE O EQUIPAMENTO ESTÁ EM OPERAÇÃO, E-MAIL COM ASSUNTO",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -3551,6 +3693,7 @@
   {
    "data": "2026-09-18",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "REPASSANDO PARA O POSTO DOS COCM´S PARA DEVIDA TRATATIVA , NECESSITA APENAS CONEXÃO MT",
    "tipos": [
     "Despacho para execução"
@@ -3565,6 +3708,7 @@
   {
    "data": "2026-09-18",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "ABERTURA INCORRETA PARA O POSTO DO COEP POR PARTE DO COI , REPASSANDO AO DMSL PARA FAZER O PRIMEIRO ATAQUE",
    "tipos": [
     "Triagem do que não é do COEP"
@@ -3575,12 +3719,28 @@
    "ss": [
     "ETO-COEP 199/2026"
    ]
+  },
+  {
+   "data": "2026-09-23",
+   "datado": false,
+   "como_datou": "entre 19/08 e 23/09 (exports)",
+   "texto": "SUBSTITUIR PARTE ATIVA",
+   "tipos": [
+    "Despacho para execução"
+   ],
+   "ativos": [
+    "7900525015"
+   ],
+   "ss": [
+    "ETO-COEP 125/2026"
+   ]
   }
  ],
  "pareceres_dcmd": [
   {
-   "data": "2025-02-14",
+   "data": "2025-02-18",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento substituido dia 12/02",
    "tipos": [],
    "ativos": [
@@ -3593,6 +3753,7 @@
   {
    "data": "2025-03-11",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Foi realizado a substituição do tanque",
    "tipos": [],
    "ativos": [
@@ -3605,6 +3766,7 @@
   {
    "data": "2025-03-13",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FAVOR ANEXAR FOTOS DAS PLACAS DAS TRES CELULAS DO RT. INFORMAÇÕES NECESSARIAS PARA ELABORAÇÃO DO ESTUDO DE PROTEÇÃO",
    "tipos": [],
    "ativos": [
@@ -3617,6 +3779,7 @@
   {
    "data": "2025-04-02",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Substituição de controle sob responsabilidade do DMSL",
    "tipos": [],
    "ativos": [
@@ -3629,6 +3792,7 @@
   {
    "data": "2025-04-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Religador 7957019003 esta instalado corretamente, trafo auxiliar lado da fonte",
    "tipos": [],
    "ativos": [
@@ -3641,6 +3805,7 @@
   {
    "data": "2025-05-28",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Substituida as 06 Chaves do RL Fotos em Anexo",
    "tipos": [],
    "ativos": [
@@ -3653,6 +3818,7 @@
   {
    "data": "2025-07-03",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO SUBSTITUIDO",
    "tipos": [],
    "ativos": [
@@ -3665,6 +3831,7 @@
   {
    "data": "2025-07-28",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Fotos vão ser enviadas por e-mail",
    "tipos": [],
    "ativos": [
@@ -3676,22 +3843,9 @@
    ]
   },
   {
-   "data": "2025-07-29",
-   "datado": false,
-   "texto": "Equipamento disponível para retirada no depósito da ENECOL em Araguaína",
-   "tipos": [
-    "Acompanhamento da logística"
-   ],
-   "ativos": [
-    "5840203077"
-   ],
-   "ss": [
-    "ETO-TELE 850/2025"
-   ]
-  },
-  {
    "data": "2025-08-04",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "JÁ FOI SUBSTITUIDO TODAS AS TRÊS CÉLULAS",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -3706,6 +3860,7 @@
   {
    "data": "2025-09-23",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Equipamento disponível para retirada no depósito da ENECOL em Guaraí",
    "tipos": [
     "Acompanhamento da logística"
@@ -3718,8 +3873,24 @@
    ]
   },
   {
+   "data": "2025-10-01",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Equipamento disponível para retirada no depósito da ENECOL em Araguaína",
+   "tipos": [
+    "Acompanhamento da logística"
+   ],
+   "ativos": [
+    "5840203077"
+   ],
+   "ss": [
+    "ETO-TELE 850/2025"
+   ]
+  },
+  {
    "data": "2025-10-14",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "ATIVIDADE DE SUBSTITUIÇÃO DE CH FACA E INCLINAÇÃO DAS CHAVES JÁ FOI EXECUTADA PELA EQUIPE DE LINHA-VIVA",
    "tipos": [],
    "ativos": [
@@ -3733,6 +3904,7 @@
   {
    "data": "2025-10-28",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "foi realizado a troca do tanque fase A",
    "tipos": [],
    "ativos": [
@@ -3745,6 +3917,7 @@
   {
    "data": "2026-01-13",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "foi feito a mudança de lugar do religador conforme solicitado o mesmo ja esta cadastrado no local novo",
    "tipos": [],
    "ativos": [
@@ -3755,8 +3928,9 @@
    ]
   },
   {
-   "data": "2026-02-23",
+   "data": "2026-02-24",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FOI INSTALADO O TRAFO DIA 06/02",
    "tipos": [],
    "ativos": [
@@ -3769,6 +3943,7 @@
   {
    "data": "2026-03-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "técnico de obras Elismar informou que o controle já foi instalado em campo",
    "tipos": [],
    "ativos": [
@@ -3779,20 +3954,9 @@
    ]
   },
   {
-   "data": "2026-03-12",
-   "datado": false,
-   "texto": "Foi realizado correção no aterrmanento",
-   "tipos": [],
-   "ativos": [
-    "7965032004"
-   ],
-   "ss": [
-    "ETO-TELE 361/2026"
-   ]
-  },
-  {
    "data": "2026-03-23",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Foi realizado a substituição do tanque religador no dia 19-03-2026",
    "tipos": [],
    "ativos": [
@@ -3805,6 +3969,7 @@
   {
    "data": "2026-03-23",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Essas chaves foram todas realizadas manutenção e substituidas as que precisavam serem substituidas. foram atendidas pelas SS: ENC-RD-PS 290 E 291/2026",
    "tipos": [],
    "ativos": [
@@ -3815,8 +3980,22 @@
    ]
   },
   {
+   "data": "2026-03-23",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Foi realizado correção no aterrmanento",
+   "tipos": [],
+   "ativos": [
+    "7965032004"
+   ],
+   "ss": [
+    "ETO-TELE 361/2026"
+   ]
+  },
+  {
    "data": "2026-03-26",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "SS REPASSADA PARA COEP PROVIDENCIAR MATERIAL. NÃO TEMOS O MATERIAL EM ESTOQUE PARA SUBSTITUIÇÃO",
    "tipos": [],
    "ativos": [
@@ -3831,6 +4010,7 @@
   {
    "data": "2026-03-26",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FOI SUBSTITUIDO A CELULA FASE B",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -3845,6 +4025,7 @@
   {
    "data": "2026-04-28",
    "datado": true,
+   "como_datou": "escrita no texto",
    "texto": "Foi realizado a melhoria de aterramento e manutenção em todas as chaves conforme solicitado",
    "tipos": [],
    "ativos": [
@@ -3857,6 +4038,7 @@
   {
    "data": "2026-05-04",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "todas as chaves já foram conferidas e manutencionadas",
    "tipos": [],
    "ativos": [
@@ -3867,20 +4049,9 @@
    ]
   },
   {
-   "data": "2026-05-05",
-   "datado": false,
-   "texto": "foi feito a melhoria da malha de aterramento",
-   "tipos": [],
-   "ativos": [
-    "5851753086"
-   ],
-   "ss": [
-    "ETO-RD-PS 198/2026"
-   ]
-  },
-  {
    "data": "2026-05-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "TODAS AS CHAVES FORAM CONFERIDAS NOVAMENTE E REGULADAS",
    "tipos": [],
    "ativos": [
@@ -3893,6 +4064,7 @@
   {
    "data": "2026-05-15",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO SUBSTITUIDO NO DIA 14/05/2026",
    "tipos": [],
    "ativos": [
@@ -3905,6 +4077,7 @@
   {
    "data": "2026-05-27",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPAMENTO SUBSTITUIDO DIA 27/05/2026 LAUDO EM ANEXO",
    "tipos": [],
    "ativos": [
@@ -3917,6 +4090,7 @@
   {
    "data": "2026-06-01",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Servio realizado , favor comissionar Obra: 0712600316",
    "tipos": [],
    "ativos": [
@@ -3929,6 +4103,7 @@
   {
    "data": "2026-06-02",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FEITO MELHORIA NA MALHA DO ATERRAMENTO, FAVOR",
    "tipos": [],
    "ativos": [
@@ -3939,8 +4114,9 @@
    ]
   },
   {
-   "data": "2026-06-02",
+   "data": "2026-06-10",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "Serviço realizado , substituição da caixa de controle do RELIGADOR 7934698002 - Favor realizar comissionamento OBS:DMSL levar rádio e cabo da antena !",
    "tipos": [
     "Despacho para execução"
@@ -3953,22 +4129,22 @@
    ]
   },
   {
-   "data": "2026-06-10",
+   "data": "2026-06-25",
    "datado": false,
-   "texto": "Serviço realizado , substituição da parte ativa do RELIGADOR 7943790134 - Favor realizar comissionamento",
-   "tipos": [
-    "Despacho para execução"
-   ],
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "foi feito a melhoria da malha de aterramento",
+   "tipos": [],
    "ativos": [
-    "7943790134"
+    "5851753086"
    ],
    "ss": [
-    "ETO-TELE 896/2026"
+    "ETO-RD-PS 198/2026"
    ]
   },
   {
    "data": "2026-07-08",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "EQUIPE ETO-LVGR01 DE GUARAI ESTEVE NO RL 7900230155 DIA 25-06-2026 E FEZ TODAS A PENDENCIAS DO RL, OBS: EQUIPE SO NAO CONECTOU O CABO DO TRAFO NO RL. RL ESTA PRONTO PARA O COMISSIONAMENTO",
    "tipos": [],
    "ativos": [
@@ -3981,6 +4157,7 @@
   {
    "data": "2026-07-27",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "MELHORIA DE ATERRAMENTO REALIZADA (05/06/2026) VOU MANDAR AS EVIDÊNCIAS PARA EDNA E PARA O JOHN PAUL (JOÃO ANTONIO LAGARES )",
    "tipos": [],
    "ativos": [
@@ -3993,6 +4170,7 @@
   {
    "data": "2026-07-28",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "FOI INSTALADO O CONTROLE E A ANTENA NO REGULADOR CONFORME SOLICITADO. FOI ANEXADO AS FOTOS NA SS",
    "tipos": [],
    "ativos": [
@@ -4005,20 +4183,7 @@
   {
    "data": "2026-07-28",
    "datado": false,
-   "texto": "FOI REALIZADO A SUBSTITUIÇÃO DA CHAVE FACA FASE C CONFORME SOLICITADO NA DATA DE 01/07/2026 - FAVOR REALIZAR COMISSIONAMENTO",
-   "tipos": [
-    "Despacho para execução"
-   ],
-   "ativos": [
-    "7967181127"
-   ],
-   "ss": [
-    "ETO-TELE 1035/2026"
-   ]
-  },
-  {
-   "data": "2026-07-28",
-   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "foi substituido célula 23/07/2026. o mesmo está liberado para ser colocado em operação",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -4033,6 +4198,7 @@
   {
    "data": "2026-07-30",
    "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
    "texto": "foi substituido célula 30/07/2026. o mesmo está liberado para ser colocado em operação",
    "tipos": [
     "Confirmação de execução ou operação"
@@ -4042,6 +4208,36 @@
    ],
    "ss": [
     "ETO-RD-AR 1169/2026"
+   ]
+  },
+  {
+   "data": "2026-08-13",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "FOI REALIZADO A SUBSTITUIÇÃO DA CHAVE FACA FASE C CONFORME SOLICITADO NA DATA DE 01/07/2026 - FAVOR REALIZAR COMISSIONAMENTO",
+   "tipos": [
+    "Despacho para execução"
+   ],
+   "ativos": [
+    "7967181127"
+   ],
+   "ss": [
+    "ETO-TELE 1035/2026"
+   ]
+  },
+  {
+   "data": "2026-08-27",
+   "datado": false,
+   "como_datou": "saída da SS (repasse ou conclusão)",
+   "texto": "Serviço realizado , substituição da parte ativa do RELIGADOR 7943790134 - Favor realizar comissionamento",
+   "tipos": [
+    "Despacho para execução"
+   ],
+   "ativos": [
+    "7943790134"
+   ],
+   "ss": [
+    "ETO-TELE 896/2026"
    ]
   }
  ]

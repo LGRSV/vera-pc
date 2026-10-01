@@ -1,0 +1,90 @@
+{
+ "lotes": [
+  {
+   "lote": 1,
+   "arquivo": ".analise/retro2026/lote01.txt",
+   "demandas": 12,
+   "kb": 52,
+   "n_ativos": 10
+  },
+  {
+   "lote": 2,
+   "arquivo": ".analise/retro2026/lote02.txt",
+   "demandas": 13,
+   "kb": 51,
+   "n_ativos": 12
+  },
+  {
+   "lote": 3,
+   "arquivo": ".analise/retro2026/lote03.txt",
+   "demandas": 11,
+   "kb": 51,
+   "n_ativos": 11
+  },
+  {
+   "lote": 4,
+   "arquivo": ".analise/retro2026/lote04.txt",
+   "demandas": 12,
+   "kb": 52,
+   "n_ativos": 12
+  },
+  {
+   "lote": 5,
+   "arquivo": ".analise/retro2026/lote05.txt",
+   "demandas": 16,
+   "kb": 54,
+   "n_ativos": 13
+  },
+  {
+   "lote": 6,
+   "arquivo": ".analise/retro2026/lote06.txt",
+   "demandas": 16,
+   "kb": 55,
+   "n_ativos": 11
+  },
+  {
+   "lote": 7,
+   "arquivo": ".analise/retro2026/lote07.txt",
+   "demandas": 14,
+   "kb": 51,
+   "n_ativos": 12
+  },
+  {
+   "lote": 8,
+   "arquivo": ".analise/retro2026/lote08.txt",
+   "demandas": 18,
+   "kb": 57,
+   "n_ativos": 15
+  },
+  {
+   "lote": 9,
+   "arquivo": ".analise/retro2026/lote09.txt",
+   "demandas": 11,
+   "kb": 51,
+   "n_ativos": 9
+  },
+  {
+   "lote": 10,
+   "arquivo": ".analise/retro2026/lote10.txt",
+   "demandas": 15,
+   "kb": 52,
+   "n_ativos": 15
+  },
+  {
+   "lote": 11,
+   "arquivo": ".analise/retro2026/lote11.txt",
+   "demandas": 16,
+   "kb": 55,
+   "n_ativos": 13
+  },
+  {
+   "lote": 12,
+   "arquivo": ".analise/retro2026/lote12.txt",
+   "demandas": 6,
+   "kb": 23,
+   "n_ativos": 6
+  }
+ ],
+ "total_ativos": 139,
+ "total_demandas": 160
+}

@@ -14,3 +14,6 @@ scratchpad/
 
 # arquivo temporario do gravador da revisao (um por put, sem valor historico)
 .analise/*/ferramentas/_put.json
+
+# rascunho dos agentes da análise (um JSON por ativo antes do put; o que vale está em ck/dados)
+.analise/*/tmp/

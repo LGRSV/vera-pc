@@ -1,0 +1,593 @@
+====================================================================================================
+ATIVO 7913662076  (RELIGADOR · 076 · alimentador AL01031076)
+====================================================================================================
+Gestão COEP 5 (28/09): criticidade «Baixa», status «Avaliar compra»
+ROL DE FALHAS: RL 2026 · peça tanque · ocorrência 08/06/2026 · SS ETO-COEP 114/2026 · troca: sem troca registrada (em aberto, prazo estourado; )
+
+HISTÓRICO COMPLETO DO ATIVO — 4 demandas desde 2024
+   ETO-TELE 547/2025 · aberta 25/05/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Religador de poste 7913662076 com falha na comunição feito primeiro ataque equipe de campo 076op02 o mesmo não retorno a comunicação fechado pela chave de by pass»
+   ETO-PROT 29/2026 · aberta 23/01/2026 · 1 SS · PROT · última: SS ATENDIDA (ETO-PROT) · AVISO PROTEÇÃO & SELETIVIDADE
+        último texto: «favor enviar equipe para verificar religador 7913662076 o mesmo estava intermitente e teve evento de cabo rompido a jusante , vindo a desarmar o DJ 214R penalizando cargas da rdu de DUERE. Parecer da Proteção: Equipamento retirado de operação com defeito. Eng° Irlley Castelo Bran…»
+   ETO-TELE 645/2026 · aberta 13/04/2026 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «REALIZAR SUBSTITUIÇÃO DE BATERIA»
+   ETO-RD-GU 604/2026 · aberta 08/06/2026 · 3 SS · RD-GU → TELE → COEP · última: SS PENDENTE (ETO-COEP) · ANOMALIA EM RELIGADOR   >>> A ANALISAR
+
+  >>> DEMANDA 1 — cabeça ETO-RD-GU 604/2026, aberta 08/06/2026 (ocorrência 08/06/2026), 3 SS
+      ORIGEM: aberta em 2026
+
+    --- ETO-RD-GU 604/2026 | ETO-RD-GU | SS REPASSADA | ANOMALIA EM RELIGADOR
+        chegou 08/06/2026 15:48 (cabeça: data de ocorrência) · repassada em 08/06/2026 17:19 para ETO-TELE · 0 dias no posto
+        base SS/OS (20/08): sem OS · equipe ETO-RD-GU · tipo ANOMALIA EM RELIGADOR
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «Aberto nota para substituir tanque danificado e chave de entrada fase B danificada»
+
+    --- ETO-TELE 894/2026 | ETO-TELE | SS REPASSADA | ANOMALIA EM RELIGADOR
+        chegou 08/06/2026 17:19 · repassada em 10/06/2026 15:50 para ETO-COEP · 1 dias no posto
+        veio de ETO-RD-GU 604/2026 (ETO-RD-GU)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo ANOMALIA EM RELIGADOR
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «PARECER DMSL: Foi confirmado pela equipe DMSL o defeito do tanque, favor seguir com a substituição e correção da chave de entrada fase B danificada.»
+
+    --- ETO-COEP 114/2026 | ETO-COEP | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 10/06/2026 15:50 · SEGUE PENDENTE neste posto na posição da base · 105 dias no posto até 23/09
+        veio de ETO-TELE 894/2026 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 27/07 PARECER COEP
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «27/07 PARECER COEP: TANQUE DANIFICADO DA 13,5»
+
+
+====================================================================================================
+ATIVO 7915029003  (RELIGADOR · 003 · alimentador AL01040003)
+====================================================================================================
+
+HISTÓRICO COMPLETO DO ATIVO — 5 demandas desde 2024
+   ETO-TELE 90/2023 · aberta 07/01/2023 · 2 SS · TELE → COEP · última: SS PENDENTE (ETO-COEP) · AVISO DE ANOMALIA   >>> A ANALISAR
+   ETO-TELE 399/2023 · aberta 15/06/2023 · 2 SS · TELE → COEP · última: SS PENDENTE (ETO-COEP) · ANOMALIA EM RELIGADOR   >>> A ANALISAR
+   ETO-TELE 19/2024 · aberta 10/01/2024 · 1 SS · TELE · última: SS CANCELADA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «SEGUE SS PARA VERIFICAR INTERMITENCIA NA COMUNICAÇÃO DOS RELIGADORES NA RDU DE GURUPI. EXECUTADO O PRIMEIRO ATAQUE POREM SITUAÇÃO AINDA PESSISTE. POR GENTILEZA VERIFICAR.»
+   ETO-TELE 74/2024 · aberta 26/01/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «Realizar instalação de um novo mestre 4RF na torre da SE Gurupi Industrial, realizar apontamento dos Religadores da RDU de Gurupi para o novo mestre.»
+   ETO-TELE 113/2026 · aberta 06/01/2026 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «REALIZAR TROCA DE BATERIA DO EQUIPAMENTO»
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 90/2023, aberta 07/01/2023 (ocorrência 07/01/2023), 2 SS
+      ORIGEM: aberta em 2023 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 90/2023 | ETO-TELE | SS REPASSADA | AVISO DE ANOMALIA
+        chegou 07/01/2023 01:55 (cabeça: data de ocorrência) · repassada em 27/01/2023 15:39 para ETO-COEP · 20 dias no posto
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «Favor remanejar o equipamento que se encontra em frente a prédio na RDU de Gurupi, impossibilitando visada de comunicação com o mestre que atenda as necessidades do COI, assunto tratado por e-mail»
+
+    --- ETO-COEP 13/2023 | ETO-COEP | SS PENDENTE | OBRAS (NOVOS EQUIPAMENTOS)
+        chegou 27/01/2023 15:39 · SEGUE PENDENTE neste posto na posição da base · 1335 dias no posto até 23/09
+        veio de ETO-TELE 90/2023 (ETO-TELE)
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+  >>> DEMANDA 2 — cabeça ETO-TELE 399/2023, aberta 15/06/2023 (ocorrência 15/06/2023), 2 SS
+      ORIGEM: aberta em 2023 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 399/2023 | ETO-TELE | SS REPASSADA | ANOMALIA EM RELIGADOR
+        chegou 15/06/2023 04:07 (cabeça: data de ocorrência) · repassada em 27/06/2023 12:03 para ETO-COEP · 12 dias no posto
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «Repassado para ETO-COEP 13/2023 Favor remanejar o equipamento que se encontra em frente a prédio na RDU de Gurupi, impossibilitando visada de comunicação com o mestre que atenda as necessidades do COI, assunto tratado por e-mail»
+
+    --- ETO-COEP 63/2023 | ETO-COEP | SS PENDENTE | OBRAS (NOVOS EQUIPAMENTOS)
+        chegou 27/06/2023 12:03 · SEGUE PENDENTE neste posto na posição da base · 1184 dias no posto até 23/09
+        veio de ETO-TELE 399/2023 (ETO-TELE)
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+====================================================================================================
+ATIVO 7919270014  (RELIGADOR · 014 · alimentador LD01047073)
+====================================================================================================
+Gestão COEP 5 (28/09): criticidade «Baixa», status «Avaliar compra»
+ROL DE FALHAS: RL 2026 · peça completo · ocorrência 25/02/2026 · SS ETO-COEP 74/2026 · troca: sem troca registrada (em aberto, prazo estourado; )
+
+HISTÓRICO COMPLETO DO ATIVO — 9 demandas desde 2024
+   ETO-TELE 864/2023 · aberta 25/12/2023 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Enviar equipe para verificar falha de comunicação no RL 7919270014, foi realizado primeiro ataque com a eq. 073OP03, sem sucesso.»
+   ETO-TELE 184/2024 · aberta 01/03/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Segue nota equipes verificar em campo falha religador 7919270014 o mesmo não aceita comando remoto, Equipamento ficou bay-passado em campo até regularização.»
+   ETO-TELE 349/2024 · aberta 13/05/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Solicitação de serviço para manutenção no RL 7919270014, equipamento com falha de automação quando falta CA, sendo necessario envio de equipe para manobras. Equipemanto sem anomalias aparentes.»
+   ETO-TELE 501/2024 · aberta 23/07/2024 · 1 SS · TELE · última: SS CANCELADA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «Bom dia segue SS para substituição de bateria»
+   ETO-TELE 896/2024 · aberta 21/10/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Segue nota para verificar falha de comunicação RL 7919270014- Lagoa da Confusão . OBS: equipamento perde a comunicação quando ha falta de CA .»
+   ETO-TELE 932/2025 · aberta 22/08/2025 · 2 SS · TELE → RD-PS · última: SS ATENDIDA (ETO-RD-PS) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Senhores, segue para conecimento feito primeiro ataque os 100982934, rl 7919270014 o mesmo nao retornou a comunicaçao, favor verificar. PARECER DMSL: "Feedback Equip. Especiais N° do Equipamento: RLG 7919270014 RELÉ COOPER Mestre Rep. Lagoa Confusão GE IP metsre: 19.63.31.61 ID m…»
+   ETO-RD-PS 329/2025 · aberta 27/10/2025 · 2 SS · RD-PS · última: SS ATENDIDA (ENC-RD-PS) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «Favor realizar as seguintes atividades: •Remanejar religador 7919270014 para o local do poste ID# 68921448 - EO 741105; •Substituir chave 3354370073 por chave faca.»
+   ETO-PROT 53/2026 · aberta 25/02/2026 · 6 SS · PROT → TELE → COEP → RD-PS · última: SS PENDENTE (ETO-COEP) · COMISSIONAMENTO   >>> A ANALISAR
+   ETO-TELE 294/2025 · aberta 17/04/2026 · 2 SS · TELE → COEP · última: SS CANCELADA (ETO-COEP) · EM OPERAÇÃO COM ANOMALIA   >>> A ANALISAR
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 294/2025, aberta 17/04/2026 (ocorrência 25/03/2025), 2 SS
+      ORIGEM: aberta em 2026
+
+    --- ETO-TELE 294/2025 | ETO-TELE | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 17/04/2026 09:29 · cancelada em 28/04/2026 14:45 (neste dia, 6 SS de RL/RT canceladas em 3 postos) · 11 dias no posto
+        export: já existia no export de 11/07/2025, com texto MENOR (ganhou texto depois de 11/07/2025)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER DMSL: NÃO FOI POSSIVEL SUBSTITUIR BATERIA DEVIDO A problema na placa de alimentação e na parte ativa, falta colocar placa de identificação correta na topologia, baixar o controle.FAVOR Substituir Equipamento completo Equipe: Kaique/ Benvindo -------------------------------------------------------------------------------------- Segue nota para envia equipes substituir (baterias dos RL, s equipamento com sinalização (B). 7930041122 7927820008 7907467059 7900096059 7907467059 7938139013 7919270014 7900189012 7900238054 7900505026»
+
+    --- ETO-COEP 75/2026 | ETO-COEP | SS CANCELADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 17/04/2026 09:29 · cancelada em 28/04/2026 14:45 (neste dia, 6 SS de RL/RT canceladas em 3 postos) · 11 dias no posto
+        veio de ETO-TELE 294/2025 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+  >>> DEMANDA 2 — cabeça ETO-PROT 53/2026, aberta 25/02/2026 (ocorrência 25/02/2026), 6 SS
+      ORIGEM: aberta em 2026
+
+    --- ETO-PROT 53/2026 | ETO-PROT | SS REPASSADA | COMISSIONAMENTO
+        chegou 25/02/2026 10:44 (cabeça: data de ocorrência) · repassada em 20/03/2026 11:27 para ETO-TELE · 23 dias no posto
+        base SS/OS (20/08): sem OS · equipe ETO-PROT · tipo COMISSIONAMENTO
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER DA PROTEÇÃO: Prosseguir com o comissionamento. Ajustes de religador permanecem os mesmos, disponíveis no APP da Proteção. ******************************** RELIGADOR N°7919270014 REMANEJADO NA OBRA 0212501060 GENTILEZA, REALIZAR O COMISSIONAMENTO. LAUDO EM ANEXO. COORD EO: 617422, 8830787»
+
+    --- ETO-TELE 391/2026 | ETO-TELE | SS REPASSADA | COMISSIONAMENTO
+        chegou 20/03/2026 11:27 · repassada em 17/04/2026 09:11 para ETO-COEP · 27 dias no posto
+        veio de ETO-PROT 53/2026 (ETO-PROT)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo COMISSIONAMENTO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «PARECER DMSL: Substituir Equipamento completo problema na placa de alimentação e na parte ativa, falta colocar placa de identificação correta na topologia, baixar o controle. Equipamento ficou em operação?: nao Pendência: sim Bateria(s) substituída(s)? NÃO Equipe: Kaique/ Benvindo ----------------------------------------------»
+
+    --- ETO-COEP 74/2026 | ETO-COEP | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 17/04/2026 09:11 · repassada em 13/07/2026 15:36 para ETO-TELE · 87 dias no posto
+        veio de ETO-TELE 391/2026 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 13/07/2026 PARECER COEP
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «13/07/2026 PARECER COEP: SUBSTITUIÇÃO REALZIADA , FAVOR COMISSIONAR PARECER COEP: AGUARDANDO RETORNO DO DMSL, EQUIPAMENTO FOI INSTALADO NOVO NA OBRA 0212501060, ENTENDER O PORQUE NÃO FOI REALIZADO COMISSIONAMENTO»
+
+    --- ETO-TELE 1001/2026 | ETO-TELE | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 13/07/2026 15:36 · repassada em 22/07/2026 08:09 para ETO-RD-PS · 8 dias no posto
+        veio de ETO-COEP 74/2026 (ETO-COEP)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 13/07/2026 PARECER COEP · 22/07/26 PARECER DMSL
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «13/07/2026 PARECER COEP: SUBSTITUIÇÃO REALZIADA , FAVOR COMISSIONAR PARECER DMSL (22/07/26): Solicito que o laudo de substituição seja anexado, e a SS seja repassada para proteção atribuir a ordem de ajuste, antes de repassar para ETO-TELE.»
+
+    --- ETO-RD-PS 327/2026 | ETO-RD-PS | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 22/07/2026 08:09 · repassada em 27/07/2026 20:42 para ETO-COEP · 5 dias no posto
+        veio de ETO-TELE 1001/2026 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-PS · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 27/07/2026 PARECER COEP
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «27/07/2026 PARECER COEP: EM PROCESSO DE AQUISIÇÃO , COMPLETO»
+
+    --- ETO-COEP 159/2026 | ETO-COEP | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 27/07/2026 20:42 · SEGUE PENDENTE neste posto na posição da base · 58 dias no posto até 23/09
+        veio de ETO-RD-PS 327/2026 (ETO-RD-PS)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+====================================================================================================
+ATIVO 7920024127  (RELIGADOR · 127 · alimentador LD01084002)
+====================================================================================================
+Gestão COEP 5 (28/09): criticidade «Alta», status «Gerado PMA»
+ROL DE FALHAS: RL 2025 · peça completo · ocorrência 02/06/2025 · SS ETO-COEP 120/2025 · troca: sem troca registrada (em aberto, prazo estourado; )
+
+HISTÓRICO COMPLETO DO ATIVO — 6 demandas desde 2024
+   ETO-RD-AG 481/2023 · aberta 13/04/2023 · 1 SS · RD-AG · última: SS CANCELADA (ETO-RD-AG) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «RL 7920024127 MUDAR ALIMENTAÇÃO AUXILIAR DO RELIGADOR -TRAFO - 5749616127 ESTA A JUSANTE DO RELIGADOR - EQUIPE: 080OP01 (63)99115-3903/99212-6256»
+   ETO-RD-AG 672/2023 · aberta 27/05/2023 · 2 SS · RD-AG → TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «RELIGADOR ESTA ABRINDO EM CAMPO MAS NÃO ESTA SINALIZANDO NO ESCADA.»
+   ETO-RD-AG 786/2023 · aberta 29/06/2023 · 1 SS · RD-AG · última: SS CANCELADA (ETO-RD-AG) · OBRAS (NOVOS EQUIPAMENTOS)
+        último texto: «Conforme e-mail anexado no SGM segue nota para adequação de local do religador 7920024127 que hoje penaliza a torre da Claro em atuações. Remanejar para os Postes ID- 79352746 e Poste ID- 55625758).»
+   ETO-TELE 569/2025 · aberta 02/06/2025 · 2 SS · TELE → COEP · última: SS PENDENTE (ETO-COEP) · EM OPERAÇÃO COM ANOMALIA   >>> A ANALISAR
+   ETO-RD-AG 746/2025 · aberta 02/07/2025 · 2 SS · RD-AG → COEP · última: SS CANCELADA (ETO-COEP) · ANOMALIA EM RELIGADOR
+        último texto: «Rl 7920024127 - Trif. 34,5 KV com PARTE ATIVA COM DEFEITO, POR FAVOR EXECUTAR SUBSITUIÇÃO DO MESMO, EQUIPE DMSL ESTEVE NO LOCAL FEZ TESTES NECESSARIO E IDENTIFICOU ANOMALIA NO TANQUE ACESSO BOM»
+   ETO-TELE 1334/2025 · aberta 21/11/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «Realizar substituição de bateria.»
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 569/2025, aberta 02/06/2025 (ocorrência 02/06/2025), 2 SS
+      ORIGEM: aberta em 2025 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 569/2025 | ETO-TELE | SS REPASSADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 02/06/2025 08:09 (cabeça: data de ocorrência) · repassada em 01/07/2025 14:19 para ETO-COEP · 29 dias no posto
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER DMSL: Após testes, equipe DMSL constatou que o relé e a parte ativa do equipamento 7920024127 estão com defeito, sendo necessária a substituição completa por um modelo NOJA RC 10. Favor, subsituir também a chave de saída da fase A que está com o anel de abertura quebrado. RL 7920024127 está desarmando em campo e no SCADA continua fechado, só sinaliza aberto no SCADA quando a equipe faz o resert no equipamento em campo.»
+
+    --- ETO-COEP 120/2025 | ETO-COEP | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 01/07/2025 14:19 · SEGUE PENDENTE neste posto na posição da base · 449 dias no posto até 23/09
+        veio de ETO-TELE 569/2025 (ETO-TELE)
+        export: já existia no export de 11/07/2025, com texto MENOR (ganhou texto depois de 11/07/2025)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 30/06 PARECER COEP
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «30/06 PARECER COEP: AGUARDANDO O RETORNO DO DMSL , PARA ENTENDER SE O PROBLEMA É NA COMUNICAÇÃO OU PARTE ATIVA, JÁ QUE O EQUIPAMENTO EM QUESTÃO SEGUE COMUNICANDO»
+
+
+====================================================================================================
+ATIVO 7921202014  (RELIGADOR · 014 · alimentador LD01025012)
+====================================================================================================
+Gestão COEP 5 (28/09): criticidade «Baixa», status «Avaliar compra»
+ROL DE FALHAS: RL 2026 · peça tanque · ocorrência 15/02/2026 · SS ETO-COEP 88/2026 · troca: sem troca registrada (em aberto, prazo estourado; )
+
+HISTÓRICO COMPLETO DO ATIVO — 7 demandas desde 2024
+   ETO-TELE 384/2024 · aberta 02/06/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Favor enviar equipe do DMSL para verificar motivo de religador 7921202014 ter ficado invalido Transição e nõa respodeu ao comando de abertura e fechamento,só com equipe no local fechamos o religador e o mesmo não aceitou o comando local da equipe ,pra fechar o mesmo foi necessari…»
+   ETO-TELE 893/2024 · aberta 19/10/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Boa tarde segue SS religador sem comunicação feito o primeiro ataque com equipe do DEOP sem sucesso por priorizar RL ponto importe de manobras.»
+   ETO-TELE 918/2024 · aberta 25/10/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «segue ss para enviar equipe verificar religadores a bastante tempo sem comunicaçao , na regiao de lagoa da confusao ja foi feito primeiro ataque . RL 7921202014 RL 7921205014 RL 7921204014»
+   ETO-TELE 1070/2024 · aberta 26/11/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «segue ss para enviar equipe verificar religadores a bastante tempo sem comunicaçao , na regiao rural de Pium ja foi feito primeiro ataque . RL 7921202014 RL 7921204014»
+   ETO-TELE 6/2026 · aberta 04/01/2026 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «RL 7921202014 RELIAGDOR BY PASSADO EM CAMPO O MESMO FICA INTERMIENTE TODO TEMPO FEITO PRIMEIRO ATAQUE . NAO VOLTOU COMUNICAÇÃO E NAO ACEITA COMANDOS . NECESSARIO VERIFICAÇÃO PARA TRATATIVA RL LINHA CRISTALANDIA A MARIANOPOLIS .»
+   ETO-RD-PA 109/2026 · aberta 15/02/2026 · 6 SS · RD-PA → TELE → RD-PO → COEP · última: SS PENDENTE (ETO-COEP) · INDISPONIBILIDADE PARA OPERAÇÃO   >>> A ANALISAR
+   ETO-TELE 782/2026 · aberta 22/04/2026 · 1 SS · TELE · última: SS CANCELADA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «RELIGADOR BY PASSADO SEM COMUNICAÇÃO, REALIZADO PRIMEIRO ATAQUE SEM SUCESSO.»
+
+  >>> DEMANDA 1 — cabeça ETO-RD-PA 109/2026, aberta 15/02/2026 (ocorrência 15/02/2026), 6 SS
+      ORIGEM: aberta em 2026
+
+    --- ETO-RD-PA 109/2026 | ETO-RD-PA | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 15/02/2026 20:35 (cabeça: data de ocorrência) · repassada em 19/02/2026 11:08 para ETO-TELE · 3 dias no posto
+        base SS/OS (20/08): sem OS · equipe ETO-RD-PA · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «RL com defeito no rele, fica só reiniciando ficou By passado OS atendimento primeiro ataque 106530226»
+
+    --- ETO-TELE 301/2026 | ETO-TELE | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 19/02/2026 11:08 · repassada em 23/04/2026 10:46 para ETO-RD-PO · 62 dias no posto
+        veio de ETO-RD-PA 109/2026 (ETO-RD-PA)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «PARECER DMSL: Serviço Executado: _ indentificado o problema na parte ativa será necessário fazer a substituição da mesmo, feito a medição do aterramento. Preciso substituir para raio da fase c. Equipamento ficou em operação?: _NAO Pendência: _Sim Bateria(s) substituída(s)? _Não Data Fabricação/Instalação da(s) bateria(s):_ Equipe: _Benvindo e kaique ----------------------------------------------------------------------------------»
+
+    --- ETO-RD-PO 119/2026 | ETO-RD-PO | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 23/04/2026 10:46 · repassada em 28/04/2026 14:49 para ETO-COEP · 5 dias no posto
+        veio de ETO-TELE 301/2026 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-PO · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-COEP 88/2026 | ETO-COEP | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 28/04/2026 14:49 · repassada em 29/06/2026 18:36 para ETO-TELE · 62 dias no posto
+        veio de ETO-RD-PO 119/2026 (ETO-RD-PO)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «PARECER COEP: PROBLEMA IDENTIFICADO É NA PARTE ATIVA? OU NO RELIGADOR? FAVOR VERIFICAR SE EQUIPAMENTO ESTÁ EM OPERAÇÃO NO SCADA, OU SE É NECESSARIO APENAS A MELHORIA DE ATERRAMENTO»
+
+    --- ETO-TELE 972/2026 | ETO-TELE | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 29/06/2026 18:36 · repassada em 08/07/2026 10:15 para ETO-COEP · 8 dias no posto
+        veio de ETO-COEP 88/2026 (ETO-COEP)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-COEP 132/2026 | ETO-COEP | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 08/07/2026 10:15 · SEGUE PENDENTE neste posto na posição da base · 77 dias no posto até 23/09
+        veio de ETO-TELE 972/2026 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «EQUIPAMENTO SELECIONADO PARA COMPRA , DEVERIA SER SUBSTITUIDO ¦ ATIVA»
+
+
+====================================================================================================
+ATIVO 7922995039  (RELIGADOR · 039 · alimentador AL03109039)
+====================================================================================================
+ROL DE FALHAS: RL 2025 · peça completo · ocorrência 29/05/2025 · SS ETO-TELE 555/2025 · troca: 29/06/2026 (trocada fora do prazo; texto em ETO-COEP 179/2025 (saída da SS): «…PARECER COEP: EQUIPAMENTO EM OPERAÇÃO, INSTALADO COM SUCESSO, SEGUE PARA PRO)
+
+HISTÓRICO COMPLETO DO ATIVO — 5 demandas desde 2024
+   ETO-TELE 686/2024 · aberta 22/08/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · AJUSTES DE PROTEÇÃO
+        último texto: «ATUALIZAR AJUSTES DO RL 7922995039 AL 03 Araguatins, PARA ATENDER INSERÇÃO DE RL PN 2024. AJUSTES DISPINIVEIS NO APP DA PROTEÇÃO. Engº Clebson Duarte»
+   ETO-TELE 555/2025 · aberta 29/05/2025 · 3 SS · TELE → COEP → PROT · última: SS ATENDIDA (ETO-PROT) · EM OPERAÇÃO COM ANOMALIA   >>> A ANALISAR
+   ETO-TELE 688/2025 · aberta 18/06/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «favor, realizar a substituição de bateria»
+   ETO-TELE 1110/2025 · aberta 15/09/2025 · 1 SS · TELE · última: SS CANCELADA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Favor enviar equipe para verificar comunicação do RL 7922995039. Foi feito primeiro ataque e não retornou a comunicação.»
+   ETO-TELE 462/2026 · aberta 02/04/2026 · 1 SS · TELE · última: SS PENDENTE (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «Alterar meio de comunicação de Orbicomm para antena telespazio.»
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 555/2025, aberta 29/05/2025 (ocorrência 29/05/2025), 3 SS
+      ORIGEM: aberta em 2025 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 555/2025 | ETO-TELE | SS REPASSADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 29/05/2025 10:42 (cabeça: data de ocorrência) · repassada em 02/09/2025 10:45 para ETO-COEP · 96 dias no posto
+        export: já existia no export de 11/07/2025, com texto MENOR (ganhou texto depois de 11/07/2025)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER DMSL: Após testes, equipe DMSL constatou que o RLG 7922995039 encontra-se com parte ativa e controle danificados. Favor, realizar substituição completa do equipamento. Troca do sistema de comunicação do equipamento»
+
+    --- ETO-COEP 179/2025 | ETO-COEP | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 02/09/2025 10:45 · repassada em 29/06/2026 15:49 para ETO-PROT · 300 dias no posto
+        veio de ETO-TELE 555/2025 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «PARECER COEP: Equipamento em operação, instalado com sucesso, segue para Proteção para ajustes»
+
+    --- ETO-PROT 135/2026 | ETO-PROT | SS ATENDIDA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 29/06/2026 15:49 · atendida em 17/08/2026 10:17 · 48 dias no posto
+        veio de ETO-COEP 179/2025 (ETO-COEP)
+        base SS/OS (20/08): OS ETO-PROT 000156/2026 · esquema «MP - AJUSTE EED» · equipe ETO-PROT · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «Parecer da Proteção: 17/08/2026 Religador já se encontra no sistema em operação. Eng° Irlley Castelo Branco»
+
+
+====================================================================================================
+ATIVO 7923673004  (RELIGADOR · 004 · alimentador AL04010004)
+====================================================================================================
+Gestão COEP 5 (28/09): criticidade «Muito Alta», status «Gerado PMA»
+ROL DE FALHAS: RL 2026 · peça controle · ocorrência 26/03/2026 · SS ETO-COEP 57/2026 · troca: sem troca registrada (em aberto, prazo estourado; )
+
+HISTÓRICO COMPLETO DO ATIVO — 2 demandas desde 2024
+   ETO-TELE 1346/2025 · aberta 21/11/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «Realizar substituição de bateria.»
+   ETO-COEP 57/2026 · aberta 26/03/2026 · 3 SS · COEP → TELE · última: SS PENDENTE (ETO-COEP) · INDISPONIBILIDADE PARA OPERAÇÃO   >>> A ANALISAR
+
+  >>> DEMANDA 1 — cabeça ETO-COEP 57/2026, aberta 26/03/2026 (ocorrência 26/03/2026), 3 SS
+      ORIGEM: aberta em 2026
+
+    --- ETO-COEP 57/2026 | ETO-COEP | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 26/03/2026 15:48 (cabeça: data de ocorrência) · repassada em 29/06/2026 18:18 para ETO-TELE · 95 dias no posto
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER COEP: Verificar Disponibilidade de equipamento no Scada e enviar modelo e tensão para a compra. RELIGADOR COM RELÉ DANIFICADO, REALIZAR SUBSTITUIÇÃO»
+
+    --- ETO-TELE 967/2026 | ETO-TELE | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 29/06/2026 18:18 · repassada em 07/07/2026 15:24 para ETO-COEP · 7 dias no posto
+        veio de ETO-COEP 57/2026 (ETO-COEP)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-COEP 124/2026 | ETO-COEP | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 07/07/2026 15:24 · SEGUE PENDENTE neste posto na posição da base · 78 dias no posto até 23/09
+        veio de ETO-TELE 967/2026 (ETO-TELE)
+        export: no export de 19/08/2026 estava «SS PENDENTE»; TEXTO ACRESCENTADO ENTRE 19/08 E 23/09/2026: «11/09/2026 PARECER COEP: CONFORME ALINHADO COM LEONARDO SANTOS DA SILVA 11/09/2026 PEGAREMOS O Controle do 7903569004 e colocar no 7923673004.»
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 11/09/2026 PARECER COEP
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «11/09/2026 PARECER COEP: CONFORME ALINHADO COM LEONARDO SANTOS DA SILVA 11/09/2026 PEGAREMOS O Controle do 7903569004 e colocar no 7923673004.»
+
+
+====================================================================================================
+ATIVO 7923674004  (RELIGADOR · 004 · alimentador AL02096004)
+====================================================================================================
+
+HISTÓRICO COMPLETO DO ATIVO — 4 demandas desde 2024
+   ETO-TELE 96/2023 · aberta 10/01/2023 · 2 SS · TELE → COEP · última: SS PENDENTE (ETO-COEP) · COMISSIONAMENTO   >>> A ANALISAR
+   ETO-RD-AR 189/2026 · aberta 30/01/2026 · 1 SS · RD-AR · última: SS CANCELADA (ETO-RD-AR) · NOTA DE SERVIÇO (NS) - LINHA VIVA
+        último texto: «Já foi atendida»
+   ETO-RD-AR 471/2026 · aberta 13/03/2026 · 1 SS · RD-AR · última: SS ATENDIDA (ETO-RD-AR) · NOTA DE SERVIÇO (NS) - LINHA VIVA
+        último texto: «enviar equipe de linha viva para recuperar jumper rompido no religador 792367004 setor daiara»
+   ETO-TELE 532/2026 · aberta 10/04/2026 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «REALIZAR SUBSTITUIÇÃO DE BATERIA»
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 96/2023, aberta 10/01/2023 (ocorrência 10/01/2023), 2 SS
+      ORIGEM: aberta em 2023 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 96/2023 | ETO-TELE | SS REPASSADA | COMISSIONAMENTO
+        chegou 10/01/2023 09:10 (cabeça: data de ocorrência) · repassada em 25/01/2023 17:41 para ETO-COEP · 15 dias no posto
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «Serviço solicitado de comissionamento foi realizado. Porém a equipe que realizou a atividade verificou que é necessário sinalizar número do equipamento no poste para evitar erro operancional. Solicitamos que esta pendência seja sanada.»
+
+    --- ETO-COEP 11/2023 | ETO-COEP | SS PENDENTE | EM OPERAÇÃO COM ANOMALIA
+        chegou 25/01/2023 17:41 · SEGUE PENDENTE neste posto na posição da base · 1337 dias no posto até 23/09
+        veio de ETO-TELE 96/2023 (ETO-TELE)
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+====================================================================================================
+ATIVO 7923927122  (RELIGADOR · 122 · alimentador LD02059122)
+====================================================================================================
+Gestão COEP 5 (28/09): criticidade «Baixa», status «Avaliar compra»
+ROL DE FALHAS: RL 2025 · peça tanque · ocorrência 27/04/2025 · SS ETO-COEP 79/2025 · troca: sem troca registrada (em aberto, prazo estourado; )
+
+HISTÓRICO COMPLETO DO ATIVO — 5 demandas desde 2024
+   ETO-PROT 335/2023 · aberta 20/12/2023 · 2 SS · PROT → TELE · última: SS ATENDIDA (ETO-TELE) · AVISO PROTEÇÃO & SELETIVIDADE
+        último texto: «SEGUE SS PARA TIME DE PROTEÇÃO PRA AJUSTES DE COMISSIONAMENTO RL 792392711, ONDE FOI SUBSTITUIDO PELA O.S DOLP RD PA 767/2023, ONDE TODOS OS RELATORIO E FOTOS EM ANEXO. PARECER DA PROTEÇÃO: AJUSTE DISPONIBILIZADO AO TIME DMSL PARA COMISSIONAMENTO. ENG° IRLLEY CASTELO BRANCO.»
+   ETO-TELE 172/2024 · aberta 21/02/2024 · 5 SS · TELE → COEP → RD-PA · última: SS ATENDIDA (DOLP-RD-PA) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Favor, substituir tanque do RLG 7923927122, pois equipe DMSL identificou curto na fase B. Segue dados de placa: Modelo: OMS 38-12-630 Tensão max: 38KV Corrente nominal: 630A»
+   ETO-PROT 287/2024 · aberta 16/09/2024 · 2 SS · PROT → TELE · última: SS ATENDIDA (ETO-TELE) · AJUSTES DE PROTEÇÃO
+        último texto: «SEGUE SS PARA TIME PROTEÇÃO PRA AJUSTES, ONDE RL 7923927122, FOI SUBSTITUIDO PELA ORDEM DE SERVIÇO ETO RD PA 7727/2024, ONDE RELATORIO EM ANEXO DA MESMA. PARECER DA PROTEÇÃO: AJUSTE DISPONIBILIZADO NO APP DA PROTEÇÃO, MANUTENÇÃO CORRETIVA. ENG° IRLLEY CASTELO BRANCO.»
+   DOLP-RD-PA 602/2025 · aberta 27/04/2025 · 4 SS · RD-PA → COEP → TELE · última: SS PENDENTE (ETO-COEP) · AVISO DE ANOMALIA   >>> A ANALISAR
+   ETO-TELE 700/2026 · aberta 13/04/2026 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «REALIZAR SUBSTITUIÇÃO DE BATERIA»
+
+  >>> DEMANDA 1 — cabeça DOLP-RD-PA 602/2025, aberta 27/04/2025 (ocorrência 27/04/2025), 4 SS
+      ORIGEM: aberta em 2025 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- DOLP-RD-PA 602/2025 | DOLP-RD-PA | SS REPASSADA | AVISO DE ANOMALIA
+        chegou 27/04/2025 11:04 (cabeça: data de ocorrência) · repassada em 29/04/2025 13:50 para ETO-COEP · 2 dias no posto
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        base SS/OS (20/08): sem OS · equipe DOLP-RD-PA · tipo AVISO DE ANOMALIA
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «Segue nota para envia manutenção substituir tanque do RL-7923927122 em curto, Anomalia identificada desarme das LD, s Palmas / Aparecida e Palmas Taquaruçu, Acesso livre, Tensão 34,5kv, Local RL de Interligação entre 424R / 414R.»
+
+    --- ETO-COEP 79/2025 | ETO-COEP | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 29/04/2025 13:50 · repassada em 14/07/2026 19:24 para ETO-TELE · 441 dias no posto
+        veio de DOLP-RD-PA 602/2025 (DOLP-RD-PA)
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-TELE 1004/2026 | ETO-TELE | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 14/07/2026 19:24 · repassada em 16/07/2026 10:52 para ETO-COEP · 1 dias no posto
+        veio de ETO-COEP 79/2025 (ETO-COEP)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 16/07 PARECER DMSL
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «PARECER DMSL 16/07: Nota solicitada ao DMSL com a informação de que o tanque precisa ser substituído. Estou encaminhando a nota para a área responsável.»
+
+    --- ETO-COEP 148/2026 | ETO-COEP | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 16/07/2026 10:52 · SEGUE PENDENTE neste posto na posição da base · 69 dias no posto até 23/09
+        veio de ETO-TELE 1004/2026 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+====================================================================================================
+ATIVO 7925087021  (RELIGADOR · 021 · alimentador LD01010021)
+====================================================================================================
+ROL DE FALHAS: RL 2025 · peça tanque · ocorrência 08/12/2025 · SS ETO-COEP 222/2025 · troca: 20/07/2026 (trocada fora do prazo; ETO-RD-GU 711/2026 (ETO-RD-GU) repassou para ETO-PROT)
+
+HISTÓRICO COMPLETO DO ATIVO — 4 demandas desde 2024
+   ETO-RD-GU 982/2022 · aberta 02/10/2022 · 1 SS · RD-GU · última: SS CANCELADA (ETO-RD-GU) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «Substituir para-raios entrada de saida do RL 79025087021 Acesso livre: sim rede energizada: sim local: LD PARANA A CONCEICAO eq 021op02»
+   ETO-TELE 1289/2025 · aberta 11/11/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «RELIGADOR EM CURTO 7925087021 FAVOR VERIFICAR TIROU LD PARANA A CONCEIÇÃO FICOU BAY PASSADO.»
+   ETO-COEP 222/2025 · aberta 08/12/2025 · 5 SS · COEP → RD-AG → RD-GR → RD-GU → PROT · última: SS PENDENTE (ETO-PROT) · INDISPONIBILIDADE PARA OPERAÇÃO   >>> A ANALISAR
+   ETO-TELE 653/2026 · aberta 13/04/2026 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «REALIZAR SUBSTITUIÇÃO DE BATERIA»
+
+  >>> DEMANDA 1 — cabeça ETO-COEP 222/2025, aberta 08/12/2025 (ocorrência 08/12/2025), 5 SS
+      ORIGEM: aberta em 2025 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-COEP 222/2025 | ETO-COEP | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 08/12/2025 10:15 (cabeça: data de ocorrência) · repassada em 10/07/2026 11:42 para ETO-RD-AG · 214 dias no posto
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        assinaturas com data no texto novo: 10/07 PARECER COEP
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «10/07 PARECER COEP: EQUIPAMENTO ENTREGUE AOS COCM´S FAVOR INFORMAR PRAZO DE SUBSTUIÇÃO PARA O DMSL E REPASSAR DEPOIS PARA PROTEÇÃO REALIZAR OS AJUSTES E DESCREVER NA SS O SERVIÇO REALIZADO PARECER COEP: EM ROTA DE ENTREGA, VERIFICAR PREVISÃO DE CHEGADA Realizar a substituição do tanque do equipamento.»
+
+    --- ETO-RD-AG 697/2026 | ETO-RD-AG | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 10/07/2026 11:42 · repassada em 10/07/2026 14:49 para ETO-RD-GR · 0 dias no posto
+        veio de ETO-COEP 222/2025 (ETO-COEP)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-AG · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-RD-GR 713/2026 | ETO-RD-GR | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 10/07/2026 14:49 · repassada em 13/07/2026 10:40 para ETO-RD-GU · 2 dias no posto
+        veio de ETO-RD-AG 697/2026 (ETO-RD-AG)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-GR · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-RD-GU 711/2026 | ETO-RD-GU | SS REPASSADA | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 13/07/2026 10:40 · repassada em 20/07/2026 18:52 para ETO-PROT · 7 dias no posto
+        veio de ETO-RD-GR 713/2026 (ETO-RD-GR)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-GU · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-PROT 152/2026 | ETO-PROT | SS PENDENTE | INDISPONIBILIDADE PARA OPERAÇÃO
+        chegou 20/07/2026 18:52 · SEGUE PENDENTE neste posto na posição da base · 65 dias no posto até 23/09
+        veio de ETO-RD-GU 711/2026 (ETO-RD-GU)
+        base SS/OS (20/08): sem OS · equipe ETO-PROT · tipo INDISPONIBILIDADE PARA OPERAÇÃO
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+====================================================================================================
+ATIVO 7925573007  (RELIGADOR · 007 · alimentador AL01048007)
+====================================================================================================
+
+HISTÓRICO COMPLETO DO ATIVO — 9 demandas desde 2024
+   ETO-TELE 344/2023 · aberta 12/05/2023 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «VERIFICAR O ATERRAMENTO DO RELIGADOR 7925573007, NEUTRO ALTO.»
+   ETO-TELE 42/2024 · aberta 15/01/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · INDISPONIBILIDADE PARA OPERAÇÃO
+        último texto: «Segue nota para verificar falha em comunicação e automação no RL-7925573007, 7925325007, 7938136007, 7925572007, 7924700007 Feito primeiro ataque com equipe, porém sem sucesso.»
+   ETO-PROT 162/2024 · aberta 29/07/2024 · 4 SS · PROT → TELE → RD-PA → RD-PS · última: SS CANCELADA (ETO-RD-PS) · AJUSTES DE PROTEÇÃO
+        último texto: «Bom dia Segue SS para verificação de ajuste de proteção o mesmo abrir não foi localizado defeito no circuito int 20242997791425. PARECER DA PROTEÇÃO: VERIFICAR ATERRAMENTO DO EQUIPAMENTO, PARA ASSEGURAR QUE O NEUTRO MEDIDO ESTEJA CORRETO. APARENTEMENTE PELAS MEDIÇÕES NÃO ESTÃO, N…»
+   ETO-RD-PA 528/2024 · aberta 13/08/2024 · 2 SS · RD-PA → RD-PS · última: SS ATENDIDA (ETO-RD-PS) · AVISO DE ANOMALIA
+        último texto: «Favor, realizar manutenção na chave de by-pass da fase B do RLG 7925573007.»
+   ETO-TELE 850/2024 · aberta 11/10/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · AJUSTES DE PROTEÇÃO
+        último texto: «Favor, coletar oscilografias/dados do RL 7925573007 para analisar ocorrência do dia 11/10/2024. Outra atividade importante é modificar a comunicação para Ethernet, onde será possível acessar remotamente o relé.»
+   ETO-TELE 947/2024 · aberta 30/10/2024 · 5 SS · TELE → RD-PA → RD-PS → COEP · última: SS CANCELADA (ETO-COEP) · EM OPERAÇÃO COM ANOMALIA   >>> A ANALISAR
+   ETO-PROT 462/2024 · aberta 01/12/2024 · 2 SS · PROT → TELE · última: SS ATENDIDA (ETO-TELE) · AVISO DE ANOMALIA
+        último texto: «Segue nota para verificar desarme constantes do RL-7925573007 RDU de Miracema apedido ficou com proteções desligada. Parecer da proteção: Segue para DMSL realizar testes funiconais e malha de aterramento. Eng° Irlley Castelo Branco»
+   ETO-TELE 761/2025 · aberta 27/06/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «FAVOR, REALIZAR SUBSTITUIÇÃO DE BATERIA»
+   ETO-PROT 133/2026 · aberta 27/06/2026 · 1 SS · PROT · última: SS PENDENTE (ETO-PROT) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «Religador 7925573007 desarmou por rele 50/51 mesmo no grupo 2.»
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 947/2024, aberta 30/10/2024 (ocorrência 30/10/2024), 5 SS
+      ORIGEM: aberta em 2024 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 947/2024 | ETO-TELE | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 30/10/2024 09:41 · cancelada em 30/06/2026 21:26 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 608 dias no posto
+        export: já existia no export de 11/07/2025, com texto MENOR (ganhou texto depois de 11/07/2025)
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo EM OPERAÇÃO COM ANOMALIA
+        assinaturas com data no texto novo: 24/06/2025 PARECER DMSL DIA
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER DMSL: Favor, solicitamos que o tanque do equipameneto 7925573007 seja retirado da base para que possamos realizar o ensaio do mesmo. Equipe do DMSL já esteve no equipamento anteriormetne porém as chaves estavam emperradas e não consequimos apoio da equipe de linha viva no momento que a equipe estava no RLG. Equipamento com erro de medição de neutro, corrente alta com sistema equilibrado não refletindo a real situação. Precisamos de intervenção corretiva, as hipoteses podem ser aterramento, mal contato, sensor do tanque, cabo umbilical, calibração ou proprio relé. Equipe de linha-viva já esteve no local para atender a SS, Porém foram testadas todas as chaves e não havia nenhuma emperrada. Equipe do DMSL já pode retornar para dar sequência na Atividade. PARECER DMSL DIA 24/06/2025: Serviço executado: Teste com mala de corrente virtual, e física, para indentificar onde e o problema no neutro que está lendo corrente muito alto. Foi descoberto diante dos testes que a parte ativa está com problemas, quando ligamos a mala física e não injetamos corrente, o neutro registra uma corrente alta, está detectado alguma indução. Necessário substituir a parte ativa do equipamento. Quando substituir lembrar de colocar a base normal com os quatro grupos. Equipamento ficou em operação?: Sim, em modo seccionalizador a pedido da proteção Pendência: sim, substituir parte ativa»
+
+    --- ETO-RD-PA 641/2024 | ETO-RD-PA | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 30/10/2024 09:41 · cancelada em 30/06/2026 21:26 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 608 dias no posto
+        veio de ETO-TELE 947/2024 (ETO-TELE)
+        export: já existia no export de 11/07/2025, com texto MENOR (ganhou texto depois de 11/07/2025)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-PA · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-RD-PS 166/2025 | ETO-RD-PS | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 12/06/2025 15:12 · cancelada em 30/06/2026 21:26 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 383 dias no posto
+        veio de ETO-RD-PA 641/2024 (ETO-RD-PA)
+        export: já existia no export de 11/07/2025, com texto MENOR (ganhou texto depois de 11/07/2025)
+        base SS/OS (20/08): sem OS · equipe ETO-RD-PS · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-TELE 685/2025 | ETO-TELE | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 18/06/2025 08:45 · cancelada em 30/06/2026 21:26 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 377 dias no posto
+        veio de ETO-RD-PS 166/2025 (ETO-RD-PS)
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+    --- ETO-COEP 119/2025 | ETO-COEP | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 01/07/2025 09:24 · cancelada em 30/06/2026 21:26 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 364 dias no posto
+        veio de ETO-TELE 685/2025 (ETO-TELE)
+        export: já existia no export de 11/07/2025, com o mesmo texto
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
+
+====================================================================================================
+ATIVO 7925704079  (RELIGADOR · 079 · alimentador LD03038009)
+====================================================================================================
+
+HISTÓRICO COMPLETO DO ATIVO — 5 demandas desde 2024
+   ETO-TELE 550/2024 · aberta 30/07/2024 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «Verificar equiamento»
+   ETO-TELE 315/2025 · aberta 02/04/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «ALTERAR BASE DO RELE DE PROTEÇÃO, ATUALIZAR JUNTO AO SCADA, VERIFICAR POR QUE NÃO ESTÁ SUBINDO A FASE C NO SCADA.»
+   ETO-TELE 715/2025 · aberta 24/06/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · EM OPERAÇÃO COM ANOMALIA
+        último texto: «FAVOR, REALIZAR SUBSTITUIÇÃO DE BATERIA»
+   ETO-TELE 849/2025 · aberta 15/09/2025 · 2 SS · TELE → COEP · última: SS CANCELADA (ETO-COEP) · AJUSTES DE PROTEÇÃO   >>> A ANALISAR
+   ETO-TELE 1406/2025 · aberta 27/11/2025 · 1 SS · TELE · última: SS ATENDIDA (ETO-TELE) · SOLICITAÇÃO DE SERVIÇO
+        último texto: «Realizar conferência de ajuste e atualização de base para mapa mais recente. Enviar a base para proteção ao final da atividade!!»
+
+  >>> DEMANDA 1 — cabeça ETO-TELE 849/2025, aberta 15/09/2025 (ocorrência 25/07/2025), 2 SS
+      ORIGEM: aberta em 2025 — seguia aberta na virada para 2026 (backlog de 2025)
+
+    --- ETO-TELE 849/2025 | ETO-TELE | SS CANCELADA | AJUSTES DE PROTEÇÃO
+        chegou 15/09/2025 17:08 · cancelada em 30/06/2026 21:24 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 288 dias no posto
+        base SS/OS (20/08): sem OS · equipe ETO-TELE · tipo AJUSTES DE PROTEÇÃO
+        TEXTO COMPLETO (primeira SS da cadeia):
+        «PARECER DMSL: Após testes realizados pela equipe DMSL, foi constatado defeito no tanque do RLG 7925704079, assim, solicito a substituição do mesmo. Atualizar ajuste de proteção conforme app da proteção, caso já tenha sido atualizado, coletar base e enviar para proteção.»
+
+    --- ETO-COEP 189/2025 | ETO-COEP | SS CANCELADA | EM OPERAÇÃO COM ANOMALIA
+        chegou 15/09/2025 17:08 · cancelada em 30/06/2026 21:24 (neste dia, 50 SS de RL/RT canceladas em 7 postos) · 288 dias no posto
+        veio de ETO-TELE 849/2025 (ETO-TELE)
+        base SS/OS (20/08): sem OS · equipe ETO-COEP · tipo EM OPERAÇÃO COM ANOMALIA
+        TEXTO NOVO DESTA SS (o que ela acrescentou à anterior):
+        «(nada novo)»
+
