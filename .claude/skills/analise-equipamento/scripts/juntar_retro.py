@@ -11,6 +11,7 @@ Grava <run>/retro.json.
 
 import datetime as dt
 import json
+import re
 import os
 import sys
 from collections import Counter
@@ -21,9 +22,14 @@ CAMPOS = (("desfecho", "desfecho_final"), ("executada", "executada_final"), ("da
 
 
 def dia(s):
+    """A data da tratativa. Quando o agente escreveu uma janela («08/07/2026 a 19/08/2026»), vale o fim dela —
+    o «no mais tardar», como no parecer datado pelo repasse."""
+    datas = re.findall(r"\d{2}/\d{2}/\d{4}", s or "")
+    if not datas:
+        return None
     try:
-        return dt.datetime.strptime(s, "%d/%m/%Y").date() if s else None
-    except (TypeError, ValueError):
+        return dt.datetime.strptime(datas[-1], "%d/%m/%Y").date()
+    except ValueError:
         return None
 
 
@@ -59,11 +65,9 @@ def junta(run):
                     r["prova_execucao"] = x["prova_final"]
                 erradas = {chave_tratativa(t) for t in x.get("tratativas_erradas", []) or []}
                 tr = [t for t in d.get("tratativas", []) if chave_tratativa(t) not in erradas]
+                mudou["tratativas retiradas"] += len(d.get("tratativas", [])) - len(tr)
                 faltando = x.get("tratativas_faltando", []) or []
-                for t in faltando:
-                    t = dict(t, incluida_na_verificacao=True)
-                    tr.append(t)
-                mudou["tratativas retiradas"] += len(d.get("tratativas", [])) - len(tr) + len(faltando)
+                tr += [dict(t, incluida_na_verificacao=True) for t in faltando]
                 mudou["tratativas incluídas"] += len(faltando)
                 r["tratativas"] = sorted(tr, key=lambda t: (dia(t.get("data")) or dt.date(1900, 1, 1)))
                 r["porque_verificacao"], r["confianca_verificacao"] = x.get("porque"), x.get("confianca")

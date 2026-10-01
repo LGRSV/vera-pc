@@ -11,6 +11,7 @@ Usado por `retrospectiva_coep.py`, que monta a pauta e a planilha.
 
 import datetime as dt
 import json
+import re
 import os
 from collections import Counter, defaultdict
 
@@ -27,17 +28,25 @@ EXECUTOU = {"atendido", "executado, falta comissionar ou ajustar", "executado, s
 
 
 def dia(s):
+    """A data da tratativa. Quando o agente escreveu uma janela («08/07/2026 a 19/08/2026»), vale o fim dela —
+    o «no mais tardar», como no parecer datado pelo repasse."""
+    datas = re.findall(r"\d{2}/\d{2}/\d{4}", s or "")
+    if not datas:
+        return None
     try:
-        return dt.datetime.strptime(s, "%d/%m/%Y").date() if s else None
-    except (TypeError, ValueError):
+        return dt.datetime.strptime(datas[-1], "%d/%m/%Y").date()
+    except ValueError:
         return None
 
 
-def carrega(caminho=RETRO):
-    with open(caminho, encoding="utf-8") as fh:
+def carrega(caminho=None):
+    with open(caminho or RETRO, encoding="utf-8") as fh:
         d = json.load(fh)
     for r in d["demandas"]:
-        r["_trat"] = [dict(t, _dia=dia(t.get("data"))) for t in r.get("tratativas", []) if dia(t.get("data"))]
+        r["_trat"] = [dict(t, _dia=dia(t.get("data")),
+                           _janela=len(re.findall(r"\d{2}/\d{2}/\d{4}", t.get("data") or "")) > 1
+                           or "janela" in (t.get("como_datou") or "") or "exports" in (t.get("como_datou") or ""))
+                      for t in r.get("tratativas", []) if dia(t.get("data"))]
         r["_exec"] = dia(r.get("data_execucao")) if r.get("executada") else None
     return d
 
@@ -58,7 +67,8 @@ def por_mes(dem):
         tr = [(r, t) for r in dem for t in r["_trat"] if no_periodo(t) and (t["_dia"].year, t["_dia"].month) == (a, m)]
         ex = [r for r in dem if r["_exec"] and (r["_exec"].year, r["_exec"].month) == (a, m)]
         prim = [r for r in dem if r.get("backlog_2025") and primeira_2026(r) and (primeira_2026(r).year, primeira_2026(r).month) == (a, m)]
-        out[(a, m)] = {"tratativas": len(tr), "demandas": len({id(r) for r, _ in tr}),
+        out[(a, m)] = {"tratativas": len(tr), "tratativas_por_janela": sum(1 for _, t in tr if t["_janela"]),
+                       "demandas": len({id(r) for r, _ in tr}),
                        "acoes": Counter(t.get("acao") for _, t in tr), "quem": Counter(t.get("quem") for _, t in tr),
                        "execucoes": len(ex), "execucoes_backlog": sum(1 for r in ex if r.get("backlog_2025")),
                        "execucoes_com_operacao": sum(1 for r in ex if r.get("voltou_a_operar") is True),
@@ -142,6 +152,8 @@ def aba_tratativas_mes(wb, dem, pm, cabecalho, celulas, titulo):
     cab = ["", *[f"{NOME[m - 1][:3]}/{str(a)[2:]}" for a, m in MESES], "Total"]
     cabecalho(ws, r0, cab, [34] + [9] * (len(cab) - 1))
     linhas = [["Tratativas", *[pm[k]["tratativas"] for k in MESES], sum(pm[k]["tratativas"] for k in MESES)],
+              ["   … datadas por janela (o fim dela)", *[pm[k]["tratativas_por_janela"] for k in MESES],
+               sum(pm[k]["tratativas_por_janela"] for k in MESES)],
               ["Demandas com tratativa no mês", *[pm[k]["demandas"] for k in MESES], ""],
               ["Execuções com prova", *[pm[k]["execucoes"] for k in MESES], sum(pm[k]["execucoes"] for k in MESES)],
               ["   … de backlog de 2025", *[pm[k]["execucoes_backlog"] for k in MESES], sum(pm[k]["execucoes_backlog"] for k in MESES)],
@@ -153,6 +165,6 @@ def aba_tratativas_mes(wb, dem, pm, cabecalho, celulas, titulo):
     linhas += [[f"   {a}", *[pm[k]["acoes"][a] for k in MESES], sum(pm[k]["acoes"][a] for k in MESES)] for a in acoes]
     linhas += [["QUEM FEZ", *[""] * (len(MESES) + 1)]]
     linhas += [[f"   {a}", *[pm[k]["quem"][a] for k in MESES], sum(pm[k]["quem"][a] for k in MESES)] for a in quem]
-    celulas(ws, r0 + 1, linhas, negrito=(0, 2, 6, 7 + len(acoes)))
+    celulas(ws, r0 + 1, linhas, negrito=(0, 3, 7, 8 + len(acoes)))
     for row in ws.iter_rows(min_row=r0 + 1, max_row=ws.max_row, min_col=1, max_col=1):
         row[0].alignment = Alignment(horizontal="left", vertical="top")

@@ -81,3 +81,18 @@ def textos_export_1908():
     import sla_manutencao as sm
     reg, _, _ = be.ler()
     return {sm.norm(k): _txt(str(v["desc"]).replace("_x000D_", " ")) for k, v in reg.items()}
+
+
+def textos_export_mae():
+    """{SS: texto} do export de 11/07/2025 (RELIGA_REGULA_2025, a «planilha mãe»)."""
+    import os
+    import openpyxl
+    import sla_manutencao as sm
+    cam = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "raw", "RELIGA_REGULA_2025.xlsx")
+    wb = openpyxl.load_workbook(cam, read_only=True, data_only=True)
+    it = wb["Exportar Planilha (2)"].iter_rows(values_only=True)
+    cab = next(it)
+    i_ss, i_d = cab.index("SS_ORIGINAL"), cab.index("DESCRIÇÃO")
+    out = {sm.norm(_txt(r[i_ss])): _txt(str(r[i_d] or "").replace("_x000D_", " ")) for r in it if r[i_ss]}
+    wb.close()
+    return out
