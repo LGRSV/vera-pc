@@ -105,7 +105,10 @@ não sustenta, demanda a demanda:
 - **Execução**: tem frase que diga que o serviço foi FEITO («substituído», «realizado», «trocado»,
   laudo, OS com fabricante instalado)? Pedido de troca, «favor substituir», «material entregue»
   ou «previsão de troca» **não** é execução. Status ATENDIDA sem texto de serviço não é execução.
-- **Operação**: «FICOU EM OPERAÇÃO? NÃO» é **não**. Operação antes do serviço não prova nada.
+- **Operação**: «FICOU EM OPERAÇÃO? NÃO» é **não**. Operação antes do serviço não prova nada. SS ou
+  OS de comissionamento fechada ATENDIDA **sem texto** não prova operação — status não é prova, e há
+  caso de comissionamento feito com o religador ficando fora de operação.
+- **Prova fora do dossiê não vale**: se a frase não está no dossiê, a execução não está provada.
 - **Datas**: a data da tratativa cabe na janela da SS? «como_datou» está certo? Repasse e
   cancelamento têm data exata do SGM — confira.
 - **Backlog de 2025** e **tratada em 2025**: confira pela chegada e pelos textos de 2025.
