@@ -17,3 +17,5 @@ scratchpad/
 
 # rascunho dos agentes da análise (um JSON por ativo antes do put; o que vale está em ck/dados)
 .analise/*/tmp/
+# dados vivos do checkpoint enquanto os agentes da retrospectiva gravam; entram no commit final
+.analise/retro2026/ck/dados/
