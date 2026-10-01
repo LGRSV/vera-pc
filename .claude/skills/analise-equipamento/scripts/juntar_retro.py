@@ -63,6 +63,8 @@ def junta(run):
                         r[campo] = x[final]
                 if x.get("prova_final"):
                     r["prova_execucao"] = x["prova_final"]
+                if not r.get("executada"):
+                    r["prova_execucao"] = ""            # sem execução, «prova» não pode ser «selecionado para compra»
                 erradas = {chave_tratativa(t) for t in x.get("tratativas_erradas", []) or []}
                 tr = [t for t in d.get("tratativas", []) if chave_tratativa(t) not in erradas]
                 mudou["tratativas retiradas"] += len(d.get("tratativas", [])) - len(tr)
