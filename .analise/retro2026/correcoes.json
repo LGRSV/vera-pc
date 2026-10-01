@@ -1,0 +1,39 @@
+[
+ {
+  "ativo": "5835587001",
+  "cadeia": "ETO-PROT 269/2025",
+  "executada": true,
+  "data_execucao": "21/10/2025 a 23/12/2025",
+  "como_datou_execucao": "janela da SS",
+  "voltou_a_operar": null,
+  "tratada_em_2025": true,
+  "desfecho": "executado, sem prova de operação",
+  "prova": "BOM DIA. *FOI SUBSTITUIDA A CELULA FASE B *FOI SUBSTITUIDO CONTROLE *FOI FEITO MELHORIA NA MALHA DE ATERRAMENTO. *FOI FEITO POÇO PARA MELHORAR O ATERRAMENTO. OBS: MESMO APOS A MELHORIA E POÇO A ATERRAMENTO ESTA EM 60 OHMS",
+  "ss_irma": "ETO-RD-PO 238/2025",
+  "porque": "cadeia paralela do mesmo diagnóstico (DMSL 23/09/2025, SID 3949): ETO-TELE 1074/2025 → ETO-RD-PO 238/2025 → ETO-PROT 392/2025 → ETO-TELE 1522/2025. A frase de serviço não está na ETO-TELE 1074/2025 (saiu em 21/10/2025) e está na ETO-RD-PO 238/2025, que saiu para a PROT em 23/12/2025: a troca foi escrita nessa janela. A PROT pediu o comissionamento e a ETO-TELE 1522/2025 fechou ATENDIDA em 29/12/2025 sem texto — não prova operação. A SS do COEP (ETO-COEP 198/2025) ficou aberta até o cancelamento em bloco de 30/06/2026."
+ },
+ {
+  "ativo": "5844630060",
+  "cadeia": "ETO-RD-AR 1189/2025",
+  "executada": true,
+  "data_execucao": "23/07/2026",
+  "como_datou_execucao": "escrita no texto",
+  "voltou_a_operar": null,
+  "desfecho": "executado, sem prova de operação",
+  "prova": "Aberto nota para verificar vazamento de oleo fase A no TR 5844630060 -RDU DE NOVA OLINDA. Parecer DCMD: foi substituido célula 23/07/2026. o mesmo está liberado para ser colocado em operação",
+  "ss_irma": "ETO-RD-AR 1168/2026",
+  "porque": "nota aberta e repassada à TELE em 28/07/2026 para o mesmo vazamento da fase A, com o parecer do COCM e a data da troca; seguiu para a ETO-TELE 1036/2026, ATENDIDA em 10/08/2026. Bate com a ETO-RD-AR 1131/2026 desta cadeia, ATENDIDA em 24/07/2026 com OS e obra. «Liberado para ser colocado em operação» não prova que operou, e em 12/08/2026 o RT estava bypassado com outro defeito (demanda ETO-TELE 1102/2026)."
+ },
+ {
+  "ativo": "7967181127",
+  "cadeia": "ETO-PROT 27/2026",
+  "executada": true,
+  "data_execucao": "01/07/2026",
+  "como_datou_execucao": "escrita no texto",
+  "voltou_a_operar": null,
+  "desfecho": "executado, sem prova de operação",
+  "prova": "PARECER DCMD: FOI REALIZADO A SUBSTITUIÇÃO DA CHAVE FACA FASE C CONFORME SOLICITADO NA DATA DE 01/07/2026 - FAVOR REALIZAR COMISSIONAMENTO",
+  "ss_irma": "ETO-TELE 1035/2026",
+  "porque": "SS de comissionamento aberta à parte em 28/07/2026; o parecer do COCM traz a data da troca, que bate com a conclusão da NS de linha viva ETO-RD-AG 670/2026 (01/07/2026 14:15). A ETO-TELE 1035/2026 fechou ATENDIDA em 13/08/2026 sem texto depois do pedido — comissionamento sem texto não prova operação. O dossiê mostrou essa SS cortada, e o verificador leu que ela não tinha parecer novo."
+ }
+]

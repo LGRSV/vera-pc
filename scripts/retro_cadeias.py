@@ -60,8 +60,14 @@ def primeira_2026(r):
     return min(xs) if xs else None
 
 
+def duplicada(r):
+    return (r.get("desfecho") or "").startswith("duplicada")
+
+
 def por_mes(dem):
-    """Por mês de abril a setembro: tratativas, demandas tocadas, ações, quem, execuções e o backlog que andou."""
+    """Por mês de abril a setembro: tratativas, demandas tocadas, ações, quem, execuções e o backlog que andou. A cadeia
+    duplicada (a mesma demanda reaberta, ou aberta por engano) fica fora, como no resumo."""
+    dem = [r for r in dem if not duplicada(r)]
     out = {}
     for a, m in MESES:
         tr = [(r, t) for r in dem for t in r["_trat"] if no_periodo(t) and (t["_dia"].year, t["_dia"].month) == (a, m)]
@@ -79,7 +85,7 @@ def por_mes(dem):
 def resumo(dem):
     """Conta por DEMANDA viva: a cadeia marcada como duplicada de outra (encerrada sem serviço e reaberta) é a mesma
     demanda e não conta duas vezes — fica só o número delas à parte."""
-    duplicadas = [r for r in dem if (r.get("desfecho") or "").startswith("duplicada")]
+    duplicadas = [r for r in dem if duplicada(r)]
     dem = [r for r in dem if r not in duplicadas]
     back = [r for r in dem if r.get("backlog_2025")]
     so_2026 = [r for r in back if not r.get("tratada_em_2025")]
@@ -129,20 +135,21 @@ def aba_por_demanda(wb, dem, cabecalho, celulas):
 def aba_linha_do_tempo(wb, dem, cabecalho, celulas):
     ws = wb.create_sheet("Linha do tempo")
     cols = [("Data", 11), ("Como foi datada", 18), ("Ativo", 12), ("Cadeia", 20), ("Quem", 11), ("O que fez", 26),
-            ("Resumo", 50), ("Evidência (literal)", 70), ("Backlog de 2025?", 9)]
+            ("Resumo", 50), ("Evidência (literal)", 70), ("Backlog de 2025?", 9), ("Na conta?", 12)]
     cabecalho(ws, 1, [c for c, _ in cols], [w for _, w in cols])
     linhas = []
     for r in dem:
         for t in r["_trat"]:
             if no_periodo(t):
                 linhas.append([t["_dia"], t.get("como_datou"), r["ativo"], r.get("cadeia"), t.get("quem"), t.get("acao"),
-                               t.get("resumo"), (t.get("evidencia") or "")[:300], "sim" if r.get("backlog_2025") else "não"])
+                               t.get("resumo"), (t.get("evidencia") or "")[:300], "sim" if r.get("backlog_2025") else "não",
+                               "não: duplicada" if duplicada(r) else "sim"])
     linhas.sort(key=lambda x: (x[0], x[2]))
     celulas(ws, 2, linhas)
     for c in ws["A"][1:]:
         c.number_format = "DD/MM/YYYY"
     ws.freeze_panes = "A2"
-    ws.auto_filter.ref = f"A1:I{ws.max_row}"
+    ws.auto_filter.ref = f"A1:J{ws.max_row}"
 
 
 def aba_tratativas_mes(wb, dem, pm, cabecalho, celulas, titulo):
@@ -150,7 +157,8 @@ def aba_tratativas_mes(wb, dem, pm, cabecalho, celulas, titulo):
     r0 = titulo(ws, 1, "O que foi feito nas cadeias, mês a mês — leitura de todas as SS, com verificação adversarial",
                 "Uma tratativa é um passo da cadeia com data: despacho, compra, entrega, pergunta, cancelamento, execução em campo, "
                 "comissionamento. A data é a escrita no texto ou a do SGM (repasse, cancelamento, conclusão). «Execuções» conta a "
-                "demanda cujo serviço foi FEITO, com frase literal que prove, no mês da execução.", 8)
+                "demanda cujo serviço foi FEITO, com frase literal que prove, no mês da execução. A cadeia duplicada (a mesma "
+                "demanda reaberta, ou aberta por engano) fica fora; na aba «Linha do tempo» ela aparece marcada.", 8)
     acoes = sorted({a for v in pm.values() for a in v["acoes"]}, key=lambda a: -sum(v["acoes"][a] for v in pm.values()))
     quem = sorted({a for v in pm.values() for a in v["quem"]}, key=lambda a: -sum(v["quem"][a] for v in pm.values()))
     cab = ["", *[f"{NOME[m - 1][:3]}/{str(a)[2:]}" for a, m in MESES], "Total"]

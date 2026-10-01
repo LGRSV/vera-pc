@@ -354,6 +354,8 @@ def mensal(pas, acoes, rol):
              "para_tele": sum(1 for p in sai if p["destino"] == "TELE"),
              "para_prot": sum(1 for p in sai if p["destino"] == "PROT"),
              "canceladas": sum(1 for p in sai if p["destino"] == "cancelada"),
+             "atendidas": sum(1 for p in sai if p["destino"] == "atendida"),
+             "para_outros": sum(1 for p in sai if p["destino"] in ("SE/outros", "COEP")),
              "dias_no_coep": median([(p["saida"] - p["entrada"]).days for p in sai]) if sai else None,
              "fila_no_fim": len(fila),
              "idade_da_fila": median([(fim - p["entrada"]).days for p in fila]) if fila else None,
@@ -425,7 +427,8 @@ def aba_pauta(wb, pauta):
 COLS = [("Mês", "rotulo"), ("Entradas no COEP", "entradas"),
         ("Devolvidas por um COCM", "devolvidas_pelo_cocm"), ("Saídas do COEP", "saidas"),
         ("Para o COCM", "para_cocm"), ("Para a TELE", "para_tele"), ("Para a PROT", "para_prot"),
-        ("Canceladas no COEP", "canceladas"), ("Dias no COEP (mediana)", "dias_no_coep"),
+        ("Canceladas no COEP", "canceladas"), ("Atendidas no próprio COEP", "atendidas"),
+        ("Para outro posto (SE ou outra SS do COEP)", "para_outros"), ("Dias no COEP (mediana)", "dias_no_coep"),
         ("Fila do COEP no fim do mês", "fila_no_fim"), ("Idade da fila (mediana, dias)", "idade_da_fila"),
         ("Despachos que o COCM já executou", "cocm_executou"), ("Despachos devolvidos ao COEP", "cocm_devolveu"),
         ("Dias do despacho à execução (mediana)", "dias_ate_executar"),
@@ -586,6 +589,17 @@ CURTO = {IND: "fora de operação", "OBRAS (NOVOS EQUIPAMENTOS)": "obra nova", "
          "AJUSTE DE PROTEÇÃO": "ajuste de proteção", "SOLICITAÇÃO DE SERVIÇO": "solicitação de serviço"}
 
 
+CAMPO = {"tratada_em_2025": "se houve tratativa real em 2025", "backlog_2025": "se era backlog de 2025", "executada": "se o serviço foi feito",
+         "data_execucao": "a data do serviço", "voltou_a_operar": "se voltou a operar", "desfecho": "o desfecho",
+         "tratativas retiradas": "tratativas retiradas", "tratativas incluídas": "tratativas que o analista não viu"}
+
+
+def e_lista(xs):
+    """[a, b, c] → «a, b e c»."""
+    xs = list(xs)
+    return " e ".join([", ".join(xs[:-1]), xs[-1]]) if len(xs) > 1 else (xs[0] if xs else "")
+
+
 def lista(c):
     """Counter → «obra nova (5), anomalia (2) e aviso (3)»."""
     partes = [f"{k} ({n})" for k, n in c.most_common()]
@@ -618,15 +632,25 @@ def pauta(pas, acoes, linhas, novo, extra):
     ent_25 = sum(L[(2025, m)]["entradas"] for m in range(1, 13))
     sai_ago_dez = [L[(2025, m)]["saidas"] for m in range(8, 13)]
     abr_set = lambda chave: sum(L[(2026, m)][chave] for m in range(4, 10))
+
+    def destinos(x, cocm="ao COCM", tele="à TELE"):
+        """As saídas por destino, sem esconder as poucas que não foram para COCM, TELE, PROT ou cancelamento."""
+        partes = [f"{x['para_cocm']} {cocm}", f"{x['para_tele']} {tele}"]
+        partes += [f"{x['para_prot']} à PROT"] if x["para_prot"] else []
+        partes += [plural(x["canceladas"], "cancelada", "canceladas")]
+        partes += [plural(x["atendidas"], "atendida no próprio COEP", "atendidas no próprio COEP")] if x["atendidas"] else []
+        partes += [f"{x['para_outros']} a outro posto"] if x["para_outros"] else []
+        return ", ".join(partes[:-1]) + " e " + partes[-1]
     fila = [
         ("A curva", f"{X['fila_fim_2024']} SS paradas no COEP no fim de 2024 → {dez['fila_no_fim']} no fim de 2025 → "
                     f"{pico['fila_no_fim']} no fim de {NOMES[pico['mes'] - 1]} de {pico['ano']}, o pico, com idade mediana de "
                     f"{pico['idade_da_fila']:.0f} dias → {st['fila_no_fim']} em 23/09/2026, idade mediana de {st['idade_da_fila']:.0f} dias."),
         ("2025 encheu", f"Em 2025 o posto recebeu {ent_25} SS e despachou {sai_25}. De agosto a dezembro de 2025 as saídas quase "
                         f"pararam: {' · '.join(str(x) for x in sai_ago_dez)} por mês."),
-        ("Abril a setembro esvaziou", f"Saíram {abr_set('saidas')} SS do COEP: {abr_set('para_cocm')} mandadas ao COCM, "
-                                      f"{abr_set('para_tele')} devolvidas à TELE, {abr_set('para_prot')} à PROT e {abr_set('canceladas')} "
-                                      f"canceladas. Entraram {abr_set('entradas')}."),
+        ("Abril a setembro esvaziou", f"Saíram {abr_set('saidas')} SS do COEP: "
+                                      + destinos({k: abr_set(k) for k in ("para_cocm", "para_tele", "para_prot", "canceladas", "atendidas",
+                                                                           "para_outros")}, "mandadas ao COCM", "devolvidas à TELE")
+                                      + f". Entraram {abr_set('entradas')}."),
         ("A data certa", "O export do SGM grava o instante do repasse por cima da abertura da SS. Lida pela abertura, a fila parecia "
                          "igual no começo e no fim do ano e o «lote de 23/04» parecia entrada; com a chegada certa (o repasse da SS "
                          "anterior), a fila tem esta curva."),
@@ -649,14 +673,18 @@ def pauta(pas, acoes, linhas, novo, extra):
         return txt_
 
     def posto_no_mes(l):
-        return (f" No posto: saíram {l['saidas']} SS ({l['para_cocm']} ao COCM, {l['para_tele']} à TELE, {l['canceladas']} canceladas) e "
+        return (f" No posto: saíram {l['saidas']} SS ({destinos(l)}) e "
                 f"entraram {l['entradas']}; a fila fechou em {l['fila_no_fim']}. Trocas de peça grande no rol: {l['trocas']}.")
 
     meses = [
         ("Abril", f"Em 23/04 o COEP despachou {plural(len(lote), 'SS', 'SS')} para os COCMs, paradas no posto havia "
                   f"{X['lote_dias_parado']:.0f} dias (mediana), {X['lote_desde_2025']} delas desde 2025 ou antes."
                   + cadeias_no_mes(4) + posto_no_mes(abr)),
-        ("Maio", f"Cancelamentos em lote começaram: {mai['canceladas']} no COEP." + cadeias_no_mes(5) + posto_no_mes(mai)),
+        ("Maio", f"Limpeza de SS antigas: {plural(len(X['canc_mai']), 'SS cancelada', 'SS canceladas')} no COEP — "
+                 f"{lista(Counter(CURTO.get(p['tipo'], p['tipo'].lower()) for p in X['canc_mai']))} —, paradas no posto de "
+                 f"{min((p['saida'] - p['entrada']).days for p in X['canc_mai'])} a {max((p['saida'] - p['entrada']).days for p in X['canc_mai'])} "
+                 f"dias, em {len({p['saida'].date() for p in X['canc_mai']})} dias diferentes."
+         + cadeias_no_mes(5) + posto_no_mes(mai)),
         ("Junho", f"Saneamento: em 29/06 o COEP devolveu SS à TELE com pergunta ou pedido de reavaliação ({X['perguntas_2906']} "
                   f"pareceres naquele dia) e em 30/06 cancelou {X['cancel_3006']} SS de uma vez, no mesmo dia em que outros postos "
                   f"cancelaram em bloco ({X['cancel_3006_total']} SS de RL/RT canceladas no SGM em 30/06)."
@@ -697,8 +725,12 @@ def pauta(pas, acoes, linhas, novo, extra):
                                                f"Aqui a lacuna é de registro, não necessariamente de execução — mas, pela base, não dá para contar."
              if R["gestao_sem_frase"] else "Nenhum equipamento com «Realizado» na Gestão ficou sem frase de serviço no SGM."),
             ("O que a verificação derrubou", f"O verificador adversarial mudou {rel['derrubadas']} das {rel['verificadas']} leituras do analista"
-                                             + (": " + lista(Counter({k: v for k, v in rel["mudou_por_campo"].items() if v})) if rel["mudou_por_campo"] else "")
-                                             + ". Status ATENDIDA sem texto, comissionamento sem texto e «favor substituir» não contam como serviço feito."),
+                                             + (": " + lista(Counter({CAMPO.get(k, k): v for k, v in rel["mudou_por_campo"].items()
+                                                                      if v and k != "corrigidas pela SS irmã"})) if rel["mudou_por_campo"] else "")
+                                             + ". Status ATENDIDA sem texto, comissionamento sem texto e «favor substituir» não contam como serviço feito."
+                                             + (f" Depois, {plural(rel['mudou_por_campo']['corrigidas pela SS irmã'], 'demanda ganhou', 'demandas ganharam')} "
+                                                f"a prova do serviço numa SS irmã, aberta fora da cadeia (a de comissionamento ou a nota do COCM), "
+                                                f"que o dossiê mostrava cortada: {e_lista(R['irmas'])}." if rel["mudou_por_campo"].get("corrigidas pela SS irmã") else "")),
         ]
     r25, r26 = X["ritmo_abr_set_25"], X["ritmo_abr_set_26"]
     ra, rd = X["ritmo_ate_abr_26"], X["ritmo_mai_set_26"]
@@ -897,6 +929,9 @@ def main():
         cadeias = {"dem": R["demandas"], "rel": R["relatorio"], "pm": rcad.por_mes(R["demandas"]), "res": rcad.resumo(R["demandas"])}
         # a Gestão do gestor marca «Realizado», mas o SGM não tem frase de serviço: lacuna de registro
         gest = sf.gestao()
+        quando_foi = lambda s: ("entre " + " e ".join(re.findall(r"\d{2}/\d{2}/\d{4}", s))) if len(re.findall(r"\d{2}/\d{2}/\d{4}", s or "")) > 1 else f"em {s}"
+        cadeias["res"]["irmas"] = [f"{r['ativo']} ({r['correcao_irma'].split(':')[0]}, serviço {quando_foi(r.get('data_execucao'))})"
+                                   for r in R["demandas"] if r.get("correcao_irma")]
         cadeias["res"]["gestao_sem_frase"] = sorted({r["ativo"] for r in R["demandas"] if "REALIZ" in gest.get(r["ativo"], {}).get("status", "").upper()
                                                      and not any(x.get("executada") for x in R["demandas"] if x["ativo"] == r["ativo"])})
     cancel_3006_total = sum(1 for k, v in por.items() if ts.status(k, por) == "SS CANCELADA" and v[0]["DTA_CONCLUSAO"]
@@ -917,6 +952,7 @@ def main():
              "cocm_adiante_2025": adiante(2025), "cocm_adiante_2026": adiante(2026),
              **{f"obras_{ano}": sum(1 for p in pas if abr_set(p["entrada"], ano) and p["tipo"].startswith("OBRAS")) for ano in (2025, 2026)},
              "envio_errado": any(y["data"].year == 2026 and y["data"].month == 8 and "PROBLEMA NO ENVIO" in y["texto"].upper() for y in acoes),
+             "canc_mai": [p for p in pas if p["destino"] == "cancelada" and p["saida"].year == 2026 and p["saida"].month == 5],
              "cancel_3006": sum(1 for p in pas if p["destino"] == "cancelada" and p["saida"] and p["saida"].date() == dt.date(2026, 6, 30)),
              "perguntas_2906": sum(1 for y in perg if y["data"] == dt.date(2026, 6, 29)),
              "perguntas": {"n": len(perg), "em_2906": sum(1 for y in perg if y["data"] == dt.date(2026, 6, 29)), "ativos": len(quando),

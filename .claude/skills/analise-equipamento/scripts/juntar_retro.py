@@ -82,7 +82,8 @@ def junta(run):
             c = corr.get((r["ativo"], r.get("cadeia")))
             if not c:
                 continue
-            for campo in ("desfecho", "executada", "data_execucao", "voltou_a_operar"):
+            for campo in ("desfecho", "executada", "data_execucao", "como_datou_execucao", "voltou_a_operar",
+                          "tratada_em_2025"):
                 if campo in c and c[campo] != r.get(campo):
                     r.setdefault(campo + "_verificador", r.get(campo))
                     r[campo] = c[campo]
