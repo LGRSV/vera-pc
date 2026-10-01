@@ -129,6 +129,19 @@ Devolve, por ativo:
 }]}
 ```
 
+## Depois da verificação — as SS irmãs (orquestrador)
+
+O serviço muitas vezes é escrito numa SS **fora da cadeia**: a de comissionamento que a TELE
+abre depois da troca, a nota do COCM para o mesmo vazamento, uma cadeia paralela do mesmo
+diagnóstico. O dossiê mostra essas cadeias numa linha só, com o **começo** do último texto — e o
+texto novo pode ter entrado no fim. Na rodada de 01/10, três serviços sumiram assim, e o
+verificador chegou a ler que a SS «repete o texto sem parecer novo».
+
+Por isso, depois de `juntar_retro.py`: rodar `irmas_retro.py`, ler o trecho de cada candidato
+**no texto inteiro da base** (não no dossiê), conferir a data pela janela da SS em que a frase
+apareceu pela primeira vez, e gravar a correção em `<run>/correcoes.json`, com a frase literal,
+a SS irmã e o porquê. Frase negada («ainda não foi substituído») não conta. Depois, juntar de novo.
+
 ## Regras que não se negociam
 
 1. `todo` antes de começar. **Um `put` por ativo, na hora.**

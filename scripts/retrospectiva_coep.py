@@ -589,6 +589,10 @@ CURTO = {IND: "fora de operação", "OBRAS (NOVOS EQUIPAMENTOS)": "obra nova", "
          "AJUSTE DE PROTEÇÃO": "ajuste de proteção", "SOLICITAÇÃO DE SERVIÇO": "solicitação de serviço"}
 
 
+# prova do serviço que existe no projeto e não no SGM (documentada no CLAUDE.md)
+FORA_DO_SGM = {"5800440256": "a prova está fora do SGM: as fotos do reporte de campo de 10/09 mostram a célula 690240 "
+                             "instalada em 09/09/2026, e a SS do COCM fechou atendida no mesmo dia sem texto"}
+
 CAMPO = {"tratada_em_2025": "se houve tratativa real em 2025", "backlog_2025": "se era backlog de 2025", "executada": "se o serviço foi feito",
          "data_execucao": "a data do serviço", "voltou_a_operar": "se voltou a operar", "desfecho": "o desfecho",
          "tratativas retiradas": "tratativas retiradas", "tratativas incluídas": "tratativas que o analista não viu"}
@@ -721,8 +725,9 @@ def pauta(pas, acoes, linhas, novo, extra):
                                                  + (f"; em {R['nao_voltou']} diz que não voltou" if R["nao_voltou"] else "") + "."),
             ("Desfecho de todas em 23/09", lista(R["desfecho"]) + "."),
             ("Feito, mas sem registro no SGM", f"Em {plural(len(R['gestao_sem_frase']), 'equipamento', 'equipamentos')} a Gestão marca "
-                                               f"«Realizado» e nenhuma SS da cadeia tem frase que prove o serviço ({', '.join(R['gestao_sem_frase'])}). "
+                                               f"«Realizado» e nenhuma SS da cadeia tem frase que prove o serviço ({e_lista(R['gestao_sem_frase'])}). "
                                                f"Aqui a lacuna é de registro, não necessariamente de execução — mas, pela base, não dá para contar."
+                                               + "".join(f" No {a}, {FORA_DO_SGM[a]}." for a in R["gestao_sem_frase"] if a in FORA_DO_SGM)
              if R["gestao_sem_frase"] else "Nenhum equipamento com «Realizado» na Gestão ficou sem frase de serviço no SGM."),
             ("O que a verificação derrubou", f"O verificador adversarial mudou {rel['derrubadas']} das {rel['verificadas']} leituras do analista"
                                              + (": " + lista(Counter({CAMPO.get(k, k): v for k, v in rel["mudou_por_campo"].items()
@@ -746,8 +751,10 @@ def pauta(pas, acoes, linhas, novo, extra):
         ("Material antes da troca", f"Das {X['mat_26'][1]} trocas de abr–set/2026, {X['mat_26'][0]} tiveram antes um parecer do COEP sobre "
                                     f"o material (compra, entrega, logística ou remanejamento); das {X['mat_25'][1]} de abr–set/2025, "
                                     f"{X['mat_25'][0]}."),
-        ("Despacho que vira execução", f"Das SS que o COEP mandou ao COCM em abr–set, o COCM executou {soma('cocm_executou', 2025)} em 2025 e "
-                                       f"{soma('cocm_executou', 2026)} em 2026, contando quem executou e devolveu a SS ao COEP. A diferença está "
+        ("Despacho que anda", f"Das SS que o COEP mandou ao COCM em abr–set, o COCM fechou como atendida ou passou adiante (PROT, TELE "
+                              f"ou SE) {soma('cocm_executou', 2025)} em 2025 e {soma('cocm_executou', 2026)} em 2026, contando as que "
+                              f"voltaram ao COEP com o serviço feito. É a conta pelo status do SGM; a prova escrita do serviço, demanda a "
+                              f"demanda, está em «Atendido de verdade?». A diferença está "
                                        f"no que é: em 2026, {X['exec_ind_2026']} das {soma('cocm_executou', 2026)} eram equipamento fora de "
                                        f"operação; em 2025, {X['exec_ind_2025']} das {soma('cocm_executou', 2025)} — o resto era "
                                        f"{lista(nao_ind)}."),
