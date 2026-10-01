@@ -39,9 +39,11 @@ comissionamento e obra de equipamento novo.
   **abandonada** — superconta (dava 174 RL em 2024 contra realidade de <20/ano).
 - **Regulador é banco de três células.** O parque conta banco, não célula; falha de
   uma célula é uma falha do banco.
-- **O ano é o da data de ocorrência**, nunca o da abertura da SS. A abertura vem em
-  média 39 dias depois do fato e em 9,8% dos casos cai em outro ano. O número da SS
-  também não data nada: ETO-COEP 00149/2025 foi aberta em 29/06/2026.
+- **O ano é o da data de ocorrência**, nunca o da abertura da SS. A «abertura» do export
+  vem em média 39 dias depois do fato e em 9,8% dos casos cai em outro ano — e a razão
+  (achada em 01/10) é que **o export sobrescreve a abertura da SS repassada com o instante
+  do repasse**: a cabeça repassada «abre» quando sai do primeiro posto. O número da SS data a
+  criação: ETO-COEP 00149/2025 nasceu em 2025 e foi **repassada** em 29/06/2026.
 - **Repasse não é falha nova.** O SGM abre SS nova a cada passagem de posto; a
   cadeia inteira é uma falha só.
 - **Objeto do fato** — terceiro eixo, e o que mais engana: a SS pendura no código do
@@ -155,10 +157,24 @@ comissionamento e obra de equipamento novo.
 
 ## Armadilhas das bases
 
-- **`DTA_REPASSE` não serve.** É cópia byte a byte da `DTA_ABERTURA` nas 10.386
-  linhas. Diz quando a SS chegou, não quando saiu.
-- **A data do repasse é a abertura da SS seguinte** (campo `SS_APOS_REPASSE`). O
-  tempo parado no posto é a diferença entre as duas aberturas.
+- **O export SOBRESCREVE a `DTA_ABERTURA` (e a `DTA_REPASSE`, cópia dela) no repasse** (01/10).
+  Para SS com status REPASSADA, a «abertura» é a **saída** do posto, não a chegada. Provado
+  comparando exports da mesma SS: as 63 pendentes no de 11/07/2025 que foram repassadas depois
+  aparecem no de 23/09/2026 com a abertura igual ao instante do repasse (63 de 63); as 21
+  repassadas entre 19/08 e 23/09, idem (ETO-COEP 174/2026: 11/08 no export de 19/08, 04/09 08:40
+  no de 23/09). Na base de 23/09, a seguinte que não andou mais tem a mesma abertura que a
+  repassada, no segundo (ATENDIDA 1.248 de 1.262, PENDENTE 85 de 86). A `DTA_OCORRENCIA` é copiada
+  para a cadeia inteira. **Regra (`scripts/tempo_ss.py`)**: chegada = abertura da SS anterior; na
+  cabeça repassada, a ocorrência; saída = a própria abertura (REPASSADA), a conclusão
+  (ATENDIDA/CANCELADA), ou segue no posto (PENDENTE).
+- **«A data do repasse é a abertura da SS seguinte» só vale quando a seguinte não andou mais.**
+  Se ela também foi repassada, a abertura dela é a saída DELA — e «tempo no posto = diferença
+  entre as duas aberturas» dá o tempo no posto **seguinte**. Isso fez o «lote de 23/04» parecer
+  entrada no COEP (era despacho de SS paradas desde 2024–2025) e as «SS de 2025 recriadas em
+  29/06» (eram SS repassadas naquele dia). **Montados antes desta descoberta, e a refazer com
+  `tempo_ss`**: `backlog_mensal.py`, `coep_2026.py`/`particao_coep.py` (datas de chegada e saída),
+  `sla_falhas_regional.troca_na_base` (a regra 1 usa a abertura da SS seguinte), `sla_por_equipe.py`,
+  a ficha do 5800440256 e o `verdade_2025_2026.py`.
 - **O repasse BIFURCA, e a mesma SS vem repetida** (16/09). Na `EQP_JOAO_19082026.xlsx`
   são 10.386 linhas para **10.368 SS distintas**: 15 SS aparecem 2 a 4 vezes, cada linha
   com um `SS_APOS_REPASSE` **diferente** — o SGM abriu duas notas de campo para o mesmo
@@ -788,7 +804,8 @@ diferente de «Sem classificação».
   do prazo e o 33% só pode cair até 11% — empate com os 12% de 2025. Mediana até
   a troca: 296 dias em 2025, 78 em 2026. Amostra pequena por regional (2026 Norte = 3 trocas).
   **O início é a data da falha do rol, não a abertura da SS**: em 12 das 90 a primeira SS vem mais de
-  90 dias depois (até 431), porque o COEP **recriou SS em lote em 29/06/2026 com número de 2025** — pela
+  90 dias depois (até 431), porque o export **sobrescreve a abertura no repasse** e o COEP repassou SS de
+  2025 em lote em 29/06/2026 (até 01/10 isto estava escrito como «recriou SS») — pela
   SS, o 7925087021 parado desde dez/2025 saía «10 dias, no prazo». A leitura pela SS vai numa coluna.
   **A data da troca não está guardada em lugar nenhum** (o rol só diz sim/não). O texto manda
   («foi substituído…», com a data escrita junto; sem ano pega o da SS; com traço também); sem texto, a
