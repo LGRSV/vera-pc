@@ -1,0 +1,266 @@
+[
+  {
+    "cadeia": "ETO-TELE 00222/2024",
+    "ativo": "7951946041",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "So descreve sintoma (nao reconhece comando de abertura/fechamento) e cita 'ramal com defeito'; nenhuma peca do religador e nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00817/2025",
+    "ativo": "7952401151",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Nomeia disjuntor do rele (nao e controle nem tanque) e o texto destaca 'sem comunicacao' como problema central.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00975/2024",
+    "ativo": "7952534136",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Curto no painel de comando (o controle do religador) derrubando o disjuntor; nomeia o proprio painel/controle em curto, nao so o disjuntor.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01187/2024",
+    "ativo": "7955372016",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Painel de comando em curto-circuito nomeado diretamente como causa do religador ficar fora de operacao.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00530/2025",
+    "ativo": "7955523028",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'O rele esta apagado nao ascende' e exatamente o sintoma listado como excluido; o quadro e dominado por 'sem comunicacao'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00364/2025",
+    "ativo": "7955713003",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Pode ser Rele' e suspeita nao confirmada relatada por terceiro, e nada foi nomeado com certeza; equipamento so ficou by-passado aguardando verificacao.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00517/2025",
+    "ativo": "7955789032",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Falha de comunicacao associada a alimentacao auxiliar com defeito repete o padrao 'perde comunicacao quando falta CA', que a regua manda tratar como telecom.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00210/2025",
+    "ativo": "7955804021",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Disjuntor de alimentacao em curto' e exatamente o exemplo de erro conhecido citado na regua; disjuntor nao e controle nem tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00692/2025",
+    "ativo": "7956939122",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Descreve comportamento automatico ligado ao SCADA (ativando G3), sem nomear nenhuma peca do controle do religador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00724/2025",
+    "ativo": "7956939122",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "So descreve a manobra indevida em anel e a retirada de operacao ate solucionar; nenhuma peca e nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00150/2025",
+    "ativo": "7957465048",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Disjuntor de alimentacao (nao e peca) e curto no sistema de automacao; automacao cai na regua de telecom.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00523/2025",
+    "ativo": "7957620015",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Pede explicitamente a substituicao do controle por inteiro, com rele, fonte, radio e modulo SIM danificados pelo curto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00637/2024",
+    "ativo": "7930286009",
+    "mantem": false,
+    "categoria_final": "trafo auxiliar",
+    "porque": "E furto de trafo auxiliar (codigo 57xxxxxx do pai), e a regua diz explicitamente que furto de trafo auxiliar nao conta como peca grande.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00937/2024",
+    "ativo": "5800306104",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Pedido explicito de substituir o rele fase C do regulador, associado a curto na carcaca.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00248/2024",
+    "ativo": "5800765149",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Rele apagado' e o exemplo literal da regua para sintoma sem peca nomeada; fusiveis ja descartados sem achar causa confirmada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00221/2024",
+    "ativo": "5820790038",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Afirma diretamente 'rele com defeito', nomeando a peca do regulador com um defeito assumido, nao so um sintoma vago.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00009/2024",
+    "ativo": "5833578028",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Troca de telecomandado para local apos auto-zero e o padrao remoto/local classificado como comunicacao, nao peca; rele nao e citado no texto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00159/2024",
+    "ativo": "5837543086",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Pedido explicito de substituir o rele RUA por leituras nao correspondentes ao mecanismo de tap.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00910/2024",
+    "ativo": "5837543086",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve so o sintoma (foi ao tap maximo, deixado em tap fixo como paliativo); nenhuma peca e nomeada no texto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00537/2025",
+    "ativo": "5838014063",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "O proprio leitor admite que o rele 'nao foi nomeado explicitamente'; a citacao e so sintoma (nao regula automaticamente).",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00400/2025",
+    "ativo": "5840261097",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Nomeia o rele RUA com defeito medido (173V contra 80V do fabricante) e cogita a troca dele, nao so calibracao.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00936/2024",
+    "ativo": "5843767129",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Painel de controle do regulador (o rele/RUA) com anomalia confirmada e queimado, defeito fisico especifico.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01156/2024",
+    "ativo": "5855165193",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Nomeia o painel de controle do regulador com defeito, mesmo sem detalhar o tipo de dano.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00903/2024",
+    "ativo": "5855189265",
+    "mantem": true,
+    "categoria_final": "rele",
+    "porque": "Painel de controle do regulador em curto-circuito, tirando o equipamento de operacao; defeito eletrico especifico e nomeado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00194/2025",
+    "ativo": "5857855025",
+    "mantem": false,
+    "categoria_final": "aterramento",
+    "porque": "O parecer da protecao so pede medicao na malha de aterramento como possivel causa do travamento no comutador; nenhuma peca do regulador e confirmada defeituosa.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01125/2024",
+    "ativo": "7900032086",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Nomeia o disjuntor, nao o tanque nem a parte ativa; mesmo padrao do erro conhecido de disjuntor mal classificado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00113/2024",
+    "ativo": "7900567149",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Nomeia diretamente sinais de curto no tanque do equipamento, em dois pontos do texto.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00048/2024",
+    "ativo": "7900663086",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Circuito interno' e vago demais; nao nomeia tanque, parte ativa nem camara de interrupcao.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00305/2025",
+    "ativo": "7905357122",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve o religador travado fechado sem abrir nem manualmente pela argola, mas nao nomeia tanque, parte ativa ou camara de interrupcao.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-COEP 00063/2025",
+    "ativo": "7908206074",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque queimado constatado em campo, com substituicao solicitada explicitamente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00867/2024",
+    "ativo": "7908686014",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Pede explicitamente para substituir o tanque e ainda exclui o controle pelo nome, reforcando que a peca e o tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00785/2024",
+    "ativo": "7908708116",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "E so 'suspeita' de defeito interno, sem nomear tanque, parte ativa ou camara de interrupcao; nenhuma troca confirmada nesta cadeia.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00011/2025",
+    "ativo": "7923664004",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "A citacao fala do ativo 792366004 (9 digitos), codigo diferente do ativo do cabecalho 7923664004 (10 digitos) - fala de outro codigo.",
+    "confianca": "alta"
+  }
+]

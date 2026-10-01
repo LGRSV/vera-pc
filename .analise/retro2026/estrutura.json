@@ -1,0 +1,6860 @@
+{
+ "5800090147": [
+  {
+   "cabeca": "ETO-TELE 438/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 438/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-15T13:58:40",
+     "saida": "2026-07-13T19:50:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 117/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-15T13:58:40",
+     "saida": "2026-07-13T19:50:10",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800291035": [
+  {
+   "cabeca": "ETO-COEP 174/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 174/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-11T14:06:31",
+     "saida": "2026-09-04T08:40:01",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 277/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-04T08:40:01",
+     "saida": "2026-09-10T11:00:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800291077": [
+  {
+   "cabeca": "ETO-TELE 498/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 498/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2026-04-03T21:12:34",
+     "saida": "2026-04-08T14:03:04",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 66/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-08T14:03:04",
+     "saida": "2026-05-15T09:57:57",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 865/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-15T09:57:57",
+     "saida": "2026-05-15T09:57:57",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 854/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-15T09:57:57",
+     "saida": "2026-05-22T16:11:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800366016": [
+  {
+   "cabeca": "ETO-TELE 1107/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1107/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-09-13T00:28:57",
+     "saida": "2025-10-09T09:54:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 204/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-09T09:54:39",
+     "saida": "2026-04-28T09:45:36",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 804/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-28T09:45:36",
+     "saida": "2026-05-06T14:28:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 350/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 350/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-03-09T16:57:30",
+     "saida": "2026-03-24T11:39:37",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 53/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-24T11:39:37",
+     "saida": "2026-04-28T09:48:16",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 805/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-28T09:48:16",
+     "saida": "2026-05-06T14:04:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800371025": [
+  {
+   "cabeca": "ETO-TELE 935/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 935/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-08-23T01:10:46",
+     "saida": "2025-09-05T14:43:51",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 187/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-05T14:43:51",
+     "saida": "2026-07-14T18:01:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 142/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-14T18:01:39",
+     "saida": "2026-07-14T18:04:30",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 721/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-14T18:04:30",
+     "saida": "2026-07-15T17:13:57",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1107/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-15T17:13:57",
+     "saida": "2026-07-15T17:22:50",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 146/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-15T17:22:50",
+     "saida": "2026-07-27T15:03:05",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 766/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T15:03:05",
+     "saida": "2026-07-28T15:48:28",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1169/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T15:48:28",
+     "saida": "2026-07-30T15:15:23",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-RD-AR 1170/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T15:48:28",
+     "saida": "2026-07-30T15:34:45",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 1040/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-30T15:15:23",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800438116": [
+  {
+   "cabeca": "ETO-TELE 831/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 831/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-18T11:59:56",
+     "saida": "2025-08-19T15:07:13",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 171/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-19T15:07:13",
+     "saida": "2026-07-01T12:04:00",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 182/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T12:04:00",
+     "saida": "2026-07-01T12:05:45",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 404/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T12:05:45",
+     "saida": "2026-07-28T17:24:09",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 160/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T17:24:09",
+     "saida": "2026-07-29T14:45:48",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1039/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-29T14:45:48",
+     "saida": "2026-08-13T11:30:13",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800440256": [
+  {
+   "cabeca": "ETO-TELE 1034/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1034/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2026-07-27T22:14:41",
+     "saida": "2026-08-06T14:25:27",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 169/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-06T14:25:27",
+     "saida": "2026-09-07T11:44:08",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 278/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-07T11:44:08",
+     "saida": "2026-09-09T10:53:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800859011": [
+  {
+   "cabeca": "ETO-TELE 869/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 869/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-27T12:35:15",
+     "saida": "2026-06-12T14:59:37",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 115/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-12T14:59:37",
+     "saida": "2026-07-16T22:32:13",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 735/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T22:32:13",
+     "saida": "2026-07-28T14:26:07",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1037/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T14:26:07",
+     "saida": "2026-08-13T11:10:09",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 187/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 187/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-27T09:32:31",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5800961074": [
+  {
+   "cabeca": "ETO-COEP 221/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 221/2025",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-05T15:55:23",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5801866013": [
+  {
+   "cabeca": "ETO-TELE 339/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 339/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-02T15:58:27",
+     "saida": "2026-04-14T09:36:42",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 173/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-14T09:36:42",
+     "saida": "2026-04-20T07:47:57",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 77/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-20T07:47:57",
+     "saida": "2026-07-10T11:44:22",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 303/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T11:44:22",
+     "saida": "2026-07-14T14:45:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5803327001": [
+  {
+   "cabeca": "ETO-DEOP 14/2025",
+   "ss": [
+    {
+     "ss": "ETO-DEOP 14/2025",
+     "posto": "ETO-DEOP",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-09-04T21:36:22",
+     "saida": "2025-09-04T21:40:16",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1087/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-04T21:40:16",
+     "saida": "2025-10-07T17:12:12",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 228/2025",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-07T17:12:12",
+     "saida": "2025-10-13T13:54:10",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 691/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-13T13:54:10",
+     "saida": "2025-10-17T10:37:36",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 319/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-17T10:37:36",
+     "saida": "2025-11-11T16:59:32",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1290/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-11-11T16:59:32",
+     "saida": "2025-12-05T15:50:20",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 799/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-05T15:50:20",
+     "saida": "2026-01-22T11:48:23",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 21/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-01-22T11:48:23",
+     "saida": "2026-07-01T12:09:40",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 434/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T12:09:40",
+     "saida": "2026-07-20T09:47:09",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 149/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T09:47:09",
+     "saida": "2026-09-14T11:10:46",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 580/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-14T11:10:46",
+     "saida": "2026-09-18T10:18:33",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 189/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-18T10:18:33",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5820044123": [
+  {
+   "cabeca": "ETO-TELE 1168/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1168/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2025-10-03T15:34:10",
+     "saida": "2026-06-30T20:44:27",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 202/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2025-10-03T15:34:10",
+     "saida": "2026-06-30T20:44:27",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5823916001": [
+  {
+   "cabeca": "ETO-COEP 196/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 196/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-11T16:38:17",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5825703064": [
+  {
+   "cabeca": "ETO-TELE 948/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 948/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2026-06-22T21:53:25",
+     "saida": "2026-07-21T17:35:10",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 153/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-21T17:35:10",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5827102054": [
+  {
+   "cabeca": "ETO-COEP 216/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 216/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-27T16:25:00",
+     "saida": "2026-06-29T17:20:29",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 289/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T17:20:29",
+     "saida": "2026-07-28T16:09:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5833723026": [
+  {
+   "cabeca": "ETO-TELE 749/2024",
+   "ss": [
+    {
+     "ss": "ETO-TELE 749/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2024-10-17T15:26:45",
+     "saida": "2026-05-22T11:32:04",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 126/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2024-10-17T15:26:45",
+     "saida": "2026-05-22T11:32:03",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5835587001": [
+  {
+   "cabeca": "ETO-PROT 269/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 269/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-09-17T15:56:12",
+     "saida": "2026-06-30T10:51:57",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 1119/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-09-17T15:56:12",
+     "saida": "2026-06-30T10:51:57",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 198/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-09-30T14:30:21",
+     "saida": "2026-06-30T10:51:57",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5836764032": [
+  {
+   "cabeca": "ETO-TELE 836/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 836/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-21T12:40:31",
+     "saida": "2025-07-31T15:34:00",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 166/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-31T15:34:00",
+     "saida": "2026-04-09T14:33:29",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GU"
+    },
+    {
+     "ss": "ETO-RD-GU 443/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-09T14:33:29",
+     "saida": "2026-04-28T17:37:48",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 807/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-28T17:37:48",
+     "saida": "2026-05-20T09:54:44",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5836786094": [
+  {
+   "cabeca": "ETO-TELE 770/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 770/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-16T11:31:45",
+     "saida": "2026-05-18T13:52:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 95/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-18T13:52:39",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5840227063": [
+  {
+   "cabeca": "ETO-RD-AR 150/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-AR 150/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2026-01-23T21:12:03",
+     "saida": "2026-02-04T09:33:10",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 262/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2026-02-04T09:33:10",
+     "saida": "2026-05-21T09:34:11",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 97/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-21T09:34:11",
+     "saida": "2026-06-19T09:45:34",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 942/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-19T09:45:34",
+     "saida": "2026-07-20T14:02:24",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 151/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T14:02:24",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5844630060": [
+  {
+   "cabeca": "ETO-RD-AR 1189/2025",
+   "ss": [
+    {
+     "ss": "ETO-RD-AR 1189/2025",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-08-06T22:54:07",
+     "saida": "2025-08-07T08:02:22",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 884/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-08-07T08:02:22",
+     "saida": "2025-08-08T16:52:06",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 167/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-08T16:52:06",
+     "saida": "2026-07-20T11:32:34",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1131/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T11:32:34",
+     "saida": "2026-07-24T12:40:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 1102/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1102/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-12T11:30:44",
+     "saida": "2026-09-16T15:55:16",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 198/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-16T15:55:16",
+     "saida": "2026-09-18T17:13:38",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1440/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-18T17:13:38",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5846328094": [
+  {
+   "cabeca": "ETO-TELE 851/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 851/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-14T11:33:05",
+     "saida": "2026-05-27T15:56:15",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 105/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-27T15:56:15",
+     "saida": "2026-06-29T17:46:23",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 649/2026",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T17:46:23",
+     "saida": "2026-06-30T07:34:38",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GU"
+    },
+    {
+     "ss": "ETO-RD-GU 687/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-30T07:34:38",
+     "saida": "2026-07-08T14:37:35",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-RD-GU 688/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-30T07:34:38",
+     "saida": "2026-07-01T08:41:56",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 986/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T14:37:35",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5850308009": [
+  {
+   "cabeca": "ETO-TELE 913/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 913/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-09-02T14:35:19",
+     "saida": "2026-07-13T19:31:39",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 180/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-02T14:35:19",
+     "saida": "2026-07-13T19:31:38",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 958/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T15:10:01",
+     "saida": "2026-07-13T19:31:38",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 127/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T15:33:59",
+     "saida": "2026-07-13T19:31:38",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5851753086": [
+  {
+   "cabeca": "ETO-RD-PS 198/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-PS 198/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-05T14:49:22",
+     "saida": "2026-06-25T17:53:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 820/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-05T14:49:22",
+     "saida": "2026-06-25T17:53:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 111/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-09T10:20:06",
+     "saida": "2026-06-25T17:53:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PS 261/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-17T10:45:30",
+     "saida": "2026-06-25T17:53:22",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5852775092": [
+  {
+   "cabeca": "ETO-PROT 138/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 138/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-06-14T15:15:39",
+     "saida": "2026-06-30T22:04:23",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 420/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-06-14T15:15:39",
+     "saida": "2026-06-30T22:04:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 38/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-03-18T15:55:16",
+     "saida": "2026-06-30T22:04:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PA 278/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-04-09T14:19:11",
+     "saida": "2026-06-30T22:04:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 252/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-02-03T14:28:09",
+     "saida": "2026-06-30T22:04:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 109/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-06-09T10:14:02",
+     "saida": "2026-06-30T22:04:22",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5854566043": [
+  {
+   "cabeca": "DG-RD-PO 456/2025",
+   "ss": [
+    {
+     "ss": "DG-RD-PO 456/2025",
+     "posto": "DG-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-07-23T22:49:16",
+     "saida": "2025-07-24T10:57:54",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 845/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-07-24T10:57:54",
+     "saida": "2025-07-25T14:13:05",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 160/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-25T14:13:05",
+     "saida": "2026-07-22T10:14:09",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 213/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-22T10:14:09",
+     "saida": "2026-07-28T10:11:19",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 158/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T10:11:19",
+     "saida": "2026-09-22T10:43:46",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1383/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-22T10:43:46",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5854681071": [
+  {
+   "cabeca": "ETO-PROT 437/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 437/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-29T01:09:30",
+     "saida": "2026-06-29T19:10:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 1090/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-29T01:09:30",
+     "saida": "2026-06-29T19:10:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 29/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-02-20T15:02:29",
+     "saida": "2026-06-29T19:10:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-PROT 174/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-05-05T16:57:22",
+     "saida": "2026-06-29T19:10:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 98/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-05-16T11:37:02",
+     "saida": "2026-06-29T19:10:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PO 188/2025",
+     "posto": "ETO-RD-PO",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-08-01T17:43:06",
+     "saida": "2026-06-29T19:10:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 25/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-01-29T08:30:03",
+     "saida": "2026-06-29T19:10:34",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5855411017": [
+  {
+   "cabeca": "ETO-TELE 1082/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1082/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-03T12:09:59",
+     "saida": "2025-09-30T14:45:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 199/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-30T14:45:41",
+     "saida": "2026-07-10T11:46:38",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 304/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T11:46:38",
+     "saida": "2026-07-24T14:31:38",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 156/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-24T14:31:38",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5855606027": [
+  {
+   "cabeca": "ETO-PROT 137/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 137/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-04-09T16:33:22",
+     "saida": "2026-06-30T22:15:25",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 353/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-04-09T16:33:22",
+     "saida": "2026-06-30T22:15:25",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 106/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-05-29T13:38:55",
+     "saida": "2026-06-30T22:15:25",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5855643052": [
+  {
+   "cabeca": "ETO-TELE 917/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 917/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-08-25T10:02:30",
+     "saida": "2026-06-30T20:45:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 174/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-08-25T10:02:30",
+     "saida": "2026-06-30T20:45:34",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PS 283/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-09-01T11:38:06",
+     "saida": "2026-06-30T20:45:34",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 182/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-09-03T11:42:17",
+     "saida": "2026-06-30T20:45:34",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5855776094": [
+  {
+   "cabeca": "ETO-COEP 101/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 101/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-05-26T11:10:45",
+     "saida": "2026-06-29T19:06:10",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5856070091": [
+  {
+   "cabeca": "ETO-COEP 153/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 153/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-18T11:01:15",
+     "saida": "2025-07-31T10:58:16",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 524/2025",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-31T10:58:16",
+     "saida": "2025-08-14T09:45:52",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 250/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-14T09:45:52",
+     "saida": "2025-08-25T10:22:18",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 936/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-25T10:22:18",
+     "saida": "2025-09-24T10:47:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 194/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-24T10:47:41",
+     "saida": "2026-01-19T06:21:10",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 57/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-01-19T06:21:10",
+     "saida": "2026-03-26T11:44:19",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 56/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-26T11:44:19",
+     "saida": "2026-06-26T16:18:44",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 955/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-26T16:18:44",
+     "saida": "2026-07-07T17:16:34",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 130/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T17:16:34",
+     "saida": "2026-07-27T17:24:25",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 479/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T17:24:25",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5856156091": [
+  {
+   "cabeca": "ETO-PROT 198/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 198/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-06-16T15:50:51",
+     "saida": "2025-07-07T11:32:52",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 805/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-07T11:32:52",
+     "saida": "2025-07-07T14:52:42",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 142/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-07T14:52:42",
+     "saida": "2025-07-31T10:59:52",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 525/2025",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-31T10:59:52",
+     "saida": "2026-03-26T11:42:48",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 55/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-26T11:42:48",
+     "saida": "2026-06-29T17:41:36",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 403/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T17:41:36",
+     "saida": "2026-07-27T20:52:49",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 480/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T20:52:49",
+     "saida": "2026-07-27T20:53:23",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 160/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T20:53:23",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5856825025": [
+  {
+   "cabeca": "ETO-PROT 121/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 121/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-04-09T13:49:53",
+     "saida": "2026-06-30T22:14:16",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 351/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-04-09T13:49:53",
+     "saida": "2026-06-30T22:14:16",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 112/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-06-17T15:55:22",
+     "saida": "2026-06-30T22:14:15",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5858783119": [
+  {
+   "cabeca": "ETO-PROT 119/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 119/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-03-24T13:40:20",
+     "saida": "2025-04-08T13:41:21",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 348/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-04-08T13:41:21",
+     "saida": "2025-06-24T17:23:31",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 995/2025",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-06-24T17:23:31",
+     "saida": "2025-07-03T13:47:17",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 750/2025",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-07-03T13:47:17",
+     "saida": "2025-07-03T14:16:04",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 123/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-03T14:16:04",
+     "saida": "2026-07-27T14:28:39",
+     "como": "REPASSADA",
+     "destino": "DMSLETO"
+    },
+    {
+     "ss": "DMSLETO 1/2026",
+     "posto": "DMSLETO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T14:28:39",
+     "saida": "2026-07-27T14:29:38",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1032/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T14:29:38",
+     "saida": "2026-07-31T16:45:22",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 164/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-31T16:45:22",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5860500009": [
+  {
+   "cabeca": "ETO-PROT 227/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 227/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-31T10:39:07",
+     "saida": "2026-06-30T22:18:04",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 873/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-31T10:39:07",
+     "saida": "2026-06-30T22:18:04",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 176/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-08-29T08:52:26",
+     "saida": "2026-06-30T22:18:03",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5862236091": [
+  {
+   "cabeca": "ETO-SE-PCM 65/2025",
+   "ss": [
+    {
+     "ss": "ETO-SE-PCM 65/2025",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-12-08T10:56:23",
+     "saida": "2025-12-08T11:12:21",
+     "como": "REPASSADA",
+     "destino": "ETO-DEOP"
+    },
+    {
+     "ss": "ETO-DEOP 17/2025",
+     "posto": "ETO-DEOP",
+     "status": "SS REPASSADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-12-08T11:12:21",
+     "saida": "2025-12-08T11:13:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 223/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-08T11:13:41",
+     "saida": "2026-07-20T10:56:05",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 457/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T10:56:05",
+     "saida": "2026-07-27T20:35:45",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 158/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T20:35:45",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5862464001": [
+  {
+   "cabeca": "ETO-PROT 329/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 329/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-10-23T16:50:23",
+     "saida": "2025-10-28T10:26:53",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1250/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-10-28T10:26:53",
+     "saida": "2026-01-08T16:32:51",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 6/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-08T16:32:51",
+     "saida": "2026-01-16T09:25:17",
+     "como": "REPASSADA",
+     "destino": "ETO-OP-PA"
+    },
+    {
+     "ss": "ETO-OP-PA 1/2026",
+     "posto": "ETO-OP-PA",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-16T09:25:17",
+     "saida": "2026-01-16T09:26:34",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 29/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-16T09:26:34",
+     "saida": "2026-01-16T10:06:00",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 8/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-16T10:06:00",
+     "saida": "2026-04-27T10:41:37",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 94/2026",
+     "posto": "ETO-PROT",
+     "status": "SS ATENDIDA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-04-27T10:41:37",
+     "saida": "2026-05-19T08:43:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5862546023": [
+  {
+   "cabeca": "ETO-TELE 1275/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1275/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-11-04T10:05:18",
+     "saida": "2026-06-30T22:12:42",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 217/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-11-04T10:05:18",
+     "saida": "2026-06-30T22:12:41",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5863381155": [
+  {
+   "cabeca": "ETO-PROT 213/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 213/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-29T10:46:34",
+     "saida": "2026-06-30T20:20:42",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 862/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-29T10:46:34",
+     "saida": "2026-06-30T20:20:41",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 170/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-08-13T16:16:42",
+     "saida": "2026-06-30T20:20:41",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "5865120195": [
+  {
+   "cabeca": "ETO-PROT 41/2026",
+   "ss": [
+    {
+     "ss": "ETO-PROT 41/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-11T15:21:44",
+     "saida": "2026-02-11T15:21:44",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 334/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-11T15:21:44",
+     "saida": "2026-03-24T15:04:52",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 54/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-03-24T15:04:52",
+     "saida": "2026-05-18T08:47:24",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 538/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-18T08:47:24",
+     "saida": "2026-07-08T17:50:13",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 144/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T17:50:13",
+     "saida": "2026-08-17T14:01:12",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 91/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-17T14:01:12",
+     "saida": "2026-08-24T16:58:26",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1132/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-24T16:58:26",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900001227": [
+  {
+   "cabeca": "ETO-PROT 69/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 69/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "AVISO PROTEÇÃO & SELETIVIDADE",
+     "chegada": "2025-03-07T08:53:14",
+     "saida": "2026-06-30T19:38:59",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 230/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "AVISO PROTEÇÃO & SELETIVIDADE",
+     "chegada": "2025-03-07T08:53:14",
+     "saida": "2026-06-30T19:38:59",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 100/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "AVISO PROTEÇÃO & SELETIVIDADE",
+     "chegada": "2025-05-22T16:08:11",
+     "saida": "2026-06-30T19:38:59",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900018004": [
+  {
+   "cabeca": "ETO-TELE 926/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 926/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-21T17:02:40",
+     "saida": "2025-09-02T10:39:22",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 178/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-02T10:39:22",
+     "saida": "2026-05-27T11:29:40",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 920/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-27T11:29:40",
+     "saida": "2026-05-27T11:29:40",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 872/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-27T11:29:40",
+     "saida": "2026-06-23T15:00:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900117013": [
+  {
+   "cabeca": "ETO-TELE 791/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 791/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-02T13:13:59",
+     "saida": "2025-07-02T14:18:41",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 208/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-02T14:18:41",
+     "saida": "2025-07-03T09:12:13",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 122/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-03T09:12:13",
+     "saida": "2026-04-23T16:41:44",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 192/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:41:44",
+     "saida": "2026-04-24T16:16:24",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 84/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T16:16:24",
+     "saida": "2026-07-20T11:09:39",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 325/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T11:09:39",
+     "saida": "2026-07-21T09:32:20",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 154/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-21T09:32:20",
+     "saida": "2026-09-04T10:33:10",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1278/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-04T10:33:10",
+     "saida": "2026-09-18T17:06:46",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900230155": [
+  {
+   "cabeca": "ETO-TELE 307/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 307/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-03-29T18:25:59",
+     "saida": "2025-04-04T14:14:07",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 56/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-04-04T14:14:07",
+     "saida": "2026-05-27T11:06:47",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 356/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-27T11:06:47",
+     "saida": "2026-05-29T13:34:18",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 106/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-29T13:34:18",
+     "saida": "2026-07-07T18:25:59",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 685/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T18:25:59",
+     "saida": "2026-07-08T14:31:13",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 143/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T14:31:13",
+     "saida": "2026-08-17T13:56:05",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 90/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-17T13:56:05",
+     "saida": "2026-08-24T16:57:38",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1131/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-24T16:57:38",
+     "saida": "2026-09-15T17:30:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900275024": [
+  {
+   "cabeca": "ETO-COEP 114/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 114/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-06-23T10:42:42",
+     "saida": "2026-06-30T21:17:42",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900453110": [
+  {
+   "cabeca": "ETO-TELE 410/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 410/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-04-22T09:55:49",
+     "saida": "2025-05-08T14:14:09",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 345/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-08T14:14:09",
+     "saida": "2025-06-04T11:22:06",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 162/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-06-04T11:22:06",
+     "saida": "2025-08-12T15:26:59",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 169/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-12T15:26:59",
+     "saida": "2026-04-23T17:06:45",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 121/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T17:06:45",
+     "saida": "2026-04-27T14:47:11",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 87/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-27T14:47:11",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 143/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 143/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-15T08:53:40",
+     "saida": "2026-08-11T18:31:44",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900505026": [
+  {
+   "cabeca": "ETO-COEP 42/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 42/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-06-29T16:11:58",
+     "saida": "2026-07-14T19:00:29",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-PROT 136/2026",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-06-29T16:11:58",
+     "saida": "2026-07-14T19:00:29",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900525015": [
+  {
+   "cabeca": "ETO-RD-GR 431/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-GR 431/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2026-04-13T21:44:36",
+     "saida": "2026-04-14T11:08:30",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 72/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-14T11:08:30",
+     "saida": "2026-06-29T18:30:01",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 971/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:30:01",
+     "saida": "2026-07-07T15:27:26",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 125/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T15:27:26",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900532053": [
+  {
+   "cabeca": "ETO-COEP 102/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 102/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-26T14:53:43",
+     "saida": "2026-07-13T17:28:27",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900535058": [
+  {
+   "cabeca": "ETO-TELE 891/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 891/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-08T17:22:52",
+     "saida": "2025-08-25T08:49:37",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 173/2025",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-25T08:49:37",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900573047": [
+  {
+   "cabeca": "ETO-TELE 1188/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1188/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-09T10:05:50",
+     "saida": "2025-10-17T17:19:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 209/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-17T17:19:39",
+     "saida": "2026-04-23T16:49:47",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GU"
+    },
+    {
+     "ss": "ETO-RD-GU 493/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:49:47",
+     "saida": "2026-04-24T08:52:40",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 80/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T08:52:40",
+     "saida": "2026-07-10T11:38:07",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 696/2026",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T11:38:07",
+     "saida": "2026-07-10T14:48:55",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 712/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T14:48:55",
+     "saida": "2026-07-13T19:43:00",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GU"
+    },
+    {
+     "ss": "ETO-RD-GU 712/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T19:43:00",
+     "saida": "2026-07-20T18:54:02",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 153/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T18:54:02",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900594026": [
+  {
+   "cabeca": "ETO-TELE 1213/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1213/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2025-10-20T10:46:28",
+     "saida": "2026-06-10T14:09:27",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 210/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-10-20T10:46:28",
+     "saida": "2026-06-10T14:09:27",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 282/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 282/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "AVISO PROTEÇÃO & SELETIVIDADE",
+     "chegada": "2026-06-10T11:10:03",
+     "saida": "2026-06-10T14:10:00",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 112/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "AVISO PROTEÇÃO & SELETIVIDADE",
+     "chegada": "2026-06-10T11:10:03",
+     "saida": "2026-06-10T14:10:00",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 793/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 793/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-04-23T17:05:20",
+     "saida": "2026-06-10T11:12:18",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 113/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-10T11:12:18",
+     "saida": "2026-07-10T12:00:31",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 185/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T12:00:31",
+     "saida": "2026-07-14T17:51:21",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 148/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-14T17:51:21",
+     "saida": "2026-07-16T16:47:53",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PA"
+    },
+    {
+     "ss": "ETO-SE-PA 107/2026",
+     "posto": "ETO-SE-PA",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T16:47:53",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7900930040": [
+  {
+   "cabeca": "ETO-RD-AR 1237/2025",
+   "ss": [
+    {
+     "ss": "ETO-RD-AR 1237/2025",
+     "posto": "ETO-RD-AR",
+     "status": "SS CANCELADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2025-09-17T19:43:05",
+     "saida": "2026-04-30T08:58:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 191/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-17T19:43:05",
+     "saida": "2026-04-30T08:58:22",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-AR 737/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:56:36",
+     "saida": "2026-04-30T08:58:21",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 79/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-04-23T17:17:12",
+     "saida": "2026-04-30T08:58:21",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-AR 764/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-04-29T09:20:43",
+     "saida": "2026-04-30T08:58:21",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7901110084": [
+  {
+   "cabeca": "ETO-TELE 1495/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1495/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-17T05:52:25",
+     "saida": "2026-03-31T09:38:27",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 61/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-31T09:38:27",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7901151022": [
+  {
+   "cabeca": "ETO-TELE 1042/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1042/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-01T05:29:30",
+     "saida": "2026-08-07T16:05:01",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 172/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-07T16:05:01",
+     "saida": "2026-08-12T11:00:34",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1243/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-12T11:00:34",
+     "saida": "2026-08-12T15:28:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7901216032": [
+  {
+   "cabeca": "ETO-COEP 115/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 115/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-06-23T11:54:34",
+     "saida": "2026-06-30T21:43:31",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7902314013": [
+  {
+   "cabeca": "ETO-PROT 76/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 76/2025",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-04-16T10:37:43",
+     "saida": "2026-06-19T09:25:03",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 384/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-04-16T10:37:43",
+     "saida": "2026-06-19T09:25:03",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 152/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-07-18T10:51:44",
+     "saida": "2026-06-19T09:25:03",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7903112004": [
+  {
+   "cabeca": "ETO-TELE 1083/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1083/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-03T16:19:58",
+     "saida": "2025-09-03T17:23:26",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 184/2025",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-03T17:23:26",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7903569004": [
+  {
+   "cabeca": "ETO-TELE 360/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 360/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-11T18:20:05",
+     "saida": "2026-03-30T11:02:53",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 60/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-30T11:02:53",
+     "saida": "2026-06-29T16:05:52",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 963/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T16:05:52",
+     "saida": "2026-07-07T17:26:19",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 152/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 152/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T19:13:43",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7905357122": [
+  {
+   "cabeca": "ETO-PROT 125/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 125/2024",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2024-05-18T20:00:16",
+     "saida": "2024-07-29T11:07:42",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 503/2024",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2024-07-29T11:07:42",
+     "saida": "2024-08-16T17:22:30",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 102/2024",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2024-08-16T17:22:30",
+     "saida": "2025-05-06T08:02:24",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 178/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2025-05-06T08:02:24",
+     "saida": "2025-09-12T09:53:42",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 188/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2025-09-12T09:53:42",
+     "saida": "2026-05-22T14:20:47",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 352/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS PENDENTE",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2026-05-22T14:20:47",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908196047": [
+  {
+   "cabeca": "ETO-TELE 872/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 872/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-11T08:16:17",
+     "saida": "2026-06-18T16:02:35",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 168/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-11T08:16:17",
+     "saida": "2026-06-18T16:02:34",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-PROT 286/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 286/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-09-29T15:15:26",
+     "saida": "2025-10-06T11:26:42",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1172/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-10-06T11:26:42",
+     "saida": "2025-10-29T09:22:44",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 215/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-10-29T09:22:44",
+     "saida": "2026-06-18T15:22:21",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 939/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-06-18T15:22:21",
+     "saida": "2026-07-02T17:54:04",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 122/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-07-02T17:54:04",
+     "saida": "2026-07-13T15:45:57",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1002/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T15:45:57",
+     "saida": "2026-08-03T16:53:49",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 168/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-03T16:53:49",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908206074": [
+  {
+   "cabeca": "ETO-COEP 63/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 63/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-04-15T16:20:57",
+     "saida": "2026-06-29T15:15:48",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908249152": [
+  {
+   "cabeca": "ETO-COEP 38/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 38/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-24T11:28:09",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908302256": [
+  {
+   "cabeca": "ETO-COEP 71/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 71/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-06T11:03:44",
+     "saida": "2026-06-29T18:28:02",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 970/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:28:02",
+     "saida": "2026-04-10T14:22:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 135/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 135/2026",
+     "posto": "ETO-COEP",
+     "status": "SS ATENDIDA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2026-07-08T10:29:41",
+     "saida": "2026-08-06T12:06:31",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 175/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 175/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-08-11T14:33:14",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908686014": [
+  {
+   "cabeca": "ETO-TELE 867/2024",
+   "ss": [
+    {
+     "ss": "ETO-TELE 867/2024",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2024-10-15T16:43:55",
+     "saida": "2024-12-24T17:18:56",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 174/2024",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2024-12-24T17:18:56",
+     "saida": "2026-04-23T17:00:44",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 194/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T17:00:44",
+     "saida": "2026-04-24T16:18:48",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 86/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T16:18:48",
+     "saida": "2026-07-10T11:31:39",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 302/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T11:31:39",
+     "saida": "2026-07-28T16:05:32",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 159/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T16:05:32",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908705049": [
+  {
+   "cabeca": "ETO-TELE 824/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 824/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2025-07-16T08:00:04",
+     "saida": "2025-08-29T16:51:04",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 177/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-29T16:51:04",
+     "saida": "2026-04-23T16:43:53",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 271/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:43:53",
+     "saida": "2026-04-30T15:31:25",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 89/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-30T15:31:25",
+     "saida": "2026-07-06T17:25:18",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 409/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-06T17:25:18",
+     "saida": "2026-09-13T15:05:28",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 197/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-13T15:05:28",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7908708116": [
+  {
+   "cabeca": "ETO-COEP 20/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 20/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-01-22T11:05:26",
+     "saida": "2026-06-29T15:36:15",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 959/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T15:36:15",
+     "saida": "2026-07-08T07:55:32",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7910027196": [
+  {
+   "cabeca": "ETO-TELE 522/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 522/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-08T09:57:17",
+     "saida": "2025-05-27T16:43:35",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 397/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-27T16:43:35",
+     "saida": "2025-05-27T17:59:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 103/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-27T17:59:41",
+     "saida": "2026-06-29T18:40:14",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 973/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:40:14",
+     "saida": "2026-06-17T15:03:39",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 136/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 136/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2026-07-08T10:31:44",
+     "saida": "2026-07-13T17:58:51",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1003/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2026-07-13T17:58:51",
+     "saida": "2026-07-22T08:05:32",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 154/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-22T08:05:32",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7913662076": [
+  {
+   "cabeca": "ETO-RD-GU 604/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-GU 604/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS REPASSADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2026-06-08T15:48:55",
+     "saida": "2026-06-08T17:19:45",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 894/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2026-06-08T17:19:45",
+     "saida": "2026-06-10T15:50:01",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 114/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-10T15:50:01",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7915029003": [
+  {
+   "cabeca": "ETO-TELE 90/2023",
+   "ss": [
+    {
+     "ss": "ETO-TELE 90/2023",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2023-01-07T01:55:34",
+     "saida": "2023-01-27T15:39:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 13/2023",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2023-01-27T15:39:41",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 399/2023",
+   "ss": [
+    {
+     "ss": "ETO-TELE 399/2023",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2023-06-15T04:07:22",
+     "saida": "2023-06-27T12:03:21",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 63/2023",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2023-06-27T12:03:21",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7919270014": [
+  {
+   "cabeca": "ETO-TELE 294/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 294/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-04-17T09:29:39",
+     "saida": "2026-04-28T14:45:45",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 75/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-17T09:29:39",
+     "saida": "2026-04-28T14:45:45",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-PROT 53/2026",
+   "ss": [
+    {
+     "ss": "ETO-PROT 53/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-25T10:44:37",
+     "saida": "2026-03-20T11:27:04",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 391/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-03-20T11:27:04",
+     "saida": "2026-04-17T09:11:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 74/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-17T09:11:41",
+     "saida": "2026-07-13T15:36:33",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1001/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T15:36:33",
+     "saida": "2026-07-22T08:09:06",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 327/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-22T08:09:06",
+     "saida": "2026-07-27T20:42:54",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 159/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T20:42:54",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7920024127": [
+  {
+   "cabeca": "ETO-TELE 569/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 569/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-06-02T08:09:17",
+     "saida": "2025-07-01T14:19:09",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 120/2025",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-01T14:19:09",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7921202014": [
+  {
+   "cabeca": "ETO-RD-PA 109/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-PA 109/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-15T20:35:18",
+     "saida": "2026-02-19T11:08:11",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 301/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-19T11:08:11",
+     "saida": "2026-04-23T10:46:58",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 119/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T10:46:58",
+     "saida": "2026-04-28T14:49:25",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 88/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-28T14:49:25",
+     "saida": "2026-06-29T18:36:34",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 972/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:36:34",
+     "saida": "2026-07-08T10:15:13",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 132/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T10:15:13",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7922995039": [
+  {
+   "cabeca": "ETO-TELE 555/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 555/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-05-29T10:42:33",
+     "saida": "2025-09-02T10:45:52",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 179/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-02T10:45:52",
+     "saida": "2026-06-29T15:49:50",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 135/2026",
+     "posto": "ETO-PROT",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T15:49:50",
+     "saida": "2026-08-17T10:17:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7923673004": [
+  {
+   "cabeca": "ETO-COEP 57/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 57/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-26T15:48:39",
+     "saida": "2026-06-29T18:18:31",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 967/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:18:31",
+     "saida": "2026-07-07T15:24:28",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 124/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T15:24:28",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7923674004": [
+  {
+   "cabeca": "ETO-TELE 96/2023",
+   "ss": [
+    {
+     "ss": "ETO-TELE 96/2023",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2023-01-10T09:10:17",
+     "saida": "2023-01-25T17:41:36",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 11/2023",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2023-01-25T17:41:36",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7923927122": [
+  {
+   "cabeca": "DOLP-RD-PA 602/2025",
+   "ss": [
+    {
+     "ss": "DOLP-RD-PA 602/2025",
+     "posto": "DOLP-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-04-27T11:04:53",
+     "saida": "2025-04-29T13:50:00",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 79/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-04-29T13:50:00",
+     "saida": "2026-07-14T19:24:42",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1004/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-14T19:24:42",
+     "saida": "2026-07-16T10:52:37",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 148/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T10:52:37",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925087021": [
+  {
+   "cabeca": "ETO-COEP 222/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 222/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-08T10:15:14",
+     "saida": "2026-07-10T11:42:08",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 697/2026",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T11:42:08",
+     "saida": "2026-07-10T14:49:13",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 713/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T14:49:13",
+     "saida": "2026-07-13T10:40:40",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GU"
+    },
+    {
+     "ss": "ETO-RD-GU 711/2026",
+     "posto": "ETO-RD-GU",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T10:40:40",
+     "saida": "2026-07-20T18:52:07",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 152/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T18:52:07",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925573007": [
+  {
+   "cabeca": "ETO-TELE 947/2024",
+   "ss": [
+    {
+     "ss": "ETO-TELE 947/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2024-10-30T09:41:55",
+     "saida": "2026-06-30T21:26:03",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PA 641/2024",
+     "posto": "ETO-RD-PA",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2024-10-30T09:41:55",
+     "saida": "2026-06-30T21:26:02",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PS 166/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-06-12T15:12:55",
+     "saida": "2026-06-30T21:26:02",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 685/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-06-18T08:45:38",
+     "saida": "2026-06-30T21:26:02",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 119/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-07-01T09:24:27",
+     "saida": "2026-06-30T21:26:02",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925704079": [
+  {
+   "cabeca": "ETO-TELE 849/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 849/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2025-09-15T17:08:50",
+     "saida": "2026-06-30T21:24:06",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 189/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-09-15T17:08:50",
+     "saida": "2026-06-30T21:24:06",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925733015": [
+  {
+   "cabeca": "ETO-TELE 367/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 367/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-13T20:07:30",
+     "saida": "2026-03-30T09:54:49",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 58/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-30T09:54:49",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELECOM 12/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELECOM 12/2026",
+     "posto": "ETO-TELECOM",
+     "status": "SS CANCELADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2026-05-12T17:31:36",
+     "saida": "2026-06-17T09:17:51",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 847/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2026-05-12T17:31:36",
+     "saida": "2026-06-17T09:17:51",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 107/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-01T14:47:57",
+     "saida": "2026-06-17T09:17:51",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925737080": [
+  {
+   "cabeca": "ETO-TELE 408/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 408/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-25T11:05:40",
+     "saida": "2026-04-13T10:46:58",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 67/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-13T10:46:58",
+     "saida": "2026-05-12T11:55:37",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 838/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-12T11:55:37",
+     "saida": "2026-05-13T11:30:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925744087": [
+  {
+   "cabeca": "ETO-TELE 284/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 284/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-09T23:47:44",
+     "saida": "2026-03-30T10:22:38",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 59/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-30T10:22:38",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7925871077": [
+  {
+   "cabeca": "ETO-COEP 48/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 48/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-16T13:55:26",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7926089013": [
+  {
+   "cabeca": "ETO-COEP 39/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 39/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-24T11:37:29",
+     "saida": "2026-06-16T20:43:17",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 418/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 418/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AJUSTES DE PROTEÇÃO",
+     "chegada": "2026-03-27T15:42:46",
+     "saida": "2026-04-23T07:58:05",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 78/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T07:58:05",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7926442035": [
+  {
+   "cabeca": "ETO-TELE 298/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 298/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-18T16:24:37",
+     "saida": "2026-03-18T16:15:05",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 51/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-18T16:15:05",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7927169001": [
+  {
+   "cabeca": "ETO-COEP 36/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 36/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-01-16T09:24:40",
+     "saida": "2026-07-01T11:35:23",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 432/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T11:35:23",
+     "saida": "2026-07-21T17:43:04",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 156/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-21T17:43:04",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7927396052": [
+  {
+   "cabeca": "ETO-TELE 295/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 295/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-17T19:02:33",
+     "saida": "2026-03-02T21:25:22",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 45/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-02T21:25:22",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7927413001": [
+  {
+   "cabeca": "ETO-TELE 433/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 433/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-30T17:00:32",
+     "saida": "2026-04-23T10:17:04",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 118/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T10:17:04",
+     "saida": "2026-07-13T19:11:06",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 141/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T19:11:06",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7927446001": [
+  {
+   "cabeca": "ETO-TELE 747/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 747/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-06-26T02:10:15",
+     "saida": "2025-07-08T17:27:02",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 143/2025",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-08T17:27:02",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7927646026": [
+  {
+   "cabeca": "ETO-TELE 143/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 143/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-01-09T09:09:54",
+     "saida": "2026-02-04T08:52:01",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 29/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-04T08:52:01",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7927713200": [
+  {
+   "cabeca": "ETO-COEP 220/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 220/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-01T16:12:46",
+     "saida": "2026-06-29T15:40:37",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 960/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T15:40:37",
+     "saida": "2026-07-08T08:02:20",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 157/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 157/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-27T19:44:56",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7928241200": [
+  {
+   "cabeca": "ETO-COEP 139/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 139/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-04T10:54:05",
+     "saida": "2026-06-29T18:49:35",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 974/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:49:35",
+     "saida": "2026-07-07T15:43:47",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 128/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T15:43:47",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7928564039": [
+  {
+   "cabeca": "ETO-TELE 557/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 557/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-05-29T10:52:07",
+     "saida": "2025-07-28T15:49:11",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 162/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-28T15:49:11",
+     "saida": "2026-06-29T18:55:26",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 976/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:55:26",
+     "saida": "2026-07-07T15:23:45",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 123/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T15:23:45",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7929376022": [
+  {
+   "cabeca": "ETO-TELE 409/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 409/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-25T14:38:13",
+     "saida": "2026-04-13T10:51:38",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 68/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-13T10:51:38",
+     "saida": "2026-06-29T17:14:38",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1040/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T17:14:38",
+     "saida": "2026-06-30T16:35:22",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 120/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-30T16:35:22",
+     "saida": "2026-08-13T17:31:21",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1107/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-13T17:31:21",
+     "saida": "2026-09-01T08:56:09",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 194/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-01T08:56:09",
+     "saida": "2026-09-04T14:32:43",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1379/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-04T14:32:43",
+     "saida": "2026-09-09T11:30:18",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7930359149": [
+  {
+   "cabeca": "ETO-TELE 950/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 950/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-24T16:37:55",
+     "saida": "2026-07-13T11:36:44",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 138/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T11:36:44",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7930428001": [
+  {
+   "cabeca": "DG-RD-PO 419/2025",
+   "ss": [
+    {
+     "ss": "DG-RD-PO 419/2025",
+     "posto": "DG-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-01T20:23:34",
+     "saida": "2025-07-16T09:51:29",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 151/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-16T09:51:29",
+     "saida": "2026-06-29T16:20:45",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 965/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T16:20:45",
+     "saida": "2026-07-20T10:20:35",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 150/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-20T10:20:35",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7931219078": [
+  {
+   "cabeca": "ETO-TELE 694/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 694/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-07-29T10:22:02",
+     "saida": "2026-09-11T11:07:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 163/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-07-29T10:22:02",
+     "saida": "2026-09-11T11:07:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PO 180/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-06-29T18:52:03",
+     "saida": "2026-07-08T15:32:15",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 975/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-06-29T18:52:03",
+     "saida": "2026-09-11T11:07:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 126/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-07-07T15:32:00",
+     "saida": "2026-09-11T11:07:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PO 183/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T11:28:56",
+     "saida": "2026-09-11T11:07:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-GR 861/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-31T10:15:49",
+     "saida": "2026-09-11T11:07:10",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 1277/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1277/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-03T19:19:41",
+     "saida": "2026-09-17T14:13:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 201/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-17T14:13:41",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7931383086": [
+  {
+   "cabeca": "ETO-TELE 513/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 513/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-06T10:28:23",
+     "saida": "2025-05-23T16:00:15",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 375/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-23T16:00:15",
+     "saida": "2025-05-23T18:16:51",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 155/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-23T18:16:51",
+     "saida": "2025-07-22T17:35:50",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 157/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-22T17:35:50",
+     "saida": "2026-03-18T08:42:57",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 135/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-18T08:42:57",
+     "saida": "2026-03-23T13:45:02",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 74/2026",
+     "posto": "ETO-PROT",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-23T13:45:02",
+     "saida": "2026-04-08T17:26:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7931608059": [
+  {
+   "cabeca": "ETO-COEP 40/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 40/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-24T11:41:25",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-TELE 848/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 848/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-21T15:41:33",
+     "saida": "2026-06-17T09:20:19",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 98/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-21T15:41:33",
+     "saida": "2026-06-17T09:20:19",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7931610122": [
+  {
+   "cabeca": "ETO-TELE 1190/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1190/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-10T07:22:51",
+     "saida": "2025-10-14T16:53:35",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 206/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-14T16:53:35",
+     "saida": "2026-04-23T16:40:32",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 282/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:40:32",
+     "saida": "2026-04-24T14:32:01",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 83/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T14:32:01",
+     "saida": "2026-07-01T11:36:56",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 433/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T11:36:56",
+     "saida": "2026-07-16T15:58:04",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 150/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T15:58:04",
+     "saida": "2026-07-17T13:43:18",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 63/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-17T13:43:18",
+     "saida": "2026-07-22T14:30:07",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1025/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-22T14:30:07",
+     "saida": "2026-08-04T17:34:06",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7933585074": [
+  {
+   "cabeca": "ETO-COEP 24/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 24/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-01-27T16:33:07",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7933726256": [
+  {
+   "cabeca": "ETO-TELE 500/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 500/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-04T08:50:22",
+     "saida": "2026-05-08T11:36:29",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 316/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-08T11:36:29",
+     "saida": "2026-06-06T15:11:17",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 108/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-06T15:11:17",
+     "saida": "2026-07-01T11:57:45",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 181/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T11:57:45",
+     "saida": "2026-07-09T15:39:49",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 145/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-09T15:39:49",
+     "saida": "2026-08-17T14:16:43",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 92/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-08-17T14:16:43",
+     "saida": "2026-09-17T17:39:06",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7933766059": [
+  {
+   "cabeca": "ETO-TELE 1183/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1183/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-08T17:28:34",
+     "saida": "2025-10-20T11:03:08",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 211/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-20T11:03:08",
+     "saida": "2026-04-23T16:45:30",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 283/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:45:30",
+     "saida": "2026-04-24T14:31:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 82/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T14:31:39",
+     "saida": "2026-07-01T11:33:19",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 431/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-01T11:33:19",
+     "saida": "2026-07-16T15:56:22",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 149/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T15:56:22",
+     "saida": "2026-07-17T13:41:41",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 62/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-17T13:41:41",
+     "saida": "2026-07-22T14:26:07",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1024/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-22T14:26:07",
+     "saida": "2026-08-03T17:26:12",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7934698002": [
+  {
+   "cabeca": "ETO-RD-AG 534/2025",
+   "ss": [
+    {
+     "ss": "ETO-RD-AG 534/2025",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "AVISO DE ANOMALIA",
+     "chegada": "2025-05-06T09:04:17",
+     "saida": "2025-05-06T11:25:38",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 514/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-06T11:25:38",
+     "saida": "2025-05-09T09:51:08",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 806/2025",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-09T09:51:08",
+     "saida": "2025-05-09T14:54:15",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 549/2025",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-09T14:54:15",
+     "saida": "2025-05-12T16:39:16",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 94/2025",
+     "posto": "ETO-COEP",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-12T16:39:16",
+     "saida": "2026-05-30T11:30:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7936038076": [
+  {
+   "cabeca": "ETO-COEP 44/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 44/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-02T15:56:19",
+     "saida": "2026-06-29T15:46:56",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 962/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T15:46:56",
+     "saida": "2026-07-08T13:38:42",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7936753097": [
+  {
+   "cabeca": "ETO-RD-GU 1563/2024",
+   "ss": [
+    {
+     "ss": "ETO-RD-GU 1563/2024",
+     "posto": "ETO-RD-GU",
+     "status": "SS CANCELADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2024-12-04T11:26:23",
+     "saida": "2026-06-30T20:58:10",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 1105/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2024-12-04T11:26:23",
+     "saida": "2026-06-30T20:58:09",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 162/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-12-09T17:06:21",
+     "saida": "2026-06-30T20:58:09",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7937102148": [
+  {
+   "cabeca": "ETO-COEP 228/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 228/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-18T13:34:34",
+     "saida": "2026-06-29T18:58:56",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 977/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:58:56",
+     "saida": "2026-07-07T15:50:48",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 129/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-07T15:50:48",
+     "saida": "2026-09-18T16:55:41",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1368/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-18T16:55:41",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7938137007": [
+  {
+   "cabeca": "ETO-TELE 1528/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1528/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-12-26T18:06:25",
+     "saida": "2026-02-13T09:21:26",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 34/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-13T09:21:26",
+     "saida": "2026-04-23T16:54:19",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 193/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:54:19",
+     "saida": "2026-04-24T16:18:10",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 85/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T16:18:10",
+     "saida": "2026-06-03T14:40:44",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 888/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-03T14:40:44",
+     "saida": "2026-07-13T13:53:16",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 452/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-13T13:53:16",
+     "saida": "2026-07-14T08:08:57",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 307/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-14T08:08:57",
+     "saida": "2026-07-15T10:59:14",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 144/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-15T10:59:14",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7942485096": [
+  {
+   "cabeca": "ETO-TELE 260/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 260/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-03-14T18:55:23",
+     "saida": "2025-03-31T09:26:52",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 240/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-03-31T09:26:52",
+     "saida": "2025-04-02T13:28:07",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 87/2025",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-04-02T13:28:07",
+     "saida": "2025-07-23T10:38:41",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 158/2025",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-23T10:38:41",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7942572059": [
+  {
+   "cabeca": "ETO-TELE 841/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 841/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-12T10:29:23",
+     "saida": "2026-06-09T10:18:53",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 110/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-09T10:18:53",
+     "saida": "2026-06-29T18:43:30",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 427/2026",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:43:30",
+     "saida": "2026-07-21T17:26:38",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 155/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-21T17:26:38",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7943790134": [
+  {
+   "cabeca": "ETO-TELE 559/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 559/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-05-29T10:57:25",
+     "saida": "2025-09-02T15:33:47",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 181/2025",
+     "posto": "ETO-COEP",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-02T15:33:47",
+     "saida": "2026-06-06T13:00:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7944319149": [
+  {
+   "cabeca": "ETO-TELE 876/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 876/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-01T09:11:30",
+     "saida": "2025-09-09T09:56:59",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 297/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-09T09:56:59",
+     "saida": "2026-06-22T17:02:58",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 201/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-01T16:50:33",
+     "saida": "2026-06-22T17:02:57",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7944559149": [
+  {
+   "cabeca": "ETO-RD-PS 163/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-PS 163/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-17T10:04:45",
+     "saida": "2026-03-31T10:57:50",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 63/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-31T10:57:50",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7947203070": [
+  {
+   "cabeca": "ETO-TELE 1381/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1381/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-11-23T21:48:23",
+     "saida": "2026-02-13T08:58:15",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 33/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-13T08:58:15",
+     "saida": "2026-06-29T18:03:35",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 119/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:03:35",
+     "saida": "2026-06-29T18:04:40",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 966/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:04:40",
+     "saida": "2026-07-08T10:12:54",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 131/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T10:12:54",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7949660066": [
+  {
+   "cabeca": "ETO-TELE 317/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 317/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-05-22T15:53:31",
+     "saida": "2026-06-30T20:38:52",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 99/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2025-05-22T15:53:31",
+     "saida": "2026-06-30T20:38:51",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7949808058": [
+  {
+   "cabeca": "ETO-TELE 1108/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1108/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-08-13T18:41:49",
+     "saida": "2026-09-09T08:31:43",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 195/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-09T08:31:43",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7950310122": [
+  {
+   "cabeca": "ETO-COEP 137/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 137/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "SOLICITAÇÃO DE SERVIÇO",
+     "chegada": "2026-07-13T11:03:19",
+     "saida": "2026-07-14T16:33:26",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7953211079": [
+  {
+   "cabeca": "ETO-TELE 1006/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1006/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-15T20:02:41",
+     "saida": "2026-07-16T09:10:57",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 147/2026",
+     "posto": "ETO-COEP",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T09:10:57",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7953610256": [
+  {
+   "cabeca": "ETO-TELE 292/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 292/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-16T05:43:10",
+     "saida": "2026-03-18T16:08:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 50/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-18T16:08:39",
+     "saida": "2026-07-16T22:21:45",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PO"
+    },
+    {
+     "ss": "ETO-RD-PO 208/2026",
+     "posto": "ETO-RD-PO",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-16T22:21:45",
+     "saida": "2026-07-28T08:58:15",
+     "como": "REPASSADA",
+     "destino": "ETO-PROT"
+    },
+    {
+     "ss": "ETO-PROT 157/2026",
+     "posto": "ETO-PROT",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-28T08:58:15",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7954668084": [
+  {
+   "cabeca": "ENC-RD-PS 188/2026",
+   "ss": [
+    {
+     "ss": "ENC-RD-PS 188/2026",
+     "posto": "ENC-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "ANOMALIA EM RELIGADOR",
+     "chegada": "2026-02-03T13:31:14",
+     "saida": "2026-02-03T17:25:20",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 28/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-02-03T17:25:20",
+     "saida": "2026-06-19T09:34:21",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 941/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-19T09:34:21",
+     "saida": "2026-07-07T11:30:21",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 176/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 176/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "EM OPERAÇÃO COM ANOMALIA",
+     "chegada": "2026-08-11T15:22:15",
+     "saida": "2026-09-16T17:23:01",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7955175004": [
+  {
+   "cabeca": "ETO-PROT 266/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 266/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-09-11T10:10:07",
+     "saida": "2026-05-21T08:27:39",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 746/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-09-11T10:10:07",
+     "saida": "2026-05-21T08:27:39",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 125/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-10-15T09:31:55",
+     "saida": "2026-05-21T08:27:39",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7955430075": [
+  {
+   "cabeca": "ETO-TELE 920/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 920/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-08-20T09:39:57",
+     "saida": "2025-09-24T08:54:32",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 302/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-09-24T08:54:32",
+     "saida": "2025-10-17T16:03:15",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 208/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-10-17T16:03:15",
+     "saida": "2026-06-29T16:09:28",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 964/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T16:09:28",
+     "saida": "2026-03-31T11:28:04",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7955520116": [
+  {
+   "cabeca": "ETO-COEP 149/2025",
+   "ss": [
+    {
+     "ss": "ETO-COEP 149/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-11T10:40:07",
+     "saida": "2026-06-29T15:43:49",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 961/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T15:43:49",
+     "saida": "2026-07-08T07:59:04",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7955825037": [
+  {
+   "cabeca": "ETO-PROT 395/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 395/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-12T16:26:46",
+     "saida": "2026-05-14T16:47:41",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 1018/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-12T16:26:46",
+     "saida": "2026-05-14T16:47:40",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 152/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-25T13:58:30",
+     "saida": "2026-05-14T16:47:40",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7955946007": [
+  {
+   "cabeca": "ETO-TELE 341/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 341/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-02T21:33:09",
+     "saida": "2026-03-31T10:20:32",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PS"
+    },
+    {
+     "ss": "ETO-RD-PS 164/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-31T10:20:32",
+     "saida": "2026-04-06T09:40:39",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 64/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-06T09:40:39",
+     "saida": "2026-06-29T18:25:33",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 969/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:25:33",
+     "saida": "2026-03-18T17:31:19",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 134/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 134/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T10:28:04",
+     "saida": "2026-09-04T11:19:44",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1279/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-04T11:19:44",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7955986084": [
+  {
+   "cabeca": "ETO-RD-PS 162/2026",
+   "ss": [
+    {
+     "ss": "ETO-RD-PS 162/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-31T09:53:16",
+     "saida": "2026-03-31T10:56:57",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 62/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-03-31T10:56:57",
+     "saida": "2026-06-29T18:23:08",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 968/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-29T18:23:08",
+     "saida": "2026-04-09T17:30:07",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  },
+  {
+   "cabeca": "ETO-COEP 133/2026",
+   "ss": [
+    {
+     "ss": "ETO-COEP 133/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-08T10:24:22",
+     "saida": "2026-09-04T11:24:27",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7956063152": [
+  {
+   "cabeca": "ETO-PROT 260/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 260/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-09-26T19:28:46",
+     "saida": "2026-05-19T17:19:53",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 796/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-09-26T19:28:46",
+     "saida": "2026-05-19T17:19:53",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 166/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-12-11T10:22:52",
+     "saida": "2026-05-19T17:19:52",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PO 95/2025",
+     "posto": "ETO-RD-PO",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-04-10T10:14:08",
+     "saida": "2026-05-19T17:19:52",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 91/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-05-12T08:06:21",
+     "saida": "2026-05-19T17:19:52",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7956117005": [
+  {
+   "cabeca": "ETO-PROT 406/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 406/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-13T16:28:38",
+     "saida": "2026-05-22T11:06:05",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 1026/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-13T16:28:38",
+     "saida": "2026-05-22T11:06:05",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 157/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-11-29T14:14:58",
+     "saida": "2026-05-22T11:06:04",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7957126085": [
+  {
+   "cabeca": "ETO-TELE 597/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 597/2025",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-06-24T14:34:25",
+     "saida": "2026-07-20T10:01:21",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PS 185/2025",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-06-24T14:34:25",
+     "saida": "2026-07-20T10:01:21",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 156/2025",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-07-22T17:17:39",
+     "saida": "2026-07-20T10:01:21",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-RD-PS 301/2026",
+     "posto": "ETO-RD-PS",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-10T11:28:01",
+     "saida": "2026-07-20T10:01:21",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 145/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-15T11:27:40",
+     "saida": "2026-07-20T10:01:21",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7957163122": [
+  {
+   "cabeca": "ETO-PROT 273/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 273/2024",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-09-12T11:08:02",
+     "saida": "2024-09-27T09:34:06",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 798/2024",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-09-27T09:34:06",
+     "saida": "2025-01-21T08:13:20",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 13/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-01-21T08:13:20",
+     "saida": "2025-04-10T10:15:29",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-PA"
+    },
+    {
+     "ss": "ETO-RD-PA 279/2025",
+     "posto": "ETO-RD-PA",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2025-04-10T10:15:29",
+     "saida": "2026-03-13T13:33:47",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 362/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-03-13T13:33:47",
+     "saida": "2026-06-22T11:30:59",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7957620015": [
+  {
+   "cabeca": "ETO-TELE 523/2025",
+   "ss": [
+    {
+     "ss": "ETO-TELE 523/2025",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-08T13:02:03",
+     "saida": "2025-05-28T11:39:00",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 104/2025",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2025-05-28T11:39:00",
+     "saida": "2026-04-23T16:48:14",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-GR"
+    },
+    {
+     "ss": "ETO-RD-GR 472/2026",
+     "posto": "ETO-RD-GR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-23T16:48:14",
+     "saida": "2026-04-24T14:04:28",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 81/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-24T14:04:28",
+     "saida": "2026-06-01T13:46:42",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 879/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-01T13:46:42",
+     "saida": "2026-06-12T10:09:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7959990070": [
+  {
+   "cabeca": "ETO-PROT 311/2024",
+   "ss": [
+    {
+     "ss": "ETO-PROT 311/2024",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-10-03T14:59:39",
+     "saida": "2026-05-22T11:10:48",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 829/2024",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-10-03T14:59:39",
+     "saida": "2026-05-22T11:10:48",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 170/2024",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2024-12-13T10:00:55",
+     "saida": "2026-05-22T11:10:48",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7960070001": [
+  {
+   "cabeca": "ETO-TELE 1274/2026",
+   "ss": [
+    {
+     "ss": "ETO-TELE 1274/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-02T13:23:24",
+     "saida": "2026-09-17T07:58:04",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 199/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-17T07:58:04",
+     "saida": "2026-09-18T16:11:18",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 1364/2026",
+     "posto": "ETO-TELE",
+     "status": "SS PENDENTE",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-09-18T16:11:18",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7962635060": [
+  {
+   "cabeca": "ETO-PROT 391/2025",
+   "ss": [
+    {
+     "ss": "ETO-PROT 391/2025",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2025-12-22T14:36:41",
+     "saida": "2026-02-13T15:59:03",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 11/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-13T15:59:03",
+     "saida": "2026-02-13T17:13:26",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 286/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-13T17:13:26",
+     "saida": "2026-04-17T14:55:05",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 76/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-17T14:55:05",
+     "saida": "2026-05-14T15:29:06",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 859/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-14T15:29:06",
+     "saida": "2026-05-15T07:32:53",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 853/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-15T07:32:53",
+     "saida": "2026-05-19T14:21:06",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 96/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-05-19T14:21:06",
+     "saida": "2026-06-17T10:23:06",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 936/2026",
+     "posto": "ETO-TELE",
+     "status": "SS ATENDIDA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-17T10:23:06",
+     "saida": "2026-06-29T17:30:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7963511038": [
+  {
+   "cabeca": "ETO-PROT 122/2026",
+   "ss": [
+    {
+     "ss": "ETO-PROT 122/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-05-26T16:06:42",
+     "saida": "2026-05-26T16:06:42",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 44/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-05-26T16:06:42",
+     "saida": "2026-06-25T14:57:14",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 953/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-06-25T14:57:14",
+     "saida": "2026-08-31T13:15:22",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 191/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-08-31T13:15:22",
+     "saida": "2026-09-01T17:11:20",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-DP"
+    },
+    {
+     "ss": "ETO-RD-DP 532/2026",
+     "posto": "ETO-RD-DP",
+     "status": "SS PENDENTE",
+     "tipo": "OBRAS (NOVOS EQUIPAMENTOS)",
+     "chegada": "2026-09-01T17:11:20",
+     "saida": null,
+     "como": "PENDENTE",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7963661046": [
+  {
+   "cabeca": "ETO-PROT 33/2026",
+   "ss": [
+    {
+     "ss": "ETO-PROT 33/2026",
+     "posto": "ETO-PROT",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-30T14:41:18",
+     "saida": "2026-06-30T10:44:25",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-SE-PCM 3/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-30T14:41:18",
+     "saida": "2026-06-30T10:44:25",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-TELE 246/2026",
+     "posto": "ETO-TELE",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-02T15:16:24",
+     "saida": "2026-06-30T10:44:25",
+     "como": "CANCELADA",
+     "destino": ""
+    },
+    {
+     "ss": "ETO-COEP 49/2026",
+     "posto": "ETO-COEP",
+     "status": "SS CANCELADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-03-18T16:05:26",
+     "saida": "2026-06-30T10:44:25",
+     "como": "CANCELADA",
+     "destino": ""
+    }
+   ]
+  }
+ ],
+ "7967181127": [
+  {
+   "cabeca": "ETO-PROT 27/2026",
+   "ss": [
+    {
+     "ss": "ETO-PROT 27/2026",
+     "posto": "ETO-PROT",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-01-23T09:24:55",
+     "saida": "2026-02-23T15:33:03",
+     "como": "REPASSADA",
+     "destino": "ETO-SE-PCM"
+    },
+    {
+     "ss": "ETO-SE-PCM 13/2026",
+     "posto": "ETO-SE-PCM",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-23T15:33:03",
+     "saida": "2026-02-23T16:40:44",
+     "como": "REPASSADA",
+     "destino": "ETO-TELE"
+    },
+    {
+     "ss": "ETO-TELE 310/2026",
+     "posto": "ETO-TELE",
+     "status": "SS REPASSADA",
+     "tipo": "COMISSIONAMENTO",
+     "chegada": "2026-02-23T16:40:44",
+     "saida": "2026-04-16T14:14:28",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 73/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-04-16T14:14:28",
+     "saida": "2026-06-24T15:17:29",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1024/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-24T15:17:29",
+     "saida": "2026-06-24T15:20:05",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 630/2026",
+     "posto": "ETO-RD-AG",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-06-24T15:20:05",
+     "saida": "2026-07-02T15:28:51",
+     "como": "REPASSADA",
+     "destino": "ETO-COEP"
+    },
+    {
+     "ss": "ETO-COEP 121/2026",
+     "posto": "ETO-COEP",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-02T15:28:51",
+     "saida": "2026-07-06T11:36:13",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AR"
+    },
+    {
+     "ss": "ETO-RD-AR 1070/2026",
+     "posto": "ETO-RD-AR",
+     "status": "SS REPASSADA",
+     "tipo": "INDISPONIBILIDADE PARA OPERAÇÃO",
+     "chegada": "2026-07-06T11:36:13",
+     "saida": "2026-07-06T13:28:48",
+     "como": "REPASSADA",
+     "destino": "ETO-RD-AG"
+    },
+    {
+     "ss": "ETO-RD-AG 670/2026",
+     "posto": "ETO-RD-AG",
+     "status": "SS ATENDIDA",
+     "tipo": "NOTA DE SERVIÇO (NS) - LINHA VIVA",
+     "chegada": "2026-07-06T13:28:48",
+     "saida": "2026-07-01T14:15:00",
+     "como": "ATENDIDA",
+     "destino": ""
+    }
+   ]
+  }
+ ]
+}

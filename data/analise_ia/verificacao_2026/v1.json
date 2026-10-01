@@ -1,0 +1,226 @@
+[
+  {
+    "cadeia": "00438/2026",
+    "ativo": "5800090147",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Pede diretamente 'substituir a célula da fase C', peça nomeada mesmo a causa sendo o microswitch.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01017/2025",
+    "ativo": "5800291077",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Só descreve sintomas do regulador (vazamento de óleo, sem comutação) sem nomear célula nem fase.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00283/2026",
+    "ativo": "5800291077",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Pede substituir 'cedula' (célula) fase B, danificada e com vazamento de óleo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00498/2026",
+    "ativo": "5800291077",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Comando direto: 'Realizar substituição da célula da fase B'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00841/2026",
+    "ativo": "5800291077",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'Substituir fase B' no regulador aponta para o tanque/célula daquela fase, mesmo sem usar a palavra célula.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00275/2026",
+    "ativo": "5800366016",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'SUBSTITUIR CELULA REGULADOR... FASE A' nomeia a peça e a fase diretamente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01169/2026",
+    "ativo": "5800371025",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Citação confirma 'foi substituido célula', mas o motivo aponta conflito de nomenclatura (relés/controle) no texto cumulativo não mostrado aqui.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00831/2025",
+    "ativo": "5800438116",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia o mecanismo reversor de polaridade das fases B e C com números de série e manda 'substituir as fases B e C'; a menção a 'controle' não conta para regulador mas não invalida a célula.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00158/2025",
+    "ativo": "5800440256",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Pede explicitamente 'substituir células fase A' por isolação baixa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01431/2025",
+    "ativo": "5800440256",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia 'uma das celulas' com vazamento, mas não diz qual fase nem confirma a troca.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01034/2026",
+    "ativo": "5800440256",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Parecer DMSL pede diretamente 'substituir célula da Fase B'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00830/2026",
+    "ativo": "5800566084",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve sintoma (falha de comutação, fase travada) e pede só 'verificar'; célula nunca é nomeada, e o pedido de SCADA é item à parte.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00361/2025",
+    "ativo": "5800586084",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'Célula da fase A com problemas no comutador... necessário substituir a mesma', peça nomeada com comando explícito.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01271/2025",
+    "ativo": "5800961074",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia 'célula queimada', mesmo sem identificar a fase exata.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00339/2026",
+    "ativo": "5801866013",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Termina explícito: 'deverá ser substituída a célula do lado da BR', fase C.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00151/2026",
+    "ativo": "5801866013",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação só registra 'atendida pela OS/obra X'; não nomeia célula nesta linha — o vínculo com a cadeia anterior vem do motivo do leitor, não do texto em si.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01596/2025",
+    "ativo": "5820044123",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'SUBSTITUIR CÉLULA 03... FASE C' nomeia a peça e a fase diretamente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00948/2026",
+    "ativo": "5825703064",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve curto na fase A com efeitos em relé e chave faca, mas não nomeia célula nem pede substituição; SS segue pendente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01047/2026",
+    "ativo": "5827277123",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Tap travado... não comuta' é sintoma sem peça nomeada, e a SS segue sem confirmação de reparo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01074/2025",
+    "ativo": "5835587001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'FOI SUBSTITUIDA A CELULA FASE B' confirma a troca; a menção a 'controle' não conta para regulador mas não invalida a célula.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01590/2025",
+    "ativo": "5840203077",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'Substituir regulador fase A' restringe o pedido a uma fase, ou seja, à célula daquela fase.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00150/2026",
+    "ativo": "5840227063",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Ensaios nas três células localizam curto na fase A, 'sendo necessário a sua substituição'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00905/2025",
+    "ativo": "5840261097",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Atribui o defeito ao 'regulador' (não à célula) e usa linguagem de sintoma ('não aceita os comandos'); nenhuma substituição é pedida no texto.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01305/2025",
+    "ativo": "5841307050",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Não acitou os comandos locais' e 'ficou by passado' são sintomas da lista de exclusão, sem célula nomeada nem substituição pedida.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01189/2025",
+    "ativo": "5844630060",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'Célula da fase A... Necessário substituição da célula' é explícito.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01168/2026",
+    "ativo": "5844630060",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'Foi substituido célula' confirma a troca da célula da fase A.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01102/2026",
+    "ativo": "5844630060",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Fase B travada' e 'ficou... bay passado' descrevem sintoma, sem célula nomeada nesta nova ocorrência.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00935/2026",
+    "ativo": "5848305116",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "'Falha na Cédula RT2' nomeia a célula com defeito, mesmo pedindo verificação em campo.",
+    "confianca": "media"
+  }
+]

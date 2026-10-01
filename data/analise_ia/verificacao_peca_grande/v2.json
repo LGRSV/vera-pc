@@ -1,0 +1,266 @@
+[
+  {
+    "cadeia": "ETO-TELE 00877/2024",
+    "ativo": "7900757013",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto confirma 'RELIGADOR SUBSTITUÍDO EM CAMPO' e depois 'CONTROLE SUBSTITUÍDO' — equipamento inteiro e controle trocados.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00025/2024",
+    "ativo": "7908203091",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pedido de substituição completa do religador em curto, confirmado por 'Religador substituido conforme solicitado'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00037/2024",
+    "ativo": "7908206074",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pedido explícito de substituir 'por completo devido tanque em curto e controle com defeito' — nomeia as duas peças juntas.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-COEP 00129/2024",
+    "ativo": "7908708116",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pedido explícito de 'substituição completa do equipamento' por defeito no tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00737/2024",
+    "ativo": "7913657147",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Citação confirma 'RELIGADOR SUBSTITUIDO CONFORME SOLICITADO' — nomeia o equipamento inteiro, mesmo sem detalhar a peça defeituosa nesta linha.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00569/2025",
+    "ativo": "7920024127",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Relé e parte ativa (tanque) com defeito nomeados, com pedido explícito de 'substituição completa'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00156/2025",
+    "ativo": "7920080052",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Tanque com defeito nomeado e 'troca completa' solicitada expressamente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01114/2024",
+    "ativo": "7921039031",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto pede 'substituição completa do mesmo', com 'mesmo' referindo-se ao 'Equipamento 7921039031' nomeado na frase anterior.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00747/2025",
+    "ativo": "7927446001",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Placa de alimentação danificada (controle) e pedido duplo de 'substituir o equipamento completo'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00749/2025",
+    "ativo": "7927446001",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "SS irmã com texto idêntico à 00747/2025: placa de alimentação danificada e pedido de substituição do equipamento completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00588/2024",
+    "ativo": "7929374004",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto nomeia tanque em curto e pede 'substituição completa do equipamento, tanque e controle'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00508/2024",
+    "ativo": "7931613122",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação só diz 'onde o mesmo foi substituído', sem nomear religador, tanque, controle ou equipamento nesta frase — pronome sem antecedente no texto dado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-PROT 00468/2024",
+    "ativo": "7947668005",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto confirma diretamente 'Religador e controle foram substituidos'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00736/2024",
+    "ativo": "7949315055",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto confirma 'equipamento substituído em campo', nomeando a troca do equipamento inteiro.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00629/2025",
+    "ativo": "7949647081",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pedido direto de 'substituição de religador' — equipamento inteiro nomeado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00630/2025",
+    "ativo": "7949648145",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pedido direto de 'substituição de religador' — equipamento inteiro nomeado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00631/2025",
+    "ativo": "7949649145",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pedido direto de 'substituição de religador' — equipamento inteiro nomeado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00012/2025",
+    "ativo": "7900010004",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Nomeia 'painel de comando em curto' — equivalente ao armário/gabinete de controle do religador, com defeito elétrico específico.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00064/2024",
+    "ativo": "7900236054",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Nomeia 'placa de alimentação' provavelmente queimada, sinônimo direto de controle na régua.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00135/2024",
+    "ativo": "7900328003",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Texto só relata 'sem comunicação' e 'rele esta apagado' — sintomas sem peça nomeada, igual ao padrão de erro 'display ilegível e sem comunicação'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00031/2024",
+    "ativo": "7900451096",
+    "mantem": false,
+    "categoria_final": "ajuste de protecao",
+    "porque": "Pede corrigir sequenciamento de fase e dado de frequência — ajuste de parâmetro/proteção, nenhuma peça física nomeada.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 01143/2024",
+    "ativo": "7900465025",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Não aceita comando de fechamento remota e nem local' é sintoma listado explicitamente como não-peça, sem nomear componente.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00198/2024",
+    "ativo": "7900528037",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Relata comportamento anômalo (abriu por comando e fechou sozinho) sem nomear nenhuma peça.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00518/2025",
+    "ativo": "7900532053",
+    "mantem": false,
+    "categoria_final": "sem defeito",
+    "porque": "Remoção de ninho de abelha é limpeza, não troca de peça — exatamente o erro descrito no enunciado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00528/2025",
+    "ativo": "7900759045",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Sem comunicação' e 'rele apagado' são sintomas sem peça nomeada; bypass reforça leitura de sintoma/telecom.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00389/2024",
+    "ativo": "7900785033",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Falha é só no comando remoto ('fechamento... remoto'), resolvida com fechamento manual local — problema de comunicação/automação, não de peça.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00053/2024",
+    "ativo": "7900930040",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "'Relé apagado' e 'sem comunicação' são sintomas sem peça nomeada, mesmo padrão do erro conhecido.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00232/2024",
+    "ativo": "7901110084",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Rele apagado' é sintoma listado como não-peça; 'ficou isolado' não nomeia componente defeituoso nem confirma troca.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00123/2024",
+    "ativo": "7902218004",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Aparentemente Modulo sim esta com avaria' é diagnóstico hedged e vago (primeiro ataque), não nomeia peça da lista de controle.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "ETO-TELE 00451/2024",
+    "ativo": "7903112004",
+    "mantem": false,
+    "categoria_final": "sem defeito",
+    "porque": "Abelhas causando comunicação intermitente é infestação de inseto, não troca de peça — mesmo padrão do ninho de abelha.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00729/2024",
+    "ativo": "7903316001",
+    "mantem": false,
+    "categoria_final": "para-raio",
+    "porque": "DJ (disjuntor) e DPS (para-raios) só 'constatados danificados'; disjuntor não é controle nem tanque, e DPS é para-raio.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00778/2024",
+    "ativo": "7903569004",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Relé apagado' e equipamento bypassado, sem abrir nem manualmente, são sintomas sem peça nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00026/2025",
+    "ativo": "7905356122",
+    "mantem": false,
+    "categoria_final": "telecom",
+    "porque": "Citação é o exemplo literal do erro descrito no enunciado: 'display ilegível e sem comunicação' é sintoma + telecom.",
+    "confianca": "alta"
+  }
+]

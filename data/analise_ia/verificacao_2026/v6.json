@@ -1,0 +1,226 @@
+[
+  {
+    "cadeia": "ETO-TELE 00367/2026",
+    "ativo": "7925733015",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Descrição nomeia 'Tanque do equipamento em Curto' e pede diretamente substituir tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00284/2026",
+    "ativo": "7925744087",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Água identificada dentro do tanque e pendência pede substituir tanque (e cabo umbilical).",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00048/2026",
+    "ativo": "7925871077",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parecer nomeia defeito na parte ativa do religador, que a régua equipara a tanque.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-COEP 00039/2026",
+    "ativo": "7926089013",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Texto nomeia tanque em curto e pede diretamente substituir o tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00298/2026",
+    "ativo": "7926442035",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Nomeia parte ativa danificada com necessidade de substituição, que é tanque na régua.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00036/2026",
+    "ativo": "7927169001",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parecer confirma tanque ('Tranque') substituído por OS do COCM.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00744/2026",
+    "ativo": "7927169001",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Nomeia tanque danificado e pede substituir o tanque do equipamento.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00295/2026",
+    "ativo": "7927396052",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "DMSL confirma que só o tanque está queimado e pede substituir a parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00143/2026",
+    "ativo": "7927646026",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Defeito no tanque nomeado explicitamente, com pedido de substituir o tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00220/2025",
+    "ativo": "7927713200",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Instrução direta 'REALIZAR SUBSTITUIÇÃO DO TANQUE' nomeia a peça sem ambiguidade.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00157/2026",
+    "ativo": "7927713200",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Pedido explícito de substituição do tanque danificado do RL.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00950/2026",
+    "ativo": "7930359149",
+    "mantem": false,
+    "categoria_final": "completo",
+    "porque": "Texto pede substituir 'o equipamento' (objeto da troca, não 'a parte ativa'/'o tanque'); pela regra 3 isso é completo — a parte ativa aparece só como causa ('pois'), não como o item trocado.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-COEP 00040/2026",
+    "ativo": "7931608059",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque nomeado como danificado, com pedido explícito de substituir o tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00848/2026",
+    "ativo": "7931608059",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Parte ativa nomeada como precisando ser substituída; pendência pede substituir o tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01190/2025",
+    "ativo": "7931610122",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Texto nomeia 'parte ativa (tanque)' danificada e pede a substituição dela.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00728/2026",
+    "ativo": "7931610122",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Repete 'parte ativa (tanque)' e pendência pede substituir a parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00024/2026",
+    "ativo": "7933585074",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Instrução direta: tanque com defeito, realizar substituição do tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00500/2026",
+    "ativo": "7933726256",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Defeito na parte ativa nomeado, com pedido de substituição da parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01183/2025",
+    "ativo": "7933766059",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Curto na parte ativa e pedido de substituição 'somente do tanque, parte ativa'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00207/2025",
+    "ativo": "7933766059",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Nota pede substituir tanque/parte ativa do religador danificado, nomeando a peça.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00727/2026",
+    "ativo": "7933766059",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Repete 'substituição somente do tanque, parte ativa' do mesmo ativo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00044/2026",
+    "ativo": "7936038076",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque nomeado como queimado, com pedido direto de substituição.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00228/2025",
+    "ativo": "7937102148",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque com defeito nomeado, pedido de substituição do tanque.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00013/2025",
+    "ativo": "7937105148",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Tanque queimado confirmado; texto ainda exclui controle explicitamente ('em bom estado').",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01528/2025",
+    "ativo": "7938137007",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação nomeia só bucha da fase A solta, não tanque, parte ativa nem câmara de interrupção.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00572/2026",
+    "ativo": "7943790134",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Pedido explícito de substituição da parte ativa do religador com defeito.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00920/2025",
+    "ativo": "7955430075",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Substituir a parte ativa é pedido duas vezes, com defeito no sensor do tanque diagnosticado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00912/2025",
+    "ativo": "7955430075",
+    "mantem": true,
+    "categoria_final": "tanque",
+    "porque": "Falha na parte ativa nomeada como causa do bypass em campo.",
+    "confianca": "media"
+  }
+]

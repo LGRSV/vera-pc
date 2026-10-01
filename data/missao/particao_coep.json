@@ -1,0 +1,729 @@
+{
+ "regua": "gestor, 28/08 e 29/08: quem voltou para a fila não conta como resolvido. Quem saiu do campo para ajuste ou comissionamento também não entra nos resolvidos — a parte do COEP acabou, mas o equipamento segue com SS aberta em outra mesa; fica em balde próprio. E quem ainda está num COCM fica em execução no campo.",
+ "contas": {
+  "passaram": 118,
+  "resolvidos": 48,
+  "na_fila": 54,
+  "despachados_para_outra_mesa": 14,
+  "em_execucao_no_campo": 2,
+  "trabalho_do_coep_concluido": 62,
+  "conta_do_posto": 102,
+  "fora_do_posto": 16,
+  "voltaram_para_a_fila": 11,
+  "fora_da_conta": 25,
+  "passaram_bruto": 143
+ },
+ "por_tipo": {
+  "RT": 16,
+  "RL": 32
+ },
+ "fora_da_conta": [
+  {
+   "ativo": "5820044123",
+   "tipo_da_demanda": "AJUSTES DE PROTEÇÃO",
+   "localidade": "AGUIARNOPOLIS"
+  },
+  {
+   "ativo": "5835587001",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PORTO NACIONAL"
+  },
+  {
+   "ativo": "5852775092",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "NOVO ACORDO"
+  },
+  {
+   "ativo": "5854681071",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "BREJINHO DE NAZARE"
+  },
+  {
+   "ativo": "5855606027",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "PONTE ALTA DO BOM JESUS"
+  },
+  {
+   "ativo": "5856825025",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "ARAPOEMA"
+  },
+  {
+   "ativo": "5860500009",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "GUARAI"
+  },
+  {
+   "ativo": "5862464001",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PORTO NACIONAL"
+  },
+  {
+   "ativo": "5862546023",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "COLINAS DO TOCANTINS"
+  },
+  {
+   "ativo": "5863381155",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PALMEIRANTE"
+  },
+  {
+   "ativo": "5865120195",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "CENTENARIO"
+  },
+  {
+   "ativo": "7900001227",
+   "tipo_da_demanda": "AVISO PROTEÇÃO & SELETIVIDADE",
+   "localidade": "RECURSOLANDIA"
+  },
+  {
+   "ativo": "7900236054",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "PUGMIL"
+  },
+  {
+   "ativo": "7902314013",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "PARAISO DO TOCANTINS"
+  },
+  {
+   "ativo": "7905357122",
+   "tipo_da_demanda": "AJUSTES DE PROTEÇÃO",
+   "localidade": "PALMAS"
+  },
+  {
+   "ativo": "7936753097",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "TALISMA"
+  },
+  {
+   "ativo": "7955175004",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ARAGUAINA"
+  },
+  {
+   "ativo": "7955825037",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ALIANCA DO TOCANTINS"
+  },
+  {
+   "ativo": "7956063152",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "SANTA ROSA DO TOCANTINS"
+  },
+  {
+   "ativo": "7956117005",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ARRAIAS"
+  },
+  {
+   "ativo": "7957163122",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "PALMAS"
+  },
+  {
+   "ativo": "7959990070",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "RIO SONO"
+  },
+  {
+   "ativo": "7963661046",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "NOVA ROSALANDIA"
+  },
+  {
+   "ativo": "7965032004",
+   "tipo_da_demanda": "OBRAS (NOVOS EQUIPAMENTOS)",
+   "localidade": "ARAGUAINA"
+  },
+  {
+   "ativo": "7965164065",
+   "tipo_da_demanda": "COMISSIONAMENTO",
+   "localidade": "AXIXA DO TOCANTINS"
+  }
+ ],
+ "resolvidos_por_outra_mesa": [
+  {
+   "ativo": "5846328094",
+   "tipo": "regulador",
+   "localidade": "PEIXE",
+   "ss_atual": "ETO-TELE 00986/2026",
+   "onde_esta": "ETO-TELE",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 41,
+   "passou_por_cocm": [
+    "ETO-RD-AG",
+    "ETO-RD-GU"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7900594026",
+   "tipo": "religador",
+   "localidade": "PONTE ALTA TOCANTINS",
+   "ss_atual": "ETO-SE-PA 00107/2026",
+   "onde_esta": "ETO-SE-PA",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 33,
+   "passou_por_cocm": [
+    "ETO-RD-PO"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7900573047",
+   "tipo": "religador",
+   "localidade": "FIGUEIROPOLIS",
+   "ss_atual": "ETO-PROT 00153/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 29,
+   "passou_por_cocm": [
+    "ETO-RD-GU",
+    "ETO-RD-AG",
+    "ETO-RD-GR",
+    "ETO-RD-GU"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7925087021",
+   "tipo": "religador",
+   "localidade": "PARANA",
+   "ss_atual": "ETO-PROT 00152/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 29,
+   "passou_por_cocm": [
+    "ETO-RD-AG",
+    "ETO-RD-GR",
+    "ETO-RD-GU"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7900117013",
+   "tipo": "religador",
+   "localidade": "PARAISO DO TOCANTINS",
+   "ss_atual": "ETO-PROT 00154/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 28,
+   "passou_por_cocm": [
+    "ETO-RD-PS",
+    "ETO-RD-PS",
+    "ETO-RD-PS"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7927169001",
+   "tipo": "religador",
+   "localidade": "PORTO NACIONAL",
+   "ss_atual": "ETO-PROT 00156/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 28,
+   "passou_por_cocm": [
+    "ETO-RD-PA"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7942572059",
+   "tipo": "religador",
+   "localidade": "TAQUARALTO",
+   "ss_atual": "ETO-PROT 00155/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 28,
+   "passou_por_cocm": [
+    "ETO-RD-PA"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "5854566043",
+   "tipo": "regulador",
+   "localidade": "SILVANOPOLIS",
+   "ss_atual": "ETO-PROT 00158/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 21,
+   "passou_por_cocm": [
+    "DG-RD-PO",
+    "ETO-RD-PO"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7908686014",
+   "tipo": "religador",
+   "localidade": "PIUM",
+   "ss_atual": "ETO-PROT 00159/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 21,
+   "passou_por_cocm": [
+    "ETO-RD-PS",
+    "ETO-RD-PS"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "7953610256",
+   "tipo": "religador",
+   "localidade": "MATEIROS",
+   "ss_atual": "ETO-PROT 00157/2026",
+   "onde_esta": "ETO-PROT",
+   "etapa": "ajuste de proteção — parte do COEP concluída",
+   "dias_la": 21,
+   "passou_por_cocm": [
+    "ETO-RD-PO"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (ajuste de proteção)"
+  },
+  {
+   "ativo": "5800371025",
+   "tipo": "regulador",
+   "localidade": "ARAPOEMA",
+   "ss_atual": "ETO-TELE 01040/2026",
+   "onde_esta": "ETO-TELE",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 19,
+   "passou_por_cocm": [
+    "ETO-RD-GR",
+    "ETO-RD-AR",
+    "ETO-RD-GR",
+    "ETO-RD-AR"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7929376022",
+   "tipo": "religador",
+   "localidade": "BABACULANDIA",
+   "ss_atual": "ETO-TELE 01107/2026",
+   "onde_esta": "ETO-TELE",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 5,
+   "passou_por_cocm": [
+    "ETO-RD-AR"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7900230155",
+   "tipo": "religador",
+   "localidade": "PALMEIRANTE",
+   "ss_atual": "ETO-SE-PCM 00090/2026",
+   "onde_esta": "ETO-SE-PCM",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 1,
+   "passou_por_cocm": [
+    "ETO-RD-DP",
+    "ETO-RD-GR"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
+  },
+  {
+   "ativo": "7933726256",
+   "tipo": "religador",
+   "localidade": "MATEIROS",
+   "ss_atual": "ETO-SE-PCM 00092/2026",
+   "onde_esta": "ETO-SE-PCM",
+   "etapa": "comissionamento — parte do COEP concluída",
+   "dias_la": 1,
+   "passou_por_cocm": [
+    "ETO-RD-PA",
+    "ETO-RD-PO"
+   ],
+   "situacao": "Despachado para outra mesa",
+   "nota": "peça trocada e campo devolveu; a parte do COEP acabou, mas a SS segue aberta no braço seguinte (comissionamento)"
+  }
+ ],
+ "em_execucao": [
+  {
+   "ativo": "7908705049",
+   "tipo": "religador",
+   "localidade": "AURORA DO TOCANTINS",
+   "ss_atual": "ETO-RD-DP 00409/2026",
+   "onde_esta": "ETO-RD-DP",
+   "etapa": "execução com os COCMs",
+   "dias_la": 43,
+   "passou_por_cocm": [
+    "ETO-RD-DP",
+    "ETO-RD-DP"
+   ],
+   "situacao": "Em execução no campo",
+   "nota": "a cadeia termina num COCM — a obra está acontecendo agora; entra nos resolvidos quando a equipe devolver"
+  },
+  {
+   "ativo": "5856070091",
+   "tipo": "regulador",
+   "localidade": "ALMAS",
+   "ss_atual": "ETO-RD-DP 00479/2026",
+   "onde_esta": "ETO-RD-DP",
+   "etapa": "execução com os COCMs",
+   "dias_la": 22,
+   "passou_por_cocm": [
+    "ETO-RD-DP",
+    "ETO-RD-DP",
+    "ETO-RD-DP"
+   ],
+   "situacao": "Em execução no campo",
+   "nota": "a cadeia termina num COCM — a obra está acontecendo agora; entra nos resolvidos quando a equipe devolver"
+  }
+ ],
+ "voltaram": [
+  "5800291035",
+  "7900453110",
+  "7903569004",
+  "7910027196",
+  "7925733015",
+  "7926089013",
+  "7927713200",
+  "7931608059",
+  "7954668084",
+  "7955946007",
+  "7955986084"
+ ],
+ "quadro": {
+  "passaram": {
+   "RL": 87,
+   "RT": 31,
+   "total": 118
+  },
+  "passivo": {
+   "RL": 22,
+   "RT": 8,
+   "total": 30
+  },
+  "passivo_por_ano": {
+   "2023": {
+    "RL": 2,
+    "RT": 0,
+    "total": 2
+   },
+   "2024": {
+    "RL": 0,
+    "RT": 1,
+    "total": 1
+   },
+   "2025": {
+    "RL": 20,
+    "RT": 7,
+    "total": 27
+   }
+  },
+  "chegaram_em_2026": {
+   "RL": 65,
+   "RT": 23,
+   "total": 88
+  },
+  "resolvidos": {
+   "RL": 32,
+   "RT": 16,
+   "total": 48
+  },
+  "resolvidos_do_passivo": {
+   "RL": 12,
+   "RT": 5,
+   "total": 17
+  },
+  "resolvidos_dos_novos": {
+   "RL": 20,
+   "RT": 11,
+   "total": 31
+  },
+  "na_fila": {
+   "RL": 43,
+   "RT": 11,
+   "total": 54
+  },
+  "fila_do_passivo": {
+   "RL": 9,
+   "RT": 3,
+   "total": 12
+  },
+  "despachados": {
+   "RL": 11,
+   "RT": 3,
+   "total": 14
+  },
+  "coep_concluiu": {
+   "RL": 43,
+   "RT": 19,
+   "total": 62
+  },
+  "em_execucao": {
+   "RL": 1,
+   "RT": 1,
+   "total": 2
+  },
+  "conta_do_posto": {
+   "RL": 75,
+   "RT": 27,
+   "total": 102
+  }
+ },
+ "quadro_ano": {
+  "RL": {
+   "resolvidos": {
+    "2023": 0,
+    "2024": 2,
+    "2025": 23,
+    "2026": 7,
+    "passivo": 25,
+    "total": 32
+   },
+   "fila": {
+    "2023": 2,
+    "2024": 0,
+    "2025": 10,
+    "2026": 31,
+    "passivo": 12,
+    "total": 43
+   },
+   "despachados": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 1,
+    "2026": 10,
+    "passivo": 1,
+    "total": 11
+   },
+   "execucao": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 0,
+    "2026": 1,
+    "passivo": 0,
+    "total": 1
+   },
+   "coep_concluiu": {
+    "2023": 0,
+    "2024": 2,
+    "2025": 24,
+    "2026": 17,
+    "passivo": 26,
+    "total": 43
+   },
+   "geral": {
+    "2023": 2,
+    "2024": 2,
+    "2025": 34,
+    "2026": 49,
+    "passivo": 38,
+    "total": 87
+   }
+  },
+  "RT": {
+   "resolvidos": {
+    "2023": 0,
+    "2024": 1,
+    "2025": 10,
+    "2026": 5,
+    "passivo": 11,
+    "total": 16
+   },
+   "fila": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 4,
+    "2026": 7,
+    "passivo": 4,
+    "total": 11
+   },
+   "despachados": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 0,
+    "2026": 3,
+    "passivo": 0,
+    "total": 3
+   },
+   "execucao": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 0,
+    "2026": 1,
+    "passivo": 0,
+    "total": 1
+   },
+   "coep_concluiu": {
+    "2023": 0,
+    "2024": 1,
+    "2025": 10,
+    "2026": 8,
+    "passivo": 11,
+    "total": 19
+   },
+   "geral": {
+    "2023": 0,
+    "2024": 1,
+    "2025": 14,
+    "2026": 16,
+    "passivo": 15,
+    "total": 31
+   }
+  },
+  "Total": {
+   "resolvidos": {
+    "2023": 0,
+    "2024": 3,
+    "2025": 33,
+    "2026": 12,
+    "passivo": 36,
+    "total": 48
+   },
+   "fila": {
+    "2023": 2,
+    "2024": 0,
+    "2025": 14,
+    "2026": 38,
+    "passivo": 16,
+    "total": 54
+   },
+   "despachados": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 1,
+    "2026": 13,
+    "passivo": 1,
+    "total": 14
+   },
+   "execucao": {
+    "2023": 0,
+    "2024": 0,
+    "2025": 0,
+    "2026": 2,
+    "passivo": 0,
+    "total": 2
+   },
+   "coep_concluiu": {
+    "2023": 0,
+    "2024": 3,
+    "2025": 34,
+    "2026": 25,
+    "passivo": 37,
+    "total": 62
+   },
+   "geral": {
+    "2023": 2,
+    "2024": 3,
+    "2025": 48,
+    "2026": 65,
+    "passivo": 53,
+    "total": 118
+   }
+  }
+ },
+ "anos": [
+  "2023",
+  "2024",
+  "2025",
+  "2026"
+ ],
+ "passivo_na_fila": [
+  {
+   "ativo": "7923674004",
+   "tipo": "RL",
+   "localidade": "ARAGUAINA",
+   "desde": "25/01/2023",
+   "dias": 1301
+  },
+  {
+   "ativo": "7915029003",
+   "tipo": "RL",
+   "localidade": "GURUPI",
+   "desde": "27/01/2023",
+   "dias": 1299
+  },
+  {
+   "ativo": "7920024127",
+   "tipo": "RL",
+   "localidade": "PALMEIRAS DO TOCANTINS",
+   "desde": "01/07/2025",
+   "dias": 413
+  },
+  {
+   "ativo": "7927446001",
+   "tipo": "RL",
+   "localidade": "PORTO NACIONAL",
+   "desde": "08/07/2025",
+   "dias": 406
+  },
+  {
+   "ativo": "7942485096",
+   "tipo": "RL",
+   "localidade": "PINDORAMA DO TOCANTINS",
+   "desde": "23/07/2025",
+   "dias": 391
+  },
+  {
+   "ativo": "7900535058",
+   "tipo": "RL",
+   "localidade": "SANTA FE DO ARAGUAIA",
+   "desde": "25/08/2025",
+   "dias": 358
+  },
+  {
+   "ativo": "7903112004",
+   "tipo": "RL",
+   "localidade": "ARAGUAINA",
+   "desde": "03/09/2025",
+   "dias": 349
+  },
+  {
+   "ativo": "7938137007",
+   "tipo": "RL",
+   "localidade": "MIRACEMA DO TOCANTINS",
+   "desde": "09/04/2025",
+   "dias": 336
+  },
+  {
+   "ativo": "7908196047",
+   "tipo": "RL",
+   "localidade": "FIGUEIROPOLIS",
+   "desde": "11/08/2025",
+   "dias": 311
+  },
+  {
+   "ativo": "5800961074",
+   "tipo": "RT",
+   "localidade": "DIANOPOLIS",
+   "desde": "05/12/2025",
+   "dias": 256
+  },
+  {
+   "ativo": "5856156091",
+   "tipo": "RT",
+   "localidade": "ALMAS",
+   "desde": "31/07/2025",
+   "dias": 238
+  },
+  {
+   "ativo": "5800291035",
+   "tipo": "RT",
+   "localidade": "MONTE DO CARMO",
+   "desde": "03/07/2025",
+   "dias": 208
+  }
+ ]
+}

@@ -1,0 +1,2 @@
+
+2026-09-16T00:48:59  verif2 (scratchpad/verif2/out, 168 casos da leitura_2026) fundido em estado_anterior.json em 16/09; 38 cadeias n26 de 2024-25 casadas, 14 mudaram de rotulo vigente. Discordo do verif2 em 4: 5840203077/00850-2025 e 5850308009/00810-2025 (controle do RT nomeado = rele), 5840261097/00905-2025 (fase C queimada com serie = celula), 5854566043/00456-2025 (celula, nao completo). Ordem de trabalho: nivel A, RL com peca grande da mae primeiro (ordem_A.json no scratchpad); tiers.json no run diz o nivel de cada ativo.

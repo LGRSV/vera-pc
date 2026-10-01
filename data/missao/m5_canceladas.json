@@ -1,0 +1,1629 @@
+{
+ "premissas": [
+  "Fonte unica: as 131 SS canceladas de $BASE/canceladas_129.json (59 ativos da carteira de 129 indisponiveis). Cada descricao foi lida integralmente; nao foi usada nenhuma outra base para decidir a categoria.",
+  "O campo do formulario DMSL 'EQUIPAMENTO FICOU EM OPERACAO?' foi lido pela RESPOSTA, nunca pela pergunta: as 25 SS em que a resposta e 'Nao' foram tratadas como o OPOSTO de em operacao. O mesmo vale para 'retirado de operacao', 'fora de operacao/servico', 'isolado', 'by-passado' e 'indisponivel'.",
+  "So foi classificada como 'cancelada_em_operacao' a SS cujo texto traz declaracao POSITIVA e explicita (parecer COEP/COI/SCADA ou laudo DMSL) de que o EQUIPAMENTO estava operando. Frases do relato de abertura como 'a cidade estava normal', 'subiu fechado', 'comutou normal' e 'alarme falso' NAO foram aceitas isoladamente.",
+  "'cancelada_duplicidade' exige citacao no texto de outra SS/nota ja aberta para o mesmo defeito, conforme a definicao da tarefa. Duplicidade apenas ESTRUTURAL (texto identico, mesmo ativo, postos diferentes) NAO foi promovida a essa categoria: fica registrada no campo 'motivo' de cada SS. 75 das 131 SS estao nesses grupos de texto identico (27 grupos), o que indica espelhamento de uma mesma demanda em varios postos.",
+  "A maioria das SS canceladas nao registra motivo de cancelamento no texto (a descricao e o relato do defeito, nao o despacho de cancelamento). Nesses casos foi usado 'cancelada_sem_motivo_claro', conforme a regra de nao inventar.",
+  "Ativo candidato = tem ao menos uma SS 'cancelada_em_operacao' cuja evidencia se refere ao EQUIPAMENTO como um todo (nao a um subservico restabelecido, como comunicacao ou taps).",
+  "Confianca do ativo: 'Alta' quando o parecer COEP/COI declara o equipamento em operacao sem contradicao remanescente no texto; 'Media' quando a declaracao de operacao convive com laudo DMSL de defeito confirmado e ainda pendente (equipamento opera com restricao) ou com divergencia na planilha de criticidade.",
+  "Campo 'ss_envolvidas': para ativo candidato lista apenas as SS classificadas como 'cancelada_em_operacao'; para ativo nao candidato lista todas as SS canceladas daquele ativo (rastreabilidade).",
+  "DIVERGENCIA REGISTRADA - ativo 7900532053: o texto e a planilha COEP dizem 'equipamento operando no SCADA', mas a coluna de analise da planilha diz 'Equipamento nao identificado no SCADA e Mapa TS'. Por isso a confianca ficou Media.",
+  "DIVERGENCIA REGISTRADA - ativos 5850308009, 7900505026 e 5800090147: o COEP/DMSL declara operacao ao mesmo tempo em que mantem laudo de defeito (controle danificado; falha de abertura para protecao; microswitch da celula fase C). Sao casos de 'opera com restricao' - a demanda pode ter sido cancelada, mas o defeito nao foi resolvido.",
+  "Quase-casos avaliados e DESCARTADOS (ficam como sem_motivo_claro, com justificativa no campo 'motivo'): 7900230155 (cidade normal / 'subiu fechado' mas laudo de tanque danificado e by-pass), 7947203070 ('alarme falso' e 'volta fechado normal', porem SS posterior declara indisponibilidade), 5820790038 ('comutou normal' apenas nos taps), 7910027196 e 7900453110 (sinalizacao divergente com defeito fisico confirmado).",
+  "Ativos 5851753086 e 5846328094 tiveram pendencia RESOLVIDA/redirecionada declarada no texto (melhoria de aterramento feita pelo DCMD; escopo transferido ao COCM), mas o texto nao afirma que o equipamento voltou a operar - por isso ficaram em 'cancelada_outro_motivo', nao em 'cancelada_em_operacao'.",
+  "Datas nao foram convertidas para ISO nesta saida porque nenhum campo de data faz parte do schema pedido; as datas citadas nos motivos preservam o formato do texto original."
+ ],
+ "resumo": {
+  "ss_por_categoria": {
+   "cancelada_em_operacao": 14,
+   "cancelada_duplicidade": 2,
+   "cancelada_outro_motivo": 11,
+   "cancelada_sem_motivo_claro": 104
+  },
+  "total_ss": 131,
+  "total_ativos": 59,
+  "ativos_candidatos_em_operacao": 5,
+  "lista_candidatos": [
+   "7900532053",
+   "5850308009",
+   "7900930040",
+   "5800090147",
+   "7900505026"
+  ]
+ },
+ "ss": [
+  {
+   "numero_ss": "ETO-OP-PS 00006/2024",
+   "ativo": "7908686014",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "S.S ABERTA PARA AUXÍLIO DAS EQUIPES OPERACIONAIS EM DESLIGAMENTO EMERGENCIAL NA LD PIUM X CRISTALÂNDIA, DEVIDO A ARVORES TOCANDO NA REDE, NECESSÁRIO ABRIR A LD PARA QUE EQUIPE DE LIMPEZA DE FAIXA POS…"
+  },
+  {
+   "numero_ss": "ETO-RD-GU 00259/2024",
+   "ativo": "7955832052",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "INSTALAR CHAVE FACA NO ID 47886368 PARA POSSIBILITAR TRANSFERIR DE RETORNO O P.A LAGOA DA ONÇA."
+  },
+  {
+   "numero_ss": "ETO-COEP 00037/2024",
+   "ativo": "7908206074",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Favor, substituir RLG 7908206074 por completo devido tanque em curto e controle com defeito. Segue dados do equipamento:Dados de placa tanque:NS: CP1503S03771Tensão máx: 38KVCorrente nominal: 630A"
+  },
+  {
+   "numero_ss": "ETO-TELE 00501/2024",
+   "ativo": "7919270014",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Bom dia segue SS para substituição de bateria"
+  },
+  {
+   "numero_ss": "ETO-TELE 00514/2024",
+   "ativo": "5820790038",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Quase-caso avaliado e descartado: 'feito teste dos taps e comutou normal' e normalizacao de um subservico; o equipamento nao voltou a comunicacao e o laudo seguinte aponta tanque da fase B queimado.",
+   "ss_substituta": "",
+   "evidencia": "FEITO O PRIMEIRO ATAQUE E REGULADOR 582079003 NÃO VOLTOU A COMUNICAÇÃO. FEITO TESTE DOS TAPS E COMUTOU NORMAL."
+  },
+  {
+   "numero_ss": "ETO-TELE 00499/2024",
+   "ativo": "5820790038",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00091/2024 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Após testes realizados pela equipe do DMSL, foi instatado que o tanque da fase B do RT 5820790038, encontra-se quiemado. Favor, substituir o mesmo."
+  },
+  {
+   "numero_ss": "ETO-COEP 00091/2024",
+   "ativo": "5820790038",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00499/2024 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Após testes realizados pela equipe do DMSL, foi instatado que o tanque da fase B do RT 5820790038, encontra-se quiemado. Favor, substituir o mesmo."
+  },
+  {
+   "numero_ss": "ETO-RD-GR 01054/2024",
+   "ativo": "7953211079",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Acionar equipe de linha viva para realizar troca de cruzeta na RDU de Itapiratins Poste.:10-300 Estrutura.:N4 S3S3 Id.: 70484186Localidade.: [0079] ITAPIRATINSEquipe.: 079po01tensão.: 34,5kvOBS.: Ver…"
+  },
+  {
+   "numero_ss": "ETO-RD-DP 00705/2024",
+   "ativo": "7908708116",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "PROVIDENCIAR INSPEÇÃO E MANUTENÇÃO PARA O RL 7908708116. O RELIGADOR ESTA ABRINDO EM CAMPO, CONTUDO FOI COLOCADO ELO DE 15K A MONTANTE E NÃO QUEIMA ELO E RL ABRI TODOS OS DIAS."
+  },
+  {
+   "numero_ss": "ETO-COEP 00134/2024",
+   "ativo": "7930428001",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto diz que o equipamento foi RETIRADO DE OPERACAO (oposto de em operacao).",
+   "ss_substituta": "",
+   "evidencia": "RL 7930428001 dando passagem fase A, o mesmo foi retirado de operaçao"
+  },
+  {
+   "numero_ss": "ETO-PROT 00418/2024",
+   "ativo": "7955520116",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR N° 7955520116 INSTALADO NA OBRA 0502300511 GENTILEZA, REALIZAR O COMISSIONAMENTO. LAUDO EM ANEXO. COORD EO: 854323, 8713121"
+  },
+  {
+   "numero_ss": "ETO-TELE 01181/2024",
+   "ativo": "7953570026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "SEGUE SS PARA VERIFICAR FALHA NA AUTOMAÇÃO DOS SEGUINTES EQUIPAMENTOS 434R SE ISAMU IKEDA, 7947959026, 7911120026, 414R SE PONTE ALTA, 7900594026 - ESSES EQUIPAMENTOS ESTÃO PERDENDO AUTOMAÇÃO APÓS PE…"
+  },
+  {
+   "numero_ss": "ETO-TELE 01191/2024",
+   "ativo": "7953570026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para verificar falha em comunicação e automação no RL-7947959026, 7911120026, 7953570026, 7908302256, 7954703256, 7932401256, 7933798256, 7908300096, 7900451096, 7900259096."
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00007/2025",
+   "ativo": "7910027196",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Sinalizacao divergente (aberto no sistema / fechado em campo), mas com defeito fisico confirmado (olhal da chave by-pass fase B quebrado) e carga penalizada. | Texto identico ao de ETO-TELE 01012/2024 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Chave baypass da fase B do RLG 7910027196 encontra-se com o olhal quebrado. Favor, realizar a substituição e retornar nota para o posto ETO-TELE.RL 7910027196 com falha, o mesmo abri e…"
+  },
+  {
+   "numero_ss": "ETO-TELE 01012/2024",
+   "ativo": "7910027196",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Sinalizacao divergente (aberto no sistema / fechado em campo), mas com defeito fisico confirmado (olhal da chave by-pass fase B quebrado) e carga penalizada. | Texto identico ao de ETO-RD-PS 00007/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Chave baypass da fase B do RLG 7910027196 encontra-se com o olhal quebrado. Favor, realizar a substituição e retornar nota para o posto ETO-TELE.RL 7910027196 com falha, o mesmo abri e…"
+  },
+  {
+   "numero_ss": "ETO-PROT 00038/2025",
+   "ativo": "5854566043",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "REGULADOR DE TENSAO TOPOLOGIA ANTIGA N° 5854999043 TOPOLOGIA NOVA N° 5854566043 REMANEJADO NA OBRA 0302400317 GENTILEZA, REALIZAR O COMISSIONAMENTO. LAUDO EM ANEXO. COORD EO: 807104, 8767919"
+  },
+  {
+   "numero_ss": "ETO-TELE 00202/2025",
+   "ativo": "7910027196",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Sinalizacao divergente (aberto no sistema / fechado em campo), mas com defeito fisico confirmado (olhal da chave by-pass fase B quebrado) e carga penalizada.",
+   "ss_substituta": "",
+   "evidencia": "segue ss de religador com defeito para ser corrigido pela equipe do dmsl, o mesmo mostra aberto para o coi e em campo o mesmo está fechado quando o mesmo desarma não sobe para a operacão sabemos que…"
+  },
+  {
+   "numero_ss": "ETO-PROT 00089/2025",
+   "ativo": "7903569004",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Solicitação de Serviço: Análise de OcorrênciasSolicitamos análise das ocorrências relacionadas às intervenções 20253479485139 e 20253479488347.Descrição dos Eventos:- Abalroamento de poste a jusante…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00320/2025",
+   "ativo": "5800366016",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Realizar instalação de comunicação no equipamento."
+  },
+  {
+   "numero_ss": "ETO-RD-PA 00261/2025",
+   "ativo": "7938137007",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "SS repassada ao posto do COEP ate haver disponibilidade do equipamento (aguardando material, nao cancelamento por normalizacao). | Texto identico ao de ETO-COEP 00059/2025, ETO-RD-PS 00089/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "substituir todo o equipamento. Solicitar novo ajuste de proteção para religador NOJA e posteriormente, retornar para comissionar.REPASSADA PARA O POSTO DO COEP, ATÉ A DISPONIBILIDADE DO EQUIPAMENTO."
+  },
+  {
+   "numero_ss": "ETO-TELE 00346/2025",
+   "ativo": "7900722193",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "SS encerrada 5 minutos apos a abertura, sem qualquer parecer no texto.",
+   "ss_substituta": "",
+   "evidencia": "instalar comunicação telespazio no equipamento."
+  },
+  {
+   "numero_ss": "ETO-COEP 00059/2025",
+   "ativo": "7938137007",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "SS repassada ao posto do COEP ate haver disponibilidade do equipamento (aguardando material, nao cancelamento por normalizacao). | Texto identico ao de ETO-RD-PA 00261/2025, ETO-RD-PS 00089/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "substituir todo o equipamento. Solicitar novo ajuste de proteção para religador NOJA e posteriormente, retornar para comissionar.REPASSADA PARA O POSTO DO COEP, ATÉ A DISPONIBILIDADE DO EQUIPAMENTO."
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00089/2025",
+   "ativo": "7938137007",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "SS repassada ao posto do COEP ate haver disponibilidade do equipamento (aguardando material, nao cancelamento por normalizacao). | Texto identico ao de ETO-RD-PA 00261/2025, ETO-COEP 00059/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "substituir todo o equipamento. Solicitar novo ajuste de proteção para religador NOJA e posteriormente, retornar para comissionar.REPASSADA PARA O POSTO DO COEP, ATÉ A DISPONIBILIDADE DO EQUIPAMENTO."
+  },
+  {
+   "numero_ss": "ETO-COEP 00063/2025",
+   "ativo": "7908206074",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Equipe identificou em campo que o tanque se encontra queimado, solicitamos a substituição"
+  },
+  {
+   "numero_ss": "ETO-PROT 00158/2025",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 00502/2025",
+   "ativo": "7943790134",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-AR 00830/2025, ETO-COEP 00097/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR COM VAZAMENTO INTERNO FASE C,Omesmo ficou isolado e bay passado em campoPARECER DMSL: Equipapento encontra-se com defeito na parte ativa (TC EXCESSIVO) falha no TC interno da fase C. Necess…"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 00830/2025",
+   "ativo": "7943790134",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00502/2025, ETO-COEP 00097/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR COM VAZAMENTO INTERNO FASE C,Omesmo ficou isolado e bay passado em campoPARECER DMSL: Equipapento encontra-se com defeito na parte ativa (TC EXCESSIVO) falha no TC interno da fase C. Necess…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00097/2025",
+   "ativo": "7943790134",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00502/2025, ETO-RD-AR 00830/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR COM VAZAMENTO INTERNO FASE C,Omesmo ficou isolado e bay passado em campoPARECER DMSL: Equipapento encontra-se com defeito na parte ativa (TC EXCESSIVO) falha no TC interno da fase C. Necess…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00102/2025",
+   "ativo": "7900532053",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP registra equipamento em operacao no SCADA e devolve a demanda ao DMSL antes de seguir com a substituicao.",
+   "ss_substituta": "",
+   "evidencia": "EQUIPAMENTO EM OPERAÇÃO NO SCADA, AGUARDANDO RESPOSTA DO DMSL PARA SEGUIR COM AS TRATATIVASFavor, realizar substituição completa do RLG 7900532053 que encontra-"
+  },
+  {
+   "numero_ss": "ETO-TELE 00554/2025",
+   "ativo": "7900230155",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Troca do sistema de comunicação do equipamento"
+  },
+  {
+   "numero_ss": "ETO-TELE 00568/2025",
+   "ativo": "7947203070",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Quase-caso avaliado e descartado: texto fala em 'alarme falso' / 'apos resete volta fechado normal', mas SS posterior do mesmo ativo (ETO-TELE 01462/2025) declara o equipamento INDISPONIVEL para operacao.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR COM ALARME FALSO"
+  },
+  {
+   "numero_ss": "ETO-TELE 00693/2025",
+   "ativo": "7947203070",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Quase-caso avaliado e descartado: texto fala em 'alarme falso' / 'apos resete volta fechado normal', mas SS posterior do mesmo ativo (ETO-TELE 01462/2025) declara o equipamento INDISPONIVEL para operacao.",
+   "ss_substituta": "",
+   "evidencia": "SEGUE SS PARA VERIFICAR RL 7947203070 NA LD RIO SONO / LIZARDA - O MESMO ESTA SINALIZANDO ABERTO E BLOQUEANDO NEUTRO E RELIGAMENTO NO SCADA E EM CAMPO O MESMO NÃO ABRE - APÓS RESETE NA COMUNICAÇÃO O…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00597/2025",
+   "ativo": "7957126085",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-PS 00185/2025, ETO-COEP 00156/2025, ETO-COEP 00145/2026, ETO-RD-PS 00301/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: EQUIPAMENTO ENTREGUE , FAVOR REALIZAR SUBSTIUIÇÃO, DEPOIS ENCAMINHAR PARA PROTEÇÃO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO, FAVOR INFORMAR O PRAZO D"
+  },
+  {
+   "numero_ss": "ETO-COEP 00121/2025",
+   "ativo": "7920024127",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-AG 00746/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Rl 7920024127 - Trif. 34,5 KV com PARTE ATIVA COM DEFEITO, POR FAVOR EXECUTAR SUBSITUIÇÃO DO MESMO, EQUIPE DMSL ESTEVE NO LOCAL FEZ TESTES NECESSARIO E IDENTIFICOU ANOMALIA NO TANQUE ACESSO BOM"
+  },
+  {
+   "numero_ss": "ETO-RD-AG 00746/2025",
+   "ativo": "7920024127",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00121/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Rl 7920024127 - Trif. 34,5 KV com PARTE ATIVA COM DEFEITO, POR FAVOR EXECUTAR SUBSITUIÇÃO DO MESMO, EQUIPE DMSL ESTEVE NO LOCAL FEZ TESTES NECESSARIO E IDENTIFICOU ANOMALIA NO TANQUE ACESSO BOM"
+  },
+  {
+   "numero_ss": "ETO-TELE 00749/2025",
+   "ativo": "7927446001",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00144/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou em operação?: Não Pendência: Sim, substituir equipamento completo."
+  },
+  {
+   "numero_ss": "ETO-COEP 00144/2025",
+   "ativo": "7927446001",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00749/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou em operação?: Não Pendência: Sim, substituir equipamento completo."
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00185/2025",
+   "ativo": "7957126085",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00597/2025, ETO-COEP 00156/2025, ETO-COEP 00145/2026, ETO-RD-PS 00301/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: EQUIPAMENTO ENTREGUE , FAVOR REALIZAR SUBSTIUIÇÃO, DEPOIS ENCAMINHAR PARA PROTEÇÃO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO, FAVOR INFORMAR O PRAZO D"
+  },
+  {
+   "numero_ss": "ETO-TELE 00872/2025",
+   "ativo": "7908196047",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00168/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Foi realizado primeiro ataque no religador 7908196047, e o mesmo nao voltou a comunicação para o centro de operação. favor enviar equipe para devidas tratativasPARECER DMSL: Trocar o equipamento comp…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00168/2025",
+   "ativo": "7908196047",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00872/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Foi realizado primeiro ataque no religador 7908196047, e o mesmo nao voltou a comunicação para o centro de operação. favor enviar equipe para devidas tratativasPARECER DMSL: Trocar o equipamento comp…"
+  },
+  {
+   "numero_ss": "ETO-PROT 00131/2025",
+   "ativo": "7900230155",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto cita que a cidade estava normal e que apos reset o RL 'subiu fechado', mas o laudo DMSL do mesmo texto conclui tanque danificado e equipamento BY-PASSADO em campo. Nao e cancelamento por operacao. | Texto identico ao de ETO-COEP 00172/2025, ETO-TELE 00892/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Religador está com o tanque danificado. Não responde a comandos abertura e fechamento local ou remoto, pois está com sinal de curto circuito. Necessário substituir todo o equipamento po…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00172/2025",
+   "ativo": "7900230155",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto cita que a cidade estava normal e que apos reset o RL 'subiu fechado', mas o laudo DMSL do mesmo texto conclui tanque danificado e equipamento BY-PASSADO em campo. Nao e cancelamento por operacao. | Texto identico ao de ETO-PROT 00131/2025, ETO-TELE 00892/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Religador está com o tanque danificado. Não responde a comandos abertura e fechamento local ou remoto, pois está com sinal de curto circuito. Necessário substituir todo o equipamento po…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00892/2025",
+   "ativo": "7900230155",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto cita que a cidade estava normal e que apos reset o RL 'subiu fechado', mas o laudo DMSL do mesmo texto conclui tanque danificado e equipamento BY-PASSADO em campo. Nao e cancelamento por operacao. | Texto identico ao de ETO-PROT 00131/2025, ETO-COEP 00172/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Religador está com o tanque danificado. Não responde a comandos abertura e fechamento local ou remoto, pois está com sinal de curto circuito. Necessário substituir todo o equipamento po…"
+  },
+  {
+   "numero_ss": "ETO-PROT 00257/2025",
+   "ativo": "5850308009",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00939/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Regulador de tensão quando em automatico esta deixando a fase A e C com tensão baixa TAP -11 e C alta +15, foi deixadado bloqueado tap fixo.PARECER DA PROTEÇÃO:NOTA REPASSADA PARA DMSL VERIFICAR, SUG…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00939/2025",
+   "ativo": "5850308009",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00257/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Regulador de tensão quando em automatico esta deixando a fase A e C com tensão baixa TAP -11 e C alta +15, foi deixadado bloqueado tap fixo.PARECER DA PROTEÇÃO:NOTA REPASSADA PARA DMSL VERIFICAR, SUG…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00969/2025",
+   "ativo": "7900594026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "verificar o comando do RL 7900794026 não aceita comando de abertura via remota."
+  },
+  {
+   "numero_ss": "ETO-TELE 01072/2025",
+   "ativo": "7903112004",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para verificar falha comandos no religador 7903112004 - rural - Araguaina .foi executado mando de abertura via Scada equipamento sinalizou aberto , porém em seguida fechou por ele mesmo se…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00913/2025",
+   "ativo": "5850308009",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP: 'Equipamento em operacao no SCADA'. Ressalva: no mesmo texto o DMSL mantem laudo de controle danificado e uma fase deixada em manual (opera com restricao). | Texto identico ao de ETO-COEP 00180/2025, ETO-TELE 00958/2026, ETO-COEP 00127/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: Equipamento em operaçãpo no SCADAPARECER DMSL: Após testes, foi constatado que o RT 5850308009 encontra-se com controle danificado, sendo necessária substitui"
+  },
+  {
+   "numero_ss": "ENC-RD-PS 00912/2025",
+   "ativo": "7955430075",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00183/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "RL 7955430075EQUIPAMENTO BY-PASSADO EM CAMPO DEVIDO FALHA NA PARTE ATIVA NECESSARIO TRATATIVA BY-PASSADO PELA EQUIPE ANA E ELISFRAN"
+  },
+  {
+   "numero_ss": "ETO-COEP 00183/2025",
+   "ativo": "7955430075",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ENC-RD-PS 00912/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "RL 7955430075EQUIPAMENTO BY-PASSADO EM CAMPO DEVIDO FALHA NA PARTE ATIVA NECESSARIO TRATATIVA BY-PASSADO PELA EQUIPE ANA E ELISFRAN"
+  },
+  {
+   "numero_ss": "ETO-TELE 01110/2025",
+   "ativo": "7922995039",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Favor enviar equipe para verificar comunicação do RL 7922995039. Foi feito primeiro ataque e não retornou a comunicação."
+  },
+  {
+   "numero_ss": "ETO-RD-AR 01237/2025",
+   "ativo": "7900930040",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "COEP verificou com Allan Pereira e Leonardo Santos e declarou o equipamento em operacao, apesar do pedido original de troca de tanque e controle. | Texto identico ao de ETO-COEP 00191/2025, ETO-RD-AR 00737/2026, ETO-COEP 00079/2026, ETO-RD-AR 00764/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação"
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00297/2025",
+   "ativo": "7944319149",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00201/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou em operação? NÃO. Pendência: Substituir parte ativa.Bateria(s) subst"
+  },
+  {
+   "numero_ss": "ETO-COEP 00201/2025",
+   "ativo": "7944319149",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-PS 00297/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou em operação? NÃO. Pendência: Substituir parte ativa.Bateria(s) subst"
+  },
+  {
+   "numero_ss": "ETO-COEP 00207/2025",
+   "ativo": "7933766059",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para substituir religador danificado tanque parte ativa N: 7933766059 , foi confirmado pelo tecnico DMSL Bem vindo , na data 15/10/2025"
+  },
+  {
+   "numero_ss": "ETO-COEP 00210/2025",
+   "ativo": "7900594026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 01213/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "favor verificar falha de comunicaçao no RL 7900594026, foi feito primeiro ataque e nao retornou a comunicaçaoPARECER DMSL: Segue nota para substituir relé do religador 7900594026 S/E Ponte Alta . Mot…"
+  },
+  {
+   "numero_ss": "ETO-TELE 01213/2025",
+   "ativo": "7900594026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00210/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "favor verificar falha de comunicaçao no RL 7900594026, foi feito primeiro ataque e nao retornou a comunicaçaoPARECER DMSL: Segue nota para substituir relé do religador 7900594026 S/E Ponte Alta . Mot…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00214/2025",
+   "ativo": "5841308190",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "SS encerrada 17 minutos apos a abertura, sem parecer. Equipamento furtado nas 3 fases.",
+   "ss_substituta": "",
+   "evidencia": "Regulador 5841308190 furtado as 3 fases, Favor verificar substituição, Jhon Paul Ciente"
+  },
+  {
+   "numero_ss": "ETO-TELE 01246/2025",
+   "ativo": "5827102054",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Aberto nota para RT 5827102054, devido o mesmo esta com o relé apagado - proximo a Pugmil"
+  },
+  {
+   "numero_ss": "ETO-TELE 01347/2025",
+   "ativo": "7900018004",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Realizar substituição de bateria."
+  },
+  {
+   "numero_ss": "ETO-TELE 01431/2025",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Conforme informaçoes da equipe 256op01 , segue SS para equipe verificar regulador de tensão , 5800440256 , o mesmo esta com uma das celulas apresentando vazamento , o equipamento ficou bypassado , po…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00418/2025",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 01462/2025",
+   "ativo": "7947203070",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "SEGUE NOTA PARA O RELIGADOR 7947203070, O MESMO ESTA SEM COMUNICAÇAO. FOI FEITO O PRIMEIRO ATAQUE O MESMO NAO RETORNOU A COMUNICAÇAO, EQUIPAMENTO INDISPONIVEL PARA OPERAÇAOPOR FAVOR DAR DEVIDAS TRATA…"
+  },
+  {
+   "numero_ss": "ETO-RD-PA 00800/2025",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 01533/2025",
+   "ativo": "7900453110",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Equipamento ficou ISOLADO em campo; sinalizacao divergente no SCADA. Sem motivo de cancelamento no texto.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para envia equipe verificar RL-7900453110 equipamento sinalizando aberto no SCADA em campo confirmado pela equipe 003OP03 estava fechado, Anomalia identificada pelos ocorrência de Int-2025…"
+  },
+  {
+   "numero_ss": "DG-RD-PO 00891/2025",
+   "ativo": "7927646026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00001/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para envia equipe manutenção substituir Religador 7927646026 (bay-passado) constatado pela Int.20254054886059 equipamento estava tirando LD, Tensão 34,5kv, Local LD Ponte Alta / Mateiros,…"
+  },
+  {
+   "numero_ss": "ETO-PROT 00001/2026",
+   "ativo": "7927646026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de DG-RD-PO 00891/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para envia equipe manutenção substituir Religador 7927646026 (bay-passado) constatado pela Int.20254054886059 equipamento estava tirando LD, Tensão 34,5kv, Local LD Ponte Alta / Mateiros,…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00051/2026",
+   "ativo": "7938137007",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "REALIZAR TROCA DE BATERIA DO EQUIPAMENTO"
+  },
+  {
+   "numero_ss": "ETO-COEP 00227/2025",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 00202/2026",
+   "ativo": "7927396052",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "SEGUE SOLICITAÇÃO DE SERVIÇO PARA VERIFICAR COMUNICAÇÃO DE RL 7927396052 TRECHO DE INTERLIGAÇÃO LD DE FORMOSO/COBRAPE, A EQUIPE DEOP SINERGIA DE FORMOSO 052OP10 JA FEZ PRIMEIRO ATAQUE POREM O EQUIPAM…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00206/2026",
+   "ativo": "7900453110",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Equipamento fechado em campo e aberto no SCADA, porem com ruido anormal sob carga; nao ha parecer declarando equipamento em operacao.",
+   "ss_substituta": "",
+   "evidencia": "rl 7900453110 esta com um barulho estranho quando coloca carga e o mesmo estava fechado em campo e mostrando aberto no sacada , favor verificar"
+  },
+  {
+   "numero_ss": "ETO-COEP 00019/2026",
+   "ativo": "7910027196",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Favor solicitar a substituição do equipamento completo, pois o mesmo não está fazendo a medição de correte da fase B, foi testado com outro rele e continua a mesma situação. Pendência: Substituir o e…"
+  },
+  {
+   "numero_ss": "ETO-RD-PO 00007/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 00219/2026",
+   "ativo": "5800366016",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Favor enviar equipe pra verificar o rele do regulador de tensão 5800366016, pois o mesmo está com falha no rele."
+  },
+  {
+   "numero_ss": "ETO-COEP 00023/2026",
+   "ativo": "5856070091",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-GU 00120/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Regulador 5856070091 furtado as 3 fases, Favor verificar substituição, tensao 34,5kv acesso livre na LD Almas a Natividade."
+  },
+  {
+   "numero_ss": "ETO-RD-GU 00120/2026",
+   "ativo": "5856070091",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00023/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Regulador 5856070091 furtado as 3 fases, Favor verificar substituição, tensao 34,5kv acesso livre na LD Almas a Natividade."
+  },
+  {
+   "numero_ss": "ETO-TELE 00250/2026",
+   "ativo": "7954668084",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "FEITO O PRIMEIRO ATAQUE NO RL 7954668084 E O DISPLAY ESTÁ QUEIMADO, NÃO LIGA.OS (99) 106230846"
+  },
+  {
+   "numero_ss": "ETO-TELE 00285/2026",
+   "ativo": "7900543083",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Segue nota para envia equipe verificar falha de comunicação e automação do RL-7900543083 feito primeiro ataque com equipe local 083op01 sem sucesso identificada falha na comunicação do rádio no equip…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00037/2026",
+   "ativo": "7910027196",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "DMSL: Serviço Executado: Favor solicitar a substituição do equipamento completo, pois o mesmo não está fazendo a medição de correte da fase B, foi testado com outro rele e continua a mesma situação."
+  },
+  {
+   "numero_ss": "ETO-DEOP 00006/2026",
+   "ativo": "7900543083",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "Causa da falha esta em OUTRO ativo: o repetidor 7900448083 foi isolado e esta FORA DE OPERACAO, impactando a comunicacao do 7900543083; solucao proposta e remanejar o repetidor.",
+   "ss_substituta": "",
+   "evidencia": "a como repetidor, devido ele esta com problemas na parte ativa foi isolado esta fora de operação e impactando na comunicação do 7900543083, para resolver a situação deve con"
+  },
+  {
+   "numero_ss": "ETO-COEP 00039/2026",
+   "ativo": "7926089013",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "DMSL:Serviço Executado:Foi feita análise técnica a qual foi identificado que o tanque do equipamento entrou em curto o mesmo necessário substituir o tanque"
+  },
+  {
+   "numero_ss": "ETO-RD-GR 00291/2026",
+   "ativo": "7953211079",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "SS: PARA LINHA VIVA TROCAR OS 03 ISOLADORES COM VAZAMENTO DANDO PASSAGEM ESTRUTURA N1/SI-1 E FRENTE A ESCOLA MUNICIPAL PROFESSORA HERMES DA SILVA PIRES NA RDU DE ITAPIRATINS NA AVENIDA TOCANTINS 01 Q…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00344/2026",
+   "ativo": "7955946007",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Senhores, segue para conhecimento rl 7955946007 feito primeiro ataque o mesmo nao retornou a comunicaçao ,identificado dj desarmando, favor verificar."
+  },
+  {
+   "numero_ss": "ETO-COEP 00022/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-PROT 00062/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-RD-PO 00092/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-RD-PA 00190/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-PO 00072/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-RD-PO 00072/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-RD-PA 00190/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 00375/2026",
+   "ativo": "5800366016",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00052/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Realizar substituição do controle completo (RUA01).Equipe: Adeilton e Edicleber - Data: 18/03/2026Regulador 5800366016, com tensões oscilando, sem referencia, Foi by passado, enviar equ…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00052/2026",
+   "ativo": "5800366016",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00375/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: Realizar substituição do controle completo (RUA01).Equipe: Adeilton e Edicleber - Data: 18/03/2026Regulador 5800366016, com tensões oscilando, sem referencia, Foi by passado, enviar equ…"
+  },
+  {
+   "numero_ss": "ETO-RD-PO 00092/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-TELE 00357/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 00357/2026",
+   "ativo": "5800440256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-PROT 00158/2025, ETO-TELE 00418/2025, ETO-RD-PA 00800/2025, ETO-COEP 00227/2025, ETO-RD-PO 00007/2026, ETO-COEP 00022/2026, ETO-PROT 00062/2026, ETO-RD-PO 00092/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "remoto com nobreak desligadoEquipamento ficou em operação? NãoPossui nobreak? SimPossui antena? SimPossui rádio? S"
+  },
+  {
+   "numero_ss": "ETO-TELE 00399/2026",
+   "ativo": "7957021094",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Religador de poste 7957021094 com falha na comunicação com centro de operaçoes indisponivel , feito primeiro ataque sem sucesso no retorno de comunicao em campo ficou by passado o equipamento religad…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00484/2026",
+   "ativo": "7936038076",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Mesmo lote de troca de meio de comunicacao encerrado em 23/07/2026; a SS irma ETO-TELE 00494/2026 declara que a antena foi destinada a outro equipamento, mas este texto nao declara motivo.",
+   "ss_substituta": "",
+   "evidencia": "Alterar meio de comunicação de Orbicomm para antena telespazio."
+  },
+  {
+   "numero_ss": "ETO-TELE 00494/2026",
+   "ativo": "7928241200",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "A antena prevista foi destinada a outro equipamento, inviabilizando a troca de meio de comunicacao (Orbicomm -> Telespazio). Lote SID 4010/2026.",
+   "ss_substituta": "",
+   "evidencia": "A antena será usada em outro equipamento. 'Alterar meio de comunicação de Orbicomm para antena telespazio. JOÃO MARCOS / CELIOMAR / DEOP 09/07/2026 ''Desenvolvimento SCADA (#30566539)'' ''Comissionam…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00454/2026",
+   "ativo": "7953610256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Mesmo lote de troca de meio de comunicacao encerrado em 23/07/2026; a SS irma ETO-TELE 00494/2026 declara que a antena foi destinada a outro equipamento, mas este texto nao declara motivo.",
+   "ss_substituta": "",
+   "evidencia": "Alterar meio de comunicação de Orbicomm para antena telespazio."
+  },
+  {
+   "numero_ss": "ETO-TELE 00766/2026",
+   "ativo": "7933726256",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "segue SS para as devidas tratativas, religador 7933726256 LD ponte Alta / Mateiros não aceita comando de fechamento remota e nem local, feito primeiro ataque, porém sem sucesso, o mesmo e de suma imp…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00075/2026",
+   "ativo": "7919270014",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00294/2025 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: NÃO FOI POSSIVEL SUBSTITUIR BATERIA DEVIDO A problema na placa de alimentação e na parte ativa, falta colocar placa de identificação correta na topologia, baixar o controle.FAVOR Substi…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00294/2025",
+   "ativo": "7919270014",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00075/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER DMSL: NÃO FOI POSSIVEL SUBSTITUIR BATERIA DEVIDO A problema na placa de alimentação e na parte ativa, falta colocar placa de identificação correta na topologia, baixar o controle.FAVOR Substi…"
+  },
+  {
+   "numero_ss": "ETO-TELE 00776/2026",
+   "ativo": "7955986084",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "RL 7955986084 BY PASSADO EM CAMPO MESMO OCASIONOU DESARME DA LINHA DJ 444R PARAISO -DIVINOPOLIS EQUIPE 013OP04 INFORMOU QUE NO FUNDO DO RL TEM ALGUMAS MARCAS QUE QUEIMADO"
+  },
+  {
+   "numero_ss": "ETO-TELE 00782/2026",
+   "ativo": "7921202014",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR BY PASSADO SEM COMUNICAÇÃO, REALIZADO PRIMEIRO ATAQUE SEM SUCESSO."
+  },
+  {
+   "numero_ss": "ETO-COEP 00191/2025",
+   "ativo": "7900930040",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "COEP verificou com Allan Pereira e Leonardo Santos e declarou o equipamento em operacao, apesar do pedido original de troca de tanque e controle. | Texto identico ao de ETO-RD-AR 01237/2025, ETO-RD-AR 00737/2026, ETO-COEP 00079/2026, ETO-RD-AR 00764/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 00737/2026",
+   "ativo": "7900930040",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "COEP verificou com Allan Pereira e Leonardo Santos e declarou o equipamento em operacao, apesar do pedido original de troca de tanque e controle. | Texto identico ao de ETO-RD-AR 01237/2025, ETO-COEP 00191/2025, ETO-COEP 00079/2026, ETO-RD-AR 00764/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação"
+  },
+  {
+   "numero_ss": "ETO-COEP 00079/2026",
+   "ativo": "7900930040",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "COEP verificou com Allan Pereira e Leonardo Santos e declarou o equipamento em operacao, apesar do pedido original de troca de tanque e controle. | Texto identico ao de ETO-RD-AR 01237/2025, ETO-COEP 00191/2025, ETO-RD-AR 00737/2026, ETO-RD-AR 00764/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 00764/2026",
+   "ativo": "7900930040",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "COEP verificou com Allan Pereira e Leonardo Santos e declarou o equipamento em operacao, apesar do pedido original de troca de tanque e controle. | Texto identico ao de ETO-RD-AR 01237/2025, ETO-COEP 00191/2025, ETO-RD-AR 00737/2026, ETO-COEP 00079/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento está em operação"
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00198/2026",
+   "ativo": "5851753086",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "PARECER DCMD registra que a melhoria da malha de aterramento (a pendencia da SS) foi executada. Equipamento seguia by-passado no laudo DMSL e a planilha marca 'Aguardando comissionamento'. | Texto identico ao de ETO-TELE 00820/2026, ETO-COEP 00111/2026, ETO-RD-PS 00261/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP:fAVOR REALIZAR MELHORIA DE ATERRMENTO---------------------------------------------------------------------PARECER DMSL 19/05/2026: É necessário fazer melhorias"
+  },
+  {
+   "numero_ss": "ETO-TELE 00826/2026",
+   "ativo": "7900594026",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "RELIGADOR COM DEFEITO NO RELÉ COM DEFEITO FICA REINICIANDO"
+  },
+  {
+   "numero_ss": "ETO-TELECOM 00012/2026",
+   "ativo": "7925733015",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00847/2026, ETO-COEP 00107/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "IÇÃO:* _Tanque do equipamento em Curto_*FICOU EM OPERAÇÃO?:* Não *PENDÊNCIA:* Sim, repassar a nota para DCMD subst"
+  },
+  {
+   "numero_ss": "ETO-TELE 00848/2026",
+   "ativo": "7931608059",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: 'Equipamento ficou em operacao?: Nao' e ainda 'RELIGADOR FORA DE SERVICO'. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-COEP 00098/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou em operação?: Não Pendência: Sim - Substituir o tanque e o rádio Bat"
+  },
+  {
+   "numero_ss": "ETO-COEP 00098/2026",
+   "ativo": "7931608059",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: 'Equipamento ficou em operacao?: Nao' e ainda 'RELIGADOR FORA DE SERVICO'. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00848/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou em operação?: Não Pendência: Sim - Substituir o tanque e o rádio Bat"
+  },
+  {
+   "numero_ss": "ETO-DMSL-COM 00017/2026",
+   "ativo": "5800291077",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Realizar comissionamenrto do RT 5800291077.Equipe: Brunno e Edeglan (Enecol)"
+  },
+  {
+   "numero_ss": "ETO-TELE 00847/2026",
+   "ativo": "7925733015",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELECOM 00012/2026, ETO-COEP 00107/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "IÇÃO:* _Tanque do equipamento em Curto_*FICOU EM OPERAÇÃO?:* Não *PENDÊNCIA:* Sim, repassar a nota para DCMD subst"
+  },
+  {
+   "numero_ss": "ETO-COEP 00107/2026",
+   "ativo": "7925733015",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELECOM 00012/2026, ETO-TELE 00847/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "IÇÃO:* _Tanque do equipamento em Curto_*FICOU EM OPERAÇÃO?:* Não *PENDÊNCIA:* Sim, repassar a nota para DCMD subst"
+  },
+  {
+   "numero_ss": "ETO-TELE 00820/2026",
+   "ativo": "5851753086",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "PARECER DCMD registra que a melhoria da malha de aterramento (a pendencia da SS) foi executada. Equipamento seguia by-passado no laudo DMSL e a planilha marca 'Aguardando comissionamento'. | Texto identico ao de ETO-RD-PS 00198/2026, ETO-COEP 00111/2026, ETO-RD-PS 00261/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP:fAVOR REALIZAR MELHORIA DE ATERRMENTO---------------------------------------------------------------------PARECER DMSL 19/05/2026: É necessário fazer melhorias"
+  },
+  {
+   "numero_ss": "ETO-TELE 00282/2026",
+   "ativo": "7900594026",
+   "categoria": "cancelada_duplicidade",
+   "motivo": "PARECER DMSL 10/06/2026 informa que ja existe nota aberta para o mesmo equipamento pedindo substituicao desde 20/10/2025, repassada como ETO-COEP 210/2025. | Texto identico ao de ETO-COEP 00112/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "ETO-COEP 00210/2025",
+   "evidencia": "PARECER DMSL 10/06/2026: Tem uma nota aberta para esse equipamento solicitando a substituição desde 20/10/2025, como a nota não foi atendida estamos repassando para área responsável. Nota em aberto r…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00112/2026",
+   "ativo": "7900594026",
+   "categoria": "cancelada_duplicidade",
+   "motivo": "PARECER DMSL 10/06/2026 informa que ja existe nota aberta para o mesmo equipamento pedindo substituicao desde 20/10/2025, repassada como ETO-COEP 210/2025. | Texto identico ao de ETO-TELE 00282/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "ETO-COEP 00210/2025",
+   "evidencia": "PARECER DMSL 10/06/2026: Tem uma nota aberta para esse equipamento solicitando a substituição desde 20/10/2025, como a nota não foi atendida estamos repassando para área responsável. Nota em aberto r…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00117/2026",
+   "ativo": "5800090147",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "Laudo DMSL afirma que o equipamento FICOU OPERANDO (manobra manual possivel). Ressalva: defeito confirmado (microswitch da celula fase C) segue pendente. | Texto identico ao de ETO-TELE 00438/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou operando devido ser possível manobrar de forma manual"
+  },
+  {
+   "numero_ss": "ETO-TELE 00438/2026",
+   "ativo": "5800090147",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "Laudo DMSL afirma que o equipamento FICOU OPERANDO (manobra manual possivel). Ressalva: defeito confirmado (microswitch da celula fase C) segue pendente. | Texto identico ao de ETO-COEP 00117/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "Equipamento ficou operando devido ser possível manobrar de forma manual"
+  },
+  {
+   "numero_ss": "ETO-COEP 00111/2026",
+   "ativo": "5851753086",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "PARECER DCMD registra que a melhoria da malha de aterramento (a pendencia da SS) foi executada. Equipamento seguia by-passado no laudo DMSL e a planilha marca 'Aguardando comissionamento'. | Texto identico ao de ETO-RD-PS 00198/2026, ETO-TELE 00820/2026, ETO-RD-PS 00261/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP:fAVOR REALIZAR MELHORIA DE ATERRMENTO---------------------------------------------------------------------PARECER DMSL 19/05/2026: É necessário fazer melhorias"
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00261/2026",
+   "ativo": "5851753086",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "PARECER DCMD registra que a melhoria da malha de aterramento (a pendencia da SS) foi executada. Equipamento seguia by-passado no laudo DMSL e a planilha marca 'Aguardando comissionamento'. | Texto identico ao de ETO-RD-PS 00198/2026, ETO-TELE 00820/2026, ETO-COEP 00111/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP:fAVOR REALIZAR MELHORIA DE ATERRMENTO---------------------------------------------------------------------PARECER DMSL 19/05/2026: É necessário fazer melhorias"
+  },
+  {
+   "numero_ss": "ETO-TELE 00940/2026",
+   "ativo": "7953211079",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "Texto nao declara motivo de cancelamento.",
+   "ss_substituta": "",
+   "evidencia": "Enviar equipe verificar relé 79, de religamento do Religador 7953211079, o mesmo não está executando o seu clclo de religamento, desde modo penalizando cargas desnecessariamente, um total de 1438 Cli…"
+  },
+  {
+   "numero_ss": "ETO-COEP 00180/2025",
+   "ativo": "5850308009",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP: 'Equipamento em operacao no SCADA'. Ressalva: no mesmo texto o DMSL mantem laudo de controle danificado e uma fase deixada em manual (opera com restricao). | Texto identico ao de ETO-TELE 00913/2025, ETO-TELE 00958/2026, ETO-COEP 00127/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: Equipamento em operaçãpo no SCADAPARECER DMSL: Após testes, foi constatado que o RT 5850308009 encontra-se com controle danificado, sendo necessária substitui"
+  },
+  {
+   "numero_ss": "ETO-COEP 00042/2026",
+   "ativo": "7900505026",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP manda reavaliar se ainda existe pendencia de substituicao porque o equipamento se encontra em operacao no SCADA. Ressalva: DMSL aponta falha de abertura para protecao. | Texto identico ao de ETO-PROT 00136/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: O Equipamento se encontra em operação no SCADA, favor verificar e reavaliar se existe pendência de substiuiçãoPARECER DMSL: FAVOR REALIZAR A SUBSTITUIÇÃO DO E"
+  },
+  {
+   "numero_ss": "ETO-PROT 00136/2026",
+   "ativo": "7900505026",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP manda reavaliar se ainda existe pendencia de substituicao porque o equipamento se encontra em operacao no SCADA. Ressalva: DMSL aponta falha de abertura para protecao. | Texto identico ao de ETO-COEP 00042/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: O Equipamento se encontra em operação no SCADA, favor verificar e reavaliar se existe pendência de substiuiçãoPARECER DMSL: FAVOR REALIZAR A SUBSTITUIÇÃO DO E"
+  },
+  {
+   "numero_ss": "ETO-RD-GU 00688/2026",
+   "ativo": "5846328094",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "PARECER COEP: melhoria de aterramento e escopo do COCM's, favor encaminhar diretamente para eles (redirecionamento de escopo). Equipamento by-passado em campo.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: MELHORIA DE ATERRAMENTO É COCM'S, FAVOR ENCAMINHAR DIRETAMENTE PARA ELES, COCM'S REALIZAR MELHORIA DE ATERRAMENTO POR FAVORPor genteliiza verificar RT 5846328"
+  },
+  {
+   "numero_ss": "ETO-TELE 00958/2026",
+   "ativo": "5850308009",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP: 'Equipamento em operacao no SCADA'. Ressalva: no mesmo texto o DMSL mantem laudo de controle danificado e uma fase deixada em manual (opera com restricao). | Texto identico ao de ETO-TELE 00913/2025, ETO-COEP 00180/2025, ETO-COEP 00127/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: Equipamento em operaçãpo no SCADAPARECER DMSL: Após testes, foi constatado que o RT 5850308009 encontra-se com controle danificado, sendo necessária substitui"
+  },
+  {
+   "numero_ss": "ETO-COEP 00127/2026",
+   "ativo": "5850308009",
+   "categoria": "cancelada_em_operacao",
+   "motivo": "PARECER COEP: 'Equipamento em operacao no SCADA'. Ressalva: no mesmo texto o DMSL mantem laudo de controle danificado e uma fase deixada em manual (opera com restricao). | Texto identico ao de ETO-TELE 00913/2025, ETO-COEP 00180/2025, ETO-TELE 00958/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: Equipamento em operaçãpo no SCADAPARECER DMSL: Após testes, foi constatado que o RT 5850308009 encontra-se com controle danificado, sendo necessária substitui"
+  },
+  {
+   "numero_ss": "ETO-COEP 00156/2025",
+   "ativo": "7957126085",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00597/2025, ETO-RD-PS 00185/2025, ETO-COEP 00145/2026, ETO-RD-PS 00301/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: EQUIPAMENTO ENTREGUE , FAVOR REALIZAR SUBSTIUIÇÃO, DEPOIS ENCAMINHAR PARA PROTEÇÃO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO, FAVOR INFORMAR O PRAZO D"
+  },
+  {
+   "numero_ss": "ETO-COEP 00145/2026",
+   "ativo": "7957126085",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00597/2025, ETO-RD-PS 00185/2025, ETO-COEP 00156/2025, ETO-RD-PS 00301/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: EQUIPAMENTO ENTREGUE , FAVOR REALIZAR SUBSTIUIÇÃO, DEPOIS ENCAMINHAR PARA PROTEÇÃO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO, FAVOR INFORMAR O PRAZO D"
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00301/2026",
+   "ativo": "7957126085",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "ARMADILHA DO FORMULARIO: o campo 'EQUIPAMENTO FICOU EM OPERACAO?' foi respondido NAO. Texto nao declara motivo de cancelamento. | Texto identico ao de ETO-TELE 00597/2025, ETO-RD-PS 00185/2025, ETO-COEP 00156/2025, ETO-COEP 00145/2026 (mesmo ativo, mesma abertura/termino): duplicidade ESTRUTURAL nao declarada no texto.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: EQUIPAMENTO ENTREGUE , FAVOR REALIZAR SUBSTIUIÇÃO, DEPOIS ENCAMINHAR PARA PROTEÇÃO REALIZAR OS AJUSTES E DEPOIS PARA COMISSIONAMENTO, FAVOR INFORMAR O PRAZO D"
+  },
+  {
+   "numero_ss": "ETO-TELE 01023/2026",
+   "ativo": "7900722193",
+   "categoria": "cancelada_sem_motivo_claro",
+   "motivo": "SS encerrada 8 minutos apos a abertura, sem parecer. A planilha aponta ETO-TELE 01029/2026 como a SS vigente do ativo (indicio de duplicidade, nao declarado no texto).",
+   "ss_substituta": "",
+   "evidencia": "Religador 7900722193 sem comunicação, apos primeiro ataque não retornou as comunicação."
+  },
+  {
+   "numero_ss": "ETO-RD-AR 01170/2026",
+   "ativo": "5800371025",
+   "categoria": "cancelada_outro_motivo",
+   "motivo": "PARECER COEP 16/07/2026: manter a SS e o controle RUA ate a chegada dos cabos compatibilizadores em 16/08 e so entao repassar ao DMSL.",
+   "ss_substituta": "",
+   "evidencia": "PARECER COEP: ALINHADO COM O KELLITON REALIZAR SUBSTITUIÇÃO DO CONTROLE DE TUPIRAMA, ALINHADO COM O JEAN QUE OS CABOS COMPATIBILIZADORES VÃO CHEGAR 16/08 , ATÉ ESSA DATA MA"
+  }
+ ],
+ "ativos": {
+  "5800090147": {
+   "candidato_em_operacao": true,
+   "evidencia": "PARECER DMSL: 'Equipamento ficou operando devido ser possivel manobrar de forma manual' - defeito da celula fase C confirmado e ainda pendente.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-COEP 00117/2026",
+    "ETO-TELE 00438/2026"
+   ]
+  },
+  "5800291077": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-DMSL-COM 00017/2026"
+   ]
+  },
+  "5800366016": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00320/2025",
+    "ETO-TELE 00219/2026",
+    "ETO-TELE 00375/2026",
+    "ETO-COEP 00052/2026"
+   ]
+  },
+  "5800371025": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-RD-AR 01170/2026"
+   ]
+  },
+  "5800440256": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: laudo DMSL responde 'ficou em operacao? NAO'; equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-PROT 00158/2025",
+    "ETO-TELE 01431/2025",
+    "ETO-TELE 00418/2025",
+    "ETO-RD-PA 00800/2025",
+    "ETO-COEP 00227/2025",
+    "ETO-RD-PO 00007/2026",
+    "ETO-COEP 00022/2026",
+    "ETO-PROT 00062/2026",
+    "ETO-RD-PA 00190/2026",
+    "ETO-RD-PO 00072/2026",
+    "ETO-RD-PO 00092/2026",
+    "ETO-TELE 00357/2026"
+   ]
+  },
+  "5820790038": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00514/2024",
+    "ETO-TELE 00499/2024",
+    "ETO-COEP 00091/2024"
+   ]
+  },
+  "5827102054": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 01246/2025"
+   ]
+  },
+  "5841308190": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento furtado.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-COEP 00214/2025"
+   ]
+  },
+  "5846328094": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-RD-GU 00688/2026"
+   ]
+  },
+  "5850308009": {
+   "candidato_em_operacao": true,
+   "evidencia": "PARECER COEP: 'Equipamento em operacao no SCADA'. No mesmo texto o DMSL mantem laudo de controle danificado e uma fase em manual.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00913/2025",
+    "ETO-COEP 00180/2025",
+    "ETO-TELE 00958/2026",
+    "ETO-COEP 00127/2026"
+   ]
+  },
+  "5851753086": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: laudo DMSL responde 'ficou em operacao? NAO'; equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-RD-PS 00198/2026",
+    "ETO-TELE 00820/2026",
+    "ETO-COEP 00111/2026",
+    "ETO-RD-PS 00261/2026"
+   ]
+  },
+  "5854566043": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-PROT 00038/2025"
+   ]
+  },
+  "5856070091": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento furtado.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-COEP 00023/2026",
+    "ETO-RD-GU 00120/2026"
+   ]
+  },
+  "7900018004": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 01347/2025"
+   ]
+  },
+  "7900230155": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00554/2025",
+    "ETO-PROT 00131/2025",
+    "ETO-COEP 00172/2025",
+    "ETO-TELE 00892/2025"
+   ]
+  },
+  "7900453110": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento isolado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 01533/2025",
+    "ETO-TELE 00206/2026"
+   ]
+  },
+  "7900505026": {
+   "candidato_em_operacao": true,
+   "evidencia": "PARECER COEP: 'O Equipamento se encontra em operacao no SCADA, favor verificar e reavaliar se existe pendencia de substituicao'.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-COEP 00042/2026",
+    "ETO-PROT 00136/2026"
+   ]
+  },
+  "7900532053": {
+   "candidato_em_operacao": true,
+   "evidencia": "'30/06 - EQUIPAMENTO EM OPERACAO NO SCADA, AGUARDANDO RESPOSTA DO DMSL PARA SEGUIR COM AS TRATATIVAS' (planilha: 'REPASSAR O DMSL (EQUIPAMENTO OPERANDO NO SCADA)').",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-COEP 00102/2025"
+   ]
+  },
+  "7900543083": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento fora de operacao/servico; equipamento isolado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00285/2026",
+    "ETO-DEOP 00006/2026"
+   ]
+  },
+  "7900594026": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00969/2025",
+    "ETO-COEP 00210/2025",
+    "ETO-TELE 01213/2025",
+    "ETO-TELE 00826/2026",
+    "ETO-TELE 00282/2026",
+    "ETO-COEP 00112/2026"
+   ]
+  },
+  "7900722193": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00346/2025",
+    "ETO-TELE 01023/2026"
+   ]
+  },
+  "7900930040": {
+   "candidato_em_operacao": true,
+   "evidencia": "COEP: 'Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-RD-AR 01237/2025",
+    "ETO-COEP 00191/2025",
+    "ETO-RD-AR 00737/2026",
+    "ETO-COEP 00079/2026",
+    "ETO-RD-AR 00764/2026"
+   ]
+  },
+  "7903112004": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 01072/2025"
+   ]
+  },
+  "7903569004": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-PROT 00089/2025"
+   ]
+  },
+  "7908196047": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00872/2025",
+    "ETO-COEP 00168/2025"
+   ]
+  },
+  "7908206074": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-COEP 00037/2024",
+    "ETO-COEP 00063/2025"
+   ]
+  },
+  "7908686014": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-OP-PS 00006/2024"
+   ]
+  },
+  "7908708116": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-RD-DP 00705/2024"
+   ]
+  },
+  "7910027196": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-RD-PS 00007/2025",
+    "ETO-TELE 01012/2024",
+    "ETO-TELE 00202/2025",
+    "ETO-COEP 00019/2026",
+    "ETO-COEP 00037/2026"
+   ]
+  },
+  "7919270014": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00501/2024",
+    "ETO-COEP 00075/2026",
+    "ETO-TELE 00294/2025"
+   ]
+  },
+  "7920024127": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-COEP 00121/2025",
+    "ETO-RD-AG 00746/2025"
+   ]
+  },
+  "7921202014": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00782/2026"
+   ]
+  },
+  "7922995039": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 01110/2025"
+   ]
+  },
+  "7925733015": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELECOM 00012/2026",
+    "ETO-TELE 00847/2026",
+    "ETO-COEP 00107/2026"
+   ]
+  },
+  "7926089013": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-COEP 00039/2026"
+   ]
+  },
+  "7927396052": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00202/2026"
+   ]
+  },
+  "7927446001": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: laudo DMSL responde 'ficou em operacao? NAO'.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00749/2025",
+    "ETO-COEP 00144/2025"
+   ]
+  },
+  "7927646026": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "DG-RD-PO 00891/2025",
+    "ETO-PROT 00001/2026"
+   ]
+  },
+  "7928241200": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00494/2026"
+   ]
+  },
+  "7930428001": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento retirado de operacao.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-COEP 00134/2024"
+   ]
+  },
+  "7931608059": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: laudo DMSL responde 'ficou em operacao? NAO'; equipamento fora de operacao/servico.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00848/2026",
+    "ETO-COEP 00098/2026"
+   ]
+  },
+  "7933726256": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00766/2026"
+   ]
+  },
+  "7933766059": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-COEP 00207/2025"
+   ]
+  },
+  "7936038076": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00484/2026"
+   ]
+  },
+  "7938137007": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-RD-PA 00261/2025",
+    "ETO-COEP 00059/2025",
+    "ETO-RD-PS 00089/2025",
+    "ETO-TELE 00051/2026"
+   ]
+  },
+  "7943790134": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo; equipamento isolado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00502/2025",
+    "ETO-RD-AR 00830/2025",
+    "ETO-COEP 00097/2025"
+   ]
+  },
+  "7944319149": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: laudo DMSL responde 'ficou em operacao? NAO'.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-RD-PS 00297/2025",
+    "ETO-COEP 00201/2025"
+   ]
+  },
+  "7947203070": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento declarado indisponivel para operacao.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00568/2025",
+    "ETO-TELE 00693/2025",
+    "ETO-TELE 01462/2025"
+   ]
+  },
+  "7953211079": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento isolado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-RD-GR 01054/2024",
+    "ETO-RD-GR 00291/2026",
+    "ETO-TELE 00940/2026"
+   ]
+  },
+  "7953570026": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 01181/2024",
+    "ETO-TELE 01191/2024"
+   ]
+  },
+  "7953610256": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00454/2026"
+   ]
+  },
+  "7954668084": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00250/2026"
+   ]
+  },
+  "7955430075": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ENC-RD-PS 00912/2025",
+    "ETO-COEP 00183/2025"
+   ]
+  },
+  "7955520116": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-PROT 00418/2024"
+   ]
+  },
+  "7955832052": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-RD-GU 00259/2024"
+   ]
+  },
+  "7955946007": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma das SS canceladas do ativo traz parecer COEP/COI/SCADA declarando o equipamento em operacao.",
+   "confianca": "Media",
+   "ss_envolvidas": [
+    "ETO-TELE 00344/2026"
+   ]
+  },
+  "7955986084": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00776/2026"
+   ]
+  },
+  "7957021094": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: equipamento by-passado em campo; equipamento declarado indisponivel para operacao.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00399/2026"
+   ]
+  },
+  "7957126085": {
+   "candidato_em_operacao": false,
+   "evidencia": "Nenhuma SS cancelada declara o equipamento em operacao; ao contrario: laudo DMSL responde 'ficou em operacao? NAO'; equipamento by-passado em campo.",
+   "confianca": "Alta",
+   "ss_envolvidas": [
+    "ETO-TELE 00597/2025",
+    "ETO-RD-PS 00185/2025",
+    "ETO-COEP 00156/2025",
+    "ETO-COEP 00145/2026",
+    "ETO-RD-PS 00301/2026"
+   ]
+  }
+ }
+}

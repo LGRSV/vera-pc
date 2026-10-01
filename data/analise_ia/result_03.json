@@ -1,0 +1,253 @@
+[
+  {
+    "ativo": "7923673004",
+    "ss": "ETO-COEP 00124/2026",
+    "linha": 6,
+    "categoria_primaria": "Controle/Eletrônica",
+    "categorias_secundarias": [],
+    "componente_especifico": "relé (controle) do religador",
+    "fases_afetadas": [],
+    "causa_raiz": "não conclusiva no texto — registra apenas que o relé do religador está danificado e exige substituição",
+    "status_operacional": "Não informado",
+    "acao_requerida": "Verificar disponibilidade de equipamento no SCADA e informar modelo e faixa de tensão para viabilizar a compra e a substituição do religador com relé danificado",
+    "responsavel_atual": "Suprimentos/Aquisição",
+    "tem_parecer_dmsl": false,
+    "tem_parecer_coep": true,
+    "datas_citadas": [],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Aguardando verificação de disponibilidade no SCADA e envio de modelo/tensão para a compra; planilha indica que se aguardava retorno do DMSL",
+    "divergencia_planilha": "Planilha registra defeito 'Tanque + controle', mas o texto só descreve relé (controle) danificado — não há qualquer menção a defeito de tanque/parte ativa. Criticidade 'Muito Alta' não é sustentada por nenhuma informação de impacto no texto, que é bastante sucinto.",
+    "risco_operacional": "Alto",
+    "resumo_tecnico": "Religador de Araguaína com o relé (controle) danificado, necessitando substituição. O processo está travado na etapa anterior à compra: falta confirmar disponibilidade no SCADA e informar modelo e faixa de tensão do equipamento.",
+    "confianca": "Média"
+  },
+  {
+    "ativo": "7933766059",
+    "ss": "ETO-TELE 01024/2026",
+    "linha": 18,
+    "categoria_primaria": "Tanque/Parte Ativa",
+    "categorias_secundarias": [
+      "Parametrização/Proteção"
+    ],
+    "componente_especifico": "parte ativa/tanque do religador NOJA RC10 (Mestre 2, Rep. Taquaruçu)",
+    "fases_afetadas": [],
+    "causa_raiz": "Curto na parte ativa do equipamento, que danificou o tanque/parte ativa (constatado em campo pela equipe DMSL em 15/10/2025)",
+    "status_operacional": "Operando com restrição",
+    "acao_requerida": "Recomissionar o religador substituído mantendo os mesmos ajustes de proteção e encerrar a SS com os relatórios da OS DLP-MPPA01 244/2026",
+    "responsavel_atual": "Proteção",
+    "tem_parecer_dmsl": true,
+    "tem_parecer_coep": true,
+    "datas_citadas": [
+      {
+        "data": "2025-10-15",
+        "o_que": "Atendimento/laudo DMSL (GESID 5457/2025) que constatou curto na parte ativa e indicou substituição do tanque"
+      }
+    ],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Pendente recomissionamento do religador (ajustes de proteção permanecem os mesmos); a pendência original do DMSL — substituir parte ativa — já foi executada em campo pelo COCM Centro",
+    "divergencia_planilha": "Planilha mantém check 'Em andamento' e criticidade 'Muito Alta', mas o parecer do COCM Centro informa que o equipamento JÁ foi substituído em campo pela OS DLP-MPPA01 244/2026, com relatórios anexados — resta apenas o recomissionamento, o que reduz muito o risco real. A SS também está sob prefixo ETO-TELE (telecom), embora o defeito seja de parte ativa/tanque.",
+    "risco_operacional": "Médio",
+    "resumo_tecnico": "Religador NOJA RC10 de Taquaruçu sofreu curto na parte ativa em 2025 e ficou fora de operação; o tanque/parte ativa já foi substituído em campo pelo COCM Centro. Falta apenas o recomissionamento, mantendo os mesmos ajustes de proteção.",
+    "confianca": "Alta"
+  },
+  {
+    "ativo": "5800371025",
+    "ss": "ETO-RD-GR 00766/2026",
+    "linha": 34,
+    "categoria_primaria": "Controle/Eletrônica",
+    "categorias_secundarias": [
+      "Cabo/Conector/Umbilical",
+      "Comunicação/Telecom"
+    ],
+    "componente_especifico": "relés/controles Toshiba TBR 1000 das fases A e B (retrofit previsto para controle RUA nas 3 fases)",
+    "fases_afetadas": [
+      "A",
+      "B"
+    ],
+    "causa_raiz": "Defeito constatado em testes nos relés de controle Toshiba TBR 1000 das fases A e B do regulador",
+    "status_operacional": "Não informado",
+    "acao_requerida": "Substituir os relés das 3 fases por controle RUA, fornecendo os cabos compatibilizadores entre tanque e controle (previstos para 16/08/2026) e kit de comunicação (rádio, antena), repassando a SS ao DMSL depois dessa data",
+    "responsavel_atual": "COEP",
+    "tem_parecer_dmsl": true,
+    "tem_parecer_coep": true,
+    "datas_citadas": [
+      {
+        "data": "2026-07-16",
+        "o_que": "Parecer COEP alinhando a substituição do controle (Kelliton) e o prazo dos cabos (Jean)"
+      },
+      {
+        "data": "2026-08-16",
+        "o_que": "Previsão de chegada dos cabos compatibilizadores; até lá a SS fica retida no COEP com controle RUA, depois repassar ao DMSL"
+      }
+    ],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Aguardando chegada dos cabos compatibilizadores (previsão 16/08/2026), aquisição/definição do controle RUA e fornecimento do kit de comunicação (rádio e antena)",
+    "divergencia_planilha": "A observação da planilha 'Previsão de substituição 28/07' já venceu e é contrariada pelo parecer mais recente (16/07/2026), que condiciona a substituição à chegada dos cabos em 16/08/2026. O parecer da planilha 'Equipamento entregue ao COCM' também diverge do texto, que determina manter a SS com o COEP até 16/08 e só então repassar ao DMSL (e não ao COCM). O defeito 'Controle' é coerente, mas omite as pendências de cabos e de kit de comunicação.",
+    "risco_operacional": "Alto",
+    "resumo_tecnico": "Regulador de tensão dentro da S/E Arapoema com os relés de controle Toshiba TBR 1000 das fases A e B com falha, comprometendo a regulação de tensão. A solução aprovada é o retrofit das 3 fases para controle RUA, dependente da chegada dos cabos compatibilizadores em 16/08/2026 e do fornecimento do kit de comunicação.",
+    "confianca": "Alta"
+  },
+  {
+    "ativo": "5846328094",
+    "ss": "ETO-TELE 00986/2026",
+    "linha": 47,
+    "categoria_primaria": "Aterramento",
+    "categorias_secundarias": [
+      "Cabo/Conector/Umbilical"
+    ],
+    "componente_especifico": "malha de aterramento (resistência alta) e conectores das buchas, substituídos por conectores estranguladores",
+    "fases_afetadas": [],
+    "causa_raiz": "Resistência de aterramento alta e conectores das buchas inadequados/degradados, apontados no parecer DMSL",
+    "status_operacional": "By-passado em campo",
+    "acao_requerida": "Comissionar e reinserir o regulador na rede, retirando o by-pass, uma vez que a melhoria de aterramento, a manutenção das chaves e a troca dos conectores já foram executadas em 07/07/2026",
+    "responsavel_atual": "COCM",
+    "tem_parecer_dmsl": true,
+    "tem_parecer_coep": true,
+    "datas_citadas": [
+      {
+        "data": "2026-07-07",
+        "o_que": "COCM SUL executou a melhoria de aterramento, a manutenção de todas as chaves e a substituição dos conectores"
+      }
+    ],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Equipamento segue by-passado em campo; pendente o comissionamento/reinserção do regulador após os serviços já executados",
+    "divergencia_planilha": "A planilha classifica o registro apenas como 'Melhoria de aterramento' com check 'Em andamento', mas o texto mostra que esse serviço já foi concluído em 07/07/2026 pelo COCM SUL; o que de fato mantém o ativo indisponível é o regulador continuar by-passado em campo, aguardando comissionamento. A SS está sob prefixo ETO-TELE, sem nenhuma pendência de telecom no texto.",
+    "risco_operacional": "Médio",
+    "resumo_tecnico": "Regulador de tensão de Peixe encontrado by-passado em campo, com aterramento de resistência alta e conectores de buchas degradados. O COCM SUL já executou em 07/07/2026 a melhoria de aterramento, a manutenção das chaves e a troca dos conectores por conectores estranguladores; falta comissionar e retirar o by-pass para devolver a regulação de tensão ao trecho.",
+    "confianca": "Alta"
+  },
+  {
+    "ativo": "7937102148",
+    "ss": "ETO-COEP 00129/2026",
+    "linha": 63,
+    "categoria_primaria": "Tanque/Parte Ativa",
+    "categorias_secundarias": [],
+    "componente_especifico": "tanque do religador",
+    "fases_afetadas": [],
+    "causa_raiz": "não conclusiva no texto — informa apenas tanque com defeito, sem descrição do modo de falha",
+    "status_operacional": "Não informado",
+    "acao_requerida": "Substituir o tanque do religador; antes disso, reavaliar a disponibilidade do equipamento no SCADA e fornecer modelo e faixa de tensão para a compra/aquisição",
+    "responsavel_atual": "Suprimentos/Aquisição",
+    "tem_parecer_dmsl": false,
+    "tem_parecer_coep": true,
+    "datas_citadas": [],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Pendente reavaliação da disponibilidade no SCADA e envio de modelo e faixa de tensão do equipamento para a aquisição",
+    "divergencia_planilha": "",
+    "risco_operacional": "Médio",
+    "resumo_tecnico": "Religador de São Valério da Natividade com tanque defeituoso, exigindo substituição do tanque. O andamento está parado na fase pré-compra: o COEP pediu reavaliação de disponibilidade no SCADA e as informações de modelo e faixa de tensão, sem retorno registrado e sem qualquer laudo do DMSL no texto.",
+    "confianca": "Média"
+  },
+  {
+    "ativo": "7900525015",
+    "ss": "ETO-COEP 00125/2026",
+    "linha": 75,
+    "categoria_primaria": "Tanque/Parte Ativa",
+    "categorias_secundarias": [],
+    "componente_especifico": "buchas de entrada do religador — bucha da fase A estourada, buchas B e C danificadas",
+    "fases_afetadas": [
+      "A",
+      "B",
+      "C"
+    ],
+    "causa_raiz": "Buchas de entrada danificadas, com a bucha da fase A estourada; a origem do dano não é conclusiva no texto",
+    "status_operacional": "Não informado",
+    "acao_requerida": "Definir o escopo: se for troca apenas das buchas, repassar aos COCM's; se for substituição do religador, informar modelo e tensão para a compra",
+    "responsavel_atual": "Suprimentos/Aquisição",
+    "tem_parecer_dmsl": false,
+    "tem_parecer_coep": true,
+    "datas_citadas": [],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "COEP no aguardo de retorno definindo se o serviço é troca de buchas (COCM's) ou substituição do religador com modelo e tensão para compra",
+    "divergencia_planilha": "Planilha registra defeito 'Tanque', mas o texto descreve especificamente as buchas de entrada (fase A estourada, B e C danificadas), sem apontar defeito interno de tanque/parte ativa — o caso pode ser resolvido pelo COCM e não pela aquisição, o que contradiz o parecer 'Em processo de aquisição'. A criticidade 'Média' também subestima o risco de uma bucha estourada em religador de linha de distribuição.",
+    "risco_operacional": "Alto",
+    "resumo_tecnico": "Religador da LD Pedro Afonso–Chaparral com as três buchas de entrada comprometidas, sendo a da fase A estourada. O COEP ainda não decidiu se o caso é troca de buchas pelo COCM ou substituição integral do equipamento via compra, e aguarda retorno para seguir.",
+    "confianca": "Média"
+  },
+  {
+    "ativo": "7901110084",
+    "ss": "ETO-COEP 00061/2026",
+    "linha": 91,
+    "categoria_primaria": "Tanque/Parte Ativa",
+    "categorias_secundarias": [
+      "Bateria/Fonte Auxiliar"
+    ],
+    "componente_especifico": "parte ativa do religador (dá passagem de tensão mesmo com o equipamento aberto); fonte auxiliar removida do local",
+    "fases_afetadas": [],
+    "causa_raiz": "Parte ativa do equipamento com defeito, confirmada por análise técnica e testes funcionais do DMSL, permitindo passagem de tensão mesmo com o religador aberto",
+    "status_operacional": "Fora de operação",
+    "acao_requerida": "Substituir a parte ativa/equipamento — já selecionado para compra — e repor a fonte auxiliar removida na próxima ida a campo",
+    "responsavel_atual": "Suprimentos/Aquisição",
+    "tem_parecer_dmsl": true,
+    "tem_parecer_coep": true,
+    "datas_citadas": [],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Aguardando a aquisição do equipamento já selecionado para compra; pendente também levar uma fonte ao retornar ao local, pois a existente foi removida",
+    "divergencia_planilha": "Criticidade registrada como 'Baixa' contraria frontalmente o texto: o religador dá passagem de tensão mesmo aberto (falsa indicação de seccionamento, risco de segurança para equipes) e ficou fora de operação após o atendimento. O defeito 'Tanque' é coerente com a parte ativa, mas a planilha não registra a remoção da fonte auxiliar.",
+    "risco_operacional": "Crítico",
+    "resumo_tecnico": "Religador de Divinópolis com a parte ativa defeituosa, comprovada em análise técnica e testes funcionais: o equipamento dá passagem de tensão mesmo estando aberto, criando falsa indicação de seccionamento — condição de risco para quem opera ou trabalha no trecho. Ficou fora de operação, teve a fonte auxiliar removida e está selecionado para compra.",
+    "confianca": "Alta"
+  },
+  {
+    "ativo": "7930359149",
+    "ss": "ETO-COEP 00138/2026",
+    "linha": 108,
+    "categoria_primaria": "Controle/Eletrônica",
+    "categorias_secundarias": [
+      "Tanque/Parte Ativa"
+    ],
+    "componente_especifico": "placa eletrônica do religador, carbonizada com sinal de curto",
+    "fases_afetadas": [],
+    "causa_raiz": "Curto que carbonizou a placa do religador, deixando o equipamento sem aceitar comando local nem remoto, somado a defeito na parte ativa",
+    "status_operacional": "Operando com restrição",
+    "acao_requerida": "Substituir o religador, já que a placa está carbonizada e a parte ativa defeituosa, sem possibilidade de comando local ou remoto",
+    "responsavel_atual": "COEP",
+    "tem_parecer_dmsl": true,
+    "tem_parecer_coep": false,
+    "datas_citadas": [
+      {
+        "data": "2026-07-07",
+        "o_que": "Parecer DMSL concluindo que o equipamento tem que ser substituído (não faz comando, parte ativa com defeito)"
+      }
+    ],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Pendente parecer/definição do COEP e provisão de equipamento substituto; a SS está na fila do COEP sem parecer registrado",
+    "divergencia_planilha": "Registro sem preenchimento de defeito, criticidade, check e parecer COEP na planilha, apesar de haver laudo DMSL de 07/07/2026 concluindo pela substituição do religador. Um equipamento sem comando local nem remoto e com placa carbonizada não deveria estar sem classificação de criticidade.",
+    "risco_operacional": "Alto",
+    "resumo_tecnico": "Religador de Caseara não aceita comando local nem remoto: a equipe 149OP02 encontrou a placa carbonizada com sinal de curto e o DMSL constatou também defeito na parte ativa, concluindo em 07/07/2026 pela substituição do equipamento. Na prática o religador está no campo sem função de manobra nem telecomando.",
+    "confianca": "Média"
+  },
+  {
+    "ativo": "7929663074",
+    "ss": "ETO-TELE 01026/2026",
+    "linha": 121,
+    "categoria_primaria": "Comunicação/Telecom",
+    "categorias_secundarias": [
+      "Bateria/Fonte Auxiliar"
+    ],
+    "componente_especifico": "conjunto de comunicação do religador e sua alimentação auxiliar (perde o link na falta de CA)",
+    "fases_afetadas": [],
+    "causa_raiz": "não conclusiva no texto — registra apenas que o equipamento perde a comunicação sempre que falta alimentação CA",
+    "status_operacional": "Operando com restrição",
+    "acao_requerida": "Verificar em campo a falha de comunicação, checando a alimentação do conjunto de telecom e a autonomia da fonte auxiliar/bateria para manter o link durante a falta de CA",
+    "responsavel_atual": "Telecom",
+    "tem_parecer_dmsl": false,
+    "tem_parecer_coep": false,
+    "datas_citadas": [],
+    "prazo_vencido": false,
+    "justificativa_prazo": "",
+    "pendencia_declarada": "Aguardando verificação em campo da falha de comunicação; SS sem parecer do COEP e sem parecer do DMSL",
+    "divergencia_planilha": "Registro sem localidade, regional, defeito, criticidade e check preenchidos na planilha, embora o texto situe o equipamento na área rural de Dianópolis e descreva um sintoma bem definido (perda de comunicação na falta de CA).",
+    "risco_operacional": "Médio",
+    "resumo_tecnico": "Religador rural de Dianópolis perde a comunicação sempre que falta alimentação CA, ou seja, a operação fica sem telemetria e telecomando justamente durante os eventos de falta, quando o recurso é mais necessário. A proteção local continua atuando, mas o equipamento nunca foi diagnosticado — não há parecer de COEP nem de DMSL.",
+    "confianca": "Média"
+  }
+]

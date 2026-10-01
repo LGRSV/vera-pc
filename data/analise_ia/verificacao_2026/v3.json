@@ -1,0 +1,226 @@
+[
+  {
+    "cadeia": "ETO-TELE 00824/2025",
+    "ativo": "7908705049",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto nomeia tanque e relé (controle) queimados com pedido explícito de substituição, ou seja, duas peças grandes juntas.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00020/2026",
+    "ativo": "7908708116",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Citação nomeia diretamente tanque e controle com defeito, pedindo substituição de ambos.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00053/2026",
+    "ativo": "7919270014",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Parecer DMSL pede substituir o equipamento completo citando defeito na placa de alimentação (controle) e na parte ativa (tanque).",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DG-RD-PO 00891/2025",
+    "ativo": "7927646026",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto pede explicitamente substituir o religador (equipamento inteiro), o que caracteriza completo mesmo sem diagnóstico detalhado da causa.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00292/2026",
+    "ativo": "7953610256",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Relé (controle) já substituído e pendência explícita de substituir a parte ativa (tanque) na mesma demanda: tanque e controle juntos.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00188/2026",
+    "ativo": "7954668084",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Achado é só 'display queimado, não liga' (sintoma sem peça grande nomeada); a compra do equipamento depende de análise do DMSL ainda não decidida.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00176/2026",
+    "ativo": "7954668084",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto afirma necessidade explícita de substituição do religador (equipamento inteiro), sem ambiguidade.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01521/2025",
+    "ativo": "7900018016",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Relé do religador em curto é defeito nomeado numa peça que mapeia para controle, mesmo sem confirmação de substituição.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01167/2025",
+    "ativo": "7900594026",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Pedido explícito de substituir o relé (Cooper Form6) do religador, peça nomeada que mapeia para controle mesmo com causa ligada a falha de comunicação serial.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01213/2025",
+    "ativo": "7900594026",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Repete pedido explícito de substituir o relé do religador; a peça é nomeada apesar do motivo mencionar falha de comunicação.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00826/2026",
+    "ativo": "7900594026",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Relato informal de relé 'com defeito' reiniciando, sem pedido de substituição nem dano físico confirmado (mais sintoma comportamental do que peça com defeito confirmado); SS cancelada.",
+    "confianca": "baixa"
+  },
+  {
+    "cadeia": "00934/2026",
+    "ativo": "7900666072",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Falha na placa de alimentação é sinônimo explícito de controle para religador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00003/2026",
+    "ativo": "7904278001",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Painel de controle em curto é achado nomeado equivalente a armário de controle; rádio queimado é item telecom à parte, corretamente não usado para o rótulo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01302/2025",
+    "ativo": "7905362122",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Fonte queimada é sinônimo de controle explicitamente listado na régua.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01464/2025",
+    "ativo": "7908249152",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Painel de comando em curto equivale a armário de controle danificado; falta de comunicação é só sintoma associado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01221/2025",
+    "ativo": "7908301026",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Fonte queimada nomeada explicitamente; relé apagado é consequência da fonte, não achado isolado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DOLP-RD-PA 00319/2026",
+    "ativo": "7908309006",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Curto na alimentação do relé (equivalente a fonte/placa de alimentação) é a causa raiz nomeada, apesar do sintoma inicial descrito como falha de comunicação.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00998/2026",
+    "ativo": "7908683122",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "'Base do relé' é o soquete/suporte do relé, peça auxiliar de conexão, não o controle, o armário, a fonte nem o relé propriamente dito.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-COEP 00057/2026",
+    "ativo": "7923673004",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Relé do religador danificado com pedido explícito de substituição.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00608/2026",
+    "ativo": "7926080073",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Painel de comando em curto nomeia diretamente o armário de controle danificado.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00433/2026",
+    "ativo": "7927413001",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Serviço executado confirma placa de alimentação com defeito; a troca do equipamento completo é só uma verificação não confirmada, então controle é o rótulo correto e conservador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00409/2026",
+    "ativo": "7929376022",
+    "mantem": false,
+    "categoria_final": "comissionamento",
+    "porque": "Citação só diz 'a peça foi trocada' sem nomear qual peça, e pede comissionamento; sem o nome da peça o rótulo controle não se sustenta (regra 1).",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01231/2026",
+    "ativo": "7929376022",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Texto direto e objetivo: 'Trocar controle do religador'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00820/2025",
+    "ativo": "7930264015",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação nomeia apenas 'painel' danificado, sem qualificá-lo como painel de controle/comando, concorrendo com perda de comunicação SCADA; ambíguo demais entre controle e telecom.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00163/2026",
+    "ativo": "7944559149",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citação nomeia apenas 'a placa' sem especificar se é de alimentação (controle) ou de comunicação (telecom); a régua exige saber qual placa é.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01381/2025",
+    "ativo": "7947203070",
+    "mantem": true,
+    "categoria_final": "controle",
+    "porque": "Parecer mais recente do COEP nomeia explicitamente 'CONTROLE' como selecionado para compra.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01211/2025",
+    "ativo": "7949587113",
+    "mantem": false,
+    "categoria_final": "sem defeito",
+    "porque": "Relé foi retirado propositalmente para reforçar outro ponto (RDU Couto); não há defeito relatado no ativo 7949587113.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01223/2025",
+    "ativo": "7949587113",
+    "mantem": false,
+    "categoria_final": "sem defeito",
+    "porque": "Mesma situação: relé retirado do religador para instalação em outro ponto, sem defeito relatado no próprio ativo.",
+    "confianca": "media"
+  }
+]

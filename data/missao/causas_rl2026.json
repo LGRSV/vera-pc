@@ -1,0 +1,320 @@
+{
+ "fatia": "rl2026",
+ "rotulo": "Religadores 2026",
+ "itens": [
+  {
+   "ativo": "7908708116",
+   "ss": "ETO-COEP 00020/2026",
+   "peca": "tanque",
+   "data": "22/01/2026",
+   "troca_executada": true,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Substituição de tanque e controle, os mesmos estão com defeitos.",
+   "confianca": "alta",
+   "nota": "Texto dá só o modo (tanque com defeito) e o parecer COEP mais recente ainda pede explicação do defeito; nenhum porquê registrado."
+  },
+  {
+   "ativo": "7908708116",
+   "ss": "ETO-COEP 00020/2026",
+   "peca": "controle",
+   "data": "22/01/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Substituição de tanque e controle, os mesmos estão com defeitos.",
+   "confianca": "alta",
+   "nota": "Mesma SS do tanque: 'controle com defeito' é modo de falha, não causa; nada no texto explica a origem."
+  },
+  {
+   "ativo": "7927169001",
+   "ss": "ETO-COEP 00036/2026",
+   "peca": "tanque",
+   "data": "16/01/2026",
+   "troca_executada": true,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Foi verificado que o tanque do equipamento está danificado, sendo necessário substituir o tanque do equipamento.",
+   "confianca": "alta",
+   "nota": "Parecer DMSL constata tanque danificado sem dizer o que o danificou."
+  },
+  {
+   "ativo": "7930359149",
+   "ss": "ETO-COEP 00138/2026",
+   "peca": "completo",
+   "data": "07/07/2026",
+   "troca_executada": false,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "PLACA DO RL ESTA CARBONIZADA COM SINAL DE CURTO.",
+   "confianca": "media",
+   "nota": "Carbonização com sinal de curto na placa mais parte ativa com defeito apontam evento de curto interno atingindo comando e parte ativa; a origem primária do curto não é declarada."
+  },
+  {
+   "ativo": "7903569004",
+   "ss": "ETO-COEP 00060/2026",
+   "peca": "completo",
+   "data": "11/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Realizar substituição do equipamento todo e parte ativa.",
+   "confianca": "alta",
+   "nota": "Só o sintoma (sem comunicação após primeiro ataque) e a ordem de trocar tudo; nenhum laudo do porquê."
+  },
+  {
+   "ativo": "7923673004",
+   "ss": "ETO-COEP 00057/2026",
+   "peca": "controle",
+   "data": "26/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "RELIGADOR COM RELÉ DANIFICADO, REALIZAR SUBSTITUIÇÃO",
+   "confianca": "alta",
+   "nota": "Relé danificado é o modo de falha; o texto não diz por que danificou."
+  },
+  {
+   "ativo": "7927396052",
+   "ss": "ETO-COEP 00045/2026",
+   "peca": "tanque",
+   "data": "17/02/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "equipe DMSL constatou que apenas o tanque do RLG 7927396052 encontra-se queimado. Favor, substituir parte ativa do equipamento.",
+   "confianca": "alta",
+   "nota": "Fumaça no painel e tanque queimado são modo; o texto não explica a origem da queima."
+  },
+  {
+   "ativo": "7953211079",
+   "ss": "ETO-COEP 00147/2026",
+   "peca": "controle",
+   "data": "16/07/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Segue nota para substituir relé religador avariado marca noja , equipamento N: 7953211079 - Itapiratins .",
+   "confianca": "alta",
+   "nota": "Relé Noja avariado informado pelo técnico DMSL, sem laudo do porquê da avaria."
+  },
+  {
+   "ativo": "7955946007",
+   "ss": "ETO-COEP 00064/2026",
+   "peca": "controle",
+   "data": "02/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+   "citacao": "Necessário substituir a placa de alimentação ca, a mesma está em curto não conseguimos recuperar.",
+   "confianca": "alta",
+   "nota": "Placa de alimentação CA em curto e irrecuperável é falha eletrônica explícita do controle; o porquê do curto na placa não é dito."
+  },
+  {
+   "ativo": "7927413001",
+   "ss": "ETO-COEP 00141/2026",
+   "peca": "completo",
+   "data": "16/04/2026",
+   "troca_executada": false,
+   "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+   "citacao": "Placa de alimentação do equipamento com defeito, VERIFICAR SE É POSSIVEL  substituir o equipamento completo.",
+   "confianca": "alta",
+   "nota": "A placa de alimentação defeituosa (relé Tavrida) é o que motiva a troca completa; falha eletrônica explícita, origem do defeito não detalhada."
+  },
+  {
+   "ativo": "7955986084",
+   "ss": "ETO-TELE 00323/2026",
+   "peca": "controle",
+   "data": "31/03/2026",
+   "troca_executada": true,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "ATUALIZAR AJUSTES DO RL 7955986084 LD PARAISO A DIVINOPOLIS. IMPLEMENTAÇÃO DE PROTEÇÃO DE SUBTENSÃO (27)",
+   "confianca": "alta",
+   "nota": "Esta SS é só de ajuste de proteção; a evidência da falha (placa de alimentação CA em curto, substituída) está na OS, fora desta descrição — não uso o que a descrição não traz."
+  },
+  {
+   "ativo": "7931608059",
+   "ss": "ETO-COEP 00040/2026",
+   "peca": "tanque",
+   "data": "28/01/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "foi identificado que o tanque do equipamento está danificado, sendo assim,  necessário substituir o tanque e o rádio do equipamento, que está queimado",
+   "confianca": "alta",
+   "nota": "Tanque danificado e rádio queimado são modos de falha; nenhum porquê no texto."
+  },
+  {
+   "ativo": "7953610256",
+   "ss": "ETO-COEP 00050/2026",
+   "peca": "completo",
+   "data": "16/02/2026",
+   "troca_executada": true,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Trocado o DPS, o mesmo estava queimado devido ao tanque estar furado.",
+   "confianca": "alta",
+   "nota": "A cadeia documentada para no tanque furado (que queimou o DPS e gerou o curto no gabinete); o texto não diz por que o tanque furou — não especulo tiro, vandalismo ou corrosão."
+  },
+  {
+   "ativo": "7957021094",
+   "ss": "ETO-TELE 00861/2026",
+   "peca": "controle",
+   "data": "10/07/2026",
+   "troca_executada": true,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "SEGUE SS DE RELIGADOR COM CURTO INTERNO, DJUNTOR DE BT NÃO ACEITA.",
+   "confianca": "media",
+   "nota": "Texto explícito em 'curto interno' no circuito de BT (disjuntor não aceitava); a OS resolveu trocando fonte, bateria e relé, então a extensão exata do curto é inferida."
+  },
+  {
+   "ativo": "7908249152",
+   "ss": "ETO-COEP 00038/2026",
+   "peca": "completo",
+   "data": "22/01/2026",
+   "troca_executada": false,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "Houve um curto no equipamento danificando a parte ativa, será necessário fazer a substituição do equipamento completo ( parte ativa e controle)",
+   "confianca": "alta",
+   "nota": "DMSL é explícito: um curto no equipamento danificou a parte ativa e exigiu a troca completa."
+  },
+  {
+   "ativo": "7913662076",
+   "ss": "ETO-COEP 00114/2026",
+   "peca": "tanque",
+   "data": "08/06/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Foi confirmado pela equipe DMSL o defeito do tanque, favor seguir com a substituição e correção da chave de entrada fase B danificada.",
+   "confianca": "alta",
+   "nota": "Defeito do tanque confirmado sem explicação da origem; a chave de entrada danificada é peça fora da taxa."
+  },
+  {
+   "ativo": "7927646026",
+   "ss": "ETO-COEP 00029/2026",
+   "peca": "tanque",
+   "data": "09/01/2026",
+   "troca_executada": false,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "O religador apresenta defeito no tanque, sendo necessário substituir o tanque o mesmo está tirando a linha",
+   "confianca": "media",
+   "nota": "Tanque com defeito 'tirando a linha' (provocando desarmes) indica falha de isolação interna conduzindo corrente de falta — inferência de curto interno, não dito com todas as letras."
+  },
+  {
+   "ativo": "7919270014",
+   "ss": "ETO-COEP 00074/2026",
+   "peca": "completo",
+   "data": "25/02/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Substituir Equipamento completo problema na placa de alimentação e na parte ativa",
+   "confianca": "alta",
+   "nota": "Dois modos de falha (placa de alimentação e parte ativa) sem nenhum porquê declarado para nenhum deles."
+  },
+  {
+   "ativo": "7925733015",
+   "ss": "ETO-COEP 00058/2026",
+   "peca": "tanque",
+   "data": "13/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "DESCRIÇÃO: Tanque do equipamento em Curto",
+   "confianca": "alta",
+   "nota": "Formulário DMSL explícito (tanque em curto), coerente com o 'provavel curto-circuito interno' apontado no primeiro ataque."
+  },
+  {
+   "ativo": "7908302256",
+   "ss": "ETO-COEP 00071/2026",
+   "peca": "tanque",
+   "data": "06/04/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Serviço Executado: Equipamento com a parte ativa com defeito, será necessário fazer a substituição da mesma!",
+   "confianca": "alta",
+   "nota": "Parte ativa com defeito é modo; nada no texto (dominado por dados de configuração de satélite) explica a origem."
+  },
+  {
+   "ativo": "7925744087",
+   "ss": "ETO-COEP 00059/2026",
+   "peca": "tanque",
+   "data": "09/02/2026",
+   "troca_executada": false,
+   "causa_raiz": "UMIDADE / INFILTRAÇÃO",
+   "citacao": "foi identificado água dentro da parte interna do tanque e cabo umbilical encharcado de água",
+   "confianca": "alta",
+   "nota": "Água dentro do tanque e cabo umbilical encharcado: infiltração explícita como origem da falha do tanque."
+  },
+  {
+   "ativo": "7933726256",
+   "ss": "ETO-PROT 00145/2026",
+   "peca": "tanque",
+   "data": "04/04/2026",
+   "troca_executada": true,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Equipamento com defeito na parte ativa, será necessário fazer a substituição da parte ativa",
+   "confianca": "alta",
+   "nota": "Defeito na parte ativa sem porquê; a 'melhoria na malha de terra' pedida é recomendação, não causa declarada."
+  },
+  {
+   "ativo": "7925871077",
+   "ss": "ETO-COEP 00048/2026",
+   "peca": "tanque",
+   "data": "16/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "PENDENCIA: Religador continua by passado, equipamento está com defeito na parte ativa",
+   "confianca": "alta",
+   "nota": "SS recriada por baixa indevida da antiga repete só o modo (defeito na parte ativa), sem causa."
+  },
+  {
+   "ativo": "7944559149",
+   "ss": "ETO-COEP 00063/2026",
+   "peca": "controle",
+   "data": "17/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+   "citacao": "Serviço Executado:  curto na placa foi tentando recuperar a mesma porém não teve sucesso!",
+   "confianca": "alta",
+   "nota": "Curto na placa de alimentação, irrecuperável, é falha eletrônica explícita; o porquê do curto na placa não é informado."
+  },
+  {
+   "ativo": "7921202014",
+   "ss": "ETO-COEP 00088/2026",
+   "peca": "tanque",
+   "data": "15/02/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "indentificado o problema na parte ativa será  necessário fazer a substituição da mesmo",
+   "confianca": "alta",
+   "nota": "Problema na parte ativa sem porquê; a menção a substituir o pára-raios da fase C é indício fraco demais para atribuir descarga atmosférica."
+  },
+  {
+   "ativo": "7926089013",
+   "ss": "ETO-COEP 00039/2026",
+   "peca": "tanque",
+   "data": "24/02/2026",
+   "troca_executada": false,
+   "causa_raiz": "CURTO-CIRCUITO INTERNO",
+   "citacao": "foi identificado que o tanque do equipamento entrou em curto o mesmo necessário substituir o tanque",
+   "confianca": "alta",
+   "nota": "Análise técnica explícita: o tanque entrou em curto; a origem do curto não é detalhada, mas a causa nomeada no texto é o curto interno."
+  },
+  {
+   "ativo": "7929376022",
+   "ss": "ETO-COEP 00068/2026",
+   "peca": "controle",
+   "data": "25/03/2026",
+   "troca_executada": false,
+   "causa_raiz": "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)",
+   "citacao": "PRIMEIRO ATAQUE IDENTIFICOU QUE RELE ESTA EM CURTO",
+   "confianca": "alta",
+   "nota": "Relé em curto (reincidente após a nota 224/2026) levou o DMSL a mandar trocar o controle completo; o porquê do curto no relé não é informado."
+  },
+  {
+   "ativo": "7926442035",
+   "ss": "ETO-TELE 00298/2026",
+   "peca": "tanque",
+   "data": "18/02/2026",
+   "troca_executada": false,
+   "causa_raiz": "SEM CAUSA DESCRITA NO TEXTO",
+   "citacao": "Parte ativa do equipamento danificada: necessita substituição",
+   "confianca": "alta",
+   "nota": "Parte ativa danificada sem porquê; o vazamento de óleo citado é do trafo (auxiliar, fora da taxa), não da parte ativa do religador."
+  }
+ ],
+ "resumo": {
+  "SEM CAUSA DESCRITA NO TEXTO": 17,
+  "CURTO-CIRCUITO INTERNO": 6,
+  "DEFEITO ELETRÔNICO (CONTROLE/PLACA/RELÉ)": 4,
+  "UMIDADE / INFILTRAÇÃO": 1
+ }
+}

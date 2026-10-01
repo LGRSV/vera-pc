@@ -1,0 +1,226 @@
+[
+  {
+    "cadeia": "01005/2026",
+    "ativo": "5848305116",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Cita comando executado no rele sem resposta mecanica (sem ruido, sem variacao analogica) e fase C normal; nao nomeia celula nem tanque, e' sintoma sem peca.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01128/2025",
+    "ativo": "5851857001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Parecer do COCM confirma 'CELULAR FASE B SUBSTITUIDA' com data e SS de referencia - nomeia a celula da fase B.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01368/2025",
+    "ativo": "5851857001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Texto pede diretamente 'necessario substituir celula regulador 2' por nao comutar - nomeia a peca.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00456/2025",
+    "ativo": "5854566043",
+    "mantem": false,
+    "categoria_final": "completo",
+    "porque": "Citacao so diz 'equipamento substituido' com obra/OS, sem nomear celula; pela regra 3 substituicao do equipamento mapeia para completo, nao celula.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "01097/2026",
+    "ativo": "5854766001",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Descreve fase C nao comutando, nao zerando e 'ficou bypassado' - sintoma explicitamente listado como exclusao (em bypass), nenhuma peca e nomeada.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00427/2026",
+    "ativo": "5855165193",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Fala de comutacao incorreta nas fases B/C e falta de sinalizacao de tensao/corrente no SCADA - sintomas mistos (mecanico + telemetria), sem nomear celula; SS fechou em 1 dia, incompativel com troca fisica de duas celulas.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-TELE 00397/2026",
+    "ativo": "5862050086",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Cita 'trilho' do R3 danificado impedindo comutacao, mas nao nomeia celula nem confirma substituicao - so registra teste em campo.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-SE-PCM 00065/2025",
+    "ativo": "5862236091",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Texto nomeia 'Celula da fase B' danificada por agua da chuva e pede 'Realizar substituicao da FASE B'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00329/2025",
+    "ativo": "5862464001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Confirma diretamente 'Substituido celula da fase A'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00219/2025",
+    "ativo": "5863887001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Nomeia 'tanque da fase A' com defeito e pede substituicao - tanque de uma fase do regulador conta como celula pela regua.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "DG-RD-PO 00757/2025",
+    "ativo": "5863887001",
+    "mantem": true,
+    "categoria_final": "celula",
+    "porque": "Mesmo defeito nomeado - 'tanque da fase A' - repetido em nova cadeia; continua sendo tanque de uma fase do regulador.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00243/2025",
+    "ativo": "5800880014",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Confirma substituicao das celulas A e C, do controle RUA, e parecer do DCMD confirma as tres celulas trocadas - banco completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00242/2025",
+    "ativo": "5800880014",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Celulas A e C e controle RUA ja substituidos, celula B explicitamente pendente do mesmo plano - escopo e' o banco completo de 3 celulas.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00217/2025",
+    "ativo": "5800880014",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Mesmo evento: A e C substituidas, controle RUA substituido, celula B pendente do mesmo plano - banco completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00221/2025",
+    "ativo": "5800961074",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede explicitamente 'Substituir as 3 celulas' - banco completo; aterramento e conectores sao itens a parte que nao mudam a classificacao.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00926/2025",
+    "ativo": "7900018004",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "DMSL pede 'substituicao completa' por modelo obsoleto, e DCMD confirma equipamento substituido.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-RD-AR 00917/2026",
+    "ativo": "7900018004",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede diretamente 'substituir religador' - equivale a substituir o equipamento completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00143/2026",
+    "ativo": "7900453110",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto conclui 'abri nota para substituir completo o equipamento', superando a mencao inicial de parte ativa.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00042/2026",
+    "ativo": "7900505026",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede explicitamente 'substituicao do equipamento completo' por falha de abertura para protecao; ressalva de parecer posterior questionando se a pendencia ainda existe.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "00891/2025",
+    "ativo": "7900535058",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Apesar de citar rele e firmware, o texto conclui pedindo 'substituicao de todo conjunto' por um Noja RC10.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "01188/2025",
+    "ativo": "7900573047",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Cita queima na parte ativa, placa e rele, com pedido de substituicao pelo Noja RC10 - tanque e controle juntos.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "00793/2026",
+    "ativo": "7900594026",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Confirma 'EQUIPAMENTO SUBSTITUIDO' com OS e obra; para religador, equipamento substituido e' completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 01083/2025",
+    "ativo": "7903112004",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede 'substituicao completa' por modelo NOJA RC10 devido a obsolescencia do COOPER FORM6.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00360/2026",
+    "ativo": "7903569004",
+    "mantem": false,
+    "categoria_final": "nao identificado",
+    "porque": "Citacao so fala de processo de compra ('preciso da especificacao do modelo... para realizar a compra') e que o equipamento esta em operacao no Scada - nao nomeia peca nem confirma substituicao.",
+    "confianca": "media"
+  },
+  {
+    "cadeia": "ETO-COEP 00152/2026",
+    "ativo": "7903569004",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede diretamente 'substituicao do equipamento todo e parte ativa' - equipamento todo e' completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-PROT 00125/2024",
+    "ativo": "7905357122",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Texto diz 'sera necessario substituir o equipamento'; pela regra 3, substituir o equipamento e' completo.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-TELE 00872/2025",
+    "ativo": "7908196047",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "DMSL pede diretamente 'Trocar o equipamento completo'.",
+    "confianca": "alta"
+  },
+  {
+    "cadeia": "ETO-COEP 00038/2026",
+    "ativo": "7908249152",
+    "mantem": true,
+    "categoria_final": "completo",
+    "porque": "Pede 'substituicao do equipamento completo (parte ativa e controle)' - nomeia completo explicitamente.",
+    "confianca": "alta"
+  }
+]

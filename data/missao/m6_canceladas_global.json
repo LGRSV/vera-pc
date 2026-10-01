@@ -1,0 +1,481 @@
+{
+ "premissas": [
+  "Fonte unica: as 585 SS canceladas de RL/RT de $BASE/canceladas_todas.json (303 ativos, 25 postos/equipes, 131 SS de ativos da carteira e 454 fora dela). Todas foram lidas integralmente; os 361 textos distintos (585 SS - o texto de uma demanda costuma ser espelhado em varios postos) foram lidos um a um e a classificacao de cada texto foi aplicada a todas as SS que o repetem.",
+  "Criterio unico de inclusao: DECLARACAO POSITIVA e explicita, no texto da SS/OS, de que o EQUIPAMENTO estava em operacao — parecer COEP/COI/SCADA/COS ou laudo/formulario DMSL. Nao foi usada nenhuma outra base para decidir.",
+  "O campo do formulario DMSL 'EQUIPAMENTO FICOU EM OPERACAO?' foi lido pela RESPOSTA, nunca pela pergunta. As 13 SS-texto em que a resposta e 'Nao' (ativos 5856529073, 5800440256, 7902314013, 7957126085, 7927446001, 5854767035, 7944319149, 7962837017, 7963661046, 5851753086, 7925733015, 7931608059) foram tratadas como o OPOSTO e ficaram fora. O mesmo vale para 'retirado de operacao', 'fora de operacao/servico', 'isolado', 'by-passado', 'indisponivel'.",
+  "Relato de abertura isolado NAO basta: 'a cidade estava normal', 'subiu fechado', 'comutou normal (taps)', 'volta fechado normal', 'alarme falso' sem conclusao de ausencia de defeito nao foram aceitos.",
+  "Restabelecimento de SUBSERVICO nao equivale a equipamento em operacao: comunicacao/automacao que voltou (ex.: 7950078122 'a equipe retornou a comunicacao', 7940273029 'Equipamento ja comunica via telespazio', 5820790038 'comutou normal' so nos taps) ficou fora.",
+  "Pendencia sanada tambem nao equivale a operacao declarada: 7901151022 ('DCMD: FOI INSTALADO O TRAFO DIA 06/02' + 'caso a pendencia ja tenha sido sanada, encerrar a nota'), 5851753086 e 5846328094 (melhoria de aterramento feita/redirecionada) ficaram fora porque nenhum texto afirma que o equipamento voltou a operar.",
+  "Quase-casos avaliados e DESCARTADOS: 7900230155 (cidade normal / 'subiu fechado', mas laudo DMSL de tanque danificado e equipamento bypassado), 7947203070 ('alarme falso' e 'volta fechado normal', porem SS posterior declara 'EQUIPAMENTO INDISPONIVEL PARA OPERACAO'), 7929534082 ('nao foi encontrado anomalia' convivendo com 'indisponivel para operacao no SCADA'), 7900178013 ('desarmando sem defeito' — relato de abertura, sem parecer), 7910027196 e 7900453110 (sinalizacao divergente com defeito fisico confirmado), 7923674004 ('Ja foi atendida', religador bay-passado).",
+  "Cancelamentos por motivo administrativo (OS em duplicidade, 'O.S nao despacharam para o tablet', 'equipe errada', 'sera criada uma nova SS 2026', 'a antena sera usada em outro equipamento', textos de teste) nao entram na categoria 'em_operacao'.",
+  "Confianca do ativo: 'Alta' quando a declaracao de operacao e explicita e sem contradicao remanescente sobre o estado operativo; 'Media' quando a declaracao convive com laudo de defeito ainda pendente (equipamento OPERA COM RESTRICAO) ou e indireta ('deixar o equipamento operando', 'pediu para deixar em operacao').",
+  "ATENCAO OPERACIONAL: 'em operacao' NAO significa 'sem defeito'. Em 6 dos 12 ativos (7925573007, 7900790075, 7949660066, 5850308009, 5800090147, 7900532053) o laudo tecnico do defeito continua valido e aberto — a demanda foi cancelada, o defeito nao foi resolvido.",
+  "Rastreabilidade: 'ss_envolvidas' lista apenas as SS canceladas com a declaracao positiva. Tres ativos tem outras SS canceladas sem essa declaracao, que ficaram de fora: 7925573007 (4 SS), 5850308009 (2 SS) e 7900790075 (1 SS).",
+  "'quem_confirmou' conta cada fonte citada no texto separadamente; uma SS com duas fontes (ex.: COEP + SCADA) soma 1 em cada.",
+  "Comparacao com a rodada anterior (so a carteira): os 5 ativos / 14 SS de la foram integralmente reconfirmados; os 7 ativos / 18 SS novos estao TODOS fora da carteira e concentrados em postos que a leitura anterior nao cobria (ETO-OP-PA, ETO-RD-GU, ETO-RD-PA, ETO-RD-PO, ETO-RD-PS, ETO-TELE e ETO-COEP de ativos fora dos 129).",
+  "Datas nao foram convertidas para ISO nesta saida porque nenhum campo de data faz parte do schema pedido; as datas citadas nas evidencias preservam o formato do texto original."
+ ],
+ "resumo": {
+  "ss_lidas": 585,
+  "ss_em_operacao": 32,
+  "ativos_em_operacao": 12,
+  "na_carteira": 5,
+  "fora_carteira": 7,
+  "ss_na_carteira": 14,
+  "ss_fora_carteira": 18,
+  "por_equipe": {
+   "ETO-COEP": 12,
+   "ETO-TELE": 7,
+   "ETO-RD-AR": 4,
+   "ETO-RD-PA": 3,
+   "ETO-RD-PS": 2,
+   "ETO-OP-PA": 1,
+   "ETO-PROT": 1,
+   "ETO-RD-GU": 1,
+   "ETO-RD-PO": 1
+  },
+  "quem_confirmou": {
+   "DMSL": 20,
+   "COEP": 12,
+   "SCADA": 8,
+   "Protecao": 5,
+   "COS": 3
+  },
+  "confianca_ativos": {
+   "Alta": 6,
+   "Media": 6
+  }
+ },
+ "ss": [
+  {
+   "numero_ss": "ETO-COEP 00014/2023",
+   "ativo": "7927712032",
+   "na_carteira": false,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "Formulario DMSL: 'Servico Executado: Fonte queimada e a mesma foi substituida. Equipamento ficou em operacao?: Sim'; pendencia remanescente e o para-raio do trafo auxiliar.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 00600/2024",
+   "ativo": "7927712032",
+   "na_carteira": false,
+   "equipe": "ETO-RD-AR",
+   "categoria": "em_operacao",
+   "evidencia": "Formulario DMSL: 'Servico Executado: Fonte queimada e a mesma foi substituida. Equipamento ficou em operacao?: Sim'; pendencia remanescente e o para-raio do trafo auxiliar.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-RD-GU 00565/2024",
+   "ativo": "7927712032",
+   "na_carteira": false,
+   "equipe": "ETO-RD-GU",
+   "categoria": "em_operacao",
+   "evidencia": "Formulario DMSL: 'Servico Executado: Fonte queimada e a mesma foi substituida. Equipamento ficou em operacao?: Sim'; pendencia remanescente e o para-raio do trafo auxiliar.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-OP-PA 00003/2023",
+   "ativo": "7905356122",
+   "na_carteira": false,
+   "equipe": "ETO-OP-PA",
+   "categoria": "em_operacao",
+   "evidencia": "'Equipamento foi entregue em operacao de acordo com o feedback... Apos ligar, o equipamento voltou a funcionar normalmente. Equipamento ficou em operacao?: SIM'.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-COEP 00073/2024",
+   "ativo": "7905356122",
+   "na_carteira": false,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'Equipamento foi entregue em operacao de acordo com o feedback... Apos ligar, o equipamento voltou a funcionar normalmente. Equipamento ficou em operacao?: SIM'.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-RD-PA 00330/2025",
+   "ativo": "7905356122",
+   "na_carteira": false,
+   "equipe": "ETO-RD-PA",
+   "categoria": "em_operacao",
+   "evidencia": "'Equipamento foi entregue em operacao de acordo com o feedback... Apos ligar, o equipamento voltou a funcionar normalmente. Equipamento ficou em operacao?: SIM'.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-TELE 00947/2024",
+   "ativo": "7925573007",
+   "na_carteira": false,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 24/06/2025: 'Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao. Pendencia: sim, substituir parte ativa'.",
+   "quem_confirmou": "DMSL, Protecao"
+  },
+  {
+   "numero_ss": "ETO-RD-PA 00641/2024",
+   "ativo": "7925573007",
+   "na_carteira": false,
+   "equipe": "ETO-RD-PA",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 24/06/2025: 'Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao. Pendencia: sim, substituir parte ativa'.",
+   "quem_confirmou": "DMSL, Protecao"
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00166/2025",
+   "ativo": "7925573007",
+   "na_carteira": false,
+   "equipe": "ETO-RD-PS",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 24/06/2025: 'Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao. Pendencia: sim, substituir parte ativa'.",
+   "quem_confirmou": "DMSL, Protecao"
+  },
+  {
+   "numero_ss": "ETO-TELE 00685/2025",
+   "ativo": "7925573007",
+   "na_carteira": false,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 24/06/2025: 'Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao. Pendencia: sim, substituir parte ativa'.",
+   "quem_confirmou": "DMSL, Protecao"
+  },
+  {
+   "numero_ss": "ETO-COEP 00119/2025",
+   "ativo": "7925573007",
+   "na_carteira": false,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 24/06/2025: 'Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao. Pendencia: sim, substituir parte ativa'.",
+   "quem_confirmou": "DMSL, Protecao"
+  },
+  {
+   "numero_ss": "ETO-COEP 00032/2025",
+   "ativo": "7900790075",
+   "na_carteira": false,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL: 'A equipe teve que usar material do nosso estoque de manutencao para deixar o equipamento operando' — o pedido remanescente e a reposicao do modulo SIM e do rele.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-RD-PS 00112/2025",
+   "ativo": "7900790075",
+   "na_carteira": false,
+   "equipe": "ETO-RD-PS",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL: 'A equipe teve que usar material do nosso estoque de manutencao para deixar o equipamento operando' — o pedido remanescente e a reposicao do modulo SIM e do rele.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-COEP 00099/2025",
+   "ativo": "7949660066",
+   "na_carteira": false,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL: 'o operador Daniel pediu para deixar o equipamento em operacao, para poder realizar futuras manobras' (defeito e de medicao das correntes B e C).",
+   "quem_confirmou": "DMSL, COS (operador)"
+  },
+  {
+   "numero_ss": "ETO-TELE 00317/2025",
+   "ativo": "7949660066",
+   "na_carteira": false,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL: 'o operador Daniel pediu para deixar o equipamento em operacao, para poder realizar futuras manobras' (defeito e de medicao das correntes B e C).",
+   "quem_confirmou": "DMSL, COS (operador)"
+  },
+  {
+   "numero_ss": "ETO-COEP 00102/2025",
+   "ativo": "7900532053",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'30/06 - EQUIPAMENTO EM OPERACAO NO SCADA, AGUARDANDO RESPOSTA DO DMSL PARA SEGUIR COM AS TRATATIVAS' (parecer COEP na propria SS de substituicao).",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-RD-PA 00636/2025",
+   "ativo": "5847506122",
+   "na_carteira": false,
+   "equipe": "ETO-RD-PA",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 09/09/2025: 'Equipamento ficou em operacao?: sim. Pendencia: Sim, equipamento continua sem no break porem com comunicacao'.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-TELE 01019/2025",
+   "ativo": "5847506122",
+   "na_carteira": false,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 09/09/2025: 'Equipamento ficou em operacao?: sim. Pendencia: Sim, equipamento continua sem no break porem com comunicacao'.",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-TELE 00913/2025",
+   "ativo": "5850308009",
+   "na_carteira": true,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "'PARECER COEP: Equipamento em operacao no SCADA' (grafado 'operacapo'); no mesmo texto o DMSL mantem laudo de controle danificado.",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-COEP 00180/2025",
+   "ativo": "5850308009",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'PARECER COEP: Equipamento em operacao no SCADA' (grafado 'operacapo'); no mesmo texto o DMSL mantem laudo de controle danificado.",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-TELE 00958/2026",
+   "ativo": "5850308009",
+   "na_carteira": true,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "'PARECER COEP: Equipamento em operacao no SCADA' (grafado 'operacapo'); no mesmo texto o DMSL mantem laudo de controle danificado.",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-COEP 00127/2026",
+   "ativo": "5850308009",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'PARECER COEP: Equipamento em operacao no SCADA' (grafado 'operacapo'); no mesmo texto o DMSL mantem laudo de controle danificado.",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 01237/2025",
+   "ativo": "7900930040",
+   "na_carteira": true,
+   "equipe": "ETO-RD-AR",
+   "categoria": "em_operacao",
+   "evidencia": "'COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "quem_confirmou": "COEP (checagem com Allan Pereira e Leonardo Santos)"
+  },
+  {
+   "numero_ss": "ETO-COEP 00191/2025",
+   "ativo": "7900930040",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "quem_confirmou": "COEP (checagem com Allan Pereira e Leonardo Santos)"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 00737/2026",
+   "ativo": "7900930040",
+   "na_carteira": true,
+   "equipe": "ETO-RD-AR",
+   "categoria": "em_operacao",
+   "evidencia": "'COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "quem_confirmou": "COEP (checagem com Allan Pereira e Leonardo Santos)"
+  },
+  {
+   "numero_ss": "ETO-COEP 00079/2026",
+   "ativo": "7900930040",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "quem_confirmou": "COEP (checagem com Allan Pereira e Leonardo Santos)"
+  },
+  {
+   "numero_ss": "ETO-RD-AR 00764/2026",
+   "ativo": "7900930040",
+   "na_carteira": true,
+   "equipe": "ETO-RD-AR",
+   "categoria": "em_operacao",
+   "evidencia": "'COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "quem_confirmou": "COEP (checagem com Allan Pereira e Leonardo Santos)"
+  },
+  {
+   "numero_ss": "ETO-COEP 00117/2026",
+   "ativo": "5800090147",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL: 'Equipamento ficou operando devido ser possivel manobrar de forma manual' (defeito: microswitch da celula fase C).",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-TELE 00438/2026",
+   "ativo": "5800090147",
+   "na_carteira": true,
+   "equipe": "ETO-TELE",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL: 'Equipamento ficou operando devido ser possivel manobrar de forma manual' (defeito: microswitch da celula fase C).",
+   "quem_confirmou": "DMSL"
+  },
+  {
+   "numero_ss": "ETO-COEP 00042/2026",
+   "ativo": "7900505026",
+   "na_carteira": true,
+   "equipe": "ETO-COEP",
+   "categoria": "em_operacao",
+   "evidencia": "'PARECER COEP: O Equipamento se encontra em operacao no SCADA, favor verificar e reavaliar se existe pendencia de substituicao'.",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-PROT 00136/2026",
+   "ativo": "7900505026",
+   "na_carteira": true,
+   "equipe": "ETO-PROT",
+   "categoria": "em_operacao",
+   "evidencia": "'PARECER COEP: O Equipamento se encontra em operacao no SCADA, favor verificar e reavaliar se existe pendencia de substituicao'.",
+   "quem_confirmou": "COEP, SCADA"
+  },
+  {
+   "numero_ss": "ETO-RD-PO 00180/2026",
+   "ativo": "7931219078",
+   "na_carteira": false,
+   "equipe": "ETO-RD-PO",
+   "categoria": "em_operacao",
+   "evidencia": "Parecer DMSL 25/07/2025: 'Feito comissionamento com SCADA (Kauana) e testes com COS (Daniel). Equipamento reinserido no SEP sem anomalias'.",
+   "quem_confirmou": "DMSL, SCADA, COS"
+  }
+ ],
+ "ativos": {
+  "7927712032": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-COEP 00014/2023",
+    "ETO-RD-AR 00600/2024",
+    "ETO-RD-GU 00565/2024"
+   ],
+   "evidencia": "Formulario DMSL: 'Servico Executado: Fonte queimada e a mesma foi substituida. Equipamento ficou em operacao?: Sim'; pendencia remanescente e o para-raio do trafo auxiliar.",
+   "quem_confirmou": "DMSL",
+   "confianca": "Alta"
+  },
+  "7905356122": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-OP-PA 00003/2023",
+    "ETO-COEP 00073/2024",
+    "ETO-RD-PA 00330/2025"
+   ],
+   "evidencia": "'Equipamento foi entregue em operacao de acordo com o feedback... Apos ligar, o equipamento voltou a funcionar normalmente. Equipamento ficou em operacao?: SIM'.",
+   "quem_confirmou": "DMSL",
+   "confianca": "Alta"
+  },
+  "7925573007": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-TELE 00947/2024",
+    "ETO-RD-PA 00641/2024",
+    "ETO-RD-PS 00166/2025",
+    "ETO-TELE 00685/2025",
+    "ETO-COEP 00119/2025"
+   ],
+   "evidencia": "Parecer DMSL 24/06/2025: 'Equipamento ficou em operacao?: Sim, em modo seccionalizador a pedido da protecao. Pendencia: sim, substituir parte ativa'.",
+   "quem_confirmou": "DMSL, Protecao",
+   "confianca": "Media"
+  },
+  "7900790075": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-COEP 00032/2025",
+    "ETO-RD-PS 00112/2025"
+   ],
+   "evidencia": "Parecer DMSL: 'A equipe teve que usar material do nosso estoque de manutencao para deixar o equipamento operando' — o pedido remanescente e a reposicao do modulo SIM e do rele.",
+   "quem_confirmou": "DMSL",
+   "confianca": "Media"
+  },
+  "7949660066": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-COEP 00099/2025",
+    "ETO-TELE 00317/2025"
+   ],
+   "evidencia": "Parecer DMSL: 'o operador Daniel pediu para deixar o equipamento em operacao, para poder realizar futuras manobras' (defeito e de medicao das correntes B e C).",
+   "quem_confirmou": "DMSL, COS (operador)",
+   "confianca": "Media"
+  },
+  "7900532053": {
+   "em_operacao": true,
+   "na_carteira": true,
+   "ss_envolvidas": [
+    "ETO-COEP 00102/2025"
+   ],
+   "evidencia": "'30/06 - EQUIPAMENTO EM OPERACAO NO SCADA, AGUARDANDO RESPOSTA DO DMSL PARA SEGUIR COM AS TRATATIVAS' (parecer COEP na propria SS de substituicao).",
+   "quem_confirmou": "COEP, SCADA",
+   "confianca": "Media"
+  },
+  "5847506122": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-RD-PA 00636/2025",
+    "ETO-TELE 01019/2025"
+   ],
+   "evidencia": "Parecer DMSL 09/09/2025: 'Equipamento ficou em operacao?: sim. Pendencia: Sim, equipamento continua sem no break porem com comunicacao'.",
+   "quem_confirmou": "DMSL",
+   "confianca": "Alta"
+  },
+  "5850308009": {
+   "em_operacao": true,
+   "na_carteira": true,
+   "ss_envolvidas": [
+    "ETO-TELE 00913/2025",
+    "ETO-COEP 00180/2025",
+    "ETO-TELE 00958/2026",
+    "ETO-COEP 00127/2026"
+   ],
+   "evidencia": "'PARECER COEP: Equipamento em operacao no SCADA' (grafado 'operacapo'); no mesmo texto o DMSL mantem laudo de controle danificado.",
+   "quem_confirmou": "COEP, SCADA",
+   "confianca": "Media"
+  },
+  "7900930040": {
+   "em_operacao": true,
+   "na_carteira": true,
+   "ss_envolvidas": [
+    "ETO-RD-AR 01237/2025",
+    "ETO-COEP 00191/2025",
+    "ETO-RD-AR 00737/2026",
+    "ETO-COEP 00079/2026",
+    "ETO-RD-AR 00764/2026"
+   ],
+   "evidencia": "'COEP: Conforme conversado com Allan Pereira e Leonardo Santos, o equipamento esta em operacao. Segue nota para devidas tratativas.'",
+   "quem_confirmou": "COEP (checagem com Allan Pereira e Leonardo Santos)",
+   "confianca": "Alta"
+  },
+  "5800090147": {
+   "em_operacao": true,
+   "na_carteira": true,
+   "ss_envolvidas": [
+    "ETO-COEP 00117/2026",
+    "ETO-TELE 00438/2026"
+   ],
+   "evidencia": "Parecer DMSL: 'Equipamento ficou operando devido ser possivel manobrar de forma manual' (defeito: microswitch da celula fase C).",
+   "quem_confirmou": "DMSL",
+   "confianca": "Media"
+  },
+  "7900505026": {
+   "em_operacao": true,
+   "na_carteira": true,
+   "ss_envolvidas": [
+    "ETO-COEP 00042/2026",
+    "ETO-PROT 00136/2026"
+   ],
+   "evidencia": "'PARECER COEP: O Equipamento se encontra em operacao no SCADA, favor verificar e reavaliar se existe pendencia de substituicao'.",
+   "quem_confirmou": "COEP, SCADA",
+   "confianca": "Alta"
+  },
+  "7931219078": {
+   "em_operacao": true,
+   "na_carteira": false,
+   "ss_envolvidas": [
+    "ETO-RD-PO 00180/2026"
+   ],
+   "evidencia": "Parecer DMSL 25/07/2025: 'Feito comissionamento com SCADA (Kauana) e testes com COS (Daniel). Equipamento reinserido no SEP sem anomalias'.",
+   "quem_confirmou": "DMSL, SCADA, COS",
+   "confianca": "Alta"
+  }
+ }
+}
