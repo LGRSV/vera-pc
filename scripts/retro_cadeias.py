@@ -77,10 +77,14 @@ def por_mes(dem):
 
 
 def resumo(dem):
+    """Conta por DEMANDA viva: a cadeia marcada como duplicada de outra (encerrada sem serviço e reaberta) é a mesma
+    demanda e não conta duas vezes — fica só o número delas à parte."""
+    duplicadas = [r for r in dem if (r.get("desfecho") or "").startswith("duplicada")]
+    dem = [r for r in dem if r not in duplicadas]
     back = [r for r in dem if r.get("backlog_2025")]
     so_2026 = [r for r in back if not r.get("tratada_em_2025")]
     ex = [r for r in dem if r.get("executada")]
-    return {"demandas": len(dem), "ativos": len({r["ativo"] for r in dem}),
+    return {"demandas": len(dem), "duplicadas": len(duplicadas), "ativos": len({r["ativo"] for r in dem}),
             "backlog": len(back), "backlog_sem_tratativa_em_2025": len(so_2026),
             "backlog_com_tratativa_em_2026": sum(1 for r in back if primeira_2026(r)),
             "desfecho": Counter(r.get("desfecho") for r in dem),

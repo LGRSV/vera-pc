@@ -679,7 +679,8 @@ def pauta(pas, acoes, linhas, novo, extra):
         R, rel = C["res"], C["rel"]
         backlog = [
             ("Quanto era backlog", f"Das {R['demandas']} demandas que estiveram no COEP ou andaram depois dele de abril a setembro "
-                                   f"({R['ativos']} equipamentos), {R['backlog']} vinham de 2025 ou antes e seguiam abertas na virada do ano."),
+                                   f"({R['ativos']} equipamentos), {R['backlog']} vinham de 2025 ou antes e seguiam abertas na virada do ano. "
+                                   f"Outras {R['duplicadas']} cadeias eram a mesma demanda reaberta ou aberta por engano e não entram na conta."),
             ("Andou em 2025?", f"Em {R['backlog_sem_tratativa_em_2025']} dessas {R['backlog']}, nada foi feito em 2025 depois do diagnóstico "
                                f"que abriu a demanda: a primeira tratativa veio em 2026. {R['backlog_com_tratativa_em_2026']} das "
                                f"{R['backlog']} tiveram alguma tratativa em 2026."),
